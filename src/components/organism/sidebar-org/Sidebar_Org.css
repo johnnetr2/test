@@ -1,0 +1,120 @@
+*
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+.left-sidebar-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #20213D;
+    width: 10%;
+    position: fixed;
+    height: 100vh;
+}
+.logo-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+}
+.Hp-logo-1
+{
+    width: 60px;
+}
+.Home-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+}
+.home-icon-1
+{
+    width: 25px;
+}
+.Course-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+}
+.course-icon-1
+{
+    width: 25px;
+}
+.Profile-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+
+}
+.profile-icon-1
+{
+    width: 25px;
+}
+.Message-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+
+}
+.message-icon-1
+{
+    width: 25px;
+}
+.Setting-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+
+}
+.setting-icon-1
+{
+    width: 25px;
+}
+.Logout-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+
+}
+.logout-icon-1
+{
+    width: 25px;
+}
