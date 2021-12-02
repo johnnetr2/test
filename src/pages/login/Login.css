@@ -1,0 +1,102 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+.main-login-1
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.left-section-1
+{
+    width: 40%;
+    height: 100vh;
+    background-color: rgb(180, 180, 180);
+}
+.side-img-inner-2
+{
+    width: 100%;
+}
+.right-section-1
+{
+    width: 60%;
+    position: absolute;
+    left: 40%;
+    height: 100vh;
+}
+.inner-head-section-1
+{
+    padding: 5%;
+    margin: 0 5%;
+}
+.inner-body-section-1
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+label
+{
+    margin: 2% 10%;
+}
+.email-part-1
+{
+    width: 70%;
+    margin: 0 10%;
+    padding: 2%;
+}
+.password-part-1
+{
+    width: 70%;
+    margin: 0 10%;
+    padding: 2%;
+
+}
+.login-btn-1
+{
+    width: 70%;
+    margin: 1% 10%;
+    padding: 2%;
+    background-color: #20213d;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+.login-btn-1:hover
+{
+    width: 70%;
+    margin: 1% 10%;
+    padding: 2%;
+    background-color: #272958;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+.login-option-1
+{
+    width: 70%;
+    margin: 1% 10%;
+    padding: 2%;
+    background-color: transparent;
+    color: #20213d;
+    font-weight: 300;
+    border: 1px solid #888;
+}
+.link-1
+{
+    display: block;
+    margin: 0 38%;
+    width: 100%;
+}
+.para-1
+{
+    font-size: 8pt;
+    width: 50%;
+    margin: 5% 20%;
+    display: block;
+    text-align: center;
+}

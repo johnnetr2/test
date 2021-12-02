@@ -1,0 +1,9 @@
+.outline-btn-1 button
+{
+    height: 45px;
+    margin: 15px 0;
+    width: 380px;
+    border-radius: 5px;
+    border: 1px solid #1E213A;
+    background: transparent;
+}

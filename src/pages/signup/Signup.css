@@ -1,0 +1,110 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+.main-signup-2
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.left-section-2
+{
+    width: 40%;
+    position: fixed;
+    height: 100vh;
+    background-color: rgb(180, 180, 180);
+}
+.side-img-inner
+{
+    width: 100%;
+}
+.right-section-2
+{
+    width: 60%;
+    position: absolute;
+    left: 40%;
+    height: 100vh;
+}
+.inner-head-section-2
+{
+    padding: 5%;
+    margin: 0 5%;
+}
+.inner-body-section-2
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+label
+{
+    margin: 2% 10%;
+}
+.fname-part-1
+{
+    width: 70%;
+    margin: 0 10%;
+    padding: 2%;
+}
+.email-part-2
+{
+    width: 70%;
+    margin: 0 10%;
+    padding: 2%;
+}
+.password-part-2
+{
+    width: 70%;
+    margin: 0 10%;
+    padding: 2%;
+
+}
+.signup-btn-2
+{
+    width: 70%;
+    margin: 1% 10%;
+    padding: 2%;
+    background-color: #20213d;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+.signup-btn-2:hover
+{
+    width: 70%;
+    margin: 1% 10%;
+    padding: 2%;
+    background-color: #272958;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+
+.signup-option-2
+{
+    width: 70%;
+    margin: 1% 10%;
+    padding: 2%;
+    background-color: transparent;
+    color: #20213d;
+    font-weight: 300;
+    border: 1px solid #888;
+}
+.link-2
+{
+    display: block;
+    margin: 0 38%;
+    width: 100%;
+}
+.para-2
+{
+    font-size: 8pt;
+    width: 50%;
+    margin: 5% 20%;
+    display: block;
+    text-align: center;
+}
