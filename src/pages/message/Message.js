@@ -1,10 +1,11 @@
 import React from 'react'
+import Sidebar from '../../components/organism/sidebar-org/Sidebar_Org'
 
 
 const Message = () => {
     return (
         <div>
-            <h3>Hello from Messages</h3>
+            <Sidebar/>
         </div>
     )
 }

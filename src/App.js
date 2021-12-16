@@ -23,6 +23,9 @@ import './components/atom/input-field/Input_field.css';
 import Label from './components/atom/label/Label';
 import './components/atom/label/Label.css';
 
+import Progress_Bar from './components/atom/progress-bar/Progress_Bar';
+import './components/atom/progress-bar/Progress_Bar.css';
+
 import Label_field from './components/molecule/label-field/Label_field';
 import './components/molecule/label-field/Label_field.css';
 
@@ -40,8 +43,8 @@ import './components/organism/signup-org/Signup_org.css';
 import './pages/login/Login.css';
 import './pages/signup/Signup.css';
 
-// import Sidebar_Org from './components/organism/sidebar-org/Sidebar_Org';
-// import './components/organism/sidebar-org/Sidebar_Org.css';
+import Sidebar_Org from './components/organism/sidebar-org/Sidebar_Org';
+import './components/organism/sidebar-org/Sidebar_Org.css';
 
 import Main_Org from './components/organism/main-org/Main_Org';
 import './components/organism/main-org/Main_Org.css';
@@ -58,14 +61,14 @@ function App() {
 
         {/* <Dashboard/> */}
         {/* -------------------Components */}
-        {/* <Route path="sidebar" element={<Sidebar/>} /> */}
-
+        {/* <Route path="/" element={<Sidebar_Org/>} /> */}
         {/* -------------------Pages */}
         {/* <Route path="/" element={<Outline_btn/>} /> */}
         {/* <Route path="/" element={<Filled_btn/>} /> */}
         {/* <Route path="/" element={<Continue_btn/>} /> */}
         {/* <Route path="/" element={<Input_field/>} /> */}
         {/* <Route path="/" element={<Label/>} /> */}
+        {/* <Route path="/" element={<Progress_Bar/>} /> */}
         {/* <Route path="/" element={<Label_field/>} /> */}
         {/* <Route path="/" element={<Card/>} /> */}
         {/* <Route path="/" element={<Login_org />} /> */}
@@ -73,13 +76,12 @@ function App() {
         {/* <Route path="/" element={<Main_Org />} /> */}
         <Route path="/" element={<Signup/>} />
         <Route path="login" element={<Login/>} />
-
         <Route path="/dashboard" element={<Dashboard/>} />
-        {/* <Route path="courses" element={<Courses />} />
+        <Route path="courses" element={<Courses />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="message" element={<Message />} />
+        <Route path="msg" element={<Message />} />
         <Route path="setting" element={<Setting />} />
-        <Route path="logout" element={<Logout />} /> */}
+        <Route path="logout" element={<Logout />} />
 
 
       </Routes>
