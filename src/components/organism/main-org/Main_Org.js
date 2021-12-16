@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Empty_Img from '../../../assets/imgs/img.png'
-import Search from '../../../assets/icons/search.svg'
-import Noti from '../../../assets/icons/notification.svg'
+import Empty_Img from '../../../assets/imgs/thumb.png'
 import Graph from '../../../assets/graph/graph.svg'
-import ProfPic from '../../../assets/icons/prof_pic.svg'
 
 
 import Card from '../../../components/molecule/card/Card';
