@@ -1,0 +1,357 @@
+*
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+.quan-n-container-1
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.quan-n-content-1
+{
+    width: 85%;
+    background-color: #fff;
+    position: absolute;
+    height: 250%;
+    top: 10%;
+    left: 12%;
+}
+.content-n-1-3
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.quan-n-content-1-3 h3
+{
+    font-size: 30px;
+    margin: 10px 0;
+}
+.quan-n-nav-item-1-2
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.quan-n-nav-item-1-2 p
+{
+    width: 30%;
+    font-size: 12px;
+}
+#active-item-1 a:visited
+{
+    text-decoration: underline;
+    color: #222222;
+}
+.quan-n-nav-item-1-3
+{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+.quan-n-nav-item-1-3 a
+{
+    color: #b5b5b5;
+    text-decoration: none;
+}
+.quan-n-head-1-3
+{
+    display: flex;
+}
+.quan-n-head-1-4 p
+{
+    font-size: 14px;
+    font-weight: 600;
+}
+.quan-n-head-1-5
+{
+    margin: 0 50px;
+    width: 40%;
+}
+.quan-n-head-1-5 p
+{
+    font-size: 14px;
+    font-weight: 600;
+}
+.quan-n-head-outline-boxes
+{
+    display: flex;
+}
+
+.quan-n-head-1-2 h3
+{
+    margin: 10px 0;
+}
+.quan-n-head-1-2 p
+{
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+.quan-n-question-type
+{
+    margin: 50px 0 0 0;
+    width: 60%;
+}
+.quan-n-question-type p
+{
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.question-n-type-1
+{
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.history-n table
+{
+    width: 61%;
+    display: flex;
+    flex-direction: column;
+}
+table thead tr th
+{
+    text-align: left;
+    padding: 20px 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    width: 70%;
+
+}
+.body-n-bord
+{
+    border: 1px solid #b5b5b5;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 1px 8px #dfdfdf;
+}
+
+table tbody tr td
+{
+    height: 60px;
+    padding: 20px;
+    border-collapse: collapse;
+    border-radius: 5px;
+    padding: 0 10px;
+    width: 63%;
+    color: #505050;
+    font-size: 14px;
+
+}
+.quan-n-rt-sidebar-container-1
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.quan-n-rt-sidebar-1
+{
+    position: absolute;
+    left: 70%;
+    width: 30%;
+    height: 250%;
+    background-color: #FAFAFA; 
+}
+.quan-n-rt-sidebar-1 > h3
+{
+    margin: 8% 0 0 7%;
+}
+.quan-n-rt-sidebar-1 > p
+{
+    font-size: 12px;
+    margin: 2% 0 0 7%;
+}
+.learn-n-more
+{
+    border: 1px solid #dddddd;
+    box-shadow: 1px 1px 8px #dfdfdf;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    margin: 5% 0 0  7%;
+    width: 88%;
+    height: 150px;
+    border-radius: 5px;
+}
+.learn-n-content
+{
+    width:60%;
+    margin: 0 0 0 20px;
+}
+.learn-n-content button
+{
+    margin: 5px 0;
+    width: 140px;
+    height: 30px;
+    background-color: #0A1596;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+.learn-n-content p
+{
+    font-size: 12px;
+}
+.empty-n-img img
+{
+    width: 85%;
+}
+.quan-n-box-1
+{
+    height: 95px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.quan-n-inner-box-1
+{
+    border: 1px solid #dddddd;
+    box-shadow: 1px 1px 8px #dfdfdf;
+    margin: 0 10px;
+    background-color: #fff;
+    width: 88%;
+    height: 60px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.quan-n-progress-bar
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.quan-n-progress-bar p
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #27AE60;
+    color: #fff;
+    height: 20px;
+    width: 80%;
+    font-size: 12px;
+    border-radius: 20px;
+}
+.quan-n-graph-box-1-3
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.quan-n-inner-box-1-3
+{
+    border: 1px solid #dddddd;
+    box-shadow: 1px 1px 8px #dfdfdf;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    margin: 5% 0 0  7%;
+    width: 88%;
+    height: 250px;
+    border-radius: 5px;
+    padding: 10%;
+}
+.quan-n-inner-box-1-3 p
+{
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: -15px 5px;
+    font-weight: 600;
+}
+.quan-n-task
+{
+    margin: 8% 0 0 7%;
+    display: flex;
+}
+.quan-n-task-1
+{
+    margin: 0 10px;
+}
+.quan-n-task-2
+{
+    margin: 0 20px;
+}
+.quan-n-task-1 p
+{
+    font-size: 12px;
+}
+.quan-n-task-2 p
+{
+    font-size: 12px;
+}
+.quan-n-score-1
+{
+    margin: 8% 0 0 7%;
+    display: flex;
+    flex-direction: column;
+}
+.quan-n-score-1 p
+{
+    font-size: 12px;
+}
+.quan-n-box-1-4
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quan-n-inner-box-1-4
+{
+    border: 1px solid #dddddd;
+    box-shadow: 1px 1px 8px #dfdfdf;
+    background-color: #fff;
+    margin: 7% 0 0 7%;
+    width: 88%;
+    height: 100px;
+    border-radius: 5px;
+}
+.quan-n-inner-box-1-4-content
+{
+    margin: 30px 20px;
+}
+.quan-n-inner-box-1-4 p
+{
+    font-size: 12px;
+}
+.quan-n-learn-more
+{
+    border: 1px solid #dddddd;
+    box-shadow: 1px 1px 8px #dfdfdf;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    margin: 5% 0 0  7%;
+    width: 88%;
+    height: 150px;
+    border-radius: 5px;
+}
+.quan-n-learn-content
+{
+    width:60%;
+    margin: 0 0 0 20px;
+}
+.quan-n-learn-content button
+{
+    margin: 5px 0;
+    width: 140px;
+    height: 30px;
+    background-color: #0A1596;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+.quan-n-learn-content p
+{
+    font-size: 12px;
+}
+.quan-n-empty-img img
+{
+    width: 85%;
+}

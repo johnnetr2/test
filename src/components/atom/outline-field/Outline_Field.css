@@ -1,0 +1,19 @@
+.outline-field-1
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 60px;
+    color: #505050;
+    border: 1px solid #E1E1E1;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px #dfdfdf;
+    font-size: 14px;
+    margin: 0 10px 10px 0;
+}
+.outline-field-input-1
+{
+    margin: 0 5px;
+}
