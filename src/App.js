@@ -58,6 +58,7 @@ import Outline_Field from "./components/atom/outline-field/Outline_Field";
 import Check_Field from "./components/molecule/check-field/Check_Field";
 import Exercise_Btn from "./components/atom/exercise-btn/Exercise_Btn";
 import Quan_Comp_M_Org from "./components/organism/Quan-Comp-M-Org/Quan_Comp_M_Org";
+import Quan_Comp_N_Org from "./components/organism/Quan-Comp-N-Org/Quan_Comp_N_Org";
 
 
 function App() {
@@ -83,17 +84,18 @@ function App() {
         {/* <Route path="/" element={<Outline_Field/>} /> */}
         {/* <Route path="/" element={<Check_Field/>} /> */}
         {/* <Route path="/" element={<Exercise_Btn/>} /> */}
-        <Route path="/" element={<Quan_Comp_M_Org/>} />
+        {/* <Route path="/" element={<Quan_Comp_N_Org/>} /> */}
+        {/* <Route path="/" element={<Quan_Comp_M_Org/>} /> */}
         {/* <Route path="/" element={<Quan_Comparison/>} /> */}
         {/* <Route path="/" element={<Outline_Box/>} /> */}
-        {/* <Route path="/" element={<Signup/>} />
+        <Route path="/" element={<Signup/>} />
         <Route path="login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="courses" element={<Courses />} />
         <Route path="profile" element={<Profile />} />
         <Route path="msg" element={<Message />} />
         <Route path="setting" element={<Setting />} />
-        <Route path="logout" element={<Logout />} /> */}
+        <Route path="logout" element={<Logout />} />
 
 
       </Routes>
