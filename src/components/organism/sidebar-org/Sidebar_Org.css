@@ -11,7 +11,7 @@
     flex-wrap: wrap;
     justify-content: center;
     background-color: #FAFAFA;
-    width: 10%;
+    width: 7%;
     position: fixed;
     height: 100vh;
 }
@@ -22,11 +22,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 20%;
+    height: 10%;
 }
 .logo-1 a
 {
-    
+    margin: 30px 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -35,7 +35,7 @@
 }
 .logo-1 img
 {
-    width: 80px;
+    width: 60px;
 }
 .logo-1 a
 {
@@ -64,12 +64,19 @@
     justify-content: center;
     align-items: center;
 }
+.Home-1 a p
+{
+    margin: 5px 0;
+    text-transform: uppercase;
+    font-size: 10px;
+}
 .Home-1 img
 {
     width: 40%;
 }
 .Home-1 a
 {
+    margin: 5px 0;
     text-decoration: none;
     font-size: 12px;
     color: #fff;
@@ -93,6 +100,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.Course-1 a p
+{
+    margin: 5px 0;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 10px;
 }
 .Course-1 img
 {
@@ -125,6 +139,13 @@
     justify-content: center;
     align-items: center;
 }
+.Message-1 a p
+{
+    margin: 5px 0;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 10px;
+}
 .Message-1 img
 {
     width: 40%;
@@ -154,6 +175,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.Profile-1 a p
+{
+    margin: 5px 0;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 10px;
 }
 .Profile-1 img
 {

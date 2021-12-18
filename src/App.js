@@ -59,6 +59,11 @@ import Check_Field from "./components/molecule/check-field/Check_Field";
 import Exercise_Btn from "./components/atom/exercise-btn/Exercise_Btn";
 import Quan_Comp_M_Org from "./components/organism/Quan-Comp-M-Org/Quan_Comp_M_Org";
 import Quan_Comp_N_Org from "./components/organism/Quan-Comp-N-Org/Quan_Comp_N_Org";
+import Quan_Comp_X_Org from "./components/organism/Quan-Comp-X-Org/Quan_Comp_X_Org";
+import Quan_Comp_L_Org from "./components/organism/Quan-Comp-L-Org/Quan_Comp_L_Org";
+import Quan_Comp_D_Org from "./components/organism/Quan-Comp-D-Org/Quan_Comp_D_Org";
+import Quan_Comp_O_Org from "./components/organism/Quan-Comp-O-Org/Quan_Comp_O_Org";
+import Quan_Comp_E_Org from "./components/organism/Quan-Comp-E-Org/Quan_Comp_E_Org";
 
 
 function App() {
@@ -84,10 +89,16 @@ function App() {
         {/* <Route path="/" element={<Outline_Field/>} /> */}
         {/* <Route path="/" element={<Check_Field/>} /> */}
         {/* <Route path="/" element={<Exercise_Btn/>} /> */}
+
+        {/* <Route path="/" element={<Outline_Box/>} /> */}
         {/* <Route path="/" element={<Quan_Comp_N_Org/>} /> */}
         {/* <Route path="/" element={<Quan_Comp_M_Org/>} /> */}
         {/* <Route path="/" element={<Quan_Comparison/>} /> */}
-        {/* <Route path="/" element={<Outline_Box/>} /> */}
+        {/* <Route path="/" element={<Quan_Comp_E_Org/>} /> */}
+        {/* <Route path="/" element={<Quan_Comp_O_Org/>} /> */}
+        {/* <Route path="/" element={<Quan_Comp_D_Org/>} /> */}
+        {/* <Route path="/" element={<Quan_Comp_L_Org/>} /> */}
+        {/* <Route path="/quan-comp-x-org" element={<Quan_Comp_X_Org/>} /> */}
         <Route path="/" element={<Signup/>} />
         <Route path="login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
