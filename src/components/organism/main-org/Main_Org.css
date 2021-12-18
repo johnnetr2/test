@@ -17,7 +17,7 @@
     position: absolute;
     height: 250%;
     top: 10%;
-    left: 12%;
+    left: 10%;
 }
 .content-1-3
 {
@@ -34,10 +34,11 @@
     display: flex;
     flex-wrap: wrap;
 }
-#active-item-1 a:visited
+
+#active-item-1 a:link
 {
     text-decoration: underline;
-    color: #222222;
+    color: #0A1596;
 }
 .nav-item-1-3
 {
@@ -63,14 +64,14 @@
 .rt-sidebar-1
 {
     position: absolute;
-    left: 70%;
-    width: 30%;
+    left: 63%;
+    width: 37%;
     height: 250%;
     background-color: #FAFAFA; 
 }
 .rt-sidebar-1 h3
 {
-    margin: 8% 0 0 7%;
+    margin: 8% 0 0 10%;
 }
 .main-box-1
 {
@@ -86,7 +87,7 @@
     box-shadow: 1px 1px 8px #dfdfdf;
     margin: 0 10px;
     background-color: #fff;
-    width: 42%;
+    width: 40%;
     height: 100px;
     border-radius: 5px;
     display: flex;
@@ -100,7 +101,7 @@
     border: 1px solid #dddddd;
     box-shadow: 1px 1px 8px #dfdfdf;
     background-color: #fff;
-    width: 42%;
+    width: 40%;
     height: 100px;
     border-radius: 5px;
     display: flex;
@@ -113,6 +114,7 @@
     display: flex;
     flex-wrap: wrap;
 }
+
 .inner-box-1-3
 {
     border: 1px solid #dddddd;
@@ -120,13 +122,20 @@
     display: flex;
     flex-wrap: wrap;
     background-color: #fff;
-    margin: 5% 0 0  7%;
-    width: 88%;
-    height: 250px;
+    margin: 5% 0 0  10%;
+    width: 82%;
+    height: 300px;
     border-radius: 5px;
     padding: 10%;
 }
-
+.inner-box-1-3 p
+{
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 10px 0;
+    margin: -15px 0 0 0;
+}
 .main-box-1-4
 {
     display: flex;
@@ -138,8 +147,8 @@
     border: 1px solid #dddddd;
     box-shadow: 1px 1px 8px #dfdfdf;
     background-color: #fff;
-    margin: 7% 0 0 7%;
-    width: 88%;
+    margin: 7% 0 0 10%;
+    width: 82%;
     height: 100px;
     border-radius: 5px;
 }
@@ -157,9 +166,10 @@
     box-shadow: 1px 1px 8px #dfdfdf;
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #fff;
-    margin: 5% 0 0  7%;
-    width: 88%;
+    margin: 5% 0 0  10%;
+    width: 82%;
     height: 150px;
     border-radius: 5px;
 }

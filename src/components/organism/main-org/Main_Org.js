@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Empty_Img from '../../../assets/imgs/thumb.png'
 import Graph from '../../../assets/graph/graph.svg'
 
@@ -11,6 +11,14 @@ import '../../../components/molecule/card/Card.css';
 
 
 const Main = () => {
+
+    const navigate = useNavigate();
+
+    const clickHandler = () =>
+    {
+        alert('hi there')
+        navigate('/quan-comp-x-org')
+    }
     return (
         <div className="main-container-1">
             <div className="main-content-1">
@@ -20,6 +28,7 @@ const Main = () => {
                 <div className="nav-item-1-2">
                     <div className="nav-item-1-3" id="active-item-1">
                         <Link to="/">Alla kategorier</Link>
+                        <div className="active-line"></div>
                     </div>
                     <div className="nav-item-1-3" id="active-item-2">
                         <Link to="/">Kvantitative sektion</Link>
@@ -31,31 +40,31 @@ const Main = () => {
                 <div className="head-1-2">
                     <h3>Kvantativa sektion</h3>
                     <div className="content-1-2">
-                        <Card title="XYZ" title_para="Lorem Ipsum...." btn_1="XYZ" btn_2="Kvantitativ sektion" />
+                        <Card title="XYZ" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2">
-                        <Card title="XYZ" title_para="Lorem Ipsum...." btn_1="XYZ" btn_2="Kvantitativ sektion" />
+                        <Card title="KVA" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2">
-                        <Card title="XYZ" title_para="Lorem Ipsum...." btn_1="XYZ" btn_2="Kvantitativ sektion" />
+                        <Card title="NOG" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2">
-                        <Card title="XYZ" title_para="Lorem Ipsum...." btn_1="XYZ" btn_2="Kvantitativ sektion" />
+                        <Card title="DTK" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                 </div>
                 <div className="head-1-2">
                     <h3>Verbal Sektion</h3>
                     <div className="content-1-2">
-                        <Card title="ELF" title_para="Lorem Ipsum...." btn_1="ELF" btn_2="Verbal Sektion" />
+                        <Card title="ELF" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2">
-                        <Card title="LAS" title_para="Lorem Ipsum...." btn_1="LAS" btn_2="Verbal Sektion" />
+                        <Card title="LAS" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2">
-                        <Card title="ORD" title_para="Lorem Ipsum...." btn_1="ORD" btn_2="Verbal Sektion" />
+                        <Card title="ORD" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2">
-                        <Card title="MED" title_para="Lorem Ipsum...." btn_1="MED" btn_2="Verbal Sektion" />
+                        <Card title="MED" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                 </div>
             </div>
@@ -75,6 +84,7 @@ const Main = () => {
                     <div className="graph-box-1-3">
                         <h3>Utveckling</h3>
                         <div className="inner-box-1-3">
+                            <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
                     </div>
