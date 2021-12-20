@@ -64,6 +64,10 @@ import Quan_Comp_L_Org from "./components/organism/Quan-Comp-L-Org/Quan_Comp_L_O
 import Quan_Comp_D_Org from "./components/organism/Quan-Comp-D-Org/Quan_Comp_D_Org";
 import Quan_Comp_O_Org from "./components/organism/Quan-Comp-O-Org/Quan_Comp_O_Org";
 import Quan_Comp_E_Org from "./components/organism/Quan-Comp-E-Org/Quan_Comp_E_Org";
+import Quan_Comp_X from "./pages/category/quan-comp-x/Quan_Comp_X";
+import Next_Btn from "./components/atom/next button/Next_Btn";
+import First_Popup from "./components/organism/first-popup/First_Popup";
+import Second_Popup from "./components/organism/second-popup/Second_Popup";
 
 
 function App() {
@@ -98,7 +102,10 @@ function App() {
         {/* <Route path="/" element={<Quan_Comp_O_Org/>} /> */}
         {/* <Route path="/" element={<Quan_Comp_D_Org/>} /> */}
         {/* <Route path="/" element={<Quan_Comp_L_Org/>} /> */}
-        {/* <Route path="/quan-comp-x-org" element={<Quan_Comp_X_Org/>} /> */}
+
+        <Route path="/second-popup" element={<Second_Popup/>} />
+        <Route path="/first-popup" element={<First_Popup/>} />
+        <Route path="/quan-comp-x" element={<Quan_Comp_X/>} />
         <Route path="/" element={<Signup/>} />
         <Route path="login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />

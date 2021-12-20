@@ -1,0 +1,42 @@
+.primary-popup-1
+{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../../assets/imgs/popup-bg.png');
+    background-size: cover;
+}
+.popup-main-1
+{
+    padding: 60px 0 0 60px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    width: 50%;
+    height: 300px;
+    background-color: #fff;
+}
+.step-bar-1 img
+{
+    margin: 22px 0;
+    width: 80%;
+}
+.popup-main-1 h2
+{
+    margin: 0 0 10px 0;
+}
+.popup-main-1 p:nth-child(1)
+{
+    font-size: 12px;
+    font-weight: 600;
+}
+.popup-main-1 p:nth-child(3)
+{
+    font-size: 12px;
+}
+
+.save-btn
+{
+    width: 100%;
+    margin: 0 150px;
+}

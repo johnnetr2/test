@@ -13,7 +13,7 @@ const Login_org = () => {
                 <Label_field type='text' title="Email" />
                 <Label_field type='password' title="Password" />
                 <u>Glomt losenord?</u>
-                <Link to="/dashboard"><Filled_btn title="Logga in" /></Link>
+                <Link to="/first-popup"><Filled_btn title="Logga in" /></Link>
                 <p>eller</p>
                 <Outline_btn title="Logga in Med Google" />
                 <p className="last-para-1">Har du ingte konto? <u>Skapa konto har</u></p>

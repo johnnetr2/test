@@ -15,9 +15,8 @@ const Main = () => {
     const navigate = useNavigate();
 
     const clickHandler = () =>
-    {
-        alert('hi there')
-        navigate('/quan-comp-x-org')
+    {    
+        navigate('/quan-comp-x')
     }
     return (
         <div className="main-container-1">
@@ -39,7 +38,7 @@ const Main = () => {
                 </div>
                 <div className="head-1-2">
                     <h3>Kvantativa sektion</h3>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={clickHandler}>
                         <Card title="XYZ" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2">
