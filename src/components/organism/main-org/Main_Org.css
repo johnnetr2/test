@@ -55,7 +55,24 @@
 {
     margin: 10px 0;
 }
-
+.popup-1
+{
+    width: 100%;
+    z-index: 1;
+}
+.popup-1
+{
+    background: rgba(0, 0, 0, 0.6)
+}
+.popup-2
+{
+    width: 100%;
+    z-index: 1;
+}
+.popup-2
+{
+    background: rgba(0, 0, 0, 0.6)
+}
 .rt-sidebar-container-1
 {
     display: flex;

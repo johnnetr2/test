@@ -1,5 +1,6 @@
 // import Dashboard from './components/Dashboard';
 // import './assets/css/Dashboard.css'
+import React, {useState} from 'react'
 import { Routes, Route } from "react-router-dom";
 import Dashboard from './pages/dashboard/Dashboard';
 import Courses from './pages/courses/Courses';
@@ -105,6 +106,7 @@ function App() {
 
         <Route path="/second-popup" element={<Second_Popup/>} />
         <Route path="/first-popup" element={<First_Popup/>} />
+
         <Route path="/quan-comp-x" element={<Quan_Comp_X/>} />
         <Route path="/" element={<Signup/>} />
         <Route path="login" element={<Login/>} />

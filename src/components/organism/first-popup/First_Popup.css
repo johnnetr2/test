@@ -4,8 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('../../../assets/imgs/popup-bg.png');
-    background-size: cover;
+
 }
 .popup-main
 {

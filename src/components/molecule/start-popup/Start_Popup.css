@@ -1,0 +1,60 @@
+.confirm_req_text {
+    width: 550px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    justify-content: space-between;
+}
+#start-popup-wrapper
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.start-popup-title
+{
+    width: 100%;
+}
+.start-popup-content
+{
+    width: 600px;
+}
+input[type=date]
+{
+    border: 1px solid #b5b5b5;
+    padding: 5px;
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    margin: 25px 0 ;
+}
+.cross-icon-1
+{
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.next-btn-1
+{
+  width: 100%;
+  margin: auto 20px;
+  display: block;
+}
+#alert-dialog-slide-description p:nth-child(1)
+{
+    color: #212121;
+    font-weight: 600;
+    font-size: 12px;
+}
+#alert-dialog-slide-description h2
+{
+    color: #212121;
+}
+#alert-dialog-slide-description p:nth-child(2)
+{
+    font-size: 12px;
+    color: #212121;
+}

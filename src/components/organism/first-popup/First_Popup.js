@@ -1,15 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import Next_Btn from '../../atom/next button/Next_Btn'
 import Cross from '../../../assets/icons/cross.svg'
 import './First_Popup.css'
 
 const First_Popup = () => {
+
+
     return (
         <div className="primary-popup">
             <div className="popup-main">
-                <div className="close-icon">
-                    <Link to="/dashboard"><img src={Cross} alt="" /></Link>
+                <div className="close-icon" >
+                    <img src={Cross} alt="" />
                 </div>
                 <p>1/2</p>
                 <h2>När skall du göra provet?</h2>
