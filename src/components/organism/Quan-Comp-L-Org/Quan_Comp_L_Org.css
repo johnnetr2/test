@@ -15,9 +15,9 @@
     width: 85%;
     background-color: #fff;
     position: absolute;
-    height: 250%;
+    height: 270%;
     top: 10%;
-    left: 12%;
+    left: 10%;
 }
 .content-l-1-3
 {
@@ -149,55 +149,21 @@ table tbody tr td
 .quan-l-rt-sidebar-1
 {
     position: absolute;
-    left: 70%;
-    width: 30%;
-    height: 250%;
-    background-color: #FAFAFA; 
+    left: 63%;
+    width: 37%;
+    height: 270%;
+
 }
 .quan-l-rt-sidebar-1 > h3
 {
-    margin: 8% 0 0 7%;
+    margin: 8% 0 0 10%;
 }
 .quan-l-rt-sidebar-1 > p
 {
     font-size: 12px;
-    margin: 2% 0 0 7%;
+    margin: 2% 0 0 10%;
 }
-.learn-l-more
-{
-    border: 1px solid #dddddd;
-    box-shadow: 1px 1px 8px #dfdfdf;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    margin: 5% 0 0  7%;
-    width: 88%;
-    height: 150px;
-    border-radius: 5px;
-}
-.learn-l-content
-{
-    width:60%;
-    margin: 0 0 0 20px;
-}
-.learn-l-content button
-{
-    margin: 5px 0;
-    width: 140px;
-    height: 30px;
-    background-color: #0A1596;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-}
-.learn-l-content p
-{
-    font-size: 12px;
-}
-.empty-l-img img
-{
-    width: 85%;
-}
+
 .quan-l-box-1
 {
     height: 95px;
@@ -212,7 +178,7 @@ table tbody tr td
     box-shadow: 1px 1px 8px #dfdfdf;
     margin: 0 10px;
     background-color: #fff;
-    width: 88%;
+    width: 82%;
     height: 60px;
     border-radius: 5px;
     display: flex;
@@ -235,7 +201,7 @@ table tbody tr td
     justify-content: center;
     background-color: #27AE60;
     color: #fff;
-    height: 20px;
+    height: 15px;
     width: 80%;
     font-size: 12px;
     border-radius: 20px;
@@ -252,8 +218,8 @@ table tbody tr td
     display: flex;
     flex-wrap: wrap;
     background-color: #fff;
-    margin: 5% 0 0  7%;
-    width: 88%;
+    margin: 5% 0 0  10%;
+    width: 82%;
     height: 250px;
     border-radius: 5px;
     padding: 10%;
@@ -262,12 +228,12 @@ table tbody tr td
 {
     font-size: 12px;
     text-transform: uppercase;
-    margin: -15px 5px;
+    margin: -25px 2px;
     font-weight: 600;
 }
 .quan-l-task
 {
-    margin: 8% 0 0 7%;
+    margin: 8% 0 0 10%;
     display: flex;
 }
 .quan-l-task-1
@@ -288,7 +254,7 @@ table tbody tr td
 }
 .quan-l-score-1
 {
-    margin: 8% 0 0 7%;
+    margin: 8% 0 0 10%;
     display: flex;
     flex-direction: column;
 }
@@ -300,58 +266,4 @@ table tbody tr td
 {
     display: flex;
     flex-wrap: wrap;
-}
-
-.quan-l-inner-box-1-4
-{
-    border: 1px solid #dddddd;
-    box-shadow: 1px 1px 8px #dfdfdf;
-    background-color: #fff;
-    margin: 7% 0 0 7%;
-    width: 88%;
-    height: 100px;
-    border-radius: 5px;
-}
-.quan-l-inner-box-1-4-content
-{
-    margin: 30px 20px;
-}
-.quan-l-inner-box-1-4 p
-{
-    font-size: 12px;
-}
-.quan-l-learn-more
-{
-    border: 1px solid #dddddd;
-    box-shadow: 1px 1px 8px #dfdfdf;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    margin: 5% 0 0  7%;
-    width: 88%;
-    height: 150px;
-    border-radius: 5px;
-}
-.quan-l-learn-content
-{
-    width:60%;
-    margin: 0 0 0 20px;
-}
-.quan-l-learn-content button
-{
-    margin: 5px 0;
-    width: 140px;
-    height: 30px;
-    background-color: #0A1596;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-}
-.quan-l-learn-content p
-{
-    font-size: 12px;
-}
-.quan-l-empty-img img
-{
-    width: 85%;
 }

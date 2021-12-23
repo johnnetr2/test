@@ -1,4 +1,5 @@
 import React from 'react'
+import './Continue_btn.css'
 
 const continue_btn = (props) => {
     return (

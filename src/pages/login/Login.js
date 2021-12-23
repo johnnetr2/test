@@ -2,6 +2,7 @@ import React from 'react'
 import SideImg from '../../assets/imgs/side_img.png'
 import Login_org from '../../components/organism/login-org/Login_org';
 import '../../components/organism/login-org/Login_org.css';
+import './Login.css'
 
 const Login = () => {
     return (

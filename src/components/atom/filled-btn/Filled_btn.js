@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './Filled_btn.css'
 const Filled_btn = (props) => {
     return (
         <div className="filled-btn-1">

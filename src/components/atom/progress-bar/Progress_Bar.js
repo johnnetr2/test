@@ -1,4 +1,5 @@
 import React from 'react'
+import './Progress_Bar.css'
 
 const Progress_Bar = () => {
     return (

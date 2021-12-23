@@ -1,45 +1,36 @@
 import React from 'react'
 import './Quan_Comparison_Org.css'
-import { Link } from 'react-router-dom'
-import Empty_Img from '../../../assets/imgs/thumb.png'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Filled_btn from '../../../components/atom/filled-btn/Filled_btn';
 import '../../../components/atom/filled-btn/Filled_btn.css';
 import Exercise_Btn from "../../../components/atom/exercise-btn/Exercise_Btn";
-
-
-import Card from '../../molecule/card/Card';
 import '../../../components/molecule/card/Card.css';
-import Check_Field from '../../molecule/check-field/Check_Field'
 import Outline_Box from '../../atom/outline-box/Outline_Box'
 import Outline_Field from '../../atom/outline-field/Outline_Field'
 
 
 
-const Quan_Comparison_Org = () => {
+const Quan_Comp_K_Org = () => {
 
     return (
-        <div className="quan-container-1">
-            <div className="quan-content-1">
-                <div className="quan-content-1-3">
-                    <h3>Kvantitativa jämförelser - NOG</h3>
+        <div className="quan-k-container-1">
+            <div className="quan-k-content-1">
+                <div className="quan-k-content-1-3">
+                    <h3>Kvantitativa jämförelser - KVA</h3>
                 </div>
-                <div className="quan-nav-item-1-2">
+                <div className="quan-k-nav-item-1-2">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi...</p>
                 </div>
-                <div className="quan-head-1-2">
-                    <h3>Övningsuppgifter för NOG</h3>
-                    <div className="quan-head-1-3">
-                        <div className="quan-head-1-4">
+                <div className="quan-k-head-1-2">
+                    <h3>Övningsuppgifter för KVA</h3>
+                    <div className="quan-k-head-1-3">
+                        <div className="quan-k-head-1-4">
                             <p>Välj om du vill köra på tid</p>
                             <Outline_Field title="Tidspress" type="checkbox" />
                         </div>
-                        <div className="quan-head-1-5">
+                        <div className="quan-k-head-1-5">
                             <p>Välj antal frågor</p>
-                            <div className="quan-head-outline-boxes">
+                            <div className="quan-k-head-outline-boxes">
                                 <Outline_Box title="5" />
                                 <Outline_Box title="10" />
                                 <Outline_Box title="15" />
@@ -49,9 +40,9 @@ const Quan_Comparison_Org = () => {
                         </div>
                     </div>
                 </div>
-                <div className="quan-question-type">
+                <div className="quan-k-question-type">
                     <p>Välj frågetyper</p>
-                    <div className="question-type-1">
+                    <div className="question-k-type-1">
                         <Outline_Field title="Alla" type="checkbox" />
                         <Outline_Field title="Geometri" type="checkbox" />
                         <Outline_Field title="Funktionslära" type="checkbox" />
@@ -60,10 +51,10 @@ const Quan_Comparison_Org = () => {
                         <Outline_Field title="Statistik" type="checkbox" />
                     </div>
                 </div>
-                <div className="exer-btn-2">
+                <div className="exer-k-btn-2">
                     <Exercise_Btn />
                 </div>
-                <div className="history">
+                <div className="history-k">
                     <h2>Historia</h2>
                     <table>
                         <thead>
@@ -73,88 +64,87 @@ const Quan_Comparison_Org = () => {
                                 <th>Normering</th>
                                 <th></th>
                             </tr>
-                            
                         </thead>
-                        <div className="body-bord">
-                        <tbody>
-                            <tr>
-                                <td>2021.09.24 10:38:24</td>
-                                <td>0 av 1</td>
-                                <td>0.0</td>
-                            </tr>
-                            <hr />
-                            <tr>
-                                <td>2021.09.24 10:38:24</td>
-                                <td>0 av 1</td>
-                                <td>0.0</td>
-                            </tr>
-                            <hr />
-                            <tr>
-                                <td>2021.09.24 10:38:24</td>
-                                <td>0 av 1</td>
-                                <td>0.0</td>
-                            </tr>
-                            <hr />
-                            <tr>
-                                <td>2021.09.24 10:38:24</td>
-                                <td>0 av 1</td>
-                                <td>0.0</td>
-                            </tr>
-                            <hr />
-                            <tr>
-                                <td>2021.09.24 10:38:24</td>
-                                <td>0 av 1</td>
-                                <td>0.0</td>
-                            </tr>
-                            <hr />
-                            <tr>
-                                <td>2021.09.24 10:38:24</td>
-                                <td>0 av 1</td>
-                                <td>0.0</td>
-                            </tr>
-                            <hr />
-                            <tr>
-                                <td>2021.09.24 10:38:24</td>
-                                <td>0 av 1</td>
-                                <td>0.0</td>
-                            </tr>
-                        </tbody>
+                        <div className="body-k-bord">
+                            <tbody>
+                                <tr>
+                                    <td>2021.09.24 10:38:24</td>
+                                    <td>0 av 1</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <hr />
+                                <tr>
+                                    <td>2021.09.24 10:38:24</td>
+                                    <td>0 av 1</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <hr />
+                                <tr>
+                                    <td>2021.09.24 10:38:24</td>
+                                    <td>0 av 1</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <hr />
+                                <tr>
+                                    <td>2021.09.24 10:38:24</td>
+                                    <td>0 av 1</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <hr />
+                                <tr>
+                                    <td>2021.09.24 10:38:24</td>
+                                    <td>0 av 1</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <hr />
+                                <tr>
+                                    <td>2021.09.24 10:38:24</td>
+                                    <td>0 av 1</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <hr />
+                                <tr>
+                                    <td>2021.09.24 10:38:24</td>
+                                    <td>0 av 1</td>
+                                    <td>0.0</td>
+                                </tr>
+                            </tbody>
                         </div>
                     </table>
                 </div>
 
             </div>
-            <div className="quan-rt-sidebar-container-1">
-                <div className="quan-rt-sidebar-1">
+            <div className="quan-k-rt-sidebar-container-1">
+                <div className="quan-k-rt-sidebar-1">
                     <h3>Statistik</h3>
                     <p>Du har klarat 830 av 1000 uppgifter</p>
-                    <div className="quan-box-1">
-                        <div className="quan-inner-box-1">
-                            <div className="quan-progress-bar">
+                    <div className="quan-k-box-1">
+                        <div className="quan-k-inner-box-1">
+                            <div className="quan-k-progress-bar">
                                 <p>12 av 100</p>
                             </div>
                         </div>
                     </div>
-                    <div className="quan-graph-box-1-3">
-                        <div className="quan-task">
-                            <div className="quan-task-1">
+                    <div className="quan-k-graph-box-1-3">
+                        <div className="quan-k-task">
+                            <div className="quan-k-task-1">
                                 <h3>4</h3>
                                 <p>Gjorda uppgifter förra veckan</p>
                             </div>
-                            <div className="quan-task-2">
+                            <div className="quan-k-task-2">
                                 <h3>830</h3>
                                 <p>Gjorda uppgifter totalt</p>
                             </div>
                         </div>
-                        <div className="quan-inner-box-1-3">
+                        <div className="quan-k-inner-box-1-3">
                             <p>Uppgifter</p>
                             <img src={Graph_2} alt="" />
                         </div>
-                        <div className="quan-score-1">
-                                <h3>0.8</h3>
-                                <p>Gjorda uppgifter totalt</p>
-                            </div>
-                        <div className="quan-inner-box-1-3">
+                        <div className="quan-k-score-1">
+                            <h3>0.8</h3>
+                            <p>Gjorda uppgifter totalt</p>
+                        </div>
+                        <div className="quan-k-inner-box-1-3">
                             <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
@@ -165,4 +155,4 @@ const Quan_Comparison_Org = () => {
     )
 }
 
-export default Quan_Comparison_Org
+export default Quan_Comp_K_Org

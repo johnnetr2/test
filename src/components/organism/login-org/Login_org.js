@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import Label_field from '../../../components/molecule/label-field/Label_field';
 import Filled_btn from '../../../components/atom/filled-btn/Filled_btn';
 import Outline_btn from '../../../components/atom/outline-btn/Outline_btn';
+import './Login_org.css'
 
 const Login_org = () => {
     return (

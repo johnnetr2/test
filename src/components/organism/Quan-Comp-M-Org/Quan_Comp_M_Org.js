@@ -1,19 +1,11 @@
 import React from 'react'
 import './Quan_Comp_M_Org.css'
-import { Link } from 'react-router-dom'
-import Thumb_2 from '../../../assets/imgs/thumb_2.png'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Filled_btn from '../../../components/atom/filled-btn/Filled_btn';
+import Thumb_2 from '../../../assets/imgs/thumb_2.png'
 import '../../../components/atom/filled-btn/Filled_btn.css';
 import Exercise_Btn from "../../../components/atom/exercise-btn/Exercise_Btn";
-
-
-import Card from '../../molecule/card/Card';
 import '../../../components/molecule/card/Card.css';
-import Check_Field from '../../molecule/check-field/Check_Field'
 import Outline_Box from '../../atom/outline-box/Outline_Box'
 import Outline_Field from '../../atom/outline-field/Outline_Field'
 
@@ -53,6 +45,11 @@ const Quan_Comp_M_Org = () => {
                     <p>Välj frågetyper</p>
                     <div className="question-m-type-1">
                         <Outline_Field title="Alla" type="checkbox" />
+                        <Outline_Field title="Geometri" type="checkbox" />
+                        <Outline_Field title="Funktionslära" type="checkbox" />
+                        <Outline_Field title="Aritmetik" type="checkbox" />
+                        <Outline_Field title="Algebra" type="checkbox" />
+                        <Outline_Field title="Statistik" type="checkbox" />
                     </div>
                 </div>
                 <div className="exer-m-btn-2">
@@ -68,7 +65,6 @@ const Quan_Comp_M_Org = () => {
                                 <th>Normering</th>
                                 <th></th>
                             </tr>
-
                         </thead>
                         <div className="body-m-bord">
                             <tbody>
@@ -121,7 +117,7 @@ const Quan_Comp_M_Org = () => {
             </div>
             <div className="quan-m-rt-sidebar-container-1">
                 <div className="quan-m-rt-sidebar-1">
-                    <div className="learn-m-more">
+                <div className="learn-m-more">
                         <div className="learn-m-content">
                             <h4>Uppgradera kategori</h4>
                             <p>På demo kan du testa att göra 5 uppgifter. Lås upp kategori för att göra fler!</p>
