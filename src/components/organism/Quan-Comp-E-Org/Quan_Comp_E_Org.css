@@ -15,7 +15,7 @@
     width: 85%;
     background-color: #fff;
     position: absolute;
-    height: 270%;
+    height: fit-content;
     top: 10%;
     left: 10%;
 }
@@ -150,7 +150,7 @@ table tbody tr td
     position: absolute;
     left: 63%;
     width: 37%;
-    height: 270%;
+    height: fit-content;
 }
 .quan-e-rt-sidebar-1 > h3
 {
