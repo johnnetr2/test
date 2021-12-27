@@ -15,7 +15,7 @@
     width: 85%;
     background-color: #fff;
     position: absolute;
-    height: 250%;
+    height: 270%;
     top: 10%;
     left: 10%;
 }
@@ -55,7 +55,24 @@
 {
     margin: 10px 0;
 }
-
+.popup-1
+{
+    width: 100%;
+    z-index: 1;
+}
+.popup-1
+{
+    background: rgba(0, 0, 0, 0.6)
+}
+.popup-2
+{
+    width: 100%;
+    z-index: 1;
+}
+.popup-2
+{
+    background: rgba(0, 0, 0, 0.6)
+}
 .rt-sidebar-container-1
 {
     display: flex;
@@ -66,7 +83,7 @@
     position: absolute;
     left: 63%;
     width: 37%;
-    height: 250%;
+    height: 270%;
     background-color: #FAFAFA; 
 }
 .rt-sidebar-1 h3

@@ -1,5 +1,4 @@
-// import Dashboard from './components/Dashboard';
-// import './assets/css/Dashboard.css'
+import React from 'react'
 import { Routes, Route } from "react-router-dom";
 import Dashboard from './pages/dashboard/Dashboard';
 import Courses from './pages/courses/Courses';
@@ -7,98 +6,34 @@ import Profile from './pages/profile/Profile';
 import Message from './pages/message/Message';
 import Setting from './pages/setting/Setting';
 import Logout from './pages/logout/Logout';
-
-import Outline_btn from './components/atom/outline-btn/Outline_btn';
-import './components/atom/outline-btn/Outline_btn.css';
-
-import Filled_btn from './components/atom/filled-btn/Filled_btn';
-import './components/atom/filled-btn/Filled_btn.css';
-
-import Continue_btn from './components/atom/continue-btn/Continue_btn';
-import './components/atom/continue-btn/Continue_btn.css';
-
-import Input_field from './components/atom/input-field/Input_field';
-import './components/atom/input-field/Input_field.css';
-
-import Label from './components/atom/label/Label';
-import './components/atom/label/Label.css';
-
-import Progress_Bar from './components/atom/progress-bar/Progress_Bar';
-import './components/atom/progress-bar/Progress_Bar.css';
-
-import Label_field from './components/molecule/label-field/Label_field';
-import './components/molecule/label-field/Label_field.css';
-
-import Card from './components/molecule/card/Card';
-import './components/molecule/card/Card.css';
-
-import Login_org from './components/organism/login-org/Login_org';
-import './components/organism/login-org/Login_org.css';
-
-import Signup_org from './components/organism/signup-org/Signup_org';
-import './components/organism/signup-org/Signup_org.css';
-
-
-
-import './pages/login/Login.css';
-import './pages/signup/Signup.css';
-
-import Sidebar_Org from './components/organism/sidebar-org/Sidebar_Org';
-import './components/organism/sidebar-org/Sidebar_Org.css';
-
-import Main_Org from './components/organism/main-org/Main_Org';
-import './components/organism/main-org/Main_Org.css';
-
-
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
-import Quan_Comparison from "./components/organism/Quan_Comparison_Org/Quan_Comparison_Org";
-import Outline_Box from "./components/atom/outline-box/Outline_Box";
-import Outline_Field from "./components/atom/outline-field/Outline_Field";
-import Check_Field from "./components/molecule/check-field/Check_Field";
-import Exercise_Btn from "./components/atom/exercise-btn/Exercise_Btn";
-import Quan_Comp_M_Org from "./components/organism/Quan-Comp-M-Org/Quan_Comp_M_Org";
-import Quan_Comp_N_Org from "./components/organism/Quan-Comp-N-Org/Quan_Comp_N_Org";
-import Quan_Comp_X_Org from "./components/organism/Quan-Comp-X-Org/Quan_Comp_X_Org";
-import Quan_Comp_L_Org from "./components/organism/Quan-Comp-L-Org/Quan_Comp_L_Org";
-import Quan_Comp_D_Org from "./components/organism/Quan-Comp-D-Org/Quan_Comp_D_Org";
-import Quan_Comp_O_Org from "./components/organism/Quan-Comp-O-Org/Quan_Comp_O_Org";
-import Quan_Comp_E_Org from "./components/organism/Quan-Comp-E-Org/Quan_Comp_E_Org";
+import Quan_Comp_X from "./pages/category/quan-comp-x/Quan_Comp_X";
+import First_Popup from "./components/organism/first-popup/First_Popup";
+import Second_Popup from "./components/organism/second-popup/Second_Popup";
+import Quan_Comp_K from './pages/category/quan-comp-k/Quan_Comp_K';
+import Quan_Comp_N from './pages/category/quan-comp-n/Quan_Comp_N';
+import Quan_Comp_D from './pages/category/quan-comp-d/Quan_Comp_D';
+import Quan_Comp_E from './pages/category/quan-comp-e/Quan_Comp_E';
+import Quan_Comp_L from './pages/category/quan-comp-l/Quan_Comp_L';
+import Quan_Comp_M from './pages/category/quan-comp-m/Quan_Comp_M';
+import Quan_Comp_O from './pages/category/quan-comp-o/Quan_Comp_O';
 
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-
-        {/* <Dashboard/> */}
-        {/* -------------------Components */}
-        {/* <Route path="/" element={<Sidebar_Org/>} /> */}
-        {/* -------------------Pages */}
-        {/* <Route path="/" element={<Outline_btn/>} /> */}
-        {/* <Route path="/" element={<Filled_btn/>} /> */}
-        {/* <Route path="/" element={<Continue_btn/>} /> */}
-        {/* <Route path="/" element={<Input_field/>} /> */}
-        {/* <Route path="/" element={<Label/>} /> */}
-        {/* <Route path="/" element={<Progress_Bar/>} /> */}
-        {/* <Route path="/" element={<Label_field/>} /> */}
-        {/* <Route path="/" element={<Card/>} /> */}
-        {/* <Route path="/" element={<Login_org />} /> */}
-        {/* <Route path="/" element={<Signup_org />} /> */}
-        {/* <Route path="/" element={<Main_Org />} /> */}
-        {/* <Route path="/" element={<Outline_Field/>} /> */}
-        {/* <Route path="/" element={<Check_Field/>} /> */}
-        {/* <Route path="/" element={<Exercise_Btn/>} /> */}
-
-        {/* <Route path="/" element={<Outline_Box/>} /> */}
-        {/* <Route path="/" element={<Quan_Comp_N_Org/>} /> */}
-        {/* <Route path="/" element={<Quan_Comp_M_Org/>} /> */}
-        {/* <Route path="/" element={<Quan_Comparison/>} /> */}
-        {/* <Route path="/" element={<Quan_Comp_E_Org/>} /> */}
-        {/* <Route path="/" element={<Quan_Comp_O_Org/>} /> */}
-        {/* <Route path="/" element={<Quan_Comp_D_Org/>} /> */}
-        {/* <Route path="/" element={<Quan_Comp_L_Org/>} /> */}
-        {/* <Route path="/quan-comp-x-org" element={<Quan_Comp_X_Org/>} /> */}
+      <Routes>   
+        <Route path="/second-popup" element={<Second_Popup/>} />
+        <Route path="/first-popup" element={<First_Popup/>} />
+        <Route path="/quan-comp-e" element={<Quan_Comp_E/>} />
+        <Route path="/quan-comp-n" element={<Quan_Comp_N/>} />
+        <Route path="/quan-comp-d" element={<Quan_Comp_D/>} />
+        <Route path="/quan-comp-k" element={<Quan_Comp_K/>} />
+        <Route path="/quan-comp-x" element={<Quan_Comp_X/>} />
+        <Route path="/quan-comp-l" element={<Quan_Comp_L/>} />
+        <Route path="/quan-comp-m" element={<Quan_Comp_M/>} />
+        <Route path="/quan-comp-o" element={<Quan_Comp_O/>} />
         <Route path="/" element={<Signup/>} />
         <Route path="login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
@@ -107,8 +42,6 @@ function App() {
         <Route path="msg" element={<Message />} />
         <Route path="setting" element={<Setting />} />
         <Route path="logout" element={<Logout />} />
-
-
       </Routes>
 
     </div>

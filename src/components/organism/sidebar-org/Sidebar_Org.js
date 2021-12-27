@@ -5,7 +5,7 @@ import Home from '../../../assets/icons/home.svg'
 import Course from '../../../assets/icons/courses.svg'
 import Profile from '../../../assets/icons/profile.svg'
 import Message from '../../../assets/icons/msg.svg'
-
+import './Sidebar_Org.css'
 
 
 const Sidebar = () => {

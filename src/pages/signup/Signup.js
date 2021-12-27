@@ -1,7 +1,7 @@
 import React from 'react'
 import Signup_org from '../../components/organism/signup-org/Signup_org';
 import SideImg from '../../assets/imgs/side_img.png'
-
+import './Signup.css'
 
 const Signup = () => {
     return (

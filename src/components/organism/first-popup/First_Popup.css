@@ -1,0 +1,57 @@
+.primary-popup
+{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.popup-main
+{
+    padding: 0 0 0 60px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    width: 50%;
+    height: 300px;
+    background-color: #fff;
+}
+.close-icon
+{
+    cursor: pointer;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.popup-main h2
+{
+    margin: 0 0 10px 0;
+}
+.popup-main p:nth-child(2)
+{
+    font-size: 12px;
+    font-weight: 600;
+}
+.popup-main p:nth-child(4)
+{
+    font-size: 12px;
+}
+select
+{
+    border: 1px solid #b5b5b5;
+    padding: 5px;
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    margin: 25px 0 ;
+}
+option
+{
+    padding: 10px;
+    border-radius: 10px;
+}
+.next-btn
+{
+    width: 100%;
+    margin: 0 150px;
+}

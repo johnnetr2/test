@@ -1,6 +1,7 @@
 import React from 'react'
 import Label from '../../../components/atom/label/Label';
 import Input_field from '../../atom/input-field/Input_field';
+import './Label_field.css'
 
 const Label_field = (props) => {
     return (

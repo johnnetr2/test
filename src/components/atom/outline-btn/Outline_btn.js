@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from '../../../assets/icons/google.svg'
+import './Outline_btn.css'
 
 const Outline_btn = (props) => {
     return (

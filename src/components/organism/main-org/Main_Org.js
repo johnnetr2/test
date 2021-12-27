@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import Empty_Img from '../../../assets/imgs/thumb.png'
 import Graph from '../../../assets/graph/graph.svg'
-
-
+import './Main_Org.css'
 import Card from '../../../components/molecule/card/Card';
 import '../../../components/molecule/card/Card.css';
 
@@ -13,12 +12,9 @@ import '../../../components/molecule/card/Card.css';
 const Main = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const clickHandler = () =>
-    {
-        alert('hi there')
-        navigate('/quan-comp-x-org')
-    }
+
     return (
         <div className="main-container-1">
             <div className="main-content-1">
@@ -39,31 +35,31 @@ const Main = () => {
                 </div>
                 <div className="head-1-2">
                     <h3>Kvantativa sektion</h3>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-x'}>
                         <Card title="XYZ" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-k'}>
                         <Card title="KVA" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-n'}>
                         <Card title="NOG" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-d'}>
                         <Card title="DTK" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                 </div>
                 <div className="head-1-2">
                     <h3>Verbal Sektion</h3>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-e'}>
                         <Card title="ELF" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-l'}>
                         <Card title="LAS" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-o'}>
                         <Card title="ORD" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2">
+                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-m'}>
                         <Card title="MED" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                 </div>
