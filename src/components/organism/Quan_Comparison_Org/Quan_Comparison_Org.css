@@ -139,6 +139,12 @@ table tbody tr td
     color: #505050;
     font-size: 14px;
 }
+.exer-k-btn-2
+{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 55%;
+}
 .quan-k-rt-sidebar-container-1
 {
     display: flex;

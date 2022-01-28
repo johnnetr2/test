@@ -18,6 +18,11 @@ import Quan_Comp_E from './pages/category/quan-comp-e/Quan_Comp_E';
 import Quan_Comp_L from './pages/category/quan-comp-l/Quan_Comp_L';
 import Quan_Comp_M from './pages/category/quan-comp-m/Quan_Comp_M';
 import Quan_Comp_O from './pages/category/quan-comp-o/Quan_Comp_O';
+import Question_View_XYZ from './components/organism/Question-View-Xyz/Question_View_XYZ';
+import Question_View_NOG from './components/organism/Question-View-Nog/Question_View_NOG';
+import Question_View_MEK from './components/organism/Question-View-Mek/Question_View_MEK';
+import Question_View_ELF from './components/organism/Question-View-Elf/Question_View_ELF';
+import Question_View_DTK from './components/organism/Question-View-Dtk/Question_View_DTK';
 
 
 function App() {
@@ -42,8 +47,12 @@ function App() {
         <Route path="msg" element={<Message />} />
         <Route path="setting" element={<Setting />} />
         <Route path="logout" element={<Logout />} />
+        <Route path="/question-view-xyz" element={<Question_View_XYZ/>} />
+        <Route path="/question-view-nog" element={<Question_View_NOG/>} />
+        <Route path="/question-view-mek" element={<Question_View_MEK/>} />
+        <Route path="/question-view-elf" element={<Question_View_ELF/>} />
+        <Route path="/question-view-dtk" element={<Question_View_DTK/>} />
       </Routes>
-
     </div>
   );
 }

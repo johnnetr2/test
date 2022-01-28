@@ -1,13 +1,18 @@
-.exercise-btn-1 button
+.exercise-btn-1
 {
     height: 45px;
-    width: 61%;
-    margin: 15px 0;
+    width: 100%;
     border-radius: 5px;
     background-color: #0A1596;
     border: none;
     color: #fff;
     box-shadow: 3px 3px 6px #b5b5b5;
+}
+.exercise-btn-1 button
+{
+    color: #fff;
+    height: 45px;
+    width: 100%;
 }
 .exercise-btn-1 button:hover
 {

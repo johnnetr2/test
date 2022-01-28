@@ -1,5 +1,6 @@
 import React from 'react'
 import './Quan_Comp_X_Org.css'
+import { Link } from 'react-router-dom'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
 import '../../../components/atom/filled-btn/Filled_btn.css';
@@ -52,7 +53,7 @@ const Quan_Comp_X_Org = () => {
                     </div>
                 </div>
                 <div className="exer-x-btn-2">
-                    <Exercise_Btn />
+                    <Link to="/question-view-xyz"><Exercise_Btn title="Starta övningar"/></Link>
                 </div>
                 <div className="history-x">
                     <h2>Historia</h2>

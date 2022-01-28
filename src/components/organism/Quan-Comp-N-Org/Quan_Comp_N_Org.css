@@ -10,6 +10,12 @@
     display: flex;
     flex-wrap: wrap;
 }
+.exer-n-btn-2
+{
+    width: 55%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
 .quan-n-content-1
 {
     width: 85%;

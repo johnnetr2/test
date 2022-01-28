@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Quan_Comp_M_Org.css'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
@@ -53,7 +54,7 @@ const Quan_Comp_M_Org = () => {
                     </div>
                 </div>
                 <div className="exer-m-btn-2">
-                    <Exercise_Btn />
+                   <Link to="/question-view-mek"><Exercise_Btn title="Testa 5 exempelövningar"/></Link>
                 </div>
                 <div className="history-m">
                     <h2>Historia</h2>
