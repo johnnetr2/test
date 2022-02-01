@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
 import Barchart_Icon from '../../../assets/icons/bar_chart.svg'
 import Right_Arrow from '../../../assets/icons/right_arrow.svg'
 import Dtk_Img from '../../../assets/imgs/dtk-question.png'
@@ -11,9 +10,8 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
 import Exercise_Btn from '../../atom/exercise-btn/Exercise_Btn';
-// import Typography from '@mui/material/Typography';
 
-const Question_View_DTK = () => {
+const Result_Question_View_DTK = () => {
 
 
 
@@ -151,7 +149,7 @@ const Question_View_DTK = () => {
           <FormControlLabel value="female" control={<Radio />} label="2004" />
         </Box>
         <Box padding={1} m={2} sx={{ width: 615 }}>
-          <Link to="/result-question-view-dtk"><Exercise_Btn title="Nästa" /></Link>
+          <Exercise_Btn title="Nästa" />
         </Box>
       </Container>
     </Container>
@@ -159,4 +157,4 @@ const Question_View_DTK = () => {
   </div>;
 };
 
-export default Question_View_DTK;
+export default Result_Question_View_DTK;

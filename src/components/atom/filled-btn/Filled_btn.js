@@ -3,7 +3,7 @@ import './Filled_btn.css'
 const Filled_btn = ({title, onClick}) => {
     return (
         <div className="filled-btn-1">
-            <button onClick={onClick} >{title}</button>
+            <button onClick={onClick}>{title}</button>
         </div>
     )
 }

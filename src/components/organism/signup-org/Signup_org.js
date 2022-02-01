@@ -26,16 +26,17 @@ const Signup_org = () => {
 
     const clickHandler = (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        formData.append('fullName', register.fullName)
-        formData.append('email', register.email)
-        formData.append('password', register.password)
-        
+        const data = { 
+            fullName: register.fullName,
+            email: register.email,
+            password: register.password
+        }
+
         const URL = EndPoints.SignUp
-        instance.post(URL, formData).then(response => {
-            console.log(response, 'this is the api response')
+        instance.post(URL, data).then(response => {
+            console.log(response.data.user, 'this is the api response') 
             if (response.data.token) {
-                console.log(response.data.token, "this is the console of the token")
+                console.log(response.data, "this is the console of the token")
                 swal("Success!", "You have Registered Successfully", "success");
                 window.location.href = '/login'
             }
@@ -43,7 +44,7 @@ const Signup_org = () => {
             .catch((error) => {
                 console.log(error);
         })
-    }
+        }
 
     return (
         <div className="signup-org-1">
