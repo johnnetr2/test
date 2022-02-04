@@ -154,6 +154,13 @@ table tbody tr td
     height: fit-content;
 
 }
+.exer-l-btn-2
+{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 55%;
+}
+
 .quan-l-rt-sidebar-1 > h3
 {
     margin: 8% 0 0 10%;

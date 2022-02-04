@@ -12,7 +12,7 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Checkbox, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
 import Exercise_Btn from '../../atom/exercise-btn/Exercise_Btn';
 
-const Result_Question_View_DTK = () => {
+const Result_Question_View_LAS = () => {
 
 
 
@@ -97,7 +97,7 @@ const Result_Question_View_DTK = () => {
             <Toolbar>
                 <ArrowBackIosIcon color='black' sx={{ width: 100 }} />
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
-                    DTK
+                    LAS
                 </Typography>
                 <HelpOutlineIcon sx={{ width: 100 }} />
             </Toolbar>
@@ -107,22 +107,26 @@ const Result_Question_View_DTK = () => {
             <Container padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box mt={2} width={100} sx={{ color: '#222' }}><img src={Barchart_Icon} alt="" />8 av 12</Box>
-                    <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />10:45 min</Box>
+                    <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box>
                 </Box>
                 <Box mt={2}>
                     <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
                 </Box>
             </Container>
             <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 373, border: '1px solid #e1e1e1' }}>
+                <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 373, overflow: 'auto', border: '1px solid #e1e1e1' }}>
                     <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '0.7rem', fontWeight: '500' }}>
-                        3 uppgifter:
+                        4 uppgifter:
                     </Typography>
                     <Typography variant="h6" component='h6'>
-                        Teater och dans i siffror
+                        Ormbett
                     </Typography>
                     <Typography variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500' }}>
-                        Verksamhet och ekonomi för samtliga statligt stödda institutioner och fria grupper inom teater och dans åren 1997–2005.
+                        Varje år inträffar uppskattningsvis cirka 300 bett av huggorm (Vipera berus) i Sverige. De flesta bitna kommer i något skede i kontakt med sjukvården. I flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som blir in-tensivvårdskrävande. Dödsfall har förekommit, men det senaste kända fallet i Sverige ligger närmare 20 år till-baka i tiden.
+                    </Typography>
+                    <Typography mt={3} variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500' }}>
+                        Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv.
+                        För att försöka komma till rätta med flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som
                     </Typography>
                     <Box>
                         <img src={Dtk_Img} alt="" />
@@ -132,10 +136,10 @@ const Result_Question_View_DTK = () => {
                     <FormControlLabel control={<Checkbox />} />
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 500 }}>
                         <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem' }} variant='body1' component='body1'>
-                            Uppgift 8 av 12
+                            Uppgift 1 av 10
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Vilket år såg samtliga fem typer av institutioner och grupper sina intäkter ökajämfört med föregående år?
+                            Vad är enligt texten ett problem med effekten av de huggormsserum som används för närva-rande?
                         </Typography>
                         <Box style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: 10 }}>
                             <img src={Down_Arrow} className={classes.size} alt="" />
@@ -146,10 +150,10 @@ const Result_Question_View_DTK = () => {
                     <FormControlLabel control={<Checkbox />} />
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 500 }}>
                         <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem' }} variant='body1' component='body1'>
-                        Uppgift 9 av 12
+                            Uppgift 2 av 10
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                        Hur många besökare per föreställning hade de fria teatergrupperna det år då de gav som flest föreställningar?
+                            Vad bör man, enligt texten, i första hand observera för att bedöma hur tillståndet utvecklas för en ormbiten patient som är under behandling?
                         </Typography>
                         <Box style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: 10 }}>
                             <img src={Down_Arrow} className={classes.size} alt="" />
@@ -160,10 +164,24 @@ const Result_Question_View_DTK = () => {
                     <FormControlLabel control={<Checkbox defaultChecked />} />
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 500 }}>
                         <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem' }} variant='body1' component='body1'>
-                        Uppgift 10 av 12
+                            Uppgift 3 av 10
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                        Cirkeldiagrammet nedan illustrerar hur en totalsumma för år 2003 var fördelad procentuellt på de fem typerna av institutioner...
+                            Hur kan man sammanfatta textförfattarnas in-ställning till fasciotomi vid huggormsbett?
+                        </Typography>
+                        <Box style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: 10 }}>
+                            <img src={Down_Arrow} className={classes.size} alt="" />
+                        </Box>
+                    </Box>
+                </Box>
+                <Box paddingX={4} sx={{ backgroundColor: '#fff', width: 600, height: 120, border: '1px solid #e1e1e1', display: 'flex' }}>
+                    <FormControlLabel control={<Checkbox defaultChecked />} />
+                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 500 }}>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem' }} variant='body1' component='body1'>
+                            Uppgift 4 av 10
+                        </Typography>
+                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
+                        Hur kan man sammanfatta textförfattarnas in-ställning till fasciotomi vid huggormsbett?
                         </Typography>
                         <Box style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: 10 }}>
                             <img src={Down_Arrow} className={classes.size} alt="" />
@@ -180,4 +198,4 @@ const Result_Question_View_DTK = () => {
     </div>;
 };
 
-export default Result_Question_View_DTK;
+export default Result_Question_View_LAS;

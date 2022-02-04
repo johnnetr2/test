@@ -11,13 +11,9 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
 import Exercise_Btn from '../../atom/exercise-btn/Exercise_Btn';
-// import Typography from '@mui/material/Typography';
 
 const Question_View_DTK = () => {
-
-
-
-
+  
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: 'center',
@@ -129,7 +125,7 @@ const Question_View_DTK = () => {
             <img src={Dtk_Img} alt="" />
           </Box>
         </Box>
-        <Box paddingX={4} mt={5} sx={{ backgroundColor: '#f9f9f9', width: 600, height: 120, border: '1px solid #e1e1e1' }}>
+        <Box paddingX={4} mt={5} sx={{ backgroundColor: '#fff', width: 600, height: 120, border: '1px solid #e1e1e1' }}>
           <Box style={{display:'flex', justifyContent:'flex-end', alignItems:'center', marginTop:10}}>
             <Typography variant='body1' component="body1">1/3</Typography>
             <img src={Right_Arrow} className={classes.size} alt="" />
@@ -138,16 +134,16 @@ const Question_View_DTK = () => {
             Vilket år såg samtliga fem typer av institutioner och grupper sina intäkter ökajämfört med föregående år?
           </Typography>
         </Box>
-        <Box padding={1} sx={{ backgroundColor: '#f9f9f9', width: 600, border: '1px solid #e1e1e1' }}>
+        <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
           <FormControlLabel value="female" control={<Radio />} label="1998" />
         </Box>
-        <Box padding={1} sx={{ backgroundColor: '#f9f9f9', width: 600, border: '1px solid #e1e1e1' }}>
+        <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
           <FormControlLabel value="female" control={<Radio />} label="2000" />
         </Box>
-        <Box padding={1} sx={{ backgroundColor: '#f9f9f9', width: 600, border: '1px solid #e1e1e1' }}>
+        <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
           <FormControlLabel value="female" control={<Radio />} label="2002" />
         </Box>
-        <Box padding={1} sx={{ backgroundColor: '#f9f9f9', width: 600, border: '1px solid #e1e1e1' }}>
+        <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
           <FormControlLabel value="female" control={<Radio />} label="2004" />
         </Box>
         <Box padding={1} m={2} sx={{ width: 615 }}>
@@ -155,7 +151,6 @@ const Question_View_DTK = () => {
         </Box>
       </Container>
     </Container>
-
   </div>;
 };
 

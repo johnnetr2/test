@@ -13,7 +13,7 @@ const Question_View_MEK = () => {
     return <div>
         <div className="header-mek">
             <div className="back-btn-mek"><ion-icon name="chevron-back-outline" style={{ color: '#99999' }}></ion-icon></div>
-            <div className="main-head-mek">NOG</div>
+            <div className="main-head-mek">MEK</div>
             <div className="question-mark-v">?</div>
         </div>
         <div className="content-wrapper-mek">

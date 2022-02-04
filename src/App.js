@@ -23,7 +23,9 @@ import Question_View_NOG from './components/organism/Question-View-Nog/Question_
 import Question_View_MEK from './components/organism/Question-View-Mek/Question_View_MEK';
 import Question_View_ELF from './components/organism/Question-View-Elf/Question_View_ELF';
 import Question_View_DTK from './components/organism/Question-View-Dtk/Question_View_DTK';
-import Result_Question_View_DTK from './components/organism/signup-org/Signup_org';
+import Result_Question_View_DTK from './components/organism/Question-View-Dtk/Result_Question_View_DTK';
+import Question_View_LAS from './components/organism/Question-View-Las/Question_View_LAS';
+import Result_Question_View_LAS from './components/organism/Question-View-Las/Result_Question_View_LAS';
 
 
 function App() {
@@ -54,6 +56,8 @@ function App() {
         <Route path="/question-view-elf" element={<Question_View_ELF/>} />
         <Route path="/question-view-dtk" element={<Question_View_DTK/>} />
         <Route path="/result-question-view-dtk" element={<Result_Question_View_DTK/>} />
+        <Route path="/question-view-las" element={<Question_View_LAS/>} />
+        <Route path="/result-question-view-las" element={<Result_Question_View_LAS/>} />
       </Routes>
     </div>
   );
