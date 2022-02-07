@@ -1,10 +1,10 @@
 import React from 'react'
-import './Input_field.css'
+import TextField from '@mui/material/TextField';
 
 const Input_field = (props) => {
     return (
         <div className="input-field-1">
-            <input type={props?.type}/>
+            <TextField type={props.type} variant="outlined" size="small" sx={{width:'80%', marginTop:'1%'}}/>
         </div>
     )
 }

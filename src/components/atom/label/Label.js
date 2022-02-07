@@ -1,10 +1,10 @@
 import React from 'react'
-import './Label.css'
+import { Typography } from '@mui/material';
 
 const Label = (props) => {
     return (
         <div className="label-1">
-            <label htmlFor="">{props.title}</label>
+            <Typography variant="body1">{props.title}</Typography>
         </div>
     )
 }
