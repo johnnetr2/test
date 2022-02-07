@@ -4,7 +4,7 @@ import './Check_Field.css'
 
 
 
-const Check_Field = (props) => {
+const Check_Field = () => {
 
 
 
