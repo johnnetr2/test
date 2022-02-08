@@ -1,5 +1,6 @@
 /* .signup-org-1
 {
+    border: 1px solid purple;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

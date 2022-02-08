@@ -15,6 +15,7 @@
     width: 40%;
     position: fixed;
     height: 100vh;
+    border: 2px solid purple;
     background-color: #0A1596;
 }
 .side-img-inner-2
