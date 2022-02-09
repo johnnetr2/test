@@ -26,38 +26,41 @@ import Question_View_DTK from './components/organism/Question-View-Dtk/Question_
 import Result_Question_View_DTK from './components/organism/Question-View-Dtk/Result_Question_View_DTK';
 import Question_View_LAS from './components/organism/Question-View-Las/Question_View_LAS';
 import Result_Question_View_LAS from './components/organism/Question-View-Las/Result_Question_View_LAS';
+import Result_Summary_Org from './components/organism/Result-Summary-Org/Result_Summary_Org';
 
 
 function App() {
   return (
     <div className="App">
-      <Routes>   
-        <Route path="/second-popup" element={<Second_Popup/>} />
-        <Route path="/first-popup" element={<First_Popup/>} />
-        <Route path="/quan-comp-e" element={<Quan_Comp_E/>} />
-        <Route path="/quan-comp-n" element={<Quan_Comp_N/>} />
-        <Route path="/quan-comp-d" element={<Quan_Comp_D/>} />
-        <Route path="/quan-comp-k" element={<Quan_Comp_K/>} />
-        <Route path="/quan-comp-x" element={<Quan_Comp_X/>} />
-        <Route path="/quan-comp-l" element={<Quan_Comp_L/>} />
-        <Route path="/quan-comp-m" element={<Quan_Comp_M/>} />
-        <Route path="/quan-comp-o" element={<Quan_Comp_O/>} />
-        <Route path="/" element={<Signup/>} />
-        <Route path="login" element={<Login/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
+      <Routes>
+        <Route path="/second-popup" element={<Second_Popup />} />
+        <Route path="/first-popup" element={<First_Popup />} />
+        <Route path="/quan-comp-e" element={<Quan_Comp_E />} />
+        <Route path="/quan-comp-n" element={<Quan_Comp_N />} />
+        <Route path="/quan-comp-d" element={<Quan_Comp_D />} />
+        <Route path="/quan-comp-k" element={<Quan_Comp_K />} />
+        <Route path="/quan-comp-x" element={<Quan_Comp_X />} />
+        <Route path="/quan-comp-l" element={<Quan_Comp_L />} />
+        <Route path="/quan-comp-m" element={<Quan_Comp_M />} />
+        <Route path="/quan-comp-o" element={<Quan_Comp_O />} />
+        <Route path="/" element={<Signup />} />
+        <Route path="login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="courses" element={<Courses />} />
         <Route path="profile" element={<Profile />} />
         <Route path="msg" element={<Message />} />
         <Route path="setting" element={<Setting />} />
         <Route path="logout" element={<Logout />} />
-        <Route path="/question-view-xyz" element={<Question_View_XYZ/>} />
-        <Route path="/question-view-nog" element={<Question_View_NOG/>} />
-        <Route path="/question-view-mek" element={<Question_View_MEK/>} />
-        <Route path="/question-view-elf" element={<Question_View_ELF/>} />
-        <Route path="/question-view-dtk" element={<Question_View_DTK/>} />
-        <Route path="/result-question-view-dtk" element={<Result_Question_View_DTK/>} />
-        <Route path="/question-view-las" element={<Question_View_LAS/>} />
-        <Route path="/result-question-view-las" element={<Result_Question_View_LAS/>} />
+        <Route path="/question-view-xyz" element={<Question_View_XYZ />} />
+        <Route path="/question-view-nog" element={<Question_View_NOG />} />
+        <Route path="/question-view-mek" element={<Question_View_MEK />} />
+        <Route path="/question-view-elf" element={<Question_View_ELF />} />
+        <Route path="/question-view-dtk" element={<Question_View_DTK />} />
+        <Route path="/result-question-view-dtk" element={<Result_Question_View_DTK />} />
+        <Route path="/question-view-las" element={<Question_View_LAS />} />
+        <Route path="/result-question-view-las" element={<Result_Question_View_LAS />} />
+        <Route path="/result-summary-org" element={<Result_Summary_Org/>} />
+        
       </Routes>
     </div>
   );
