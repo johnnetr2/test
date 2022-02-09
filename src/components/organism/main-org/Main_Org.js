@@ -80,7 +80,6 @@ const Main = () => {
                     <div className="graph-box-1-3">
                         <h3>Utveckling</h3>
                         <div className="inner-box-1-3">
-                            <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
                     </div>

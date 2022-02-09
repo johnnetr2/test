@@ -223,19 +223,21 @@ table tbody tr td
     box-shadow: 1px 1px 8px #dfdfdf;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     background-color: #fff;
     margin: 5% 0 0  10%;
     width: 82%;
     height: 250px;
     border-radius: 5px;
-    padding: 10%;
 }
-.quan-x-inner-box-1-3 p
+.quan-x-inner-box-1-3 img
 {
-    font-size: 12px;
-    text-transform: uppercase;
-    margin: -25px 2px;
-    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
 }
 .quan-x-task
 {

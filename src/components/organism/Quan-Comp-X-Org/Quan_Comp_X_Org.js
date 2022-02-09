@@ -138,7 +138,6 @@ const Quan_Comp_X_Org = () => {
                             </div>
                         </div>
                         <div className="quan-x-inner-box-1-3">
-                            <p>Uppgifter</p>
                             <img src={Graph_2} alt="" />
                         </div>
                         <div className="quan-x-score-1">
@@ -146,7 +145,6 @@ const Quan_Comp_X_Org = () => {
                             <p>Gjorda uppgifter totalt</p>
                         </div>
                         <div className="quan-x-inner-box-1-3">
-                            <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
                     </div>
