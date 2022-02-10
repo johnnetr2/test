@@ -7,8 +7,6 @@ import Card from '../../../components/molecule/card/Card';
 import '../../../components/molecule/card/Card.css';
 
 
-
-
 const Main = () => {
 
     const navigate = useNavigate();

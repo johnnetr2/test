@@ -27,6 +27,8 @@ import Result_Question_View_DTK from './components/organism/Question-View-Dtk/Re
 import Question_View_LAS from './components/organism/Question-View-Las/Question_View_LAS';
 import Result_Question_View_LAS from './components/organism/Question-View-Las/Result_Question_View_LAS';
 import Result_Summary_Org from './components/organism/Result-Summary-Org/Result_Summary_Org';
+import Question_View_Sam_Dtk_Org from './components/organism/Question-View-Sam-Dtk-Org/Question_View_Sam_Dtk_Org';
+import Question_View_Sam_Xyz_Org from './components/organism/Question-View-Sam-Dtk-Org/Question_View_Sam_Xyz_Org';
 
 
 function App() {
@@ -59,8 +61,9 @@ function App() {
         <Route path="/result-question-view-dtk" element={<Result_Question_View_DTK />} />
         <Route path="/question-view-las" element={<Question_View_LAS />} />
         <Route path="/result-question-view-las" element={<Result_Question_View_LAS />} />
-        <Route path="/result-summary-org" element={<Result_Summary_Org/>} />
-        
+        <Route path="/result-summary-org" element={<Result_Summary_Org />} />
+        <Route path="/question-view-sam-dtk-org" element={<Question_View_Sam_Dtk_Org />} />
+        <Route path="/question-view-sam-xyz-org" element={<Question_View_Sam_Xyz_Org/>} />
       </Routes>
     </div>
   );
