@@ -106,8 +106,8 @@ const Question_View_DTK = () => {
           <Box mt={2} width={100} sx={{ color: '#222' }}><img src={Barchart_Icon} alt="" />8 av 12</Box>
           <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />10:45 min</Box>
         </Box>
-        <Box mt={2}>
-          <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
+        <Box mt={2} maxWidth="100" sx={{width:'100%'}}>
+          <LinearProgress color="primary" variant="determinate" value={progress} />
         </Box>
       </Container>
       <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>

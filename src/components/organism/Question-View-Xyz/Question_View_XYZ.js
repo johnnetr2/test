@@ -1,5 +1,6 @@
 import React from 'react';
 import './Question_View_XYZ.css'
+import { Link } from 'react-router-dom'
 import Bar_Chart from '../../../assets/icons/bar_chart.svg'
 import Clock from '../../../assets/icons/clock.svg'
 import Question_Option from '../../../assets/icons/question_option.svg'
@@ -70,7 +71,7 @@ const Question_View_XYZ = () => {
                     </div>
                 </div>
                 <div className="exercise-btn-main-xyz">
-                    <Exercise_Btn title="Nasta" />
+                    <Link className="exercise-btn-main-xyz link-main-exer" to="/result-summary-org"><Exercise_Btn title="Nasta" /></Link>
                 </div>
             </div>
         </div>
