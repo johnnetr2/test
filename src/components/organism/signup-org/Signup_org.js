@@ -3,7 +3,6 @@ import './Signup_org.css'
 import { Container, Typography, Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, Box } from '@mui/material'
 import Label_field from '../../../components/molecule/label-field/Label_field';
 import Filled_btn from '../../../components/atom/filled-btn/Filled_btn';
 import Outline_btn from '../../../components/atom/outline-btn/Outline_btn';
