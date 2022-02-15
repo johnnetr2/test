@@ -29,6 +29,8 @@ import Result_Question_View_LAS from './components/organism/Question-View-Las/Re
 import Result_Summary_Org from './components/organism/Result-Summary-Org/Result_Summary_Org';
 import Question_View_Sam_Dtk_Org from './components/organism/Question-View-Sam-Dtk-Org/Question_View_Sam_Dtk_Org';
 import Question_View_Sam_Xyz_Org from './components/organism/Question-View-Sam-Dtk-Org/Question_View_Sam_Xyz_Org';
+import Finish_Popup_XYZ from './components/molecule/finish-popup-xyz/Finish_Popup_XYZ';
+import Question_Save_Popup from './components/molecule/question-save-popup/Question_Save_Popup';
 
 
 function App() {
@@ -64,6 +66,8 @@ function App() {
         <Route path="/result-summary-org" element={<Result_Summary_Org />} />
         <Route path="/question-view-sam-dtk-org" element={<Question_View_Sam_Dtk_Org />} />
         <Route path="/question-view-sam-xyz-org" element={<Question_View_Sam_Xyz_Org/>} />
+        <Route path="/finish-popup-xyz" element={<Finish_Popup_XYZ/>} />
+        <Route path="/question-save-popup" element={<Question_Save_Popup/>} />
       </Routes>
     </div>
   );
