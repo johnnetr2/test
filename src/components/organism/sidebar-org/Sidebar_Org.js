@@ -21,7 +21,7 @@ const Sidebar = () => {
                 </Link>
             </div>
             <div className="Course-1">
-                <Link to="/courses">
+                <Link to="/courses-main">
                     <img src={Course} alt="course" />
                     <p>Simulera prov</p>
                 </Link>

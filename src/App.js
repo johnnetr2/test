@@ -18,6 +18,7 @@ import Quan_Comp_E from './pages/category/quan-comp-e/Quan_Comp_E';
 import Quan_Comp_L from './pages/category/quan-comp-l/Quan_Comp_L';
 import Quan_Comp_M from './pages/category/quan-comp-m/Quan_Comp_M';
 import Quan_Comp_O from './pages/category/quan-comp-o/Quan_Comp_O';
+import Courses_Main from './components/organism/courses-org/courses-main/Courses_Main';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/quan-comp-l" element={<Quan_Comp_L/>} />
         <Route path="/quan-comp-m" element={<Quan_Comp_M/>} />
         <Route path="/quan-comp-o" element={<Quan_Comp_O/>} />
+        <Route path="/courses-main" element={<Courses_Main/>} />
         <Route path="/" element={<Signup/>} />
         <Route path="login" element={<Login/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
