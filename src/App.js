@@ -44,6 +44,7 @@ function App() {
         <Route path="msg" element={<Message />} />
         <Route path="setting" element={<Setting />} />
         <Route path="logout" element={<Logout />} />
+        <Route path="courses-main" element={<Courses_Main/>} />
       </Routes>
 
     </div>
