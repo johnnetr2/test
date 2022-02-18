@@ -1,5 +1,9 @@
 import React from 'react'
 import Logo from '../../../../assets/icons/logo.svg'
+import Home from '../../../../assets/icons/homec.svg'
+import Course from '../../../../assets/icons/courses.svg'
+import Feedback from '../../../../assets/icons/msg.svg'
+import Profile from '../../../../assets/icons/profile.svg'
 import { Container, makeStyles, Typography } from "@material-ui/core";
 // import {
 //   Bookmark,
@@ -20,25 +24,26 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     backgroundColor: '#f9f9f9',
     color: "white",
-    paddingTop: theme.spacing(4),
+    paddingRight: theme.spacing(0),
+    paddingLeft: theme.spacing(0),
     backgroundColor: theme.palette.primary.main,
     position: "sticky",
     top: 0,
-    '& .MuiContainer-root': {
-      backgroundColor: '#f00',
-    },
-    '& .makeStyles-container-12': {
-      backgroundColor: '#f00',
+    [theme.breakpoints.down("sm")]: {
+      padding: 0,
+      backgroundColor: "#fff"
     },
     [theme.breakpoints.up("sm")]: {
-      backgroundColor: "white",
+      backgroundColor: "#fff",
       color: "#555",
       border: "1px solid #ece7e7",
     },
   },
   item: {
     display: "flex",
-    minWidth: '5rem',
+    flexDirection: 'column',
+    maxWidth: '10rem',
+    minHeight: '8rem',
     border: '1px solid #f0f',
     marginBottom: theme.spacing(4),
     [theme.breakpoints.up("sm")]: {
@@ -48,15 +53,12 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     height: '2rem',
-    marginRight: theme.spacing(1),
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "18px",
-    },
+    marginBottom: theme.spacing(1),
   },
   text: {
     fontSize: '0.65rem',
     textAlign: 'center',
-    border:'1px solid #0f0',
+    border: '1px solid #0f0',
     textTransform: 'uppercase',
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -71,23 +73,23 @@ const LeftBar = () => {
   return (
 
     <Container className={classes.container}>
-      <div className={classes.item}>
-        <img src={Logo} className={classes.icon, classes.text} />
+      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <img src={Logo} style={{ maxWidth: '5rem' }} />
       </div>
-      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center'}}>
-        {/* <Person className={classes.icon} /> */}
+      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center' }}>
+        <img src={Home} className={classes.icon} />
         <Typography variant="body1" component="body1" className={classes.text}>Dashboard</Typography>
       </div>
-      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center'}}>
-        {/* <List className={classes.icon} /> */}
-        <Typography variant="body1" component="body1" className={classes.text}>Simola prov</Typography>
+      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center' }}>
+        <img src={Course} className={classes.icon} />
+        <Typography variant="body1" component="body1" className={classes.text}>Simulera prov</Typography>
       </div>
-      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center'}}>
-        {/* <List className={classes.icon} /> */}
+      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center' }}>
+        <img src={Feedback} className={classes.icon} />
         <Typography variant="body1" component="body1" className={classes.text}>Feedback</Typography>
       </div>
       <div className={classes.item} style={{ display: 'flex', justifyContent: 'center' }}>
-        {/* <List className={classes.icon} /> */}
+        <img src={Profile} className={classes.icon} />
         <Typography variant="body1" component="body1" className={classes.text}>Profile</Typography>
       </div>
     </Container>
