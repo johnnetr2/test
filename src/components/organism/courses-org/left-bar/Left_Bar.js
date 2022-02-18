@@ -4,7 +4,7 @@ import Home from '../../../../assets/icons/homec.svg'
 import Course from '../../../../assets/icons/courses.svg'
 import Feedback from '../../../../assets/icons/msg.svg'
 import Profile from '../../../../assets/icons/profile.svg'
-import { Container, makeStyles, Typography } from "@material-ui/core";
+import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 // import {
 //   Bookmark,
 //   List,
@@ -26,9 +26,8 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     paddingRight: theme.spacing(0),
     paddingLeft: theme.spacing(0),
-    backgroundColor: theme.palette.primary.main,
-    position: "sticky",
-    top: 0,
+    position:'sticky',
+    top:0,
     [theme.breakpoints.down("sm")]: {
       padding: 0,
       backgroundColor: "#fff"
@@ -36,18 +35,18 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       backgroundColor: "#fff",
       color: "#555",
-      border: "1px solid #ece7e7",
     },
   },
   item: {
     display: "flex",
     flexDirection: 'column',
-    maxWidth: '10rem',
-    minHeight: '8rem',
-    border: '1px solid #f0f',
-    marginBottom: theme.spacing(4),
+    minHeight: '5rem',
+    marginBottom: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: '#0A1596'
+    },
     [theme.breakpoints.up("sm")]: {
-      marginBottom: theme.spacing(3),
+      marginBottom: theme.spacing(0),
       cursor: "pointer",
     },
   },
@@ -58,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
   text: {
     fontSize: '0.65rem',
     textAlign: 'center',
-    border: '1px solid #0f0',
     textTransform: 'uppercase',
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -73,9 +71,9 @@ const LeftBar = () => {
   return (
 
     <Container className={classes.container}>
-      <div className={classes.item} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <img src={Logo} style={{ maxWidth: '5rem' }} />
-      </div>
+      <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight:'5rem', borderBottom:'1px solid #e1e1e1' }}>
+        <img src={Logo} style={{ maxWidth: '4rem' }} />
+      </Box>
       <div className={classes.item} style={{ display: 'flex', justifyContent: 'center' }}>
         <img src={Home} className={classes.icon} />
         <Typography variant="body1" component="body1" className={classes.text}>Dashboard</Typography>

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 
-const Heading = () => {
+const Heading = (props) => {
   return (
     <div>
-        <Typography variant='h3' component="h3">Heading</Typography>
+        <Typography variant='h4' component="h4">{props.title}</Typography>
     </div>
   )
 }
