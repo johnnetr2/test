@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Quan_Comp_M_Org.css'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
@@ -53,7 +54,7 @@ const Quan_Comp_M_Org = () => {
                     </div>
                 </div>
                 <div className="exer-m-btn-2">
-                    <Exercise_Btn />
+                   <Link to="/question-view-mek"><Exercise_Btn title="Testa 5 exempelövningar"/></Link>
                 </div>
                 <div className="history-m">
                     <h2>Historia</h2>
@@ -119,7 +120,7 @@ const Quan_Comp_M_Org = () => {
                 <div className="quan-m-rt-sidebar-1">
                 <div className="learn-m-more">
                         <div className="learn-m-content">
-                            <h4>Uppgradera kategori</h4>
+                            <h5>Uppgradera kategori</h5>
                             <p>På demo kan du testa att göra 5 uppgifter. Lås upp kategori för att göra fler!</p>
                             <button>Lås upp kategorier</button>
                         </div>
@@ -148,7 +149,6 @@ const Quan_Comp_M_Org = () => {
                             </div>
                         </div>
                         <div className="quan-m-inner-box-1-3">
-                            <p>Uppgifter</p>
                             <img src={Graph_2} alt="" />
                         </div>
                         <div className="quan-m-score-1">
@@ -156,7 +156,6 @@ const Quan_Comp_M_Org = () => {
                             <p>Gjorda uppgifter totalt</p>
                         </div>
                         <div className="quan-m-inner-box-1-3">
-                            <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
                     </div>

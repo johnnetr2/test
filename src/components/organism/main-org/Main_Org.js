@@ -7,8 +7,6 @@ import Card from '../../../components/molecule/card/Card';
 import '../../../components/molecule/card/Card.css';
 
 
-
-
 const Main = () => {
 
     const navigate = useNavigate();
@@ -35,31 +33,31 @@ const Main = () => {
                 </div>
                 <div className="head-1-2">
                     <h3>Kvantativa sektion</h3>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-x'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="XYZ" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-k'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="KVA" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-n'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="NOG" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-d'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="DTK" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                 </div>
                 <div className="head-1-2">
                     <h3>Verbal Sektion</h3>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-e'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="ELF" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-l'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="LAS" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-o'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="ORD" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
-                    <div className="content-1-2" onClick={()=>window.location.href='/quan-comp-m'}>
+                    <div className="content-1-2" onClick={()=>window.location.href='/premium'}>
                         <Card title="MED" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                 </div>
@@ -80,7 +78,6 @@ const Main = () => {
                     <div className="graph-box-1-3">
                         <h3>Utveckling</h3>
                         <div className="inner-box-1-3">
-                            <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
                     </div>

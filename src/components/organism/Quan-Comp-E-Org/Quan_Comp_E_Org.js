@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Quan_Comp_E_Org.css'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
@@ -52,7 +53,7 @@ const Quan_Comp_E_Org = () => {
                     </div>
                 </div>
                 <div className="exer-e-btn-2">
-                    <Exercise_Btn />
+                    <Link to="/question-view-elf"><Exercise_Btn title="Starta övningar"/></Link>
                 </div>
                 <div className="history-e">
                     <h2>Historia</h2>
@@ -137,7 +138,6 @@ const Quan_Comp_E_Org = () => {
                             </div>
                         </div>
                         <div className="quan-e-inner-box-1-3">
-                            <p>Uppgifter</p>
                             <img src={Graph_2} alt="" />
                         </div>
                         <div className="quan-e-score-1">
@@ -145,7 +145,6 @@ const Quan_Comp_E_Org = () => {
                             <p>Gjorda uppgifter totalt</p>
                         </div>
                         <div className="quan-e-inner-box-1-3">
-                            <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import './Quan_Comp_D_Org.css'
+import { Link } from 'react-router-dom'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
 import '../../../components/atom/filled-btn/Filled_btn.css';
@@ -52,7 +53,7 @@ const Quan_Comp_D_Org = () => {
                     </div>
                 </div>
                 <div className="exer-d-btn-2">
-                    <Exercise_Btn />
+                    <Link to="/question-view-dtk"><Exercise_Btn title="Starta övningar" /></Link>
                 </div>
                 <div className="history-d">
                     <h2>Historia</h2>
@@ -137,7 +138,6 @@ const Quan_Comp_D_Org = () => {
                             </div>
                         </div>
                         <div className="quan-d-inner-box-1-3">
-                            <p>Uppgifter</p>
                             <img src={Graph_2} alt="" />
                         </div>
                         <div className="quan-d-score-1">
@@ -145,7 +145,6 @@ const Quan_Comp_D_Org = () => {
                             <p>Gjorda uppgifter totalt</p>
                         </div>
                         <div className="quan-d-inner-box-1-3">
-                            <p>Poäng</p>
                             <img src={Graph} alt="" />
                         </div>
                     </div>
