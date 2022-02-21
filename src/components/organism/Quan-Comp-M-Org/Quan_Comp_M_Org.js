@@ -4,9 +4,7 @@ import './Quan_Comp_M_Org.css'
 import Graph from '../../../assets/graph/graph.svg'
 import Graph_2 from '../../../assets/graph/graph_2.svg'
 import Thumb_2 from '../../../assets/imgs/thumb_2.png'
-import '../../../components/atom/filled-btn/Filled_btn.css';
 import Exercise_Btn from "../../../components/atom/exercise-btn/Exercise_Btn";
-import '../../../components/molecule/card/Card.css';
 import Outline_Box from '../../atom/outline-box/Outline_Box'
 import Outline_Field from '../../atom/outline-field/Outline_Field'
 

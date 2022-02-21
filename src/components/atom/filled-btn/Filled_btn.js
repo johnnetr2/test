@@ -1,9 +1,14 @@
 import React from 'react'
-import './Filled_btn.css'
-const Filled_btn = ({title, onClick}) => {
+import Button from '@mui/material/Button';
+
+const Filled_btn = (props) => {
     return (
         <div className="filled-btn-1">
-            <button onClick={onClick}>{title}</button>
+            <Button variant="contained" sx={{
+                backgroundColor: '#0A1596', '&:hover': {
+                    backgroundColor: '#0A1596', opacity: [1, 1, 0.9]
+                }, width: '80%', textDecoration: 'none', marginTop: '2%', marginBottom: '2%'
+            }}>{props.title}</Button>
         </div>
     )
 }

@@ -5,18 +5,6 @@ import Course from '../../../../assets/icons/courses.svg'
 import Feedback from '../../../../assets/icons/msg.svg'
 import Profile from '../../../../assets/icons/profile.svg'
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
-// import {
-//   Bookmark,
-//   List,
-//   ExitToApp,
-//   Home,
-//   Person,
-//   PhotoCamera,
-//   PlayCircleOutline,
-//   Settings,
-//   Storefront,
-//   TabletMac,
-// } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   container: {

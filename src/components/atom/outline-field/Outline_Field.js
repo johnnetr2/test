@@ -1,5 +1,4 @@
 import React from 'react'
-import './Outline_Field.css'
 import {Box, Checkbox, label} from '@mui/material';
 
 
@@ -14,7 +13,6 @@ const Outline_Field = (props) => {
             backgroundColor: '#fff',
             boxShadow:'1px 1px 8px #dfdfdf',
             borderRadius:'.25rem',
-            // marginTop:'.5rem',
             marginLeft:'.25rem',
             marginRight:'.25rem',
             border:'1px solid #e1e1e1',
