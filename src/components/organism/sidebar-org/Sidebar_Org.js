@@ -25,10 +25,10 @@ const Sidebar = () => {
                 </Link>
             </div>
             <div className="Course-1">
-                <a onClick={() => swal("Sorry!", "This page is under process", "info")}>
+                <Link to="/courses">
                     <img src={Course} alt="course" />
                     <p>Simulera prov</p>
-                </a>
+                </Link>
             </div>
             <div className="Message-1">
                 <a onClick={() => swal("Sorry!", "This page is under process", "info")}><img src={Message} alt="profile" />

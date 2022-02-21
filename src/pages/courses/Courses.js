@@ -1,11 +1,11 @@
 import React from 'react'
-import Sidebar from '../../components/organism/sidebar-org/Sidebar_Org'
+import Courses_Main from '../../components/organism/courses-org/courses-main/Courses_Main'
 
 
 const Courses = () => {
     return (
         <div>
-            <Sidebar/>
+            <Courses_Main/>
         </div>
     )
 }

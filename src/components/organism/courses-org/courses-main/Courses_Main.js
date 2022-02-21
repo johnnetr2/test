@@ -22,10 +22,10 @@ const Courses_Main = () => {
         <Grid item sm={1} xs={2} >
           <Left_Bar />
         </Grid>
-        <Grid item sm={8} xs={10}>
+        <Grid item sm={7} xs={10}>
           <Feed_Content />
         </Grid>
-        <Grid item sm={3} className={classes.right} style={{ border: '1px solid #212121' }}>
+        <Grid item sm={4} className={classes.right}>
           <Right_Bar />
         </Grid>
       </Grid>

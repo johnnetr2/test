@@ -25,6 +25,7 @@ import Question_View_Sam_Dtk_Org from './components/organism/Question-View-Sam-D
 import Question_View_Sam_Xyz_Org from './components/organism/Question-View-Sam-Dtk-Org/Question_View_Sam_Xyz_Org';
 import Finish_Popup_XYZ from './components/molecule/finish-popup-xyz/Finish_Popup_XYZ';
 import Question_Save_Popup from './components/molecule/question-save-popup/Question_Save_Popup';
+import CoursesCard from './components/molecule/CoursesCard/CoursesCard';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
         <Route path="/question-view-sam-xyz-org" element={<Question_View_Sam_Xyz_Org/>} />
         <Route path="/finish-popup-xyz" element={<Finish_Popup_XYZ/>} />
         <Route path="/question-save-popup" element={<Question_Save_Popup/>} />
+        <Route path="/coursescard" element={<CoursesCard/>} />
       </Routes>
     </div>
   );

@@ -8,9 +8,6 @@ import Outline_btn from '../../../components/atom/outline-btn/Outline_btn';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        border: '1px solid #212121'
-    },
-    container: {
         paddingRight: theme.spacing(0),
         paddingLeft: theme.spacing(0),
         marginRight: theme.spacing(0),
@@ -23,9 +20,9 @@ const Signup_org = () => {
     const classes = useStyles();
 
     return (
-        <Container maxWidth="1200" className={classes.container} sx={{ boxSizing: 'border-box', display: 'flex' }}>
-            <Container className={classes.container} sx={{ width: '50%', height:'100vh', backgroundColor: '#0A1596' }}></Container>
-            <Container sx={{ width: '50%',  display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
+        <Container maxWidth="1200" className={classes.root} sx={{ boxSizing: 'border-box', display: 'flex' }}>
+            <Container maxWidth="500" sx={{ width: '50%', height:'100vh', backgroundColor: '#0A1596' }}></Container>
+            <Container sx={{ width: '50%', marginTop:'2rem',  display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
                 <Box >
                     <Typography variant="h3">Registrering</Typography>
                     <Typography variant="body1">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Typography>
