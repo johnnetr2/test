@@ -28,6 +28,9 @@ import Question_Save_Popup from './components/molecule/question-save-popup/Quest
 import CoursesCard from './components/molecule/CoursesCard/CoursesCard';
 import ResultInformation from './components/organism/courses-org/CoursePages/ResultInformation/ResultInformation';
 import ProvPassInformation from './components/organism/courses-org/CoursePages/ProvPassInformation/ProvPassInformation';
+import StandardViewXyz from './components/organism/courses-org/CoursePages/StandardViewXyz/StandardViewXyz';
+import ProvPassNog from './components/organism/courses-org/CoursePages/ProvPassNog/ProvPassNog';
+
 
 
 function App() {
@@ -69,6 +72,8 @@ function App() {
         <Route path="/resultinfo" element={<ResultInformation />} />
         <Route path="/resultinfo" element={<ResultInformation />} />
         <Route path="/provpassinfo" element={<ProvPassInformation />} />
+        <Route path="/standardviewxyz" element={<StandardViewXyz/>} />
+        <Route path="/provpassnog" element={<ProvPassNog/>} />
       </Routes>
     </div>
   );
