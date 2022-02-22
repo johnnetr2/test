@@ -20,7 +20,7 @@ const Signup_org = () => {
     const classes = useStyles();
 
     return (
-        <Container maxWidth="1200" className={classes.root} sx={{ boxSizing: 'border-box', display: 'flex' }}>
+        <Container disableGutters maxWidth={false} sx={{ boxSizing: 'border-box', display: 'flex' }}>
             <Container maxWidth="500" sx={{ width: '50%', height:'100vh', backgroundColor: '#0A1596' }}></Container>
             <Container sx={{ width: '50%', marginTop:'2rem',  display: 'flex', justifyContent: 'center', alignItem: 'center' }}>
                 <Box >

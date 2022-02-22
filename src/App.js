@@ -26,6 +26,8 @@ import Question_View_Sam_Xyz_Org from './components/organism/Question-View-Sam-D
 import Finish_Popup_XYZ from './components/molecule/finish-popup-xyz/Finish_Popup_XYZ';
 import Question_Save_Popup from './components/molecule/question-save-popup/Question_Save_Popup';
 import CoursesCard from './components/molecule/CoursesCard/CoursesCard';
+import ResultInformation from './components/organism/courses-org/CoursePages/ResultInformation/ResultInformation';
+import ProvPassInformation from './components/organism/courses-org/CoursePages/ProvPassInformation/ProvPassInformation';
 
 
 function App() {
@@ -60,10 +62,13 @@ function App() {
         <Route path="/result-question-view-las" element={<Result_Question_View_LAS />} />
         <Route path="/result-summary-org" element={<Result_Summary_Org />} />
         <Route path="/question-view-sam-dtk-org" element={<Question_View_Sam_Dtk_Org />} />
-        <Route path="/question-view-sam-xyz-org" element={<Question_View_Sam_Xyz_Org/>} />
-        <Route path="/finish-popup-xyz" element={<Finish_Popup_XYZ/>} />
-        <Route path="/question-save-popup" element={<Question_Save_Popup/>} />
-        <Route path="/coursescard" element={<CoursesCard/>} />
+        <Route path="/question-view-sam-xyz-org" element={<Question_View_Sam_Xyz_Org />} />
+        <Route path="/finish-popup-xyz" element={<Finish_Popup_XYZ />} />
+        <Route path="/question-save-popup" element={<Question_Save_Popup />} />
+        <Route path="/coursescard" element={<CoursesCard />} />
+        <Route path="/resultinfo" element={<ResultInformation />} />
+        <Route path="/resultinfo" element={<ResultInformation />} />
+        <Route path="/provpassinfo" element={<ProvPassInformation />} />
       </Routes>
     </div>
   );
