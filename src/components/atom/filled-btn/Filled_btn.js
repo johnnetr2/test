@@ -7,7 +7,7 @@ const Filled_btn = (props) => {
             <Button variant="contained" sx={{
                 backgroundColor: '#0A1596', '&:hover': {
                     backgroundColor: '#0A1596', opacity: [1, 1, 0.9]
-                }, width: '80%', textDecoration: 'none', marginTop: '2%', marginBottom: '2%'
+                }, width: '100%', textDecoration: 'none'
             }}>{props.title}</Button>
         </div>
     )

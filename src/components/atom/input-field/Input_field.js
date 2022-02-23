@@ -1,10 +1,11 @@
 import React from 'react'
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
+import { Input } from 'reactstrap';
 
 const Input_field = (props) => {
     return (
         <div className="input-field-1">
-            <TextField type={props.type} variant="outlined" size="small" sx={{width:'80%', marginTop:'1%'}}/>
+            <Input type={props.type} placeholder={props.placeholder} style={{width:'100%', height:'3rem', marginTop:'.5rem', marginBottom:'1rem'}}/>
         </div>
     )
 }

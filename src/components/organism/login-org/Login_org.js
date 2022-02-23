@@ -8,20 +8,26 @@ import './Login_org.css'
 
 const Login_org = () => {
     return (
-        <Container sx={{margin:0, padding:0, boxSizing:'border-box', display:'flex'}}>
-            <Container sx={{height:'100vh', width:'50%', backgroundColor:'#0A1596'}}></Container>
-            <Container sx={{width:'50%', margin:5}} >
-            <Box>
-                <Typography variant="h3" >Logga in</Typography>
-                <Typography variant="body1" >Lorem ipsum, dolor sit amet consectetur adipisicing elit</Typography>
-                <Label_field type='text' title="Email" />
-                <Label_field type='password' title="Password" />
-                <Link to="#">Glomt losenord?</Link>
-                <Link style={{textDecoration:'none'}} to="/dashboard"><Filled_btn title="Logga in" /></Link>
-                <Typography variant="body1" >eller</Typography>
-                <Outline_btn title="Logga in Med Google" />
-                <Typography variant="body1">Har du ingte konto? <Link to="#">Skapa konto har</Link></Typography>
-            </Box>
+        <Container disableGutters maxWidth={false} sx={{ boxSizing: 'border-box', display: 'flex' }}>
+            <Container disableGutters sx={{ minHeight: 'fit-content', width: '40%', backgroundColor: '#0A1596' }}></Container>
+            <Container disableGutters sx={{ width: '60%', padding: '4rem', display: 'flex', justifyContent: 'center', alignItem: 'center' }} >
+                <Box>
+                    <Box sx={{ marginBottom: '1rem' }}>
+                        <Typography variant="h3" sx={{ marginBottom: '1rem' }}>Logga in</Typography>
+                        <Typography variant="body2" >Lorem ipsum, dolor sit amet consectetur adipisicing elit</Typography>
+                    </Box>
+                    <Label_field type='text' placeholder="Email" title="Email" />
+                    <Label_field type='password' placeholder="Password" title="Password" />
+                    <Link to="#">Glomt losenord?</Link>
+                    <Box sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                        <Link style={{ textDecoration: 'none' }} to="/dashboard"><Filled_btn title="Logga in" /></Link>
+                    </Box>
+                    <Typography variant="body1" >eller</Typography>
+                    <Box sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                        <Outline_btn title="Logga in Med Google" />
+                    </Box>
+                    <Typography variant="body1">Har du ingte konto? <Link to="#">Skapa konto har</Link></Typography>
+                </Box>
             </Container>
         </Container>
     )

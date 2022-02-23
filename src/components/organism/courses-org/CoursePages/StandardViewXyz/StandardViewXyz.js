@@ -119,8 +119,8 @@ const StandardViewXyz = () => {
                 </Box>
             </Container>
             <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <Box style={{marginLeft:'70rem', width:'10rem', display:'flex', justifyContent:'center'}}>
-                    <Button style={{width:'6rem', border:'1px solid #0A1596', color:'#0A1596'}}> <img style={{width:'1rem', marginRight:'.5rem'}} src={StarIcon} alt="" /> Spara</Button>
+                <Box style={{ marginLeft: '70rem', width: '10rem', display: 'flex', justifyContent: 'center' }}>
+                    <Button style={{ width: '6rem', border: '1px solid #0A1596', color: '#0A1596' }}> <img style={{ width: '1rem', marginRight: '.5rem' }} src={StarIcon} alt="" /> Spara</Button>
                 </Box>
                 <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 280, border: '1px solid #e1e1e1', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <Typography variant="subtitle1" style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: 30 }}>
@@ -164,9 +164,15 @@ const StandardViewXyz = () => {
                     </Box>
                 </Box>
                 <Box padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={Left_Arrow} alt="" /> <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem' }}>Föregående</Typography></Box>
-                    <Box><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>överblick</Typography></Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem' }}>Nästa</Typography><img src={Right_Arrow} alt="" /></Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={Left_Arrow} alt="" />
+                        <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem' }}>Föregående</Typography>
+                    </Box>
+                    <Box>
+                        <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>överblick</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                        <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem' }}>Nästa</Typography><img src={Right_Arrow} alt="" />
+                    </Box>
                 </Box>
             </Container>
         </Container>

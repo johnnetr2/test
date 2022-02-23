@@ -6,7 +6,7 @@ const Label_field = (props) => {
     return (
         <div className="label-field-1">
             <Label title={props?.title}/>
-            <Input_field type={props?.type}/>
+            <Input_field type={props?.type} placeholder={props?.placeholder}/>
         </div>
     )
 }

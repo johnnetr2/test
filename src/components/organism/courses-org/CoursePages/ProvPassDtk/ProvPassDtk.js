@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import Barchart_Icon from '../../../../../assets/icons/bar_chart.svg'
 import Right_Arrow from '../../../../../assets/icons/right_arrow.svg'
+import Dtk_Img from '../../../../../assets/imgs/dtk-question.png'
 import Left_Arrow from '../../../../../assets/icons/left_arrow.svg'
 import StarIcon from '../../../../../assets/icons/StarIcon.svg'
-import NogFigure from '../../../../../assets/icons/nog_figure.svg'
 import Clock from '../../../../../assets/icons/clock.svg'
 import { styled } from '@mui/material/styles';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -14,7 +14,7 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, Button, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
 import Exercise_Btn from '../../../../atom/exercise-btn/Exercise_Btn';
 
-const ProvPassNog = () => {
+const ProvPassDtk = () => {
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -96,14 +96,14 @@ const ProvPassNog = () => {
             <Toolbar>
                 <ArrowBackIosIcon color='black' sx={{ width: 100 }} />
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
-                    NOG
+                    DTK
                 </Typography>
                 <HelpOutlineIcon sx={{ width: 100 }} />
             </Toolbar>
         </AppBar>
 
-        <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
-            <Container padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
+        <Container maxWidth={false} style={{ backgroundColor: '#fff', height: 'fit-content' }} >
+            <Container disableGutters padding={0} maxWidth={"md"} style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box mt={2} width={100} sx={{ color: '#222' }}><img src={Barchart_Icon} alt="" />1 av 10</Box>
                     <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box>
@@ -114,46 +114,45 @@ const ProvPassNog = () => {
             </Container>
             <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                 <Box style={{ marginLeft: '70rem', width: '10rem', display: 'flex', justifyContent: 'center' }}>
-                    <Button style={{ width: '6rem', border: '1px solid #0A1596', color: '#0A1596' }}> <img style={{ width: '1rem', marginRight: '.5rem' }} src={StarIcon} alt="" /> Spara</Button>
+                    <Button style={{ width: '6rem', border: '1px solid #0A1596', color: '#0A1596' }}> <img style={{ width: '1rem', marginRight: '.5rem' }} src={StarIcon} alt="" />
+                        Spara
+                    </Button>
                 </Box>
-                <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 373, overflow: 'auto', border: '1px solid #e1e1e1' }}>
-                    {/* <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
-                        5 uppgifter:
-                    </Typography> */}
-                    <Typography variant="h6" component='h6' style={{ fontSize: '0.85rem', fontWeight: 550, marginTop: 20 }}>
-                        Vilka koordinater har punkten A?
+                <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 373, border: '1px solid #e1e1e1' }}>
+                    <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
+                        3 uppgifter:
+                    </Typography>
+                    <Typography variant="h6" component='h6'>
+                        Teater och dans i siffror
+                    </Typography>
+                    <Typography variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500' }}>
+                        Verksamhet och ekonomi för samtliga statligt stödda institutioner och fria grupper inom teater och dans åren 1997–2005.
                     </Typography>
                     <Box>
-                        <img src={NogFigure} alt="" />
+                        <img src={Dtk_Img} alt="" />
                     </Box>
-                    <Typography mt={8} variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500' }}>
-                        (1) Triangelns area är 30 areaenheter.
-                    </Typography>
-                    <Typography mt={3} variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500' }}>
-                        (2)	Sträckan AC är 13 längdenheter.
-                    </Typography>
                 </Box>
                 <Box paddingX={4} mt={5} sx={{ display: 'flex', alignItems: 'center', backgroundColor: '#fff', width: 600, height: 90, border: '1px solid #e1e1e1' }}>
                     <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                        Tillräcklig information för lösningen erhålls
+                        Vilket år såg samtliga fem typer av institutioner och grupper sina intäkter ökajämfört med föregående år?
                     </Typography>
                 </Box>
                 <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
-                    <FormControlLabel value="female" control={<Radio />} label="i (1) men ej i (2)" />
+                    <FormControlLabel value="female" control={<Radio />} label="1998" />
                 </Box>
                 <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
-                    <FormControlLabel value="female" control={<Radio />} label="i (2) men ej i (1)" />
+                    <FormControlLabel value="female" control={<Radio />} label="2000" />
                 </Box>
                 <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
-                    <FormControlLabel value="female" control={<Radio />} label="i (1) tillsammans med (2)" />
+                    <FormControlLabel value="female" control={<Radio />} label="2002" />
                 </Box>
                 <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
-                    <FormControlLabel value="female" control={<Radio />} label="i (1) och (2) var för sig" />
+                    <FormControlLabel value="female" control={<Radio />} label="2004" />
                 </Box>
                 <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
                     <FormControlLabel value="female" control={<Radio />} label="ej genom de båda påståendena" />
                 </Box>
-                <Box padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
+                <Box padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={Left_Arrow} alt="" />
                         <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem' }}>Föregående
                         </Typography>
@@ -174,4 +173,4 @@ const ProvPassNog = () => {
     </div>;
 };
 
-export default ProvPassNog;
+export default ProvPassDtk;

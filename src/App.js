@@ -30,6 +30,7 @@ import ResultInformation from './components/organism/courses-org/CoursePages/Res
 import ProvPassInformation from './components/organism/courses-org/CoursePages/ProvPassInformation/ProvPassInformation';
 import StandardViewXyz from './components/organism/courses-org/CoursePages/StandardViewXyz/StandardViewXyz';
 import ProvPassNog from './components/organism/courses-org/CoursePages/ProvPassNog/ProvPassNog';
+import ProvPassDtk from './components/organism/courses-org/CoursePages/ProvPassDtk/ProvPassDtk';
 
 
 
@@ -60,12 +61,12 @@ function App() {
         <Route path="/question-view-mek" element={<Question_View_MEK />} />
         <Route path="/question-view-elf" element={<Question_View_ELF />} />
         <Route path="/question-view-dtk" element={<Question_View_DTK />} />
-        <Route path="/result-question-view-dtk" element={<Result_Question_View_DTK />} />
+        <Route path="/result-question-view-dtk" element={<Result_Question_View_DTK />}/>
         <Route path="/question-view-las" element={<Question_View_LAS />} />
-        <Route path="/result-question-view-las" element={<Result_Question_View_LAS />} />
+        <Route path="/result-question-view-las" element={<Result_Question_View_LAS />}/>
         <Route path="/result-summary-org" element={<Result_Summary_Org />} />
-        <Route path="/question-view-sam-dtk-org" element={<Question_View_Sam_Dtk_Org />} />
-        <Route path="/question-view-sam-xyz-org" element={<Question_View_Sam_Xyz_Org />} />
+        <Route path="/question-view-sam-dtk-org" element={<Question_View_Sam_Dtk_Org/>} />
+        <Route path="/question-view-sam-xyz-org" element={<Question_View_Sam_Xyz_Org/>} />
         <Route path="/finish-popup-xyz" element={<Finish_Popup_XYZ />} />
         <Route path="/question-save-popup" element={<Question_Save_Popup />} />
         <Route path="/coursescard" element={<CoursesCard />} />
@@ -74,6 +75,7 @@ function App() {
         <Route path="/provpassinfo" element={<ProvPassInformation />} />
         <Route path="/standardviewxyz" element={<StandardViewXyz/>} />
         <Route path="/provpassnog" element={<ProvPassNog/>} />
+        <Route path="/provpassdtk" element={<ProvPassDtk/>} />
       </Routes>
     </div>
   );
