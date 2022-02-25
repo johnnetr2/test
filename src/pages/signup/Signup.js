@@ -1,7 +1,6 @@
 import React from 'react'
-import Signup_org from '../../components/organism/signup-org/Signup_org';
-import SideImg from '../../assets/imgs/side_img.png'
-import './Signup.css'
+import SignupOrg from '../../components/organism/SignupOrg/SignupOrg';
+
 
 const Signup = () => {
     return (
@@ -10,7 +9,7 @@ const Signup = () => {
             </div>
             <div className="right-section-2">
                 <form action="">
-                    <Signup_org/>
+                    <SignupOrg/>
                 </form>
             </div>
         </div>

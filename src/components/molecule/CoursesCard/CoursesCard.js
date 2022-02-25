@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Container, Box, Typography, Stack, Chip, Button } from '@mui/material'
-import ellipsis from '../../../assets/icons/ellipsis.svg' 
+import Ellipsis from '../../../assets/Icons/Ellipsis.svg' 
 
 const useStyles = makeStyles((theme) =>
 ({
@@ -35,7 +35,7 @@ const CoursesCard = () => {
 
                 <Box sx={{margin:'0.25rem'}}>
                     <Box sx={{ display:'flex', justifyContent:'flex-end'}}>
-                        <img src={ellipsis} alt="" />
+                        <img src={Ellipsis} alt="" />
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Box>

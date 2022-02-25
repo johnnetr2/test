@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from '../../components/organism/sidebar-org/Sidebar_Org'
+import Sidebar from '../../components/organism/SidebarOrg/SidebarOrg'
 
 
 const Message = () => {

@@ -1,9 +1,9 @@
 import React from 'react'
-import Logo from '../../../../assets/icons/logo.svg'
-import Home from '../../../../assets/icons/homec.svg'
-import Course from '../../../../assets/icons/courses.svg'
-import Feedback from '../../../../assets/icons/msg.svg'
-import Profile from '../../../../assets/icons/profile.svg'
+import Logo from '../../../../assets/Icons/Logo.svg'
+import Home from '../../../../assets/Icons/HomeC.svg'
+import Course from '../../../../assets/Icons/Courses.svg'
+import Feedback from '../../../../assets/Icons/Msg.svg'
+import Profile from '../../../../assets/Icons/Profile.svg'
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography, Box } from '@mui/material';
-import Progress_Bar from '../../../components/atom/progress-bar/Progress_Bar';
+import Progress_Bar from '../../atom/ProgressBar/ProgressBar';
 
 const Card = (props) => {
     return (
@@ -11,8 +11,7 @@ const Card = (props) => {
                 <Box sx={{width:'90%'}}>
                 <Progress_Bar/>
                 </Box>
-            </Box>
-           
+            </Box>     
             <Box sx={{ display:'flex', justifyContent:'center', alignItems:'center', width:'20%'}}>
             <Typography variant="h4" mr={1} >0.0</Typography>
             <Typography variant="body1"  sx={{fontSize:'.75rem'}}>Prognos</Typography>

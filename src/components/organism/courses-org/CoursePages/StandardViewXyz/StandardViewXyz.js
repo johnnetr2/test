@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import Barchart_Icon from '../../../../../assets/icons/bar_chart.svg'
-import Right_Arrow from '../../../../../assets/icons/right_arrow.svg'
-import Left_Arrow from '../../../../../assets/icons/left_arrow.svg'
-import StarIcon from '../../../../../assets/icons/StarIcon.svg'
-import Increment from '../../../../../assets/icons/increment.svg'
-import Decrement from '../../../../../assets/icons/decrement.svg'
-import Question_Option from '../../../../../assets/icons/question_option.svg'
-import Pie_Chart from '../../../../../assets/imgs/single_pie_chart.png'
-import Dtk_Img from '../../../../../assets/imgs/dtk-question.png'
-import Clock from '../../../../../assets/icons/clock.svg'
-import { styled } from '@mui/material/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import BarChart from '../../../../../assets/Icons/BarChart.svg'
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
+import LeftArrow from '../../../../../assets/Icons/LeftArrow.svg'
+import StarIcon from '../../../../../assets/Icons/StarIcon.svg'
+import Clock from '../../../../../assets/Icons/Clock.svg'
+import Increment from '../../../../../assets/Icons/Increment.svg'
+import Decrement from '../../../../../assets/Icons/Decrement.svg'
+import QuestionOption from '../../../../../assets/Icons/QuestionOption.svg'
+import PieChart from '../../../../../assets/Imgs/SinglePieChart.png'
+import DtkImg from '../../../../../assets/Imgs/DtkQuestion.png'
+import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, Button, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
+import { Typography, AppBar, Paper, Box, CssBaseline, Grid, Radio, Button, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
 
 const StandardViewXyz = () => {
 
@@ -100,7 +99,7 @@ const StandardViewXyz = () => {
             position='absolute'
         >
             <Toolbar>
-                <ArrowBackIosIcon color='black' sx={{ width: 100 }} />
+                {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     XYZ
                 </Typography>
@@ -111,7 +110,7 @@ const StandardViewXyz = () => {
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
             <Container padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={Barchart_Icon} alt="" />10 av 40</Box>
+                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />10 av 40</Box>
                     <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />43:00 min</Box>
                 </Box>
                 <Box mt={2}>
@@ -135,7 +134,7 @@ const StandardViewXyz = () => {
                         <Box sx={{ display: 'flex' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
                                 <FormControlLabel style={{ marginLeft: '.5rem' }} value="A" control={<Radio />} label="A" /></Box>
-                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={Question_Option} alt="" /></Box>
+                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={QuestionOption} alt="" /></Box>
 
                         </Box>
                     </Box>
@@ -143,7 +142,7 @@ const StandardViewXyz = () => {
                         <Box sx={{ display: 'flex' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
                                 <FormControlLabel style={{ marginLeft: '.5rem' }} value="B" control={<Radio />} label="B" /></Box>
-                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={Question_Option} alt="" /></Box>
+                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={QuestionOption} alt="" /></Box>
 
                         </Box>
                     </Box>
@@ -151,7 +150,7 @@ const StandardViewXyz = () => {
                         <Box sx={{ display: 'flex' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
                                 <FormControlLabel style={{ marginLeft: '.5rem' }} value="C" control={<Radio />} label="C" /></Box>
-                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={Question_Option} alt="" /></Box>
+                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={QuestionOption} alt="" /></Box>
 
                         </Box>
                     </Box>
@@ -159,19 +158,19 @@ const StandardViewXyz = () => {
                         <Box sx={{ display: 'flex' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
                                 <FormControlLabel style={{ marginLeft: '.5rem' }} value="D" control={<Radio />} label="D" /></Box>
-                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={Question_Option} alt="" /></Box>
+                            <Box mt={2} ml={5}><img className={classes.piechart_size} src={QuestionOption} alt="" /></Box>
                         </Box>
                     </Box>
                 </Box>
                 <Box padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={Left_Arrow} alt="" />
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={LeftArrow} alt="" />
                         <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem' }}>Föregående</Typography>
                     </Box>
                     <Box>
                         <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>överblick</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                        <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem' }}>Nästa</Typography><img src={Right_Arrow} alt="" />
+                        <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem' }}>Nästa</Typography><img src={RightArrow} alt="" />
                     </Box>
                 </Box>
             </Container>

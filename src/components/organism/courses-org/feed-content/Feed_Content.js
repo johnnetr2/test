@@ -1,9 +1,9 @@
 import React from 'react'
 import { Container, makeStyles, Typography, Box, TextField, Button } from "@material-ui/core";
 import { Link } from 'react-router-dom'
-import searchIcon from '../../../../assets/icons/searchIcon.svg'
-import Heading from '../../../atom/heading/Heading'
-import BodyText from '../../../atom/body-text/BodyText';
+import SearchIcon from '../../../../assets/Icons/SearchIcon.svg'
+import Heading from '../../../atom/Heading/Heading'
+import BodyText from '../../../atom/BodyText/BodyText';
 import CoursesCard from '../../../molecule/CoursesCard/CoursesCard';
 
 const useStyles = makeStyles((theme) =>
@@ -34,7 +34,7 @@ const FeedContent = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid #e5e5e5', borderRadius: '.5rem', width: '15rem', padding: '.5rem' }}>
             <TextField type="search" placeholder='Sök prov mellan 2015-2021' />
             <Box>
-              <img style={{ marginLeft: '1rem' }} src={searchIcon} alt="" />
+              <img style={{ marginLeft: '1rem' }} src={SearchIcon} alt="" />
             </Box>
           </Box>
         </Box>

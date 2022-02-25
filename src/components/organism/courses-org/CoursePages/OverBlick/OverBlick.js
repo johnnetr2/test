@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import Right_Arrow from '../../../../../assets/icons/right_arrow.svg'
-import Tick from '../../../../../assets/icons/Tick.svg'
-import YellowStar from '../../../../../assets/icons/YellowStar.svg'
-import Warning from '../../../../../assets/icons/Warning.svg'
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
+import Tick from '../../../../../assets/Icons/Tick.svg'
+import YellowStar from '../../../../../assets/Icons/YellowStar.svg'
+import Warning from '../../../../../assets/Icons/Warning.svg'
 import { styled } from '@mui/material/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { makeStyles } from '@material-ui/core/styles'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Typography, AppBar, Paper, Box, CssBaseline, Toolbar, Container, Button } from '@material-ui/core';
 
 const OverBlick = () => {
@@ -74,11 +72,10 @@ const OverBlick = () => {
             position='absolute'
         >
             <Toolbar>
-                <ArrowBackIosIcon color='black' sx={{ width: 100 }} />
+                {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     Överblick
                 </Typography>
-                <HelpOutlineIcon sx={{ width: 100 }} />
             </Toolbar>
         </AppBar>
 
@@ -111,7 +108,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -120,27 +117,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '30rem', height: '4rem', marginBottom:'1rem' }}>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
-                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
-                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
-                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
-                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -151,7 +128,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -160,27 +137,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '30rem', height: '4rem', marginBottom:'1rem' }}>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
-                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
-                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
-                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
-                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -191,7 +148,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -200,27 +157,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '30rem', height: '4rem', marginBottom:'1rem' }}>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
-                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
-                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
-                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
-                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -231,7 +168,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -240,7 +177,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -251,7 +188,7 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -260,7 +197,67 @@ const OverBlick = () => {
                                     <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img style={{ marginRight: '1rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '30rem', height: '4rem', marginBottom:'1rem' }}>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
+                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
+                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
+                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
+                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '30rem', height: '4rem', marginBottom:'1rem' }}>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
+                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
+                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
+                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
+                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '30rem', height: '4rem', marginBottom:'1rem' }}>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
+                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
+                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '14rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', width: '10rem', alignItems: 'center', padding: '1rem' }}>
+                                    <img style={{ width: '1rem', marginRight: '1rem' }} src={Tick} alt="" />
+                                    <Typography variant='body2' sx={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img style={{ marginRight: '1rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>

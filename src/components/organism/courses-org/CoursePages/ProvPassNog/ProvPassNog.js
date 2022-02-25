@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import Barchart_Icon from '../../../../../assets/icons/bar_chart.svg'
-import Right_Arrow from '../../../../../assets/icons/right_arrow.svg'
-import Left_Arrow from '../../../../../assets/icons/left_arrow.svg'
-import StarIcon from '../../../../../assets/icons/StarIcon.svg'
-import NogFigure from '../../../../../assets/icons/nog_figure.svg'
-import Clock from '../../../../../assets/icons/clock.svg'
+import BarChart from '../../../../../assets/Icons/BarChart.svg'
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
+import LeftArrow from '../../../../../assets/Icons/LeftArrow.svg'
+import StarIcon from '../../../../../assets/Icons/StarIcon.svg'
+import NogFigure from '../../../../../assets/Icons/NogFigure.svg'
+import Clock from '../../../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { makeStyles } from '@material-ui/core/styles'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, Button, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import Exercise_Btn from '../../../../atom/exercise-btn/Exercise_Btn';
+import Exercise_Btn from '../../../../atom/ExerciseBtn/ExerciseBtn';
 
 const ProvPassNog = () => {
 
@@ -94,18 +91,17 @@ const ProvPassNog = () => {
             position='absolute'
         >
             <Toolbar>
-                <ArrowBackIosIcon color='black' sx={{ width: 100 }} />
+                {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     NOG
                 </Typography>
-                <HelpOutlineIcon sx={{ width: 100 }} />
             </Toolbar>
         </AppBar>
 
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
             <Container padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={Barchart_Icon} alt="" />1 av 10</Box>
+                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />1 av 10</Box>
                     <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box>
                 </Box>
                 <Box mt={2}>
@@ -154,7 +150,7 @@ const ProvPassNog = () => {
                     <FormControlLabel value="female" control={<Radio />} label="ej genom de båda påståendena" />
                 </Box>
                 <Box padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={Left_Arrow} alt="" />
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={LeftArrow} alt="" />
                         <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem' }}>Föregående
                         </Typography>
                     </Box>
@@ -166,7 +162,7 @@ const ProvPassNog = () => {
                         <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem' }}>
                             Nästa
                         </Typography>
-                        <img src={Right_Arrow} alt="" />
+                        <img src={RightArrow} alt="" />
                     </Box>
                 </Box>
             </Container>

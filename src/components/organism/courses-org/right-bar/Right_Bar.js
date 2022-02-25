@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, makeStyles, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@material-ui/core";
-import thumb from '../../../../assets/imgs/thumb.png'
+import Thumb from '../../../../assets/Imgs/Thumb.png'
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
@@ -75,7 +75,7 @@ const RightBar = () => {
                 <Button contained style={{backgroundColor:'#0A1596', textTransform:'capitalize', color:'#fff', width:'8rem'}}>Lås upp prov</Button>
             </Box>
             <Box>
-              <img style={{width:'6rem'}} src={thumb} alt="" />
+              <img style={{width:'6rem'}} src={Thumb} alt="" />
             </Box>
           </Box>
         </Box>

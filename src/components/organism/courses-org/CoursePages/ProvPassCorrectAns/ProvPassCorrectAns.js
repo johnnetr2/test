@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Right_Arrow from '../../../../../assets/icons/right_arrow.svg'
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
 import { styled } from '@mui/material/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { makeStyles } from '@material-ui/core/styles'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Typography, Checkbox, AppBar, Paper, Box, CssBaseline, Toolbar, Container } from '@material-ui/core';
 
 const ProvPassCorrectAns = () => {
@@ -72,11 +70,9 @@ const ProvPassCorrectAns = () => {
             position='absolute'
         >
             <Toolbar>
-                <ArrowBackIosIcon color='black' sx={{ width: 100 }} />
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     Rättad överblick
                 </Typography>
-                <HelpOutlineIcon sx={{ width: 100 }} />
             </Toolbar>
         </AppBar>
 
@@ -96,7 +92,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -106,29 +102,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -140,7 +114,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -150,29 +124,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -184,7 +136,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -194,29 +146,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -228,7 +158,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -238,29 +168,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
-                                </Box>
-                            </Box>
-                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <Checkbox {...label} />
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>
@@ -272,7 +180,7 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                             <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
@@ -282,7 +190,95 @@ const ProvPassCorrectAns = () => {
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
-                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={Right_Arrow} alt="" />
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '32rem', height: '4rem', marginBottom: '1rem' }}>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
+                                </Box>
+                            </Box>
+                            <Box sx={{ border: '1px solid #e1e1e1', width: '15rem', height: '3rem', display: 'flex', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Checkbox {...label} />
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase' }}>Uppgift 1</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Typography variant='body2' style={{ textTransform: 'uppercase', marginRight: '1rem' }}>Tid: 04:51</Typography>
+                                    <img style={{ width: '.65rem', marginRight: '.75rem' }} src={RightArrow} alt="" />
                                 </Box>
                             </Box>
                         </Box>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Courses_Main from '../../components/organism/courses-org/courses-main/Courses_Main'
+import Courses_Main from '../../components/organism/courses-org/CoursesMain/Courses_Main'
 
 
 const Courses = () => {

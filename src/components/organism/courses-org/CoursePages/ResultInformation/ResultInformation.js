@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import Right_Arrow from '../../../../../assets/icons/right_arrow.svg'
-import Dtk_Img from '../../../../../assets/imgs/dtk-question.png'
-import Clock from '../../../../../assets/icons/clock.svg'
-import BarChartIcon from '../../../../../assets/icons/bar_chart.svg'
-import { styled } from '@mui/material/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
+import DtkImg from '../../../../../assets/Imgs/DtkImg.png'
+import Clock from '../../../../../assets/Icons/Clock.svg'
+import w from '../../../../../assets/Icons/BarChart.svg'
+import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import Exercise_Btn from '../../../../atom/exercise-btn/Exercise_Btn';
+import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Toolbar, Container, LinearProgress } from '@material-ui/core';
+import Exercise_Btn from '../../../../atom/ExerciseBtn/ExerciseBtn';
 
 const ResultInformation = () => {
 
@@ -76,11 +73,10 @@ const ResultInformation = () => {
             position='absolute'
         >
             <Toolbar>
-                <ArrowBackIosIcon color='black' sx={{ width: 100 }} />
+                {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     Högskoleprov 2021 vår mars
                 </Typography>
-                <HelpOutlineIcon sx={{ width: 100 }} />
             </Toolbar>
         </AppBar>
 
@@ -89,7 +85,7 @@ const ResultInformation = () => {
                 <Box mt={3} sx={{ display: 'flex', width: 600, flexDirection: 'column' }}>
                     <Typography variant="h6" component="h6">Högskoleprov 2021 vår mars</Typography>
                     <Box sx={{ display: 'flex' }}>
-                        <Box mt={1} width={100} sx={{ color: '#222' }}><img style={{marginRight:'.25rem'}} src={BarChartIcon} alt="" />160 frågor</Box>
+                        <Box mt={1} width={100} sx={{ color: '#222' }}><img style={{marginRight:'.25rem'}} src={BarChart} alt="" />160 frågor</Box>
                         <Box mt={1} ml={1} sx={{ color: '#222' }}><img style={{marginRight:'.25rem'}} src={Clock} alt="" />55min per provass</Box>
                     </Box>
                 </Box>
