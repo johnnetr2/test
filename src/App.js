@@ -32,6 +32,7 @@ import StandardViewXyz from './components/organism/courses-org/CoursePages/Stand
 import ProvPassNog from './components/organism/courses-org/CoursePages/ProvPassNog/ProvPassNog';
 import ProvPassDtk from './components/organism/courses-org/CoursePages/ProvPassDtk/ProvPassDtk';
 import OverBlick from './components/organism/courses-org/CoursePages/OverBlick/OverBlick';
+import ProvPassCorrectAns from './components/organism/courses-org/CoursePages/ProvPassCorrectAns/ProvPassCorrectAns';
 
 
 function App() {
@@ -77,6 +78,7 @@ function App() {
         <Route path="/provpassnog" element={<ProvPassNog/>} />
         <Route path="/provpassdtk" element={<ProvPassDtk/>} />
         <Route path="/overblick" element={<OverBlick/>} />
+        <Route path="/provpasscorrectans" element={<ProvPassCorrectAns/>} />
       </Routes>
     </div>
   );

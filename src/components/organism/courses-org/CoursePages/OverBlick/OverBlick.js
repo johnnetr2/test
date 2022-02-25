@@ -4,14 +4,11 @@ import Right_Arrow from '../../../../../assets/icons/right_arrow.svg'
 import Tick from '../../../../../assets/icons/Tick.svg'
 import YellowStar from '../../../../../assets/icons/YellowStar.svg'
 import Warning from '../../../../../assets/icons/Warning.svg'
-import BarChartIcon from '../../../../../assets/icons/bar_chart.svg'
 import { styled } from '@mui/material/styles';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { makeStyles } from '@material-ui/core/styles'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Toolbar, Container, Button } from '@material-ui/core';
-import Exercise_Btn from '../../../../atom/exercise-btn/Exercise_Btn';
+import { Typography, AppBar, Paper, Box, CssBaseline, Toolbar, Container, Button } from '@material-ui/core';
 
 const OverBlick = () => {
 
