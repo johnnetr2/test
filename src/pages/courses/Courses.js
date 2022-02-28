@@ -1,11 +1,11 @@
 import React from 'react'
-import Courses_Main from '../../components/organism/courses-org/CoursesMain/Courses_Main'
+import CoursesMain from '../../components/organism/CoursesOrg/CoursesMain/CoursesMain'
 
 
 const Courses = () => {
     return (
         <div>
-            <Courses_Main/>
+            <CoursesMain/>
         </div>
     )
 }

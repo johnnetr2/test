@@ -1,11 +1,11 @@
 import React from 'react'
-import Sidebar from '../../components/organism/SidebarOrg/SidebarOrg'
+import MessageMain from '../../components/organism/MessageOrg/MessageMain/MessageMain'
 
 
 const Message = () => {
     return (
         <div>
-            <Sidebar/>
+            <MessageMain/>
         </div>
     )
 }

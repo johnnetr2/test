@@ -9,45 +9,45 @@ import { instance, EndPoints } from '../../service/Route'
 
 
 const Login_org = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  // const [user, setUser] = useState({
+  //   email: "",
+  //   password: "",
+  // });
 
-  const getVal = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-    console.log(user, "this is the console of the user");
-  };
+  // const getVal = (e) => {
+  //   const { name, value } = e.target;
+  //   setUser({ ...user, [name]: value });
+  //   console.log(user, "this is the console of the user");
+  // };
 
-  const loginFunc = (e) => {
-    e.preventDefault();
-    const data = {
-      email: user.email,
-      password: user.password,
-    };
+  // const loginFunc = (e) => {
+  //   e.preventDefault();
+  //   const data = {
+  //     email: user.email,
+  //     password: user.password,
+  //   };
 
-    console.log(data);
+  //   console.log(data);
 
-    const URL = EndPoints.Login;
-    instance
-      .post(URL, data)
-      .then((response) => {
-        console.log(response.data, "this is api console");
-        if (response.data.token) {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("role", response.data.user.role);
-          localStorage.setItem("fullName", response.data.user.fullName);
-          localStorage.setItem("email", response.data.user.email);
-          window.location.href = "/dashboard";
-        } else {
-          swal("Warning!", "Invalid Credentials", "error");
-        }
-      })
-      .catch((error) => {
-        swal("Warning!", "Invalid Credentials", "error");
-      });
-  };
+  //   const URL = EndPoints.Login;
+  //   instance
+  //     .post(URL, data)
+  //     .then((response) => {
+  //       console.log(response.data, "this is api console");
+  //       if (response.data.token) {
+  //         localStorage.setItem("token", response.data.token);
+  //         localStorage.setItem("role", response.data.user.role);
+  //         localStorage.setItem("fullName", response.data.user.fullName);
+  //         localStorage.setItem("email", response.data.user.email);
+  //         window.location.href = "/dashboard";
+  //       } else {
+  //         swal("Warning!", "Invalid Credentials", "error");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       swal("Warning!", "Invalid Credentials", "error");
+  //     });
+  // };
 
   return (
     <Container
@@ -87,21 +87,23 @@ const Login_org = () => {
             placeholder="Email"
             title="Email"
             name="email"
-            onChange={getVal}
-            value={user.email}
+            // onChange={getVal}
+            // value={user.email}
           />
           <Label_field
-            onChange={getVal}
+            // onChange={getVal}
+            // value={user.password}
             name="password"
-            value={user.password}
             type="password"
             placeholder="Password"
             title="Password"
           />
           <Link to="#">Glomt losenord?</Link>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Link style={{ textDecoration: "none" }} to="/dashboard">
-              <Filled_btn title="Logga in" onClick={loginFunc} />
+            <Link style={{ textDecoration: "none" }} to="/home">
+              <Filled_btn title="Logga in"
+              // onClick={loginFunc}
+              />
             </Link>
           </Box>
           <Typography variant="body1">eller</Typography>

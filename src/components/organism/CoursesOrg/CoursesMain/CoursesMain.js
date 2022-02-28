@@ -1,8 +1,8 @@
 import React from 'react'
 import { Grid, makeStyles } from '@material-ui/core'
-import Feed_Content from '../feed-content/Feed_Content'
-import Right_Bar from '../right-bar/Right_Bar'
-import Left_Bar from '../left-bar/Left_Bar'
+import CoursesFeedContent from '../CoursesFeedContent/CoursesFeedContent'
+import CoursesRightBar from '../CoursesRightBar/CoursesRightBar'
+import CoursesLeftBar from '../CoursesLeftBar/CoursesLeftBar'
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Courses_Main = () => {
+const CoursesMain = () => {
 
   const classes = useStyles();
 
@@ -20,17 +20,17 @@ const Courses_Main = () => {
     <div>
       <Grid container>
         <Grid item sm={1} xs={2} >
-          <Left_Bar />
+          <CoursesLeftBar />
         </Grid>
         <Grid item sm={7} xs={10}>
-          <Feed_Content />
+          <CoursesFeedContent />
         </Grid>
         <Grid item sm={4} className={classes.right}>
-          <Right_Bar />
+          <CoursesRightBar />
         </Grid>
       </Grid>
     </div>
   )
 }
 
-export default Courses_Main
+export default CoursesMain

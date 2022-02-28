@@ -10,25 +10,22 @@ const useStyles = makeStyles((theme)=>({
     }
 }))
 
-
-const Progress_Bar = () => {
+const ProgressBar = () => {
 
     const classes = useStyles();
 
     return (
-            <div>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box sx={{ width: '100%', mr: 1, mt:1}}>
                         <LinearProgress className={classes.root} sx={{height:12, borderRadius:'5rem', backgroundColor:'#e1e1e1', color:'red'}} variant="determinate" value={50} />
                     </Box>
-                    <Box sx={{ minWidth: 35 }}>
+                    <Box>
                         <Typography variant="body2" color="text.secondary">{`${Math.round(
                             50,
                         )}%`}</Typography>
                     </Box>
                 </Box>
-            </div>
     )
 }
 
-export default Progress_Bar
+export default ProgressBar

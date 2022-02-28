@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
 import DtkImg from '../../../../../assets/Imgs/DtkImg.png'
 import Clock from '../../../../../assets/Icons/Clock.svg'
-import w from '../../../../../assets/Icons/BarChart.svg'
+import BarChart from '../../../../../assets/Icons/BarChart.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Toolbar, Container, LinearProgress } from '@material-ui/core';

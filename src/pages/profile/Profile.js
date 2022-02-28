@@ -1,11 +1,10 @@
 import React from 'react'
-import Sidebar from '../../components/organism/SidebarOrg/SidebarOrg'
-
+import ProfileMain from '../../components/organism/ProfileOrg/ProfileMain/ProfileMain'
 
 const Profile = () => {
     return (
         <div>
-            <Sidebar/>
+            <ProfileMain/>
         </div>
     )
 }
