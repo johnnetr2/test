@@ -1,7 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import HomeMainOrg from "./components/organism/HomeOrg/HomeMain/HomeMain";
-import HomeCard from "./components/molecule/HomeCard/HomeCard";
 import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
 import Message from "./pages/Message/Message";
@@ -29,13 +27,14 @@ import ProvPassDtk from "./components/organism/CoursesOrg/CoursePages/ProvPassDt
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import ProvPassCorrectAns from "./components/organism/CoursesOrg/CoursePages/ProvPassCorrectAns/ProvPassCorrectAns";
 import Home from "./pages/Home/Home";
+import LearnMoreCard from "./components/molecule/LearnMoreCard/LearnMoreCard";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/homecard" element={<HomeCard />} />
-        <Route path="/homemainorg" element={<HomeMainOrg />} />
+        
+        <Route path="/learnmorecard" element={<LearnMoreCard/>} />
         <Route path="/category" element={<QuanCompXyz />} />
         <Route path="/category" element={<QuanCompXyz />} />
         <Route path="/category" element={<QuanCompXyz />} />
