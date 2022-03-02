@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
-import DtkImg from '../../../../../assets/Imgs/DtkImg.png'
+import DtkImg from '../../../../../assets/Imgs/newDtkImg.png'
 import Clock from '../../../../../assets/Icons/Clock.svg'
 import BarChart from '../../../../../assets/Icons/BarChart.svg'
 import { styled } from '@mui/material/styles'
