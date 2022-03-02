@@ -1,12 +1,12 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Courses from "./pages/Courses/Courses";
-import Profile from "./pages/Profile/Profile";
-import Message from "./pages/Message/Message";
-import Setting from "./pages/Setting/Setting";
-import Logout from "./pages/Logout/Logout";
+import Profile from "./pages/Newprofile/Profile";
+import Message from "./pages/Newmessage/Message";
+import Setting from "./pages/Newsetting/Setting";
+import Logout from "./pages/Newlogout/Logout";
 import Login from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
+import Signup from "./pages/Newsignup/Signup";
 import QuanCompXyz from "./pages/category/QuanCompXyz/QuanCompXyz";
 import QuanCompMek from "./pages/category/QuanCompMek/QuanCompMek";
 import QuestionViewXyzOrg from "./components/organism/QuestionViewXyzOrg/QuestionViewXyzOrg";

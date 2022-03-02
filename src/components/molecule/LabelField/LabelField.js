@@ -1,5 +1,5 @@
 import React from 'react'
-import Label from '../../atom/Label/Label';
+import Label from '../../atom/Newlabel/Label';
 import Input_field from '../../atom/InputField/InputField';
 
 const Label_field = (props) => {

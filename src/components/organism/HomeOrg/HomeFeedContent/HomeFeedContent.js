@@ -11,7 +11,7 @@ import {
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
-import Heading from "../../../atom/Heading/Heading";
+import Heading from "../../../atom/NewHeading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";

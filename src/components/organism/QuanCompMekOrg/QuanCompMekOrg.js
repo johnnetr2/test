@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './QuanCompMekOrg.css'
 import Graph from '../../../assets/Graph/Graph.svg'
 import Graph2 from '../../../assets/Graph/Graph2.svg'
-import Thumb from '../../../assets/Imgs/Thumb.png'
+import Thumb from '../../../assets/Imgs/Newthumb.png'
 import Exercise_Btn from "../../atom/ExerciseBtn/ExerciseBtn";
 import Outline_Box from '../../atom/OutlineBox/OutlineBox'
 import Outline_Field from '../../atom/OutlineField/Outline_Field'
