@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import RightArrow from '../../../../../assets/Icons/newRightArrow.svg'
-import Tick from '../../../../../assets/Icons/newTick.svg'
-import YellowStar from '../../../../../assets/Icons/newYellowStar.svg'
-import Warning from '../../../../../assets/Icons/newWarning.svg'
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
+import Tick from '../../../../../assets/Icons/Tick.svg'
+import YellowStar from '../../../../../assets/Icons/YellowStar.svg'
+import Warning from '../../../../../assets/Icons/Warning.svg'
 import { styled } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Paper, Box, CssBaseline, Toolbar, Container, Button } from '@material-ui/core';

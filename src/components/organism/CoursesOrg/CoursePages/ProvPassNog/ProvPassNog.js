@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import BarChart from '../../../../../assets/Icons/newBarChart.svg'
-import RightArrow from '../../../../../assets/Icons/newRightArrow.svg'
-import LeftArrow from '../../../../../assets/Icons/newLeftArrow.svg'
-import StarIcon from '../../../../../assets/Icons/newStarIcon.svg'
-import NogFigure from '../../../../../assets/Icons/newNogFigure.svg'
-import Clock from '../../../../../assets/Icons/newClock.svg'
+import BarChart from '../../../../../assets/Icons/BarChart.svg'
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
+import LeftArrow from '../../../../../assets/Icons/LeftArrow.svg'
+import StarIcon from '../../../../../assets/Icons/StarIcon.svg'
+import NogFigure from '../../../../../assets/Icons/NogFigure.svg'
+import Clock from '../../../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, Button, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';

@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Container, Box, Typography, Stack, Chip, Button } from '@mui/material'
-import Ellipsis from '../../../assets/Icons/newEllipsis.svg' 
+import Ellipsis from '../../../assets/Icons/Ellipsis.svg' 
 
 const useStyles = makeStyles((theme) =>
 ({

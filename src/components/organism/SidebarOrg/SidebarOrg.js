@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
-import Logo from '../../../assets/Icons/newLogo.svg'
-import Home from '../../../assets/Icons/newHome.svg'
-import Course from '../../../assets/Icons/newCourses.svg'
-import Profile from '../../../assets/Icons/newProfile.svg'
-import Message from '../../../assets/Icons/newMsg.svg'
+import Logo from '../../../assets/Icons/Logo.svg'
+import Home from '../../../assets/Icons/Home.svg'
+import Course from '../../../assets/Icons/Courses.svg'
+import Profile from '../../../assets/Icons/Profile.svg'
+import Message from '../../../assets/Icons/Msg.svg'
 import './SidebarOrg.css'
 
 

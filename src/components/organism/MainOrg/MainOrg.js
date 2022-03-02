@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import Thumb from '../../../assets/Imgs/newthumb.png'
+import Thumb from '../../../assets/Imgs/Thumb.png'
 import Graph from '../../../assets/Graph/Graph.svg'
 import './MainOrg.css'
 import Card from '../../molecule/Card/Card'

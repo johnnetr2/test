@@ -1,12 +1,12 @@
 import React from 'react';
 import './QuestionViewNogOrg.css'
-import BarChart from '../../../assets/Icons/newBarChart.svg'
-import Clock from '../../../assets/Icons/newClock.svg'
-import QuestionOption from '../../../assets/Icons/newQuestionOption.svg'
+import BarChart from '../../../assets/Icons/BarChart.svg'
+import Clock from '../../../assets/Icons/Clock.svg'
+import QuestionOption from '../../../assets/Icons/QuestionOption.svg'
 import Exercise_Btn from "../../atom/ExerciseBtn/ExerciseBtn";
-import Increment from "../../../assets/Icons/newIncrement.svg";
-import Decrement from "../../../assets/Icons/newDecrement.svg";
-import NogFigure from "../../../assets/Icons/newNogFigure.svg";
+import Increment from "../../../assets/Icons/Increment.svg";
+import Decrement from "../../../assets/Icons/Decrement.svg";
+import NogFigure from "../../../assets/Icons/NogFigure.svg";
 
 
 const QuestionViewNogOrg = () => {

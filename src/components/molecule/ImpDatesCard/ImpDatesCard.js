@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
 import Graph from "../../../assets/Graph/Graph.svg";
-import Ellipsis from "../../../assets/Icons/newEllipsis.svg";
+import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 
 const ImpDatesCard = () => {
   return (

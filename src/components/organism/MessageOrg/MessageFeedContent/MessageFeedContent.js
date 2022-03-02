@@ -7,7 +7,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import SearchIcon from "../../../../assets/Icons/newSearchIcon.svg";
+import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";

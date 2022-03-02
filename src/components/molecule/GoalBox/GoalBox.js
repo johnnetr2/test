@@ -1,5 +1,5 @@
 import React from "react";
-import Ellipsis from "../../../assets/Icons/newEllipsis.svg";
+import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 import { Typography, Box } from "@mui/material";
 
 const GoalBox = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import RightArrow from '../../../../../assets/Icons/newRightArrow.svg'
+import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
 import { styled } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Checkbox, AppBar, Paper, Box, CssBaseline, Toolbar, Container } from '@material-ui/core';
