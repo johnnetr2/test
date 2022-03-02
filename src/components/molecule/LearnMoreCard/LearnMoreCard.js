@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import Thumb from "../../../assets/Imgs/Newthumb.png";
+import Thumb from "../../../assets/Imgs/newthumb.png";
 
 const LearnMoreCard = () => {
   return (

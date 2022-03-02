@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import BarChart from '../../../assets/Icons/BarChart.svg'
-import DownArrow from '../../../assets/Icons/DownArrow.svg'
+import BarChart from '../../../assets/Icons/newBarChart.svg'
+import DownArrow from '../../../assets/Icons/newDownArrow.svg'
 import DtkImg from '../../../assets/Imgs/DtkImg.png'
-import Clock from '../../../assets/Icons/Clock.svg'
+import Clock from '../../../assets/Icons/newClock.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Checkbox, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';

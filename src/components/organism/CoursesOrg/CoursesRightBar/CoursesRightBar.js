@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, makeStyles, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@material-ui/core";
-import Thumb from '../../../../assets/Imgs/Newthumb.png'
+import Thumb from '../../../../assets/Imgs/newthumb.png'
 
 const useStyles = makeStyles((theme) => ({
   topspace: {

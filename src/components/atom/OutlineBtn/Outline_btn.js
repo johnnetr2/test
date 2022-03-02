@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../../assets/Icons/Google.svg'
+import Logo from '../../../assets/Icons/newGoogle.svg'
 import Button from '@mui/material/Button';
 
 const Outline_btn = (props) => {

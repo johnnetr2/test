@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../../../assets/Icons/Logo.svg";
-import Home from "../../../../assets/Icons/HomeC.svg";
-import Course from "../../../../assets/Icons/Courses.svg";
-import Feedback from "../../../../assets/Icons/Msg.svg";
-import Profile from "../../../../assets/Icons/Profile.svg";
+import Logo from "../../../../assets/Icons/newLogo.svg";
+import Home from "../../../../assets/Icons/newHomeC.svg";
+import Course from "../../../../assets/Icons/newCourses.svg";
+import Feedback from "../../../../assets/Icons/newMsg.svg";
+import Profile from "../../../../assets/Icons/newProfile.svg";
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

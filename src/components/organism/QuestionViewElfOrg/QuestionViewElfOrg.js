@@ -1,12 +1,12 @@
 import React from 'react';
 import './QuestionViewElfOrg.css'
-import BarChart from '../../../assets/Icons/BarChart.svg'
-import Clock from '../../../assets/Icons/Clock.svg'
-import QuestionOption from '../../../assets/Icons/QuestionOption.svg'
+import BarChart from '../../../assets/Icons/newBarChart.svg'
+import Clock from '../../../assets/Icons/newClock.svg'
+import QuestionOption from '../../../assets/Icons/newQuestionOption.svg'
 import Exercise_Btn from "../../atom/ExerciseBtn/ExerciseBtn";
-import Increment from "../../../assets/Icons/Increment.svg";
-import Decrement from "../../../assets/Icons/Decrement.svg";
-import NogFigure from "../../../assets/Icons/NogFigure.svg";
+import Increment from "../../../assets/Icons/newIncrement.svg";
+import Decrement from "../../../assets/Icons/newDecrement.svg";
+import NogFigure from "../../../assets/Icons/newNogFigure.svg";
 
 
 const QuestionViewElfOrg = () => {
@@ -31,7 +31,7 @@ const QuestionViewElfOrg = () => {
             <div className="inner-content-elf-bottom-1">
                 <div className="question-1-elf">
                     <p>Rocket Science</p>
-                    <p>Rockets are spectacular examples of Isaac Newton’s third law of motion: that to every action there is an equal and opposite reaction. For instance, throwing hot gas out of its engines at high speed (the action) thrusts a rocket off its launch pad and into space (the reaction). But having to carry the propellants needed to create the gas (the reaction mass) is a pain, for at any given moment dur-ing a flight, the action has to propel not only the rocket itself, but also all of the remaining, unburnt propellant. Most of the effort expended in a rocket launch is therefore directed towards lifting propellant. As a result, even the most modern rockets start off with a mass that is more than 90% propellant. The unrealistic fantasy of rocket scientists is therefore an engine that needs no propel-lant. And that is precisely what Roger Shawyer, a British aerospace engineer, claims to have invented.</p>
+                    <p>Rockets are spectacular examples of Isaac newton’s third law of motion: that to every action there is an equal and opposite reaction. For instance, throwing hot gas out of its engines at high speed (the action) thrusts a rocket off its launch pad and into space (the reaction). But having to carry the propellants needed to create the gas (the reaction mass) is a pain, for at any given moment dur-ing a flight, the action has to propel not only the rocket itself, but also all of the remaining, unburnt propellant. Most of the effort expended in a rocket launch is therefore directed towards lifting propellant. As a result, even the most modern rockets start off with a mass that is more than 90% propellant. The unrealistic fantasy of rocket scientists is therefore an engine that needs no propel-lant. And that is precisely what Roger Shawyer, a British aerospace engineer, claims to have invented.</p>
                 </div>
                 <div className="question-1-elf-1">
                     <div className="question-head-elf">
@@ -39,11 +39,11 @@ const QuestionViewElfOrg = () => {
                     </div>
                     <div className="opt-1-elf">
                         <input type="radio" />
-                        <p>Newton’s third law of motion will have to be modified.</p>
+                        <p>newton’s third law of motion will have to be modified.</p>
                     </div>
                     <div className="opt-1-elf">
                         <input type="radio" />
-                        <p>New rocket technology is revolutionizing space exploration.</p>
+                        <p>new rocket technology is revolutionizing space exploration.</p>
                     </div>
                     <div className="opt-1-elf">
                         <input type="radio" />
