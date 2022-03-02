@@ -20,46 +20,47 @@ const useStyles = makeStyles((theme) => ({
 const Signup_org = () => {
   const classes = useStyles();
 
-  // const [register, setRegister] = useState({
-  //   fullName: "",
-  //   email: "",
-  //   password: "",
-  // });
+  const [register, setRegister] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
 
-  // const changeHandler = (e) => {
-  //   const { name, value } = e.target;
-  //   setRegister({ ...register, [name]: value });
-  //   console.log(register, "this is the console of the change Handler");
-  // };
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setRegister({ ...register, [name]: value });
+    console.log(register, "this is the console of the change Handler");
+  };
 
-  // const clickHandler = (e) => {
-  //   e.preventDefault();
-  //   const data = {
-  //     fullName: register.fullName,
-  //     email: register.email,
-  //     password: register.password,
-  //   };
+  const clickHandler = (e) => {
+    e.preventDefault();
+    const data = {
+      fullName: register.fullName,
+      email: register.email,
+      password: register.password,
+    };
 
-  //   console.log(data, "this is the data");
+    console.log(data, "this is the data");
 
-  //   const URL = EndPoints.SignUp;
-  //   instance
-  //     .post(URL, data)
-  //     .then((response) => {
-  //       console.log(response.data.user, "this is the api response");
-  //       if (response.data.message == "success") {
-  //         if (response.data.user.token) {
-  //           swal("Success!", response.data.message, "success");
-  //           window.location.href = "/login";
-  //         }
-  //       } else {
-  //         swal("Warning!", response.data.message);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+    const URL = EndPoints.SignUp;
+    instance
+      .post(URL, data)
+      .then((response) => {
+        console.log(response.data.user, "this is the api response");
+        if (response.data.message == "success") {
+          if (response.data.user.token) {
+              localStorage.setItem('token', response.data.user.token)
+            swal("Success!", response.data.message, "success");
+            window.location.href = "/login";
+          }
+        } else {
+          swal("Warning!", response.data.message, 'warning');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Container
@@ -97,31 +98,31 @@ const Signup_org = () => {
             type="text"
             title="Full Name"
             placeholder="Full Name"
-            // onChange={changeHandler}
-            // value={register.fullName}
+            onChange={changeHandler}
+            value={register.fullName}
             name="fullName"
           />
           <Label_field
             type="email"
             title="Email"
             placeholder="Email"
-            // onChange={changeHandler}
-            // value={register.email}
+            onChange={changeHandler}
+            value={register.email}
             name="email"
           />
           <Label_field
             type="password"
             title="Password"
             placeholder="Password"
-            // onChange={changeHandler}
-            // value={register.password}
+            onChange={changeHandler}
+            value={register.password}
             name="password"
           />
           <Typography variant="body1">Glomt losenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <Filled_btn
-              // onClick={clickHandler}
+              onClick={clickHandler}
               title="Skapa konto" />
             </Link>
           </Box>

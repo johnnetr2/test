@@ -4,12 +4,10 @@ import Thumb from '../../../assets/Imgs/Thumb.png'
 import Graph from '../../../assets/Graph/Graph.svg'
 import './MainOrg.css'
 import Card from '../../molecule/Card/Card'
+import { instance, EndPoints } from '../../service/Route'
 
 
 const Main = () => {
-
-    const navigate = useNavigate();
-    const location = useLocation();
 
 
     return (
@@ -32,7 +30,12 @@ const Main = () => {
                 </div>
                 <div className="head-1-2">
                     <h3>Kvantativa sektion</h3>
-                    <div className="content-1-2" onClick={()=>window.location.href='/category'}>
+                    {/* {categories && categories.map(item => {
+                        <div className="content-1-2" onClick={() => window.location.href = '/category'}>
+                            <Card title={item.title} title_para={item.information} />
+                        </div>
+                    })} */}
+                    {/* <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="XYZ" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
                     </div>
                     <div className="content-1-2" onClick={()=>window.location.href='/category'}>
@@ -43,7 +46,7 @@ const Main = () => {
                     </div>
                     <div className="content-1-2" onClick={()=>window.location.href='/category'}>
                         <Card title="DTK" title_para="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi..."/>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="head-1-2">
                     <h3>Verbal Sektion</h3>

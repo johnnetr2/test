@@ -36,12 +36,12 @@ function App() {
         
         <Route path="/learnmorecard" element={<LearnMoreCard/>} />
         <Route path="/category" element={<QuanCompXyz />} />
+        {/* <Route path="/category" element={<QuanCompXyz />} />
         <Route path="/category" element={<QuanCompXyz />} />
         <Route path="/category" element={<QuanCompXyz />} />
         <Route path="/category" element={<QuanCompXyz />} />
         <Route path="/category" element={<QuanCompXyz />} />
-        <Route path="/category" element={<QuanCompXyz />} />
-        <Route path="/category" element={<QuanCompXyz />} />
+        <Route path="/category" element={<QuanCompXyz />} /> */}
         <Route path="/premium" element={<QuanCompMek />} />
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />

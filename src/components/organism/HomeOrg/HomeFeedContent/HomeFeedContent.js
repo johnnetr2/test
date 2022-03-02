@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   makeStyles,
@@ -16,6 +16,8 @@ import BodyText from "../../../atom/BodyText/BodyText";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
 import { Input } from "reactstrap";
+import { useNavigate } from "react-router-dom";
+import { EndPoints, instance2 } from "../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,6 +61,17 @@ const HomeFeedContent = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState();
+
+  useEffect(() => {
+    const URL = EndPoints.getAllCategories;
+    instance2.get(URL).then(response => {
+      if (response.data) {
+        setCategories(response.data.data)
+      }
+    })
+  }, [])
 
   return (
     <Container className={classes.root}>
@@ -87,19 +100,13 @@ const HomeFeedContent = () => {
       </Box>
       <Box>
         <Box sx={{ marginBottom: "1rem" }}>
-          <HomeCard />
+          {categories && categories.map(item => {
+            return <HomeCard item={item} />
+          })}
         </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <HomeCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <HomeCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <HomeCard />
-        </Box>
+
       </Box>
-      <Box sx={{ marginBTop: "2rem", marginBottom:'1rem' }}>
+      <Box sx={{ marginBTop: "2rem", marginBottom: '1rem' }}>
         <Typography variant="h5" component="h5">
           Verbal del
         </Typography>

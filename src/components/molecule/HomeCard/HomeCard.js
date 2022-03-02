@@ -1,8 +1,13 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
+import { useNavigate } from "react-router-dom";
 
 const HomeCard = (props) => {
+
+  const data = props?.item;
+  const navigate = useNavigate()
+
   return (
     <Box
       sx={{
@@ -15,13 +20,15 @@ const HomeCard = (props) => {
         marginTop: 2,
         borderRadius: 2,
       }}
+      onClick={() => navigate('/category', {
+        state: {
+          item: data,
+        }
+      })}
     >
-      <Box sx={{ width: "60%" }}>
-        <Typography variant="h5">XYZ</Typography>
-        <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
-          Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik,
-          algebra, geometri, funktionslära och statistik.s
-        </Typography>
+      <Box sx={{ width: "60%"}}>
+        <Typography variant="h5">{data?.title}</Typography>
+        <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>{data?.information}</Typography>
         <Box>
           <ProgressBar />
         </Box>

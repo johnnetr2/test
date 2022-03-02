@@ -4,7 +4,7 @@ import {Box, Checkbox, label} from '@mui/material';
 
 const Outline_Field = (props) => {
     return (
-        <div className='outline-field-1'>
+        <div onChange={(e) => props.onChange(e.target.checked)}  className='outline-field-1'>
             {/* <input className='outline-field-input' type={props?.type} />{props.title} */}
             <Box
          sx={{
@@ -23,7 +23,7 @@ const Outline_Field = (props) => {
             alignItems:'center',
             }}
             >
-                <Checkbox size="small" sx={{margin:'0rem', width:20, height:20}} m={0} />
+                {props.type == 'checkbox' && <Checkbox size="small" sx={{ margin: '0rem', width: 20, height: 20, }} m={0} />}
                 {props.title}
         </Box>
         </div>

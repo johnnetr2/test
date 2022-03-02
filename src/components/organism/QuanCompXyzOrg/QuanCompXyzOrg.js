@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './QuanCompXyzOrg.css'
 import { Link } from 'react-router-dom'
 import Graph from '../../../assets/Graph/Graph.svg'
@@ -6,10 +6,37 @@ import Graph2 from '../../../assets/Graph/Graph2.svg'
 import Exercise_Btn from "../../atom/ExerciseBtn/ExerciseBtn";
 import Outline_Box from '../../atom/OutlineBox/OutlineBox'
 import Outline_Field from '../../atom/OutlineField/Outline_Field'
+import { EndPoints, instance2 } from '../../service/Route'
 
 
 
-const QuanCompXyzOrg = () => {
+const QuanCompXyzOrg = (props) => {
+
+    const prevData = props.item;
+    const [categories, setCategories] = useState()
+    const [timer, setTimer] = useState(false)
+    const [checked, setChecked] = useState(false)
+    const [checked2, setChecked2] = useState(false)
+    const [checked3, setChecked3] = useState(false)
+    const [checked4, setChecked4] = useState(false)
+    const [chekedValue, setCheckedValue] = useState()
+    const [title, setTitle] = useState(false)
+
+    useEffect(() => {
+        const URL = EndPoints.questionCategoryBysectionCategory + prevData._id;
+        instance2.get(URL).then(response => {
+            setCategories(response.data)
+        })
+    }, [])
+
+    // const storeQuizFunc = () => {
+
+    // }
+
+    const setCheckedFunc = (value) => {
+        setCheckedValue(value)
+        console.log(value, 'no of question')
+    }
 
     return (
         <div className="quan-x-container-1">
@@ -25,16 +52,58 @@ const QuanCompXyzOrg = () => {
                     <div className="quan-x-head-1-3">
                         <div className="quan-x-head-1-4">
                             <p>Välj om du vill köra på tid</p>
-                            <Outline_Field title="Tidspress" type="checkbox" />
+                            <Outline_Field title="Tidspress" type="checkbox" onChange={(value) => setTimer(value)}/>
                         </div>
                         <div className="quan-x-head-1-5">
                             <p>Välj antal frågor</p>
                             <div className="quan-x-head-outline-boxes">
-                                <Outline_Box title="5" />
+                                {/* <Outline_Box title="5" />
                                 <Outline_Box title="10" />
                                 <Outline_Box title="15" />
                                 <Outline_Box title="20" />
-                                <Outline_Field title="title" type="checkbox" />
+                                <Outline_Field title="Ett delprov" type="text" /> */}
+                                <Outline_Box checked={checked} title="5" onChangeCheck={(value) => {
+                                    setChecked(true)
+                                    setChecked2(false)
+                                    setChecked3(false)
+                                    setChecked4(false)
+                                    setTitle(false)
+                                    setCheckedFunc(value)
+                                }} />
+                                <Outline_Box checked={checked2} title="10" onChangeCheck={(value) => {
+                                    setChecked(false)
+                                    setChecked2(true)
+                                    setChecked3(false)
+                                    setChecked4(false)
+                                    setTitle(false)
+                                    setCheckedFunc(value)
+                                }} />
+                                <Outline_Box title="15" checked={checked3} onChangeCheck={(value) => {
+                                    setChecked(false)
+                                    setChecked2(false)
+                                    setChecked3(true)
+                                    setChecked4(false)
+                                    setTitle(false)
+                                    setCheckedFunc(value)
+                                }} />
+                                <Outline_Box title="20" checked={checked4} onChangeCheck={(value) => {
+                                    setChecked(false)
+                                    setChecked2(false)
+                                    setChecked3(false)
+                                    setChecked4(true)
+                                    setTitle(false)
+                                    setCheckedFunc(value)
+                                }} />
+                                <Outline_Field title="Ett delprov" type="text"
+                                    checked={title} onChange={(value) => {
+                                        setChecked(false)
+                                        setChecked2(false)
+                                        setChecked3(false)
+                                        setChecked4(false)
+                                        setTitle(true)
+                                        setCheckedFunc(value)
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -42,16 +111,14 @@ const QuanCompXyzOrg = () => {
                 <div className="quan-x-question-type">
                     <p>Välj frågetyper</p>
                     <div className="question-x-type-1">
-                        <Outline_Field title="Alla" type="checkbox" />
-                        <Outline_Field title="Geometri" type="checkbox" />
-                        <Outline_Field title="Funktionslära" type="checkbox" />
-                        <Outline_Field title="Aritmetik" type="checkbox" />
-                        <Outline_Field title="Algebra" type="checkbox" />
-                        <Outline_Field title="Statistik" type="checkbox" />
+                        {categories && categories.map(item => {
+                           return <Outline_Field title={item.title} type="checkbox" />
+                        })
+                        }
                     </div>
                 </div>
                 <div className="exer-x-btn-2">
-                    <Link to="/question-view-xyz"><Exercise_Btn title="Starta övningar"/></Link>
+                    <Link to="/question-view-xyz"><Exercise_Btn title="Starta övningar" /></Link>
                 </div>
                 <div className="history-x">
                     <h2>Historia</h2>
