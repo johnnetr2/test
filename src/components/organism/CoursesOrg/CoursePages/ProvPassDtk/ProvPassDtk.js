@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import BarChart from '../../../../../assets/Icons/BarChart.svg'
 import RightArrow from '../../../../../assets/Icons/RightArrow.svg'
-import DtkImg from '../../../../../assets/newImgs/DtkImg.png'
+import DtkImg from '../../../../../assets/Imgs/DtkImg.png'
 import LeftArrow from '../../../../../assets/Icons/LeftArrow.svg'
 import StarIcon from '../../../../../assets/Icons/StarIcon.svg'
 import Clock from '../../../../../assets/Icons/Clock.svg'
