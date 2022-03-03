@@ -7,7 +7,7 @@ import BarChart from '../../../../../assets/Icons/BarChart.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import Exercise_Btn from '../../../../atom/ExerciseBtn/ExerciseBtn';
+import ExerciseBtn from '../../../../atom/ExerciseBtn/ExerciseBtn';
 
 const ResultInformation = () => {
 
@@ -140,7 +140,7 @@ const ResultInformation = () => {
                     </Typography>
                 </Box>
                 <Box padding={1} m={2} sx={{ width: 615 }}>
-                    <Link to="#"><Exercise_Btn title="Nästa" /></Link>
+                    <Link to="#"><ExerciseBtn title="Nästa" /></Link>
                 </Box>
             </Container>
         </Container>

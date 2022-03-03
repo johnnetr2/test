@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import BarChart from '../../../assets/Icons/BarChart.svg'
-import DownArrow from '../../../assets/Icons/DownArrow.svg'
-import RightArrow from '../../../assets/Icons/RightArrow.svg'
-import DtkImg from '../../../assets/Imgs/DtkImg.png'
-import Clock from '../../../assets/Icons/Clock.svg'
+import BarChart from '../../../../../../assets/Icons/BarChart.svg'
+import DownArrow from '../../../../../../assets/Icons/DownArrow.svg'
+import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
+import DtkImg from '../../../../../../assets/Imgs/DtkImg.png'
+import Clock from '../../../../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Checkbox, Radio, FormControlLabel, Toolbar, Container, LinearProgress, Button } from '@material-ui/core';
-import Exercise_Btn from '../../atom/ExerciseBtn/ExerciseBtn';
+import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
 
-const Result_Summary_Org = () => {
+const ResultSummaryOrg = () => {
 
 
 
@@ -101,7 +101,7 @@ const Result_Summary_Org = () => {
         </AppBar>
 
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
-            <Container padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
+            <Container disableGutters padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />12 av 12</Box>
                     <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box>
@@ -294,4 +294,4 @@ const Result_Summary_Org = () => {
     </div>;
 };
 
-export default Result_Summary_Org;
+export default ResultSummaryOrg;
