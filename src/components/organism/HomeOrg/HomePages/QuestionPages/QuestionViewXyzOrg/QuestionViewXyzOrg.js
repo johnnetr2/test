@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FilledBtn from '../../../../../atom/FilledBtn/FilledBtn'
 import BarChart from '../../../../../../assets/Icons/BarChart.svg'
 import QuestionOption from '../../../../../../assets/Icons/QuestionOption.svg'
@@ -65,7 +65,7 @@ const QuestionViewXyzOrg = () => {
     }))
 
     const classes = useStyles();
-
+    const navigate = useNavigate();
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -153,7 +153,7 @@ const QuestionViewXyzOrg = () => {
                         </Box>
                     </Box>
                 </Box>
-                <Box padding={1} mt={2} sx={{ width: 615 }}>
+                <Box padding={1} mt={2} sx={{ width: 615 }} onClick={()=>{navigate('/resultsummary')}}>
                     <FilledBtn title="Nästa" />
                 </Box>
             </Container>

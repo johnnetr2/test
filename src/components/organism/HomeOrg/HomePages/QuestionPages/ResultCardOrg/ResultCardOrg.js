@@ -8,9 +8,9 @@ import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import HelpOutlineIcon from '@mui/Icons-material/HelpOutline'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Checkbox, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import Exercise_Btn from '../../atom/exercise-btn/Exercise_Btn';
+import ExerciseBtn from '../../atom/ExerciseBtn/ExerciseBtn';
 
-const Result_Card_Org = () => {
+const ResultCardOrg = () => {
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -185,7 +185,7 @@ const Result_Card_Org = () => {
                 </Box>
 
                 <Box padding={1} m={2} sx={{ width: 615 }}>
-                    <Exercise_Btn title="Nästa" />
+                    <ExerciseBtn title="Nästa" />
                 </Box>
             </Container>
         </Container>
@@ -193,4 +193,4 @@ const Result_Card_Org = () => {
     </div>;
 };
 
-export default Result_Card_Org;
+export default ResultCardOrg;

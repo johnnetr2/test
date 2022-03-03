@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@mui/material';
 
-const Exercise_Btn = (props) => {
+const ExerciseBtn = (props) => {
     return (
         <div className='exercise-btn-1'>
             <Button variant="contained" xs={12} size='small' sx={{
@@ -13,4 +13,4 @@ const Exercise_Btn = (props) => {
     )
 }
 
-export default Exercise_Btn
+export default ExerciseBtn
