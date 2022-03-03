@@ -7,17 +7,7 @@ import Setting from "./pages/Setting/Setting";
 import Logout from "./pages/Logout/Logout";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
-import QuanCompXyz from "./pages/category/QuanCompXyz/QuanCompXyz";
-import QuanCompMek from "./pages/category/QuanCompMek/QuanCompMek";
-import QuestionViewXyzOrg from "./components/organism/QuestionViewXyzOrg/QuestionViewXyzOrg";
-import QuestionViewNogOrg from "./components/organism/QuestionViewNogOrg/QuestionViewNogOrg";
-import QuestionViewMekOrg from "./components/organism/QuestionViewMekOrg/QuestionViewMekOrg";
-import QuestionViewDtkOrg from "./components/organism/QuestionViewDtkOrg/QuestionViewDtkOrg";
-import QuestionViewLasOrg from "./components/organism/QuestionViewLasOrg/QuestionViewLasOrg";
-import QuestionViewElfOrg from "./components/organism/QuestionViewElfOrg/QuestionViewElfOrg";
-import ResultSummaryOrg from "./components/organism/ResultSummaryOrg/ResultSummaryOrg";
-import QuestionViewSamDtkOrg from "./components/organism/QuestionViewSamXyzOrg/QuestionViewSamDtkOrg";
-import QuestionViewSamXyzOrg from "./components/organism/QuestionViewSamXyzOrg/QuestionViewSamXyzOrg";
+
 import CoursesCard from "./components/molecule/CoursesCard/CoursesCard";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import ProvPassInformation from "./components/organism/CoursesOrg/CoursePages/ProvPassInformation/ProvPassInformation";
@@ -26,23 +16,14 @@ import ProvPassNog from "./components/organism/CoursesOrg/CoursePages/ProvPassNo
 import ProvPassDtk from "./components/organism/CoursesOrg/CoursePages/ProvPassDtk/ProvPassDtk";
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import ProvPassCorrectAns from "./components/organism/CoursesOrg/CoursePages/ProvPassCorrectAns/ProvPassCorrectAns";
+import CategoryPagesMain from '../src/components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesMain/CategoryPagesMain'
 import Home from "./pages/Home/Home";
-import LearnMoreCard from "./components/molecule/LearnMoreCard/LearnMoreCard";
+import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        
-        <Route path="/learnmorecard" element={<LearnMoreCard/>} />
-        <Route path="/category" element={<QuanCompXyz />} />
-        {/* <Route path="/category" element={<QuanCompXyz />} />
-        <Route path="/category" element={<QuanCompXyz />} />
-        <Route path="/category" element={<QuanCompXyz />} />
-        <Route path="/category" element={<QuanCompXyz />} />
-        <Route path="/category" element={<QuanCompXyz />} />
-        <Route path="/category" element={<QuanCompXyz />} /> */}
-        <Route path="/premium" element={<QuanCompMek />} />
+      <Routes>        
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />
@@ -51,21 +32,8 @@ function App() {
         <Route path="message" element={<Message />} />
         <Route path="setting" element={<Setting />} />
         <Route path="logout" element={<Logout />} />
-        <Route path="/question-view-xyz" element={<QuestionViewXyzOrg />} />
-        <Route path="/question-view-nog" element={<QuestionViewNogOrg />} />
-        <Route path="/question-view-mek" element={<QuestionViewMekOrg />} />
-        <Route path="/question-view-elf" element={<QuestionViewElfOrg />} />
-        <Route path="/question-view-dtk" element={<QuestionViewDtkOrg />} />
-        <Route path="/question-view-las" element={<QuestionViewLasOrg />} />
-        <Route path="/result-summary-org" element={<ResultSummaryOrg />} />
-        <Route
-          path="/question-view-sam-dtk-org"
-          element={<QuestionViewSamDtkOrg />}
-        />
-        <Route
-          path="/question-view-sam-xyz-org"
-          element={<QuestionViewSamXyzOrg />}
-        />
+        <Route path="/category" element={<CategoryPagesMain/>} />
+        <Route path="/question" element={<QuestionViewXyzOrg/>} />
         <Route path="/coursescard" element={<CoursesCard />} />
         <Route path="/resultinfo" element={<ResultInformation />} />
         <Route path="/resultinfo" element={<ResultInformation />} />
