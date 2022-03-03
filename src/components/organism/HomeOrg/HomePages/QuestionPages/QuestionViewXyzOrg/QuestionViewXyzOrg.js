@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
+import FilledBtn from '../../../../../atom/FilledBtn/FilledBtn'
 import BarChart from '../../../../../../assets/Icons/BarChart.svg'
-import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
-import LeftArrow from '../../../../../../assets/Icons/LeftArrow.svg'
-import Increment from '../../../../../../assets/Icons/Increment.svg'
-import Decrement from '../../../../../../assets/Icons/Decrement.svg'
 import QuestionOption from '../../../../../../assets/Icons/QuestionOption.svg'
 import PieChart from '../../../../../../assets/Imgs/SinglePieChart.png'
 import DtkImg from '../../../../../../assets/Imgs/DtkImg.png'
@@ -156,36 +153,8 @@ const QuestionViewXyzOrg = () => {
                         </Box>
                     </Box>
                 </Box>
-
-                <Box paddingX={4} mt={3} sx={{ backgroundColor: '#fff', width: 600, height: 220, border: '1px solid #e1e1e1' }}>
-                    <Box sx={{ width: 500, display:'flex' }}>
-                        <Box>
-                        <Typography variant='h5' component="h5" style={{ fontSize: '.75rem', fontWeight: '600', marginTop: 20 }}>Förklaring:</Typography>
-                        <Typography variant="body1" component="div" style={{ fontSize: '.75rem', fontWeight: '500', marginTop: 10 }}>
-                            Vi ser att den lite tjockare solida linjen representerar dike och vi hittar en sådan linje att följa i området Byängen.
-                        </Typography>
-                        <Typography variant="body1" component="div" style={{ fontSize: '.75rem', fontWeight: '500', marginTop: 5 }}>
-                            Från vänster till höger ser vi att streckets riktning lutar nedåt. Det betyder alltså att från väst till öst går diket från nord till syd, eller uttryckt i andra ord går diket från nordväst till sydost.
-                        </Typography>
-                        </Box>
-                        <Box mt={2}>
-                            <img src={QuestionOption} alt="" />
-                        </Box>
-                    </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', height: 60 }}>
-                        <Typography variant="body1" component="body1" style={{ fontSize: '0.5rem' }}>Berätta för oss om du var nöjd med lösningen</Typography>
-                        <Box ml={1} mr={0.5}>
-                            <img src={Increment} alt="" />
-                        </Box>
-                        <Box mr={1}>
-                            <img src={Decrement} alt="" />
-                        </Box>
-                    </Box>
-                </Box>
-                <Box padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={LeftArrow} alt="" /> <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem' }}>Föregående</Typography></Box>
-                    <Box><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>Resultatsida</Typography></Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem' }}>Nästa</Typography><img src={RightArrow} alt="" /></Box>
+                <Box padding={1} mt={2} sx={{ width: 615 }}>
+                    <FilledBtn title="Nästa" />
                 </Box>
             </Container>
         </Container>

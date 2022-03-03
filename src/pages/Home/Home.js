@@ -1,12 +1,29 @@
-import React from 'react'
-import HomeMainOrg from '../../components/organism/HomeOrg/HomeMain/HomeMain'
+import React, { useState, useEffect } from "react";
+import HomeMainOrg from "../../components/organism/HomeOrg/HomeMain/HomeMain";
+import StartPopup from "../../components/molecule/StartPopup/StartPopup";
+import EndPopup from "../../components/molecule/EndPopup/EndPopup";
 
 const Home = () => {
-  return (
-    <div>
-      <HomeMainOrg/>
-    </div>
-  )
+  
+  const [firstPopup, setFirstPopup] = useState("");
+  const [secondPopup, setSecondPopup] = useState("");
+
+  useEffect(() => {
+    setFirstPopup(true);
+  }, []);
+
+  const submitFunc = () => {
+    setFirstPopup(false)
+    setSecondPopup(true)
 }
 
-export default Home
+  return (
+    <div>
+      <StartPopup showPopup = {firstPopup} hidePopup = {() => setFirstPopup(false)} submit = {submitFunc} />
+      <EndPopup showPopup = {secondPopup} hidePopup = {() => setSecondPopup(false)} submit = {() => setSecondPopup(false)} />
+      <HomeMainOrg />
+    </div>
+  );
+};
+
+export default Home;

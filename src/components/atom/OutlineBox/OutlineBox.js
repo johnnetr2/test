@@ -23,8 +23,8 @@ const Outline_Box = (props) => {
                     cursor: 'pointer'
                 } :
                     {
-                        width: 60,
-                        height: 60,
+                        width: '4rem',
+                        height: '4rem',
                         backgroundColor: '#fff',
                         boxShadow: '1px 1px 8px #dfdfdf',
                         borderRadius: '.25rem',
