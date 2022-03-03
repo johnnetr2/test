@@ -17,5 +17,6 @@ export const EndPoints = {
     Login: '/auth/login',
     getAllCategories: 'admin/sectionCategories',
     questionCategoryBysectionCategory: 'admin/QuestionCategory/questionCategoryBysectionCategory/',
+    testDate:'/api/studentPrefenence'
 }
 
