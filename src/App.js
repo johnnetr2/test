@@ -4,7 +4,7 @@ import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
 import Message from "./pages/Message/Message";
 import Setting from "./pages/Setting/Setting";
-import Logout from "./pages/logout/Logout";
+import Logout from "./pages/newLogout/Logout";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import QuanCompXyz from "./pages/category/QuanCompXyz/QuanCompXyz";
