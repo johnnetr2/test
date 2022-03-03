@@ -99,24 +99,24 @@ const HomeFeedContent = () => {
         </Typography>
       </Box>
       <Box>
-        <Box sx={{ marginBottom: "1rem" }}>
+        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
           {categories && categories.map(item => {
             return <HomeCard item={item} />
           })}
         </Box>
 
       </Box>
-      <Box sx={{ marginBTop: "2rem", marginBottom: '1rem' }}>
+      <Box sx={{ marginBTop: "2rem", marginBottom: '1rem' }} >
         <Typography variant="h5" component="h5">
           Verbal del
         </Typography>
-        <Box sx={{ marginBottom: "1rem" }}>
+        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
           <HomeCard />
         </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
+        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
           <HomeCard />
         </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
+        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
           <HomeCard />
         </Box>
       </Box>
