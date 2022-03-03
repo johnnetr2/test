@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
 import Message from "./pages/Message/Message";
-import Setting from "./pages/Setting/Setting";
 import Logout from "./pages/Logout/Logout";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
@@ -30,7 +29,6 @@ function App() {
         <Route path="courses" element={<Courses />} />
         <Route path="profile" element={<Profile />} />
         <Route path="message" element={<Message />} />
-        <Route path="setting" element={<Setting />} />
         <Route path="logout" element={<Logout />} />
         <Route path="/category" element={<CategoryPagesMain/>} />
         <Route path="/question" element={<QuestionViewXyzOrg/>} />
