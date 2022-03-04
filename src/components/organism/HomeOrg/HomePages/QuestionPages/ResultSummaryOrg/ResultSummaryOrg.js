@@ -11,7 +11,7 @@ import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMed
 import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
 import { instance, instance2, EndPoints } from '../../../../../service/Route'
 import swal from 'sweetalert';
-const ResultSummaryOrg = () => {
+const ResultSummaryOrg = (props) => {
 
 
 
@@ -67,45 +67,40 @@ const ResultSummaryOrg = () => {
     const classes = useStyles(10);
 
     const [progress, setProgress] = useState(0);
-    const [postCollection, setpostCollection] = useState({
-        quiz: '621750023cbac80f1421bef8',
-        user: localStorage.getItem('userId')
-    })
     const [responseCollection, setresponseCollection] = useState({})
 
     useEffect(() => {
 
-        const URL = EndPoints.getResult
-        console.log(localStorage.getItem('userId'));
+        // const URL = EndPoints.getResult + props.quizId
+        const URL = EndPoints.getResult + "/621750023cbac80f1421bef8"
         try {
-            instance2.post(URL, postCollection).then((response) => {
+            instance2.get(URL).then((response) => {
                 if (response.data) {
-                    swal("Good job!", JSON.stringify(response.data.totalQuestion), "success");
-                    console.log(response, ' response from server');
+                    // console.log(response.data, ' response from server');
                     setresponseCollection(response.data)
                 }
-    
             })
         } catch (error) {
             swal('Error',error.message,)
         }
-        const timer = setInterval(() => {
-            setProgress((oldProgress) => {
-                if (oldProgress === 100) {
-                    return 0;
-                }
-                const diff = Math.random() * 10;
-                return Math.min(oldProgress + diff, 100);
-            });
-        }, 500);
+        // const timer = setInterval(() => {
+        //     setProgress((oldProgress) => {
+        //         if (oldProgress === 100) {
+        //             return 0;
+        //         }
+        //         const diff = Math.random() * 10;
+        //         return Math.min(oldProgress + diff, 100);
+        //     });
+        // }, 500);
 
         return () => {
-            clearInterval(timer);
+            // clearInterval(timer);
         };
     }, []);
 
 
     return <div>
+        {console.log("response collection", responseCollection?.answer)}
         <CssBaseline />
         <AppBar
             color="#fff"
@@ -138,11 +133,13 @@ const ResultSummaryOrg = () => {
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">10/12</Typography>
+                            <Typography variant="h4">
+                                {responseCollection && responseCollection.correctAnswer + "/" +responseCollection.totalQuestion}
+                            </Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Antal poäng</Typography>
                         </Box>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">1.8</Typography>
+                            <Typography variant="h4">{(responseCollection.totalQuestion/ responseCollection.correctAnswer).toFixed(1)}</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Normerad poäng</Typography>
                         </Box>
                     </Box>
@@ -161,11 +158,14 @@ const ResultSummaryOrg = () => {
                     <Typography variant="h5">Dina svar</Typography>
                 </Box>
                 <Box paddingX={4} mt={2} sx={{ backgroundColor: '#fff', width: 600, height: 'fit-content', border: '1px solid #e1e1e1', display: 'flex', flexDirection: 'column' }}>
-
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
+                  {  responseCollection?.answer && responseCollection?.answer.map((item,index)=>{
+                     return(
+                        <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <FormControlLabel control={<Checkbox
+                        checked={item.optionId ==item.isCorrect?true:false}
+                        />} />
                         <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 1 av 12
+                            {"Uppgift " +`${index+1}`+ " av "+ responseCollection.totalQuestion}
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
                             Tid: 04:51
@@ -174,138 +174,8 @@ const ResultSummaryOrg = () => {
                             <img src={RightArrow} className={classes.size} alt="" />
                         </Box>
                     </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 2 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 3 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 4 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 5 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 6 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 7 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 8 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 9 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 10 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 11 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
-                    <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
-                            Uppgift 12 av 12
-                        </Typography>
-                        <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
-                            Tid: 04:51
-                        </Typography>
-                        <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <img src={RightArrow} className={classes.size} alt="" />
-                        </Box>
-                    </Box>
+                     )
+                    })}
                 </Box>
                 <Box padding={1} m={2} sx={{ width: 615 }}>
                     <Button variant="outlined" style={{ width: 600 }}>Klar</Button>
