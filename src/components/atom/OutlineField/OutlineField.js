@@ -3,7 +3,7 @@ import { Box, Checkbox, label } from "@mui/material";
 
 const OutlineField = (props) => {
   return (
-    <div onChange={(e) => props.onChange(e.target.checked)}>
+    <div >
       <Box
         sx={{
           width: 140,
@@ -23,6 +23,7 @@ const OutlineField = (props) => {
       >
         {props.type == "checkbox" && (
           <Checkbox
+          onChange={(e) => {console.log(e.target.checked, 'e val')}}
             size="small"
             sx={{ margin: "0rem", width: 20, height: 20 }}
             m={0}

@@ -9,7 +9,8 @@ import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Checkbox, Radio, FormControlLabel, Toolbar, Container, LinearProgress, Button } from '@material-ui/core';
 import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
-
+import { instance, instance2, EndPoints } from '../../../../../service/Route'
+import swal from 'sweetalert';
 const ResultSummaryOrg = () => {
 
 
@@ -66,8 +67,28 @@ const ResultSummaryOrg = () => {
     const classes = useStyles(10);
 
     const [progress, setProgress] = useState(0);
+    const [postCollection, setpostCollection] = useState({
+        quiz: '621750023cbac80f1421bef8',
+        user: localStorage.getItem('userId')
+    })
+    const [responseCollection, setresponseCollection] = useState({})
 
     useEffect(() => {
+
+        const URL = EndPoints.getResult
+        console.log(localStorage.getItem('userId'));
+        try {
+            instance2.post(URL, postCollection).then((response) => {
+                if (response.data) {
+                    swal("Good job!", JSON.stringify(response.data.totalQuestion), "success");
+                    console.log(response, ' response from server');
+                    setresponseCollection(response.data)
+                }
+    
+            })
+        } catch (error) {
+            swal('Error',error.message,)
+        }
         const timer = setInterval(() => {
             setProgress((oldProgress) => {
                 if (oldProgress === 100) {
@@ -115,8 +136,8 @@ const ResultSummaryOrg = () => {
                     <Typography variant="h5" component='h5'>
                         Resultat
                     </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:'space-between'}}>
-                        <Box  width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                             <Typography variant="h4">10/12</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Antal poäng</Typography>
                         </Box>
@@ -125,7 +146,7 @@ const ResultSummaryOrg = () => {
                             <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Normerad poäng</Typography>
                         </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:'space-between'}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                             <Typography variant="h4">1:25</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Tid per fråga</Typography>
@@ -139,11 +160,11 @@ const ResultSummaryOrg = () => {
                 <Box mt={2} sx={{ width: 600, display: 'flex' }}>
                     <Typography variant="h5">Dina svar</Typography>
                 </Box>
-                <Box paddingX={4} mt={2} sx={{ backgroundColor: '#fff', width: 600, height: 'fit-content', border: '1px solid #e1e1e1', display: 'flex', flexDirection:'column' }}>
+                <Box paddingX={4} mt={2} sx={{ backgroundColor: '#fff', width: 600, height: 'fit-content', border: '1px solid #e1e1e1', display: 'flex', flexDirection: 'column' }}>
 
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 1 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -155,7 +176,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 2 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -167,7 +188,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 3 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -179,7 +200,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 4 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -191,7 +212,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 5 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -203,7 +224,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 6 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -215,7 +236,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 7 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -227,7 +248,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 8 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -239,7 +260,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 9 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -251,7 +272,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 10 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -263,7 +284,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 11 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
@@ -275,7 +296,7 @@ const ResultSummaryOrg = () => {
                     </Box>
                     <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <FormControlLabel control={<Checkbox />} />
-                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight:'18rem' }} variant='body1' component='body1'>
+                        <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
                             Uppgift 12 av 12
                         </Typography>
                         <Typography variant="h6" component="h6" style={{ fontSize: '.75rem', fontWeight: '600' }}>
