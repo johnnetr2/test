@@ -1,26 +1,93 @@
-import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import React, {useState} from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-  createData("2021.09.24 10:38:24", '0 av 1', 0.0, ':'),
-  createData("2021.09.24 10:38:24", '0 av 1', 0.0, ':'),
-  createData("2021.09.24 10:38:24", '0 av 1', 0.0, ':'),
-  createData("2021.09.24 10:38:24", '0 av 1', 0.0, ':'),
-  createData("2021.09.24 10:38:24", '0 av 1', 0.0, ':'),
+const options = [
+  'None',
+  'Atria',
+  'Callisto',
+  'Dione',
+  'Ganymede',
+  'Hangouts Call',
 ];
 
-const CategoryTable = () => {
+const ITEM_HEIGHT = 48;
+
+export function LongMenu() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <IconButton
+        aria-label="more"
+        id="long-button"
+        aria-controls={open ? 'long-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        MenuListProps={{
+          'aria-labelledby': 'long-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: '20ch',
+          },
+        }}
+      >
+        {options.map((option) => (
+          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+            {option}
+          </MenuItem>
+        ))}
+      </Menu>
+    </div>
+  );
+}
+
+
+
+
+const rows = [
+  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
+  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
+  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
+  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
+  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
+];
+
+export const CategoryTable = () => {
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -54,4 +121,3 @@ const CategoryTable = () => {
   );
 };
 
-export default CategoryTable;

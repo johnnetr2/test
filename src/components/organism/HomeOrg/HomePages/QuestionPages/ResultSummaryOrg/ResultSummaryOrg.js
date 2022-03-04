@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Checkbox, Radio, FormControlLabel, Toolbar, Container, LinearProgress, Button } from '@material-ui/core';
 import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
+import {instance, instance2, EndPoints} from '../../../../../service/Route'
 
 const ResultSummaryOrg = () => {
 

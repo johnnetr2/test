@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
-import SearchIcon from "../../../../../../assets/Icons/SearchIcon.svg";
+import SearchIcon  from "../../../../../../assets/Icons/SearchIcon.svg";
 import Heading from "../../../../../atom/Heading/Heading";
 import BodyText from "../../../../../atom/BodyText/BodyText";
 import FilledBtn from "../../../../../atom/FilledBtn/FilledBtn";
@@ -18,7 +18,7 @@ import HomeCard from "../../../../../molecule/HomeCard/HomeCard";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import CoursesCard from "../../../../../molecule/CoursesCard/CoursesCard";
-import CategoryTable from "../../../../../molecule/CategoryTable/CategoryTable";
+import {CategoryTable, LongMenu} from "../../../../../molecule/CategoryTable/CategoryTable";
 import { Input } from "reactstrap";
 
 const useStyles = makeStyles((theme) => ({
