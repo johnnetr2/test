@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Checkbox, label } from "@mui/material";
+import React from 'react'
+import { Box, Checkbox, label } from '@mui/material';
 
 const OutlineField = (props) => {
   return (

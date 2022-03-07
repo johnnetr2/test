@@ -99,7 +99,7 @@ const HomeFeedContent = () => {
         </Typography>
       </Box>
       <Box>
-        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
+        <Box sx={{ marginBottom: "1rem" }}>
           {categories && categories.map(item => {
             return <HomeCard item={item} />
           })}

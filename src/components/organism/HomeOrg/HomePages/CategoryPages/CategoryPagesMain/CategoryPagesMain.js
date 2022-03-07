@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
-import { useParams, useLocation } from "react-router-dom";
-import CategoryPagesFeedContent from "../../CategoryPages/CategoryPagesContentFeed/CategoryPagesContentFeed";
-import CategoryPagesRightBar from "../../CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
-import CategoryPagesLeftBar from "../../../HomeLeftBar/HomeLeftBar";
+import React from 'react'
+import { Grid, makeStyles } from '@material-ui/core'
+import CategoryPagesFeedContent from '../../CategoryPages/CategoryPagesContentFeed/CategoryPagesContentFeed'
+import CategoryPagesRightBar from '../../CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar'
+import CategoryPagesLeftBar from '../../../HomeLeftBar/HomeLeftBar'
+import { useLocation } from 'react-router-dom'
+
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CategoryPagesMain = (props) => {
   // const {sectionData} = useParams();
-  const params = useLocation();
+  // const params = useLocation();
 
   // const params = useParams();
 
@@ -23,23 +24,25 @@ const CategoryPagesMain = (props) => {
 
   useEffect(() => {
     // const data = params
-    console.log(params.state, "this is final & final console.");
+    // console.log(params.state, "this is final & final console.");
   }, []);
 
   const classes = useStyles();
+  const params = useLocation()
+  console.log(params.state, 'sata6gfyuguhg')
 
   return (
-    <Grid container>
-      <Grid item sm={1} xs={2}>
-        <CategoryPagesLeftBar />
+      <Grid container>
+        <Grid item sm={1} xs={2} >
+          <CategoryPagesLeftBar/>
+        </Grid>
+        <Grid item sm={7} xs={10}>
+          <CategoryPagesFeedContent item={params.state.item} />
+        </Grid>
+        <Grid item sm={4} className={classes.right}>
+          <CategoryPagesRightBar />
+        </Grid>
       </Grid>
-      <Grid item sm={7} xs={10}>
-        <CategoryPagesFeedContent />
-      </Grid>
-      <Grid item sm={4} className={classes.right}>
-        <CategoryPagesRightBar />
-      </Grid>
-    </Grid>
   );
 };
 
