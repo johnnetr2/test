@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Table,
   TableBody,
@@ -13,6 +13,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { instance, instance2, EndPoints } from "../../service/Route";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -88,6 +89,23 @@ const rows = [
 ];
 
 export const CategoryTable = () => {
+
+const [tabledata, setTabledata] = useState([]);
+
+
+
+useEffect(() => {
+
+
+  const URL = EndPoints.ResultByUser + localStorage.getItem('userId');
+    instance2
+      .post(URL)
+      .then((response) => {
+        console.log("this is the response of the api")
+      })
+}, [])
+
+
   return (
     <Box>
       <TableContainer component={Paper}>
