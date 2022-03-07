@@ -20,6 +20,8 @@ export const EndPoints = {
     testDate:'/api/studentPrefenence',
     getResult:'/api/quizResult/resultByUserAndQuizid',
     storeQuiz: '/api/quiz',
-    getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/'
+    getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/',
+    testHistory:'/api/quizResult/getQuizBySecOruser'
 }
+
 
