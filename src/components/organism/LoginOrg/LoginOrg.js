@@ -35,6 +35,7 @@ const Login_org = () => {
       .then((response) => {
         console.log(response.data, "this is api console");
         if (response.data.token) {
+          localStorage.setItem('userId',response.data.user._id)
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("fullName", response.data.user.fullName);

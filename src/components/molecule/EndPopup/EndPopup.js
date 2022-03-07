@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import Slide from "@material-ui/core/Slide";
 import NextButton from "../../atom/NextButton/NextButton";
 import Step from "../../../assets/Graph/Steps.svg";
@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function EndPopup({ showPopup, hidePopup, submit }) {
+export default function EndPopup({ showPopup, hidePopup, submit,onSliderChange }) {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
 
@@ -22,6 +22,10 @@ export default function EndPopup({ showPopup, hidePopup, submit }) {
     return `${value}°C`;
   }
 
+  useEffect(() => {
+    onSliderChange(1)
+  }, [])
+  
   return (
     <Dialog
       open={showPopup}
@@ -55,13 +59,14 @@ export default function EndPopup({ showPopup, hidePopup, submit }) {
           <Box sx={{ width: 495, marginTop: "1rem" }}>
             <Slider
               aria-label="Temperature"
-              defaultValue={1}
+              defaultValue={1} 
               getAriaValueText={valuetext}
               valueLabelDisplay="auto"
               step={1}
               marks
               min={0}
               max={2}
+              onChange={(e)=>{onSliderChange(e.target.value)}}
             />
           </Box>
           <DialogActions>
@@ -75,7 +80,7 @@ export default function EndPopup({ showPopup, hidePopup, submit }) {
                 marginBottom: "1rem",
               }}
             >
-              <NextButton title="Spara" />
+              <Button variant='outlined' style={{backgroundColor:'none', border:'1px solid #0A1596', color:'#0A1596', textTransform:'capitalize', width:'30%'}}>Spara</Button>
             </Box>
           </DialogActions>
         </DialogContentText>
