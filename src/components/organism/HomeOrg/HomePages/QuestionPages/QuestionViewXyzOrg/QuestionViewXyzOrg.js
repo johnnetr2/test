@@ -12,6 +12,10 @@ import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMed
 import { useLocation } from "react-router-dom"
 import Correct from '../../../../../../assets/Imgs/correct.png'
 import Wrong from '../../../../../../assets/Imgs/wrong.png'
+import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
+import LeftArrow from '../../../../../../assets/Icons/LeftArrow.svg'
+import Increment from '../../../../../../assets/Icons/Increment.svg'
+import Decrement from '../../../../../../assets/Icons/Decrement.svg'
 
 const QuestionViewXyzOrg = () => {
 
