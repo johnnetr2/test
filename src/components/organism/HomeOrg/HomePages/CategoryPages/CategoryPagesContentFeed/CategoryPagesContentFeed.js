@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   makeStyles,
@@ -30,9 +30,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CategoryPagesFeedContent = () => {
+const CategoryPagesFeedContent = (props) => {
+  const data = props;
   const classes = useStyles();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(data, 'this is the ok console')
+  }, [])
+  
 
   return (
     <Container className={classes.root}>

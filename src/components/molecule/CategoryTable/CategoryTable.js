@@ -95,14 +95,10 @@ const [tabledata, setTabledata] = useState([]);
 
 
 useEffect(() => {
-
-
-  const URL = EndPoints.ResultByUser + localStorage.getItem('userId');
-    instance2
-      .post(URL)
-      .then((response) => {
-        console.log("this is the response of the api")
-      })
+  const URL = EndPoints.testHistory + "/" + localStorage.getItem('userId');
+    // instance2.get(URL).then((response) => {
+    //     console.log(response, "this is the response of the api")
+    //   })
 }, [])
 
 

@@ -68,7 +68,7 @@ const HomeFeedContent = () => {
     const URL = EndPoints.getAllCategories;
     instance2.get(URL).then(response => {
       if (response.data) {
-        setCategories(response.data.data)
+        setCategories(response.data.data,)
       }
     })
   }, [])
