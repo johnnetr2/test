@@ -14,18 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CategoryPagesMain = (props) => {
-  // const {sectionData} = useParams();
-  // const params = useLocation();
-
-  // const params = useParams();
-
-  // const { state } = props.location.state;
-
-  useEffect(() => {
-    // const data = params
-    // console.log(params.state, "this is final & final console.");
-  }, []);
+const CategoryPagesMain = () => {
 
   const classes = useStyles();
   const params = useLocation()
@@ -43,7 +32,7 @@ const CategoryPagesMain = (props) => {
           <CategoryPagesRightBar />
         </Grid>
       </Grid>
-  );
-};
+  )
+}
 
-export default CategoryPagesMain;
+export default CategoryPagesMain

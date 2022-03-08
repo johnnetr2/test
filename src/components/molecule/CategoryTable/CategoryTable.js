@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -12,20 +12,20 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { instance, instance2, EndPoints } from "../../service/Route";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//   return { name, calories, fat, carbs, protein };
+// }
 
 const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
+  "None",
+  "Atria",
+  "Callisto",
+  "Dione",
+  "Ganymede",
+  "Hangouts Call",
 ];
 
 const ITEM_HEIGHT = 48;
@@ -45,8 +45,8 @@ export function LongMenu() {
       <IconButton
         aria-label="more"
         id="long-button"
-        aria-controls={open ? 'long-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
+        aria-controls={open ? "long-menu" : undefined}
+        aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
       >
@@ -55,7 +55,7 @@ export function LongMenu() {
       <Menu
         id="long-menu"
         MenuListProps={{
-          'aria-labelledby': 'long-button',
+          "aria-labelledby": "long-button",
         }}
         anchorEl={anchorEl}
         open={open}
@@ -63,12 +63,16 @@ export function LongMenu() {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
+            width: "20ch",
           },
         }}
       >
         {options.map((option) => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+          <MenuItem
+            key={option}
+            selected={option === "Pyxis"}
+            onClick={handleClose}
+          >
             {option}
           </MenuItem>
         ))}
@@ -77,34 +81,25 @@ export function LongMenu() {
   );
 }
 
+export const CategoryTable = (props) => {
+  const [tabledata, setTabledata] = useState([]);
 
+  const categoryTable = props.tableHistory;
 
-
-const rows = [
-  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
-  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
-  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
-  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
-  createData("2021.09.24 10:38:24", "0 av 1", 0.0, <MoreVertIcon/>),
-];
-
-export const CategoryTable = () => {
-
-const [tabledata, setTabledata] = useState([]);
-
-
-
-useEffect(() => {
-  const URL = EndPoints.testHistory + "/" + localStorage.getItem('userId');
-    // instance2.get(URL).then((response) => {
-    //     console.log(response, "this is the response of the api")
-    //   })
-}, [])
-
+  useEffect(() => {
+    // console.log(categoryTable[0], "this is total category table");
+  }, []);
 
   return (
     <Box>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        elevation={0}
+        style={{
+          border: "1px solid #e1e1e1",
+          boxShadow: "0px 1px 3px #d3d3d3",
+        }}
+      >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -115,23 +110,27 @@ useEffect(() => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="left">{row.calories}</TableCell>
-                <TableCell align="left">{row.fat}</TableCell>
-                <TableCell align="left">{row.carbs}</TableCell>
-              </TableRow>
-            ))}
+            <TableRow
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              {categoryTable.map((row) => {
+                return (
+                  <>
+                    <TableCell component="th" scope="row">
+                      {row.createdAt}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.correctAnswer} av {row.totalQuestion}
+                    </TableCell>
+                    <TableCell align="left"></TableCell>
+                    <TableCell align="left">:</TableCell>
+                  </>
+                );
+              })}
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
   );
 };
-

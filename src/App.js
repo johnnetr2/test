@@ -17,6 +17,7 @@ import ProvPassCorrectAns from "./components/organism/CoursesOrg/CoursePages/Pro
 import CategoryPagesMain from "../src/components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesMain/CategoryPagesMain";
 import Home from "./pages/Home/Home";
 import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg";
+import CourseProgress from './components/molecule/CourseProgress/CourseProgress'
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/provpassdtk" element={<ProvPassDtk />} />
         <Route path="/overblick" element={<OverBlick />} />
         <Route path="/provpasscorrectans" element={<ProvPassCorrectAns />} />
+        <Route path="/courseprogress" element={<CourseProgress />} />
       </Routes>
     </div>
   );

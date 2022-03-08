@@ -30,7 +30,7 @@ const CategoryPagesRightBar = () => {
         <Box sx={{marginTop:'2rem', marginLeft:'1rem', marginRight:'1rem'}}>
           <CourseProgress />
         </Box>
-        <Box style={{ marginTop: "6rem" }}>
+        <Box style={{ marginTop: "2rem" }}>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ width: "50%", marginLeft: "1rem" }}>
               <Typography variant="h5">4</Typography>

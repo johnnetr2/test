@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import FilledBtn from '../../../../../atom/FilledBtn/FilledBtn'
 import BarChart from '../../../../../../assets/Icons/BarChart.svg'
-import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
-import LeftArrow from '../../../../../../assets/Icons/LeftArrow.svg'
-import Increment from '../../../../../../assets/Icons/Increment.svg'
-import Decrement from '../../../../../../assets/Icons/Decrement.svg'
 import QuestionOption from '../../../../../../assets/Icons/QuestionOption.svg'
 import PieChart from '../../../../../../assets/Imgs/SinglePieChart.png'
 import DtkImg from '../../../../../../assets/Imgs/DtkImg.png'
@@ -15,13 +12,12 @@ import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMed
 import { useLocation } from "react-router-dom"
 import Correct from '../../../../../../assets/Imgs/correct.png'
 import Wrong from '../../../../../../assets/Imgs/wrong.png'
+import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
+import LeftArrow from '../../../../../../assets/Icons/LeftArrow.svg'
+import Increment from '../../../../../../assets/Icons/Increment.svg'
+import Decrement from '../../../../../../assets/Icons/Decrement.svg'
 
 const QuestionViewXyzOrg = () => {
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [attemptedQuestion, setAttemptedQuestion] = useState([])
@@ -276,7 +272,7 @@ const QuestionViewXyzOrg = () => {
     }))
 
     const classes = useStyles();
-
+    const navigate = useNavigate();
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -320,22 +316,20 @@ const QuestionViewXyzOrg = () => {
     }
 
 
-      <Container
-        maxWidth="lg"
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
-      >
-        <Container
-          disableGutters
-          maxWidth="md"
-          style={{ backgroundColor: "#fff" }}
+    return <div>
+        <CssBaseline />
+        <AppBar
+            color="#fff"
+            className={classes.appbar}
+            style={{ boxShadow: "none" }}
+            position='absolute'
         >
-          <Appbar>
             <Toolbar>
                 <Typography variant="body1" style={{ width: 1200, marginLeft: '10rem' }} className={classes.center_align}>
                     {params.state.category_name}
                 </Typography>
             </Toolbar>
-        </Appbar>
+        </AppBar>
 
         {quiz && quiz.map((question, index) => {
             if (index == selectedIndex) {
@@ -357,7 +351,7 @@ const QuestionViewXyzOrg = () => {
                         <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                             <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 280, border: '1px solid #e1e1e1', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                 <Typography variant="subtitle1" style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: 30 }}>
-                                    {/* {question?.question} */}
+                                    {/ {question?.question} /}
                                 </Typography>
 
                                 <Typography variant="h6" component='h6' style={{ fontSize: '0.75rem', fontWeight: '600' }}>
