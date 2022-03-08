@@ -2,11 +2,16 @@ import React from "react";
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 import DevelopmentGraph from "../../../../../molecule/DevelopmentGraph/DevelopmentGraph";
 import LineGraph from "../../../../../molecule/LineGraph/LineGraph";
-import CourseProgress from '../../../../../molecule/CourseProgress/CourseProgress'
+import CourseProgress from "../../../../../molecule/CourseProgress/CourseProgress";
+import { LinearProgress } from "@mui/material";
+import BarChart from '../../../../../molecule/Charts/BarChart'
+import LineChart from "../../../../../molecule/Charts/LineChart";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgrounColor: "#fff",
+    '& .css-5xe99f-MuiLinearProgress-bar1':{
+      backgroundColor:'#27AE60'
+  }
   },
 }));
 
@@ -21,14 +26,36 @@ const CategoryPagesRightBar = () => {
           marginTop: "6rem",
         }}
       >
-        <Box style={{marginLeft:'1rem'}}>
+        <Box style={{ marginLeft: "1rem" }}>
           <Typography variant="h5">Statistik</Typography>
           <Typography variant="body2">
             Du har klarat 830 av 1000 uppgifter
           </Typography>
         </Box>
-        <Box sx={{marginTop:'2rem', marginLeft:'1rem', marginRight:'1rem'}}>
-          <CourseProgress />
+        <Box
+          sx={{ marginTop: "2rem", marginLeft: "1rem", marginRight: "1rem" }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              mr: 1,
+              border: "1px solid #dddddd",
+              boxShadow: "1px 1px 8px #dfdfdf",
+              borderRadius: 5,
+              padding: "2rem",
+            }}
+          >
+            <LinearProgress
+              className={classes.root}
+              sx={{
+                height: 12,
+                borderRadius: "5rem",
+                backgroundColor: "#e1e1e1"
+              }}
+              variant="determinate"
+              value={50}
+            />
+          </Box>
         </Box>
         <Box style={{ marginTop: "2rem" }}>
           <Box sx={{ display: "flex" }}>
@@ -54,7 +81,8 @@ const CategoryPagesRightBar = () => {
               marginTop: "3rem",
             }}
           >
-            <LineGraph />
+            {/* <LineGraph /> */}
+            <BarChart/>
           </Box>
         </Box>
         <Box
@@ -80,7 +108,8 @@ const CategoryPagesRightBar = () => {
               marginRight: "1rem",
             }}
           >
-            <DevelopmentGraph />
+            {/* <DevelopmentGraph /> */}
+            <LineChart/>
           </Box>
         </Box>
       </Box>

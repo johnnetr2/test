@@ -63,7 +63,6 @@ const CategoryPagesFeedContent = (props) => {
       setQuestionCategories(response.data);
       console.log(response.data, "reponmsedeni");
       const URLHistory = EndPoints.testHistory;
-      console.log(URLHistory, "url bhai");
       instance2.get(URLHistory).then(response => {
         console.log(response.data, "this is new url history")
         setTableHistory(response.data)
