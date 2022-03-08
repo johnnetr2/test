@@ -14,6 +14,7 @@ import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
 import { instance, instance2, EndPoints } from '../../../../../service/Route'
 import swal from 'sweetalert';
 import { red, green } from '@mui/material/colors';
+import CircularProgress from '@mui/material/CircularProgress';
 const ResultSummaryOrg = (props) => {
 
 
@@ -136,13 +137,23 @@ const ResultSummaryOrg = (props) => {
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">
+                           { responseCollection.totalQuestion && responseCollection.correctAnswer !=null? <Typography variant="h4">
                                 {responseCollection && responseCollection.correctAnswer + "/" + responseCollection.totalQuestion}
-                            </Typography>
+                            </Typography>:
+                            <Box sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                          </Box>
+                            }
                             <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Antal poäng</Typography>
                         </Box>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">{(responseCollection.totalQuestion / responseCollection.correctAnswer).toFixed(1)}</Typography>
+                            {
+                                responseCollection.totalQuestion && responseCollection.correctAnswer !=null?
+                                <Typography variant="h4">{(responseCollection.totalQuestion / responseCollection.correctAnswer).toFixed(1)}</Typography>
+                            :<Box sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                          </Box>
+                            }
                             <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Normerad poäng</Typography>
                         </Box>
                     </Box>
