@@ -18,7 +18,7 @@ const CategoryPagesMain = () => {
 
   const classes = useStyles();
   const params = useLocation()
-  console.log(params.state, 'sata6gfyuguhg')
+  console.log(params.state, 'data is here on the category main page')
 
   return (
       <Grid container>
@@ -29,7 +29,7 @@ const CategoryPagesMain = () => {
           <CategoryPagesFeedContent item={params.state.item} />
         </Grid>
         <Grid item sm={4} className={classes.right}>
-          <CategoryPagesRightBar />
+          <CategoryPagesRightBar item={params.state.item} />
         </Grid>
       </Grid>
   )

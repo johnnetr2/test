@@ -7,18 +7,18 @@ const BarChart = () => {
     return (
         <Bar
             data={{
-                labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+                labels: ['V.35', 'V.39', 'V.37', 'V.38', 'V.39', 'V.40', 'V.41'],
                 datasets: [
                     {
-                        label: '# of votes',
-                        data: [2, 3, 1, 1, 5, 4, 5],
+                        label: '',
+                        data: [0, 2, 4, 6, 8, 10, 5],
                         backgroundColor: [
-                            'blue'
+                            '#0A1596'
                         ],
                         borderColor: [
-                            'blue'
+                            '#e1e1e1'
                         ],
-                        borderWidth: 1,
+                        borderWidth: 0,
                     },
                 ],
             }}
@@ -27,13 +27,9 @@ const BarChart = () => {
             options={{
                 maintainAspectRatio: false,
                 scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                            },
-                        },
-                    ],
+                    y: {
+                        beginAtZero: true
+                    }
                 },
                 legend: {
                     labels: {
