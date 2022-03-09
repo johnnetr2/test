@@ -23,6 +23,7 @@ import CategoryTable from "../../../../../molecule/CategoryTable/CategoryTable";
 import { Input } from "reactstrap";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import Alert from '@mui/material/Alert';
+import swal from "sweetalert";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,11 +54,9 @@ const CategoryPagesFeedContent = (props) => {
 
 
   useEffect(() => {
-    console.log(props.item, 'statessssssssss')
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id
     instance2.get(URL).then(response => {
       setQuestionCategories(response.data)
-      console.log(response.data, 'reponmsedeni')
     })
   }, [])
 
@@ -65,7 +64,6 @@ const CategoryPagesFeedContent = (props) => {
     if (value) {
       setCheckedValue(value)
       setError(false)
-      console.log(value, 'no of question')
     }
   }
 
@@ -285,17 +283,20 @@ const CategoryPagesFeedContent = (props) => {
         value: timer,
         user: localStorage.getItem('id')
       }
-      // const URL = EndPoints.storeQuiz
-      // instance2.post(URL, data).then(response => {
-      //   if (response.data) {
+      const URL = EndPoints.storeQuiz
+      instance2.post(URL, data).then(response => {
+        console.log(response.data.quiz, 'api data')
+        if (response.data.quiz.length < 1) {
+          swal('varning', 'Det finns inga frågor mot denna kurs', 'warning')
+        } else {
           navigate('/question', {
             state: {
-              quiz: questions.quiz,
+              quiz: response.data.quiz,
               category_name: props.item.title
             }
           })
-        // }
-      // })
+        }
+      })
     }
   }
 
@@ -416,11 +417,11 @@ const CategoryPagesFeedContent = (props) => {
             </Typography>
           </Box>
           <Box sx={{ marginTop: "1rem", display: "flex", width: '100%', height: 'fit-content', flexWrap: 'wrap' }}>
-            {questionCategories && questionCategories.map((item, index) => {
-              return <OutlineField title={item.title}
+            {questionCategories && questionCategories?.map((item, index) => {
+              return <OutlineField title={item?.title}
                 onClickCheck={() => {
                   setSelectedIndex(index)
-                  setCheckType(item._id)
+                  setCheckType(item?._id)
                 }} checked={index == selectedIndex ? true : false} />
             })}
           </Box>

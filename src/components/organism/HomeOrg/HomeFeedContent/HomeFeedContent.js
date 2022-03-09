@@ -100,7 +100,7 @@ const HomeFeedContent = () => {
       </Box>
       <Box>
         <Box sx={{ marginBottom: "1rem" }}>
-          {categories && categories.map(item => {
+          {categories && categories?.map(item => {
             return <HomeCard item={item} />
           })}
         </Box>

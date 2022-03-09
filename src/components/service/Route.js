@@ -18,6 +18,8 @@ export const EndPoints = {
     getAllCategories: 'admin/sectionCategories',
     questionCategoryBysectionCategory: 'admin/QuestionCategory/questionCategoryBysectionCategory/',
     storeQuiz: '/api/quiz',
-    getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/'
+    getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/',
+    testHistory:'/api/quizResult/getQuizBySecOruser',
+    submitAnswer: '/api/quizResult'
 }
 

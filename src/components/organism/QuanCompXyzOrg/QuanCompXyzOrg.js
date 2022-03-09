@@ -29,13 +29,9 @@ const QuanCompXyzOrg = (props) => {
         })
     }, [])
 
-    // const storeQuizFunc = () => {
-
-    // }
 
     const setCheckedFunc = (value) => {
         setCheckedValue(value)
-        console.log(value, 'no of question')
     }
 
     return (
@@ -112,7 +108,7 @@ const QuanCompXyzOrg = (props) => {
                     <p>Välj frågetyper</p>
                     <div className="question-x-type-1">
                         {categories && categories.map(item => {
-                           return <Outline_Field title={item.title} type="checkbox" />
+                           return <Outline_Field title={item?.title} type="checkbox" />
                         })
                         }
                     </div>

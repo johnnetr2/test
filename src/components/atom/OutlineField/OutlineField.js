@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Checkbox, label } from '@mui/material';
 
-
 const Outline_Field = (props) => {
     return (
         <div onClick={(e) => props.onClickCheck(e.target.checked)}>

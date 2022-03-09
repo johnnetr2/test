@@ -17,7 +17,6 @@ const Login_org = () => {
   const getVal = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-    console.log(user, "this is the console of the user");
   };
 
   const loginFunc = (e) => {
