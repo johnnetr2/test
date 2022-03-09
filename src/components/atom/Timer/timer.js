@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 const Timer = () => {
     const time = 12;
     const sec = time * 60;
-    console.log(sec, 'senodnoin')
     const [timer, setTimer] = useState(sec); // 25 minutes
     const [start, setStart] = useState(false);
     const firstStart = useRef(true);

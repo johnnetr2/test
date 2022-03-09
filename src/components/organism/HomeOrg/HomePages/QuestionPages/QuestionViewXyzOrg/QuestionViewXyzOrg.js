@@ -21,6 +21,7 @@ import Timer from '../../../../../atom/Timer/timer'
 import { style } from '@mui/system';
 
 
+
 const QuestionViewXyzOrg = () => {
 
     const [selectedIndex, setSelectedIndex] = useState(0)
@@ -169,29 +170,31 @@ const QuestionViewXyzOrg = () => {
         }
     }
 
+    
     const SubmitAnswer = (question) => {
         if (question.answer) {
             selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
             console.log(question.question._id, 'question')
             const data = {
-                quiz: "6213731fff18eb23800ab8ee",
+                quiz: params?.state?.data?._id,
                 user: localStorage.getItem('id'),
                 isCorrect: question.answer.option,
                 optionId: optionId,
                 questionId: question.question._id
             }
             console.log(data, 'result store api data')
-        // const URL = EndPoints.submitAnswer
-        // instance2.post(URL, data).then(response => {
-        //     console.log(response.data)
-        // })
+            const URL = EndPoints.submitAnswer
+            instance2.post(URL, data).then(response => {
+                console.log(response.data)
+            })
         } else {
             selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
         }
-        
+
     }
 
     return <div>
+
         <CssBaseline />
         <AppBar
             color="#fff"
@@ -206,21 +209,21 @@ const QuestionViewXyzOrg = () => {
             </Toolbar>
         </AppBar>
 
-                    <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
-                        <Container disableGutters maxWidth="md" style={{ backgroundColor: '#fff' }}>
-                            <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{selectedIndex + 1} av {quiz?.length}
-                                </Box>
-                                <Box mt={2} sx={{ color: '#222', display: 'flex', flexDirection: 'row' }}><img src={Clock} alt="" /><Timer /></Box>
-                            </Box>
+        <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
+            <Container disableGutters maxWidth="md" style={{ backgroundColor: '#fff' }}>
+                <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{selectedIndex + 1} av {quiz?.length}
+                    </Box>
+                    {params.state.data.value == true && <Box mt={2} sx={{ color: '#222', display: 'flex', flexDirection: 'row' }}><img src={Clock} alt="" /><Timer /></Box>}
+                </Box>
 
-                            <Box mt={2} sx={{ backgroundColor: '#b4b4b4', height: '8px', display: 'flex', flexDirection: 'row' }}>
-                                {quiz && quiz?.map((item, index) => {
-                                    return <Box sx={{ backgroundColor: exitsIndex(index) ? '#6fcf97' : '#B4B4B4', marginLeft: '2px', flex: '1' }}></Box>
-                                })}
-                            </Box>
+                <Box mt={2} sx={{ backgroundColor: '#b4b4b4', height: '8px', display: 'flex', flexDirection: 'row' }}>
+                    {quiz && quiz?.map((item, index) => {
+                        return <Box sx={{ backgroundColor: exitsIndex(index) ? '#6fcf97' : '#B4B4B4', marginLeft: '2px', flex: '1' }}></Box>
+                    })}
+                </Box>
 
-                        </Container>
+            </Container>
 
             {quiz && quiz?.map((question, index) => {
                 if (index == selectedIndex) {
@@ -245,7 +248,7 @@ const QuestionViewXyzOrg = () => {
                                                     <FormControlLabel onClick={(e) => {
                                                         !question?.answerSubmited && SelectFunc(e, index, optionIndex)
                                                     }}
-                                                        style={{ marginLeft: '.5rem'}}
+                                                        style={{ marginLeft: '.5rem' }}
                                                         value={item?._id}
                                                         control={
                                                             Options(question, item, optionIndex)
@@ -298,11 +301,11 @@ const QuestionViewXyzOrg = () => {
                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem', color: selectedIndex + 1 == quiz.length ? 'gray' : 'black' }}>Nästa</Typography><img src={RightArrow} alt="" onClick={() => SubmitAnswer(question)} /></Box>
                             </Box>
                         </Container>
-                        )
-            }
-        })}
-                    </Container>
-               
+                    )
+                }
+            })}
+        </Container>
+
     </div>;
 };
 
