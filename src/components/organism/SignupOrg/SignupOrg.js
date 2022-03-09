@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Label_field from "../../molecule/LabelField/LabelField";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
-import Outline_btn from "../../atom/OutlineBtn/Outline_btn";
+import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
 import { instance, EndPoints } from "../../service/Route";
 
@@ -49,7 +49,8 @@ const Signup_org = () => {
         console.log(response.data.user, "this is the api response");
         if (response.data.message == "success") {
           if (response.data.user.token) {
-              localStorage.setItem('token', response.data.user.token)
+            localStorage.setItem('userId', response.data.user.user._id)
+            localStorage.setItem('token', response.data.user.token)
             swal("Success!", response.data.message, "success");
             window.location.href = "/login";
           }
@@ -122,8 +123,8 @@ const Signup_org = () => {
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <Filled_btn
-              onClick={clickHandler}
-              title="Skapa konto" />
+                onClick={clickHandler}
+                title="Skapa konto" />
             </Link>
           </Box>
           <Typography variant="body1">eller</Typography>

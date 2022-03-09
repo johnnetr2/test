@@ -9,7 +9,7 @@ import Clock from '../../../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, Button, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import Exercise_Btn from '../../../../atom/ExerciseBtn/ExerciseBtn';
+import ExerciseBtn from '../../../../atom/ExerciseBtn/ExerciseBtn';
 
 const ProvPassDtk = () => {
 

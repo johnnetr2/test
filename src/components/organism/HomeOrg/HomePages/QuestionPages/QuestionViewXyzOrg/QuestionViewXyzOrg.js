@@ -1,10 +1,7 @@
-import React, { useEffect, useState, useRef, useNavigate } from 'react';
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom'
+import FilledBtn from '../../../../../atom/FilledBtn/FilledBtn'
 import BarChart from '../../../../../../assets/Icons/BarChart.svg'
-import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
-import LeftArrow from '../../../../../../assets/Icons/LeftArrow.svg'
-import Increment from '../../../../../../assets/Icons/Increment.svg'
-import Decrement from '../../../../../../assets/Icons/Decrement.svg'
 import QuestionOption from '../../../../../../assets/Icons/QuestionOption.svg'
 import PieChart from '../../../../../../assets/Imgs/SinglePieChart.png'
 import DtkImg from '../../../../../../assets/Imgs/DtkImg.png'
@@ -19,8 +16,10 @@ import { EndPoints, instance2 } from "../../../../../service/Route";
 import swal from 'sweetalert';
 import Timer from '../../../../../atom/Timer/timer'
 import { style } from '@mui/system';
-
-
+import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
+import LeftArrow from '../../../../../../assets/Icons/LeftArrow.svg'
+import Increment from '../../../../../../assets/Icons/Increment.svg'
+import Decrement from '../../../../../../assets/Icons/Decrement.svg'
 
 const QuestionViewXyzOrg = () => {
 
@@ -111,7 +110,7 @@ const QuestionViewXyzOrg = () => {
     }))
 
     const classes = useStyles();
-
+    const navigate = useNavigate();
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {

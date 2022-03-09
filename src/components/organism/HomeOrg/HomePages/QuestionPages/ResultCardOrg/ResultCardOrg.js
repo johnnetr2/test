@@ -6,13 +6,11 @@ import DtkImg from '../../../assets/Imgs/DtkImg.png'
 import Clock from '../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
+import HelpOutlineIcon from '@mui/Icons-material/HelpOutline'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Checkbox, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import Exercise_Btn from '../../atom/ExerciseBtn/ExerciseBtn';
+import ExerciseBtn from '../../atom/ExerciseBtn/ExerciseBtn';
 
-const Result_Question_View_LAS = () => {
-
-
-
+const ResultCardOrg = () => {
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -92,10 +90,11 @@ const Result_Question_View_LAS = () => {
             position='absolute'
         >
             <Toolbar>
-                {/* <ArrowBackIosIcons color='black' sx={{ width: 100 }} /> */}
+                {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     LAS
                 </Typography>
+                <HelpOutlineIcon sx={{ width: 100 }} />
             </Toolbar>
         </AppBar>
 
@@ -186,7 +185,7 @@ const Result_Question_View_LAS = () => {
                 </Box>
 
                 <Box padding={1} m={2} sx={{ width: 615 }}>
-                    <Exercise_Btn title="Nästa" />
+                    <ExerciseBtn title="Nästa" />
                 </Box>
             </Container>
         </Container>
@@ -194,4 +193,4 @@ const Result_Question_View_LAS = () => {
     </div>;
 };
 
-export default Result_Question_View_LAS;
+export default ResultCardOrg;

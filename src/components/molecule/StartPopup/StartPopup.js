@@ -19,7 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function StartPopup({ showPopup, hidePopup, submit }) {
+export default function StartPopup({ showPopup, hidePopup, submit, onDateChange }) {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
 
@@ -62,6 +62,7 @@ export default function StartPopup({ showPopup, hidePopup, submit }) {
                     }}
                     renderInput={(params) => (
                       <Input
+                      onChange={(e)=>{onDateChange(e.target.value)}}
                         type="date"
                         placeholder="Välj prov..."
                         {...params}
@@ -82,7 +83,7 @@ export default function StartPopup({ showPopup, hidePopup, submit }) {
                     marginBottom: "1rem",
                   }}
                 >
-                  <NextButton title="Nästa" />
+                  <Button variant='outlined' style={{backgroundColor:'none', border:'1px solid #0A1596', color:'#0A1596', textTransform:'capitalize', width:'30%'}}>Nästa</Button>
                 </Box>
               </DialogActions>
             </DialogContentText>

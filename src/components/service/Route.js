@@ -17,9 +17,12 @@ export const EndPoints = {
     Login: '/auth/login',
     getAllCategories: 'admin/sectionCategories',
     questionCategoryBysectionCategory: 'admin/QuestionCategory/questionCategoryBysectionCategory/',
+    testDate:'/api/studentPrefenence',
+    getResult:'/api/quizResult/resultByUserAndQuizid',
     storeQuiz: '/api/quiz',
     getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/',
     testHistory:'/api/quizResult/getQuizBySecOruser',
     submitAnswer: '/api/quizResult'
 }
+
 

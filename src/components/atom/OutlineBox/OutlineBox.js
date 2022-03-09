@@ -1,8 +1,7 @@
 import React from 'react'
-// import './Outline_Box.css'
 import Box from '@mui/material/Box';
 
-const Outline_Box = (props) => {
+const OutlineBox = (props) => {
     return (
         <div onClick={() => props.onChangeCheck(props.title)} >
             <Box
@@ -23,8 +22,8 @@ const Outline_Box = (props) => {
                     cursor: 'pointer'
                 } :
                     {
-                        width: 60,
-                        height: 60,
+                        width: '4rem',
+                        height: '4rem',
                         backgroundColor: '#fff',
                         boxShadow: '1px 1px 8px #dfdfdf',
                         borderRadius: '.25rem',
@@ -45,4 +44,4 @@ const Outline_Box = (props) => {
     )
 }
 
-export default Outline_Box
+export default OutlineBox

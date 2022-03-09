@@ -17,11 +17,7 @@ const useStyles = makeStyles((theme) =>
     box: {
         paddingRight: theme.spacing(0),
         paddingLeft: theme.spacing(0),
-        // '& .css-98d3jh-MuiContainer-root':
-        // {
-        //     paddingLeft: 0,
-        //     paddingRight: 0
-        // }
+        
     }
 }))
 

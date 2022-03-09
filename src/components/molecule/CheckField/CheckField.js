@@ -1,19 +1,18 @@
 import React from 'react'
-import Outline_Field from '../../atom/outline-field/Outline_Field'
-import './Check_Field.css'
+import OutlineField from '../../atom/OutlineField/OutlineField'
 
 
 
-const Check_Field = () => {
+const CheckField = () => {
 
 
 
     return (
         
-        <div className='check-field-1'>
-            <Outline_Field type="checkbox"/>
+        <div>
+            <OutlineField type="checkbox"/>
         </div>
     )
 }
 
-export default Check_Field
+export default CheckField

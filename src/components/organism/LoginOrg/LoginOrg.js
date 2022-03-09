@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Box, Typography } from "@mui/material";
 import Label_field from "../../molecule/LabelField/LabelField";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
-import Outline_btn from "../../atom/OutlineBtn/Outline_btn";
+import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
 import { instance, EndPoints } from '../../service/Route'
 
@@ -34,6 +34,7 @@ const Login_org = () => {
       .then((response) => {
         console.log(response.data, "this is api console");
         if (response.data.token) {
+          localStorage.setItem('userId',response.data.user._id)
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("fullName", response.data.user.fullName);
