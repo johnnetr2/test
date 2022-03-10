@@ -26,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
   test: {
     border: "2px solid #212121",
   },
+  navBelowBarColor: {
+    '& .PrivateTabIndicator-colorSecondary-19':
+    {
+      backgroundColor:'#0A1596',
+      border:'2px solid #f0f'
+    }
+  }
 }));
 
 function TabPanel(props) {
@@ -84,10 +91,11 @@ const HomeFeedContent = () => {
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
+                TabIndicatorProps={{ style: { background: "#0A1596" } }}
               >
-                <Tab label="Alla kategorier" {...a11yProps(0)} />
-                <Tab label="Kvantitativ del" {...a11yProps(1)} />
-                <Tab label="Verbal del" {...a11yProps(2)} />
+                <Tab style={{textTransform:'initial'}} label="Alla kategorier" {...a11yProps(0)} />
+                <Tab style={{textTransform:'initial'}} label="Kvantitativ del" {...a11yProps(1)} />
+                <Tab style={{textTransform:'initial'}} label="Verbal del" {...a11yProps(2)} />
               </Tabs>
             </Box>
           </Box>

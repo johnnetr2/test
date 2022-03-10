@@ -57,15 +57,15 @@ const CategoryPagesFeedContent = (props) => {
   const [tableHistory, setTableHistory] = useState([])
 
   useEffect(() => {
-    console.log(props.item, "this is the response of category pages content feed");
+    console.log(props.item, "item props");
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       setQuestionCategories(response.data);
-      console.log(response.data, "response after first api setter call on category pages content feed");
-      const URLHistory = EndPoints.testHistory;
+      // console.log(response, "response after first api on category pages content feed");
+      const URLHistory = EndPoints.testHistory + props.item._id;
       instance2.get(URLHistory).then(response => {
-        console.log(response.data, "response of the second api calculation on category pages content feed")
-        setTableHistory(response.data) 
+        console.log(response?.data, "history response")
+        setTableHistory(response?.data)
       })
     });
     
@@ -75,7 +75,7 @@ const CategoryPagesFeedContent = (props) => {
     if (value) {
       setCheckedValue(value);
       setError(false);
-      console.log(value, "no of question");
+      // console.log(value, "no of question");
     }
   };
 

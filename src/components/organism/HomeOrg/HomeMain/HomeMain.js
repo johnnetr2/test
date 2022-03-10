@@ -24,7 +24,7 @@ const HomeMainOrg = () => {
         <Grid item sm={7} xs={10}>
           <HomeFeedContent />
         </Grid>
-        <Grid item sm={4} className={classes.right}>
+        <Grid item sm={4} style={{backgroundColor:'#fafafa'}} className={classes.right}>
           <HomeRightBar />
         </Grid>
       </Grid>

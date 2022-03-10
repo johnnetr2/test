@@ -110,24 +110,24 @@ export const CategoryTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              {categoryTable.map((row) => {
-                return (
-                  <>
+            {categoryTable.map((row) => {
+              return (
+                <>
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
                     <TableCell component="th" scope="row">
                       {row.createdAt}
                     </TableCell>
                     <TableCell align="left">
                       {row.correctAnswer} av {row.totalQuestion}
                     </TableCell>
-                    <TableCell align="left"></TableCell>
-                    <TableCell align="left">:</TableCell>
-                  </>
-                );
-              })}
-            </TableRow>
+                    <TableCell align="left">0.0</TableCell>
+                    <TableCell align="left"><MoreVertIcon /></TableCell>
+                  </TableRow>
+                </>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>

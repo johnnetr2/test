@@ -16,21 +16,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CategoryPagesRightBar = () => {
+const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
-
   const [progressData, setProgressData] = useState("")
 
+
+
   useEffect(() => {
-    const URL = EndPoints.testHistory
+    const URL = EndPoints.testHistory + props.item._id
     instance2.get(URL).then((response) => {
-      console.log(response, "this is the response of the url");
-      setProgressData(response.data)
+      console.log(response, " token this is the response of the category page rightbar api url");
+      setProgressData(response.data, 'token response')
     });
   }, []);
 
   return (
     <Container disableGutters maxWidth={false}>
+      {console.log(progressData, "this si main")}
       <Box
         sx={{
           height: "fit-content",

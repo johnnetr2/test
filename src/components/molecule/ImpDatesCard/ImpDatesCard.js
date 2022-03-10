@@ -24,7 +24,7 @@ const ImpDatesCard = () => {
       <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
           <Typography variant="h5" style={{marginRight:'0.5rem'}}>10.04.22</Typography>
           <Typography variant="body2">
-            10.04.22 100 dagar till anmälan öppnar
+            dagar till anmälan öppnar
           </Typography>
       </Box>
     </Box>
