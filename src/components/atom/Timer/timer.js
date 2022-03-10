@@ -1,16 +1,21 @@
-import {React, useEffect, useRef, useState} from 'react'
+import { React, useEffect, useRef, useState } from 'react'
 import { Box } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
-const Timer = () => {
-    const time = 12;
+const Timer = (props) => {
+    const time = 5;
     const sec = time * 60;
     const [timer, setTimer] = useState(sec); // 25 minutes
-    const [start, setStart] = useState(false);
+    const [start, setStart] = useState();
     const firstStart = useRef(true);
     const tick = useRef();
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setStart(props.continueStatus)
+    }, [props.continueStatus])
 
     useEffect(() => {
         if (firstStart.current) {
@@ -29,26 +34,27 @@ const Timer = () => {
         return () => clearInterval(tick.current);
     }, [start]);
 
-    const toggleStart = () => {
-        setStart(!start);
-    };
 
     const dispSecondsAsMins = (seconds) => {
         // 25:00
         const mins = Math.floor(seconds / 60);
         const seconds_ = seconds % 60;
-        return mins.toString() + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
+        if(seconds_ == 0 ) {
+            navigate('/resultsummary', {
+                state: {
+                    quizId: props.quizId,
+                    categoryName: props.categoryName
+                }
+            })
+        } else {
+            return mins.toString() + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
+        }
     };
 
     return (
-        <Box className="pomView">
-            <h4>{dispSecondsAsMins(timer)}</h4>
+        <Box style={{ marginTop: '.4rem', display: 'flex', alignItems: 'center', marginLeft: '.4rem' }} >
+            <h6>{dispSecondsAsMins(timer)}</h6>
             <Box className="startDiv">
-                {/* event handler onClick is function not function call */}
-                <button className="startBut" onClick={toggleStart}>
-                    {!start ? "START" : "STOP"}
-                </button>
-                {/* {start && <AiFillFastForward className="ff" onClick="" />} */}
             </Box>
         </Box>
     );

@@ -29,7 +29,6 @@ const Signup_org = () => {
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setRegister({ ...register, [name]: value });
-    console.log(register, "this is the console of the change Handler");
   };
 
   const clickHandler = (e) => {
@@ -40,13 +39,11 @@ const Signup_org = () => {
       password: register.password,
     };
 
-    console.log(data, "this is the data");
 
     const URL = EndPoints.SignUp;
     instance
       .post(URL, data)
       .then((response) => {
-        console.log(response.data.user, "this is the api response");
         if (response.data.message == "success") {
           if (response.data.user.token) {
             localStorage.setItem('userId', response.data.user.user._id)

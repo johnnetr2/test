@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import FilledBtn from '../../../../../atom/FilledBtn/FilledBtn'
 import BarChart from '../../../../../../assets/Icons/BarChart.svg'
 import QuestionOption from '../../../../../../assets/Icons/QuestionOption.svg'
-import PieChart from '../../../../../../assets/Imgs/SinglePieChart.png'
-import DtkImg from '../../../../../../assets/Imgs/DtkImg.png'
 import Clock from '../../../../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
@@ -15,11 +13,14 @@ import Wrong from '../../../../../../assets/Imgs/wrong.png'
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import swal from 'sweetalert';
 import Timer from '../../../../../atom/Timer/timer'
-import { style } from '@mui/system';
 import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
 import LeftArrow from '../../../../../../assets/Icons/LeftArrow.svg'
 import Increment from '../../../../../../assets/Icons/Increment.svg'
 import Decrement from '../../../../../../assets/Icons/Decrement.svg'
+import DimLeftArrow from '../../../../../../assets/Icons/DimLeftArrow.svg'
+import DimRightArrow from '../../../../../../assets/Icons/DimRightArrow.svg'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+// import CustomizedSnackbars from '../../../../../atom/Snackbar/snackbar'
 
 const QuestionViewXyzOrg = () => {
 
@@ -28,6 +29,7 @@ const QuestionViewXyzOrg = () => {
     const [quiz, setQuiz] = useState()
     const [optionId, setOptionId] = useState()
     const params = useLocation()
+    const [status, setStatus] = useState(true)
 
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -36,8 +38,9 @@ const QuestionViewXyzOrg = () => {
         color: theme.palette.text.secondary,
     }));
 
-    const submitQuestion = (question, index) => {
-        if (optionId) {
+    const GetAnswer = (question, index) => {
+        if (question.selectedIndex + 1) {
+            setStatus(false)
             const exists = attemptedQuestion.some(id => id == index)
             if (!exists) {
                 setAttemptedQuestion([...attemptedQuestion, index])
@@ -52,8 +55,32 @@ const QuestionViewXyzOrg = () => {
                 ques.answerSubmited = true
                 setQuiz(questions)
             })
+
+            const data = {
+                quiz: params?.state?.data?._id,
+                user: localStorage.getItem('userId'),
+                optionId: optionId,
+                questionId: question.question._id,
+                sectionCategory: params?.state?.sectionCategory
+            }
+
+            const Submit = EndPoints.submitAnswer
+            instance2.post(Submit, data).then(response => {
+                console.log('Answer submited')
+            })
+
         } else {
             swal('varning', 'Var god välj ett alternativ', 'warning')
+        }
+
+    }
+
+    const Next = (question) => {
+        if (question.answer) {
+            setStatus(true)
+            selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
+        } else {
+            selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
         }
 
     }
@@ -115,20 +142,6 @@ const QuestionViewXyzOrg = () => {
 
     useEffect(() => {
         setQuiz(params.state.quiz)
-        console.log(params.state, 'prev data')
-        //     const timer = setInterval(() => {
-        //         setProgress((oldProgress) => {
-        //             if (oldProgress === 100) {
-        //                 return 0;
-        //             }
-        //             const diff = Math.random() * 10;
-        //             return Math.min(oldProgress + diff, 100);
-        //         });
-        //     }, 500);
-
-        //     return () => {
-        //         clearInterval(timer);
-        //     };
     }, []);
 
     const SelectFunc = (e, index, optionIndex) => {
@@ -169,28 +182,7 @@ const QuestionViewXyzOrg = () => {
         }
     }
 
-    
-    const SubmitAnswer = (question) => {
-        if (question.answer) {
-            selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
-            console.log(question.question._id, 'question')
-            const data = {
-                quiz: params?.state?.data?._id,
-                user: localStorage.getItem('id'),
-                isCorrect: question.answer.option,
-                optionId: optionId,
-                questionId: question.question._id
-            }
-            console.log(data, 'result store api data')
-            const URL = EndPoints.submitAnswer
-            instance2.post(URL, data).then(response => {
-                console.log(response.data)
-            })
-        } else {
-            selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
-        }
 
-    }
 
     return <div>
 
@@ -201,10 +193,22 @@ const QuestionViewXyzOrg = () => {
             style={{ boxShadow: "none" }}
             position='absolute'
         >
-            <Toolbar>
-                <Typography variant="body1" style={{ width: 1200, marginLeft: '10rem' }} className={classes.center_align}>
+            <Toolbar style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Box onClick={() => navigate('/resultsummary', {
+                    state: {
+                        quizId: params?.state?.data?._id,
+                        categoryName: params?.state?.category_name
+                    }
+                })} sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
+
+                <Typography variant="body1" className={classes.center_align}>
                     {params.state.category_name}
                 </Typography>
+
+                <Box>
+                    <HelpOutlineIcon sx={{ cursor: 'pointer' }} />
+                </Box>
+
             </Toolbar>
         </AppBar>
 
@@ -213,7 +217,7 @@ const QuestionViewXyzOrg = () => {
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{selectedIndex + 1} av {quiz?.length}
                     </Box>
-                    {params.state.data.value == true && <Box mt={2} sx={{ color: '#222', display: 'flex', flexDirection: 'row' }}><img src={Clock} alt="" /><Timer /></Box>}
+                    {params.state.data.value == true && <Box mt={2} sx={{ color: '#222', display: 'flex', flexDirection: 'row' }}><img src={Clock} alt="" /><Timer continueStatus={status} quizId={params?.state?.data?._id} categoryName={params?.state?.category_name}  /></Box>}
                 </Box>
 
                 <Box mt={2} sx={{ backgroundColor: '#b4b4b4', height: '8px', display: 'flex', flexDirection: 'row' }}>
@@ -293,11 +297,11 @@ const QuestionViewXyzOrg = () => {
                             </Box>}
 
                             <Box disable={true} padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img src={LeftArrow} alt="" onClick={() => selectedIndex > 0 && setSelectedIndex(selectedIndex - 1)} /> <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem', color: selectedIndex > 0 ? 'black' : 'grey' }}>Föregående</Typography></Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img style={{ height: '1.2rem', cursor: 'pointer' }} src={selectedIndex > 0 ? LeftArrow : DimLeftArrow} alt="" onClick={() => selectedIndex > 0 && setSelectedIndex(selectedIndex - 1)} /> <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem', color: selectedIndex > 0 ? 'black' : 'grey' }}>Föregående</Typography></Box>
 
-                                <Box><Typography variant="h6" onClick={() => submitQuestion(question, index)} style={{ fontSize: '0.75rem', textTransform: 'uppercase', cursor: 'pointer' }}>Resultatsida</Typography></Box>
+                                <Box><Typography variant="h6" onClick={() => GetAnswer(question, index)} style={{ fontSize: '0.75rem', textTransform: 'uppercase', cursor: 'pointer' }}>Resultatsida</Typography></Box>
 
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem', color: selectedIndex + 1 == quiz.length ? 'gray' : 'black' }}>Nästa</Typography><img src={RightArrow} alt="" onClick={() => SubmitAnswer(question)} /></Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem', color: selectedIndex + 1 == quiz.length ? 'gray' : 'black' }}>Nästa</Typography><img style={{ height: '1.2rem', cursor: 'pointer' }} src={selectedIndex + 1 == quiz.length ? DimRightArrow : RightArrow} alt="" onClick={() => Next(question)} /></Box>
                             </Box>
                         </Container>
                     )

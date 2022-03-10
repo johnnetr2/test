@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CategoryPagesFeedContent = (props) => {
 
+
   const classes = useStyles();
   const navigate = useNavigate();
   const [questionCategories, setQuestionCategories] = useState()
@@ -51,8 +52,8 @@ const CategoryPagesFeedContent = (props) => {
   const [selectedIndex, setSelectedIndex] = useState()
   const [checkType, setCheckType] = useState()
   const [error, setError] = useState(false)
-  const [categoryError, setCategoryError] = useState(false)
   const [open, setOpen] = useState(false);
+  const [categoryError, SetCategoryError] = useState()
 
 
   useEffect(() => {
@@ -73,30 +74,34 @@ const CategoryPagesFeedContent = (props) => {
     if (chekedValue == undefined) {
       setError(true)
     } else {
-      setOpen(true)
-      const data = {
-        questionCategories: checkType,
-        question: parseInt(chekedValue),
-        value: timer,
-        user: localStorage.getItem('id')
-      }
-      const URL = EndPoints.storeQuiz
-      instance2.post(URL, data).then(response => {
-        console.log(response.data.quiz, 'api data')
-        if (response.data.quiz.length < 1) {
-          setOpen(false)
-          swal('varning', 'Det finns inga frågor mot denna kurs', 'warning')
-        } else {
-          setOpen(false)
-          navigate('/question', {
-            state: {
-              quiz: response.data.quiz,
-              data: response.data,
-              category_name: props.item.title
-            }
-          })
+      if (checkType) {
+        setOpen(true)
+        const data = {
+          questionCategories: checkType,
+          question: parseInt(chekedValue),
+          value: timer,
+          user: localStorage.getItem('userId')
         }
-      })
+        const URL = EndPoints.storeQuiz
+        instance2.post(URL, data).then(response => {
+          if (response.data.quiz.length < 1) {
+            setOpen(false)
+            swal('varning', 'Det finns inga frågor mot denna kurs', 'warning')
+          } else {
+            setOpen(false)
+            navigate('/question', {
+              state: {
+                quiz: response.data.quiz,
+                data: response.data,
+                category_name: props.item.title,
+                sectionCategory: props.item._id
+              }
+            })
+          }
+        })
+      } else {
+        SetCategoryError(true)
+      }
     }
   }
 
@@ -229,15 +234,17 @@ const CategoryPagesFeedContent = (props) => {
                 onClickCheck={() => {
                   setSelectedIndex(index)
                   setCheckType(item?._id)
+                  SetCategoryError(false)
                 }} checked={index == selectedIndex ? true : false} />
             })}
           </Box>
-          {categoryError && <Typography variant="body1"
+          {categoryError &&
+          <Typography variant="body1"
 
             style={{
               width: "15rem",
               height: "3rem",
-              marginLeft: ".25rem",
+              marginLeft: "20rem",
               marginRight: ".25rem",
               display: "flex",
               flexWrap: "wrap",
@@ -245,7 +252,8 @@ const CategoryPagesFeedContent = (props) => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >vänligen välj en kategori</Typography>}
+          >vänligen välj en kategori</Typography>
+          } 
         </Box>
       </Box>
       <Box sx={{ marginTop: '2rem' }} onClick={onSubmit}>

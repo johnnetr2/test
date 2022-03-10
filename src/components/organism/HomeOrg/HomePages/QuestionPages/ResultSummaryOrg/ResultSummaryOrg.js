@@ -15,10 +15,14 @@ import { instance, instance2, EndPoints } from '../../../../../service/Route'
 import swal from 'sweetalert';
 import { red, green } from '@mui/material/colors';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useLocation } from 'react-router-dom';
+import Correct from '../../../../../../assets/Imgs/correct.png'
+import Wrong from '../../../../../../assets/Imgs/wrong.png'
+
+
 const ResultSummaryOrg = (props) => {
 
-
-
+    const params = useLocation()
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -76,11 +80,10 @@ const ResultSummaryOrg = (props) => {
     useEffect(() => {
 
         // const URL = EndPoints.getResult + props.quizId
-        const URL = EndPoints.getResult + "/621750023cbac80f1421bef8"
+        const URL = EndPoints.getResult + params?.state?.quizId
         try {
             instance2.get(URL).then((response) => {
                 if (response.data) {
-                    // console.log(response.data, ' response from server');
                     setresponseCollection(response.data)
                 }
             })
@@ -104,7 +107,6 @@ const ResultSummaryOrg = (props) => {
 
 
     return <div>
-        {/* {console.log("response collection", responseCollection?.answer)} */}
         <CssBaseline />
         <AppBar
             color="#fff"
@@ -115,7 +117,7 @@ const ResultSummaryOrg = (props) => {
             <Toolbar>
                 {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
-                    Sammanfattning - DTK
+                    Sammanfattning - {params?.state?.categoryName}
                 </Typography>
             </Toolbar>
         </AppBar>
@@ -123,8 +125,8 @@ const ResultSummaryOrg = (props) => {
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
             <Container disableGutters padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />12 av 12</Box>
-                    <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box>
+                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{responseCollection.totalQuestion} av {responseCollection.totalQuestion}</Box>
+                    {/* <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box> */}
                 </Box>
                 <Box mt={2}>
                     <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
@@ -138,13 +140,13 @@ const ResultSummaryOrg = (props) => {
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                            { responseCollection.totalQuestion && responseCollection.correctAnswer !=null? <Typography variant="h4">
-                                {responseCollection && responseCollection.correctAnswer + "/" + responseCollection.totalQuestion}
+                                {responseCollection && responseCollection.correctAnswer + " /" + responseCollection.totalQuestion}
                             </Typography>:
                             <Box sx={{ display: 'flex' }}>
                             <CircularProgress />
                           </Box>
                             }
-                            <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Antal poäng</Typography>
+                            <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Antal poäng</Typography>
                         </Box>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                             {
@@ -154,17 +156,17 @@ const ResultSummaryOrg = (props) => {
                             <CircularProgress />
                           </Box>
                             }
-                            <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Normerad poäng</Typography>
+                            <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Normerad poäng</Typography>
                         </Box>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                             <Typography variant="h4">1:25</Typography>
-                            <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Tid per fråga</Typography>
+                            <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid per fråga</Typography>
                         </Box>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                             <Typography variant="h4">00:05</Typography>
-                            <Typography variant="body1" style={{ fontSize: '0.75rem' }}>Tid kvar</Typography>
+                            <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid kvar</Typography>
                         </Box>
                     </Box>
                 </Box>
@@ -174,23 +176,15 @@ const ResultSummaryOrg = (props) => {
                 <Box paddingX={4} mt={2} sx={{ backgroundColor: '#fff', width: 600, height: 'fit-content', border: '1px solid #e1e1e1', display: 'flex', flexDirection: 'column' }}>
                     {responseCollection?.answer && responseCollection?.answer.map((item, index) => {
                         return (
-                            <Box padding={1} mt={2} mb={2} style={{ border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Box padding={1} mt={2} mb={2} style={{ height: '3.5rem', border: '1px solid #E3E3E3', width: 550, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <FormControlLabel control={
-                                    item.optionId == item.isCorrect ? <Checkbox
-                                        sx={{
-                                            '&.Mui-checked': {
-                                                color: green[600],
-                                            },
-                                        }}
-                                        checked={true}
+                                    item.optionId == item.isCorrect ? <img
+                                        style={{ height: '1.5rem', marginLeft: '1.5rem' }}
+                                        src={Correct}
                                     /> :
-                                        <Checkbox
-                                            checked={false}
-                                            sx={{
-                                                color: red[600],
-                                            }}
-                                            icon={<CloseIcon />}
-
+                                        <img
+                                            src={Wrong}
+                                            style={{ height: '1.5rem', marginLeft: '1.5rem' }}
                                         />
                                 } />
                                 <Typography style={{ textTransform: "uppercase", fontSize: '0.75rem', fontWeight: '600', marginRight: '18rem' }} variant='body1' component='body1'>
