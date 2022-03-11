@@ -23,6 +23,6 @@ export const EndPoints = {
     testHistory:'/api/quizResult/getQuizBySecOruser/',
     storeQuiz: '/api/quiz',
     getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/',
-    lastWeekTasks:'/api/task/resultByUser'
+    lastWeekTasks:'/api/task/resultByUser/'
 }
 

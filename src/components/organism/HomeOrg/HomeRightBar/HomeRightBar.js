@@ -5,6 +5,7 @@ import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import DevelopmentGraph from "../../../../components/molecule/DevelopmentGraph/DevelopmentGraph";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LearnMoreCard from "../../../../components/molecule/LearnMoreCard/LearnMoreCard";
+import LineChart from "../../../molecule/Charts/LineChart";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +71,20 @@ const HomeRightBar = () => {
                 marginRight: "1rem",
               }}
             >
-              <DevelopmentGraph />
+              <Box
+                sx={{
+                  height: "20%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px solid #dddddd",
+                  boxShadow: "1px 1px 8px #dfdfdf",
+                  borderRadius: 5,
+                  padding: "2rem",
+                }}
+              >
+                <LineChart />
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -95,8 +109,8 @@ const HomeRightBar = () => {
           </Box>
         </Box>
         <Box style={{ marginTop: "2rem" }}>
-          <Box sx={{marginRight:'1rem', marginLeft:'1rem' }}>
-              <LearnMoreCard />
+          <Box sx={{ marginRight: "1rem", marginLeft: "1rem" }}>
+            <LearnMoreCard />
           </Box>
         </Box>
       </Box>
