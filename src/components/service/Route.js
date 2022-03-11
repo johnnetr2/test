@@ -22,6 +22,7 @@ export const EndPoints = {
     getResult:'/api/quizResult/resultByUserAndQuizid',
     testHistory:'/api/quizResult/getQuizBySecOruser/',
     storeQuiz: '/api/quiz',
-    getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/'
+    getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/',
+    lastWeekTasks:'/api/task/resultByUser'
 }
 

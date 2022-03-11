@@ -17,11 +17,13 @@ import ProvPassCorrectAns from "./components/organism/CoursesOrg/CoursePages/Pro
 import CategoryPagesMain from "../src/components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesMain/CategoryPagesMain";
 import Home from "./pages/Home/Home";
 import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg";
+import QuitTaskPopup from '../src/components/molecule/QuitTaskPopup/QuitTaskPopup'
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/quittaskpopup" element={<QuitTaskPopup/>} />
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />

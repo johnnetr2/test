@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
   const [progressData, setProgressData] = useState("")
+  const [lastWeekTasks, setLastWeekTasks] = useState("")
 
 
 
@@ -28,6 +29,12 @@ const CategoryPagesRightBar = (props) => {
       console.log(response, " token this is the response of the category page rightbar api url");
       setProgressData(response.data, 'token response')
     });
+
+    const LastWeekURL = EndPoints.lastWeekTasks
+    instance2.get(LastWeekURL).then((response)=>{
+      console.log(response.data.totalData, "lastweek tasks")
+      setLastWeekTasks(response.data.totalData)
+    })
   }, []);
 
   return (
@@ -73,7 +80,7 @@ const CategoryPagesRightBar = (props) => {
         <Box style={{ marginTop: "2rem" }}>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ width: "50%", marginLeft: "1rem" }}>
-              <Typography variant="h5">4</Typography>
+              <Typography variant="h5">{lastWeekTasks}</Typography>
               <Typography variant="body2">
                 Gjorda uppgifter förra veckan
               </Typography>
