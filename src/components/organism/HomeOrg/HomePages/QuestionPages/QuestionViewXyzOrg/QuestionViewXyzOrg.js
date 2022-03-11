@@ -198,14 +198,7 @@ const QuestionViewXyzOrg = () => {
             position='absolute'
         >
             <Toolbar style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Box onClick={() => navigate('/resultsummary', {
-                    state: {
-                        quizId: params?.state?.data?._id,
-                        categoryName: params?.state?.category_name,
-                        timeLeft: timeLeft,
-                        totalTime: time
-                    }
-                })} sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
+                <Box sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
 
                 <Typography variant="body1" className={classes.center_align}>
                     {params.state.category_name}
