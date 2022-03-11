@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: 'http://16.170.168.227:2000',
+    baseURL: 'http://13.53.194.168:2000',
 });
 
 export const instance2 = axios.create({
-    baseURL: 'http://16.170.168.227:2000',
+    baseURL: 'http://13.53.194.168:2000',
     headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
     },
