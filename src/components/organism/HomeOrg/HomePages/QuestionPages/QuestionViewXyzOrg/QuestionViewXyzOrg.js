@@ -42,9 +42,49 @@ const QuestionViewXyzOrg = () => {
     }));
 
 
-    const Next = () => {
-        setStatus(true)
-        setSelectedIndex(selectedIndex + 1)
+    const Next = (question, index) => {
+        if (question.answerSubmited) {
+            if (index + 1 == quiz.length) {
+                navigate('/resultsummary', {
+                    state: {
+                        quizId: params?.state?.data?._id,
+                        categoryName: params?.state?.category_name,
+                        timeLeft: timeLeft,
+                        totalTime: time
+                    }
+                })
+            } else {
+                setStatus(true)
+                selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
+            }
+        } else {
+            if (question.selectedIndex + 1) {
+                const questions = [...quiz]
+                let ques = questions[index];
+
+                const URL = EndPoints.getAnswerByQuestionId + ques.question._id;
+                instance2.get(URL).then(response => {
+                    ques.answer = response.data
+                    ques.answerSubmited = true
+                    setQuiz(questions)
+                    setStatus(false)
+                })
+
+                const data = {
+                    quiz: params?.state?.data?._id,
+                    user: localStorage.getItem('userId'),
+                    optionId: question.selectedOptionID,
+                    questionId: question.question._id,
+                    sectionCategory: params?.state?.sectionCategory
+                }
+
+                const Submit = EndPoints.submitAnswer
+                instance2.post(Submit, data).then(response => {
+                    console.log('Answer submited')
+                })
+            }
+        }
+
     }
 
     // const exitsIndex = (index) => {
@@ -110,29 +150,9 @@ const QuestionViewXyzOrg = () => {
         const questions = [...quiz]
         let question = questions[index];
         question.selectedIndex = optionIndex;
+        question.selectedOptionID = e.target.value
+        setQuiz(questions)
 
-        if (question.selectedIndex + 1) {
-            const URL = EndPoints.getAnswerByQuestionId + question.question._id;
-            instance2.get(URL).then(response => {
-                question.answer = response.data
-                question.answerSubmited = true
-                setQuiz(questions)
-                setStatus(false)
-            })
-
-            const data = {
-                quiz: params?.state?.data?._id,
-                user: localStorage.getItem('userId'),
-                optionId: e.target.value,
-                questionId: question.question._id,
-                sectionCategory: params?.state?.sectionCategory
-            }
-
-            const Submit = EndPoints.submitAnswer
-            instance2.post(Submit, data).then(response => {
-                console.log('Answer submited')
-            })
-        }
     }
 
 
@@ -204,17 +224,17 @@ const QuestionViewXyzOrg = () => {
                     <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{selectedIndex + 1} av {quiz?.length}
                     </Box>
                     {params.state.data.value == true && <Box mt={2} sx={{ color: '#222', display: 'flex', flexDirection: 'row' }}><img src={Clock} alt="" />
-                        <Timer continueStatus={status} time={time} 
-                    timeleft={(timer) => 
-                    setTimeLeft(timer)} 
-                    onCloseTimer={() => navigate('/resultsummary', {
-                        state: {
-                            quizId: params?.state?.data?._id,
-                            categoryName: params?.state?.category_name,
-                            timeLeft: 0,
-                            totalTime: time
-                        }
-                    })} /></Box> }
+                        <Timer continueStatus={status} time={time}
+                            timeleft={(timer) =>
+                                setTimeLeft(timer)}
+                            onCloseTimer={() => navigate('/resultsummary', {
+                                state: {
+                                    quizId: params?.state?.data?._id,
+                                    categoryName: params?.state?.category_name,
+                                    timeLeft: 0,
+                                    totalTime: time
+                                }
+                            })} /></Box>}
                 </Box>
 
                 <Box mt={2} sx={{ backgroundColor: '#b4b4b4', height: '8px', display: 'flex', flexDirection: 'row' }}>
@@ -293,7 +313,7 @@ const QuestionViewXyzOrg = () => {
                                 </Box>
                             </Box>}
 
-                            {question.answerSubmited ? (<Box onClick={() => selectedIndex + 1 < quiz.length && Next()} padding={1} mt={2} sx={{ width: 600, display: 'flex', justifyContent: 'center', backgroundColor: '#0A1596', borderRadius: '.3rem', cursor: 'pointer' }}>
+                            {question.selectedIndex + 1 ? (<Box onClick={() => Next(question, index)} padding={1} mt={2} sx={{ width: 600, display: 'flex', justifyContent: 'center', backgroundColor: '#0A1596', borderRadius: '.3rem', cursor: 'pointer' }}>
                                 <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem', color: '#FFFFFF' }}>Nästa</Typography>
                             </Box>)
                                 :

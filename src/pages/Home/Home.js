@@ -3,11 +3,13 @@ import HomeMainOrg from "../../components/organism/HomeOrg/HomeMain/HomeMain";
 import StartPopup from "../../components/molecule/StartPopup/StartPopup";
 import EndPopup from "../../components/molecule/EndPopup/EndPopup";
 import { EndPoints, instance, instance2 } from "../../components/service/Route";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
 
   const [firstPopup, setFirstPopup] = useState("");
   const [secondPopup, setSecondPopup] = useState("");
+  const params = useLocation();
   const [collection, setCollection] = useState({
     date: '',
     gpa: '',
@@ -15,7 +17,11 @@ const Home = () => {
     userId: localStorage.getItem('userId'),
   })
   useEffect(() => {
-    setFirstPopup(true);
+    if (params?.state?.popUpStatus) {
+      setFirstPopup(false);
+    } else {
+      setFirstPopup(true);
+    }
   }, []);
 
   const data = {

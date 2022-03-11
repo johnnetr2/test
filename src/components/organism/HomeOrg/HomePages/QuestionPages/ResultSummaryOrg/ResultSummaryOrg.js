@@ -15,7 +15,7 @@ import { instance, instance2, EndPoints } from '../../../../../service/Route'
 import swal from 'sweetalert';
 import { red, green } from '@mui/material/colors';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Correct from '../../../../../../assets/Imgs/correct.png'
 import Wrong from '../../../../../../assets/Imgs/wrong.png'
 
@@ -25,6 +25,7 @@ const ResultSummaryOrg = (props) => {
     const params = useLocation()
     const [prevData, setPrevData] = useState()
     const [timePerQues, setTimePerQues] = useState()
+    const navigate = useNavigate()
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -131,8 +132,8 @@ const ResultSummaryOrg = (props) => {
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
             <Container disableGutters padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{responseCollection?.answer?.length} av {responseCollection.totalQuestion}</Box>
-                    <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />{dispSecondsAsMins(prevData?.timeLeft)}</Box>
+                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{responseCollection?.answer?.length} av {responseCollection?.answer?.length }</Box>
+                    <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />{prevData?.timeLeft ? dispSecondsAsMins(prevData?.timeLeft) : '00:00'}</Box>
                 </Box>
                 <Box mt={2}>
                     <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
@@ -146,7 +147,7 @@ const ResultSummaryOrg = (props) => {
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                            { responseCollection.totalQuestion && responseCollection.correctAnswer !=null? <Typography variant="h4">
-                                {responseCollection && responseCollection.correctAnswer + " /" + responseCollection.totalQuestion}
+                                {responseCollection && responseCollection.correctAnswer + " /" + responseCollection.answer.length}
                             </Typography>:
                             <Box sx={{ display: 'flex' }}>
                             <CircularProgress />
@@ -172,7 +173,7 @@ const ResultSummaryOrg = (props) => {
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid per fråga</Typography>
                         </Box>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">{prevData?.timeLeft ? dispSecondsAsMins(prevData?.timeLeft) : prevData?.timeLeft == 0 ? dispSecondsAsMins(prevData?.timeLeft) : <CircularProgress />}</Typography>
+                            <Typography variant="h4">{prevData?.timeLeft ? dispSecondsAsMins(prevData?.timeLeft) : '00:00' }</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid kvar</Typography>
                         </Box>
                     </Box>
@@ -209,7 +210,11 @@ const ResultSummaryOrg = (props) => {
                     })}
                 </Box>
                 <Box padding={1} m={2} sx={{ width: 615 }}>
-                    <Button variant="outlined" style={{ width: 600 }}>Klar</Button>
+                    <Button variant="outlined" onClick={() => navigate('/home', {
+                        state: {
+                            popUpStatus: true
+                        }
+                    })} style={{ width: 600 }}>Klar</Button>
                 </Box>
             </Container>
         </Container>
