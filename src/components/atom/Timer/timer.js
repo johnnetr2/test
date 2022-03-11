@@ -1,12 +1,11 @@
 import { React, useEffect, useRef, useState } from 'react'
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
 
 const Timer = (props) => {
-    const time = 5;
-    const sec = time * 60;
+    const sec = props.time * 60;
     const [timer, setTimer] = useState(sec); // 25 minutes
     const [start, setStart] = useState();
     const firstStart = useRef(true);
@@ -15,6 +14,9 @@ const Timer = (props) => {
 
     useEffect(() => {
         setStart(props.continueStatus)
+        if(!props.continueStatus) {
+            props.timeleft(timer)
+        }
     }, [props.continueStatus])
 
     useEffect(() => {
@@ -25,7 +27,7 @@ const Timer = (props) => {
 
         if (start) {
             tick.current = setInterval(() => {
-                setTimer((timer) => timer > 0 && timer - 1);
+                setTimer((timer) => timer > 0 ? timer - 1 : props.onCloseTimer());
             }, 1000);
         } else {
             clearInterval(tick.current);
@@ -39,21 +41,12 @@ const Timer = (props) => {
         // 25:00
         const mins = Math.floor(seconds / 60);
         const seconds_ = seconds % 60;
-        if(seconds_ == 0 ) {
-            navigate('/resultsummary', {
-                state: {
-                    quizId: props.quizId,
-                    categoryName: props.categoryName
-                }
-            })
-        } else {
             return mins.toString() + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
-        }
     };
 
     return (
-        <Box style={{ marginTop: '.4rem', display: 'flex', alignItems: 'center', marginLeft: '.4rem' }} >
-            <h6>{dispSecondsAsMins(timer)}</h6>
+        <Box style={{ width: '4.5rem', marginTop: '.4rem', display: 'flex', alignItems: 'center', marginLeft: '.4rem'}} >
+            <Typography >{dispSecondsAsMins(timer)} min</Typography>
             <Box className="startDiv">
             </Box>
         </Box>

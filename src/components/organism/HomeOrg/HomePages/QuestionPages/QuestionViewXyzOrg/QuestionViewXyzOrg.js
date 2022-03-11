@@ -20,16 +20,19 @@ import Decrement from '../../../../../../assets/Icons/Decrement.svg'
 import DimLeftArrow from '../../../../../../assets/Icons/DimLeftArrow.svg'
 import DimRightArrow from '../../../../../../assets/Icons/DimRightArrow.svg'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { SettingsRemoteRounded } from '@mui/icons-material';
 // import CustomizedSnackbars from '../../../../../atom/Snackbar/snackbar'
 
 const QuestionViewXyzOrg = () => {
 
     const [selectedIndex, setSelectedIndex] = useState(0)
-    const [attemptedQuestion, setAttemptedQuestion] = useState([])
+    // const [attemptedQuestion, setAttemptedQuestion] = useState([])
     const [quiz, setQuiz] = useState()
-    const [optionId, setOptionId] = useState()
     const params = useLocation()
     const [status, setStatus] = useState(true)
+    const [timer, setTimer] = useState()
+    const [timeLeft, setTimeLeft] = useState()
+    const time = 5
 
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -38,57 +41,16 @@ const QuestionViewXyzOrg = () => {
         color: theme.palette.text.secondary,
     }));
 
-    const GetAnswer = (question, index) => {
-        if (question.selectedIndex + 1) {
-            setStatus(false)
-            const exists = attemptedQuestion.some(id => id == index)
-            if (!exists) {
-                setAttemptedQuestion([...attemptedQuestion, index])
-            }
 
-            const questions = [...quiz]
-            const ques = questions[index];
-
-            const URL = EndPoints.getAnswerByQuestionId + question.question._id;
-            instance2.get(URL).then(response => {
-                ques.answer = response.data
-                ques.answerSubmited = true
-                setQuiz(questions)
-            })
-
-            const data = {
-                quiz: params?.state?.data?._id,
-                user: localStorage.getItem('userId'),
-                optionId: optionId,
-                questionId: question.question._id,
-                sectionCategory: params?.state?.sectionCategory
-            }
-
-            const Submit = EndPoints.submitAnswer
-            instance2.post(Submit, data).then(response => {
-                console.log('Answer submited')
-            })
-
-        } else {
-            swal('varning', 'Var god välj ett alternativ', 'warning')
-        }
-
+    const Next = () => {
+        setStatus(true)
+        setSelectedIndex(selectedIndex + 1)
     }
 
-    const Next = (question) => {
-        if (question.answer) {
-            setStatus(true)
-            selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
-        } else {
-            selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)
-        }
-
-    }
-
-    const exitsIndex = (index) => {
-        const exist = attemptedQuestion.some(id => id == index)
-        return exist;
-    }
+    // const exitsIndex = (index) => {
+    //     const exist = attemptedQuestion.some(id => id == index)
+    //     return exist;
+    // }
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -137,7 +99,7 @@ const QuestionViewXyzOrg = () => {
     }))
 
     const classes = useStyles();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -145,12 +107,34 @@ const QuestionViewXyzOrg = () => {
     }, []);
 
     const SelectFunc = (e, index, optionIndex) => {
-        setOptionId(e.target.value)
         const questions = [...quiz]
         let question = questions[index];
         question.selectedIndex = optionIndex;
-        setQuiz(questions)
+
+        if (question.selectedIndex + 1) {
+            const URL = EndPoints.getAnswerByQuestionId + question.question._id;
+            instance2.get(URL).then(response => {
+                question.answer = response.data
+                question.answerSubmited = true
+                setQuiz(questions)
+                setStatus(false)
+            })
+
+            const data = {
+                quiz: params?.state?.data?._id,
+                user: localStorage.getItem('userId'),
+                optionId: e.target.value,
+                questionId: question.question._id,
+                sectionCategory: params?.state?.sectionCategory
+            }
+
+            const Submit = EndPoints.submitAnswer
+            instance2.post(Submit, data).then(response => {
+                console.log('Answer submited')
+            })
+        }
     }
+
 
     function OptionIndex(index) {
         switch (index) {
@@ -197,7 +181,9 @@ const QuestionViewXyzOrg = () => {
                 <Box onClick={() => navigate('/resultsummary', {
                     state: {
                         quizId: params?.state?.data?._id,
-                        categoryName: params?.state?.category_name
+                        categoryName: params?.state?.category_name,
+                        timeLeft: timeLeft,
+                        totalTime: time
                     }
                 })} sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
 
@@ -217,12 +203,23 @@ const QuestionViewXyzOrg = () => {
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{selectedIndex + 1} av {quiz?.length}
                     </Box>
-                    {params.state.data.value == true && <Box mt={2} sx={{ color: '#222', display: 'flex', flexDirection: 'row' }}><img src={Clock} alt="" /><Timer continueStatus={status} quizId={params?.state?.data?._id} categoryName={params?.state?.category_name}  /></Box>}
+                    {params.state.data.value == true && <Box mt={2} sx={{ color: '#222', display: 'flex', flexDirection: 'row' }}><img src={Clock} alt="" />
+                        <Timer continueStatus={status} time={time} 
+                    timeleft={(timer) => 
+                    setTimeLeft(timer)} 
+                    onCloseTimer={() => navigate('/resultsummary', {
+                        state: {
+                            quizId: params?.state?.data?._id,
+                            categoryName: params?.state?.category_name,
+                            timeLeft: 0,
+                            totalTime: time
+                        }
+                    })} /></Box> }
                 </Box>
 
                 <Box mt={2} sx={{ backgroundColor: '#b4b4b4', height: '8px', display: 'flex', flexDirection: 'row' }}>
-                    {quiz && quiz?.map((item, index) => {
-                        return <Box sx={{ backgroundColor: exitsIndex(index) ? '#6fcf97' : '#B4B4B4', marginLeft: '2px', flex: '1' }}></Box>
+                    {quiz && quiz?.map((item) => {
+                        return <Box sx={{ backgroundColor: item.answerSubmited ? '#6fcf97' : '#B4B4B4', marginLeft: '2px', flex: '1' }}></Box>
                     })}
                 </Box>
 
@@ -249,7 +246,7 @@ const QuestionViewXyzOrg = () => {
                                             <Box sx={{ display: 'flex' }}>
                                                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
                                                     <FormControlLabel onClick={(e) => {
-                                                        !question?.answerSubmited && SelectFunc(e, index, optionIndex)
+                                                        !question?.answerSubmited && SelectFunc(e, index, optionIndex, question, index)
                                                     }}
                                                         style={{ marginLeft: '.5rem' }}
                                                         value={item?._id}
@@ -296,13 +293,14 @@ const QuestionViewXyzOrg = () => {
                                 </Box>
                             </Box>}
 
-                            <Box disable={true} padding={1} mt={2} sx={{ width: 615, display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <img style={{ height: '1.2rem', cursor: 'pointer' }} src={selectedIndex > 0 ? LeftArrow : DimLeftArrow} alt="" onClick={() => selectedIndex > 0 && setSelectedIndex(selectedIndex - 1)} /> <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginLeft: '0.5rem', color: selectedIndex > 0 ? 'black' : 'grey' }}>Föregående</Typography></Box>
+                            {question.answerSubmited ? (<Box onClick={() => selectedIndex + 1 < quiz.length && Next()} padding={1} mt={2} sx={{ width: 600, display: 'flex', justifyContent: 'center', backgroundColor: '#0A1596', borderRadius: '.3rem', cursor: 'pointer' }}>
+                                <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem', color: '#FFFFFF' }}>Nästa</Typography>
+                            </Box>)
+                                :
+                                (<Box padding={1} mt={2} sx={{ width: 600, display: 'flex', justifyContent: 'center', backgroundColor: 'grey', borderRadius: '.3rem', cursor: 'pointer' }}>
+                                    <Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem', color: '#FFFFFF' }}>Nästa</Typography>
+                                </Box>)}
 
-                                <Box><Typography variant="h6" onClick={() => GetAnswer(question, index)} style={{ fontSize: '0.75rem', textTransform: 'uppercase', cursor: 'pointer' }}>Resultatsida</Typography></Box>
-
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><Typography variant="h6" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginRight: '0.5rem', color: selectedIndex + 1 == quiz.length ? 'gray' : 'black' }}>Nästa</Typography><img style={{ height: '1.2rem', cursor: 'pointer' }} src={selectedIndex + 1 == quiz.length ? DimRightArrow : RightArrow} alt="" onClick={() => Next(question)} /></Box>
-                            </Box>
                         </Container>
                     )
                 }

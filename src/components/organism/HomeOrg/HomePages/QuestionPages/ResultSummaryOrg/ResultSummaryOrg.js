@@ -23,6 +23,8 @@ import Wrong from '../../../../../../assets/Imgs/wrong.png'
 const ResultSummaryOrg = (props) => {
 
     const params = useLocation()
+    const [prevData, setPrevData] = useState()
+    const [timePerQues, setTimePerQues] = useState()
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -77,33 +79,37 @@ const ResultSummaryOrg = (props) => {
     const [progress, setProgress] = useState(0);
     const [responseCollection, setresponseCollection] = useState({})
 
-    useEffect(() => {
 
-        // const URL = EndPoints.getResult + props.quizId
+    useEffect(() => {
+        setPrevData(params?.state)
+        let totalTime = params.state.totalTime * 60
+        let remainingTime = params.state.timeLeft
+        let timeSpent = totalTime - remainingTime
+        let timePerQuestion
+
         const URL = EndPoints.getResult + params?.state?.quizId
         try {
             instance2.get(URL).then((response) => {
                 if (response.data) {
                     setresponseCollection(response.data)
+                    timePerQuestion = timeSpent / response.data.totalQuestion
+                    setTimePerQues(60)
                 }
             })
         } catch (error) {
             swal('Error', error.message,)
         }
-        // const timer = setInterval(() => {
-        //     setProgress((oldProgress) => {
-        //         if (oldProgress === 100) {
-        //             return 0;
-        //         }
-        //         const diff = Math.random() * 10;
-        //         return Math.min(oldProgress + diff, 100);
-        //     });
-        // }, 500);
-
         return () => {
             // clearInterval(timer);
         };
     }, []);
+
+    const dispSecondsAsMins = (seconds) => {
+        // 25:00
+        const mins = Math.floor(seconds / 60);
+        const seconds_ = seconds % 60;
+        return Math.floor(mins?.toString()) + ":" + (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()));
+    };
 
 
     return <div>
@@ -125,8 +131,8 @@ const ResultSummaryOrg = (props) => {
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
             <Container disableGutters padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{responseCollection.totalQuestion} av {responseCollection.totalQuestion}</Box>
-                    {/* <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box> */}
+                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{responseCollection?.answer?.length} av {responseCollection.totalQuestion}</Box>
+                    <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />{dispSecondsAsMins(prevData?.timeLeft)}</Box>
                 </Box>
                 <Box mt={2}>
                     <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
@@ -158,18 +164,20 @@ const ResultSummaryOrg = (props) => {
                             }
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Normerad poäng</Typography>
                         </Box>
+
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">1:25</Typography>
+                            <Typography variant="h4">{timePerQues ? dispSecondsAsMins(timePerQues) : <CircularProgress /> }</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid per fråga</Typography>
                         </Box>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">00:05</Typography>
+                            <Typography variant="h4">{prevData?.timeLeft ? dispSecondsAsMins(prevData?.timeLeft) : prevData?.timeLeft == 0 ? dispSecondsAsMins(prevData?.timeLeft) : <CircularProgress />}</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid kvar</Typography>
                         </Box>
                     </Box>
                 </Box>
+
                 <Box mt={2} sx={{ width: 600, display: 'flex' }}>
                     <Typography variant="h5">Dina svar</Typography>
                 </Box>
