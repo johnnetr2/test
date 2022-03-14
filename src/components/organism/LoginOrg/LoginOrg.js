@@ -17,7 +17,6 @@ const Login_org = () => {
   const getVal = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-    console.log(user, "this is the console of the user");
   };
 
   const loginFunc = (e) => {
@@ -27,13 +26,10 @@ const Login_org = () => {
       password: user.password,
     };
 
-    console.log(data);
-
     const URL = EndPoints.Login;
     instance
       .post(URL, data)
       .then((response) => {
-        console.log(response.data, "this is api console");
         if (response.data.token) {
           localStorage.setItem('userId',response.data.user._id)
           localStorage.setItem("token", response.data.token);

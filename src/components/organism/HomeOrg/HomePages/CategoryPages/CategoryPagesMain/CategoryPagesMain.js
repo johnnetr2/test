@@ -18,7 +18,6 @@ const CategoryPagesMain = () => {
 
   const classes = useStyles();
   const params = useLocation()
-  console.log(params.state, 'data is here on the category main page')
 
   return (
       <Grid container>

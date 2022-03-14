@@ -20,6 +20,7 @@ const HomeCard = (props) => {
         padding: 3,
         marginTop: 2,
         borderRadius: 2,
+        cursor: 'pointer'
       }}
       onClick={() => navigate('/category', {
         state: {
