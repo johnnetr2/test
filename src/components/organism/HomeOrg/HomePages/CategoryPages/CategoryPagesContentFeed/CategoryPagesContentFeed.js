@@ -58,11 +58,18 @@ const CategoryPagesFeedContent = (props) => {
 
 
   useEffect(() => {
-    const URL = EndPoints.questionCategoryBysectionCategory + props.item._id
-    instance2.get(URL).then(response => {
-      setQuestionCategories(response.data)
-    })
-  }, [])
+    console.log(props.item, "item props");
+    const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
+    instance2.get(URL).then((response) => {
+      setQuestionCategories(response.data);
+      const URLHistory = EndPoints.testHistory + props.item._id;
+      instance2.get(URLHistory).then(response => {
+        console.log(response?.data, "history response")
+        setTableHistory(response?.data)
+      })
+    });
+    
+  }, []);
 
   const setCheckedFunc = (value) => {
     if (value) {

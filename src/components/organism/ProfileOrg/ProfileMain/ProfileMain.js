@@ -21,10 +21,10 @@ const ProfileMain = () => {
         <Grid item sm={1} xs={2} >
           <ProfileLeftBar/>
         </Grid>
-        <Grid item sm={7} xs={10}>
+        <Grid item sm={6} xs={10}>
           <ProfileFeedContent />
         </Grid>
-        <Grid item sm={4} className={classes.right}>
+        <Grid item sm={5} className={classes.right} style={{backgroundColor:'#fafafa'}}>
           <ProfileRightBar />
         </Grid>
       </Grid>

@@ -55,9 +55,10 @@ const Login_org = () => {
       <Container
         disableGutters
         sx={{
-          minHeight: "fit-content",
+          minHeight: "100%",
           width: "40%",
           backgroundColor: "#0A1596",
+
         }}
       ></Container>
       <Container
