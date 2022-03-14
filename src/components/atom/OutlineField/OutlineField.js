@@ -3,7 +3,7 @@ import { Box, Checkbox, label } from '@mui/material';
 
 const Outline_Field = (props) => {
   return (
-    <div onClick={(e) => props.onClickCheck(e.target.checked)}>
+    <div onClick={(e) => props.onClickCheck(e)}>
       <Box
         sx={{
           width: 140,
@@ -21,7 +21,9 @@ const Outline_Field = (props) => {
           alignItems: 'center',
         }}
       >
-        <Checkbox checked={props.checked} size="small" sx={{ margin: '0rem', width: 20, height: 20 }} m={0} />
+        <Checkbox  
+        checked={props.checked}
+        size="small" sx={{ margin: '0rem', width: 20, height: 20 }} m={0} />
         {props.title}
       </Box>
     </div>

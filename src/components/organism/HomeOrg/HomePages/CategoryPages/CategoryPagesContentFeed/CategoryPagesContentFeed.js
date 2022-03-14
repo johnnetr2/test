@@ -55,20 +55,45 @@ const CategoryPagesFeedContent = (props) => {
   const [error, setError] = useState(false)
   const [open, setOpen] = useState(false);
   const [categoryError, SetCategoryError] = useState()
+  const [checkedData, setCheckData] = useState([])
+  const [tableHistory, setTableHistory] = useState([])
 
 
   useEffect(() => {
-    const URL = EndPoints.questionCategoryBysectionCategory + props.item._id
-    instance2.get(URL).then(response => {
-      setQuestionCategories(response.data)
-    })
-  }, [])
+    const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
+    instance2.get(URL).then((response) => {
+      setQuestionCategories(response.data);
+      const URLHistory = EndPoints.testHistory + props.item._id;
+      instance2.get(URLHistory).then(response => {
+        setTableHistory(response?.data)
+      })
+    });
+
+  }, []);
 
   const setCheckedFunc = (value) => {
     if (value) {
       setCheckedValue(value)
       setError(false)
     }
+  }
+
+  const selectedItem = (e, item) => {
+    const already = checkedData.some(id => id === item._id)
+    if (already) {
+      const index = checkedData.findIndex(id => id === item._id)
+      let newArray = checkedData
+      newArray.splice(index, 1)
+      setCheckData(newArray)
+      console.log(newArray, 'pop if exists')
+    } else {
+      setCheckData([...checkedData, item._id])
+      console.log(checkedData, 'add id')
+    }
+  }
+
+  const compareChecked = (item) => {
+    return checkedData.some(obj => obj === item._id)
   }
 
   const onSubmit = () => {
@@ -238,19 +263,19 @@ const CategoryPagesFeedContent = (props) => {
               flexWrap: "wrap",
             }}
           >
-            {questionCategories &&
-              questionCategories.map((item, index) => {
-                return (
-                  <OutlineField
-                    title={item.title}
-                    onClickCheck={() => {
-                      setSelectedIndex(index);
-                      setCheckType(item._id);
-                    }}
-                    checked={index == selectedIndex ? true : false}
-                  />
-                );
-              })}
+            {questionCategories && questionCategories.map((item, index) => {
+              return (
+                <OutlineField
+                  title={item.title}
+                  onClickCheck={(e) => {
+                    // setSelectedIndex(index);
+                    // setCheckType(item._id);
+                    selectedItem(e, item)
+                  }}
+                  checked={compareChecked(item)}
+                />
+              );
+            })}
           </Box>
           {categoryError && (
             <Typography

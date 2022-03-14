@@ -24,10 +24,7 @@ import { SettingsRemoteRounded } from '@mui/icons-material';
 // import CustomizedSnackbars from '../../../../../atom/Snackbar/snackbar'
 
 const QuestionViewXyzOrg = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [attemptedQuestion, setAttemptedQuestion] = useState([]);
-  const [quiz, setQuiz] = useState();
-  const params = useLocation();
+
     const [selectedIndex, setSelectedIndex] = useState(0)
     // const [attemptedQuestion, setAttemptedQuestion] = useState([])
     const [quiz, setQuiz] = useState()

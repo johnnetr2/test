@@ -24,7 +24,6 @@ const CategoryPagesRightBar = (props) => {
 
 
   useEffect(() => {
-    console.log(props.item, 'console to find out id')
     const URL = EndPoints.testHistory + props.item._id
     instance2.get(URL).then((response) => {
       console.log(response, " token this is the response of the category page rightbar api url");
