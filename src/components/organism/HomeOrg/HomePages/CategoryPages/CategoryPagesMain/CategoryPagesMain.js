@@ -28,7 +28,7 @@ const CategoryPagesMain = () => {
           <CategoryPagesFeedContent item={params.state.item} />
         </Grid>
         <Grid item sm={4} className={classes.right}>
-          <CategoryPagesRightBar />
+          <CategoryPagesRightBar item={params.state.item} />
         </Grid>
       </Grid>
   )

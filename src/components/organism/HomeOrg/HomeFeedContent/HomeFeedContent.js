@@ -26,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
   test: {
     border: "2px solid #212121",
   },
+  navBelowBarColor: {
+    "& .PrivateTabIndicator-colorSecondary-19": {
+      backgroundColor: "#0A1596",
+      border: "2px solid #f0f",
+    },
+  },
 }));
 
 function TabPanel(props) {
@@ -66,12 +72,12 @@ const HomeFeedContent = () => {
 
   useEffect(() => {
     const URL = EndPoints.getAllCategories;
-    instance2.get(URL).then(response => {
+    instance2.get(URL).then((response) => {
       if (response.data) {
-        setCategories(response.data.data)
+        setCategories(response.data.data);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <Container className={classes.root}>
@@ -84,10 +90,23 @@ const HomeFeedContent = () => {
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
+                TabIndicatorProps={{ style: { background: "#0A1596" } }}
               >
-                <Tab label="Alla kategorier" {...a11yProps(0)} />
-                <Tab label="Kvantitativ del" {...a11yProps(1)} />
-                <Tab label="Verbal del" {...a11yProps(2)} />
+                <Tab
+                  style={{ textTransform: "initial" }}
+                  label="Alla kategorier"
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  style={{ textTransform: "initial" }}
+                  label="Kvantitativ del"
+                  {...a11yProps(1)}
+                />
+                <Tab
+                  style={{ textTransform: "initial" }}
+                  label="Verbal del"
+                  {...a11yProps(2)}
+                />
               </Tabs>
             </Box>
           </Box>
@@ -95,28 +114,37 @@ const HomeFeedContent = () => {
       </Box>
       <Box sx={{ marginBottom: "2rem" }}>
         <Typography variant="h5" component="h5">
-          Tidigare högskoleprov
+          Kvantitativ del
         </Typography>
       </Box>
       <Box>
         <Box sx={{ marginBottom: "1rem" }}>
-          {categories && categories?.map(item => {
-            return <HomeCard item={item} />
-          })}
+          {categories &&
+            categories.map((item) => {
+              return <HomeCard item={item} />;
+            })}
         </Box>
-
       </Box>
-      <Box sx={{ marginBTop: "2rem", marginBottom: '1rem' }} >
+      <Box sx={{ marginBTop: "2rem", marginBottom: "1rem" }}>
         <Typography variant="h5" component="h5">
           Verbal del
         </Typography>
-        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
+        <Box
+          sx={{ marginBottom: "1rem" }}
+          onClick={() => navigate("/category")}
+        >
           <HomeCard />
         </Box>
-        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
+        <Box
+          sx={{ marginBottom: "1rem" }}
+          onClick={() => navigate("/category")}
+        >
           <HomeCard />
         </Box>
-        <Box sx={{ marginBottom: "1rem" }} onClick={()=>navigate('/category')}>
+        <Box
+          sx={{ marginBottom: "1rem" }}
+          onClick={() => navigate("/category")}
+        >
           <HomeCard />
         </Box>
       </Box>

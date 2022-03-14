@@ -1,6 +1,7 @@
 import React from "react";
 import { LinearProgress, Box, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
+import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,12 +16,9 @@ const CourseProgress = (props) => {
 
   
   return (
+
     <Box
     sx={{
-      height: "20%",
-      display: "flex",
-      justifyContent:'center',
-      alignItems:'center',
       border: "1px solid #dddddd",
       boxShadow: "1px 1px 8px #dfdfdf",
       borderRadius: 2,
@@ -28,16 +26,7 @@ const CourseProgress = (props) => {
     }}
   >
     <Box>
-    <LinearProgress
-    className={classes.root}
-    sx={{
-      height: "1rem",
-      borderRadius: "5rem",
-      backgroundColor: "#e1e1e1",
-    }}
-    variant="determinate"
-    value={50}
-  />
+      <ProgressBar/>
     </Box>
   </Box>
   );

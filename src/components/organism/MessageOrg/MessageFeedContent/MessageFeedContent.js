@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   makeStyles,
@@ -6,6 +6,7 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
+import { Rating, TextareaAutosize } from "@mui/material";
 import { Link } from "react-router-dom";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 import Heading from "../../../atom/Heading/Heading";
@@ -25,136 +26,102 @@ const useStyles = makeStyles((theme) => ({
 const MessageFeedContent = () => {
   const classes = useStyles();
 
+  const [value, setValue] = useState();
+
   return (
     <Container className={classes.root}>
-      <Box>
-        <Heading title="Simulera Prov" />
-        <BodyText title="Gör prov från tidigare år eller välj att slumpa ett helt prov med uppgifter från gamla prov du inte stött på tidigare. " />
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Box
-            style={{
-              maxWidth: "30rem",
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "3rem",
-              marginBottom: "3rem",
-              marginRight: "2rem",
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          height: "20rem",
+        }}
+      >
+        <Typography variant="h5" component="h5">
+          Berätta för oss vad du tycker! Prov
+        </Typography>
+        <Box sx={{ marginTop: "3rem", marginBottom: "1rem" }}>
+          <BodyText title="Hur nöjd är du med HP-Appen just nu?" />
+        </Box>
+        <Box sx={{ display: "flex" }}>
+          <Rating
+            size="large"
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
             }}
-          >
-            <Link
-              to="/all"
-              style={{ color: "#252525", textDecoration: "none" }}
-            >
-              Alla
-            </Link>
-            <Link
-              to="/tidigareHögskoleprov"
-              style={{
-                color: "#252525",
-                textDecoration: "none",
-                marginLeft: "2rem",
-              }}
-            >
-              Tidigare högskoleprov
-            </Link>
-            <Link
-              to="slumpmässigtProv"
-              style={{
-                color: "#252525",
-                textDecoration: "none",
-                marginLeft: "2rem",
-              }}
-            >
-              Slumpmässigt prov
-            </Link>
-          </Box>
+          />
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "50rem",
+            flexDirection: "column",
+          }}
+        >
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
-              border: "1px solid #e5e5e5",
-              borderRadius: ".5rem",
-              width: "15rem",
-              padding: ".5rem",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+              width: "40rem",
             }}
           >
-            <Input
-              type="search"
-              placeholder="Sök prov mellan 2015-2021"
-              style={{ border: "none" }}
+            <Typography variant="body1">Din feedback</Typography>
+            <Typography
+              variant="body2"
+              style={{ color: "#999", marginLeft: "0.5rem" }}
+            >
+              (0/500)
+            </Typography>
+          </Box>
+          
+            <TextareaAutosize
+              aria-label="empty textarea"
+              placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
+              style={{ width: 640, backgroundColor:'#f2f2f2', border:'none', padding:'2rem', borderRadius:'5px' }}
             />
-            <Box>
-              <img style={{ marginLeft: ".5rem" }} src={SearchIcon} alt="" />
-            </Box>
+          <Box
+            sx={{
+              width: "40rem",
+              marginTop: "2rem",
+              marginBottom: "2rem",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#f2f2f2",
+                color: "#252525",
+                textTransform: "initial",
+                boxShadow: "none",
+                width: "10rem",
+                fontWeight: "400",
+              }}
+            >
+              Fler prov
+            </Button>
           </Box>
         </Box>
-      </Box>
-      <Box sx={{ marginBottom: "2rem" }}>
-        <Typography variant="h5" component="h5">
-          Tidigare högskoleprov
-        </Typography>
-        <Typography
-          variant="body2"
-          component="body2"
-          style={{ fontSize: "0.75rem", lineHeight: "1.5" }}
-        >
-          Välj ett specifikt prov och gör samma frågor som kom på just det
-          provet.
-        </Typography>
-      </Box>
-      <Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
-        </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          marginBottom: "3rem",
-          marginTop: "1rem",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#0A1596", color: "#fff" }}
-        >
-          Fler prov
-        </Button>
-      </Box>
-      <Box sx={{ marginBottom: "2rem" }}>
-        <Typography variant="h5" component="h5">
-          Slumpmässigt prov
-        </Typography>
-        <Typography
-          variant="body2"
-          component="body2"
-          style={{ fontSize: "0.75rem", lineHeight: "1.5" }}
-        >
-          Genererar ett prov endast med frågor du inte tidigare stött på i
-          övningsdelen.
-        </Typography>
-      </Box>
-      <Box sx={{ marginBottom: "1rem" }}>
-        <CoursesCard />
       </Box>
     </Container>
   );

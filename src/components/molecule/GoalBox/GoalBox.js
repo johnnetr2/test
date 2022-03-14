@@ -12,7 +12,7 @@ const GoalBox = () => {
         border: "1px solid #dddddd",
         boxShadow: "1px 1px 8px #dfdfdf",
         borderRadius: 2,
-        padding: "2rem",
+        padding: "3rem 3rem 3rem 3rem",
       }}
     >
       <Box
@@ -20,7 +20,7 @@ const GoalBox = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          width: "100%",
+          width: "100%"
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

@@ -11,7 +11,7 @@ const QuestionProgressBox = () => {
         border: "1px solid #dddddd",
         boxShadow: "1px 1px 8px #dfdfdf",
         borderRadius: 2,
-        padding: "2rem"
+        padding: "3rem"
       }}
     >
       <Box
@@ -27,7 +27,7 @@ const QuestionProgressBox = () => {
             variant="body2"
             sx={{ textTransform: "Uppercase", textAlign: "center" }}
           >
-            Gör minst 30 frågor för att få prognos
+            {/* Gör minst 30 frågor för att få prognos */}
           </Typography>
         </Box>
         <Box

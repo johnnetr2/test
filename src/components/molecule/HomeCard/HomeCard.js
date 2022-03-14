@@ -7,6 +7,7 @@ const HomeCard = (props) => {
 
   const data = props?.item;
   const navigate = useNavigate()
+  console.log(data, 'this is dat')
 
   return (
     <Box
@@ -23,9 +24,9 @@ const HomeCard = (props) => {
       }}
       onClick={() => navigate('/category', {
         state: {
-          item: data,
+         item: data
         }
-      })}
+      })} 
     >
       <Box sx={{ width: "60%"}}>
         <Typography variant="h5">{data?.title}</Typography>

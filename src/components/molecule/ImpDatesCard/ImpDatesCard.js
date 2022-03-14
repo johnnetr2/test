@@ -4,6 +4,10 @@ import Graph from "../../../assets/Graph/Graph.svg";
 import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 
 const ImpDatesCard = () => {
+
+  const currentDate = new Date();
+  const convertedDate = `${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`;
+
   return (
     <Box
       sx={{
@@ -18,13 +22,13 @@ const ImpDatesCard = () => {
         padding: "2rem",
       }}
     >
-        <Box sx={{width:'100%', display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
+        {/* <Box sx={{width:'100%', display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
             <img src={Ellipsis} alt="" />
-        </Box>
+        </Box> */}
       <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <Typography variant="h5" style={{marginRight:'0.5rem'}}>10.04.22</Typography>
+          <Typography variant="h5" style={{marginRight:'0.5rem'}}>{convertedDate}</Typography>
           <Typography variant="body2">
-            10.04.22 100 dagar till anmälan öppnar
+            100 dagar till anmälan öppnar
           </Typography>
       </Box>
     </Box>

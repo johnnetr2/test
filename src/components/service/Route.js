@@ -17,11 +17,13 @@ export const EndPoints = {
     Login: '/auth/login',
     getAllCategories: 'admin/sectionCategories',
     questionCategoryBysectionCategory: 'admin/QuestionCategory/questionCategoryBysectionCategory/',
+    ResultByUser:'quizResult/resultByUser/',
     testDate:'/api/studentPrefenence',
-    getResult:'/api/quizResult/resultByUserAndQuizid/',
+    getResult:'/api/quizResult/resultByUserAndQuizid',
+    testHistory:'/api/quizResult/getQuizBySecOruser/',
     storeQuiz: '/api/quiz',
     getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/',
-    testHistory:'/api/quizResult/getQuizBySecOruser',
+    lastWeekTasks:'/api/task/resultByUser/',
     submitAnswer: '/api/quizResult'
 }
 

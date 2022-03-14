@@ -21,11 +21,8 @@ const MessageMain = () => {
         <Grid item sm={1} xs={2} >
           <MessageLeftBar/>
         </Grid>
-        <Grid item sm={7} xs={10}>
+        <Grid item sm={11} xs={10}>
           <MessageFeedContent />
-        </Grid>
-        <Grid item sm={4} className={classes.right}>
-          <MessageRightBar />
         </Grid>
       </Grid>
   )

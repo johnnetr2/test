@@ -19,13 +19,16 @@ import HomeCard from "../../../../../molecule/HomeCard/HomeCard";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import CoursesCard from "../../../../../molecule/CoursesCard/CoursesCard";
-import CategoryTable from "../../../../../molecule/CategoryTable/CategoryTable";
+import {
+  CategoryTable,
+  LongMenu,
+} from "../../../../../molecule/CategoryTable/CategoryTable";
 import { Input } from "reactstrap";
+import Alert from "@mui/material/Alert";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import swal from "sweetalert";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CategoryPagesFeedContent = (props) => {
-
-
   const classes = useStyles();
   const navigate = useNavigate();
   const [questionCategories, setQuestionCategories] = useState()
@@ -228,41 +229,56 @@ const CategoryPagesFeedContent = (props) => {
               Välj frågetyper
             </Typography>
           </Box>
-          <Box sx={{ marginTop: "1rem", display: "flex", width: '100%', height: 'fit-content', flexWrap: 'wrap' }}>
-            {questionCategories && questionCategories?.map((item, index) => {
-              return <OutlineField title={item?.title}
-                onClickCheck={() => {
-                  setSelectedIndex(index)
-                  setCheckType(item?._id)
-                  SetCategoryError(false)
-                }} checked={index == selectedIndex ? true : false} />
-            })}
-          </Box>
-          {categoryError &&
-          <Typography variant="body1"
-
-            style={{
-              width: "15rem",
-              height: "3rem",
-              marginLeft: "20rem",
-              marginRight: ".25rem",
+          <Box
+            sx={{
+              marginTop: "1rem",
               display: "flex",
+              width: "100%",
+              height: "fit-content",
               flexWrap: "wrap",
-              color: "red",
-              justifyContent: "center",
-              alignItems: "center",
             }}
-          >vänligen välj en kategori</Typography>
-          } 
+          >
+            {questionCategories &&
+              questionCategories.map((item, index) => {
+                return (
+                  <OutlineField
+                    title={item.title}
+                    onClickCheck={() => {
+                      setSelectedIndex(index);
+                      setCheckType(item._id);
+                    }}
+                    checked={index == selectedIndex ? true : false}
+                  />
+                );
+              })}
+          </Box>
+          {categoryError && (
+            <Typography
+              variant="body1"
+              style={{
+                width: "15rem",
+                height: "3rem",
+                marginLeft: ".25rem",
+                marginRight: ".25rem",
+                display: "flex",
+                flexWrap: "wrap",
+                color: "red",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              vänligen välj en kategori
+            </Typography>
+          )}
         </Box>
       </Box>
-      <Box sx={{ marginTop: '2rem' }} onClick={onSubmit}>
+      <Box sx={{ marginTop: "2rem" }} onClick={onSubmit}>
         <FilledBtn title="Starta övningar" />
       </Box>
-      <Box sx={{ marginTop: '4rem' }}>
+      <Box sx={{ marginTop: "4rem" }}>
         <Typography variant="h5">Historia</Typography>
-        <Box sx={{ marginTop: '1rem' }}>
-          <CategoryTable />
+        <Box sx={{ marginTop: "1rem" }}>
+          <CategoryTable tableHistory={tableHistory} />
         </Box>
       </Box>
     </Container>
