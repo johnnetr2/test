@@ -21,9 +21,9 @@ const Outline_Field = (props) => {
           alignItems: 'center',
         }}
       >
-        <Checkbox  
-        checked={props.checked}
-        size="small" sx={{ margin: '0rem', width: 20, height: 20 }} m={0} />
+        <Checkbox
+          checked={props.checked}
+          size="small" sx={{ margin: '0rem', width: 20, height: 20 }} m={0} />
         {props.title}
       </Box>
     </div>

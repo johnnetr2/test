@@ -22,6 +22,7 @@ import DimRightArrow from '../../../../../../assets/Icons/DimRightArrow.svg'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { SettingsRemoteRounded } from '@mui/icons-material';
 // import CustomizedSnackbars from '../../../../../atom/Snackbar/snackbar'
+import AlertDialogSlide from '../../../../../molecule/QuitTaskPopup/QuitTaskPopup';
 
 const QuestionViewXyzOrg = () => {
 
@@ -33,6 +34,7 @@ const QuestionViewXyzOrg = () => {
     const [timer, setTimer] = useState()
     const [timeLeft, setTimeLeft] = useState()
     const time = 5
+    const [open, setOpen] = useState(false)
 
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -198,7 +200,7 @@ const QuestionViewXyzOrg = () => {
             position='absolute'
         >
             <Toolbar style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Box sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
+                <Box onClick={() => setOpen(true)} sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
 
                 <Typography variant="body1" className={classes.center_align}>
                     {params.state.category_name}
@@ -235,6 +237,8 @@ const QuestionViewXyzOrg = () => {
                         return <Box sx={{ backgroundColor: item.answerSubmited ? '#6fcf97' : '#B4B4B4', marginLeft: '2px', flex: '1' }}></Box>
                     })}
                 </Box>
+
+                <AlertDialogSlide popUpstatus={open} />
 
             </Container>
 
@@ -291,8 +295,8 @@ const QuestionViewXyzOrg = () => {
                                             {question.answer.answer}
                                         </Typography>
                                     </Box>
-                                    <Box mt={2}>
-                                        {question.answer.image && <img src={question.answer.image} alt="" />}
+                                    <Box mt={2} style={{ backgroundColor: 'blue', marginLeft: '15rem', marginTop: '2rem'  }} >
+                                        {question.answer.image && <img style={{ height: 110 }} src={question.answer.image} alt="" />}
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', height: 60 }}>

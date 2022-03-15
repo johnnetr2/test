@@ -12,22 +12,26 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide() {
+export default function AlertDialogSlide(props) {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    setOpen(props.popUpstatus)
+  }, [])
+
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Slide in alert dialog
-      </Button>
+      </Button> */}
       <Box style={{ padding: "5rem" }}>
         <Dialog
           open={open}
