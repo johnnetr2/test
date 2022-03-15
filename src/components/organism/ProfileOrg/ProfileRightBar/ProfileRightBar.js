@@ -13,6 +13,7 @@ import {
   Button,
 } from "@material-ui/core";
 import Thumb from "../../../../assets/Imgs/Thumb.png";
+import InputField from '../../../atom/InputField/InputField'
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
