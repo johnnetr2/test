@@ -6,6 +6,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { Box, Typography, Button } from "@mui/material";
 import Slide from "@material-ui/core/Slide";
 import Slider from "@mui/material/Slider";
+import { useNavigate } from 'react-router-dom'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -20,6 +21,8 @@ export default function EndPopup({
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [slider, setSlider] = useState();
+
+  const navigate = useNavigate()
 
   const marks = [
     {
@@ -38,7 +41,14 @@ export default function EndPopup({
 
   const changeHandler = (e) => {
     setSlider(e.target.value);
+    console.log(e.target.value, "this is the console of the slider")
   };
+
+  const clickHandler = () =>
+  {
+    // navigate('/home')
+    alert(slider, "clicked")
+  }
 
   useEffect(() => {
     // onSliderChange(1);
@@ -77,8 +87,20 @@ export default function EndPopup({
 
           <Box sx={{ width: 495, marginTop: "1rem" }}>
             <Slider
+              sx={{
+                color: "#6fcf97",
+                "& .MuiSlider-rail": {
+                  opacity: 0.5,
+                  backgroundColor: "#bfbfbf",
+                },
+                "& .MuiSlider-thumb": {
+                  backgroundColor: "blue",
+                  height: 10,
+                  width: 10,
+                },
+              }}
               aria-label="Temperature"
-              defaultValue={1}
+              // defaultValue={1}
               // getAriaValueText={valuetext}
               value={slider}
               valueLabelDisplay="auto"
@@ -110,6 +132,7 @@ export default function EndPopup({
                   textTransform: "capitalize",
                   width: "30%",
                 }}
+                onClick={clickHandler}
               >
                 Spara
               </Button>

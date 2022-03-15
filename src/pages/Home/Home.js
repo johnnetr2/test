@@ -34,6 +34,7 @@ const Home = () => {
   function sendData() {
     instance2.post(URL, data, {
     }).then((response) => {
+      console.log(response, "end popup response is here")
       if (response.data.StudentPreference) {
         setSecondPopup(false)
       }
