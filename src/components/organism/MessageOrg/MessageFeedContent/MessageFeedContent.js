@@ -21,6 +21,18 @@ const useStyles = makeStyles((theme) => ({
   test: {
     border: "2px solid #212121",
   },
+  iconFilled: {
+    color:'#0A1596',
+    "&:hover": {
+      color: "#0A1596",
+    },
+    "&:active": {
+      color: "#0A1596",
+    },
+    "&:focus": {
+      color: "#0A1596",
+    }
+  }
 }));
 
 const MessageFeedContent = () => {
@@ -47,9 +59,11 @@ const MessageFeedContent = () => {
         </Box>
         <Box sx={{ display: "flex" }}>
           <Rating
+            className={classes.iconFilled}
             size="large"
             name="simple-controlled"
             value={value}
+            color="primary"
             onChange={(event, newValue) => {
               setValue(newValue);
             }}

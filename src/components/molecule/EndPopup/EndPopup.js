@@ -46,12 +46,12 @@ export default function EndPopup({
 
   const clickHandler = () =>
   {
-    // navigate('/home')
-    alert(slider, "clicked")
+    navigate('/home')
+    // alert(slider, "clicked")
   }
 
   useEffect(() => {
-    // onSliderChange(1);
+    onSliderChange(1);
     // console.log(valuetext, "slider text value")
   }, []);
 
@@ -100,7 +100,7 @@ export default function EndPopup({
                 },
               }}
               aria-label="Temperature"
-              // defaultValue={1}
+              defaultValue={1}
               // getAriaValueText={valuetext}
               value={slider}
               valueLabelDisplay="auto"
