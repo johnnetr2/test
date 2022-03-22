@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../../../assets/Icons/Logo.svg";
 import Home from "../../../../assets/Icons/HomeC.svg";
 import Course from "../../../../assets/Icons/Courses.svg";
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeLeftBar = () => {
   const classes = useStyles();
+  const navigate = useNavigate()
 
   return (
     <Container className={classes.container}>
@@ -83,8 +84,7 @@ const HomeLeftBar = () => {
         className={classes.item}
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <Link
-          to="/home"
+        <Box
           style={{
             display: "flex",
             justifyContent: "center",
@@ -92,6 +92,11 @@ const HomeLeftBar = () => {
             color: "#252525",
             textDecoration: "none",
           }}
+          onClick={() => navigate('/home', {
+            state: {
+              popUpStatus: true
+            }
+          })}
         >
           <img src={Home} className={classes.icon} />
           <Typography
@@ -101,7 +106,7 @@ const HomeLeftBar = () => {
           >
             Dashboard
           </Typography>
-        </Link>
+        </Box>
       </Box>
       <Box
         className={classes.item}

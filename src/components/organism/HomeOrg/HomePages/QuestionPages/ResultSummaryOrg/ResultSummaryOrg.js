@@ -93,8 +93,8 @@ const ResultSummaryOrg = (props) => {
             instance2.get(URL).then((response) => {
                 if (response.data) {
                     setresponseCollection(response.data)
-                    timePerQuestion = timeSpent / response.data.totalQuestion
-                    setTimePerQues(60)
+                    timePerQuestion = timeSpent / response.data.answer.length
+                    setTimePerQues(timePerQuestion)
                 }
             })
         } catch (error) {
@@ -124,7 +124,7 @@ const ResultSummaryOrg = (props) => {
             <Toolbar>
                 {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
-                    Sammanfattning - {params?.state?.categoryName}
+                    Sammanfattning - {params?.state?.sectionCategory?.title}
                 </Typography>
             </Toolbar>
         </AppBar>
@@ -132,7 +132,7 @@ const ResultSummaryOrg = (props) => {
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
             <Container disableGutters padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{responseCollection?.answer?.length} av {responseCollection?.answer?.length }</Box>
+                    <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />{responseCollection?.answer?.length} av {responseCollection?.answer?.length}</Box>
                     <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />{prevData?.timeLeft ? dispSecondsAsMins(prevData?.timeLeft) : '00:00'}</Box>
                 </Box>
                 <Box mt={2}>
@@ -146,22 +146,22 @@ const ResultSummaryOrg = (props) => {
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                           { responseCollection.totalQuestion && responseCollection.correctAnswer !=null? <Typography variant="h4">
+                            {responseCollection.totalQuestion && responseCollection.correctAnswer != null ? <Typography variant="h4">
                                 {responseCollection && responseCollection.correctAnswer + " /" + responseCollection.answer.length}
-                            </Typography>:
-                            <Box sx={{ display: 'flex' }}>
-                            <CircularProgress />
-                          </Box>
+                            </Typography> :
+                                <Box sx={{ display: 'flex' }}>
+                                    <CircularProgress />
+                                </Box>
                             }
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Antal poäng</Typography>
                         </Box>
                         <Box width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
                             {
-                                responseCollection.totalQuestion && responseCollection.correctAnswer !=null?
-                                <Typography variant="h4">{(responseCollection.totalQuestion / responseCollection.correctAnswer).toFixed(1)}</Typography>
-                            :<Box sx={{ display: 'flex' }}>
-                            <CircularProgress />
-                          </Box>
+                                responseCollection.totalQuestion && responseCollection.correctAnswer != null ?
+                                    <Typography variant="h4">{(responseCollection.correctAnswer / responseCollection.totalQuestion) * 2}</Typography>
+                                    : <Box sx={{ display: 'flex' }}>
+                                        <CircularProgress />
+                                    </Box>
                             }
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Normerad poäng</Typography>
                         </Box>
@@ -169,11 +169,11 @@ const ResultSummaryOrg = (props) => {
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">{timePerQues ? dispSecondsAsMins(timePerQues) : <CircularProgress /> }</Typography>
+                            <Typography variant="h4">{timePerQues ? dispSecondsAsMins(timePerQues) : '00:00'}</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid per fråga</Typography>
                         </Box>
                         <Box mt={2} width={290} height={100} sx={{ backgroundColor: '#fff', border: '1px solid #e1e1e1', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }} >
-                            <Typography variant="h4">{prevData?.timeLeft ? dispSecondsAsMins(prevData?.timeLeft) : '00:00' }</Typography>
+                            <Typography variant="h4">{prevData?.timeLeft ? dispSecondsAsMins(prevData?.timeLeft) : '00:00'}</Typography>
                             <Typography variant="body1" style={{ fontSize: '0.75rem', marginLeft: '.7rem', marginTop: '.8rem' }}>Tid kvar</Typography>
                         </Box>
                     </Box>
@@ -210,9 +210,9 @@ const ResultSummaryOrg = (props) => {
                     })}
                 </Box>
                 <Box padding={1} m={2} sx={{ width: 615 }}>
-                    <Button variant="outlined" onClick={() => navigate('/home', {
+                    <Button variant="outlined" onClick={() => navigate('/category', {
                         state: {
-                            popUpStatus: true
+                            item: params?.state?.sectionCategory
                         }
                     })} style={{ width: 600 }}>Klar</Button>
                 </Box>

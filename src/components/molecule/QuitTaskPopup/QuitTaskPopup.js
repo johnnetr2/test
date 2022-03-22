@@ -23,21 +23,23 @@ export default function AlertDialogSlide(props) {
     setOpen(false);
   };
 
-  React.useEffect(() => {
-    setOpen(props.popUpstatus)
-  }, [])
+  // React.useEffect(() => {
+  //   setOpen(props.popUpstatus)
+  // }, [])
 
   return (
     <>
       {/* <Button variant="outlined" onClick={handleClickOpen}>
         Slide in alert dialog
       </Button> */}
-      <Box style={{ padding: "5rem" }}>
+      <Box 
+      // style={{ padding: "5rem" }}
+      >
         <Dialog
-          open={open}
+          open={props.popUpstatus}
           TransitionComponent={Transition}
           keepMounted
-          onClose={handleClose}
+          onClose={props.handleClose}
           aria-describedby="alert-dialog-slide-description"
           fullWidth
           maxWidth="sm"
@@ -69,7 +71,7 @@ export default function AlertDialogSlide(props) {
             }}
           >
             <Button
-              onClick={handleClose}
+              onClick={props.handleClose}
               variant="outlined"
               style={{
                 width: "10rem",
@@ -80,7 +82,7 @@ export default function AlertDialogSlide(props) {
               Fortsätt öva
             </Button>
             <Button
-              onClick={handleClose}
+              onClick={props.redirect}
               variant="contained"
               style={{
                 width: "10rem",

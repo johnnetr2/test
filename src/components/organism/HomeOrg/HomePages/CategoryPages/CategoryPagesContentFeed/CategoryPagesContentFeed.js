@@ -141,8 +141,7 @@ const CategoryPagesFeedContent = (props) => {
             state: {
               quiz: response.data.quiz,
               data: response.data,
-              category_name: props.item.title,
-              sectionCategory: props.item._id
+              sectionCategory: props.item
             }
           })
         }
@@ -184,7 +183,7 @@ const CategoryPagesFeedContent = (props) => {
             </Typography>
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
-            <OutlineField title="Tidspress" type="checkbox" onClickCheck={(value) => setTimer(value)} />
+            <OutlineField title="Tidspress" type="checkbox" onClickCheck={(e) => setTimer(e.target.checked)} />
           </Box>
         </Box>
         <Box>
