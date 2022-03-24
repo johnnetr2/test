@@ -23,6 +23,18 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
   },
+  navItemLg:{
+    display:'none',
+    [theme.breakpoints.up('500px')]: {
+      backgroundColor: '#f00'
+    },
+  },
+  navItemSm:{
+    display:'block',
+    [theme.breakpoints.down('500px')]:{
+      display:'none'
+    }
+  },
   test: {
     border: "2px solid #212121",
   },
@@ -96,16 +108,25 @@ const HomeFeedContent = () => {
                   style={{ textTransform: "initial" }}
                   label="Alla kategorier"
                   {...a11yProps(0)}
+                  // className={classes.NavItemLg}
                 />
                 <Tab
                   style={{ textTransform: "initial" }}
                   label="Kvantitativ del"
                   {...a11yProps(1)}
+                  // className={classes.NavItemLg}
                 />
                 <Tab
                   style={{ textTransform: "initial" }}
                   label="Verbal del"
                   {...a11yProps(2)}
+                  // className={classes.NavItemLg}
+                />
+                <Tab
+                  style={{ textTransform: "initial" }}
+                  label="My Peformance"
+                  {...a11yProps(3)}
+                  // className={classes.NavItemLg}
                 />
               </Tabs>
             </Box>

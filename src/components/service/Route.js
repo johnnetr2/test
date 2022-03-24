@@ -24,7 +24,9 @@ export const EndPoints = {
     storeQuiz: '/api/quiz',
     getAnswerByQuestionId: 'admin/questionAnswer/getAnswerByQuestion/',
     lastWeekTasks:'/api/task/resultByUser/',
-    submitAnswer: '/api/quizResult'
+    submitAnswer: '/api/quizResult',
+    oneDayResult:'/api/task/resultOfDayByUser/',
+    oneDayExercise:'/api/task/taskByUser/'
 }
 
 

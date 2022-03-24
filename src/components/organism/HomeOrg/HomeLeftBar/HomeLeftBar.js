@@ -74,17 +74,14 @@ const HomeLeftBar = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "5rem",
+          padding:'2rem',
           borderBottom: "1px solid #e1e1e1",
         }}
       >
         <Link
           to="/home"
-          style={{
-            minWidth: "5rem",
-          }}
         >
-          <img src={Logo} style={{ maxWidth: "8rem" }} />
+          <img src={Logo} style={{height:'3rem', padding:'5px' }} />
         </Link>
       </Box>
       <NavLink

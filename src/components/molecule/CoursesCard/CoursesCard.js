@@ -30,10 +30,10 @@ const CoursesCard = () => {
             <Box className={classes.box} sx={{ border: '1px solid #e1e1e1', borderRadius: '.25rem', padding:'1.5rem', boxShadow: '1px 1px 5px #d4d4d4', backgroundColor: 'transparent' }}>
 
                 <Box sx={{margin:'0.25rem'}}>
-                    <Box sx={{ display:'flex', justifyContent:'flex-end'}}>
+                    <Box sx={{ display:'flex', justifyContent:'flex-end' }}>
                         <img src={Ellipsis} alt="" />
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
                         <Box>
                             <Typography variant='h5' component='h5'> Hösten 2021 </Typography>
                             <Typography variant='body2' component='body2'> Oktober </Typography>

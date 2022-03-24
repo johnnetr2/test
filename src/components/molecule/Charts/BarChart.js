@@ -1,8 +1,33 @@
 import react, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import {Chart as ChartJS} from 'chart.js/auto'
+import {EndPoints, instance2} from '../../service/Route'
 
 const BarChart = () => {
+
+    const [mondayExercise, setMondayExercise] = useState("")
+    const [tuesdayExercise, setTuesdayExercise] = useState("")
+    const [wednesdayExercise, setWednesdayExercise] = useState("")
+    const [thursdayExercise, setThursdayExercise] = useState("")
+    const [fridayExercise, setFridayExercise] = useState("")
+    const [saturdayExercise, setSaturdayExercise] = useState("")
+    const [sundayExercise, setSundayExercise] = useState("")
+
+    useEffect(() => {
+      const URL = EndPoints.oneDayExercise + localStorage.getItem('userId')
+      instance2.get(URL).then((response)=>
+      {
+          setMondayExercise(response.data.days_of_exam.Monday)
+          setTuesdayExercise(response.data.days_of_exam.Tuesday)
+          setWednesdayExercise(response.data.days_of_exam.Wednesday)
+          setThursdayExercise(response.data.days_of_exam.Thursday)
+          setFridayExercise(response.data.days_of_exam.Friday)
+          setSaturdayExercise(response.data.days_of_exam.Saturday)
+          setSundayExercise(response.data.days_of_exam.Sunday)
+      })
+
+    }, [])
+    
 
     return (
         <Bar
@@ -11,7 +36,7 @@ const BarChart = () => {
                 datasets: [
                     {
                         label: '',
-                        data: [0, 2, 4, 6, 8, 10, 5],
+                        data: [mondayExercise, tuesdayExercise, wednesdayExercise, thursdayExercise, fridayExercise, saturdayExercise, sundayExercise],
                         backgroundColor: [
                             '#0A1596'
                         ],
