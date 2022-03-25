@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Box, Typography } from "@mui/material";
 import Label_field from "../../molecule/LabelField/LabelField";
@@ -6,6 +6,8 @@ import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
 import { instance, EndPoints } from '../../service/Route'
+import { signInWithGoogle} from '../../service/firebase'
+import firebase from '../../service/firebase'
 
 
 const Login_org = () => {
@@ -13,6 +15,7 @@ const Login_org = () => {
     email: "",
     password: "",
   });
+  const [data, setData] = useState()
 
   const getVal = (e) => {
     const { name, value } = e.target;
@@ -45,6 +48,23 @@ const Login_org = () => {
         swal("Warning!", "Invalid Credentials", "error");
       });
   };
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(data => {
+      if(data.user) {
+        
+      }
+      console.log(data)
+      setData(data);
+    })
+  }, [])
+
+  console.log(data);
+
+  // const signInWithGoogle = () => {
+  //   const provider = new firebase.auth.GoogleAuthProvider
+  //   auth.signInwithPopup(provider)
+  // }
 
   return (
     <Container
@@ -106,7 +126,7 @@ const Login_org = () => {
           </Box>
           <Typography variant="body1">eller</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Outline_btn title="Logga in Med Google" />
+            <Outline_btn onClick={ signInWithGoogle } title="Logga in Med Google" />
           </Box>
           <Typography variant="body1">
             Har du ingte konto? <Link to="#">Skapa konto har</Link>

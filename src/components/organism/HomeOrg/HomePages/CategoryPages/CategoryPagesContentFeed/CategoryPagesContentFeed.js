@@ -43,7 +43,7 @@ const CategoryPagesFeedContent = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [questionCategories, setQuestionCategories] = useState()
-  const [timer, setTimer] = useState()
+  const [timer, setTimer] = useState(false)
   const [checked, setChecked] = useState(false)
   const [checked2, setChecked2] = useState(false)
   const [checked3, setChecked3] = useState(false)
@@ -57,6 +57,8 @@ const CategoryPagesFeedContent = (props) => {
   const [categoryError, SetCategoryError] = useState()
   const [checkedData, setCheckData] = useState([])
   const [tableHistory, setTableHistory] = useState([])
+  const [allChecked, setAllChecked] = useState(false)
+  const [selectAll, setSelectAll] = useState([])
 
 
   useEffect(() => {
@@ -79,55 +81,75 @@ const CategoryPagesFeedContent = (props) => {
   }
 
   const selectedItem = (e, item) => {
-    const already = checkedData.some(id => id === item._id)
+    setSelectAll([])
+    setAllChecked(false)
+
+    const already = checkedData.some(obj => obj === item._id)
     if (already) {
-      const index = checkedData.findIndex(id => id === item._id)
-      let newArray = checkedData
+      const index = checkedData.findIndex(obj => obj === item._id)
+      let newArray = [...checkedData]
       newArray.splice(index, 1)
       setCheckData(newArray)
-      console.log(newArray, 'pop if exists')
     } else {
       setCheckData([...checkedData, item._id])
-      console.log(checkedData, 'add id')
     }
   }
 
-  const compareChecked = (item) => {
-    return checkedData.some(obj => obj === item._id)
+  const selectAllCategories = (e) => {
+    if (e.target.checked) {
+      setAllChecked(true)
+      setCheckData([])
+
+      let newArray = [...selectAll]
+      questionCategories?.map(item => {
+        newArray.push(item._id)
+      })
+      setSelectAll(newArray)
+    } else {
+      setSelectAll([])
+    }
+
+  }
+
+
+  const isChecked = (id) => {
+    return checkedData.some(obj => obj === id)
   }
 
   const onSubmit = () => {
+
     if (chekedValue == undefined) {
       setError(true)
     } else {
-      if (checkType) {
-        setOpen(true)
-        const data = {
-          questionCategories: checkType,
-          question: parseInt(chekedValue),
-          value: timer,
-          user: localStorage.getItem('userId')
-        }
-        const URL = EndPoints.storeQuiz
-        instance2.post(URL, data).then(response => {
-          if (response.data.quiz.length < 1) {
-            setOpen(false)
-            swal('varning', 'Det finns inga frågor mot denna kurs', 'warning')
-          } else {
-            setOpen(false)
-            navigate('/question', {
-              state: {
-                quiz: response.data.quiz,
-                data: response.data,
-                category_name: props.item.title,
-                sectionCategory: props.item._id
-              }
-            })
-          }
-        })
-      } else {
-        SetCategoryError(true)
+      // if (checkType) {
+      setOpen(true)
+      const data = {
+        // questionCategories: allChecked ? selectAll : checkedData,
+        questionCategories: '6203d0aab8a43736188935b9',
+        question: parseInt(chekedValue),
+        value: timer,
+        user: localStorage.getItem('userId')
       }
+      const URL = EndPoints.storeQuiz
+      instance2.post(URL, data).then(response => {
+        if (response.data.quiz.length < 1) {
+          setOpen(false)
+          swal('varning', 'Det finns inga frågor mot denna kurs', 'warning')
+        } else {
+          setOpen(false)
+          navigate('/question', {
+            state: {
+              quiz: response.data.quiz,
+              data: response.data,
+              sectionCategory: props.item
+            }
+          })
+        }
+      })
+
+      // } else {
+      //   SetCategoryError(true)
+      // }
     }
   }
 
@@ -161,7 +183,7 @@ const CategoryPagesFeedContent = (props) => {
             </Typography>
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
-            <OutlineField title="Tidspress" type="checkbox" onClickCheck={(value) => setTimer(value)} />
+            <OutlineField title="Tidspress" type="checkbox" onClickCheck={(e) => setTimer(e.target.checked)} />
           </Box>
         </Box>
         <Box>
@@ -261,18 +283,25 @@ const CategoryPagesFeedContent = (props) => {
               width: "100%",
               height: "fit-content",
               flexWrap: "wrap",
+              cursor: 'pointer'
             }}
           >
+            <OutlineField
+              title='Alla'
+              onClickCheck={(e) => selectAllCategories(e)}
+              checked={selectAll.length > 0 ? true : false}
+            />
+
             {questionCategories && questionCategories.map((item, index) => {
               return (
                 <OutlineField
                   title={item.title}
                   onClickCheck={(e) => {
+                    selectedItem(e, item)
                     // setSelectedIndex(index);
                     // setCheckType(item._id);
-                    selectedItem(e, item)
                   }}
-                  checked={compareChecked(item)}
+                  checked={isChecked(item._id)}
                 />
               );
             })}
@@ -292,7 +321,7 @@ const CategoryPagesFeedContent = (props) => {
                 alignItems: "center",
               }}
             >
-              vänligen välj en kategori
+              vänligen välj frågetyper
             </Typography>
           )}
         </Box>

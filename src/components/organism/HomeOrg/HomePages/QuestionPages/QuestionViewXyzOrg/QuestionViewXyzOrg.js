@@ -22,6 +22,8 @@ import DimRightArrow from '../../../../../../assets/Icons/DimRightArrow.svg'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { SettingsRemoteRounded } from '@mui/icons-material';
 // import CustomizedSnackbars from '../../../../../atom/Snackbar/snackbar'
+import AlertDialogSlide from '../../../../../molecule/QuitTaskPopup/QuitTaskPopup';
+import DropPenPopup from '../../../../../molecule/DropPenPopup/DropPenPopup'
 
 const QuestionViewXyzOrg = () => {
 
@@ -30,9 +32,10 @@ const QuestionViewXyzOrg = () => {
     const [quiz, setQuiz] = useState()
     const params = useLocation()
     const [status, setStatus] = useState(true)
-    const [timer, setTimer] = useState()
     const [timeLeft, setTimeLeft] = useState()
-    const time = 5
+    const time = .2
+    const [open, setOpen] = useState(false)
+    const [timeEnd, setTimeEnd] = useState(false)
 
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -48,7 +51,7 @@ const QuestionViewXyzOrg = () => {
                 navigate('/resultsummary', {
                     state: {
                         quizId: params?.state?.data?._id,
-                        categoryName: params?.state?.category_name,
+                        sectionCategory: params?.state?.sectionCategory,
                         timeLeft: timeLeft,
                         totalTime: time
                     }
@@ -187,7 +190,6 @@ const QuestionViewXyzOrg = () => {
     }
 
 
-
     return <div>
 
         <CssBaseline />
@@ -198,10 +200,10 @@ const QuestionViewXyzOrg = () => {
             position='absolute'
         >
             <Toolbar style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Box sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
+                <Box onClick={() => setOpen(true)} sx={{ height: '8vh', width: '2.3rem', display: 'flex', alignItems: 'center', borderRight: '1px solid #E1E1E1', cursor: 'pointer' }} ><img style={{ height: '1.1rem' }} src={LeftArrow} alt='' /></Box>
 
                 <Typography variant="body1" className={classes.center_align}>
-                    {params.state.category_name}
+                    {params.state.sectionCategory.title}
                 </Typography>
 
                 <Box>
@@ -220,14 +222,7 @@ const QuestionViewXyzOrg = () => {
                         <Timer continueStatus={status} time={time}
                             timeleft={(timer) =>
                                 setTimeLeft(timer)}
-                            onCloseTimer={() => navigate('/resultsummary', {
-                                state: {
-                                    quizId: params?.state?.data?._id,
-                                    categoryName: params?.state?.category_name,
-                                    timeLeft: 0,
-                                    totalTime: time
-                                }
-                            })} /></Box>}
+                            onCloseTimer={() => setTimeEnd(true)} /></Box>}
                 </Box>
 
                 <Box mt={2} sx={{ backgroundColor: '#b4b4b4', height: '8px', display: 'flex', flexDirection: 'row' }}>
@@ -235,8 +230,27 @@ const QuestionViewXyzOrg = () => {
                         return <Box sx={{ backgroundColor: item.answerSubmited ? '#6fcf97' : '#B4B4B4', marginLeft: '2px', flex: '1' }}></Box>
                     })}
                 </Box>
-
             </Container>
+
+            <AlertDialogSlide popUpstatus={open} handleClose={() => setOpen(false)}
+                    redirect={() => navigate('/resultsummary', {
+                        state: {
+                            quizId: params?.state?.data?._id,
+                            sectionCategory: params?.state?.sectionCategory,
+                            timeLeft: 0,
+                            totalTime: time
+                        }
+                    })} />
+
+                <DropPenPopup popUpstatus={timeEnd}
+                    redirect={() => navigate('/resultsummary', {
+                        state: {
+                            quizId: params?.state?.data?._id,
+                            sectionCategory: params?.state?.sectionCategory,
+                            timeLeft: 0,
+                            totalTime: time
+                        }
+                    })} />
 
             {quiz && quiz?.map((question, index) => {
                 if (index == selectedIndex) {
@@ -291,8 +305,8 @@ const QuestionViewXyzOrg = () => {
                                             {question.answer.answer}
                                         </Typography>
                                     </Box>
-                                    <Box mt={2}>
-                                        {question.answer.image && <img src={question.answer.image} alt="" />}
+                                    <Box mt={2} style={{ backgroundColor: 'blue', marginLeft: '15rem', marginTop: '2rem' }} >
+                                        {question.answer.image && <img style={{ height: 110 }} src={question.answer.image} alt="" />}
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', height: 60 }}>

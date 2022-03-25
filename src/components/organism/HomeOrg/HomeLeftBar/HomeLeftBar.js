@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeLeftBar = () => {
   const classes = useStyles();
+  const navigate = useNavigate()
 
   return (
     <Container className={classes.container}>
@@ -100,6 +101,11 @@ const HomeLeftBar = () => {
             display: "flex",
             justifyContent: "center",
           }}
+          onClick={() => navigate('/home', {
+            state: {
+              popUpStatus: true
+            }
+          })}
         >
           <img src={Home} className={classes.icon} />
           <Typography
