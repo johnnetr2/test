@@ -33,7 +33,7 @@ const QuestionViewXyzOrg = () => {
     const params = useLocation()
     const [status, setStatus] = useState(true)
     const [timeLeft, setTimeLeft] = useState()
-    const time = .2
+    const time = 5
     const [open, setOpen] = useState(false)
     const [timeEnd, setTimeEnd] = useState(false)
 
