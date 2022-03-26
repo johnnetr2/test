@@ -114,7 +114,7 @@ const CategoryPagesRightBar = (props) => {
                 padding: "2rem",
               }}
             >
-              <BarChart />
+              {/* <BarChart /> */}
             </Box>
           </Box>
         </Box>
@@ -153,7 +153,7 @@ const CategoryPagesRightBar = (props) => {
                 padding: "2rem",
               }}
             >
-              <LineChart />
+              {/* <LineChart /> */}
             </Box>
           </Box>
         </Box>
