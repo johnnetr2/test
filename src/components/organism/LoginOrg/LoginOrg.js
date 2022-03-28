@@ -49,17 +49,17 @@ const Login_org = () => {
       });
   };
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(data => {
-      if(data.user) {
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged(data => {
+  //     if(data.user) {
         
-      }
-      console.log(data)
-      setData(data);
-    })
-  }, [])
+  //     }
+  //     console.log(data)
+  //     setData(data);
+  //   })
+  // }, [])
 
-  console.log(data);
+  // console.log(data);
 
   // const signInWithGoogle = () => {
   //   const provider = new firebase.auth.GoogleAuthProvider
