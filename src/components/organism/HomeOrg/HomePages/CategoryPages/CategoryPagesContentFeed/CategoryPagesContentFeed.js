@@ -126,7 +126,7 @@ const CategoryPagesFeedContent = (props) => {
       setOpen(true)
       const data = {
         // questionCategories: allChecked ? selectAll : checkedData,
-        questionCategories: '622a08a967ff013b5c585ad0',
+        questionCategories: '6203d0067aed5141380be5e2',
         question: parseInt(chekedValue),
         value: timer,
         user: localStorage.getItem('userId')

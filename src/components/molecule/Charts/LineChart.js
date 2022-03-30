@@ -13,7 +13,6 @@ const LineChart = () => {
   useEffect(() => {
     const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
     instance2.get(URL).then((response) => {
-        
       if (response.data.lastWeek[0]) {
         const totalQuestionMonday = response.data.lastWeek[0].totalQuestion;
         const correctAnswerMonday = response.data.lastWeek[0].correctAnswer;
