@@ -83,7 +83,6 @@ const CategoryPagesFeedContent = (props) => {
   const selectedItem = (e, item) => {
     setSelectAll([])
     setAllChecked(false)
-    console.log(item._id, 'this is id')
 
     const already = checkedData.some(obj => obj === item._id)
     if (already) {
@@ -125,8 +124,7 @@ const CategoryPagesFeedContent = (props) => {
       // if (checkType) {
       setOpen(true)
       const data = {
-        // questionCategories: allChecked ? selectAll : checkedData,
-        questionCategories: '622a08a967ff013b5c585ad0',
+        questionCategory: allChecked ? selectAll : checkedData,
         question: parseInt(chekedValue),
         value: timer,
         user: localStorage.getItem('userId')

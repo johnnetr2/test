@@ -7,7 +7,6 @@ const HomeCard = (props) => {
 
   const data = props?.item;
   const navigate = useNavigate()
-  console.log(data, 'this is dat')
 
   return (
     <Box

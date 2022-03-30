@@ -69,6 +69,7 @@ const HomeFeedContent = () => {
   };
   const navigate = useNavigate();
   const [categories, setCategories] = useState();
+  const [sections, setSections] = useState();
 
   useEffect(() => {
     const URL = EndPoints.getAllCategories;
@@ -77,6 +78,12 @@ const HomeFeedContent = () => {
         setCategories(response.data.data);
       }
     });
+
+    const url = EndPoints.getAllSections;
+    instance2.get(url).then(response => {
+      setSections(response.data.data)
+    })
+
   }, []);
 
   return (
@@ -119,10 +126,11 @@ const HomeFeedContent = () => {
       </Box>
       <Box>
         <Box sx={{ marginBottom: "1rem" }}>
-          {categories &&
-            categories.map((item) => {
+          {sections && sections.map((item) => {
+            if (item.section.title === "Kvantitativ del") {
               return <HomeCard item={item} />;
-            })}
+            }
+          })}
         </Box>
       </Box>
       <Box sx={{ marginBTop: "2rem", marginBottom: "1rem" }}>
@@ -131,21 +139,12 @@ const HomeFeedContent = () => {
         </Typography>
         <Box
           sx={{ marginBottom: "1rem" }}
-          onClick={() => navigate("/category")}
         >
-          <HomeCard />
-        </Box>
-        <Box
-          sx={{ marginBottom: "1rem" }}
-          onClick={() => navigate("/category")}
-        >
-          <HomeCard />
-        </Box>
-        <Box
-          sx={{ marginBottom: "1rem" }}
-          onClick={() => navigate("/category")}
-        >
-          <HomeCard />
+          {sections && sections.map((item) => {
+            if (item.section.title === "Kvantitativ del") {
+              return <HomeCard item={item} />;
+            }
+          })}
         </Box>
       </Box>
     </Container>

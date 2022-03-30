@@ -24,6 +24,7 @@ import { SettingsRemoteRounded } from '@mui/icons-material';
 // import CustomizedSnackbars from '../../../../../atom/Snackbar/snackbar'
 import AlertDialogSlide from '../../../../../molecule/QuitTaskPopup/QuitTaskPopup';
 import DropPenPopup from '../../../../../molecule/DropPenPopup/DropPenPopup'
+import MarkLatex from '../../../../../atom/Marklatex/MarkLatex'
 
 const QuestionViewXyzOrg = () => {
 
@@ -33,7 +34,7 @@ const QuestionViewXyzOrg = () => {
     const params = useLocation()
     const [status, setStatus] = useState(true)
     const [timeLeft, setTimeLeft] = useState()
-    const time = 5
+    const time = .5
     const [open, setOpen] = useState(false)
     const [timeEnd, setTimeEnd] = useState(false)
 
@@ -262,7 +263,8 @@ const QuestionViewXyzOrg = () => {
                                 </Typography> */}
 
                                 <Typography variant="h6" component='h6' style={{ fontSize: '0.75rem', fontWeight: '600' }}>
-                                    {question?.question?.questionStatement}
+                                    {/* {question?.question?.questionStatement} */}
+                                    <MarkLatex content={question?.question?.questionStatement} />
                                 </Typography>
 
                             </Box>
@@ -302,7 +304,8 @@ const QuestionViewXyzOrg = () => {
                                     <Box>
                                         <Typography variant='h5' component="h5" style={{ fontSize: '.75rem', fontWeight: '600', marginTop: 20 }}>Förklaring:</Typography>
                                         <Typography variant="body1" component="div" style={{ fontSize: '.75rem', fontWeight: '500', marginTop: 10 }}>
-                                            {question.answer.answer}
+                                            {/* {question.answer.answer} */}
+                                            <MarkLatex content={question.answer.answer} />
                                         </Typography>
                                     </Box>
                                     <Box mt={2} style={{ backgroundColor: 'blue', marginLeft: '15rem', marginTop: '2rem' }} >
