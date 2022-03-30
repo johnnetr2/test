@@ -1,9 +1,13 @@
 import React from "react";
 import { Box, Typography} from "@material-ui/core";
+import { useNavigate } from 'react-router-dom'
 import RightArrow from '../../../assets/Icons/RightArrow.svg'
 import LeftArrow from '../../../assets/Icons/LeftArrow.svg'
 
-const ResultFooter = () => {
+const ResultFooter = (props) => {
+
+  const navigate = useNavigate()
+
   return (
     <div>
       <Box
@@ -11,12 +15,14 @@ const ResultFooter = () => {
         mt={2}
         sx={{ width: 615, display: "flex", justifyContent: "space-between" }}
       >
-        <Box
+        
+          <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
+          onClick={()=>{props.questionIndex>0 && props.onLeftClick()}}
         >
           {" "}
           <img src={LeftArrow} alt="" />{" "}
@@ -31,7 +37,7 @@ const ResultFooter = () => {
             Föregående
           </Typography>
         </Box>
-        <Box>
+        <Box onClick={()=>{props.onResultHandler()}}>
           <Typography
             variant="h6"
             style={{ fontSize: "0.75rem", textTransform: "uppercase" }}
@@ -45,6 +51,7 @@ const ResultFooter = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
+          onClick={()=>{props.questionIndex<props.questionLength - 1 && props.onRightClick()}}
         >
           <Typography
             variant="h6"

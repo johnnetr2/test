@@ -111,8 +111,6 @@ const CategoryPagesFeedContent = (props) => {
     }
 
   }
-
-
   const isChecked = (id) => {
     return checkedData.some(obj => obj === id)
   }
@@ -125,8 +123,8 @@ const CategoryPagesFeedContent = (props) => {
       // if (checkType) {
       setOpen(true)
       const data = {
-        // questionCategories: allChecked ? selectAll : checkedData,
-        questionCategories: '6203d0067aed5141380be5e2',
+        questionCategory: allChecked ? selectAll : checkedData,
+        // questionCategory: ["6203d0aab8a43736188935b9"],
         question: parseInt(chekedValue),
         value: timer,
         user: localStorage.getItem('userId')

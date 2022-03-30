@@ -38,7 +38,6 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
-  console.log(params, "check data");
   const [prevData, setPrevData] = useState();
   const [timePerQues, setTimePerQues] = useState();
   const navigate = useNavigate();
@@ -376,9 +375,9 @@ const ResultSummaryOrg = (props) => {
                     mb={2}
                     onClick={() => {
                       const quiz = params.state.quiz
-                      // console.log('quiz: ', JSON.stringify(quiz))
+                      console.log('quiz: ', JSON.stringify(quiz))
 
-                      let quiestionIndex = quiz.findIndex(element => element.question._id === item.questionId)
+                      let questionIndex = quiz.findIndex(element => element.question._id === item.questionId)
                       navigate("/question", {
                         state: {
                           quizId: prevData.quizId,
@@ -386,8 +385,9 @@ const ResultSummaryOrg = (props) => {
                           optionId: item.optionId,
                           questionId: item.questionId,
                           sectionCategory: prevData.sectionCategory,
-                          quiestionIndex,
-                          quiz
+                          questionIndex,
+                          quiz:quiz,
+                          prevState: params.state
                         },
                       })
                     }
@@ -421,7 +421,6 @@ const ResultSummaryOrg = (props) => {
                         )
                       }
                     />
-                    {console.log(item, "item console")}
                     <Typography
                       style={{
                         textTransform: "uppercase",

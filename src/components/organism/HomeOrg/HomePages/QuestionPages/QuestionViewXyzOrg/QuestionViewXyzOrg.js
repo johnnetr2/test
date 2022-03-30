@@ -40,6 +40,7 @@ import { SettingsRemoteRounded } from "@mui/icons-material";
 // import CustomizedSnackbars from '../../../../../atom/Snackbar/snackbar'
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
 import DropPenPopup from "../../../../../molecule/DropPenPopup/DropPenPopup";
+import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -62,13 +63,21 @@ const QuestionViewXyzOrg = () => {
     if (question.answerSubmited) {
       if (selectedIndex + 1 == quiz.length) {
         // last question
+        const obj = {
+          quizId: params?.state?.data?._id,
+          sectionCategory: params?.state?.sectionCategory,
+          timeLeft: timeLeft,
+          totalTime: time,
+          quiz: quiz,
+        }
+        {console.log(obj, 'blue button click')}
         navigate("/resultsummary", {
           state: {
             quizId: params?.state?.data?._id,
             sectionCategory: params?.state?.sectionCategory,
             timeLeft: timeLeft,
             totalTime: time,
-            quiz: quiz
+            quiz: quiz,
           },
         });
       } else {
@@ -86,7 +95,6 @@ const QuestionViewXyzOrg = () => {
           setQuiz(questions);
           setStatus(false);
         });
-
         const data = {
           quiz: params?.state?.data?._id,
           user: localStorage.getItem("userId"),
@@ -94,7 +102,6 @@ const QuestionViewXyzOrg = () => {
           questionId: question.question._id,
           sectionCategory: params?.state?.sectionCategory,
         };
-
         const Submit = EndPoints.submitAnswer;
         instance2.post(Submit, data).then((response) => {
           console.log("Answer submited");
@@ -156,14 +163,13 @@ const QuestionViewXyzOrg = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const questionToShow = params.state.quiestionIndex
-    if (questionToShow !== undefined) {
-      console.log('in fi if sultan')
-      setSelectedIndex(0)
-      setQuiz(params.state.quiz[questionToShow]);
+    const questionToShow = params?.state?.questionIndex;
+    if (questionToShow != undefined) {
+      setSelectedIndex(questionToShow);
+      setQuiz(params?.state?.quiz);
     } else {
-    setQuiz(params.state.quiz);
-  }
+      setQuiz(params?.state?.quiz);
+    }
   }, []);
 
   const SelectFunc = (e, optionIndex) => {
@@ -202,242 +208,264 @@ const QuestionViewXyzOrg = () => {
     }
   };
 
-  const QuestionBody = ({question}) => {
-      return (
-        <Container
-          maxWidth="md"
-          style={{
-            marginTop: 0,
-            backgroundColor: "#f9f9f9",
-            height: "fit-content",
+  const getSubmitButton = (question) => {
+    if (params?.state?.questionIndex != undefined) {
+      const object = {
+        quizId: params?.state?.data?._id,
+        sectionCategory: params?.state?.sectionCategory,
+        timeLeft: timeLeft,
+        totalTime: time,
+        quiz: quiz,
+      }
+      console.log(object, 'black button click')
+      return <ResultFooter questionLength={quiz.length} questionIndex={selectedIndex}
+
+       onResultHandler={()=>navigate('/resultsummary', {state: {
+        quizId: params?.state?.prevState?.quizId,
+        sectionCategory: params?.state?.prevState?.sectionCategory,
+        timeLeft: params?.state?.prevState?.timeLeft,
+        totalTime: params?.state?.prevState?.totalTime,
+        quiz: params?.state?.prevState?.quiz,
+      }})} onLeftClick={()=>{setSelectedIndex(previousIndex=> previousIndex - 1)}} onRightClick={()=>{setSelectedIndex(previousIndex=> previousIndex + 1)}} />
+    } else {
+      return question.selectedIndex + 1 ? (
+        <Box
+          onClick={() => Next(question)}
+          padding={1}
+          mt={2}
+          sx={{
+            width: 600,
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
+            backgroundColor: "#0A1596",
+            borderRadius: ".3rem",
+            cursor: "pointer",
           }}
         >
-          <Box
-            mt={5}
-            paddingX={6}
-            paddingY={2}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 280,
-              border: "1px solid #e1e1e1",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+          <Typography
+            variant="h6"
+            style={{
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              marginRight: "0.5rem",
+              color: "#FFFFFF",
             }}
           >
-            {/* <Typography variant="subtitle1" style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: 30 }}>
+            Nästa
+          </Typography>
+        </Box>
+      ) : (
+        <Box
+          padding={1}
+          mt={2}
+          sx={{
+            width: 600,
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "grey",
+            borderRadius: ".3rem",
+            cursor: "pointer",
+          }}
+        >
+          <Typography
+            variant="h6"
+            style={{
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              marginRight: "0.5rem",
+              color: "#FFFFFF",
+            }}
+          >
+            Nästa
+          </Typography>
+        </Box>
+      );
+    }
+  };
+
+  const QuestionBody = ({ question }) => {
+    return (
+      <Container
+        maxWidth="md"
+        style={{
+          marginTop: 0,
+          backgroundColor: "#f9f9f9",
+          height: "fit-content",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Box
+          mt={5}
+          paddingX={6}
+          paddingY={2}
+          sx={{
+            backgroundColor: "#fff",
+            width: 600,
+            height: 280,
+            border: "1px solid #e1e1e1",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          {/* <Typography variant="subtitle1" style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: 30 }}>
                             {question?.question}
                         </Typography> */}
 
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600" }}
-            >
-              {question?.question?.questionStatement}
-            </Typography>
-          </Box>
+          <Typography
+            variant="h6"
+            component="h6"
+            style={{ fontSize: "0.75rem", fontWeight: "600" }}
+          >
+            {question?.question?.questionStatement}
+          </Typography>
+        </Box>
+        <Box
+          mt={5}
+          sx={{
+            backgroundColor: "#fff",
+            width: 600,
+            height: 240,
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+          }}
+        >
+          {question?.options?.map((item, optionIndex) => {
+            return (
+              <Box
+                sx={{
+                  height: 120,
+                  border: "1px solid #e1e1e1",
+                  width: 300,
+                }}
+              >
+                <Box sx={{ display: "flex" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FormControlLabel
+                      onClick={(e) => {
+                        !question?.answerSubmited && SelectFunc(e, optionIndex);
+                      }}
+                      style={{ marginLeft: ".5rem" }}
+                      value={item?._id}
+                      control={Options(question, item, optionIndex)}
+                      label={OptionIndex(optionIndex)}
+                    />
+                  </Box>
+
+                  <Box mt={2} ml={5}>
+                    {item.type == "image" ? (
+                      <img
+                        className={classes.piechart_size}
+                        src={QuestionOption}
+                        alt=""
+                      />
+                    ) : (
+                      <Typography>{item.value}</Typography>
+                    )}
+                  </Box>
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
+
+        {question.answer && (
           <Box
-            mt={5}
+            paddingX={4}
+            mt={3}
             sx={{
               backgroundColor: "#fff",
               width: 600,
-              height: 240,
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
+              height: 220,
+              border: "1px solid #e1e1e1",
             }}
           >
-            {question?.options?.map((item, optionIndex) => {
-              return (
-                <Box
-                  sx={{
-                    height: 120,
-                    border: "1px solid #e1e1e1",
-                    width: 300,
-                  }}
-                >
-                  <Box sx={{ display: "flex" }}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <FormControlLabel
-                        onClick={(e) => {
-                          !question?.answerSubmited &&
-                            SelectFunc(
-                              e,
-                              optionIndex,
-                            );
-                        }}
-                        style={{ marginLeft: ".5rem" }}
-                        value={item?._id}
-                        control={Options(question, item, optionIndex)}
-                        label={OptionIndex(optionIndex)}
-                      />
-                    </Box>
-
-                    <Box mt={2} ml={5}>
-                      {item.type == "image" ? (
-                        <img
-                          className={classes.piechart_size}
-                          src={QuestionOption}
-                          alt=""
-                        />
-                      ) : (
-                        <Typography>{item.value}</Typography>
-                      )}
-                    </Box>
-                  </Box>
-                </Box>
-              );
-            })}
-          </Box>
-
-          {question.answer && (
-            <Box
-              paddingX={4}
-              mt={3}
-              sx={{
-                backgroundColor: "#fff",
-                width: 600,
-                height: 220,
-                border: "1px solid #e1e1e1",
-              }}
-            >
-              <Box sx={{ width: 500, display: "flex" }}>
-                <Box>
-                  <Typography
-                    variant="h5"
-                    component="h5"
-                    style={{
-                      fontSize: ".75rem",
-                      fontWeight: "600",
-                      marginTop: 20,
-                    }}
-                  >
-                    Förklaring:
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="div"
-                    style={{
-                      fontSize: ".75rem",
-                      fontWeight: "500",
-                      marginTop: 10,
-                    }}
-                  >
-                    {question.answer.answer}
-                  </Typography>
-                </Box>
-                <Box
-                  mt={2}
+            <Box sx={{ width: 500, display: "flex" }}>
+              <Box>
+                <Typography
+                  variant="h5"
+                  component="h5"
                   style={{
-                    backgroundColor: "blue",
-                    marginLeft: "15rem",
-                    marginTop: "2rem",
+                    fontSize: ".75rem",
+                    fontWeight: "600",
+                    marginTop: 20,
                   }}
                 >
-                  {question.answer.image && (
-                    <img
-                      style={{ height: 110 }}
-                      src={question.answer.image}
-                      alt=""
-                    />
-                  )}
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                  height: 60,
-                }}
-              >
+                  Förklaring:
+                </Typography>
                 <Typography
                   variant="body1"
-                  component="body1"
+                  component="div"
                   style={{
-                    fontSize: "0.7rem",
-                    display: "flex",
-                    justifySelf: "flex-end",
+                    fontSize: ".75rem",
+                    fontWeight: "500",
+                    marginTop: 10,
                   }}
                 >
-                  Berätta för oss om du var nöjd med lösningen
+                  {question.answer.answer}
                 </Typography>
-                <Box ml={1} mr={0.5}>
-                  <img src={Increment} alt="" />
-                </Box>
-                <Box mr={1}>
-                  <img src={Decrement} alt="" />
-                </Box>
+              </Box>
+              <Box
+                mt={2}
+                style={{
+                  backgroundColor: "blue",
+                  marginLeft: "15rem",
+                  marginTop: "2rem",
+                }}
+              >
+                {question.answer.image && (
+                  <img
+                    style={{ height: 110 }}
+                    src={question.answer.image}
+                    alt=""
+                  />
+                )}
               </Box>
             </Box>
-          )}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+                height: 60,
+              }}
+            >
+              <Typography
+                variant="body1"
+                component="body1"
+                style={{
+                  fontSize: "0.7rem",
+                  display: "flex",
+                  justifySelf: "flex-end",
+                }}
+              >
+                Berätta för oss om du var nöjd med lösningen
+              </Typography>
+              <Box ml={1} mr={0.5}>
+                <img src={Increment} alt="" />
+              </Box>
+              <Box mr={1}>
+                <img src={Decrement} alt="" />
+              </Box>
+            </Box>
+          </Box>
+        )}
 
-          {question.selectedIndex + 1 ? (
-            <Box
-              onClick={() => Next(question)}
-              padding={1}
-              mt={2}
-              sx={{
-                width: 600,
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "#0A1596",
-                borderRadius: ".3rem",
-                cursor: "pointer",
-              }}
-            >
-              <Typography
-                variant="h6"
-                style={{
-                  fontSize: "0.75rem",
-                  textTransform: "uppercase",
-                  marginRight: "0.5rem",
-                  color: "#FFFFFF",
-                }}
-              >
-                Nästa
-              </Typography>
-            </Box>
-          ) : (
-            <Box
-              padding={1}
-              mt={2}
-              sx={{
-                width: 600,
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "grey",
-                borderRadius: ".3rem",
-                cursor: "pointer",
-              }}
-            >
-              <Typography
-                variant="h6"
-                style={{
-                  fontSize: "0.75rem",
-                  textTransform: "uppercase",
-                  marginRight: "0.5rem",
-                  color: "#FFFFFF",
-                }}
-              >
-                Nästa
-              </Typography>
-            </Box>
-          )}
-        </Container>
-      );
-  }
+        {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
+        {getSubmitButton(question)}
+        {/* }  */}
+      </Container>
+    );
+  };
 
   return (
     <div>
@@ -518,10 +546,8 @@ const QuestionViewXyzOrg = () => {
               flexDirection: "row",
             }}
           >
-            {console.log(quiz, 'quiz console 1')}
             {quiz &&
               quiz?.map((item, index) => {
-                console.log(item, 'item console')
                 return (
                   <Box
                     key={index}
@@ -566,10 +592,7 @@ const QuestionViewXyzOrg = () => {
             })
           }
         />
-        {console.log('quiest: ', quiz)}
-        {quiz &&
-        <QuestionBody question={quiz[selectedIndex]}/>
-          }
+        {quiz && <QuestionBody question={quiz[selectedIndex]} />}
       </Container>
     </div>
   );
