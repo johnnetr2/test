@@ -26,13 +26,11 @@ const CategoryPagesRightBar = (props) => {
   useEffect(() => {
     const URL = EndPoints.testHistory + props.item._id
     instance2.get(URL).then((response) => {
-      console.log(response, " token this is the response of the category page rightbar api url");
       setProgressData(response.data, 'token response')
     });
 
     const LastWeekURL = EndPoints.lastWeekTasks + localStorage.getItem('userId')
     instance2.get(LastWeekURL).then((response)=>{
-      console.log(response.data.totalData, "lastweek tasks")
       setLastWeekTasks(response.data.totalData)
     })
 
@@ -116,7 +114,7 @@ const CategoryPagesRightBar = (props) => {
                 padding: "2rem",
               }}
             >
-              {/* <BarChart /> */}
+              <BarChart />
             </Box>
           </Box>
         </Box>
@@ -155,7 +153,7 @@ const CategoryPagesRightBar = (props) => {
                 padding: "2rem",
               }}
             >
-              {/* <LineChart /> */}
+              <LineChart />
             </Box>
           </Box>
         </Box>

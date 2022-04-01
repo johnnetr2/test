@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeLeftBar = () => {
   const classes = useStyles();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Container className={classes.container}>
@@ -75,14 +75,12 @@ const HomeLeftBar = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding:'2rem',
+          padding: "2rem",
           borderBottom: "1px solid #e1e1e1",
         }}
       >
-        <Link
-          to="/home"
-        >
-          <img src={Logo} style={{height:'3rem', padding:'5px' }} />
+        <Link to="/home">
+          <img src={Logo} style={{ height: "3rem", padding: "5px" }} />
         </Link>
       </Box>
       <NavLink
@@ -91,7 +89,7 @@ const HomeLeftBar = () => {
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? '#fff' : 'none'
+            color: isActive ? "#fff" : "none",
           };
         }}
       >
@@ -101,11 +99,13 @@ const HomeLeftBar = () => {
             display: "flex",
             justifyContent: "center",
           }}
-          onClick={() => navigate('/home', {
-            state: {
-              popUpStatus: true
-            }
-          })}
+          onClick={() =>
+            navigate("/home", {
+              state: {
+                popUpStatus: true,
+              },
+            })
+          }
         >
           <img src={Home} className={classes.icon} />
           <Typography
@@ -123,7 +123,7 @@ const HomeLeftBar = () => {
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? '#fff' : 'none'
+            color: isActive ? "#fff" : "none",
           };
         }}
       >
@@ -147,7 +147,7 @@ const HomeLeftBar = () => {
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? '#fff' : 'none'
+            color: isActive ? "#fff" : "none",
           };
         }}
       >
@@ -171,7 +171,7 @@ const HomeLeftBar = () => {
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? '#fff' : 'none'
+            color: isActive ? "#fff" : "none",
           };
         }}
       >

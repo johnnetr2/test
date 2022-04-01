@@ -18,12 +18,14 @@ import ProvPassCorrectAns from "./components/organism/CoursesOrg/CoursePages/Pro
 import CategoryPagesMain from "../src/components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesMain/CategoryPagesMain";
 import Home from "./pages/Home/Home";
 import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg"
+import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
+        <Route path='resultfooter' element={<ResultFooter />} />
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />

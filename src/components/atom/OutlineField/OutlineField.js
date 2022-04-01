@@ -6,7 +6,7 @@ const Outline_Field = (props) => {
     <div onClick={(e) => props.onClickCheck(e)}>
       <Box
         sx={{
-          width: 140,
+          width: 150,
           height: 60,
           backgroundColor: '#fff',
           boxShadow: '1px 1px 8px #dfdfdf',
