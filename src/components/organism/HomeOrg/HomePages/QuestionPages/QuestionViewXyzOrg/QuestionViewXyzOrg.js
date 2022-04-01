@@ -63,14 +63,6 @@ const QuestionViewXyzOrg = () => {
     if (question.answerSubmited) {
       if (selectedIndex + 1 == quiz.length) {
         // last question
-        const obj = {
-          quizId: params?.state?.data?._id,
-          sectionCategory: params?.state?.sectionCategory,
-          timeLeft: timeLeft,
-          totalTime: time,
-          quiz: quiz,
-        }
-        {console.log(obj, 'blue button click')}
         navigate("/resultsummary", {
           state: {
             quizId: params?.state?.data?._id,
@@ -104,7 +96,6 @@ const QuestionViewXyzOrg = () => {
         };
         const Submit = EndPoints.submitAnswer;
         instance2.post(Submit, data).then((response) => {
-          console.log("Answer submited");
         });
       }
     }
@@ -210,23 +201,29 @@ const QuestionViewXyzOrg = () => {
 
   const getSubmitButton = (question) => {
     if (params?.state?.questionIndex != undefined) {
-      const object = {
-        quizId: params?.state?.data?._id,
-        sectionCategory: params?.state?.sectionCategory,
-        timeLeft: timeLeft,
-        totalTime: time,
-        quiz: quiz,
-      }
-      console.log(object, 'black button click')
-      return <ResultFooter questionLength={quiz.length} questionIndex={selectedIndex}
-
-       onResultHandler={()=>navigate('/resultsummary', {state: {
-        quizId: params?.state?.prevState?.quizId,
-        sectionCategory: params?.state?.prevState?.sectionCategory,
-        timeLeft: params?.state?.prevState?.timeLeft,
-        totalTime: params?.state?.prevState?.totalTime,
-        quiz: params?.state?.prevState?.quiz,
-      }})} onLeftClick={()=>{setSelectedIndex(previousIndex=> previousIndex - 1)}} onRightClick={()=>{setSelectedIndex(previousIndex=> previousIndex + 1)}} />
+      return (
+        <ResultFooter
+          questionLength={quiz.length}
+          questionIndex={selectedIndex}
+          onResultHandler={() =>
+            navigate("/resultsummary", {
+              state: {
+                quizId: params?.state?.prevState?.quizId,
+                sectionCategory: params?.state?.prevState?.sectionCategory,
+                timeLeft: params?.state?.prevState?.timeLeft,
+                totalTime: params?.state?.prevState?.totalTime,
+                quiz: params?.state?.prevState?.quiz,
+              },
+            })
+          }
+          onLeftClick={() => {
+            setSelectedIndex((previousIndex) => previousIndex - 1);
+          }}
+          onRightClick={() => {
+            setSelectedIndex((previousIndex) => previousIndex + 1);
+          }}
+        />
+      );
     } else {
       return question.selectedIndex + 1 ? (
         <Box

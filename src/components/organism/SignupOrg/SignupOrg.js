@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Container, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Label_field from "../../molecule/LabelField/LabelField";
-import Filled_btn from "../../atom/FilledBtn/FilledBtn";
-import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
+import LabelField from "../../molecule/LabelField/LabelField";
+import FilledBtn from "../../atom/FilledBtn/FilledBtn";
+import OutlineBtn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
 import { instance, EndPoints } from "../../service/Route";
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup_org = () => {
+const SignupOrg = () => {
   const classes = useStyles();
 
   const [register, setRegister] = useState({
@@ -92,7 +92,7 @@ const Signup_org = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </Typography>
           </Box>
-          <Label_field
+          <LabelField
             type="text"
             title="Full Name"
             placeholder="Full Name"
@@ -100,7 +100,7 @@ const Signup_org = () => {
             value={register.fullName}
             name="fullName"
           />
-          <Label_field
+          <LabelField
             type="email"
             title="Email"
             placeholder="Email"
@@ -108,7 +108,7 @@ const Signup_org = () => {
             value={register.email}
             name="email"
           />
-          <Label_field
+          <LabelField
             type="password"
             title="Password"
             placeholder="Password"
@@ -119,14 +119,14 @@ const Signup_org = () => {
           <Typography variant="body1">Glomt losenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
-              <Filled_btn
+              <FilledBtn
                 onClick={clickHandler}
                 title="Skapa konto" />
             </Link>
           </Box>
           <Typography variant="body1">eller</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Outline_btn title="Konto med Google" />
+            <OutlineBtn title="Konto med Google" />
           </Box>
           <Typography
             variant="body1"
@@ -153,4 +153,4 @@ const Signup_org = () => {
   );
 };
 
-export default Signup_org;
+export default SignupOrg;

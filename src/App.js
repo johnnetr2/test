@@ -19,11 +19,15 @@ import CategoryPagesMain from "../src/components/organism/HomeOrg/HomePages/Cate
 import Home from "./pages/Home/Home";
 import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg"
 import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
+import QuestionViewDtkOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg' 
+import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDtkOrg";
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/resultquesviewdtkorg" element={<ResultQuestionViewDtkOrg/>} />
+        <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg/>} />
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
         <Route path='resultfooter' element={<ResultFooter />} />
         <Route path="/" element={<Signup />} />

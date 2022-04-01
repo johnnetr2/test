@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import BarChart from '../../../assets/Icons/BarChart.svg'
-import RightArrow from '../../../assets/Icons/RightArrow.svg'
-import DtkImg from '../../../assets/imgs/DtkImg.png'
-import Clock from '../../../assets/Icons/Clock.svg'
+import BarChart from '../../../../../../assets/Icons/BarChart.svg'
+import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
+import DtkImg from '../../../../../../assets/Imgs/DtkImg.png'
+import Clock from '../../../../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
-import HelpOutlineIcon from '@mui/Icons-material/HelpOutline'
+// import HelpOutlineIcon from '@mui/Icons-material/HelpOutline'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import ExerciseBtn from '../../atom/ExerciseBtn/ExerciseBtn';
+import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
 
 const QuestionViewElfGap = () => {
 
@@ -94,7 +94,7 @@ const QuestionViewElfGap = () => {
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     LÄS
                 </Typography>
-                <HelpOutlineIcon sx={{ width: 100 }} />
+                {/* <HelpOutlineIcon sx={{ width: 100 }} /> */}
             </Toolbar>
         </AppBar>
 
