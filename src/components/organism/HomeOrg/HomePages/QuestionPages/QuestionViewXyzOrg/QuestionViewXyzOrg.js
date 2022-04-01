@@ -324,16 +324,14 @@ const QuestionViewXyzOrg = () => {
                 <MarkLatex content={question?.question?.questionStatement} />
           </Typography>
 
-                <Typography
+                {question?.question?.images[0] && <Typography
                     variant="h6"
                     component="h6"
                     style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
                 >
                     <img style={{ height: '100%' }} src={question?.question?.images[0]} />
-                    {/* <MarkLatex content={question?.question?.image[0]} /> */}
-                    {/* <img style={{ height: '100%' }} src='https://hp-appen.s3.eu-north-1.amazonaws.com/006ae1cf-d99d-44e9-877e-ac35e3d40068.png' /> */}
 
-                </Typography>
+                </Typography>}
 
                 {question?.question?.information1 && <Typography
                     variant="h6"

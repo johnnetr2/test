@@ -21,6 +21,7 @@ const ResultFooter = (props) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            cursor: 'pointer'
           }}
           onClick={()=>{props.questionIndex>0 && props.onLeftClick()}}
         >
@@ -40,7 +41,7 @@ const ResultFooter = (props) => {
         <Box onClick={()=>{props.onResultHandler()}}>
           <Typography
             variant="h6"
-            style={{ fontSize: "0.75rem", textTransform: "uppercase" }}
+            style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer', }}
           >
             Resultatsida
           </Typography>
@@ -50,6 +51,7 @@ const ResultFooter = (props) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            cursor: 'pointer'
           }}
           onClick={()=>{props.questionIndex<props.questionLength - 1 && props.onRightClick()}}
         >
