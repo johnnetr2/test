@@ -162,7 +162,7 @@ const HomeFeedContent = () => {
           sx={{ marginBottom: "1rem" }}
         >
           {sections && sections.map((item) => {
-            if (item.section.title === "Kvantitativ del") {
+            if (item.section.title === "Verbal del") {
               return <HomeCard item={item} />;
             }
           })}

@@ -363,6 +363,7 @@ const ResultSummaryOrg = (props) => {
               border: "1px solid #e1e1e1",
               display: "flex",
               flexDirection: "column",
+              
             }}
           >
             {responseCollection?.answer &&
@@ -404,6 +405,10 @@ const ResultSummaryOrg = (props) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
+                      cursor: 'pointer',
+                        '&:hover': {
+                            backgroundColor: 'blue',
+                        },
                     }}
                   >
                     <FormControlLabel

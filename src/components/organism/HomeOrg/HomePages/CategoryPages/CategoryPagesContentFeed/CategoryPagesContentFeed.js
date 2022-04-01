@@ -280,7 +280,7 @@ const CategoryPagesFeedContent = (props) => {
               width: "100%",
               height: "fit-content",
               flexWrap: "wrap",
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             <OutlineField

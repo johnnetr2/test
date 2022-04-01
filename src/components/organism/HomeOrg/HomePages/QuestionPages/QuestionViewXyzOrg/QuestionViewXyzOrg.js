@@ -41,7 +41,7 @@ import { SettingsRemoteRounded } from "@mui/icons-material";
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
 import DropPenPopup from "../../../../../molecule/DropPenPopup/DropPenPopup";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
-import MarkLatex from '../../../../../atom/Marklatex/MarkLatex'
+import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -285,6 +285,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   const QuestionBody = ({ question }) => {
+      console.log(question, 'quesions');
     return (
       <Container
         maxWidth="md"
@@ -303,7 +304,6 @@ const QuestionViewXyzOrg = () => {
           paddingX={6}
           paddingY={2}
           sx={{
-            backgroundColor: "#fff",
             width: 600,
             height: 280,
             border: "1px solid #e1e1e1",
@@ -319,10 +319,38 @@ const QuestionViewXyzOrg = () => {
           <Typography
             variant="h6"
             component="h6"
-            style={{ fontSize: "0.75rem", fontWeight: "600" }}
+            style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
           >
-            {question?.question?.questionStatement}
+                <MarkLatex content={question?.question?.questionStatement} />
           </Typography>
+
+                <Typography
+                    variant="h6"
+                    component="h6"
+                    style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
+                >
+                    <img style={{ height: '100%' }} src={question?.question?.images[0]} />
+                    {/* <MarkLatex content={question?.question?.image[0]} /> */}
+                    {/* <img style={{ height: '100%' }} src='https://hp-appen.s3.eu-north-1.amazonaws.com/006ae1cf-d99d-44e9-877e-ac35e3d40068.png' /> */}
+
+                </Typography>
+
+                {question?.question?.information1 && <Typography
+                    variant="h6"
+                    component="h6"
+                    style={{ fontSize: "0.75rem", fontWeight: "600" }}
+                >
+                    <MarkLatex content={question?.question?.information1} />
+                </Typography> }
+
+                {question?.question?.information1 && <Typography
+                    variant="h6"
+                    component="h6"
+                    style={{ fontSize: "0.75rem", fontWeight: "600" }}
+                >
+                    <MarkLatex content={question?.question?.information2} />
+                </Typography> }
+
         </Box>
         <Box
           mt={5}
@@ -335,10 +363,11 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           {question?.options?.map((item, optionIndex) => {
+              if(item.value) {
             return (
-              <Box
+             <Box
                 sx={{
-                  height: 120,
+                //   height: 120,
                   border: "1px solid #e1e1e1",
                   width: 300,
                 }}
@@ -363,19 +392,20 @@ const QuestionViewXyzOrg = () => {
                   </Box>
 
                   <Box mt={2} ml={5}>
-                    {item.type == "image" ? (
-                      <img
-                        className={classes.piechart_size}
-                        src={QuestionOption}
-                        alt=""
-                      />
+                    {item.image ? (
+                    //   <img
+                    //     className={classes.piechart_size}
+                    //     // src={QuestionOption}
+                    //     alt=""
+                    //   />
+                        <MarkLatex content={item.image} />
                     ) : (
-                      <Typography>{item.value}</Typography>
+                        <Typography><MarkLatex content={item.value} /> </Typography>
                     )}
                   </Box>
                 </Box>
               </Box>
-            );
+            ); }
           })}
         </Box>
 
@@ -388,6 +418,8 @@ const QuestionViewXyzOrg = () => {
               width: 600,
               height: 220,
               border: "1px solid #e1e1e1",
+              overflow: 'auto',
+            //   '&::-webkit-scrollbar': { width : 0 },
             }}
           >
             <Box sx={{ width: 500, display: "flex" }}>
@@ -412,7 +444,8 @@ const QuestionViewXyzOrg = () => {
                     marginTop: 10,
                   }}
                 >
-                  {question.answer.answer}
+                  {/* {question.answer.answer} */}
+                    <MarkLatex content={question.answer.answer} />
                 </Typography>
               </Box>
               <Box
