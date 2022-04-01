@@ -6,7 +6,7 @@ import Message from "./pages/Message/Message";
 import Logout from "./pages/Logout/Logout";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
-import './App.css'
+import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import ProvPassInformation from "./components/organism/CoursesOrg/CoursePages/ProvPassInformation/ProvPassInformation";
 import ResultSummaryOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/ResultSummaryOrg";
@@ -17,15 +17,16 @@ import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/Ov
 import ProvPassCorrectAns from "./components/organism/CoursesOrg/CoursePages/ProvPassCorrectAns/ProvPassCorrectAns";
 import CategoryPagesMain from "../src/components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesMain/CategoryPagesMain";
 import Home from "./pages/Home/Home";
-import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg";
-import FeedbackCard from './components/molecule/FeedbackCard/FeedbackCard'
+import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg"
+import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
+        <Route path='resultfooter' element={<ResultFooter />} />
         <Route path="/" element={<Signup />} />
-        <Route path="/feedback" element={<FeedbackCard />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />
         <Route path="courses" element={<Courses />} />

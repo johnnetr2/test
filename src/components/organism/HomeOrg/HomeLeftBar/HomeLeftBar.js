@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../../../assets/Icons/Logo.svg";
 import Home from "../../../../assets/Icons/HomeC.svg";
 import Course from "../../../../assets/Icons/Courses.svg";
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     "&:hover": {
       backgroundColor: "#0A1596",
+      color: "#fff",
     },
     [theme.breakpoints.up("sm")]: {
       marginBottom: theme.spacing(0),
@@ -43,10 +44,17 @@ const useStyles = makeStyles((theme) => ({
     height: "2rem",
     marginBottom: theme.spacing(1),
   },
+  navStyle: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    color: "#252525",
+    textDecoration: "none",
+  },
   text: {
     fontSize: "0.65rem",
     textAlign: "center",
-    "&:hover": {
+    "&:active": {
       color: "#fff",
     },
     textTransform: "uppercase",
@@ -58,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeLeftBar = () => {
   const classes = useStyles();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Container className={classes.container}>
@@ -67,36 +75,37 @@ const HomeLeftBar = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "5rem",
+          padding: "2rem",
           borderBottom: "1px solid #e1e1e1",
         }}
       >
-        <Link
-          to="/home"
-          style={{
-            minWidth:'5rem'
-          }}
-        >
-          <img src={Logo} style={{ maxWidth: "8rem" }} />
+        <Link to="/home">
+          <img src={Logo} style={{ height: "3rem", padding: "5px" }} />
         </Link>
       </Box>
-      <Box
-        className={classes.item}
-        style={{ display: "flex", justifyContent: "center" }}
+      <NavLink
+        to="/home"
+        className={classes.navStyle}
+        style={({ isActive }) => {
+          return {
+            backgroundColor: isActive ? "#0A1596" : "none",
+            color: isActive ? "#fff" : "none",
+          };
+        }}
       >
         <Box
+          className={classes.item}
           style={{
             display: "flex",
             justifyContent: "center",
-            flexDirection: "column",
-            color: "#252525",
-            textDecoration: "none",
           }}
-          onClick={() => navigate('/home', {
-            state: {
-              popUpStatus: true
-            }
-          })}
+          onClick={() =>
+            navigate("/home", {
+              state: {
+                popUpStatus: true,
+              },
+            })
+          }
         >
           <img src={Home} className={classes.icon} />
           <Typography
@@ -107,20 +116,20 @@ const HomeLeftBar = () => {
             Dashboard
           </Typography>
         </Box>
-      </Box>
-      <Box
-        className={classes.item}
-        style={{ display: "flex", justifyContent: "center" }}
+      </NavLink>
+      <NavLink
+        to="/courses"
+        className={classes.navStyle}
+        style={({ isActive }) => {
+          return {
+            backgroundColor: isActive ? "#0A1596" : "none",
+            color: isActive ? "#fff" : "none",
+          };
+        }}
       >
-        <Link
-          to="/courses"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            color: "#252525",
-            textDecoration: "none",
-          }}
+        <Box
+          className={classes.item}
+          style={{ display: "flex", justifyContent: "center" }}
         >
           <img src={Course} className={classes.icon} />
           <Typography
@@ -130,21 +139,21 @@ const HomeLeftBar = () => {
           >
             Simulera prov
           </Typography>
-        </Link>
-      </Box>
-      <Box
-        className={classes.item}
-        style={{ display: "flex", justifyContent: "center" }}
+        </Box>
+      </NavLink>
+      <NavLink
+        to="/message"
+        className={classes.navStyle}
+        style={({ isActive }) => {
+          return {
+            backgroundColor: isActive ? "#0A1596" : "none",
+            color: isActive ? "#fff" : "none",
+          };
+        }}
       >
-        <Link
-          to="/message"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            color: "#252525",
-            textDecoration: "none",
-          }}
+        <Box
+          className={classes.item}
+          style={{ display: "flex", justifyContent: "center" }}
         >
           <img src={Feedback} className={classes.icon} />
           <Typography
@@ -154,21 +163,21 @@ const HomeLeftBar = () => {
           >
             Feedback
           </Typography>
-        </Link>
-      </Box>
-      <Box
-        className={classes.item}
-        style={{ display: "flex", justifyContent: "center" }}
+        </Box>
+      </NavLink>
+      <NavLink
+        to="/profile"
+        className={classes.navStyle}
+        style={({ isActive }) => {
+          return {
+            backgroundColor: isActive ? "#0A1596" : "none",
+            color: isActive ? "#fff" : "none",
+          };
+        }}
       >
-        <Link
-          to="/profile"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            color: "#252525",
-            textDecoration: "none",
-          }}
+        <Box
+          className={classes.item}
+          style={{ display: "flex", justifyContent: "center" }}
         >
           <img src={Profile} className={classes.icon} />
           <Typography
@@ -178,8 +187,8 @@ const HomeLeftBar = () => {
           >
             Profile
           </Typography>
-        </Link>
-      </Box>
+        </Box>
+      </NavLink>
     </Container>
   );
 };

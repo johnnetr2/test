@@ -33,7 +33,11 @@ const CategoryPagesRightBar = (props) => {
     instance2.get(LastWeekURL).then((response)=>{
       setLastWeekTasks(response.data.totalData)
     })
+
+    
   }, []);
+  
+  const normalise = (progressData) => ((progressData - 0) * 100) / (1000 - 0);
 
   return (
     <Container disableGutters maxWidth={false}>
@@ -70,7 +74,7 @@ const CategoryPagesRightBar = (props) => {
                 backgroundColor: "#e1e1e1",
               }}
               variant="determinate"
-              value={progressData.length}
+              value={normalise(progressData.length)}
             />
           </Box>
         </Box>
@@ -98,7 +102,6 @@ const CategoryPagesRightBar = (props) => {
               marginTop: "3rem",
             }}
           >
-            {/* <LineGraph /> */}
             <Box
               sx={{
                 height: "20%",
@@ -111,7 +114,7 @@ const CategoryPagesRightBar = (props) => {
                 padding: "2rem",
               }}
             >
-              {/* <BarChart /> */}
+              <BarChart />
             </Box>
           </Box>
         </Box>
@@ -150,7 +153,7 @@ const CategoryPagesRightBar = (props) => {
                 padding: "2rem",
               }}
             >
-              {/* <LineChart /> */}
+              <LineChart />
             </Box>
           </Box>
         </Box>

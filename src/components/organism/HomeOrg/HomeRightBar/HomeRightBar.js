@@ -83,7 +83,7 @@ const HomeRightBar = () => {
                   padding: "2rem",
                 }}
               >
-                {/* <LineChart /> */}
+                <LineChart />
               </Box>
             </Box>
           </Box>

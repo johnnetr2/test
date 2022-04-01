@@ -110,8 +110,6 @@ const CategoryPagesFeedContent = (props) => {
     }
 
   }
-
-
   const isChecked = (id) => {
     return checkedData.some(obj => obj === id)
   }
