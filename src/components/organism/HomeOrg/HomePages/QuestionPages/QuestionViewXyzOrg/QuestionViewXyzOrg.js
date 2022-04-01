@@ -417,6 +417,7 @@ const QuestionViewXyzOrg = () => {
               height: 220,
               border: "1px solid #e1e1e1",
               overflow: 'auto',
+              '&::-webkit-scrollbar': { display: 'none' }
             //   '&::-webkit-scrollbar': { width : 0 },
             }}
           >
