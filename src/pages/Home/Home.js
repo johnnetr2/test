@@ -16,13 +16,13 @@ const Home = () => {
     // userId: '61d44d9ca94c4e0398b040da'
     userId: localStorage.getItem('userId'),
   })
-  useEffect(() => {
-    if (params?.state?.popUpStatus) {
-      setFirstPopup(false);
-    } else {
-      setFirstPopup(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (params?.state?.hidepopup) {
+  //     setFirstPopup(false);
+  //   } else {
+  //     setFirstPopup(true);
+  //   }
+  // }, []);
 
   const data = {
     attemptDate: collection.date,
