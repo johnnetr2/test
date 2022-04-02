@@ -330,6 +330,7 @@ const QuestionViewXyzOrg = () => {
                     style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
                 >
                     <img style={{ height: '100%' }} src={question?.question?.images[0]} />
+                    {/* <MarkLatex image={'https://hp-appen.s3.eu-north-1.amazonaws.com/65065811-ab55-4b47-b529-6863c8d0a4e8.png'} /> */}
 
                 </Typography>}
 
@@ -517,7 +518,7 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           <Box
-            onClick={() => setOpen(true)}
+            onClick={() => !params?.state?.questionIndex && setOpen(true)}
             sx={{
               height: "8vh",
               width: "2.3rem",
@@ -607,6 +608,7 @@ const QuestionViewXyzOrg = () => {
                 sectionCategory: params?.state?.sectionCategory,
                 timeLeft: 0,
                 totalTime: time,
+                quiz: quiz,
               },
             })
           }
@@ -621,6 +623,7 @@ const QuestionViewXyzOrg = () => {
                 sectionCategory: params?.state?.sectionCategory,
                 timeLeft: 0,
                 totalTime: time,
+                quiz: quiz,
               },
             })
           }
