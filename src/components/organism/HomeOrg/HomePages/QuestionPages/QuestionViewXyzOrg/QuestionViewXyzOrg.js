@@ -518,7 +518,7 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           <Box
-            onClick={() => !params?.state?.questionIndex && setOpen(true)}
+            onClick={() => params?.state?.questionIndex != undefined ? '' : setOpen(true) }
             sx={{
               height: "8vh",
               width: "2.3rem",
