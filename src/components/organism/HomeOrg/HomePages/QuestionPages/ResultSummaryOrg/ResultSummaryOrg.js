@@ -107,7 +107,7 @@ const ResultSummaryOrg = (props) => {
                 if (response.data) {
                     setresponseCollection(response.data)
                     timePerQuestion = timeSpent / response.data.answer.length
-                    if (timeSpent) {
+                  if (timeSpent && remainingTime) {
                         setTimePerQues(timePerQuestion)
                     } else {
                         setTimePerQues(false)
