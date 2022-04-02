@@ -606,7 +606,7 @@ const QuestionViewXyzOrg = () => {
               state: {
                 quizId: params?.state?.data?._id,
                 sectionCategory: params?.state?.sectionCategory,
-                timeLeft: 0,
+                timeLeft: timeLeft,
                 totalTime: time,
                 quiz: quiz,
               },
