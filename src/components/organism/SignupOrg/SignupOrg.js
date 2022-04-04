@@ -11,9 +11,6 @@ import { instance, EndPoints } from "../../service/Route";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
-    // "@media (max-width: 680px)": {
-    //   display:'none',
-    // },
     "@media (max-width: 768px)": {
       display: "none",
       visibility: "hidden",

@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import { Container, Box, Typography } from "@mui/material";
 import Label_field from "../../molecule/LabelField/LabelField";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
@@ -10,7 +11,21 @@ import { signInWithGoogle} from '../../service/firebase'
 import firebase from '../../service/firebase'
 
 
-const Login_org = () => {
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    "@media (max-width: 768px)": {
+      display: "none",
+      visibility: "hidden",
+    },
+  },
+}));
+
+
+const LoginOrg = () => {
+
+  const classes = useStyles();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -80,6 +95,7 @@ const Login_org = () => {
           backgroundColor: "#0A1596",
 
         }}
+        className={classes.container}
       ></Container>
       <Container
         disableGutters
@@ -137,4 +153,4 @@ const Login_org = () => {
   );
 };
 
-export default Login_org;
+export default LoginOrg;
