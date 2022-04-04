@@ -138,7 +138,8 @@ const CategoryPagesFeedContent = (props) => {
             state: {
               quiz: response.data.quiz,
               data: response.data,
-              sectionCategory: props.item
+              sectionCategory: props.item,
+              quizId: response.data._id
             }
           })
         }

@@ -388,7 +388,7 @@ const ResultSummaryOrg = (props) => {
                           sectionCategory: prevData.sectionCategory,
                           questionIndex,
                           quiz:quiz,
-                          prevState: params.state
+                          prevState: params.state,
                         },
                       })
                     }

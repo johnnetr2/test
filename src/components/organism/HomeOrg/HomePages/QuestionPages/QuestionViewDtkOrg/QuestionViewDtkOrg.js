@@ -5,31 +5,27 @@ import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
 import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
 import DtkImg from "../../../../../../assets/Imgs/DtkImg.png";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
-  AppBar,
-  Card,
   Paper,
   Box,
-  CardActions,
-  CardContent,
-  CardMedia,
   CssBaseline,
   Grid,
   Radio,
   FormControlLabel,
-  FormControl,
-  RadioGroup,
-  Toolbar,
   Container,
-  LinearProgress,
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 
-const QuestionViewDTKOrg = () => {
+const QuestionViewDTKOrg = (props) => {
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const question = props.question
+
+
+
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -78,59 +74,16 @@ const QuestionViewDTKOrg = () => {
 
   const classes = useStyles(10);
 
-  useEffect(() => {}, []);
-
   return (
     <div>
+      {console.log(props.question, 'propssssssssssssssss')}
       <CssBaseline />
-      <AppBar
-        color="#fff"
-        className={classes.appbar}
-        style={{ boxShadow: "none" }}
-        position="absolute"
-      >
-        <Toolbar>
-          <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
-          <Typography
-            variant="body1"
-            style={{ width: 1200 }}
-            className={classes.center_align}
-          >
-            DTK
-          </Typography>
-          <HelpOutlineIcon color='black' sx={{ width: 100 }} />
-        </Toolbar>
-      </AppBar>
 
       <Container
         maxWidth="lg"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
-        <Container
-          padding={0}
-          maxWidth="md"
-          disableGutters
-          style={{ backgroundColor: "#fff" }}
-        >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} width={100} sx={{ color: "#222" }}>
-              <img src={BarChart} alt="" />8 av 12
-            </Box>
-            <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" />
-              10:45 min
-            </Box>
-          </Box>
-          <Box
-            mt={2}
-            sx={{
-              backgroundColor: "#b4b4b4",
-              height: "8px",
-              display: "flex",
-              flexDirection: "row",
-            }}
-          />
-        </Container>
+
         <Container
           maxWidth="md"
           style={{
@@ -151,7 +104,7 @@ const QuestionViewDTKOrg = () => {
               backgroundColor: "#fff",
               width: 600,
               height: 373,
-              border:'1px solid #e1e1e1'
+              border: '1px solid #e1e1e1'
             }}
           >
             <Typography
@@ -162,65 +115,72 @@ const QuestionViewDTKOrg = () => {
                 fontWeight: "500",
               }}
             >
-              3 uppgifter:
+              {question.questions.length + ' uppgifter:'}
             </Typography>
             <Typography variant="h6" component="h6">
-              Teater och dans i siffror
+              {question.title}
             </Typography>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Verksamhet och ekonomi för samtliga statligt stödda institutioner
-              och fria grupper inom teater och dans åren 1997–2005.
+              { }
             </Typography>
             <Box>
-              <img src={DtkImg} style={{width:'100%'}} alt="" />
+              <img src={DtkImg} style={{ width: '100%' }} alt="" />
             </Box>
           </Box>
-          <Box
-            paddingX={4}
-            mt={5}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 120,
-              border: "1px solid #e1e1e1",
-            }}
-          >
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                marginTop: 10,
-              }}
-            >
-              <Typography variant="body1" component="body1">
-                1/3
-              </Typography>
-              <img src={RightArrow} className={classes.size} alt="" />
-            </Box>
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: ".75rem", fontWeight: "600", marginTop: 20 }}
-            >
-              Vilket år såg samtliga fem typer av institutioner och grupper sina
-              intäkter ökajämfört med föregående år?
-            </Typography>
-          </Box>
-          <Box
-            padding={1}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              border: "1px solid #e1e1e1",
-            }}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="1998" />
-          </Box>
-          <Box
+          {question.questions && question.questions.map((item, index) => {
+            if (index == selectedIndex) {
+              return <Box>
+                <Box
+                  paddingX={4}
+                  mt={5}
+                  sx={{
+                    backgroundColor: "#fff",
+                    width: 600,
+                    height: 120,
+                    border: "1px solid #e1e1e1",
+                  }}
+                >
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      marginTop: 10,
+                    }}
+                  >
+                    <Typography variant="body1" component="body1">
+                      {selectedIndex + 1 + '/' + question.questions.length}
+                    </Typography>
+                    <img onClick={() => setSelectedIndex(selectedIndex + 1) } src={RightArrow} style={{ cursor: 'pointer' }} className={classes.size} alt="" />
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    style={{ fontSize: ".75rem", fontWeight: "600", marginTop: 20 }}
+                  >
+                    {item.paragraph}
+                  </Typography>
+                </Box>
+                {item.options.map(option => {
+                  return <Box
+                    padding={1}
+                    sx={{
+                      backgroundColor: "#fff",
+                      width: 600,
+                      border: "1px solid #e1e1e1",
+                    }}
+                  >
+                    <FormControlLabel value="female" control={<Radio color="primary" />} label={option.value} />
+                  </Box>
+                })}
+              </Box>
+            }
+          })}
+
+          {/* <Box
             padding={1}
             sx={{
               backgroundColor: "#fff",
@@ -229,8 +189,8 @@ const QuestionViewDTKOrg = () => {
             }}
           >
             <FormControlLabel value="female" control={<Radio />} label="2000" />
-          </Box>
-          <Box
+          </Box> */}
+          {/* <Box
             padding={1}
             sx={{
               backgroundColor: "#fff",
@@ -239,8 +199,8 @@ const QuestionViewDTKOrg = () => {
             }}
           >
             <FormControlLabel value="female" control={<Radio />} label="2002" />
-          </Box>
-          <Box
+          </Box> */}
+          {/* <Box
             padding={1}
             sx={{
               backgroundColor: "#fff",
@@ -248,13 +208,13 @@ const QuestionViewDTKOrg = () => {
               border: "1px solid #e1e1e1",
             }}
           >
-            <FormControlLabel value="female" control={<Radio />} label="2004" />
-          </Box>
-          <Box padding={1} m={2} sx={{ width: 615 }}>
+            <FormControlLabel value="female" control={<Radio />} label="2004" /> */}
+          {/* </Box> */}
+          {/* <Box padding={1} m={2} sx={{ width: 615 }}>
             <Link to="/resultquesviewdtkorg">
               <ExerciseBtn title="Nästa" />
             </Link>
-          </Box>
+          </Box> */}
         </Container>
       </Container>
     </div>

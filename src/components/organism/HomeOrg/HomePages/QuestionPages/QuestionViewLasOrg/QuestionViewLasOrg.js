@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import BarChart from '../../../assets/Icons/BarChart.svg'
-import RightArrow from '../../../assets/Icons/RightArrow.svg'
-import DtkImg from '../../../assets/Imgs/DtkImg.png'
-import Clock from '../../../assets/Icons/Clock.svg'
+import BarChart from '../../../../../../assets/Icons/BarChart.svg'
+import RightArrow from '../../../../../../assets/Icons/RightArrow.svg'
+import DtkImg from '../../../../../../assets/Imgs/DtkImg.png'
+import Clock from '../../../../../../assets/Icons/Clock.svg'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
-import ExerciseBtn from '../../atom/ExerciseBtn/ExerciseBtn';
+import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
 
 const QuestionViewLasOrg = () => {
 
@@ -82,22 +82,21 @@ const QuestionViewLasOrg = () => {
 
     return <div>
         <CssBaseline />
-        <AppBar
+        {/* <AppBar
             color="#fff"
             className={classes.appbar}
             style={{ boxShadow: "none" }}
             position='absolute'
         >
             <Toolbar>
-                {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
                 <Typography variant="body1" style={{ width: 1200 }} className={classes.center_align}>
                     LÄS
                 </Typography>
             </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
         <Container maxWidth="lg" style={{ backgroundColor: '#fff', height: 'fit-content' }} >
-            <Container padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
+            {/* <Container padding={0} maxWidth="md" style={{ backgroundColor: '#fff' }}>
                 <Box mt={8} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box mt={2} width={100} sx={{ color: '#222' }}><img src={BarChart} alt="" />1 av 10</Box>
                     <Box mt={2} sx={{ color: '#222' }}><img src={Clock} alt="" />20:00 min</Box>
@@ -105,7 +104,7 @@ const QuestionViewLasOrg = () => {
                 <Box mt={2}>
                     <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
                 </Box>
-            </Container>
+            </Container> */}
             <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                 <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 373, overflow: 'auto', border: '1px solid #e1e1e1' }}>
                     <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
@@ -144,9 +143,9 @@ const QuestionViewLasOrg = () => {
                 <Box padding={1} sx={{ backgroundColor: '#fff', width: 600, border: '1px solid #e1e1e1' }}>
                     <FormControlLabel value="female" control={<Radio />} label="Effekten minskar i takt med antalet givna doser." />
                 </Box>
-                <Box padding={1} m={2} sx={{ width: 615 }}>
+                {/* <Box padding={1} m={2} sx={{ width: 615 }}>
                     <Link to="/result-question-view-las"><ExerciseBtn title="Nästa" /></Link>
-                </Box>
+                </Box> */}
             </Container>
         </Container>
     </div>;

@@ -20,14 +20,16 @@ import Home from "./pages/Home/Home";
 import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg"
 import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
 import QuestionViewDtkOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg' 
-import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDtkOrg";
+import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDTKOrg";
+import QuestionViewLasOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewLasOrg/QuestionViewLasOrg'
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/resultquesviewdtkorg" element={<ResultQuestionViewDtkOrg/>} />
-        <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg/>} />
+        <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg />} />
+        <Route path="/QuestionViewLasOrg" element={<QuestionViewLasOrg />} />
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
         <Route path='resultfooter' element={<ResultFooter />} />
         <Route path="/" element={<Signup />} />
