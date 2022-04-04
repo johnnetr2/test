@@ -87,7 +87,6 @@ export const CategoryTable = (props) => {
   const categoryTable = props.tableHistory;
 
   useEffect(() => {
-    // console.log(categoryTable[0], "this is total category table");
   }, []);
 
   return (

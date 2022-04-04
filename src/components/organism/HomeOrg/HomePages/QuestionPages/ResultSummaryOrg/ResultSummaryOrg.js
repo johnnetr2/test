@@ -101,22 +101,22 @@ const ResultSummaryOrg = (props) => {
     let timeSpent = totalTime - remainingTime;
     let timePerQuestion;
 
-    const URL = EndPoints.getResult + params?.state?.quizId;
-    try {
-      instance2.get(URL).then((response) => {
-        if (response.data) {
-          setresponseCollection(response.data);
-          timePerQuestion = timeSpent / response.data.answer.length;
-          if (remainingTime != 0) {
-            setTimePerQues(timePerQuestion);
-          } else {
-            setTimePerQues(false);
-          }
+        const URL = EndPoints.getResult + params?.state?.quizId
+        try {
+            instance2.get(URL).then((response) => {
+                if (response.data) {
+                    setresponseCollection(response.data)
+                    timePerQuestion = timeSpent / response.data.answer.length
+                  if (timeSpent && remainingTime) {
+                        setTimePerQues(timePerQuestion)
+                    } else {
+                        setTimePerQues(false)
+                    }
+                }
+            })
+        } catch (error) {
+            swal('Error', error.message,)
         }
-      });
-    } catch (error) {
-      swal("Error", error.message);
-    }
     return () => {
       // clearInterval(timer);
     };
@@ -363,6 +363,7 @@ const ResultSummaryOrg = (props) => {
               border: "1px solid #e1e1e1",
               display: "flex",
               flexDirection: "column",
+              
             }}
           >
             {responseCollection?.answer &&
@@ -404,6 +405,10 @@ const ResultSummaryOrg = (props) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
+                      cursor: 'pointer',
+                        '&:hover': {
+                            backgroundColor: 'blue',
+                        },
                     }}
                   >
                     <FormControlLabel

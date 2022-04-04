@@ -83,7 +83,6 @@ const CategoryPagesFeedContent = (props) => {
   const selectedItem = (e, item) => {
     setSelectAll([])
     setAllChecked(false)
-    console.log(item._id, 'this is id')
 
     const already = checkedData.some(obj => obj === item._id)
     if (already) {
@@ -124,7 +123,6 @@ const CategoryPagesFeedContent = (props) => {
       setOpen(true)
       const data = {
         questionCategory: allChecked ? selectAll : checkedData,
-        // questionCategory: ["6203d0aab8a43736188935b9"],
         question: parseInt(chekedValue),
         value: timer,
         user: localStorage.getItem('userId')
@@ -282,7 +280,7 @@ const CategoryPagesFeedContent = (props) => {
               width: "100%",
               height: "fit-content",
               flexWrap: "wrap",
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             <OutlineField
