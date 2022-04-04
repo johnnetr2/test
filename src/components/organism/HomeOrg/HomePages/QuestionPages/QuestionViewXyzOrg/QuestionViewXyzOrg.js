@@ -96,8 +96,7 @@ const QuestionViewXyzOrg = () => {
           sectionCategory: params?.state?.sectionCategory,
         };
         const Submit = EndPoints.submitAnswer;
-        instance2.post(Submit, data).then((response) => {
-        });
+        instance2.post(Submit, data).then((response) => {});
       }
     }
   };
@@ -282,7 +281,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   const QuestionBody = ({ question }) => {
-      console.log(question, 'quesions');
+    console.log(question, "quesions");
     return (
       <Container
         maxWidth="md"
@@ -316,37 +315,48 @@ const QuestionViewXyzOrg = () => {
           <Typography
             variant="h6"
             component="h6"
-            style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
+            style={{ fontSize: "0.75rem", fontWeight: "600", display: "flex" }}
           >
-                <MarkLatex content={question?.question?.questionStatement} />
+            <MarkLatex content={question?.question?.questionStatement} />
           </Typography>
 
-                {question?.question?.images[0] && <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
-                >
-                    <img style={{ height: '100%' }} src={question?.question?.images[0]} />
-                    {/* <MarkLatex image={'https://hp-appen.s3.eu-north-1.amazonaws.com/65065811-ab55-4b47-b529-6863c8d0a4e8.png'} /> */}
+          {question?.question?.images[0] && (
+            <Typography
+              variant="h6"
+              component="h6"
+              style={{
+                height: "12rem",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                style={{ height: "100%" }}
+                src={question?.question?.images[0]}
+              />
+              {/* <MarkLatex image={'https://hp-appen.s3.eu-north-1.amazonaws.com/65065811-ab55-4b47-b529-6863c8d0a4e8.png'} /> */}
+            </Typography>
+          )}
 
-                </Typography>}
+          {question?.question?.information1 && (
+            <Typography
+              variant="h6"
+              component="h6"
+              style={{ fontSize: "0.75rem", fontWeight: "600" }}
+            >
+              <MarkLatex content={question?.question?.information1} />
+            </Typography>
+          )}
 
-                {question?.question?.information1 && <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: "0.75rem", fontWeight: "600" }}
-                >
-                    <MarkLatex content={question?.question?.information1} />
-                </Typography> }
-
-                {question?.question?.information1 && <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: "0.75rem", fontWeight: "600" }}
-                >
-                    <MarkLatex content={question?.question?.information2} />
-                </Typography> }
-
+          {question?.question?.information1 && (
+            <Typography
+              variant="h6"
+              component="h6"
+              style={{ fontSize: "0.75rem", fontWeight: "600" }}
+            >
+              <MarkLatex content={question?.question?.information2} />
+            </Typography>
+          )}
         </Box>
         <Box
           mt={5}
@@ -359,49 +369,53 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           {question?.options?.map((item, optionIndex) => {
-              if(item.value) {
-            return (
-             <Box
-                sx={{
-                //   height: 120,
-                  border: "1px solid #e1e1e1",
-                  width: 300,
-                }}
-              >
-                <Box sx={{ display: "flex" }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FormControlLabel
-                      onClick={(e) => {
-                        !question?.answerSubmited && SelectFunc(e, optionIndex);
+            if (item.value) {
+              return (
+                <Box
+                  sx={{
+                    //   height: 120,
+                    border: "1px solid #e1e1e1",
+                    width: 300,
+                  }}
+                >
+                  <Box sx={{ display: "flex" }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
-                      style={{ marginLeft: ".5rem" }}
-                      value={item?._id}
-                      control={Options(question, item, optionIndex)}
-                      label={OptionIndex(optionIndex)}
-                    />
-                  </Box>
+                    >
+                      <FormControlLabel
+                        onClick={(e) => {
+                          !question?.answerSubmited &&
+                            SelectFunc(e, optionIndex);
+                        }}
+                        style={{ marginLeft: ".5rem" }}
+                        value={item?._id}
+                        control={Options(question, item, optionIndex)}
+                        label={OptionIndex(optionIndex)}
+                      />
+                    </Box>
 
-                  <Box mt={2} ml={5}>
-                    {item.image ? (
-                    //   <img
-                    //     className={classes.piechart_size}
-                    //     // src={QuestionOption}
-                    //     alt=""
-                    //   />
+                    <Box mt={2} ml={5}>
+                      {item.image ? (
+                        //   <img
+                        //     className={classes.piechart_size}
+                        //     // src={QuestionOption}
+                        //     alt=""
+                        //   />
                         <MarkLatex content={item.image} />
-                    ) : (
-                        <Typography><MarkLatex content={item.value} /> </Typography>
-                    )}
+                      ) : (
+                        <Typography>
+                          <MarkLatex content={item.value} />{" "}
+                        </Typography>
+                      )}
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            ); }
+              );
+            }
           })}
         </Box>
 
@@ -414,9 +428,9 @@ const QuestionViewXyzOrg = () => {
               width: 600,
               height: 220,
               border: "1px solid #e1e1e1",
-              overflow: 'auto',
-              '&::-webkit-scrollbar': { display: 'none' }
-            //   '&::-webkit-scrollbar': { width : 0 },
+              overflow: "auto",
+              "&::-webkit-scrollbar": { display: "none" },
+              //   '&::-webkit-scrollbar': { width : 0 },
             }}
           >
             <Box sx={{ width: 500, display: "flex" }}>
@@ -439,10 +453,11 @@ const QuestionViewXyzOrg = () => {
                     fontSize: ".75rem",
                     fontWeight: "500",
                     marginTop: 10,
+                    width: "32rem"
                   }}
                 >
                   {/* {question.answer.answer} */}
-                    <MarkLatex content={question.answer.answer} />
+                  <MarkLatex content={question.answer.answer} />
                 </Typography>
               </Box>
               <Box
@@ -453,12 +468,14 @@ const QuestionViewXyzOrg = () => {
                   marginTop: "2rem",
                 }}
               >
-                {question.answer.image && (
+                {question.answer.image ? (
                   <img
                     style={{ height: 110 }}
                     src={question.answer.image}
                     alt=""
                   />
+                ) : (
+                  ""
                 )}
               </Box>
             </Box>
@@ -515,7 +532,9 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           <Box
-            onClick={() => params?.state?.questionIndex != undefined ? '' : setOpen(true) }
+            onClick={() =>
+              params?.state?.questionIndex != undefined ? "" : setOpen(true)
+            }
             sx={{
               height: "8vh",
               width: "2.3rem",

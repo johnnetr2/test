@@ -15,7 +15,7 @@ import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
-import { Input } from "reactstrap";
+import { Input, Media } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../service/Route";
 
@@ -23,17 +23,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
   },
-  navItemLg:{
-    display:'none',
-    [theme.breakpoints.up('500px')]: {
-      backgroundColor: '#f00'
+  newItem: {
+    [theme.breakpoints.up('lg')]: {
+      display:'none',
     },
   },
-  navItemSm:{
-    display:'block',
-    [theme.breakpoints.down('500px')]:{
-      display:'none'
-    }
+  navItemSm: {
+    display: "block",
+    [theme.breakpoints.down("500px")]: {
+      display: "none",
+    },
   },
   test: {
     border: "2px solid #212121",
@@ -92,10 +91,9 @@ const HomeFeedContent = () => {
     });
 
     const url = EndPoints.getAllSections;
-    instance2.get(url).then(response => {
-      setSections(response.data.data)
-    })
-
+    instance2.get(url).then((response) => {
+      setSections(response.data.data);
+    });
   }, []);
 
   return (
@@ -127,12 +125,14 @@ const HomeFeedContent = () => {
                   style={{ textTransform: "initial" }}
                   label="Verbal del"
                   {...a11yProps(2)}
+                  
                   // className={classes.NavItemLg}
                 />
                 <Tab
                   style={{ textTransform: "initial" }}
                   label="My Peformance"
                   {...a11yProps(3)}
+                  className={classes.newItem}
                   // className={classes.NavItemLg}
                 />
               </Tabs>
@@ -147,25 +147,25 @@ const HomeFeedContent = () => {
       </Box>
       <Box>
         <Box sx={{ marginBottom: "1rem" }}>
-          {sections && sections.map((item) => {
-            if (item.section.title === "Kvantitativ del") {
-              return <HomeCard item={item} />;
-            }
-          })}
+          {sections &&
+            sections.map((item) => {
+              if (item.section.title === "Kvantitativ del") {
+                return <HomeCard item={item} />;
+              }
+            })}
         </Box>
       </Box>
       <Box sx={{ marginBTop: "2rem", marginBottom: "1rem" }}>
         <Typography variant="h5" component="h5">
           Verbal del
         </Typography>
-        <Box
-          sx={{ marginBottom: "1rem" }}
-        >
-          {sections && sections.map((item) => {
-            if (item.section.title === "Verbal del") {
-              return <HomeCard item={item} />;
-            }
-          })}
+        <Box sx={{ marginBottom: "1rem" }}>
+          {sections &&
+            sections.map((item) => {
+              if (item.section.title === "Verbal del") {
+                return <HomeCard item={item} />;
+              }
+            })}
         </Box>
       </Box>
     </Container>
