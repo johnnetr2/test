@@ -161,7 +161,8 @@ const QuestionViewDTKOrg = (props) => {
                     component="h6"
                     style={{ fontSize: ".75rem", fontWeight: "600", marginTop: 20 }}
                   >
-                    {item.paragraph}
+                    {/* {console.log(item, 'this is item')} */}
+                    {item.question.questionStatement}
                   </Typography>
                 </Box>
                 {item.options.map(option => {
