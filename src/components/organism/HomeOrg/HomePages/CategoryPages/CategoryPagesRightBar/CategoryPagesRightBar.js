@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
 import BarChart from "../../../../../molecule/Charts/BarChart";
 import LineChart from "../../../../../molecule/Charts/LineChart";

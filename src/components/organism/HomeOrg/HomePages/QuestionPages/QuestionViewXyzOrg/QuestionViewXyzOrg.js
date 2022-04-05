@@ -207,7 +207,7 @@ const QuestionViewXyzOrg = () => {
           questionIndex={selectedIndex}
           onResultHandler={() =>
             navigate("/resultsummary", {
-              state: {
+              state:{
                 quizId: params?.state?.prevState?.quizId,
                 sectionCategory: params?.state?.prevState?.sectionCategory,
                 timeLeft: params?.state?.prevState?.timeLeft,

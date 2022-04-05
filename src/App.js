@@ -21,6 +21,7 @@ import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/Question
 import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
 import QuestionViewDtkOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg' 
 import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDtkOrg";
+import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg/>} />
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
         <Route path='resultfooter' element={<ResultFooter />} />
+        <Route path='/categoryrtbar' element={<CategoryPagesRightBar/>} />
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />

@@ -9,12 +9,10 @@ import swal from "sweetalert";
 import { instance, EndPoints } from "../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "flex",
-    "@media (max-width: 768px)": {
-      display: "none",
-      visibility: "hidden",
-    },
+  hideOnMobile: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none !important'
+    }
   },
 }));
 
@@ -66,18 +64,15 @@ const SignupOrg = () => {
       maxWidth={false}
       sx={{ boxSizing: "border-box", display: "flex" }}
     >
-      <Grid
-        container
-        xs={12}
-        lg={5}
-        className={classes.container}
+      <Container
+        className={classes.hideOnMobile}
         // maxWidth="500"
         sx={{
-          minHeight: "fit-content",
+          minHeight: "100vh",
           width: "40%",
           backgroundColor: "#0A1596",
         }}
-      ></Grid>
+      ></Container>
       <Container
         sx={{
           width: "60%",
