@@ -1,21 +1,31 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import { Container, Box, Typography } from "@mui/material";
 import Label_field from "../../molecule/LabelField/LabelField";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
-import { instance, EndPoints } from '../../service/Route'
-import { signInWithGoogle} from '../../service/firebase'
-import firebase from '../../service/firebase'
+import { instance, EndPoints } from "../../service/Route";
+import { signInWithGoogle } from "../../service/firebase";
+import firebase from "../../service/firebase";
 
+const useStyles = makeStyles((theme) => ({
+  hideOnMobile: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none !important',
+    }
+  },
+}));
 
-const Login_org = () => {
+const LoginOrg = () => {
+  const classes = useStyles();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const [data, setData] = useState()
+  const [data, setData] = useState();
 
   const getVal = (e) => {
     const { name, value } = e.target;
@@ -34,7 +44,7 @@ const Login_org = () => {
       .post(URL, data)
       .then((response) => {
         if (response.data.token) {
-          localStorage.setItem('userId',response.data.user._id)
+          localStorage.setItem("userId", response.data.user._id);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("fullName", response.data.user.fullName);
@@ -52,7 +62,7 @@ const Login_org = () => {
   // useEffect(() => {
   //   firebase.auth().onAuthStateChanged(data => {
   //     if(data.user) {
-        
+
   //     }
   //     console.log(data)
   //     setData(data);
@@ -73,15 +83,17 @@ const Login_org = () => {
       sx={{ boxSizing: "border-box", display: "flex" }}
     >
       <Container
+        xs={1}
         disableGutters
         sx={{
-          minHeight: "100%",
+          minHeight: "100vh",
           width: "40%",
           backgroundColor: "#0A1596",
-
         }}
+        className={classes.hideOnMobile}
       ></Container>
       <Container
+        xs={11}
         disableGutters
         sx={{
           width: "60%",
@@ -119,14 +131,15 @@ const Login_org = () => {
           <Link to="#">Glomt losenord?</Link>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link style={{ textDecoration: "none" }} to="/home">
-              <Filled_btn title="Logga in"
-              onClick={loginFunc}
-              />
+              <Filled_btn title="Logga in" onClick={loginFunc} />
             </Link>
           </Box>
           <Typography variant="body1">eller</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Outline_btn onClick={ signInWithGoogle } title="Logga in Med Google" />
+            <Outline_btn
+              onClick={signInWithGoogle}
+              title="Logga in Med Google"
+            />
           </Box>
           <Typography variant="body1">
             Har du ingte konto? <Link to="#">Skapa konto har</Link>
@@ -137,4 +150,4 @@ const Login_org = () => {
   );
 };
 
-export default Login_org;
+export default LoginOrg;

@@ -858,8 +858,7 @@ const QuestionViewXyzOrg = () => {
           sectionCategory: params?.state?.sectionCategory,
         };
         const Submit = EndPoints.submitAnswer;
-        instance2.post(Submit, data).then((response) => {
-        });
+        instance2.post(Submit, data).then((response) => {});
       }
     }
   };
@@ -983,7 +982,7 @@ const QuestionViewXyzOrg = () => {
           questionIndex={selectedIndex}
           onResultHandler={() =>
             navigate("/resultsummary", {
-              state: {
+              state:{
                 quizId: params?.state?.prevState?.quizId,
                 sectionCategory: params?.state?.prevState?.sectionCategory,
                 timeLeft: params?.state?.prevState?.timeLeft,

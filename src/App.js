@@ -20,18 +20,20 @@ import Home from "./pages/Home/Home";
 import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg"
 import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
 import QuestionViewDtkOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg' 
-import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDTKOrg";
-import QuestionViewLasOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewLasOrg/QuestionViewLasOrg'
+import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDtkOrg";
+import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
+import MultiAnswer from "./components/molecule/MultiAnswer/MultiAnswer";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/resultquesviewdtkorg" element={<ResultQuestionViewDtkOrg/>} />
-        <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg />} />
-        <Route path="/QuestionViewLasOrg" element={<QuestionViewLasOrg />} />
+        <Route path="/multianswer" element={<MultiAnswer/>} />
+        <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg/>} />
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
         <Route path='resultfooter' element={<ResultFooter />} />
+        <Route path='/categoryrtbar' element={<CategoryPagesRightBar/>} />
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />

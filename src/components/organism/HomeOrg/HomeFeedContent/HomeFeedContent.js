@@ -4,36 +4,29 @@ import {
   makeStyles,
   Typography,
   Box,
-  Button,
   Tab,
   Tabs,
 } from "@material-ui/core";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 import Heading from "../../../atom/Heading/Heading";
-import BodyText from "../../../atom/BodyText/BodyText";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
-import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
-import { Input } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../service/Route";
+import HomeRightBar from "../HomeRightBar/HomeRightBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
   },
-  navItemLg:{
-    display:'none',
-    [theme.breakpoints.up('500px')]: {
-      backgroundColor: '#f00'
+  newItem: {
+    [theme.breakpoints.up("lg")]: {
+      display: "none",
     },
   },
-  navItemSm:{
-    display:'block',
-    [theme.breakpoints.down('500px')]:{
-      display:'none'
-    }
+  navItemSm: {
+    display: "block",
+    [theme.breakpoints.down("500px")]: {
+      display: "none",
+    },
   },
   test: {
     border: "2px solid #212121",
@@ -41,44 +34,24 @@ const useStyles = makeStyles((theme) => ({
   navBelowBarColor: {
     "& .PrivateTabIndicator-colorSecondary-19": {
       backgroundColor: "#0A1596",
-      border: "2px solid #f0f",
     },
   },
 }));
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
 const HomeFeedContent = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleTabs = (e, val) => {
+    setTabValue(val);
   };
+
+  const TabPanel = (props) => {
+    const { children, value, index } = props;
+    return <div>{value === index && <div>{children}</div>}</div>;
+  };
+
   const navigate = useNavigate();
   const [categories, setCategories] = useState();
   const [sections, setSections] = useState();
@@ -92,10 +65,9 @@ const HomeFeedContent = () => {
     });
 
     const url = EndPoints.getAllSections;
-    instance2.get(url).then(response => {
-      setSections(response.data.data)
-    })
-
+    instance2.get(url).then((response) => {
+      setSections(response.data.data);
+    });
   }, []);
 
   return (
@@ -106,68 +78,99 @@ const HomeFeedContent = () => {
           <Box sx={{ width: "100%", marginBottom: "2rem", marginTop: "1rem" }}>
             <Box>
               <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="basic tabs example"
+                value={tabValue}
+                onChange={handleTabs}
+                variant="scrollable"
+                scrollButtons={false}
+                aria-label="scrollable prevent tabs example"
                 TabIndicatorProps={{ style: { background: "#0A1596" } }}
               >
                 <Tab
                   style={{ textTransform: "initial" }}
                   label="Alla kategorier"
-                  {...a11yProps(0)}
-                  // className={classes.NavItemLg}
                 />
                 <Tab
                   style={{ textTransform: "initial" }}
                   label="Kvantitativ del"
-                  {...a11yProps(1)}
-                  // className={classes.NavItemLg}
                 />
-                <Tab
-                  style={{ textTransform: "initial" }}
-                  label="Verbal del"
-                  {...a11yProps(2)}
-                  // className={classes.NavItemLg}
-                />
+                <Tab style={{ textTransform: "initial" }} label="Verbal del" />
                 <Tab
                   style={{ textTransform: "initial" }}
                   label="My Peformance"
-                  {...a11yProps(3)}
-                  // className={classes.NavItemLg}
+                  className={classes.newItem}
                 />
               </Tabs>
             </Box>
           </Box>
         </Box>
       </Box>
-      <Box sx={{ marginBottom: "2rem" }}>
-        <Typography variant="h5" component="h5">
-          Kvantitativ del
-        </Typography>
-      </Box>
-      <Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          {sections && sections.map((item) => {
-            if (item.section.title === "Kvantitativ del") {
-              return <HomeCard item={item} />;
-            }
-          })}
+      <TabPanel value={tabValue} index={0}>
+        <Box sx={{ marginBottom: "2rem" }}>
+          <Typography variant="h5" component="h5">
+            Kvantitativ del
+          </Typography>
         </Box>
-      </Box>
-      <Box sx={{ marginBTop: "2rem", marginBottom: "1rem" }}>
-        <Typography variant="h5" component="h5">
-          Verbal del
-        </Typography>
-        <Box
-          sx={{ marginBottom: "1rem" }}
-        >
-          {sections && sections.map((item) => {
-            if (item.section.title === "Verbal del") {
-              return <HomeCard item={item} />;
-            }
-          })}
+        <Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            {sections &&
+              sections.map((item) => {
+                if (item.section.title === "Kvantitativ del") {
+                  return <HomeCard item={item} />;
+                }
+              })}
+          </Box>
         </Box>
-      </Box>
+        <Box sx={{ marginTop: "2rem" }}>
+          <Typography variant="h5" component="h5">
+            Verbal del
+          </Typography>
+          <Box sx={{ marginBottom: "3rem", marginTop: "2rem" }}>
+            {sections &&
+              sections.map((item) => {
+                if (item.section.title === "Verbal del") {
+                  return <HomeCard item={item} />;
+                }
+              })}
+          </Box>
+        </Box>
+      </TabPanel>
+      <TabPanel value={tabValue} index={1}>
+        <Box sx={{ marginBottom: "2rem" }}>
+          <Typography variant="h5" component="h5">
+            Kvantitativ del
+          </Typography>
+        </Box>
+        <Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            {sections &&
+              sections.map((item) => {
+                if (item.section.title === "Kvantitativ del") {
+                  return <HomeCard item={item} />;
+                }
+              })}
+          </Box>
+        </Box>
+      </TabPanel>
+      <TabPanel value={tabValue} index={2}>
+        <Box sx={{ marginBottom: "2rem" }}>
+          <Typography variant="h5" component="h5">
+            Verbal del
+          </Typography>
+          <Box sx={{ marginBottom: "1rem", marginTop: "2rem" }}>
+            {sections &&
+              sections.map((item) => {
+                if (item.section.title === "Verbal del") {
+                  return <HomeCard item={item} />;
+                }
+              })}
+          </Box>
+        </Box>
+      </TabPanel>
+      <TabPanel value={tabValue} index={3}>
+        <Box>
+          <HomeRightBar />
+        </Box>
+      </TabPanel>
     </Container>
   );
 };

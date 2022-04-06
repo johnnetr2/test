@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography, Box, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import LabelField from "../../molecule/LabelField/LabelField";
@@ -9,11 +9,10 @@ import swal from "sweetalert";
 import { instance, EndPoints } from "../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingRight: theme.spacing(0),
-    paddingLeft: theme.spacing(0),
-    marginRight: theme.spacing(0),
-    marginLeft: theme.spacing(0),
+  hideOnMobile: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none !important'
+    }
   },
 }));
 
@@ -39,20 +38,19 @@ const SignupOrg = () => {
       password: register.password,
     };
 
-
     const URL = EndPoints.SignUp;
     instance
       .post(URL, data)
       .then((response) => {
         if (response.data.message == "success") {
           if (response.data.user.token) {
-            localStorage.setItem('userId', response.data.user.user._id)
-            localStorage.setItem('token', response.data.user.token)
+            localStorage.setItem("userId", response.data.user.user._id);
+            localStorage.setItem("token", response.data.user.token);
             swal("Success!", response.data.message, "success");
             window.location.href = "/login";
           }
         } else {
-          swal("Warning!", response.data.message, 'warning');
+          swal("Warning!", response.data.message, "warning");
         }
       })
       .catch((error) => {
@@ -67,9 +65,10 @@ const SignupOrg = () => {
       sx={{ boxSizing: "border-box", display: "flex" }}
     >
       <Container
-        maxWidth="500"
+        className={classes.hideOnMobile}
+        // maxWidth="500"
         sx={{
-          minHeight: "fit-content",
+          minHeight: "100vh",
           width: "40%",
           backgroundColor: "#0A1596",
         }}
@@ -119,9 +118,7 @@ const SignupOrg = () => {
           <Typography variant="body1">Glomt losenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
-              <FilledBtn
-                onClick={clickHandler}
-                title="Skapa konto" />
+              <FilledBtn onClick={clickHandler} title="Skapa konto" />
             </Link>
           </Box>
           <Typography variant="body1">eller</Typography>

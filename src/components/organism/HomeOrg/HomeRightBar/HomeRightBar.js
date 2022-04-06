@@ -2,7 +2,6 @@ import React from "react";
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
-import DevelopmentGraph from "../../../../components/molecule/DevelopmentGraph/DevelopmentGraph";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LearnMoreCard from "../../../../components/molecule/LearnMoreCard/LearnMoreCard";
 import LineChart from "../../../molecule/Charts/LineChart";
