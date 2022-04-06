@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Container,
-  makeStyles,
-  Box,
-  Button,
-} from "@material-ui/core";
+import { Container, makeStyles, Box, Button } from "@material-ui/core";
 import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import InputField from "../../../atom/InputField/InputField";
@@ -12,7 +7,7 @@ import FilledBtn from "../../../atom/FilledBtn/FilledBtn";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(4)
   },
   test: {
     border: "2px solid #212121",
@@ -30,12 +25,14 @@ const ProfileFeedContent = () => {
           sx={{
             marginTop: "3rem",
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             alignItems: "center",
           }}
         >
           <BodyText title="E-MAIL" />
-          <Box sx={{ marginLeft: "4rem", width: "80%" }}>
+          <Box
+          sx={{ width: "65%"}}
+          >
             <InputField
               type="email"
               placeholder="magnusbest@hotmail.com"
@@ -44,8 +41,8 @@ const ProfileFeedContent = () => {
           </Box>
         </Box>
       </Box>
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ marginLeft: "6.5rem", marginRight: "0.75rem" }}>
+      <Box sx={{ display:'flex', justifyContent:'flex-end' }}>
+        <Box sx={{ width:'24rem' }}>
           <FilledBtn title="Spara ändringar" />
         </Box>
       </Box>
@@ -80,10 +77,10 @@ const ProfileFeedContent = () => {
           flexDirection: "column",
         }}
       >
-        <Box sx={{marginTop:'1rem'}}>
+        <Box sx={{ marginTop: "1rem" }}>
           <BodyText title="Ta bort mitt konto" />
         </Box>
-        <Box sx={{marginTop:'1rem'}}>
+        <Box sx={{ marginTop: "1rem" }}>
           <BodyText title="logga ut" />
         </Box>
       </Box>

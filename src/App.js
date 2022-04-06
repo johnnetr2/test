@@ -13,27 +13,28 @@ import ResultSummaryOrg from "./components/organism/HomeOrg/HomePages/QuestionPa
 import StandardViewXyz from "./components/organism/CoursesOrg/CoursePages/StandardViewXyz/StandardViewXyz";
 import ProvPassNog from "./components/organism/CoursesOrg/CoursePages/ProvPassNog/ProvPassNog";
 import ProvPassDtk from "./components/organism/CoursesOrg/CoursePages/ProvPassDtk/ProvPassDtk";
-import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import ProvPassCorrectAns from "./components/organism/CoursesOrg/CoursePages/ProvPassCorrectAns/ProvPassCorrectAns";
 import CategoryPagesMain from "../src/components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesMain/CategoryPagesMain";
 import Home from "./pages/Home/Home";
-import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg"
-import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
-import QuestionViewDtkOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg' 
+import QuestionViewXyzOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewXyzOrg/QuestionViewXyzOrg";
+import ResultFooter from "./components/molecule/ResultFooter/ResultFooter";
+import QuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
 import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDtkOrg";
 import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
-import MultiAnswer from "./components/molecule/MultiAnswer/MultiAnswer";
+import Provresultat from './components/organism/CoursesOrg/CoursePages/Provresultat/Provresultat'
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/resultquesviewdtkorg" element={<ResultQuestionViewDtkOrg/>} />
-        <Route path="/multianswer" element={<MultiAnswer/>} />
-        <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg/>} />
-        <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
-        <Route path='resultfooter' element={<ResultFooter />} />
-        <Route path='/categoryrtbar' element={<CategoryPagesRightBar/>} />
+        <Route
+          path="/resultquesviewdtkorg"
+          element={<ResultQuestionViewDtkOrg />}
+        />
+        <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg />} />
+        <Route path="/quesvieworg" element={<QuestionViewXyzOrg />} />
+        <Route path="resultfooter" element={<ResultFooter />} />
+        <Route path="/categoryrtbar" element={<CategoryPagesRightBar />} />
         <Route path="/" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />
@@ -49,8 +50,8 @@ function App() {
         <Route path="/standardviewxyz" element={<StandardViewXyz />} />
         <Route path="/provpassnog" element={<ProvPassNog />} />
         <Route path="/provpassdtk" element={<ProvPassDtk />} />
-        <Route path="/overblick" element={<OverBlick />} />
         <Route path="/provpasscorrectans" element={<ProvPassCorrectAns />} />
+        <Route path="/provresultat" element={<Provresultat />} />
       </Routes>
     </div>
   );
