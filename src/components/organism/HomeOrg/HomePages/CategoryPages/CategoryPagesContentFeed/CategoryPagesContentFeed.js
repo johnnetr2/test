@@ -30,6 +30,7 @@ import { EndPoints, instance2 } from "../../../../../service/Route";
 import swal from "sweetalert";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import CategoryPagesRightBar from "../CategoryPagesRightBar/CategoryPagesRightBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +72,19 @@ const CategoryPagesFeedContent = (props) => {
       });
     });
   }, []);
+
+  const params = useLocation()
+
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleTabs = (e, val) => {
+    setTabValue(val);
+  };
+
+  const TabPanel = (props) => {
+    const { children, value, index } = props;
+    return <div>{value === index && <div>{children}</div>}</div>;
+  };
 
   const setCheckedFunc = (value) => {
     if (value) {
@@ -351,17 +365,35 @@ const CategoryPagesFeedContent = (props) => {
         <FilledBtn title="Starta övningar" />
       </Box>
       <Box sx={{ marginTop: "4rem" }}>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link to="#" underline='hover' style={{color:'#222'}}>
+        <Tabs
+          value={tabValue}
+          onChange={handleTabs}
+          variant="scrollable"
+          scrollButtons={false}
+          aria-label="scrollable prevent tabs example"
+          TabIndicatorProps={{ style: { background: "#fff" } }}
+        >
+          <Tab style={{ textTransform: "initial" }} label="Historia" />
+          <Tab style={{ textTransform: "initial" }} label="Statistik" />
+        </Tabs>
+        <TabPanel value={tabValue} index={0}>
+          <Box sx={{ marginTop: "1rem" }}>
+            <CategoryTable tableHistory={tableHistory} />
+          </Box>
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          <Box sx={{ marginTop: "1rem" }}>
+            <CategoryPagesRightBar item={params?.state?.item} />
+          </Box>
+        </TabPanel>
+        {/* <Breadcrumbs aria-label="breadcrumb">
+          <Link to="#" underline="hover" style={{ color: "#222" }}>
             <Typography variant="h5">Historia</Typography>
           </Link>
-          <Link to="/categoryrtbar" underline='hover' style={{color:'#222'}}>
+          <Link to="/categoryrtbar" underline="hover" style={{ color: "#222" }}>
             <Typography variant="h5">Statistik</Typography>
           </Link>
-        </Breadcrumbs>
-        <Box sx={{ marginTop: "1rem" }}>
-          <CategoryTable tableHistory={tableHistory} />
-        </Box>
+        </Breadcrumbs> */}
       </Box>
     </Container>
   );

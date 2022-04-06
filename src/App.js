@@ -22,12 +22,14 @@ import ResultFooter from './components/molecule/ResultFooter/ResultFooter'
 import QuestionViewDtkOrg from './components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg' 
 import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDtkOrg";
 import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
+import MultiAnswer from "./components/molecule/MultiAnswer/MultiAnswer";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/resultquesviewdtkorg" element={<ResultQuestionViewDtkOrg/>} />
+        <Route path="/multianswer" element={<MultiAnswer/>} />
         <Route path="/quesviewdtkorg" element={<QuestionViewDtkOrg/>} />
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg/>} />
         <Route path='resultfooter' element={<ResultFooter />} />
