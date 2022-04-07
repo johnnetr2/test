@@ -23,8 +23,10 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #212121",
   },
   iconFilled: {
-    color: "#0A1596",
-    "&:hover": {
+    "& .MuiRating-iconFilled": {
+      color: "#0A1596",
+    },
+    "& .MuiRating-iconHover": {
       color: "#0A1596",
     },
   },
@@ -101,25 +103,25 @@ const MessageFeedContent = () => {
               (0/500)
             </Typography>
           </Box>
-            <TextareaAutosize
-              aria-label="empty textarea"
-              placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
-              style={{
-                backgroundColor: "#f2f2f2",
-                border: "none",
-                padding: "2rem",
-                borderRadius: "5px",
-                display: "flex",
-                flexWrap: "wrap",
-                width: "50vw",
-              }}
-            />
+          <TextareaAutosize
+            aria-label="empty textarea"
+            placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
+            style={{
+              backgroundColor: "#f2f2f2",
+              border: "none",
+              padding: "2rem",
+              borderRadius: "5px",
+              display: "flex",
+              flexWrap: "wrap",
+              width: "50vw",
+            }}
+          />
           <Box
             sx={{
               marginTop: "2rem",
               marginBottom: "2rem",
               display: "flex",
-              flexWrap:'wrap',
+              flexWrap: "wrap",
               justifyContent: "center",
               width: "50vw",
             }}

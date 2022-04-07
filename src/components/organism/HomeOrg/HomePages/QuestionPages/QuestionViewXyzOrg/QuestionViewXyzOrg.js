@@ -42,6 +42,7 @@ import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopu
 import DropPenPopup from "../../../../../molecule/DropPenPopup/DropPenPopup";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
+import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -52,6 +53,7 @@ const QuestionViewXyzOrg = () => {
   const [timeLeft, setTimeLeft] = useState();
   const time = 5;
   const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -207,7 +209,7 @@ const QuestionViewXyzOrg = () => {
           questionIndex={selectedIndex}
           onResultHandler={() =>
             navigate("/resultsummary", {
-              state:{
+              state: {
                 quizId: params?.state?.prevState?.quizId,
                 sectionCategory: params?.state?.prevState?.sectionCategory,
                 timeLeft: params?.state?.prevState?.timeLeft,
@@ -281,7 +283,6 @@ const QuestionViewXyzOrg = () => {
   };
 
   const QuestionBody = ({ question }) => {
-    console.log(question, "quesions");
     return (
       <Container
         maxWidth="md"
@@ -453,7 +454,7 @@ const QuestionViewXyzOrg = () => {
                     fontSize: ".75rem",
                     fontWeight: "500",
                     marginTop: 10,
-                    width: "32rem"
+                    width: "32rem",
                   }}
                 >
                   {/* {question.answer.answer} */}
@@ -515,6 +516,13 @@ const QuestionViewXyzOrg = () => {
     );
   };
 
+  const PopupHandler = () => {
+    const checkPopup = params?.state?.quiz;
+    // console.log({checkPopup.map(item) =>
+    //   return (item)}
+    // );
+  };
+
   return (
     <div>
       <CssBaseline />
@@ -532,9 +540,12 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           <Box
-            onClick={() =>
-              params?.state?.questionIndex != undefined ? "" : setOpen(true)
-            }
+            // onClick={() =>
+            //   params?.state?.questionIndex != undefined
+            //     ? setIsOpen(true)
+            //     : setOpen(true)
+            // }
+            onClick={PopupHandler}
             sx={{
               height: "8vh",
               width: "2.3rem",
@@ -625,6 +636,18 @@ const QuestionViewXyzOrg = () => {
                 timeLeft: timeLeft,
                 totalTime: time,
                 quiz: quiz,
+              },
+            })
+          }
+        />
+
+        <UnAttemptedPopup
+          currentStatus={isOpen}
+          handleOptionClose={() => setIsOpen(false)}
+          redirect={() =>
+            navigate("/category", {
+              state: {
+                item: params?.state?.sectionCategory,
               },
             })
           }

@@ -381,7 +381,7 @@ const CategoryPagesFeedContent = (props) => {
           <Tab style={{ textTransform: "initial" }} label="Historia" />
           <Tab
             style={{ textTransform: "initial" }}
-            label="Statistik"
+            label="/ Statistik"
             className={classes.hideStatistics}
           />
         </Tabs>
