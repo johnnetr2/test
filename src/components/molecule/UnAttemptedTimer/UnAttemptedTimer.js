@@ -12,25 +12,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function UnAttemptedPopup(props) {
-  const [isOpen, setIsOpen] = React.useState(false);
+export default function UnAttemptedTimer(props) {
+  const [openTimer, setOpenTimer] = React.useState(false);
 
-  const handleOpenOption = () => {
-    setIsOpen(true);
+  const handleClickOpen = () => {
+    setOpenTimer(props.popUpstatus);
   };
 
-  const handleCloseOption = () => {
-    setIsOpen(false);
+  const handleClose = () => {
+    setOpenTimer(false);
   };
 
   return (
     <>
       <Box>
         <Dialog
-          open={props.currentStatus}
+          open={props.popUpstatus}
           TransitionComponent={Transition}
           keepMounted
-          onClose={props.handleCloseOption}
+          onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
           fullWidth
           maxWidth="sm"
@@ -54,7 +54,7 @@ export default function UnAttemptedPopup(props) {
               }}
               id="alert-dialog-slide-description"
             >
-              Ingen fara, vi sparar dina svar.
+              Dags att droppa pennan!
             </DialogContentText>
           </DialogContent>
           <DialogActions

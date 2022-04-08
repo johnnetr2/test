@@ -43,6 +43,7 @@ import DropPenPopup from "../../../../../molecule/DropPenPopup/DropPenPopup";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
+import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -51,7 +52,7 @@ const QuestionViewXyzOrg = () => {
   const params = useLocation();
   const [status, setStatus] = useState(true);
   const [timeLeft, setTimeLeft] = useState();
-  const time = 5;
+  const time = 0.25;
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
@@ -207,17 +208,17 @@ const QuestionViewXyzOrg = () => {
         <ResultFooter
           questionLength={quiz.length}
           questionIndex={selectedIndex}
-          onResultHandler={() =>
+          onResultHandler={() => {
             navigate("/resultsummary", {
               state: {
                 quizId: params?.state?.prevState?.quizId,
                 sectionCategory: params?.state?.prevState?.sectionCategory,
                 timeLeft: params?.state?.prevState?.timeLeft,
                 totalTime: params?.state?.prevState?.totalTime,
-                quiz: params?.state?.prevState?.quiz,
+                quiz: quiz,
               },
-            })
-          }
+            });
+          }}
           onLeftClick={() => {
             setSelectedIndex((previousIndex) => previousIndex - 1);
           }}
@@ -518,9 +519,13 @@ const QuestionViewXyzOrg = () => {
 
   const PopupHandler = () => {
     const checkPopup = params?.state?.quiz;
-    // console.log({checkPopup.map(item) =>
-    //   return (item)}
-    // );
+    if (checkPopup[0].answerSubmited == true) {
+      setOpen(true);
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+      setOpen(false);
+    }
   };
 
   return (
@@ -628,18 +633,56 @@ const QuestionViewXyzOrg = () => {
         <AlertDialogSlide
           popUpstatus={open}
           handleClose={() => setOpen(false)}
-          redirect={() =>
+          redirect={() => {
+            const filteredQuiz = quiz.filter((item) => {
+              if (item.answerSubmited) {
+                return item;
+              }
+            });
             navigate("/resultsummary", {
               state: {
                 quizId: params?.state?.data?._id,
                 sectionCategory: params?.state?.sectionCategory,
                 timeLeft: timeLeft,
                 totalTime: time,
-                quiz: quiz,
+                quiz: filteredQuiz,
               },
-            })
-          }
+            });
+          }}
         />
+
+        {params?.state?.quiz[0]?.answerSubmited == true ? (
+          <DropPenPopup
+            popUpstatus={timeEnd}
+            redirect={() => {
+              const filteredQuiz = quiz.filter((item) => {
+                if (item.answerSubmited) {
+                  return item;
+                }
+              });
+              navigate("/resultsummary", {
+                state: {
+                  quizId: params?.state?.data?._id,
+                  sectionCategory: params?.state?.sectionCategory,
+                  timeLeft: timeLeft,
+                  totalTime: time,
+                  quiz: filteredQuiz,
+                },
+              });
+            }}
+          />
+        ) : (
+          <UnAttemptedTimer
+            popUpstatus={timeEnd}
+            redirect={() =>
+              navigate("/category", {
+                state: {
+                  item: params?.state?.sectionCategory,
+                },
+              })
+            }
+          />
+        )}
 
         <UnAttemptedPopup
           currentStatus={isOpen}
@@ -653,20 +696,6 @@ const QuestionViewXyzOrg = () => {
           }
         />
 
-        <DropPenPopup
-          popUpstatus={timeEnd}
-          redirect={() =>
-            navigate("/resultsummary", {
-              state: {
-                quizId: params?.state?.data?._id,
-                sectionCategory: params?.state?.sectionCategory,
-                timeLeft: 0,
-                totalTime: time,
-                quiz: quiz,
-              },
-            })
-          }
-        />
         {quiz && <QuestionBody question={quiz[selectedIndex]} />}
       </Container>
     </div>

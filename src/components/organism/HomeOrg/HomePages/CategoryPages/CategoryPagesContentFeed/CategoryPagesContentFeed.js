@@ -395,14 +395,6 @@ const CategoryPagesFeedContent = (props) => {
             <CategoryPagesRightBar item={params?.state?.item} />
           </Box>
         </TabPanel>
-        {/* <Breadcrumbs aria-label="breadcrumb">
-          <Link to="#" underline="hover" style={{ color: "#222" }}>
-            <Typography variant="h5">Historia</Typography>
-          </Link>
-          <Link to="/categoryrtbar" underline="hover" style={{ color: "#222" }}>
-            <Typography variant="h5">Statistik</Typography>
-          </Link>
-        </Breadcrumbs> */}
       </Box>
     </Container>
   );
