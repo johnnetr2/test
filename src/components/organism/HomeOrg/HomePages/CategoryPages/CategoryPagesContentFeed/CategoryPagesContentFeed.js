@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
   test: {
     border: "2px solid #212121",
   },
+  hideStatistics: {
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  },
 }));
 
 const CategoryPagesFeedContent = (props) => {
@@ -73,7 +78,7 @@ const CategoryPagesFeedContent = (props) => {
     });
   }, []);
 
-  const params = useLocation()
+  const params = useLocation();
 
   const [tabValue, setTabValue] = useState(0);
 
@@ -375,7 +380,11 @@ const CategoryPagesFeedContent = (props) => {
           TabIndicatorProps={{ style: { background: "#fff" } }}
         >
           <Tab style={{ textTransform: "initial" }} label="Historia" />
-          <Tab style={{ textTransform: "initial" }} label="Statistik" />
+          <Tab
+            style={{ textTransform: "initial" }}
+            label="/ Statistik"
+            className={classes.hideStatistics}
+          />
         </Tabs>
         <TabPanel value={tabValue} index={0}>
           <Box sx={{ marginTop: "1rem" }}>
@@ -383,18 +392,10 @@ const CategoryPagesFeedContent = (props) => {
           </Box>
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <Box sx={{ marginTop: "1rem" }}>
+          <Box>
             <CategoryPagesRightBar item={params?.state?.item} />
           </Box>
         </TabPanel>
-        {/* <Breadcrumbs aria-label="breadcrumb">
-          <Link to="#" underline="hover" style={{ color: "#222" }}>
-            <Typography variant="h5">Historia</Typography>
-          </Link>
-          <Link to="/categoryrtbar" underline="hover" style={{ color: "#222" }}>
-            <Typography variant="h5">Statistik</Typography>
-          </Link>
-        </Breadcrumbs> */}
       </Box>
     </Container>
   );

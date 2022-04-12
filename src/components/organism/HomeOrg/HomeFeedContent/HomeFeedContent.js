@@ -53,16 +53,16 @@ const HomeFeedContent = () => {
   };
 
   const navigate = useNavigate();
-  const [categories, setCategories] = useState();
+  // const [categories, setCategories] = useState();
   const [sections, setSections] = useState();
 
   useEffect(() => {
-    const URL = EndPoints.getAllCategories;
-    instance2.get(URL).then((response) => {
-      if (response.data) {
-        setCategories(response.data.data);
-      }
-    });
+    // const URL = EndPoints.getAllCategories;
+    // instance2.get(URL).then((response) => {
+    //   if (response.data) {
+    //     setCategories(response.data.data);
+    //   }
+    // });
 
     const url = EndPoints.getAllSections;
     instance2.get(url).then((response) => {
