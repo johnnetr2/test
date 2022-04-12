@@ -43,6 +43,8 @@ import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import QuestionViewDTKOrg from '../QuestionViewDtkOrg/QuestionViewDtkOrg'
 import Question from "../../../../../atom/Question/question";
+import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
+import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -51,8 +53,9 @@ const QuestionViewXyzOrg = () => {
   const params = useLocation();
   const [status, setStatus] = useState(true);
   const [timeLeft, setTimeLeft] = useState();
-  const time = 5;
+  const time = 0.25;
   const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -980,9 +983,9 @@ const QuestionViewXyzOrg = () => {
         <ResultFooter
           questionLength={quiz.length}
           questionIndex={selectedIndex}
-          onResultHandler={() =>
+          onResultHandler={() => {
             navigate("/resultsummary", {
-              state:{
+              state: {
                 quizId: params?.state?.prevState?.quizId,
                 sectionCategory: params?.state?.prevState?.sectionCategory,
                 timeLeft: params?.state?.prevState?.timeLeft,
@@ -990,8 +993,8 @@ const QuestionViewXyzOrg = () => {
                 quiz: params?.state?.prevState?.quiz,
                 quizId: params?.state?.quizId
               },
-            })
-          }
+            });
+          }}
           onLeftClick={() => {
             setSelectedIndex((previousIndex) => previousIndex - 1);
           }}
@@ -1248,9 +1251,10 @@ const QuestionViewXyzOrg = () => {
                   variant="body1"
                   component="body1"
                   style={{
-                    fontSize: "0.7rem",
-                    display: "flex",
-                    justifySelf: "flex-end",
+                    fontSize: ".75rem",
+                    fontWeight: "500",
+                    marginTop: 10,
+                    width: "32rem",
                   }}
                 >
                   Berätta för oss om du var nöjd med lösningen
@@ -1273,6 +1277,17 @@ const QuestionViewXyzOrg = () => {
     }
   };
 
+  const PopupHandler = () => {
+    const checkPopup = params?.state?.quiz;
+    if (checkPopup[0].answerSubmited == true) {
+      setOpen(true);
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+      setOpen(false);
+    }
+  };
+
   return (
     <div>
       <CssBaseline />
@@ -1290,7 +1305,12 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           <Box
-            onClick={() => params?.state?.questionIndex != undefined ? '' : setOpen(true)}
+            // onClick={() =>
+            //   params?.state?.questionIndex != undefined
+            //     ? setIsOpen(true)
+            //     : setOpen(true)
+            // }
+            onClick={PopupHandler}
             sx={{
               height: "8vh",
               width: "2.3rem",
@@ -1372,7 +1392,12 @@ const QuestionViewXyzOrg = () => {
         <AlertDialogSlide
           popUpstatus={open}
           handleClose={() => setOpen(false)}
-          redirect={() =>
+          redirect={() => {
+            const filteredQuiz = quiz.filter((item) => {
+              if (item.answerSubmited) {
+                return item;
+              }
+            });
             navigate("/resultsummary", {
               state: {
                 quizId: params?.state?.data?._id,
@@ -1382,14 +1407,48 @@ const QuestionViewXyzOrg = () => {
                 quiz: quiz,
                 quizId: params?.state?.quizId
               },
-            })
-          }
+            });
+          }}
         />
 
-        <DropPenPopup
-          popUpstatus={timeEnd}
+        {params?.state?.quiz[0]?.answerSubmited == true ? (
+          <DropPenPopup
+            popUpstatus={timeEnd}
+            redirect={() => {
+              const filteredQuiz = quiz.filter((item) => {
+                if (item.answerSubmited) {
+                  return item;
+                }
+              });
+              navigate("/resultsummary", {
+                state: {
+                  quizId: params?.state?.data?._id,
+                  sectionCategory: params?.state?.sectionCategory,
+                  timeLeft: timeLeft,
+                  totalTime: time,
+                  quiz: filteredQuiz,
+                },
+              });
+            }}
+          />
+        ) : (
+          <UnAttemptedTimer
+            popUpstatus={timeEnd}
+            redirect={() =>
+              navigate("/category", {
+                state: {
+                  item: params?.state?.sectionCategory,
+                },
+              })
+            }
+          />
+        )}
+
+        <UnAttemptedPopup
+          currentStatus={isOpen}
+          handleOptionClose={() => setIsOpen(false)}
           redirect={() =>
-            navigate("/resultsummary", {
+            navigate("/category", {
               state: {
                 quizId: params?.state?.data?._id,
                 sectionCategory: params?.state?.sectionCategory,
@@ -1401,8 +1460,8 @@ const QuestionViewXyzOrg = () => {
             })
           }
         />
-        {quiz && 
-        <QuestionBody question={quiz[selectedIndex]} />}
+
+        {quiz && <QuestionBody question={quiz[selectedIndex]} />}
       </Container>
     </div>
   );

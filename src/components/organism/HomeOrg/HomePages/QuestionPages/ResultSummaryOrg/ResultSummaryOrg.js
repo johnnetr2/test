@@ -95,28 +95,27 @@ const ResultSummaryOrg = (props) => {
 
   useEffect(() => {
     setPrevData(params?.state);
-    // console.log(params?.state?.quizId, 'first data')
     let totalTime = params.state.totalTime * 60;
     let remainingTime = params.state.timeLeft;
     let timeSpent = totalTime - remainingTime;
     let timePerQuestion;
 
-        const URL = EndPoints.getResult + params?.state?.quizId
-        try {
-            instance2.get(URL).then((response) => {
-                if (response.data) {
-                    setresponseCollection(response.data)
-                    timePerQuestion = timeSpent / response.data.answer.length
-                  if (timeSpent && remainingTime) {
-                        setTimePerQues(timePerQuestion)
-                    } else {
-                        setTimePerQues(false)
-                    }
-                }
-            })
-        } catch (error) {
-            swal('Error', error.message,)
+    const URL = EndPoints.getResult + params?.state?.quizId;
+    try {
+      instance2.get(URL).then((response) => {
+        if (response.data) {
+          setresponseCollection(response.data);
+          timePerQuestion = timeSpent / response.data.answer.length;
+          if (timeSpent && remainingTime) {
+            setTimePerQues(timePerQuestion);
+          } else {
+            setTimePerQues(false);
+          }
         }
+      });
+    } catch (error) {
+      swal("Error", error.message);
+    }
     return () => {
       // clearInterval(timer);
     };
@@ -363,7 +362,6 @@ const ResultSummaryOrg = (props) => {
               border: "1px solid #e1e1e1",
               display: "flex",
               flexDirection: "column",
-              
             }}
           >
             {responseCollection?.answer &&
@@ -375,10 +373,10 @@ const ResultSummaryOrg = (props) => {
                     mt={2}
                     mb={2}
                     onClick={() => {
-                      const quiz = params.state.quiz
-                      console.log('quiz: ', JSON.stringify(quiz))
-
-                      let questionIndex = quiz.findIndex(element => element.question._id === item.questionId)
+                      const quiz = params.state.quiz;
+                      let questionIndex = quiz.findIndex(
+                        (element) => element.question._id === item.questionId
+                      );
                       navigate("/question", {
                         state: {
                           quizId: prevData.quizId,
@@ -387,12 +385,11 @@ const ResultSummaryOrg = (props) => {
                           questionId: item.questionId,
                           sectionCategory: prevData.sectionCategory,
                           questionIndex,
-                          quiz:quiz,
+                          quiz: quiz,
                           prevState: params.state,
                         },
-                      })
-                    }
-                    }
+                      });
+                    }}
                     // onClick={() =>
                     //   navigate('/question', {state:{
                     //       sectionCategory:prevData?.sectionCategory
@@ -405,10 +402,10 @@ const ResultSummaryOrg = (props) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      cursor: 'pointer',
-                        '&:hover': {
-                            backgroundColor: 'blue',
-                        },
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: "blue",
+                      },
                     }}
                   >
                     <FormControlLabel
