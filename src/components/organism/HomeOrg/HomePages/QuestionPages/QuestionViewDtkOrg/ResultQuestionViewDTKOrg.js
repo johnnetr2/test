@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import BarChart from "../../../../../../assets/Icons/BarChart.svg";
-import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
-import DtkImg from "../../../../../../assets/Imgs/DtkImg.png";
-import Clock from "../../../../../../assets/Icons/Clock.svg";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
-  AppBar,
-  Card,
   Paper,
   Box,
   CssBaseline,
   Checkbox,
-  Radio,
   FormControlLabel,
-  Toolbar,
   Container,
-  LinearProgress,
 } from "@material-ui/core";
-import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
+import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
+import TopArrow from '../../../../../../assets/Icons/TopArrow.svg'
+import Correct from '../../../../../../assets/Imgs/correct.png'
 
-const ResultQuestionViewDtkOrg = () => {
+const ResultQuestionViewDtkOrg = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -72,250 +63,104 @@ const ResultQuestionViewDtkOrg = () => {
   }));
 
   const classes = useStyles(10);
+  const [explanation, setExplanation] = useState()
 
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    }, []);
+  const changeQuestion = () => {
+    props.startTimer()
+    props.nextQuestion()
+  }
 
   return (
     <div>
       <CssBaseline />
-      <AppBar
-        color="#fff"
-        className={classes.appbar}
-        style={{ boxShadow: "none" }}
-        position="absolute"
-      >
-        <Toolbar>
-          <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
-          <Typography
-            variant="body1"
-            style={{ width: 1200 }}
-            className={classes.center_align}
-          >
-            DTK
-          </Typography>
-          <Box>
-            <HelpOutlineIcon sx={{ cursor: "pointer" }} />
-          </Box>
-        </Toolbar>
-      </AppBar>
 
       <Container
         maxWidth="lg"
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        style={{ backgroundColor: "#fff", height: "fit-content", padding: '.5rem', marginTop: '5%', width: 600 }}
       >
-        <Container
-          maxWidth="md"
-          disableGutters
-          style={{ backgroundColor: "#fff" }}
-        >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} width={100} sx={{ color: "#222" }}>
-              <img src={BarChart} alt="" />8 av 12
-            </Box>
-            <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" />
-              10:45 min
-            </Box>
-          </Box>
-          <Box
-            mt={2}
-            sx={{
-              backgroundColor: "#b4b4b4",
-              height: "8px",
-              display: "flex",
-              flexDirection: "row",
-            }}
-          />
-        </Container>
-        <Container
-          maxWidth="md"
-          style={{
-            marginTop: 0,
-            backgroundColor: "#f9f9f9",
-            height: "fit-content",
+        <Box
+          paddingX={4}
+          mt={5}
+          sx={{
+            backgroundColor: "#fff",
+            width: 580,
+            height: 120,
+            border: "1px solid #e1e1e1",
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
           }}
         >
+          {/* <FormControlLabel control={<Checkbox color="primary" />} /> */}
+          <img src={Correct} style={{ height: '2rem', marginTop: '2.3rem' }} />
           <Box
-            mt={5}
-            paddingX={6}
-            paddingY={2}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 373,
-              border: "1px solid #e1e1e1",
-            }}
+            padding={1}
+            mt={2}
+            mb={2}
+            style={{ width: 500 }}
           >
             <Typography
-              variant="subtitle1"
+              style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
+              variant="body1"
+              component="body1"
+            >
+              Uppgift 8 av 12
+            </Typography>
+            <Typography
+              variant="h6"
+              component="h6"
+              style={{ fontSize: ".75rem", fontWeight: "600" }}
+            >
+              Vilket år såg samtliga fem typer av institutioner och grupper
+              sina intäkter ökajämfört med föregående år?
+            </Typography>
+            <Box
               style={{
-                textTransform: "uppercase",
-                fontSize: "0.7rem",
-                fontWeight: "500",
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                marginBottom: 10,
               }}
             >
-              3 uppgifter:
-            </Typography>
-            <Typography variant="h6" component="h6">
-              Teater och dans i siffror
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
-            >
-              Verksamhet och ekonomi för samtliga statligt stödda institutioner
-              och fria grupper inom teater och dans åren 1997–2005.
-            </Typography>
-            <Box>
-              <img src={DtkImg} alt="" />
-            </Box>
-          </Box>
-          <Box
-            paddingX={4}
-            mt={5}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 120,
-              border: "1px solid #e1e1e1",
-              display: "flex",
-            }}
-          >
-            <FormControlLabel control={<Checkbox />} />
-            <Box
-              padding={1}
-              mt={2}
-              mb={2}
-              style={{ border: "1px solid #E3E3E3", width: 500 }}
-            >
-              <Typography
-                style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
-                variant="body1"
-                component="body1"
-              >
-                Uppgift 8 av 12
-              </Typography>
-              <Typography
-                variant="h6"
-                component="h6"
-                style={{ fontSize: ".75rem", fontWeight: "600" }}
-              >
-                Vilket år såg samtliga fem typer av institutioner och grupper
-                sina intäkter ökajämfört med föregående år?
-              </Typography>
-              <Box
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  marginBottom: 10,
-                }}
-              >
-                <img src={DownArrow} className={classes.size} alt="" />
-              </Box>
-            </Box>
-          </Box>
-          <Box
-            paddingX={4}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 120,
-              border: "1px solid #e1e1e1",
-              display: "flex",
-            }}
-          >
-            <FormControlLabel control={<Checkbox />} />
-            <Box
-              padding={1}
-              mt={2}
-              mb={2}
-              style={{ border: "1px solid #E3E3E3", width: 500 }}
-            >
-              <Typography
-                style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
-                variant="body1"
-                component="body1"
-              >
-                Uppgift 9 av 12
-              </Typography>
-              <Typography
-                variant="h6"
-                component="h6"
-                style={{ fontSize: ".75rem", fontWeight: "600" }}
-              >
-                Hur många besökare per föreställning hade de fria
-                teatergrupperna det år då de gav som flest föreställningar?
-              </Typography>
-              <Box
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  marginBottom: 10,
-                }}
-              >
-                <img src={DownArrow} className={classes.size} alt="" />
-              </Box>
-            </Box>
-          </Box>
-          <Box
-            paddingX={4}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 120,
-              border: "1px solid #e1e1e1",
-              display: "flex",
-            }}
-          >
-            <FormControlLabel control={<Checkbox defaultChecked />} />
-            <Box
-              padding={1}
-              mt={2}
-              mb={2}
-              style={{ border: "1px solid #E3E3E3", width: 500 }}
-            >
-              <Typography
-                style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
-                variant="body1"
-                component="body1"
-              >
-                Uppgift 10 av 12
-              </Typography>
-              <Typography
-                variant="h6"
-                component="h6"
-                style={{ fontSize: ".75rem", fontWeight: "600" }}
-              >
-                Cirkeldiagrammet nedan illustrerar hur en totalsumma för år 2003
-                var fördelad procentuellt på de fem typerna av institutioner...
-              </Typography>
-              <Box
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  marginBottom: 10,
-                }}
-              >
-                <img src={DownArrow} className={classes.size} alt="" />
-              </Box>
-            </Box>
-          </Box>
+              {/* <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} 
+              <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} */}
+              {
+                explanation ? (<img src={TopArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(false)} className={classes.size} alt="" />)
+                  : (
+                    <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} className={classes.size} alt="" />
+                  )
+              }
 
-          <Box padding={1} m={2} sx={{ width: 615 }}>
-            <ExerciseBtn title="Nästa" />
+            </Box>
           </Box>
-        </Container>
+        </Box>
+
+        {explanation && <MultiAnswer />}
+
       </Container>
+
+      <Box
+        padding={1}
+        mt={2}
+        style={{
+          backgroundColor: '#0A1596', color: "#FFFFFF", height: '2.7rem', 
+          borderRadius: '.4rem', width: '100%', marginTop: '2%', 
+          marginBottom: '2%', marginLeft: '1%', display: 'flex', 
+          justifyContent: 'center', alignItems: 'center', cursor: 'pointer'
+        }}
+        onClick={() => changeQuestion()}
+      >
+        <Typography
+          variant="h6"
+          style={{
+            fontSize: "0.75rem",
+            marginRight: "0.5rem",
+            width: '3rem',
+          }}
+        >
+          Nästa
+        </Typography>
+      </Box>
     </div>
   );
 };

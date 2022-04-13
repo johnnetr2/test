@@ -12,6 +12,8 @@ import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import { useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../service/Route";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
+import swal from 'sweetalert'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,17 +59,22 @@ const HomeFeedContent = () => {
   const [sections, setSections] = useState();
 
   useEffect(() => {
-    // const URL = EndPoints.getAllCategories;
-    // instance2.get(URL).then((response) => {
-    //   if (response.data) {
-    //     setCategories(response.data.data);
-    //   }
-    // });
+    if (localStorage.getItem('token')) {
+      const url = EndPoints.getAllSections;
+      instance2.get(url).then((response) => {
+        setSections(response.data.data);
+      });
+    } else {
+      swal({ title: "Please login to continue", icon: "warning", dangerMode: true, })
+        .then((willDelete) => {
+          if (willDelete) {
+            window.location.href = '/login'
+          } else {
+            window.location.href = '/login'
+          }
+        });
+    }
 
-    const url = EndPoints.getAllSections;
-    instance2.get(url).then((response) => {
-      setSections(response.data.data);
-    });
   }, []);
 
   return (

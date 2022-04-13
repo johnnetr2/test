@@ -367,8 +367,9 @@ const CategoryPagesFeedContent = (props) => {
           )}
         </Box>
       </Box>
-      <Box sx={{ marginTop: "2rem" }} onClick={onSubmit}>
-        <FilledBtn title="Starta övningar" />
+      <Box variant="contained" sx={{ marginTop: "2rem", backgroundColor: '#0A1596', color: '#fff', 
+                borderRadius: '6px', height: '3rem', alignItems: 'center', paddingTop: '1%' }} onClick={onSubmit}>
+        <FilledBtn title="Starta övningar"/>
       </Box>
       <Box sx={{ marginTop: "4rem" }}>
         <Tabs

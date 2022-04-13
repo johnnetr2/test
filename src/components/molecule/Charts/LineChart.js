@@ -11,6 +11,9 @@ const LineChart = () => {
   const [sundayData, setSundayData] = useState([]);
 
   useEffect(() => {
+    if (localStorage.getItem("userId")) {
+
+    
     const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
     instance2.get(URL).then((response) => {
       if (response.data.lastWeek[0]) {
@@ -55,7 +58,8 @@ const LineChart = () => {
           setSundayData(totalCgpaSunday);
         }
       }
-    });
+    })
+    }
   }, []);
 
   return (

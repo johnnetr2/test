@@ -2,7 +2,6 @@ import React from "react";
 import { Typography, Box, FormControlLabel, Radio } from "@material-ui/core";
 import Increment from "../../../assets/Icons/Increment.svg";
 import Decrement from "../../../assets/Icons/Decrement.svg";
-import TopArrow from "../../../assets/Icons/TopArrow.svg";
 
 const MultiAnswer = () => {
   return (
@@ -15,25 +14,11 @@ const MultiAnswer = () => {
             flexDirection: "column",
           }}
         >
-          {/* <Box style={{ border: "1px solid #e1e1e1", padding:'2rem' }}>
-            <Typography
-              variant="body1"
-              style={{ textTransform: "uppercase", fontSize: "10px" }}
-            >
-              Uppgift 8 av 12
-            </Typography>
-            <Typography variant="body1">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic
-              rerum nostrum doloremque!
-            </Typography>
-            <Box style={{ display:'flex', justifyContent:'flex-end'}} >
-                <img src={TopArrow} alt="" />
-            </Box>
-          </Box> */}
           <Box
             style={{
               border: "1px solid #e1e1e1",
               padding: "1rem",
+              width: 580
             }}
           >
             <FormControlLabel
@@ -47,7 +32,7 @@ const MultiAnswer = () => {
             style={{
               border: "1px solid #e1e1e1",
               padding: "1rem",
-              width: "100vw",
+              width: 580
             }}
           >
             <FormControlLabel
@@ -61,7 +46,7 @@ const MultiAnswer = () => {
             style={{
               border: "1px solid #e1e1e1",
               padding: "1rem",
-              width: "100vw",
+              width: 580
             }}
           >
             <FormControlLabel
@@ -75,7 +60,7 @@ const MultiAnswer = () => {
             style={{
               border: "1px solid #e1e1e1",
               padding: "1rem",
-              width: "100vw",
+              width: 580
             }}
           >
             <FormControlLabel
@@ -89,7 +74,7 @@ const MultiAnswer = () => {
 
         <Box mt={2} ml={5}></Box>
       </Box>
-      <Box style={{ border: "1px solid #e1e1e1", padding: "2rem" }}>
+      <Box style={{ border: "1px solid #e1e1e1", padding: "2rem", width: 580 }}>
         <Box sx={{ width: 500, display: "flex" }}>
           <Box>
             <Typography
@@ -110,7 +95,7 @@ const MultiAnswer = () => {
                 fontSize: ".75rem",
                 fontWeight: "500",
                 marginTop: 10,
-                width: "32rem",
+                width: "30rem",
               }}
             >
               {" "}
@@ -157,6 +142,7 @@ const MultiAnswer = () => {
             <img src={Decrement} alt="" />
           </Box>
         </Box>
+        
       </Box>
     </>
   );

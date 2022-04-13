@@ -5,7 +5,7 @@ import {Container, Typography} from '@material-ui/core'
 
 const BodyText = (props) => {
   return (
-    <div style={{maxWidth:'30rem'}}>
+    <div style={{maxWidth:'30rem'}} onClick={() => props.onClick()}>
         <Typography variant="body2" component="body2" style={{fontSize:'0.75rem', lineHeight:'1.5'}}>
             {props.title}
         </Typography>

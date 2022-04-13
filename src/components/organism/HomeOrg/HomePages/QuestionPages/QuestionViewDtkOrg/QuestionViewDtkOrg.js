@@ -22,13 +22,17 @@ import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { useNavigate } from "react-router-dom";
+import ResultQuestionViewDtkOrg from './ResultQuestionViewDTKOrg'
+import { EndPoints, instance2 } from "../../../../../service/Route";
 
 const QuestionViewDTKOrg = (props) => {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [optionId, setOptionId] = useState()
   const question = props.question
   const [quiz, setQuiz] = useState()
   const navigate = useNavigate()
+  const [showResult, setShowResult] = useState()
 
 
 
@@ -85,70 +89,52 @@ const QuestionViewDTKOrg = (props) => {
   }, [])
 
   const SelectFunc = (e, optionIndex) => {
-    console.log(e.target.value, 'selected option id')
     const questions = [...quiz];
     let question = questions[selectedIndex];
-    question.selectedIndex = optionIndex;
+    question.selectedOptionIndex = optionIndex;
     question.selectedOptionID = e.target.value;
     setQuiz(questions);
   };
 
-  const Options = (item, curentOption, optionIndex) => {
-    if (item.answer && item.answer.option == curentOption._id) {
-      return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
-    } else if (item.answer && optionIndex == item.selectedIndex) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
-    }
-    if (optionIndex == item.selectedIndex) {
-      return <Radio color="primary" checked={true} />;
-    } else {
-      return <Radio color="primary" checked={false} />;
+
+  const submitAnswer = (question, index) => {
+    //     navigate("/resultsummary", {
+    //       state: {
+            // quizId: params?.state?.data?._id,
+            // sectionCategory: params?.state?.sectionCategory,
+            // timeLeft: timeLeft,
+            // totalTime: time,
+            // quiz: quiz,
+            // quizId: params?.state?.quizId
+    //       },
+    //     });
+
+      const questions = [...quiz];
+      let selectedquestion = questions[selectedIndex];
+      selectedquestion.answerSubmited = true;
+      setQuiz(questions);
+
+      const data = {
+        quiz: props.data.quizId,
+        user: localStorage.getItem("userId"),
+        optionId: question.selectedOptionID,
+        questionId: question.question._id,
+        sectionCategory: props.sectionCategory._id
+      }
+      console.log(data, 'this is json body')
+      // const URL = EndPoints.submitAnswer
+      // instance2.post(URL, data).then(response => {
+      //   console.log("Answer submitted")
+      // })
+    // }
+
+    const slectedAnswers = questions.filter(item => item.selectedOptionID)
+    console.log(slectedAnswers.length, 'length of answers')
+    if (slectedAnswers.length === questions.length) {
+      setShowResult(true)
+      props.stopTimer()
     }
   };
-
-  // const submitAnswer = (question) => {
-  //   if (question.answerSubmited) {
-  //     if (selectedIndex + 1 == quiz.length) {
-  //       localStorage.setItem('quizId', params?.state?.quizId)
-  //       navigate("/resultsummary", {
-  //         state: {
-  //           quizId: params?.state?.data?._id,
-  //           sectionCategory: params?.state?.sectionCategory,
-  //           timeLeft: timeLeft,
-  //           totalTime: time,
-  //           quiz: quiz,
-  //           quizId: params?.state?.quizId
-  //         },
-  //       });
-  //     } else {
-  //       setStatus(true);
-  //       selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
-  //     }
-  //   } else {
-  //     if (question.selectedIndex + 1) {
-  //       const questions = [...quiz];
-  //       let ques = questions[selectedIndex];
-  //       const URL = EndPoints.getAnswerByQuestionId + ques.question._id;
-  //       instance2.get(URL).then((response) => {
-  //         ques.answer = response.data;
-  //         ques.answerSubmited = true;
-  //         setQuiz(questions);
-  //         setStatus(false);
-  //       });
-  //       const data = {
-  //         quiz: params?.state?.data?._id,
-  //         user: localStorage.getItem("userId"),
-  //         optionId: question.selectedOptionID,
-  //         questionId: question.question._id,
-  //         sectionCategory: params?.state?.sectionCategory,
-  //       };
-  //       const Submit = EndPoints.submitAnswer;
-  //       instance2.post(Submit, data).then((response) => {
-  //       });
-  //     }
-  //   }
-  // };
-
 
   return (
     <div>
@@ -189,7 +175,6 @@ const QuestionViewDTKOrg = (props) => {
             <Typography
               variant="subtitle1"
               style={{
-                textTransform: "uppercase",
                 fontSize: ".7rem",
                 fontWeight: "500",
               }}
@@ -209,7 +194,11 @@ const QuestionViewDTKOrg = (props) => {
               <img src={question.image} style={{ width: '100%' }} alt="" />
             </Box>
           </Box>
-          {quiz && quiz.map((question, index) => {
+          {showResult ? (<ResultQuestionViewDtkOrg stopTimer={() => props.stopTimer()} startTimer={() => props.startTimer()} 
+            nextQuestion={() => props.nextQuestion()}
+          />) : 
+           quiz && quiz.map((question, index) => {
+             console.log(question, 'question')
             if (index == selectedIndex) {
               return <Box>
                 <Box
@@ -259,52 +248,50 @@ const QuestionViewDTKOrg = (props) => {
                     }}
                   >
                     <FormControlLabel onClick={(e) => {
-                      SelectFunc(e, optionIndex);
+                      !question.answerSubmited && SelectFunc(e, optionIndex);
                     }} value={option._id}
                       style={{ marginLeft: '.5rem' }}
-                      control={Options(question, option, optionIndex)}
-                      label={option.value} />
+
+                      control={<Radio color="primary" checked={optionIndex == question.selectedOptionIndex} />}
+
+                      label={<MarkLatex content={option.value.replace("\f", "\\f")} />} />
                   </Box>
 
                 })}
 
-                {question.selectedIndex + 1 ? (<Box sx={{ width: 600, marginLeft: '.5rem' }}>
+                {question.selectedOptionIndex + 1 ? (<Box sx={{ width: 600, marginLeft: '.5rem' }}>
                   <ExerciseBtn title="Nästa"
-                    onClick={() => console.log(props.data)
-                      // submitAnswer(question) 
-                    }
+                    onClick={() => submitAnswer(question, index)}
                   />
                 </Box>) : (
                   <Box
                     padding={1}
                     mt={2}
-                    sx={{
-                      width: 600,
-                      display: "flex",
-                      justifyContent: "center",
-                      backgroundColor: "grey",
-                      borderRadius: ".3rem",
-                      cursor: "pointer",
+                    style={{
+                      backgroundColor: 'grey', color: "#FFFFFF", height: '2.7rem', borderRadius: '.4rem', width: '100%', marginTop: '2%', marginBottom: '2%', marginLeft: '1%', display: 'flex', justifyContent: 'center', alignItems: 'center'
                     }}
                   >
                     <Typography
                       variant="h6"
                       style={{
                         fontSize: "0.75rem",
-                        textTransform: "uppercase",
                         marginRight: "0.5rem",
-                        color: "#FFFFFF",
+                        width: '3rem',
                       }}
                     >
                       Nästa
                     </Typography>
                   </Box>
+
                 )
                 }
 
               </Box>
             }
-          })}
+          })
+          }
+
+          
 
         </Container>
       </Container>
