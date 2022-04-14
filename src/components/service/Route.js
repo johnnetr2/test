@@ -29,6 +29,7 @@ export const EndPoints = {
   submitAnswer: "/api/quizResult",
   oneDayResult: "/api/task/resultOfDayByUser/",
   oneDayExercise: "/api/task/taskByUser/",
-  getAllSections: '/admin/sectionCategories',
-  deleteAccount: '/admin/student/',
+  getAllSections: "/admin/sectionCategories",
+  deleteAccount: "/admin/student/",
+  getStudentScore: "/quizResult/getStudentScore",
 };

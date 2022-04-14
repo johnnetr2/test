@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 export const CategoryTable = (props) => {
   const categoryTable = props.tableHistory;
 
+  console.log(categoryTable, "table console check");
+
   const [resultData, setResultData] = useState({
     quizId: "129028",
     sectionCategory: "12",
@@ -47,16 +49,25 @@ export const CategoryTable = (props) => {
       setAnchorEl(null);
     };
 
-    const ResultHandler = () => {
-      navigate("/resultsummary", {
-        state: {
-          quizId: resultData.quizId,
-          sectionCategory: resultData.sectionCategory,
-          timeLeft: resultData.timeLeft,
-          totalTime: resultData.totalTime,
-          quiz: resultData.quiz,
-        },
-      });
+    useEffect(() => {
+      const URL = EndPoints.getStudentScore;
+      console.log(URL, "url");
+      // instance2.post(URL, data).then((response) => {
+      //   console.log(response);
+      // });
+    }, []);
+
+    const ResultHandler = (e, index) => {
+      console.log(e, index, "index e console");
+      // navigate("/resultsummary", {
+      //   state: {
+      //     quizId: resultData.quizId,
+      //     sectionCategory: resultData.sectionCategory,
+      //     timeLeft: resultData.timeLeft,
+      //     totalTime: resultData.totalTime,
+      //     quiz: resultData.quiz,
+      //   },
+      // });
     };
 
     return (
@@ -86,11 +97,13 @@ export const CategoryTable = (props) => {
             },
           }}
         >
-          {options.map((option) => (
+          {options.map((option, index) => (
             <MenuItem
               key={option}
               selected={option === "SE RESULTAT"}
-              onClick={ResultHandler}
+              onClick={(e) => {
+                ResultHandler(e, index);
+              }}
             >
               {option}
             </MenuItem>
