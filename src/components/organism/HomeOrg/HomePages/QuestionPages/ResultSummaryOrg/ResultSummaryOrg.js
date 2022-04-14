@@ -1,36 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
-import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
 import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
-import DtkImg from "../../../../../../assets/Imgs/DtkImg.png";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   AppBar,
-  Card,
   Paper,
   Box,
-  CardActions,
-  CardContent,
-  CardMedia,
   CssBaseline,
-  Grid,
-  Radio,
   FormControlLabel,
   Toolbar,
   Container,
   LinearProgress,
   Button,
 } from "@material-ui/core";
-import Checkbox from "@mui/material/Checkbox";
-import CloseIcon from "@mui/icons-material/Close";
-import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
-import { instance, instance2, EndPoints } from "../../../../../service/Route";
+import { instance2, EndPoints } from "../../../../../service/Route";
 import swal from "sweetalert";
-import { red, green } from "@mui/material/colors";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation, useNavigate } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
@@ -41,6 +28,7 @@ const ResultSummaryOrg = (props) => {
   const [prevData, setPrevData] = useState();
   const [timePerQues, setTimePerQues] = useState();
   const navigate = useNavigate();
+  const quiz = params.state.quiz
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -94,6 +82,7 @@ const ResultSummaryOrg = (props) => {
   const [responseCollection, setresponseCollection] = useState({});
 
   useEffect(() => {
+
     setPrevData(params?.state);
     let totalTime = params.state.totalTime * 60;
     let remainingTime = params.state.timeLeft;
@@ -167,7 +156,7 @@ const ResultSummaryOrg = (props) => {
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {responseCollection?.answer?.length} av{" "}
-              {responseCollection?.answer?.length}
+              {responseCollection?.totalQuestion}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />

@@ -37,8 +37,8 @@ import MultiAnswer from '../../../../../molecule/MultiAnswer/MultiAnswer'
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  // const [attemptedQuestion, setAttemptedQuestion] = useState([])
-  // const [quiz, setQuiz] = useState();
+  const [attemptedQuestion, setAttemptedQuestion] = useState([])
+  const [quiz, setQuiz] = useState();
   const params = useLocation();
   const [status, setStatus] = useState(true);
   const [timeLeft, setTimeLeft] = useState();
@@ -53,774 +53,6 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-  let regex = /\//g;
-
-  let multiple = {
-    '_id': '11',
-    'title': 'Ormbett',
-    'type': 'multiple',
-    'paragraph': 'Varje år inträffar uppskattningsvis cirka 300 bett av huggorm (Vipera berus) i Sverige. De flesta bitna kommer i något skede i kontakt med sjukvården. I flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som blir in-tensivvårdskrävande. Dödsfall har förekommit, men det senaste kända fallet i Sverige ligger närmare 20 år till-baka i tiden.Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv. För att försöka komma till rätta med',
-    'questions': [
-      {
-        "_id": "6245b418fcd4503768220a7d",
-        "question": {
-          "images": [],
-          "_id": "6245b3e6fcd4503768220a76",
-          "questionCategory": {
-            "_id": "62456524b099e234602868c5",
-            "title": "Algebra",
-            "sectionCategory": "6245607e50f1be1940e1567e",
-            "createdAt": "2022-03-31T08:24:04.777Z",
-            "updatedAt": "2022-03-31T08:24:04.777Z",
-            "__v": 0
-          },
-          "year": "624566f9b099e234602868da",
-          "sectionCategories": "6245607e50f1be1940e1567e",
-          "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-          "createdAt": "2022-03-31T14:00:06.441Z",
-          "updatedAt": "2022-03-31T14:00:06.441Z",
-          "__v": 0
-        },
-        "options": [
-          {
-            "_id": "6245b418fcd4503768220a7e",
-            "value": "2",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a7f",
-            "value": "$\frac{5}{2}$",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a80",
-            "value": "$\frac{9}{4}$",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a81",
-            "value": "11",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a82",
-            "value": "",
-            "image": "",
-            "type": ""
-          }
-        ],
-        "createdAt": "2022-03-31T14:00:56.207Z",
-        "updatedAt": "2022-03-31T14:00:56.207Z",
-        "__v": 0
-      },
-      {
-        "images": [],
-        "_id": "6245b3e6fcd4503768220a76",
-        "type": 'multiple',
-        "questionCategory": {
-          "_id": "62456524b099e234602868c5",
-          "title": "Algebra",
-          "sectionCategory": "6245607e50f1be1940e1567e",
-        },
-        "year": "624566f9b099e234602868da",
-        "sectionCategories": "6245607e50f1be1940e1567e",
-        "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-        "options": [
-          {
-            "_id": "6245b418fcd4503768220a7e",
-            "value": "2",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a7f",
-            "value": "$\frac{5}{2}$",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a80",
-            "value": "$\frac{9}{4}$",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a81",
-            "value": "11",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a82",
-            "value": "",
-            "image": "",
-            "type": ""
-          }
-        ],
-      },
-      {
-        "images": [],
-        "_id": "6245b3e6fcd4503768220a76",
-        "type": 'multiple',
-        "questionCategory": {
-          "_id": "62456524b099e234602868c5",
-          "title": "Algebra",
-          "sectionCategory": "6245607e50f1be1940e1567e",
-        },
-        "year": "624566f9b099e234602868da",
-        "sectionCategories": "6245607e50f1be1940e1567e",
-        "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-        "options": [
-          {
-            "_id": "6245b418fcd4503768220a7e",
-            "value": "2",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a7f",
-            "value": "$\frac{5}{2}$",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a80",
-            "value": "$\frac{9}{4}$",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a81",
-            "value": "11",
-            "image": "",
-            "type": "Math"
-          },
-          {
-            "_id": "6245b418fcd4503768220a82",
-            "value": "",
-            "image": "",
-            "type": ""
-          }
-        ],
-      },
-    ]
-  }
-
-  const [quiz, setQuiz] = useState([
-    {
-      "_id": "6245b418fcd4503768220a7d",
-      "question": {
-        "images": [],
-        "_id": "6245b3e6fcd4503768220a76",
-        "questionCategory": {
-          "_id": "62456524b099e234602868c5",
-          "title": "Algebra",
-          "sectionCategory": "6245607e50f1be1940e1567e",
-          "createdAt": "2022-03-31T08:24:04.777Z",
-          "updatedAt": "2022-03-31T08:24:04.777Z",
-          "__v": 0
-        },
-        "year": "624566f9b099e234602868da",
-        "sectionCategories": "6245607e50f1be1940e1567e",
-        "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-        "createdAt": "2022-03-31T14:00:06.441Z",
-        "updatedAt": "2022-03-31T14:00:06.441Z",
-        "__v": 0
-      },
-      "options": [
-        {
-          "_id": "6245b418fcd4503768220a7e",
-          "value": "2",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b418fcd4503768220a7f",
-          "value": "$\frac{5}{2}$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b418fcd4503768220a80",
-          "value": "$\frac{9}{4}$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b418fcd4503768220a81",
-          "value": "11",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b418fcd4503768220a82",
-          "value": "",
-          "image": "",
-          "type": ""
-        }
-      ],
-      "createdAt": "2022-03-31T14:00:56.207Z",
-      "updatedAt": "2022-03-31T14:00:56.207Z",
-      "__v": 0
-    },
-
-    {
-      '_id': '11',
-      'title': 'Ormbett',
-      'type': 'multiple',
-      'paragraph': 'Varje år inträffar uppskattningsvis cirka 300 bett av huggorm (Vipera berus) i Sverige. De flesta bitna kommer i något skede i kontakt med sjukvården. I flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som blir in-tensivvårdskrävande. Dödsfall har förekommit, men det senaste kända fallet i Sverige ligger närmare 20 år till-baka i tiden.Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv. För att försöka komma till rätta med',
-      'image': 'http://localhost:3000/static/media/DtkImg.ac82f074.png',
-      'questions': [
-        {
-          "_id": "6245b418fcd4503768220a7d",
-          "image": 'http://localhost:3000/static/media/DtkImg.ac82f074.png',
-          "question": {
-            "_id": "6245b3e6fcd4503768220a76",
-            "questionCategory": {
-              "_id": "62456524b099e234602868c5",
-              "title": "Algebra",
-              "sectionCategory": "6245607e50f1be1940e1567e",
-              "createdAt": "2022-03-31T08:24:04.777Z",
-              "updatedAt": "2022-03-31T08:24:04.777Z",
-              "__v": 0
-            },
-            "year": "624566f9b099e234602868da",
-            "sectionCategories": "6245607e50f1be1940e1567e",
-            "questionStatement": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available",
-            "createdAt": "2022-03-31T14:00:06.441Z",
-            "updatedAt": "2022-03-31T14:00:06.441Z",
-            "__v": 0
-          },
-          "options": [
-            {
-              "_id": "6245b418fcd4503768220a7e",
-              "value": "2",
-              "image": "",
-              "type": "Math"
-            },
-
-            {
-              "_id": "6245b418fcd4503768220a80",
-              "value": "$\\frac{9}{4}$",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a81",
-              "value": "11",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a82",
-              "value": "12",
-              "image": "",
-              "type": ""
-            }
-          ],
-          "createdAt": "2022-03-31T14:00:56.207Z",
-          "updatedAt": "2022-03-31T14:00:56.207Z",
-          "__v": 0
-        },
-        {
-          "_id": "6245b418fcd4503768220a7d",
-          "question": {
-            "images": [],
-            "_id": "6245b3e6fcd4503768220a76",
-            "questionCategory": {
-              "_id": "62456524b099e234602868c5",
-              "title": "Algebra",
-              "sectionCategory": "6245607e50f1be1940e1567e",
-              "createdAt": "2022-03-31T08:24:04.777Z",
-              "updatedAt": "2022-03-31T08:24:04.777Z",
-              "__v": 0
-            },
-            "year": "624566f9b099e234602868da",
-            "sectionCategories": "6245607e50f1be1940e1567e",
-            "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-            "createdAt": "2022-03-31T14:00:06.441Z",
-            "updatedAt": "2022-03-31T14:00:06.441Z",
-            "__v": 0
-          },
-          "options": [
-            {
-              "_id": "6245b418fcd4503768220a7e",
-              "value": "2",
-              "image": "",
-              "type": "Math"
-            },
-
-            {
-              "_id": "6245b418fcd4503768220a80",
-              "value": "$\frac{9}{4}$",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a81",
-              "value": "11",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a82",
-              "value": "12",
-              "image": "",
-              "type": ""
-            }
-          ],
-          "createdAt": "2022-03-31T14:00:56.207Z",
-          "updatedAt": "2022-03-31T14:00:56.207Z",
-          "__v": 0
-        },
-        {
-          "_id": "6245b418fcd4503768220a7d",
-          "question": {
-            "images": [],
-            "_id": "6245b3e6fcd4503768220a76",
-            "questionCategory": {
-              "_id": "62456524b099e234602868c5",
-              "title": "Algebra",
-              "sectionCategory": "6245607e50f1be1940e1567e",
-              "createdAt": "2022-03-31T08:24:04.777Z",
-              "updatedAt": "2022-03-31T08:24:04.777Z",
-              "__v": 0
-            },
-            "year": "624566f9b099e234602868da",
-            "sectionCategories": "6245607e50f1be1940e1567e",
-            "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-            "createdAt": "2022-03-31T14:00:06.441Z",
-            "updatedAt": "2022-03-31T14:00:06.441Z",
-            "__v": 0
-          },
-          "options": [
-            {
-              "_id": "6245b418fcd4503768220a7e",
-              "value": "2",
-              "image": "",
-              "type": "Math"
-            },
-
-            {
-              "_id": "6245b418fcd4503768220a80",
-              "value": "$\frac{9}{4}$",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a81",
-              "value": "11",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a82",
-              "value": "12",
-              "image": "",
-              "type": ""
-            }
-          ],
-          "createdAt": "2022-03-31T14:00:56.207Z",
-          "updatedAt": "2022-03-31T14:00:56.207Z",
-          "__v": 0
-        },
-      ]
-    },
-
-    {
-      "_id": "6245b5e6fcd4503768220ac5",
-      "question": {
-        "images": [],
-        "_id": "6245b5b6fcd4503768220abe",
-        "questionCategory": {
-          "_id": "62456524b099e234602868c5",
-          "title": "Algebra",
-          "sectionCategory": "6245607e50f1be1940e1567e",
-          "createdAt": "2022-03-31T08:24:04.777Z",
-          "updatedAt": "2022-03-31T08:24:04.777Z",
-          "__v": 0
-        },
-        "year": "624566f9b099e234602868da",
-        "sectionCategories": "6245607e50f1be1940e1567e",
-        "questionStatement": "Det finns två kvadrater, en gul och en röd. Sidan i den gula kvadraten är 6 cm längre \nän sidan i den röda kvadraten. Den gula kvadratens area är 48 cm$^2$ större än den röda \nkvadratens area. **Hur stor area har den röda kvadraten?**",
-        "createdAt": "2022-03-31T14:07:50.082Z",
-        "updatedAt": "2022-03-31T14:07:50.082Z",
-        "__v": 0
-      },
-      "options": [
-        {
-          "_id": "6245b5e6fcd4503768220ac6",
-          "value": "1 cm$^2$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b5e6fcd4503768220ac7",
-          "value": "16 cm$^2$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b5e6fcd4503768220ac8",
-          "value": "25 cm$^2$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b5e6fcd4503768220ac9",
-          "value": "36 cm$^2$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b5e6fcd4503768220aca",
-          "value": "",
-          "image": "",
-          "type": ""
-        }
-      ],
-      "createdAt": "2022-03-31T14:08:38.445Z",
-      "updatedAt": "2022-03-31T14:08:38.445Z",
-      "__v": 0
-    },
-
-    {
-      '_id': '11',
-      'title': 'Ormbett',
-      'type': 'multiple',
-      'paragraph': 'Varje år inträffar uppskattningsvis cirka 300 bett av huggorm (Vipera berus) i Sverige. De flesta bitna kommer i något skede i kontakt med sjukvården. I flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som blir in-tensivvårdskrävande. Dödsfall har förekommit, men det senaste kända fallet i Sverige ligger närmare 20 år till-baka i tiden.Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv. För att försöka komma till rätta med',
-      'questions': [
-        {
-          "_id": "6245b418fcd4503768220a7d",
-          "image": 'http://localhost:3000/static/media/DtkImg.ac82f074.png',
-          "question": {
-            "_id": "6245b3e6fcd4503768220a76",
-            "questionCategory": {
-              "_id": "62456524b099e234602868c5",
-              "title": "Algebra",
-              "sectionCategory": "6245607e50f1be1940e1567e",
-              "createdAt": "2022-03-31T08:24:04.777Z",
-              "updatedAt": "2022-03-31T08:24:04.777Z",
-              "__v": 0
-            },
-            "year": "624566f9b099e234602868da",
-            "sectionCategories": "6245607e50f1be1940e1567e",
-            "questionStatement": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available",
-            "createdAt": "2022-03-31T14:00:06.441Z",
-            "updatedAt": "2022-03-31T14:00:06.441Z",
-            "__v": 0
-          },
-          "options": [
-            {
-              "_id": "6245b418fcd4503768220a7e",
-              "value": "2",
-              "image": "",
-              "type": "Math"
-            },
-
-            {
-              "_id": "6245b418fcd4503768220a80",
-              "value": "$\\frac{9}{4}$",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a81",
-              "value": "11",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a82",
-              "value": "12",
-              "image": "",
-              "type": ""
-            }
-          ],
-          "createdAt": "2022-03-31T14:00:56.207Z",
-          "updatedAt": "2022-03-31T14:00:56.207Z",
-          "__v": 0
-        },
-        {
-          "_id": "6245b418fcd4503768220a7d",
-          "question": {
-            "images": [],
-            "_id": "6245b3e6fcd4503768220a76",
-            "questionCategory": {
-              "_id": "62456524b099e234602868c5",
-              "title": "Algebra",
-              "sectionCategory": "6245607e50f1be1940e1567e",
-              "createdAt": "2022-03-31T08:24:04.777Z",
-              "updatedAt": "2022-03-31T08:24:04.777Z",
-              "__v": 0
-            },
-            "year": "624566f9b099e234602868da",
-            "sectionCategories": "6245607e50f1be1940e1567e",
-            "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-            "createdAt": "2022-03-31T14:00:06.441Z",
-            "updatedAt": "2022-03-31T14:00:06.441Z",
-            "__v": 0
-          },
-          "options": [
-            {
-              "_id": "6245b418fcd4503768220a7e",
-              "value": "2",
-              "image": "",
-              "type": "Math"
-            },
-
-            {
-              "_id": "6245b418fcd4503768220a80",
-              "value": "$\frac{9}{4}$",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a81",
-              "value": "11",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a82",
-              "value": "12",
-              "image": "",
-              "type": ""
-            }
-          ],
-          "createdAt": "2022-03-31T14:00:56.207Z",
-          "updatedAt": "2022-03-31T14:00:56.207Z",
-          "__v": 0
-        },
-        {
-          "_id": "6245b418fcd4503768220a7d",
-          "question": {
-            "images": [],
-            "_id": "6245b3e6fcd4503768220a76",
-            "questionCategory": {
-              "_id": "62456524b099e234602868c5",
-              "title": "Algebra",
-              "sectionCategory": "6245607e50f1be1940e1567e",
-              "createdAt": "2022-03-31T08:24:04.777Z",
-              "updatedAt": "2022-03-31T08:24:04.777Z",
-              "__v": 0
-            },
-            "year": "624566f9b099e234602868da",
-            "sectionCategories": "6245607e50f1be1940e1567e",
-            "questionStatement": "*Vilket värde har x om* $\\mathbf{\\frac{x}{3}+\\frac{1}{4}=\\frac{11}{2}}?$",
-            "createdAt": "2022-03-31T14:00:06.441Z",
-            "updatedAt": "2022-03-31T14:00:06.441Z",
-            "__v": 0
-          },
-          "options": [
-            {
-              "_id": "6245b418fcd4503768220a7e",
-              "value": "2",
-              "image": "",
-              "type": "Math"
-            },
-
-            {
-              "_id": "6245b418fcd4503768220a80",
-              "value": "$\frac{9}{4}$",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a81",
-              "value": "11",
-              "image": "",
-              "type": "Math"
-            },
-            {
-              "_id": "6245b418fcd4503768220a82",
-              "value": "12",
-              "image": "",
-              "type": ""
-            }
-          ],
-          "createdAt": "2022-03-31T14:00:56.207Z",
-          "updatedAt": "2022-03-31T14:00:56.207Z",
-          "__v": 0
-        },
-      ]
-    },
-
-    {
-      "_id": "6245b93bfcd4503768220b55",
-      "question": {
-        "images": [],
-        "_id": "6245b8fcfcd4503768220b4e",
-        "questionCategory": {
-          "_id": "62456524b099e234602868c5",
-          "title": "Algebra",
-          "sectionCategory": "6245607e50f1be1940e1567e",
-          "createdAt": "2022-03-31T08:24:04.777Z",
-          "updatedAt": "2022-03-31T08:24:04.777Z",
-          "__v": 0
-        },
-        "year": "624566f9b099e234602868da",
-        "sectionCategories": "6245607e50f1be1940e1567e",
-        "questionStatement": "**Vad är ** $\\mathbf{\\sqrt{36\\cdot10^{36}}}$**?**",
-        "createdAt": "2022-03-31T14:21:48.764Z",
-        "updatedAt": "2022-03-31T14:21:48.764Z",
-        "__v": 0
-      },
-      "options": [
-        {
-          "_id": "6245b93bfcd4503768220b56",
-          "value": "$18/cdot 10^{18}$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b93bfcd4503768220b57",
-          "value": "$6//cdot 10^{18}$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b93bfcd4503768220b58",
-          "value": "$18/cdot10 ^{6}$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b93bfcd4503768220b59",
-          "value": "$6/cdot10^6$",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b93bfcd4503768220b5a",
-          "value": "",
-          "image": "",
-          "type": ""
-        }
-      ],
-      "createdAt": "2022-03-31T14:22:51.396Z",
-      "updatedAt": "2022-03-31T14:22:51.396Z",
-      "__v": 0
-    },
-
-    {
-      "_id": "6245b4b3fcd4503768220a95",
-      "question": {
-        "images": [],
-        "_id": "6245b47dfcd4503768220a8e",
-        "questionCategory": {
-          "_id": "62456524b099e234602868c5",
-          "title": "Algebra",
-          "sectionCategory": "6245607e50f1be1940e1567e",
-          "createdAt": "2022-03-31T08:24:04.777Z",
-          "updatedAt": "2022-03-31T08:24:04.777Z",
-          "__v": 0
-        },
-        "year": "624566f9b099e234602868da",
-        "sectionCategories": "6245607e50f1be1940e1567e",
-        "questionStatement": "**Vilket svarsalternativ motsvarar ** $\\mathbf{x^2+x-12}$**?**",
-        "createdAt": "2022-03-31T14:02:37.461Z",
-        "updatedAt": "2022-03-31T14:02:37.461Z",
-        "__v": 0
-      },
-      "options": [
-        {
-          "_id": "6245b4b3fcd4503768220a96",
-          "value": "(x-3)(x-4)",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b4b3fcd4503768220a97",
-          "value": "(x-3)(x+4)",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b4b3fcd4503768220a98",
-          "value": "(x+3)(x-4)",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b4b3fcd4503768220a99",
-          "value": "(x+3)(x+4)",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b4b3fcd4503768220a9a",
-          "value": "",
-          "image": "",
-          "type": ""
-        }
-      ],
-      "createdAt": "2022-03-31T14:03:31.792Z",
-      "updatedAt": "2022-03-31T14:03:31.792Z",
-      "__v": 0
-    },
-
-    {
-      "_id": "6245b379fcd4503768220a65",
-      "question": {
-        "images": [],
-        "_id": "6245b329fcd4503768220a5e",
-        "questionCategory": {
-          "_id": "62456524b099e234602868c5",
-          "title": "Algebra",
-          "sectionCategory": "6245607e50f1be1940e1567e",
-          "createdAt": "2022-03-31T08:24:04.777Z",
-          "updatedAt": "2022-03-31T08:24:04.777Z",
-          "__v": 0
-        },
-        "year": "624566f9b099e234602868da",
-        "sectionCategories": "6245607e50f1be1940e1567e",
-        "questionStatement": "$8\\cdot2^m=4^0$\n\n**Vad är m?**",
-        "createdAt": "2022-03-31T13:56:57.554Z",
-        "updatedAt": "2022-03-31T13:56:57.554Z",
-        "__v": 0
-      },
-      "options": [
-        {
-          "_id": "6245b379fcd4503768220a66",
-          "value": "-3",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b379fcd4503768220a67",
-          "value": "-2",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b379fcd4503768220a68",
-          "value": "-1",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b379fcd4503768220a69",
-          "value": "0",
-          "image": "",
-          "type": "Math"
-        },
-        {
-          "_id": "6245b379fcd4503768220a6a",
-          "value": "",
-          "image": "",
-          "type": ""
-        }
-      ],
-      "createdAt": "2022-03-31T13:58:17.858Z",
-      "updatedAt": "2022-03-31T13:58:17.858Z",
-      "__v": 0
-    }
-  ])
 
   const Next = (question) => {
     if (question.answerSubmited) {
@@ -858,8 +90,6 @@ const QuestionViewXyzOrg = () => {
           questionId: question.question._id,
           sectionCategory: params?.state?.sectionCategory._id,
         };
-        console.log(data, 'this is api body');
-        return
         const Submit = EndPoints.submitAnswer;
         instance2.post(Submit, data).then((response) => {
           console.log('Answer submited')
@@ -871,6 +101,7 @@ const QuestionViewXyzOrg = () => {
   // const exitsIndex = (index) => {
   //     const exist = attemptedQuestion.some(id => id == index)
   //     return exist;
+  // Inget resultat sparas eftersom ingen fråga är besvarad.
   // }
 
   const useStyles = makeStyles((theme) => ({
@@ -924,9 +155,9 @@ const QuestionViewXyzOrg = () => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
-      // setQuiz(params?.state?.quiz);
+      setQuiz(params?.state?.quiz);
     } else {
-      // setQuiz(params?.state?.quiz);
+      setQuiz(params?.state?.quiz);
     }
 
     // const id = localStorage.getItem('quizId')
@@ -942,6 +173,56 @@ const QuestionViewXyzOrg = () => {
     // }
 
   }, []);
+
+  const CloseTimerFunc = async () => {
+    // quiz && Promise.all(quiz?.map(item => {
+    //   if (!item.answerSubmited) {
+    //     const data = {
+    //       quiz: params?.state?.data?._id,
+    //       user: localStorage.getItem("userId"),
+    //       // optionId: question.selectedOptionID,
+    //       questionId: item.question._id,
+    //       sectionCategory: params?.state?.sectionCategory._id,
+    //     }
+    //     const URL = EndPoints.submitAnswer
+    //     instance2.post(URL, data).then(response => {
+    //       console.log(response)
+    //     })
+    //   }
+    // }))
+    setTimeEnd(true)
+    
+    
+    // const URL = EndPoints.submitAnswer
+    // const res = (props) => instance2.post(URL, props.data).then(response => {
+    //   console.log(response)
+    // })
+
+    try {
+      return await Promise.all(
+        quiz.map(async (item) => {
+          if (!item.answerSubmited) {
+            const data = {
+              quiz: params?.state?.data?._id,
+              user: localStorage.getItem("userId"),
+              // optionId: question.selectedOptionID,
+              questionId: item.question._id,
+              sectionCategory: params?.state?.sectionCategory._id,
+            }
+            // await res(data)
+            const URL = EndPoints.submitAnswer
+            await instance2.post(URL, data).then(response => {
+              console.log(response)
+            })
+          }
+        })
+      )
+    } catch (error) {
+      // throw Error;
+      console.log('in catch')
+    }
+  }
+
 
   const SelectFunc = (e, optionIndex) => {
     const questions = [...quiz];
@@ -1069,25 +350,25 @@ const QuestionViewXyzOrg = () => {
 
 
   const QuestionBody = ({ question }) => {
-    if (question.type == 'multiple') {
-      return <QuestionViewDTKOrg
-        question={question} timeLeft={timeLeft} data={params.state}
-        totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
-        nextQuestion={() => selectedIndex < quiz.length ? setSelectedIndex(selectedIndex + 1)
-          : navigate("/resultsummary", {
-            state: {
-              quizId: params?.state?.prevState?.quizId,
-              sectionCategory: params?.state?.prevState?.sectionCategory,
-              timeLeft: params?.state?.prevState?.timeLeft,
-              totalTime: params?.state?.prevState?.totalTime,
-              quiz: params?.state?.prevState?.quiz,
-              quizId: params?.state?.quizId
-            },
-          })
-    } stopTimer = {() => setStatus(false)}
-      startTimer = {() => setStatus(true)}
-/>
-    } else {
+//     if (question.type == 'multiple') {
+//       return <QuestionViewDTKOrg
+//         question={question} timeLeft={timeLeft} data={params.state}
+//         totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
+//         nextQuestion={() => selectedIndex < quiz.length ? setSelectedIndex(selectedIndex + 1)
+//           : navigate("/resultsummary", {
+//             state: {
+//               quizId: params?.state?.prevState?.quizId,
+//               sectionCategory: params?.state?.prevState?.sectionCategory,
+//               timeLeft: params?.state?.prevState?.timeLeft,
+//               totalTime: params?.state?.prevState?.totalTime,
+//               quiz: params?.state?.prevState?.quiz,
+//               quizId: params?.state?.quizId
+//             },
+//           })
+//     } stopTimer = {() => setStatus(false)}
+//       startTimer = {() => setStatus(true)}
+// />
+//     } else {
   return (
     <Container
       maxWidth="md"
@@ -1296,7 +577,7 @@ const QuestionViewXyzOrg = () => {
       {/* }  */}
     </Container>
   );
-}
+// }
   };
 
 const PopupHandler = () => {
@@ -1379,7 +660,7 @@ return (
                 continueStatus={status}
                 time={time}
                 timeleft={(timer) => setTimeLeft(timer)}
-                onCloseTimer={() => setTimeEnd(true)}
+                onCloseTimer={() => CloseTimerFunc()}
               />
             </Box>
           )}
@@ -1415,11 +696,6 @@ return (
         popUpstatus={open}
         handleClose={() => setOpen(false)}
         redirect={() => {
-          const filteredQuiz = quiz.filter((item) => {
-            if (item.answerSubmited) {
-              return item;
-            }
-          });
           navigate("/resultsummary", {
             state: {
               quizId: params?.state?.data?._id,
@@ -1437,18 +713,13 @@ return (
         <DropPenPopup
           popUpstatus={timeEnd}
           redirect={() => {
-            const filteredQuiz = quiz.filter((item) => {
-              if (item.answerSubmited) {
-                return item;
-              }
-            });
             navigate("/resultsummary", {
               state: {
                 quizId: params?.state?.data?._id,
                 sectionCategory: params?.state?.sectionCategory,
                 timeLeft: timeLeft,
                 totalTime: time,
-                quiz: filteredQuiz,
+                quiz: quiz,
               },
             });
           }}
@@ -1472,12 +743,7 @@ return (
         redirect={() =>
           navigate("/category", {
             state: {
-              quizId: params?.state?.data?._id,
-              sectionCategory: params?.state?.sectionCategory,
-              timeLeft: 0,
-              totalTime: time,
-              quiz: quiz,
-              quizId: params?.state?.quizId
+              item: params?.state?.sectionCategory,
             },
           })
         }

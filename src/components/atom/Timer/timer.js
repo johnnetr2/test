@@ -46,7 +46,7 @@ const Timer = (props) => {
 
     return (
         <Box style={{ width: '5rem', marginTop: '.4rem', display: 'flex', alignItems: 'center', marginLeft: '.4rem'}} >
-            <Typography >{timer ? dispSecondsAsMins(timer) :  '00:00' } min</Typography>
+            <Typography >{timer != 0 ? dispSecondsAsMins(timer) :  '00:00' } min</Typography>
             <Box className="startDiv">
             </Box>
         </Box>

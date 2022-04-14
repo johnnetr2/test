@@ -43,18 +43,18 @@ export default function UnAttemptedPopup(props) {
               marginTop: "2rem",
             }}
           >
-            Det finns inget att rädda
+            Tiden tog slut.
           </DialogTitle>
           <DialogContent style={{ height: "3rem" }}>
             <DialogContentText
               style={{
                 display: "flex",
                 justifyContent: "center",
-                color: "#fff",
+                color: 'gray',
               }}
               id="alert-dialog-slide-description"
             >
-              Ingen fara, vi sparar dina svar.
+              Inget resultat sparas eftersom ingen fråga är besvarad.
             </DialogContentText>
           </DialogContent>
           <DialogActions
