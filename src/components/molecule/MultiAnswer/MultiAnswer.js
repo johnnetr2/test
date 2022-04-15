@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Box, FormControlLabel, Radio } from "@material-ui/core";
 import Increment from "../../../assets/Icons/Increment.svg";
 import Decrement from "../../../assets/Icons/Decrement.svg";
+import Correct from '../../../assets/Imgs/correct.png'
+import Wrong from '../../../assets/Imgs/wrong.png'
 
-const MultiAnswer = () => {
+const MultiAnswer = (props) => {
+
+  useEffect(() => {
+    console.log(props.options, 'this is data on result screen')
+
+  }, [])
+
+  // const Options = (question, curentOption, optionIndex) => {
+  //   if (question.answer && question.answer.option == curentOption._id) {
+  //     return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
+  //   } else if (question.answer && optionIndex == question.selectedIndex) {
+  //     return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+  //   }
+  //   if (optionIndex == question.selectedIndex) {
+  //     return <Radio color="primary" checked={true} />;
+  //   } else {
+  //     return <Radio color="primary" checked={false} />;
+  //   }
+  // };
+
+  const options = (item, index) => {
+    if (props?.options?.question?.answer && props?.options?.question?.answer.option === item._id ) {
+      return <img src={Correct} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem' }} />
+    } else if (props?.options.selectedOptionIndex === index) {
+      return <img src={Wrong} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem' }} />
+    } else {
+    return  <Radio checked={false} />
+    }
+  }
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -14,62 +45,24 @@ const MultiAnswer = () => {
             flexDirection: "column",
           }}
         >
-          <Box
-            style={{
-              border: "1px solid #e1e1e1",
-              padding: "1rem",
-              width: 580
-            }}
-          >
-            <FormControlLabel
-              style={{ marginLeft: ".5rem" }}
-              value="female"
-              control={<Radio />}
-              label="1998"
-            />
-          </Box>
-          <Box
-            style={{
-              border: "1px solid #e1e1e1",
-              padding: "1rem",
-              width: 580
-            }}
-          >
-            <FormControlLabel
-              style={{ marginLeft: ".5rem" }}
-              value="female"
-              control={<Radio />}
-              label="1998"
-            />
-          </Box>
-          <Box
-            style={{
-              border: "1px solid #e1e1e1",
-              padding: "1rem",
-              width: 580
-            }}
-          >
-            <FormControlLabel
-              style={{ marginLeft: ".5rem" }}
-              value="female"
-              control={<Radio />}
-              label="1998"
-            />
-          </Box>
-          <Box
-            style={{
-              border: "1px solid #e1e1e1",
-              padding: "1rem",
-              width: 580
-            }}
-          >
-            <FormControlLabel
-              style={{ marginLeft: ".5rem" }}
-              value="female"
-              control={<Radio />}
-              label="1998"
-            />
-          </Box>
+          { props?.options.options.map( (item, index) => {
+           return <Box
+              style={{
+                border: "1px solid #e1e1e1",
+                padding: "1rem",
+                width: 580
+              }}
+            >
+              <FormControlLabel
+                style={{ marginLeft: ".5rem" }}
+               control={ options(item, index) }
+              //  {<Radio />}
+                // {OptionsFunc(item, index)}
+                label={item.value}
+              />
+            </Box>
+          })}
+
         </Box>
 
         <Box mt={2} ml={5}></Box>
@@ -98,11 +91,7 @@ const MultiAnswer = () => {
                 width: "30rem",
               }}
             >
-              {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-              deserunt, nam optio nesciunt amet dicta non blanditiis eum.
-              Veritatis est culpa porro ullam quod voluptatibus explicabo
-              assumenda sit similique?{" "}
+              {props?.options?.question?.answer?.answer}
             </Typography>
           </Box>
           <Box

@@ -142,6 +142,7 @@ const CategoryPagesFeedContent = (props) => {
         question: parseInt(chekedValue),
         value: timer,
         user: localStorage.getItem("userId"),
+        multipartQuestion: null
       };
       const URL = EndPoints.storeQuiz;
       instance2.post(URL, data).then((response) => {
@@ -367,7 +368,7 @@ const CategoryPagesFeedContent = (props) => {
           )}
         </Box>
       </Box>
-      <Box variant="contained" sx={{ marginTop: "2rem", backgroundColor: '#0A1596', color: '#fff', 
+      <Box sx={{ marginTop: "2rem", backgroundColor: '#0A1596', color: '#fff', 
                 borderRadius: '6px', height: '3rem', alignItems: 'center', paddingTop: '1%' }} onClick={onSubmit}>
         <FilledBtn title="Starta övningar"/>
       </Box>

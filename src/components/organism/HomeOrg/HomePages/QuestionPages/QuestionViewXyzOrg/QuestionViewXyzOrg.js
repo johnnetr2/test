@@ -98,11 +98,6 @@ const QuestionViewXyzOrg = () => {
     }
   };
 
-  // const exitsIndex = (index) => {
-  //     const exist = attemptedQuestion.some(id => id == index)
-  //     return exist;
-  // Inget resultat sparas eftersom ingen fråga är besvarad.
-  // }
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -153,11 +148,27 @@ const QuestionViewXyzOrg = () => {
 
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
+    const quiz = params?.state?.quiz
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setQuiz(params?.state?.quiz);
     } else {
-      setQuiz(params?.state?.quiz);
+      let newQuiz = []
+      let alreadyUsed = []
+      quiz && quiz.forEach(element => {
+        if (element.question.multipartQuestion) {
+          if (!alreadyUsed.some(i => i.question.multipartQuestion._id === element.question.multipartQuestion._id)) {
+            const filter = quiz.filter(item => item.question.multipartQuestion._id === element.question.multipartQuestion._id)
+            const qz = { ...element }
+            qz.question.multipartQuestion.questions = filter
+            alreadyUsed = [...alreadyUsed, ...filter]
+            newQuiz.push(qz)
+          }
+        } else {
+          newQuiz.push(element)
+        }
+      })
+      setQuiz(newQuiz);
     }
 
     // const id = localStorage.getItem('quizId')
@@ -175,28 +186,7 @@ const QuestionViewXyzOrg = () => {
   }, []);
 
   const CloseTimerFunc = async () => {
-    // quiz && Promise.all(quiz?.map(item => {
-    //   if (!item.answerSubmited) {
-    //     const data = {
-    //       quiz: params?.state?.data?._id,
-    //       user: localStorage.getItem("userId"),
-    //       // optionId: question.selectedOptionID,
-    //       questionId: item.question._id,
-    //       sectionCategory: params?.state?.sectionCategory._id,
-    //     }
-    //     const URL = EndPoints.submitAnswer
-    //     instance2.post(URL, data).then(response => {
-    //       console.log(response)
-    //     })
-    //   }
-    // }))
     setTimeEnd(true)
-    
-    
-    // const URL = EndPoints.submitAnswer
-    // const res = (props) => instance2.post(URL, props.data).then(response => {
-    //   console.log(response)
-    // })
 
     try {
       return await Promise.all(
@@ -209,7 +199,6 @@ const QuestionViewXyzOrg = () => {
               questionId: item.question._id,
               sectionCategory: params?.state?.sectionCategory._id,
             }
-            // await res(data)
             const URL = EndPoints.submitAnswer
             await instance2.post(URL, data).then(response => {
               console.log(response)
@@ -218,7 +207,6 @@ const QuestionViewXyzOrg = () => {
         })
       )
     } catch (error) {
-      // throw Error;
       console.log('in catch')
     }
   }
@@ -350,383 +338,401 @@ const QuestionViewXyzOrg = () => {
 
 
   const QuestionBody = ({ question }) => {
-//     if (question.type == 'multiple') {
-//       return <QuestionViewDTKOrg
-//         question={question} timeLeft={timeLeft} data={params.state}
-//         totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
-//         nextQuestion={() => selectedIndex < quiz.length ? setSelectedIndex(selectedIndex + 1)
-//           : navigate("/resultsummary", {
-//             state: {
-//               quizId: params?.state?.prevState?.quizId,
-//               sectionCategory: params?.state?.prevState?.sectionCategory,
-//               timeLeft: params?.state?.prevState?.timeLeft,
-//               totalTime: params?.state?.prevState?.totalTime,
-//               quiz: params?.state?.prevState?.quiz,
-//               quizId: params?.state?.quizId
-//             },
-//           })
-//     } stopTimer = {() => setStatus(false)}
-//       startTimer = {() => setStatus(true)}
-// />
-//     } else {
-  return (
-    <Container
-      maxWidth="md"
-      style={{
-        marginTop: 0,
-        backgroundColor: "#f9f9f9",
-        height: "fit-content",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
-      <Box
-        mt={5}
-        paddingX={6}
-        paddingY={2}
-        sx={{
-          width: 600,
-          height: 280,
-          border: "1px solid #e1e1e1",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          backgroundColor: '#fff'
-        }}
-      >
-
-        <Typography
-          variant="h6"
-          component="h6"
-          style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
-        >
-          <MarkLatex content={question?.question?.questionStatement} />
-        </Typography>
-
-        {question?.question?.images[0] && <Typography
-          variant="h6"
-          component="h6"
-          style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
-        >
-          <img style={{ height: '100%' }} src={question?.question?.images[0]} />
-
-        </Typography>}
-
-        {question?.question?.information1 && <Typography
-          variant="h6"
-          component="h6"
-          style={{ fontSize: "0.75rem", fontWeight: "600" }}
-        >
-          <MarkLatex content={question?.question?.information1} />
-        </Typography>}
-
-        {question?.question?.information1 && <Typography
-          variant="h6"
-          component="h6"
-          style={{ fontSize: "0.75rem", fontWeight: "600" }}
-        >
-          <MarkLatex content={question?.question?.information2} />
-        </Typography>}
-
-      </Box>
-      <Box
-        mt={5}
-        sx={{
-          backgroundColor: "#fff",
-          width: 600,
-          height: 240,
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-        }}
-      >
-        {question?.options?.map((item, optionIndex) => {
-          if (item.value) {
-            return (
-              <Box
-                sx={{
-                  //   height: 120,
-                  border: "1px solid #e1e1e1",
-                  width: 300,
-                }}
-              >
-                <Box sx={{ display: "flex" }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <FormControlLabel
-                      onClick={(e) => {
-                        !question?.answerSubmited && SelectFunc(e, optionIndex);
-                      }}
-                      style={{ marginLeft: ".5rem" }}
-                      value={item?._id}
-                      control={Options(question, item, optionIndex)}
-                      label={OptionIndex(optionIndex)}
-                    />
-                  </Box>
-
-                  <Box mt={2} ml={5}>
-                    {item.image ? (
-                      <img src={item.image} />
-
-                    ) : (
-                      <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
-                    )}
-                  </Box>
-                </Box>
-              </Box>
-            );
-          }
-        })}
-      </Box>
-
-      {question.answer && (
-        <Box
-          paddingX={4}
-          mt={3}
-          sx={{
-            backgroundColor: "#fff",
-            width: 600,
-            height: 220,
-            border: "1px solid #e1e1e1",
-            overflow: 'auto',
-            '&::-webkit-scrollbar': { display: 'none' }
-            //   '&::-webkit-scrollbar': { width : 0 },
-          }}
-        >
-          <Box sx={{ width: 500, display: "flex" }}>
-            <Box>
-              <Typography
-                variant="h5"
-                component="h5"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "600",
-                  marginTop: 20,
-                }}
-              >
-                Förklaring:
-              </Typography>
-              <Typography
-                variant="body1"
-                component="div"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "500",
-                  marginTop: 10,
-                }}
-              >
-                {/* {question.answer.answer} */}
-                <MarkLatex content={question.answer.answer} />
-              </Typography>
-            </Box>
-            <Box
-              mt={2}
-              style={{
-                backgroundColor: "blue",
-                marginLeft: "15rem",
-                marginTop: "2rem",
-              }}
-            >
-              {question.answer.image && (
-                <img
-                  style={{ height: 110 }}
-                  src={question.answer.image}
-                  alt=""
-                />
-              )}
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "flex-end",
-              height: 60,
-            }}
-          >
-            <Typography
-              variant="body1"
-              component="body1"
-              style={{
-                fontSize: ".75rem",
-                fontWeight: "500",
-                marginTop: 10,
-                width: "32rem",
-              }}
-            >
-              Berätta för oss om du var nöjd med lösningen
-            </Typography>
-            <Box ml={1} mr={0.5}>
-              <img src={Increment} alt="" />
-            </Box>
-            <Box mr={1}>
-              <img src={Decrement} alt="" />
-            </Box>
-          </Box>
-        </Box>
-      )}
-
-      {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
-      {getSubmitButton(question)}
-      {/* }  */}
-    </Container>
-  );
-// }
-  };
-
-const PopupHandler = () => {
-  const checkPopup = params?.state?.quiz;
-  if (checkPopup[0].answerSubmited == true) {
-    setOpen(true);
-    setIsOpen(false);
-  } else {
-    setIsOpen(true);
-    setOpen(false);
-  }
-};
-
-return (
-  <div>
-    <CssBaseline />
-    <AppBar
-      color="#fff"
-      className={classes.appbar}
-      style={{ boxShadow: "none" }}
-      position="absolute"
-    >
-      <Toolbar
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box
-          // onClick={() =>
-          //   params?.state?.questionIndex != undefined
-          //     ? setIsOpen(true)
-          //     : setOpen(true)
-          // }
-          onClick={PopupHandler}
-          sx={{
-            height: "8vh",
-            width: "2.3rem",
-            display: "flex",
-            alignItems: "center",
-            borderRight: "1px solid #E1E1E1",
-            cursor: "pointer",
-          }}
-        >
-          <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
-        </Box>
-
-        <Typography variant="body1" className={classes.center_align}>
-          {params.state.sectionCategory.title}
-        </Typography>
-
-        <Box>
-          <HelpOutlineIcon sx={{ cursor: "pointer" }} />
-        </Box>
-      </Toolbar>
-    </AppBar>
-
-    <Container
-      maxWidth="lg"
-      style={{ backgroundColor: "#fff", height: "fit-content" }}
-    >
-      <Container
-        disableGutters
-        maxWidth="Xl"
-        style={{ backgroundColor: "#fff" }}
-      >
-        <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box mt={2} width={100} sx={{ color: "#222" }}>
-            <img src={BarChart} alt="" />
-            {selectedIndex + 1} av {quiz?.length}
-          </Box>
-          {params.state.data && params.state.data.value == true && (
-            <Box
-              mt={2}
-              sx={{ color: "#222", display: "flex", flexDirection: "row" }}
-            >
-              <img src={Clock} alt="" />
-              <Timer
-                continueStatus={status}
-                time={time}
-                timeleft={(timer) => setTimeLeft(timer)}
-                onCloseTimer={() => CloseTimerFunc()}
-              />
-            </Box>
-          )}
-        </Box>
-
-        <Box
-          mt={2}
-          sx={{
-            backgroundColor: "#b4b4b4",
-            height: "8px",
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          {quiz &&
-            quiz?.map((item, index) => {
-              <Box
-                key={index}
-                style={{
-                  backgroundColor: item.answerSubmited
-                    ? "#6fcf97"
-                    : "#B4B4B4",
-                  marginLeft: "2px",
-                  flex: "1",
-                }}
-              ></Box>
-
-            })}
-        </Box>
-      </Container>
-
-      <AlertDialogSlide
-        popUpstatus={open}
-        handleClose={() => setOpen(false)}
-        redirect={() => {
-          navigate("/resultsummary", {
+    if (question.question.multipartQuestion) {
+      return <QuestionViewDTKOrg
+        question={question} timeLeft={timeLeft} data={params.state}
+        totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
+        nextQuestion={() => selectedIndex + 1 < quiz.length ? setSelectedIndex(selectedIndex + 1)
+          : navigate("/resultsummary", {
             state: {
-              quizId: params?.state?.data?._id,
-              sectionCategory: params?.state?.sectionCategory,
-              timeLeft: timeLeft,
-              totalTime: time,
-              quiz: quiz,
+              quizId: params?.state?.prevState?.quizId,
+              sectionCategory: params?.state?.prevState?.sectionCategory,
+              timeLeft: params?.state?.prevState?.timeLeft,
+              totalTime: params?.state?.prevState?.totalTime,
+              quiz: params?.state?.prevState?.quiz,
               quizId: params?.state?.quizId
             },
-          });
-        }}
+          })
+        } stopTimer={() => setStatus(false)}
+        startTimer={() => setStatus(true)}
       />
+    } else {
+      return (
+        <Container
+          maxWidth="md"
+          style={{
+            marginTop: 0,
+            backgroundColor: "#f9f9f9",
+            height: "fit-content",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Box
+            mt={5}
+            paddingX={6}
+            paddingY={2}
+            sx={{
+              width: 600,
+              height: 280,
+              border: "1px solid #e1e1e1",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              backgroundColor: '#fff'
+            }}
+          >
 
-      {params?.state?.quiz[0]?.answerSubmited == true ? (
-        <DropPenPopup
-          popUpstatus={timeEnd}
+            <Typography
+              variant="h6"
+              component="h6"
+              style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
+            >
+              <MarkLatex content={question?.question?.questionStatement} />
+            </Typography>
+
+            {question?.question?.images[0] && <Typography
+              variant="h6"
+              component="h6"
+              style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
+            >
+              <img style={{ height: '100%' }} src={question?.question?.images[0]} />
+
+            </Typography>}
+
+            {question?.question?.information1 && <Typography
+              variant="h6"
+              component="h6"
+              style={{ fontSize: "0.75rem", fontWeight: "600" }}
+            >
+              <MarkLatex content={question?.question?.information1} />
+            </Typography>}
+
+            {question?.question?.information1 && <Typography
+              variant="h6"
+              component="h6"
+              style={{ fontSize: "0.75rem", fontWeight: "600" }}
+            >
+              <MarkLatex content={question?.question?.information2} />
+            </Typography>}
+
+          </Box>
+          <Box
+            mt={5}
+            sx={{
+              backgroundColor: "#fff",
+              width: 600,
+              height: 240,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+            }}
+          >
+            {question?.options?.map((item, optionIndex) => {
+              if (item.value) {
+                return (
+                  <Box
+                    sx={{
+                      //   height: 120,
+                      border: "1px solid #e1e1e1",
+                      width: 300,
+                    }}
+                  >
+                    <Box sx={{ display: "flex" }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <FormControlLabel
+                          onClick={(e) => {
+                            !question?.answerSubmited && SelectFunc(e, optionIndex);
+                          }}
+                          style={{ marginLeft: ".5rem" }}
+                          value={item?._id}
+                          control={Options(question, item, optionIndex)}
+                          label={OptionIndex(optionIndex)}
+                        />
+                      </Box>
+
+                      <Box mt={2} ml={5}>
+                        {item.image ? (
+                          <img src={item.image} />
+
+                        ) : (
+                          <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
+                        )}
+                      </Box>
+                    </Box>
+                  </Box>
+                );
+              }
+            })}
+          </Box>
+
+          {question.answer && (
+            <Box
+              paddingX={4}
+              mt={3}
+              sx={{
+                backgroundColor: "#fff",
+                width: 600,
+                height: 220,
+                border: "1px solid #e1e1e1",
+                overflow: 'auto',
+                '&::-webkit-scrollbar': { display: 'none' }
+                //   '&::-webkit-scrollbar': { width : 0 },
+              }}
+            >
+              <Box sx={{ width: 500, display: "flex" }}>
+                <Box>
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                    style={{
+                      fontSize: ".75rem",
+                      fontWeight: "600",
+                      marginTop: 20,
+                    }}
+                  >
+                    Förklaring:
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    component="div"
+                    style={{
+                      fontSize: ".75rem",
+                      fontWeight: "500",
+                      marginTop: 10,
+                    }}
+                  >
+                    {/* {question.answer.answer} */}
+                    <MarkLatex content={question.answer.answer} />
+                  </Typography>
+                </Box>
+                <Box
+                  mt={2}
+                  style={{
+                    backgroundColor: "blue",
+                    marginLeft: "15rem",
+                    marginTop: "2rem",
+                  }}
+                >
+                  {question.answer.image && (
+                    <img
+                      style={{ height: 110 }}
+                      src={question.answer.image}
+                      alt=""
+                    />
+                  )}
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                  height: 60,
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  component="body1"
+                  style={{
+                    fontSize: ".75rem",
+                    fontWeight: "500",
+                    marginTop: 10,
+                    width: "32rem",
+                  }}
+                >
+                  Berätta för oss om du var nöjd med lösningen
+                </Typography>
+                <Box ml={1} mr={0.5}>
+                  <img src={Increment} alt="" />
+                </Box>
+                <Box mr={1}>
+                  <img src={Decrement} alt="" />
+                </Box>
+              </Box>
+            </Box>
+          )}
+
+          {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
+          {getSubmitButton(question)}
+          {/* }  */}
+        </Container>
+      );
+    }
+  };
+
+  const PopupHandler = () => {
+    const checkPopup = params?.state?.quiz;
+    if (checkPopup[0].answerSubmited == true) {
+      setOpen(true);
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+      setOpen(false);
+    }
+  };
+
+  return (
+    <div>
+      <CssBaseline />
+      <AppBar
+        color="#fff"
+        className={classes.appbar}
+        style={{ boxShadow: "none" }}
+        position="absolute"
+      >
+        <Toolbar
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box
+            // onClick={() =>
+            //   params?.state?.questionIndex != undefined
+            //     ? setIsOpen(true)
+            //     : setOpen(true)
+            // }
+            onClick={PopupHandler}
+            sx={{
+              height: "8vh",
+              width: "2.3rem",
+              display: "flex",
+              alignItems: "center",
+              borderRight: "1px solid #E1E1E1",
+              cursor: "pointer",
+            }}
+          >
+            <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
+          </Box>
+
+          <Typography variant="body1" className={classes.center_align}>
+            {params.state.sectionCategory.title}
+          </Typography>
+
+          <Box>
+            <HelpOutlineIcon sx={{ cursor: "pointer" }} />
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <Container
+        maxWidth="lg"
+        style={{ backgroundColor: "#fff", height: "fit-content" }}
+      >
+        <Container
+          disableGutters
+          maxWidth="Xl"
+          style={{ backgroundColor: "#fff" }}
+        >
+          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box mt={2} width={100} sx={{ color: "#222" }}>
+              <img src={BarChart} alt="" />
+              {selectedIndex + 1} av {quiz?.length}
+            </Box>
+            {params.state.data && params.state.data.value == true && (
+              <Box
+                mt={2}
+                sx={{ color: "#222", display: "flex", flexDirection: "row" }}
+              >
+                <img src={Clock} alt="" />
+                <Timer
+                  continueStatus={status}
+                  time={time}
+                  timeleft={(timer) => setTimeLeft(timer)}
+                  onCloseTimer={() => CloseTimerFunc()}
+                />
+              </Box>
+            )}
+          </Box>
+
+          <Box
+            mt={2}
+            sx={{
+              backgroundColor: "#b4b4b4",
+              height: "8px",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {quiz &&
+              quiz?.map((item, index) => {
+                <Box
+                  key={index}
+                  style={{
+                    backgroundColor: item.answerSubmited
+                      ? "#6fcf97"
+                      : "#B4B4B4",
+                    marginLeft: "2px",
+                    flex: "1",
+                  }}
+                ></Box>
+
+              })}
+          </Box>
+        </Container>
+
+        <AlertDialogSlide
+          popUpstatus={open}
+          handleClose={() => setOpen(false)}
           redirect={() => {
+            const filteredQuiz = quiz.filter((item) => {
+              if (item.answerSubmited) {
+                return item;
+              }
+            });
             navigate("/resultsummary", {
               state: {
                 quizId: params?.state?.data?._id,
                 sectionCategory: params?.state?.sectionCategory,
                 timeLeft: timeLeft,
                 totalTime: time,
-                quiz: quiz,
+                quiz: filteredQuiz,
+                quizId: params?.state?.quizId
               },
             });
           }}
         />
-      ) : (
-        <UnAttemptedTimer
-          popUpstatus={timeEnd}
+
+        {params?.state?.quiz[0]?.answerSubmited == true ? (
+          <DropPenPopup
+            popUpstatus={timeEnd}
+            redirect={() => {
+              navigate("/resultsummary", {
+                state: {
+                  quizId: params?.state?.data?._id,
+                  sectionCategory: params?.state?.sectionCategory,
+                  timeLeft: timeLeft,
+                  totalTime: time,
+                  quiz: quiz,
+                },
+              });
+            }}
+          />
+        ) : (
+          <UnAttemptedTimer
+            popUpstatus={timeEnd}
+            redirect={() =>
+              navigate("/category", {
+                state: {
+                  item: params?.state?.sectionCategory,
+                },
+              })
+            }
+          />
+        )}
+
+        <UnAttemptedPopup
+          currentStatus={isOpen}
+          handleOptionClose={() => setIsOpen(false)}
           redirect={() =>
             navigate("/category", {
               state: {
@@ -735,24 +741,11 @@ return (
             })
           }
         />
-      )}
 
-      <UnAttemptedPopup
-        currentStatus={isOpen}
-        handleOptionClose={() => setIsOpen(false)}
-        redirect={() =>
-          navigate("/category", {
-            state: {
-              item: params?.state?.sectionCategory,
-            },
-          })
-        }
-      />
-
-      {quiz && <QuestionBody question={quiz[selectedIndex]} />}
-    </Container>
-  </div>
-);
+        {quiz && <QuestionBody question={quiz[selectedIndex]} />}
+      </Container>
+    </div>
+  );
 };
 
 export default QuestionViewXyzOrg;
