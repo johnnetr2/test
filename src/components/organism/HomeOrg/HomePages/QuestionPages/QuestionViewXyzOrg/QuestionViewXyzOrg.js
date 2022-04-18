@@ -82,16 +82,27 @@ const QuestionViewXyzOrg = () => {
           setQuiz(questions);
           setStatus(false);
         });
+
         const data = {
           quiz: params?.state?.data?._id,
           user: localStorage.getItem("userId"),
           optionId: question.selectedOptionID,
           questionId: question.question._id,
           sectionCategory: params?.state?.sectionCategory._id,
+          timeleft: timeLeft,
+          totaltime: time * 60,
+          spendtime: time * 60 - timeLeft,
         };
+
+        // if (selectedIndex + 1 == quiz.length - 1) {
+        //   data.timeleft = timeLeft;
+        //   data.totaltime = time;
+        //   data.spendtime = timeLeft - time;
+        // }
+
         const Submit = EndPoints.submitAnswer;
         instance2.post(Submit, data).then((response) => {
-          console.log("Answer submited");
+          console.log(response, "Answer submited");
         });
       }
     }

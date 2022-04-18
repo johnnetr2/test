@@ -31,5 +31,5 @@ export const EndPoints = {
   oneDayExercise: "/api/task/taskByUser/",
   getAllSections: "/admin/sectionCategories",
   deleteAccount: "/admin/student/",
-  getStudentScore: "/quizResult/getStudentScore",
+  getStudentScore: "/api/quizResult/getStudentScore",
 };

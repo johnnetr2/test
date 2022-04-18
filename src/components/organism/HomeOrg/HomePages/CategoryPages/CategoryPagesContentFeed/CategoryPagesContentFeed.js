@@ -66,6 +66,7 @@ const CategoryPagesFeedContent = (props) => {
   const [tableHistory, setTableHistory] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
+  const params = useLocation();
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -77,8 +78,6 @@ const CategoryPagesFeedContent = (props) => {
       });
     });
   }, []);
-
-  const params = useLocation();
 
   const [tabValue, setTabValue] = useState(0);
 
@@ -400,7 +399,11 @@ const CategoryPagesFeedContent = (props) => {
         </Tabs>
         <TabPanel value={tabValue} index={0}>
           <Box sx={{ marginTop: "1rem" }}>
-            <CategoryTable tableHistory={tableHistory} />
+            <CategoryTable
+              sectionCategory={props.item}
+              tableHistory={tableHistory}
+              quiz={params?.state?.quiz}
+            />
           </Box>
         </TabPanel>
         <TabPanel value={tabValue} index={1}>

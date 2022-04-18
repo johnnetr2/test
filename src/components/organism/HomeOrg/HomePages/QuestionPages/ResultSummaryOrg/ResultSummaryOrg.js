@@ -28,7 +28,7 @@ const ResultSummaryOrg = (props) => {
   const [prevData, setPrevData] = useState();
   const [timePerQues, setTimePerQues] = useState();
   const navigate = useNavigate();
-  const quiz = params.state.quiz
+  const quiz = params?.state?.quiz;
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -82,11 +82,10 @@ const ResultSummaryOrg = (props) => {
   const [responseCollection, setresponseCollection] = useState({});
 
   useEffect(() => {
-
     setPrevData(params?.state);
-    let totalTime = params.state.totalTime * 60;
-    let remainingTime = params.state.timeLeft;
-    let timeSpent = totalTime - remainingTime;
+    // let totalTime = params.state.totalTime * 60;
+    // let remainingTime = params.state.timeLeft;
+    // let timeSpent = totalTime - remainingTime;
     let timePerQuestion;
 
     const URL = EndPoints.getResult + params?.state?.quizId;
@@ -94,8 +93,9 @@ const ResultSummaryOrg = (props) => {
       instance2.get(URL).then((response) => {
         if (response.data) {
           setresponseCollection(response.data);
-          timePerQuestion = timeSpent / response.data.answer.length;
-          if (timeSpent && remainingTime) {
+          timePerQuestion =
+            response?.data?.spendtime / response?.data?.answer?.length;
+          if (response?.data?.spendtime && response?.data?.timeleft) {
             setTimePerQues(timePerQuestion);
           } else {
             setTimePerQues(false);
@@ -160,8 +160,8 @@ const ResultSummaryOrg = (props) => {
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
-              {prevData?.timeLeft
-                ? dispSecondsAsMins(prevData?.timeLeft)
+              {responseCollection?.timeleft
+                ? dispSecondsAsMins(responseCollection?.timeleft)
                 : "00:00"}
             </Box>
           </Box>
@@ -218,7 +218,7 @@ const ResultSummaryOrg = (props) => {
                     {responseCollection &&
                       responseCollection.correctAnswer +
                         " /" +
-                        responseCollection.answer.length}
+                        responseCollection.totalQuestion}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -320,8 +320,8 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 <Typography variant="h4">
-                  {prevData?.timeLeft
-                    ? dispSecondsAsMins(prevData?.timeLeft)
+                  {responseCollection?.timeleft
+                    ? dispSecondsAsMins(responseCollection?.timeleft)
                     : "00:00"}
                 </Typography>
                 <Typography
@@ -362,7 +362,7 @@ const ResultSummaryOrg = (props) => {
                     mt={2}
                     mb={2}
                     onClick={() => {
-                      const quiz = params.state.quiz;
+                      const quiz = params?.state?.quiz;
                       let questionIndex = quiz.findIndex(
                         (element) => element.question._id === item.questionId
                       );
@@ -454,6 +454,7 @@ const ResultSummaryOrg = (props) => {
                 navigate("/category", {
                   state: {
                     item: params?.state?.sectionCategory,
+                    quiz: quiz,
                   },
                 })
               }
