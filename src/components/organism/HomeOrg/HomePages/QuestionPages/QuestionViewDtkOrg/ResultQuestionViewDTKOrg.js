@@ -66,7 +66,7 @@ const ResultQuestionViewDtkOrg = (props) => {
 
   const classes = useStyles(10);
   const [explanation, setExplanation] = useState()
-  const [paragraph, setPAragraph] = useState(props?.quiz.question?.multipartQuestion.questions)
+  const [paragraph, setPAragraph] = useState(props?.quiz?.question)
 
   const [progress, setProgress] = useState(0);
 
@@ -75,18 +75,15 @@ const ResultQuestionViewDtkOrg = (props) => {
     props.nextQuestion()
   }
 
-  useEffect(() => {
-    console.log(props.quiz, 'this is props')
-  }, [])
-  
+  // useEffect(() => {
+  //   console.log(props?.quiz.question, 'this is props')
+  // }, [])
+
 
   const showResult = (item, index) => {
     const quiz = [...paragraph]
-    console.log(quiz, ';this is quioz')
     const question = quiz[index]
-    console.log(question, ';this is question')
     question.showResult = true
-    console.log(question)
     setPAragraph(quiz)
   }
 
@@ -94,7 +91,6 @@ const ResultQuestionViewDtkOrg = (props) => {
     const quiz = [...paragraph]
     const question = quiz[index]
     question.showResult = false
-    console.log(question)
     setPAragraph(quiz)
   }
 
@@ -103,9 +99,7 @@ const ResultQuestionViewDtkOrg = (props) => {
       <CssBaseline />
 
       {paragraph && paragraph?.map((item, index) => {
-        console.log(item, 'this is question')
-
-       return  <Container
+        return <Container
           maxWidth="lg"
           style={{ backgroundColor: "#fff", height: "fit-content", padding: '.5rem', marginTop: '5%', width: 600 }}
         >
@@ -121,11 +115,11 @@ const ResultQuestionViewDtkOrg = (props) => {
             }}
           >
             {/* <FormControlLabel control={<Checkbox color="primary" />} /> */}
-            
-           {item.selectedOptionID === item?.question?.answer?.option ? (<img src={Correct} style={{ height: '2rem', marginTop: '1.8rem' }} />) 
-           : 
-             (<img src={Wrong} style={{ height: '2rem', marginTop: '1.8rem' }} />)
-             }
+
+            {item.selectedOptionID === item?.answer?.option ? (<img src={Correct} style={{ height: '2rem', marginTop: '1.8rem' }} />)
+              :
+              (<img src={Wrong} style={{ height: '2rem', marginTop: '1.8rem' }} />)
+            }
             <Box
               padding={1}
               mt={2}
@@ -137,17 +131,17 @@ const ResultQuestionViewDtkOrg = (props) => {
                 variant="body1"
                 component="body1"
               >
-               {"Uppgift " +
-                 `${index + 1}` +
-                 " av " +
-                 paragraph.lenght}
+                {"Uppgift " +
+                  `${index + 1}` +
+                  " av " +
+                  paragraph?.length}
               </Typography>
               <Typography
                 variant="h6"
                 component="h6"
                 style={{ fontSize: ".75rem", fontWeight: "600" }}
               >
-               {item.question.questionStatement}
+                {item.questionStatement}
               </Typography>
               <Box
                 style={{
@@ -170,7 +164,7 @@ const ResultQuestionViewDtkOrg = (props) => {
             </Box>
           </Box>
 
-         {item.showResult && <MultiAnswer options={item} selectOption={item.selectedOptionID} />}
+          {item.showResult && <MultiAnswer question={item} selectOption={item.selectedOptionID} />}
 
         </Container>
       })}
@@ -184,7 +178,7 @@ const ResultQuestionViewDtkOrg = (props) => {
           marginBottom: '2%', marginLeft: '1%', display: 'flex',
           justifyContent: 'center', alignItems: 'center', cursor: 'pointer'
         }}
-        onClick={() => changeQuestion()}
+        onClick={changeQuestion}
       >
         <Typography
           variant="h6"

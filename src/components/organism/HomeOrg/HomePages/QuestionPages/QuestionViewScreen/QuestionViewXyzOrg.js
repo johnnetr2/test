@@ -11,7 +11,6 @@ import {
   Box,
   CssBaseline,
   Radio,
-  FormControlLabel,
   Toolbar,
   Container,
 } from "@material-ui/core";
@@ -20,24 +19,17 @@ import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import Timer from "../../../../../atom/Timer/timer";
-import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
-import Increment from "../../../../../../assets/Icons/Increment.svg";
-import Decrement from "../../../../../../assets/Icons/Decrement.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
 import DropPenPopup from "../../../../../molecule/DropPenPopup/DropPenPopup";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
-import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
-import QuestionViewDTKOrg from '../QuestionViewDtkOrg/QuestionViewDtkOrg'
-import Question from "../../../../../atom/Question/question";
 import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
-import MultiAnswer from '../../../../../molecule/MultiAnswer/MultiAnswer'
+import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [attemptedQuestion, setAttemptedQuestion] = useState([])
   const [quiz, setQuiz] = useState();
   const params = useLocation();
   const [status, setStatus] = useState(true);
@@ -147,42 +139,29 @@ const QuestionViewXyzOrg = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    console.log(params?.state, 'this is quiz')
     const questionToShow = params?.state?.questionIndex;
-    const quiz = params?.state?.quiz
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setQuiz(params?.state?.quiz);
     } else {
-      let newQuiz = []
-      let alreadyUsed = []
-      quiz && quiz.forEach(element => {
-        if (element.question.multipartQuestion) {
-          if (!alreadyUsed.some(i => i.question.multipartQuestion._id === element.question.multipartQuestion._id)) {
-            const filter = quiz.filter(item => item.question.multipartQuestion._id === element.question.multipartQuestion._id)
-            const qz = { ...element }
-            qz.question.multipartQuestion.questions = filter
-            alreadyUsed = [...alreadyUsed, ...filter]
-            newQuiz.push(qz)
-          }
-        } else {
-          newQuiz.push(element)
-        }
-      })
-      setQuiz(newQuiz);
+      // let newQuiz = []
+      // let alreadyUsed = []
+      // quiz && quiz.forEach(element => {
+      //   if (element.question.multipartQuestion) {
+      //     if (!alreadyUsed.some(i => i.question.multipartQuestion._id === element.question.multipartQuestion._id)) {
+      //       const filter = quiz.filter(item => item.question.multipartQuestion._id === element.question.multipartQuestion._id)
+      //       const qz = { ...element }
+      //       qz.question.multipartQuestion.questions = filter
+      //       alreadyUsed = [...alreadyUsed, ...filter]
+      //       newQuiz.push(qz)
+      //     }
+      //   } else {
+      //     newQuiz.push(element)
+      //   }
+      // })
+      setQuiz(params?.state?.data?.quiz);
     }
-
-    // const id = localStorage.getItem('quizId')
-    // if (id === params?.state?.quizId) {
-    //   swal({ title: 'Det här frågesporten är redan försökt', icon: "warning", dangerMode: true, })
-    //     .then((willDelete) => {
-    //       if (willDelete) {
-    //         window.location.href = '/login'
-    //       } else {
-    //         window.location.href = '/login'
-    //       }
-    //     });
-    // }
-
   }, []);
 
   const CloseTimerFunc = async () => {
@@ -195,7 +174,6 @@ const QuestionViewXyzOrg = () => {
             const data = {
               quiz: params?.state?.data?._id,
               user: localStorage.getItem("userId"),
-              // optionId: question.selectedOptionID,
               questionId: item.question._id,
               sectionCategory: params?.state?.sectionCategory._id,
             }
@@ -329,244 +307,238 @@ const QuestionViewXyzOrg = () => {
       );
     }
   };
-  // useEffect(() => {
-  //   const myString = 'multiple\fultiple'
-  //   let regex = /\\/g;
-  //   let result = myString.replace(regex, "\\");
-  //   alert(result)
-  // }, [])
 
 
-  const QuestionBody = ({ question }) => {
-    if (question.question.multipartQuestion) {
-      return <QuestionViewDTKOrg
-        question={question} timeLeft={timeLeft} data={params.state}
-        totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
-        nextQuestion={() => selectedIndex + 1 < quiz.length ? setSelectedIndex(selectedIndex + 1)
-          : navigate("/resultsummary", {
-            state: {
-              quizId: params?.state?.prevState?.quizId,
-              sectionCategory: params?.state?.prevState?.sectionCategory,
-              timeLeft: params?.state?.prevState?.timeLeft,
-              totalTime: params?.state?.prevState?.totalTime,
-              quiz: params?.state?.prevState?.quiz,
-              quizId: params?.state?.quizId
-            },
-          })
-        } stopTimer={() => setStatus(false)}
-        startTimer={() => setStatus(true)}
-      />
-    } else {
-      return (
-        <Container
-          maxWidth="md"
-          style={{
-            marginTop: 0,
-            backgroundColor: "#f9f9f9",
-            height: "fit-content",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Box
-            mt={5}
-            paddingX={6}
-            paddingY={2}
-            sx={{
-              width: 600,
-              height: 280,
-              border: "1px solid #e1e1e1",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              backgroundColor: '#fff'
-            }}
-          >
+  // const QuestionBody = ({ question }) => {
+  //   if (question.type === "multiple") {
+  //     return <QuestionViewDTKOrg
+  //       question={question} timeLeft={timeLeft} quizId={params?.state?.data?._id}
+  //       totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
+  //       nextQuestion={() => selectedIndex + 1 < quiz.length ? setSelectedIndex(selectedIndex + 1)
+  //         : navigate("/resultsummary", {
+  //           state: {
+  //             quizId: params?.state?.prevState?.quizId,
+  //             sectionCategory: params?.state?.prevState?.sectionCategory,
+  //             timeLeft: params?.state?.prevState?.timeLeft,
+  //             totalTime: params?.state?.prevState?.totalTime,
+  //             quiz: params?.state?.prevState?.quiz,
+  //             quizId: params?.state?.quizId
+  //           },
+  //         })
+  //       } stopTimer={() => setStatus(false)}
+  //       startTimer={() => setStatus(true)}
+  //     />
+  //   } else {
+  //     return (
+  //       <Container
+  //         maxWidth="md"
+  //         style={{
+  //           marginTop: 0,
+  //           backgroundColor: "#f9f9f9",
+  //           height: "fit-content",
+  //           display: "flex",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //           flexDirection: "column",
+  //         }}
+  //       >
+  //         <Box
+  //           mt={5}
+  //           paddingX={6}
+  //           paddingY={2}
+  //           sx={{
+  //             width: 600,
+  //             height: 280,
+  //             border: "1px solid #e1e1e1",
+  //             display: "flex",
+  //             flexDirection: "column",
+  //             justifyContent: "center",
+  //             backgroundColor: '#fff'
+  //           }}
+  //         >
 
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
-            >
-              <MarkLatex content={question?.question?.questionStatement} />
-            </Typography>
+  //           <Typography
+  //             variant="h6"
+  //             component="h6"
+  //             style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
+  //           >
+  //             <MarkLatex content={question?.question?.questionStatement} />
+  //           </Typography>
 
-            {question?.question?.images[0] && <Typography
-              variant="h6"
-              component="h6"
-              style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
-            >
-              <img style={{ height: '100%' }} src={question?.question?.images[0]} />
+  //           {question?.question?.images[0] && <Typography
+  //             variant="h6"
+  //             component="h6"
+  //             style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
+  //           >
+  //             <img style={{ height: '100%' }} src={question?.question?.images[0]} />
 
-            </Typography>}
+  //           </Typography>}
 
-            {question?.question?.information1 && <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600" }}
-            >
-              <MarkLatex content={question?.question?.information1} />
-            </Typography>}
+  //           {question?.question?.information1 && <Typography
+  //             variant="h6"
+  //             component="h6"
+  //             style={{ fontSize: "0.75rem", fontWeight: "600" }}
+  //           >
+  //             <MarkLatex content={question?.question?.information1} />
+  //           </Typography>}
 
-            {question?.question?.information1 && <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600" }}
-            >
-              <MarkLatex content={question?.question?.information2} />
-            </Typography>}
+  //           {question?.question?.information1 && <Typography
+  //             variant="h6"
+  //             component="h6"
+  //             style={{ fontSize: "0.75rem", fontWeight: "600" }}
+  //           >
+  //             <MarkLatex content={question?.question?.information2} />
+  //           </Typography>}
 
-          </Box>
-          <Box
-            mt={5}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 240,
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-            }}
-          >
-            {question?.options?.map((item, optionIndex) => {
-              if (item.value) {
-                return (
-                  <Box
-                    sx={{
-                      //   height: 120,
-                      border: "1px solid #e1e1e1",
-                      width: 300,
-                    }}
-                  >
-                    <Box sx={{ display: "flex" }}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <FormControlLabel
-                          onClick={(e) => {
-                            !question?.answerSubmited && SelectFunc(e, optionIndex);
-                          }}
-                          style={{ marginLeft: ".5rem" }}
-                          value={item?._id}
-                          control={Options(question, item, optionIndex)}
-                          label={OptionIndex(optionIndex)}
-                        />
-                      </Box>
+  //         </Box>
+  //         <Box
+  //           mt={5}
+  //           sx={{
+  //             backgroundColor: "#fff",
+  //             width: 600,
+  //             height: 240,
+  //             display: "grid",
+  //             gridTemplateColumns: "1fr 1fr",
+  //           }}
+  //         >
+  //           {question?.options?.map((item, optionIndex) => {
+  //             if (item.value) {
+  //               return (
+  //                 <Box
+  //                   sx={{
+  //                     //   height: 120,
+  //                     border: "1px solid #e1e1e1",
+  //                     width: 300,
+  //                   }}
+  //                 >
+  //                   <Box sx={{ display: "flex" }}>
+  //                     <Box
+  //                       sx={{
+  //                         display: "flex",
+  //                         justifyContent: "center",
+  //                         alignItems: "center",
+  //                       }}
+  //                     >
+  //                       <FormControlLabel
+  //                         onClick={(e) => {
+  //                           !question?.answerSubmited && SelectFunc(e, optionIndex);
+  //                         }}
+  //                         style={{ marginLeft: ".5rem" }}
+  //                         value={item?._id}
+  //                         control={Options(question, item, optionIndex)}
+  //                         label={OptionIndex(optionIndex)}
+  //                       />
+  //                     </Box>
 
-                      <Box mt={2} ml={5}>
-                        {item.image ? (
-                          <img src={item.image} />
+  //                     <Box mt={2} ml={5}>
+  //                       {item.image ? (
+  //                         <img src={item.image} />
 
-                        ) : (
-                          <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
-                        )}
-                      </Box>
-                    </Box>
-                  </Box>
-                );
-              }
-            })}
-          </Box>
+  //                       ) : (
+  //                         <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
+  //                       )}
+  //                     </Box>
+  //                   </Box>
+  //                 </Box>
+  //               );
+  //             }
+  //           })}
+  //         </Box>
 
-          {question.answer && (
-            <Box
-              paddingX={4}
-              mt={3}
-              sx={{
-                backgroundColor: "#fff",
-                width: 600,
-                height: 220,
-                border: "1px solid #e1e1e1",
-                overflow: 'auto',
-                '&::-webkit-scrollbar': { display: 'none' }
-                //   '&::-webkit-scrollbar': { width : 0 },
-              }}
-            >
-              <Box sx={{ width: 500, display: "flex" }}>
-                <Box>
-                  <Typography
-                    variant="h5"
-                    component="h5"
-                    style={{
-                      fontSize: ".75rem",
-                      fontWeight: "600",
-                      marginTop: 20,
-                    }}
-                  >
-                    Förklaring:
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    component="div"
-                    style={{
-                      fontSize: ".75rem",
-                      fontWeight: "500",
-                      marginTop: 10,
-                    }}
-                  >
-                    {/* {question.answer.answer} */}
-                    <MarkLatex content={question.answer.answer} />
-                  </Typography>
-                </Box>
-                <Box
-                  mt={2}
-                  style={{
-                    backgroundColor: "blue",
-                    marginLeft: "15rem",
-                    marginTop: "2rem",
-                  }}
-                >
-                  {question.answer.image && (
-                    <img
-                      style={{ height: 110 }}
-                      src={question.answer.image}
-                      alt=""
-                    />
-                  )}
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                  height: 60,
-                }}
-              >
-                <Typography
-                  variant="body1"
-                  component="body1"
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: "500",
-                    marginTop: 10,
-                    width: "32rem",
-                  }}
-                >
-                  Berätta för oss om du var nöjd med lösningen
-                </Typography>
-                <Box ml={1} mr={0.5}>
-                  <img src={Increment} alt="" />
-                </Box>
-                <Box mr={1}>
-                  <img src={Decrement} alt="" />
-                </Box>
-              </Box>
-            </Box>
-          )}
+  //         {question.answer && (
+  //           <Box
+  //             paddingX={4}
+  //             mt={3}
+  //             sx={{
+  //               backgroundColor: "#fff",
+  //               width: 600,
+  //               height: 220,
+  //               border: "1px solid #e1e1e1",
+  //               overflow: 'auto',
+  //               '&::-webkit-scrollbar': { display: 'none' }
+  //               //   '&::-webkit-scrollbar': { width : 0 },
+  //             }}
+  //           >
+  //             <Box sx={{ width: 500, display: "flex" }}>
+  //               <Box>
+  //                 <Typography
+  //                   variant="h5"
+  //                   component="h5"
+  //                   style={{
+  //                     fontSize: ".75rem",
+  //                     fontWeight: "600",
+  //                     marginTop: 20,
+  //                   }}
+  //                 >
+  //                   Förklaring:
+  //                 </Typography>
+  //                 <Typography
+  //                   variant="body1"
+  //                   component="div"
+  //                   style={{
+  //                     fontSize: ".75rem",
+  //                     fontWeight: "500",
+  //                     marginTop: 10,
+  //                   }}
+  //                 >
+  //                   {/* {question.answer.answer} */}
+  //                   <MarkLatex content={question.answer.answer} />
+  //                 </Typography>
+  //               </Box>
+  //               <Box
+  //                 mt={2}
+  //                 style={{
+  //                   backgroundColor: "blue",
+  //                   marginLeft: "15rem",
+  //                   marginTop: "2rem",
+  //                 }}
+  //               >
+  //                 {question.answer.image && (
+  //                   <img
+  //                     style={{ height: 110 }}
+  //                     src={question.answer.image}
+  //                     alt=""
+  //                   />
+  //                 )}
+  //               </Box>
+  //             </Box>
+  //             <Box
+  //               sx={{
+  //                 display: "flex",
+  //                 justifyContent: "flex-end",
+  //                 alignItems: "flex-end",
+  //                 height: 60,
+  //               }}
+  //             >
+  //               <Typography
+  //                 variant="body1"
+  //                 component="body1"
+  //                 style={{
+  //                   fontSize: ".75rem",
+  //                   fontWeight: "500",
+  //                   marginTop: 10,
+  //                   width: "32rem",
+  //                 }}
+  //               >
+  //                 Berätta för oss om du var nöjd med lösningen
+  //               </Typography>
+  //               <Box ml={1} mr={0.5}>
+  //                 <img src={Increment} alt="" />
+  //               </Box>
+  //               <Box mr={1}>
+  //                 <img src={Decrement} alt="" />
+  //               </Box>
+  //             </Box>
+  //           </Box>
+  //         )}
 
-          {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
-          {getSubmitButton(question)}
-          {/* }  */}
-        </Container>
-      );
-    }
-  };
+  //         {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
+  //         {getSubmitButton(question)}
+  //         {/* }  */}
+  //       </Container>
+  //     );
+  //   }
+  // };
 
   const PopupHandler = () => {
     const checkPopup = params?.state?.quiz;
@@ -702,7 +674,7 @@ const QuestionViewXyzOrg = () => {
           }}
         />
 
-        {params?.state?.quiz[0]?.answerSubmited == true ? (
+        {params?.state?.data?.quiz[0]?.answerSubmited == true ? (
           <DropPenPopup
             popUpstatus={timeEnd}
             redirect={() => {
@@ -742,7 +714,35 @@ const QuestionViewXyzOrg = () => {
           }
         />
 
-        {quiz && <QuestionBody question={quiz[selectedIndex]} />}
+        {quiz && quiz.map((item, index) => {
+          if (index === selectedIndex) {
+            return <QuestionBody question={quiz[selectedIndex]}
+              stopTime={() => setStatus(false)} SelectOption={(e, index) => SelectFunc(e, index)}
+              totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
+              startTime={() => setStatus(false)} showOptions={(question, item, optionIndex) => Options(question, item, optionIndex)}
+              OptionValue={(optionIndex) => OptionIndex(optionIndex)} submitButton={(question) => getSubmitButton(question)}
+              quizId={params?.state?.data?._id} timeLeft={timeLeft}
+              nextQuestion={() => {
+                if (selectedIndex + 1 < quiz.length) {
+                  setSelectedIndex(selectedIndex + 1)
+                } else {
+                  navigate("/resultsummary", {
+                    state: {
+                      quizId: params?.state?.prevState?.quizId,
+                      sectionCategory: params?.state?.sectionCategory,
+                      timeLeft: timeLeft,
+                      totalTime: time,
+                      quiz: params?.state?.data?.quiz,
+                      quizId: params?.state?.quizId
+                    },
+                  })
+                }
+              }}
+            />
+          }
+        })
+
+        }
       </Container>
     </div>
   );

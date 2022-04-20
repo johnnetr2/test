@@ -82,6 +82,7 @@ const ResultSummaryOrg = (props) => {
   const [responseCollection, setresponseCollection] = useState({});
 
   useEffect(() => {
+    console.log(params?.state)
 
     setPrevData(params?.state);
     let totalTime = params.state.totalTime * 60;
@@ -90,8 +91,10 @@ const ResultSummaryOrg = (props) => {
     let timePerQuestion;
 
     const URL = EndPoints.getResult + params?.state?.quizId;
+    console.log(URL)
     try {
       instance2.get(URL).then((response) => {
+        console.log(response.data, 'this is quiz result')
         if (response.data) {
           setresponseCollection(response.data);
           timePerQuestion = timeSpent / response.data.answer.length;
@@ -367,6 +370,7 @@ const ResultSummaryOrg = (props) => {
                         (element) => element.question._id === item.questionId
                       );
                       navigate("/question", {
+
                         state: {
                           quizId: prevData.quizId,
                           user: localStorage.getItem("userId"),

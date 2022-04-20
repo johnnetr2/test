@@ -7,29 +7,16 @@ import Wrong from '../../../assets/Imgs/wrong.png'
 
 const MultiAnswer = (props) => {
 
-  useEffect(() => {
-    console.log(props.options, 'this is data on result screen')
+  // useEffect(() => {
+  //   console.log(props.question, 'this is data on result screen')
+  // }, [])
 
-  }, [])
-
-  // const Options = (question, curentOption, optionIndex) => {
-  //   if (question.answer && question.answer.option == curentOption._id) {
-  //     return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
-  //   } else if (question.answer && optionIndex == question.selectedIndex) {
-  //     return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
-  //   }
-  //   if (optionIndex == question.selectedIndex) {
-  //     return <Radio color="primary" checked={true} />;
-  //   } else {
-  //     return <Radio color="primary" checked={false} />;
-  //   }
-  // };
 
   const options = (item, index) => {
-    if (props?.options?.question?.answer && props?.options?.question?.answer.option === item._id ) {
-      return <img src={Correct} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem' }} />
-    } else if (props?.options.selectedOptionIndex === index) {
-      return <img src={Wrong} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem' }} />
+    if (props?.question?.answer && props?.question?.answer?.option === item._id ) {
+      return <img src={Correct} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem', marginTop: '.5rem', marginBottom: '.5rem', }} />
+    } else if (props?.question.selectedOptionIndex === index) {
+      return <img src={Wrong} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem', marginTop: '.5rem', marginBottom: '.5rem', }} />
     } else {
     return  <Radio checked={false} />
     }
@@ -45,7 +32,7 @@ const MultiAnswer = (props) => {
             flexDirection: "column",
           }}
         >
-          { props?.options.options.map( (item, index) => {
+          {props?.question.options[0]?.options.map( (item, index) => {
            return <Box
               style={{
                 border: "1px solid #e1e1e1",

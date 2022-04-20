@@ -153,7 +153,6 @@ const CategoryPagesFeedContent = (props) => {
           setOpen(false);
           navigate("/question", {
             state: {
-              quiz: response.data.quiz,
               data: response.data,
               sectionCategory: props.item,
               quizId: response.data._id

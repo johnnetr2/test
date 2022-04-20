@@ -41,7 +41,6 @@ export default function EndPopup({
 
   const changeHandler = (e) => {
     setSlider(e.target.value);
-    console.log(e.target.value, "this is the console of the slider")
   };
 
   const clickHandler = () =>

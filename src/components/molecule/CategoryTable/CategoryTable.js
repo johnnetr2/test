@@ -27,7 +27,6 @@ export const CategoryTable = (props) => {
     quiz: "quiz",
   });
 
-  console.log(resultData, "result data console");
 
   const navigate = useNavigate();
 

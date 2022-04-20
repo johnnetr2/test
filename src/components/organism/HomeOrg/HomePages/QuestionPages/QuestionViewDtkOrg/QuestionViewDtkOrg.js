@@ -28,10 +28,7 @@ import { EndPoints, instance2 } from "../../../../../service/Route";
 const QuestionViewDTKOrg = (props) => {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [optionId, setOptionId] = useState()
-  const question = props.question
   const [quiz, setQuiz] = useState()
-  const navigate = useNavigate()
   const [showResult, setShowResult] = useState(false)
 
 
@@ -91,49 +88,44 @@ const QuestionViewDTKOrg = (props) => {
 
   const SelectFunc = (e, optionIndex) => {
     let allQuiz = { ...quiz }
-    const qz = allQuiz?.question.multipartQuestion.questions
+    const qz = allQuiz?.question
     let question = qz[selectedIndex];
     question.selectedOptionIndex = optionIndex;
     question.selectedOptionID = e.target.value;
-    allQuiz.question.multipartQuestion.questions = qz
+    allQuiz.question = qz
     setQuiz(allQuiz)
   };
 
 
   const submitAnswer = (question) => {
 
-    // const selectedAnswers = quiz.question.multipartQuestion.questions.filter(item => item.answerSubmited)
-    //   if (selectedAnswers.length  ===  quiz.question.multipartQuestion.questions.length) {
-    //     setShowResult(true)
-    //     props.stopTimer()
-    // } else {
     if (!question.answerSubmited) {
       const allQuiz = { ...quiz };
-      const qz = allQuiz.question.multipartQuestion.questions
+      const qz = allQuiz.question
       let selectedquestion = qz[selectedIndex];
 
-      const getAnswer = EndPoints.getAnswerByQuestionId + selectedquestion.question._id;
-      instance2.get(getAnswer).then((response) => {
-        selectedquestion.question.answer = response.data;
-        selectedquestion.question.answerSubmited = true;
 
-        const selectedAnswers = qz.filter(item => item.question.answerSubmited)
-        console.log(selectedAnswers, 'this is array of questions')
+      const getAnswer = EndPoints.getAnswerByQuestionId + selectedquestion._id;
+      instance2.get(getAnswer).then((response) => {
+        selectedquestion.answer = response.data;
+        selectedquestion.answerSubmited = true;
+
+        const selectedAnswers = qz.filter(item => item.answerSubmited)
         if (selectedAnswers.length === qz.length) {
           setShowResult(true)
           props.stopTimer()
         }
 
         setQuiz(allQuiz);
-
       });
-      selectedIndex + 1 < quiz.question.multipartQuestion.questions.length && setSelectedIndex(selectedIndex + 1)
+
+      selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
 
       const data = {
-        quiz: props.data.quizId,
+        quiz: props.quizId,
         user: localStorage.getItem("userId"),
         optionId: selectedquestion?.selectedOptionID,
-        questionId: selectedquestion?.question._id,
+        questionId: selectedquestion?._id,
         sectionCategory: props.sectionCategory._id
       }
       const URL = EndPoints.submitAnswer
@@ -142,23 +134,8 @@ const QuestionViewDTKOrg = (props) => {
 
       })
     } else {
-      selectedIndex + 1 < quiz.question.multipartQuestion.questions.length && setSelectedIndex(selectedIndex + 1)
+      selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
     }
-    // }
-
-    //     navigate("/resultsummary", {
-    //       state: {
-    // quizId: params?.state?.data?._id,
-    // sectionCategory: params?.state?.sectionCategory,
-    // timeLeft: timeLeft,
-    // totalTime: time,
-    // quiz: quiz,
-    // quizId: params?.state?.quizId
-    //       },
-    //     });
-
-
-    // }
 
   };
 
@@ -205,26 +182,26 @@ const QuestionViewDTKOrg = (props) => {
                 fontWeight: "500",
               }}
             >
-              {quiz?.question?.multipartQuestion?.questions?.length + ' uppgifter:'}
+              {quiz?.question?.length + ' uppgifter:'}
             </Typography>
             <Typography variant="h6" component="h6">
-              {quiz?.question?.multipartQuestion?.title}
+              {quiz?.title}
             </Typography>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              <MarkLatex content={quiz?.question?.multipartQuestion?.description} />
+              <MarkLatex content={quiz?.description} />
             </Typography>
             <Box>
-              <img src={quiz?.question?.multipartQuestion?.image} style={{ width: '100%' }} alt="" />
+              <img src={quiz?.image} style={{ width: '100%' }} alt="" />
             </Box>
           </Box>
           {
             showResult ? (<ResultQuestionViewDtkOrg quiz={quiz} stopTimer={() => props.stopTimer()} startTimer={() => props.startTimer()}
               nextQuestion={() => props.nextQuestion()}
             />) :
-              quiz && quiz?.question?.multipartQuestion?.questions?.map((question, index) => {
+              quiz && quiz?.question?.map((question, index) => {
                 if (index == selectedIndex) {
                   return <Box>
                     <Box
@@ -248,9 +225,9 @@ const QuestionViewDTKOrg = (props) => {
                         <Box style={{ width: 70, display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }} >
                           {selectedIndex > 0 && <img onClick={() => setSelectedIndex(selectedIndex - 1)} src={BlueLeftIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />}
                           <Typography variant="body1" component="body1" style={{ fontSize: '.8rem' }} >
-                            {selectedIndex + 1 + '/' + quiz.question.multipartQuestion.questions.length}
+                            {selectedIndex + 1 + '/' + quiz.question.length}
                           </Typography>
-                          <img onClick={() => selectedIndex + 1 < quiz.question.multipartQuestion.questions.length && setSelectedIndex(selectedIndex + 1)} src={BlueRightIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />
+                          <img onClick={() => selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)} src={BlueRightIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />
                         </Box>
                       </Box>
                       <Typography
@@ -258,12 +235,12 @@ const QuestionViewDTKOrg = (props) => {
                         component="h6"
                         style={{ fontSize: ".75rem", fontWeight: "600", marginTop: 20, display: 'flex', flexDirection: 'column' }}
                       >
-                        <MarkLatex content={question.question.questionStatement} />
+                        <MarkLatex content={question.questionStatement} />
 
-                        {question.question.images && <img src={question.question.images[0]} style={{ height: '10rem', marginBottom: '.4rem' }} />}
+                        {question.images && <img src={question.images[0]} style={{ height: '10rem', marginBottom: '.4rem' }} />}
                       </Typography>
                     </Box>
-                    {question.options.map((option, optionIndex) => {
+                    {question.options[0].options.map((option, optionIndex) => {
                       return <Box
                         padding={1}
                         sx={{
