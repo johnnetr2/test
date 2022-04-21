@@ -18,23 +18,14 @@ import { useNavigate } from "react-router-dom";
 
 export const CategoryTable = (props) => {
   const categoryTable = props.tableHistory;
-
-  const [resultData, setResultData] = useState({
-    quizId: "129028",
-    sectionCategory: "12",
-    timeLeft: "12",
-    totalTime: "12",
-    quiz: "quiz",
-  });
-
+  console.log(categoryTable, "category table");
+  const [sectionCategory, setSectionCategory] = useState("");
 
   const navigate = useNavigate();
 
-  const MenuIcon = () => {
-    const options = ["SE RESULTAT"];
-
+  const MenuIcon = (row) => {
+    const options = "SE RESULTAT";
     const ITEM_HEIGHT = 48;
-
     const [anchorEl, setAnchorEl] = useState(null);
 
     const open = Boolean(anchorEl);
@@ -44,18 +35,6 @@ export const CategoryTable = (props) => {
     };
     const handleClose = () => {
       setAnchorEl(null);
-    };
-
-    const ResultHandler = () => {
-      navigate("/resultsummary", {
-        state: {
-          quizId: resultData.quizId,
-          sectionCategory: resultData.sectionCategory,
-          timeLeft: resultData.timeLeft,
-          totalTime: resultData.totalTime,
-          quiz: resultData.quiz,
-        },
-      });
     };
 
     return (
@@ -85,18 +64,31 @@ export const CategoryTable = (props) => {
             },
           }}
         >
-          {options.map((option) => (
-            <MenuItem
-              key={option}
-              selected={option === "SE RESULTAT"}
-              onClick={ResultHandler}
-            >
-              {option}
-            </MenuItem>
-          ))}
+          <MenuItem
+            onClick={() => {
+              ResultHandler(row);
+            }}
+          >
+            {options}
+          </MenuItem>
         </Menu>
       </div>
     );
+  };
+
+  useEffect(() => {
+    setSectionCategory(props?.sectionCategory);
+  }, []);
+
+  const ResultHandler = (row) => {
+    navigate("/resultsummary", {
+      state: {
+        quizId: row.row.quiz,
+        sectionCategory: sectionCategory,
+        user: localStorage.getItem("userId"),
+        quiz: props?.quiz,
+      },
+    });
   };
 
   return (
@@ -132,7 +124,7 @@ export const CategoryTable = (props) => {
                   </TableCell>
                   <TableCell align="left">0.0</TableCell>
                   <TableCell align="left">
-                    <MenuIcon />
+                    <MenuIcon row={row} />
                   </TableCell>
                 </TableRow>
               );

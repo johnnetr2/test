@@ -90,7 +90,7 @@ const ResultSummaryOrg = (props) => {
     let timeSpent = totalTime - remainingTime;
     let timePerQuestion;
 
-    const URL = EndPoints.getResult + params?.state?.quizId;
+    const URL = EndPoints.getQuizById + params?.state?.quizId;
     console.log(URL)
     try {
       instance2.get(URL).then((response) => {

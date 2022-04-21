@@ -66,6 +66,10 @@ const CategoryPagesFeedContent = (props) => {
   const [tableHistory, setTableHistory] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
+  const params = useLocation();
+
+  const quiz = params?.state?.quiz;
+  console.log(quiz, "category page: quiz");
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -77,8 +81,6 @@ const CategoryPagesFeedContent = (props) => {
       });
     });
   }, []);
-
-  const params = useLocation();
 
   const [tabValue, setTabValue] = useState(0);
 
@@ -155,9 +157,9 @@ const CategoryPagesFeedContent = (props) => {
             state: {
               data: response.data,
               sectionCategory: props.item,
-              quizId: response.data._id
-            }
-          })
+              quizId: response.data._id,
+            },
+          });
         }
       });
 
@@ -367,9 +369,20 @@ const CategoryPagesFeedContent = (props) => {
           )}
         </Box>
       </Box>
-      <Box sx={{ marginTop: "2rem", backgroundColor: '#0A1596', color: '#fff', 
-                borderRadius: '6px', height: '3rem', alignItems: 'center', paddingTop: '1%' }} onClick={onSubmit}>
-        <FilledBtn title="Starta övningar"/>
+      <Box
+        variant="contained"
+        sx={{
+          marginTop: "2rem",
+          backgroundColor: "#0A1596",
+          color: "#fff",
+          borderRadius: "6px",
+          height: "3rem",
+          alignItems: "center",
+          paddingTop: "1%",
+        }}
+        onClick={onSubmit}
+      >
+        <FilledBtn title="Starta övningar" />
       </Box>
       <Box sx={{ marginTop: "4rem" }}>
         <Tabs
@@ -389,7 +402,11 @@ const CategoryPagesFeedContent = (props) => {
         </Tabs>
         <TabPanel value={tabValue} index={0}>
           <Box sx={{ marginTop: "1rem" }}>
-            <CategoryTable tableHistory={tableHistory} />
+            <CategoryTable
+              sectionCategory={props.item}
+              tableHistory={tableHistory}
+              quiz={params?.state?.quiz}
+            />
           </Box>
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
