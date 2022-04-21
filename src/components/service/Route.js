@@ -32,4 +32,5 @@ export const EndPoints = {
   getAllSections: "/admin/sectionCategories",
   deleteAccount: "/admin/student/",
   getStudentScore: "/api/quizResult/getStudentScore",
+  getQuizResult: "/api/quizResult/resultByUser/",
 };

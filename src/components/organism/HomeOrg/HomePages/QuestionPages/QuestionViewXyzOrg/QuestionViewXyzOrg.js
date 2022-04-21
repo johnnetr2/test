@@ -33,7 +33,6 @@ import QuestionViewDTKOrg from "../QuestionViewDtkOrg/QuestionViewDtkOrg";
 import Question from "../../../../../atom/Question/question";
 import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
-import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -54,7 +53,9 @@ const QuestionViewXyzOrg = () => {
   }));
 
   const Next = (question) => {
+    console.log(question, "question: question page");
     if (question.answerSubmited) {
+      console.log(quiz, "next quiz");
       if (selectedIndex + 1 == quiz.length) {
         localStorage.setItem("quizId", params?.state?.quizId);
         navigate("/resultsummary", {
@@ -628,11 +629,6 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           <Box
-            // onClick={() =>
-            //   params?.state?.questionIndex != undefined
-            //     ? setIsOpen(true)
-            //     : setOpen(true)
-            // }
             onClick={PopupHandler}
             sx={{
               height: "8vh",

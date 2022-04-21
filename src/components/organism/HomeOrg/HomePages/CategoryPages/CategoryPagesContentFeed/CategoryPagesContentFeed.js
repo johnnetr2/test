@@ -68,6 +68,9 @@ const CategoryPagesFeedContent = (props) => {
   const [selectAll, setSelectAll] = useState([]);
   const params = useLocation();
 
+  const quiz = params?.state?.quiz;
+  console.log(quiz, "category page: quiz");
+
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {

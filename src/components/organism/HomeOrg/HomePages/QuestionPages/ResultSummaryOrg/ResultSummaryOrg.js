@@ -23,12 +23,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 
-const ResultSummaryOrg = (props) => {
+const ResultSummaryOrg = () => {
   const params = useLocation();
   const [prevData, setPrevData] = useState();
   const [timePerQues, setTimePerQues] = useState();
   const navigate = useNavigate();
   const quiz = params?.state?.quiz;
+  console.log(quiz, "first quiz");
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -100,6 +101,7 @@ const ResultSummaryOrg = (props) => {
           } else {
             setTimePerQues(false);
           }
+          // const URL2 = EndPoints.
         }
       });
     } catch (error) {
@@ -363,6 +365,8 @@ const ResultSummaryOrg = (props) => {
                     mb={2}
                     onClick={() => {
                       const quiz = params?.state?.quiz;
+                      console.log(quiz, "my quiz ////");
+
                       let questionIndex = quiz.findIndex(
                         (element) => element.question._id === item.questionId
                       );
