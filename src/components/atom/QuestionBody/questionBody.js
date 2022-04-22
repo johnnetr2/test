@@ -23,7 +23,7 @@ const QuestionBody = (props) => {
         return <QuestionViewDTKOrg
             question={props.question} 
             timeLeft={props.timeLeft} quizId={props.quizId}
-            totalTime={props.totalTime} quiz={props.quiz} sectionCategory={props.sectionCategory}
+            totalTime={props.totalTime} quiz={props.quiz} sectionCategory={props?.sectionCategory}
             nextQuestion={() => props.nextQuestion()}
             stopTimer={() => props.stopTime()}
             startTimer={() => props.startTime() }

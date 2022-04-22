@@ -126,7 +126,7 @@ const QuestionViewDTKOrg = (props) => {
         user: localStorage.getItem("userId"),
         optionId: selectedquestion?.selectedOptionID,
         questionId: selectedquestion?._id,
-        sectionCategory: props.sectionCategory._id
+        sectionCategory: props?.sectionCategory._id
       }
       const URL = EndPoints.submitAnswer
       instance2.post(URL, data).then(response => {
