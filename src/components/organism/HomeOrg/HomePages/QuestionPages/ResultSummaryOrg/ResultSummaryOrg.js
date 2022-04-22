@@ -82,19 +82,16 @@ const ResultSummaryOrg = (props) => {
   const [responseCollection, setresponseCollection] = useState({});
 
   useEffect(() => {
-    console.log(params?.state)
-
+    console.log(params.state)
     setPrevData(params?.state);
     let totalTime = params.state.totalTime * 60;
     let remainingTime = params.state.timeLeft;
     let timeSpent = totalTime - remainingTime;
     let timePerQuestion;
 
-    const URL = EndPoints.getQuizById + params?.state?.quizId;
-    console.log(URL)
+    const URL = EndPoints.getResult + params?.state?.quizId;
     try {
       instance2.get(URL).then((response) => {
-        console.log(response.data, 'this is quiz result')
         if (response.data) {
           setresponseCollection(response.data);
           timePerQuestion = timeSpent / response.data.answer.length;
@@ -216,12 +213,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection.totalQuestion &&
-                responseCollection.correctAnswer != null ? (
+                  responseCollection.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                        " /" +
-                        responseCollection.answer.length}
+                      " /" +
+                      responseCollection.answer.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -252,7 +249,7 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection.totalQuestion &&
-                responseCollection.correctAnswer != null ? (
+                  responseCollection.correctAnswer != null ? (
                   <Typography variant="h4">
                     {(responseCollection.correctAnswer /
                       responseCollection.totalQuestion) *
@@ -365,22 +362,29 @@ const ResultSummaryOrg = (props) => {
                     mt={2}
                     mb={2}
                     onClick={() => {
-                      const quiz = params.state.quiz;
-                      let questionIndex = quiz.findIndex(
-                        (element) => element.question._id === item.questionId
-                      );
-                      navigate("/question", {
+                      const newQuiz = params.state.quiz;
+                      let questionIndex
+                      let question
+                      let paragraphIndex = newQuiz[0].type && newQuiz.findIndex((element) => element._id === item.MultipartQuestion)
+                      if (paragraphIndex != undefined) {
+                         questionIndex = newQuiz[paragraphIndex].question.findIndex(
+                          (element) => element._id === item.questionId
+                        )
+                      } else {
+                        questionIndex = newQuiz.findIndex((element) => element.question._id === item.questionId)
+                      }
 
+                      navigate("/question", {
                         state: {
                           quizId: prevData.quizId,
                           user: localStorage.getItem("userId"),
-                          optionId: item.optionId,
-                          questionId: item.questionId,
-                          sectionCategory: prevData.sectionCategory,
+                          sectionCategory: params?.state?.sectionCategory,
+                          paragraphIndex,
                           questionIndex,
+                          selectedOption: item.optionId,
                           quiz: quiz,
                           prevState: params.state,
-                        },
+                        }
                       });
                     }}
                     // onClick={() =>

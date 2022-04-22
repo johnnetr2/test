@@ -24,6 +24,8 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { useNavigate } from "react-router-dom";
 import ResultQuestionViewDtkOrg from './ResultQuestionViewDTKOrg'
 import { EndPoints, instance2 } from "../../../../../service/Route";
+import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
+
 
 const QuestionViewDTKOrg = (props) => {
 
@@ -82,9 +84,36 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    setQuiz(props.question)
+    if (props.paragraphIndex != undefined) {
+      setSelectedIndex(props.questionIndex)
+      setQuiz(props.question)
+    } else {
+      setQuiz(props.question)
+    }
     // quiz.question.multipartQuestion.questions.length
   }, [])
+
+  const Button = (question) => {
+    if (props.paragraphIndex != undefined) {
+      return <ResultFooter
+        questionLength={props.quiz.length}
+        questionIndex={props.selectedIndex}
+        onResultHandler={() => props.onResultHandler()}
+        onLeftClick={() => {
+          props.onLeftClick();
+        }}
+        onRightClick={() => {
+          props.onRightClick();
+        }}
+      />
+    } else {
+      return <Box sx={{ width: 600, marginLeft: '.5rem' }}>
+        <ExerciseBtn title="Nästa"
+          onClick={() => submitAnswer(question)}
+        />
+      </Box>
+    }
+  }
 
   const SelectFunc = (e, optionIndex) => {
     let allQuiz = { ...quiz }
@@ -96,14 +125,26 @@ const QuestionViewDTKOrg = (props) => {
     setQuiz(allQuiz)
   };
 
+  const Options = (question, option, optionIndex) => {
+    console.log(question, ';this is question')
+    if (props.paragraphIndex != undefined && question.answer.option == option._id) {
+      return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
+    } else if (props.paragraphIndex && optionIndex == question.selectedOptionIndex) {
+      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+    }
+    if (optionIndex == question.selectedIndex) {
+      return <Radio color="primary" checked={true} />;
+    } else {
+      return <Radio color="primary" checked={false} />;
+    }
+  };
+
 
   const submitAnswer = (question) => {
-
     if (!question.answerSubmited) {
       const allQuiz = { ...quiz };
       const qz = allQuiz.question
       let selectedquestion = qz[selectedIndex];
-
 
       const getAnswer = EndPoints.getAnswerByQuestionId + selectedquestion._id;
       instance2.get(getAnswer).then((response) => {
@@ -126,7 +167,11 @@ const QuestionViewDTKOrg = (props) => {
         user: localStorage.getItem("userId"),
         optionId: selectedquestion?.selectedOptionID,
         questionId: selectedquestion?._id,
-        sectionCategory: props?.sectionCategory._id
+        sectionCategory: props?.sectionCategory._id,
+        timeleft: props.timeLeft ? props.timeLeft : null,
+        totaltime: props.totalTime ? props.totalTime * 60 : null,
+        spendtime: props.timeLeft ? props.totalTime * 60 - props.timeLeft : null,
+        MultipartQuestion: props.question._id
       }
       const URL = EndPoints.submitAnswer
       instance2.post(URL, data).then(response => {
@@ -136,7 +181,6 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
     }
-
   };
 
   return (
@@ -198,7 +242,11 @@ const QuestionViewDTKOrg = (props) => {
             </Box>
           </Box>
           {
-            showResult ? (<ResultQuestionViewDtkOrg quiz={quiz} stopTimer={() => props.stopTimer()} startTimer={() => props.startTimer()}
+            showResult ? (<ResultQuestionViewDtkOrg paragraphIndex={props.paragraphIndex}
+              onRightClick={() => props.onRightClick()}
+              onLeftClick={() => props.onLeftClick()} onResultHandler={() => props.onResultHandler()}
+              questionIndex={props.questionIndex} quiz={quiz} stopTimer={() => props.stopTimer()}
+              startTimer={() => props.startTimer()} selectedIndex={props.selectedIndex}
               nextQuestion={() => props.nextQuestion()}
             />) :
               quiz && quiz?.question?.map((question, index) => {
@@ -253,20 +301,19 @@ const QuestionViewDTKOrg = (props) => {
                         <FormControlLabel onClick={(e) => {
                           !question.answerSubmited && SelectFunc(e, optionIndex);
                         }} value={option._id}
-                          style={{ marginLeft: '.5rem' }}
+                          style={{ marginLeft: '.5rem', alignItems: 'center' }}
 
-                          control={<Radio color="primary" checked={optionIndex == question.selectedOptionIndex} />}
+                          control={
+                            props.paragraphIndex != undefined ? Options(question, option, optionIndex)
+                              : <Radio color="primary" checked={optionIndex == question.selectedOptionIndex} />
+                          }
 
                           label={<MarkLatex content={option.value.replace("\f", "\\f")} />} />
                       </Box>
 
                     })}
 
-                    {question.selectedOptionIndex + 1 ? (<Box sx={{ width: 600, marginLeft: '.5rem' }}>
-                      <ExerciseBtn title="Nästa"
-                        onClick={() => submitAnswer(question)}
-                      />
-                    </Box>) : (
+                    {question.selectedOptionIndex + 1 ? Button(question) : (
                       <Box
                         padding={1}
                         mt={2}

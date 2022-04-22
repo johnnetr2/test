@@ -169,28 +169,30 @@ const ResultQuestionViewDtkOrg = (props) => {
         </Container>
       })}
 
-      <Box
-        padding={1}
-        mt={2}
-        style={{
-          backgroundColor: '#0A1596', color: "#FFFFFF", height: '2.7rem',
-          borderRadius: '.4rem', width: '100%', marginTop: '2%',
-          marginBottom: '2%', marginLeft: '1%', display: 'flex',
-          justifyContent: 'center', alignItems: 'center', cursor: 'pointer'
-        }}
-        onClick={changeQuestion}
-      >
-        <Typography
-          variant="h6"
+       <Box
+          padding={1}
+          mt={2}
           style={{
-            fontSize: "0.75rem",
-            marginRight: "0.5rem",
-            width: '3rem',
+            backgroundColor: '#0A1596', color: "#FFFFFF", height: '2.7rem',
+            borderRadius: '.4rem', width: '100%', marginTop: '2%',
+            marginBottom: '2%', marginLeft: '1%', display: 'flex',
+            justifyContent: 'center', alignItems: 'center', cursor: 'pointer'
           }}
+          onClick={changeQuestion}
         >
-          Nästa
-        </Typography>
-      </Box>
+          <Typography
+            variant="h6"
+            style={{
+              fontSize: "0.75rem",
+              marginRight: "0.5rem",
+              width: '3rem',
+            }}
+          >
+            Nästa
+          </Typography>
+        </Box>
+      
+
     </div>
   );
 };

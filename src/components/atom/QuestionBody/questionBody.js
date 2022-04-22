@@ -21,7 +21,10 @@ const QuestionBody = (props) => {
 
     if (props.question.type == "multiple") {
         return <QuestionViewDTKOrg
-            question={props.question} 
+            question={props.question} selectedOption={props.selectedOption}
+            selectedIndex={props.selectedIndex} onRightClick={() => props.onRightClick()}
+            onLeftClick={() => props.onLeftClick()} onResultHandler={() => props.onResultHandler()}
+            paragraphIndex={props.paragraphIndex} questionIndex={props.questionIndex}
             timeLeft={props.timeLeft} quizId={props.quizId}
             totalTime={props.totalTime} quiz={props.quiz} sectionCategory={props?.sectionCategory}
             nextQuestion={() => props.nextQuestion()}

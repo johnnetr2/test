@@ -45,9 +45,6 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-  const updateQuestion = () => {
-    alert('hi')
-  }
 
   const Next = (question) => {
     if (question.answerSubmited) {
@@ -87,6 +84,7 @@ const QuestionViewXyzOrg = () => {
           timeleft: timeLeft ? timeLeft : null,
           totaltime: time ? time * 60 : null,
           spendtime: timeLeft ? time * 60 - timeLeft : null,
+          MultipartQuestion: null
         };
         const Submit = EndPoints.submitAnswer;
         instance2.post(Submit, data).then((response) => {
@@ -145,10 +143,13 @@ const QuestionViewXyzOrg = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    console.log(params?.state, 'this is quiz')
-    const questionToShow = params?.state?.questionIndex;
+    console.log(params?.state.quiz, 'this is quiz')
+    const questionToShow = params?.state?.paragraphIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
+      setQuiz(params?.state?.quiz);
+    } else if (params?.state?.questionIndex != undefined) {
+      setSelectedIndex(params?.state?.questionIndex);
       setQuiz(params?.state?.quiz);
     } else {
       setQuiz(params?.state?.data?.quiz);
@@ -230,7 +231,7 @@ const QuestionViewXyzOrg = () => {
             navigate("/resultsummary", {
               state: {
                 // quizId: params?.state?.prevState?.quizId,
-                sectionCategory: params?.state?.prevState?.sectionCategory,
+                sectionCategory: params?.state?.sectionCategory,
                 timeLeft: params?.state?.prevState?.timeLeft,
                 totalTime: params?.state?.prevState?.totalTime,
                 quiz: quiz,
@@ -427,7 +428,7 @@ const QuestionViewXyzOrg = () => {
             navigate("/resultsummary", {
               state: {
                 // quizId: params?.state?.data?._id,
-                sectionCategory: params?.state?.prevState?.sectionCategory,
+                sectionCategory: params?.state?.sectionCategory,
                 timeLeft: params?.state?.prevState?.timeLeft,
                 totalTime: params?.state?.prevState?.totalTime,
                 quiz: quiz,
@@ -443,7 +444,7 @@ const QuestionViewXyzOrg = () => {
             redirect={() => {
               navigate("/resultsummary", {
                 state: {
-                  sectionCategory: params?.state?.prevState?.sectionCategory,
+                  sectionCategory: params?.state?.sectionCategory,
                   timeLeft: params?.state?.prevState?.timeLeft,
                   totalTime: params?.state?.prevState?.totalTime,
                   quiz: quiz,
@@ -480,9 +481,23 @@ const QuestionViewXyzOrg = () => {
         {quiz && quiz.map((item, index) => {
           if (index === selectedIndex) {
             return <QuestionBody question={quiz[selectedIndex]}
-              // updatedQuestion={(question) => updateQuestion(question)}
+              selectedOption={params.state.selectedOption}
+              paragraphIndex={params?.state?.paragraphIndex} questionIndex={params?.state?.questionIndex}
+              selectedIndex={selectedIndex} onLeftClick={() => { setSelectedIndex((previousIndex) => previousIndex - 1) }}
+              onRightClick={() => { setSelectedIndex((previousIndex) => previousIndex + 1) }}
               stopTime={() => setStatus(false)} SelectOption={(e, index) => SelectFunc(e, index)}
               totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
+              onResultHandler={() => {
+                navigate("/resultsummary", {
+                  state: {
+                    sectionCategory: params?.state?.sectionCategory,
+                    timeLeft: params?.state?.prevState?.timeLeft,
+                    totalTime: params?.state?.prevState?.totalTime,
+                    quiz: quiz,
+                    quizId: params?.state?.quizId
+                  },
+                });
+              }}
               startTime={() => setStatus(false)} showOptions={(question, item, optionIndex) => Options(question, item, optionIndex)}
               OptionValue={(optionIndex) => OptionIndex(optionIndex)} submitButton={(question) => getSubmitButton(question)}
               quizId={params?.state?.data?._id} timeLeft={timeLeft}
@@ -492,9 +507,9 @@ const QuestionViewXyzOrg = () => {
                 } else {
                   navigate("/resultsummary", {
                     state: {
-                      sectionCategory: params?.state?.prevState?.sectionCategory,
-                      timeLeft: params?.state?.prevState?.timeLeft,
-                      totalTime: params?.state?.prevState?.totalTime,
+                      sectionCategory: params?.state?.sectionCategory,
+                      timeLeft: params?.state?.timeLeft,
+                      totalTime: params?.state?.totalTime,
                       quiz: quiz,
                       quizId: params?.state?.quizId
                     },
