@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 const Filled_btn = ({title, onClick}) => {
     return (
         <div className="filled-btn-1">
-            <Button variant="contained" onClick={onClick} sx={{
-                backgroundColor: '#0A1596', textTransform:'initial', '&:hover': {
+            <Button onClick={onClick} sx={{
+                backgroundColor: '#0A1596', color: '#fff', alignItems: 'center', textTransform:'initial', '&:hover': {
                     backgroundColor: '#0A1596', opacity: [1, 1, 0.9]
                 }, width: '100%', textDecoration: 'none', 
             }}>{title}</Button>

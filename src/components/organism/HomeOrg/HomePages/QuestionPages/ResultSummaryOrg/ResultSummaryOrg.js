@@ -1,36 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
-import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
 import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
-import DtkImg from "../../../../../../assets/Imgs/DtkImg.png";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   AppBar,
-  Card,
   Paper,
   Box,
-  CardActions,
-  CardContent,
-  CardMedia,
   CssBaseline,
-  Grid,
-  Radio,
   FormControlLabel,
   Toolbar,
   Container,
   LinearProgress,
   Button,
 } from "@material-ui/core";
-import Checkbox from "@mui/material/Checkbox";
-import CloseIcon from "@mui/icons-material/Close";
-import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
-import { instance, instance2, EndPoints } from "../../../../../service/Route";
+import { instance2, EndPoints } from "../../../../../service/Route";
 import swal from "sweetalert";
-import { red, green } from "@mui/material/colors";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation, useNavigate } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
@@ -41,6 +28,7 @@ const ResultSummaryOrg = (props) => {
   const [prevData, setPrevData] = useState();
   const [timePerQues, setTimePerQues] = useState();
   const navigate = useNavigate();
+  const quiz = params.state.quiz
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -94,29 +82,29 @@ const ResultSummaryOrg = (props) => {
   const [responseCollection, setresponseCollection] = useState({});
 
   useEffect(() => {
+    console.log(params.state)
     setPrevData(params?.state);
-    // console.log(params?.state?.quizId, 'first data')
     let totalTime = params.state.totalTime * 60;
     let remainingTime = params.state.timeLeft;
     let timeSpent = totalTime - remainingTime;
     let timePerQuestion;
 
-        const URL = EndPoints.getResult + params?.state?.quizId
-        try {
-            instance2.get(URL).then((response) => {
-                if (response.data) {
-                    setresponseCollection(response.data)
-                    timePerQuestion = timeSpent / response.data.answer.length
-                  if (timeSpent && remainingTime) {
-                        setTimePerQues(timePerQuestion)
-                    } else {
-                        setTimePerQues(false)
-                    }
-                }
-            })
-        } catch (error) {
-            swal('Error', error.message,)
+    const URL = EndPoints.getResult + params?.state?.quizId;
+    try {
+      instance2.get(URL).then((response) => {
+        if (response.data) {
+          setresponseCollection(response.data);
+          timePerQuestion = timeSpent / response.data.answer.length;
+          if (timeSpent && remainingTime) {
+            setTimePerQues(timePerQuestion);
+          } else {
+            setTimePerQues(false);
+          }
         }
+      });
+    } catch (error) {
+      swal("Error", error.message);
+    }
     return () => {
       // clearInterval(timer);
     };
@@ -168,7 +156,7 @@ const ResultSummaryOrg = (props) => {
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {responseCollection?.answer?.length} av{" "}
-              {responseCollection?.answer?.length}
+              {responseCollection?.totalQuestion}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
@@ -225,12 +213,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection.totalQuestion &&
-                responseCollection.correctAnswer != null ? (
+                  responseCollection.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                        " /" +
-                        responseCollection.answer.length}
+                      " /" +
+                      responseCollection.answer.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -261,7 +249,7 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection.totalQuestion &&
-                responseCollection.correctAnswer != null ? (
+                  responseCollection.correctAnswer != null ? (
                   <Typography variant="h4">
                     {(responseCollection.correctAnswer /
                       responseCollection.totalQuestion) *
@@ -363,7 +351,6 @@ const ResultSummaryOrg = (props) => {
               border: "1px solid #e1e1e1",
               display: "flex",
               flexDirection: "column",
-              
             }}
           >
             {responseCollection?.answer &&
@@ -375,24 +362,31 @@ const ResultSummaryOrg = (props) => {
                     mt={2}
                     mb={2}
                     onClick={() => {
-                      const quiz = params.state.quiz
-                      console.log('quiz: ', JSON.stringify(quiz))
+                      const newQuiz = params.state.quiz;
+                      let questionIndex
+                      let question
+                      let paragraphIndex = newQuiz[0].type && newQuiz.findIndex((element) => element._id === item.MultipartQuestion)
+                      if (paragraphIndex != undefined) {
+                         questionIndex = newQuiz[paragraphIndex].question.findIndex(
+                          (element) => element._id === item.questionId
+                        )
+                      } else {
+                        questionIndex = newQuiz.findIndex((element) => element.question._id === item.questionId)
+                      }
 
-                      let questionIndex = quiz.findIndex(element => element.question._id === item.questionId)
                       navigate("/question", {
                         state: {
                           quizId: prevData.quizId,
                           user: localStorage.getItem("userId"),
-                          optionId: item.optionId,
-                          questionId: item.questionId,
-                          sectionCategory: prevData.sectionCategory,
+                          sectionCategory: params?.state?.sectionCategory,
+                          paragraphIndex,
                           questionIndex,
-                          quiz:quiz,
-                          prevState: params.state
-                        },
-                      })
-                    }
-                    }
+                          selectedOption: item.optionId,
+                          quiz: quiz,
+                          prevState: params.state,
+                        }
+                      });
+                    }}
                     // onClick={() =>
                     //   navigate('/question', {state:{
                     //       sectionCategory:prevData?.sectionCategory
@@ -405,10 +399,10 @@ const ResultSummaryOrg = (props) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      cursor: 'pointer',
-                        '&:hover': {
-                            backgroundColor: 'blue',
-                        },
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: "blue",
+                      },
                     }}
                   >
                     <FormControlLabel

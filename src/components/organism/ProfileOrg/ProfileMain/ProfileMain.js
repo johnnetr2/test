@@ -24,7 +24,7 @@ const ProfileMain = () => {
         <Grid item sm={6} xs={10}>
           <ProfileFeedContent />
         </Grid>
-        <Grid item sm={5} className={classes.right} style={{backgroundColor:'#fafafa'}}>
+        <Grid item sm={5} style={{backgroundColor:'#fafafa'}}>
           <ProfileRightBar />
         </Grid>
       </Grid>

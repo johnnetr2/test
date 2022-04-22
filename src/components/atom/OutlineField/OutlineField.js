@@ -16,6 +16,7 @@ const Outline_Field = (props) => {
           border: '1px solid #e1e1e1',
           display: 'flex',
           flexWrap: 'wrap',
+          marginBottom:'.75rem',
           color: '#555555',
           justifyContent: 'center',
           alignItems: 'center',

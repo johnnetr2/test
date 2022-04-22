@@ -24,7 +24,7 @@ const GoalBox = () => {
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <img src={Ellipsis} alt="" />
+          {/* <img src={Ellipsis} alt="" /> */}
         </Box>
         <Box
           sx={{

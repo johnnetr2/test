@@ -13,6 +13,7 @@ import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
 import { Input } from "reactstrap";
+import { width } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,11 +23,13 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #212121",
   },
   iconFilled: {
-    color:'#0A1596',
-    "&:hover": {
+    "& .MuiRating-iconFilled": {
       color: "#0A1596",
-    }
-  }
+    },
+    "& .MuiRating-iconHover": {
+      color: "#0A1596",
+    },
+  },
 }));
 
 const MessageFeedContent = () => {
@@ -35,7 +38,7 @@ const MessageFeedContent = () => {
   const [value, setValue] = useState();
 
   return (
-    <Container className={classes.root}>
+    <Container className={classes.root} disableGutters>
       <Box
         sx={{
           display: "flex",
@@ -45,7 +48,7 @@ const MessageFeedContent = () => {
           height: "20rem",
         }}
       >
-        <Typography variant="h5" component="h5">
+        <Typography variant="h5" component="h5" style={{ textAlign: "center" }}>
           Berätta för oss vad du tycker! Prov
         </Typography>
         <Box sx={{ marginTop: "3rem", marginBottom: "1rem" }}>
@@ -64,7 +67,6 @@ const MessageFeedContent = () => {
           />
         </Box>
       </Box>
-
       <Box
         sx={{
           display: "flex",
@@ -78,7 +80,7 @@ const MessageFeedContent = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: "50rem",
+            maxWidth: "50rem",
             flexDirection: "column",
           }}
         >
@@ -89,7 +91,8 @@ const MessageFeedContent = () => {
               alignItems: "flex-start",
               marginTop: "1rem",
               marginBottom: "1rem",
-              width: "40rem",
+              width: "50vw",
+              flexWrap: "wrap",
             }}
           >
             <Typography variant="body1">Din feedback</Typography>
@@ -100,19 +103,27 @@ const MessageFeedContent = () => {
               (0/500)
             </Typography>
           </Box>
-          
-            <TextareaAutosize
-              aria-label="empty textarea"
-              placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
-              style={{ width: 640, backgroundColor:'#f2f2f2', border:'none', padding:'2rem', borderRadius:'5px' }}
-            />
+          <TextareaAutosize
+            aria-label="empty textarea"
+            placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
+            style={{
+              backgroundColor: "#f2f2f2",
+              border: "none",
+              padding: "2rem",
+              borderRadius: "5px",
+              display: "flex",
+              flexWrap: "wrap",
+              width: "50vw",
+            }}
+          />
           <Box
             sx={{
-              width: "40rem",
               marginTop: "2rem",
               marginBottom: "2rem",
               display: "flex",
+              flexWrap: "wrap",
               justifyContent: "center",
+              width: "50vw",
             }}
           >
             <Button

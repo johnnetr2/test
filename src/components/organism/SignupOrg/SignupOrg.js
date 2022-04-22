@@ -1,23 +1,22 @@
 import React, { useState } from "react";
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography, Box, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Label_field from "../../molecule/LabelField/LabelField";
-import Filled_btn from "../../atom/FilledBtn/FilledBtn";
-import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
+import LabelField from "../../molecule/LabelField/LabelField";
+import FilledBtn from "../../atom/FilledBtn/FilledBtn";
+import OutlineBtn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
 import { instance, EndPoints } from "../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingRight: theme.spacing(0),
-    paddingLeft: theme.spacing(0),
-    marginRight: theme.spacing(0),
-    marginLeft: theme.spacing(0),
+  hideOnMobile: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none !important'
+    }
   },
 }));
 
-const Signup_org = () => {
+const SignupOrg = () => {
   const classes = useStyles();
 
   const [register, setRegister] = useState({
@@ -39,20 +38,19 @@ const Signup_org = () => {
       password: register.password,
     };
 
-
     const URL = EndPoints.SignUp;
     instance
       .post(URL, data)
       .then((response) => {
         if (response.data.message == "success") {
           if (response.data.user.token) {
-            localStorage.setItem('userId', response.data.user.user._id)
-            localStorage.setItem('token', response.data.user.token)
+            localStorage.setItem("userId", response.data.user.user._id);
+            localStorage.setItem("token", response.data.user.token);
             swal("Success!", response.data.message, "success");
             window.location.href = "/login";
           }
         } else {
-          swal("Warning!", response.data.message, 'warning');
+          swal("Warning!", response.data.message, "warning");
         }
       })
       .catch((error) => {
@@ -67,9 +65,10 @@ const Signup_org = () => {
       sx={{ boxSizing: "border-box", display: "flex" }}
     >
       <Container
-        maxWidth="500"
+        className={classes.hideOnMobile}
+        // maxWidth="500"
         sx={{
-          minHeight: "fit-content",
+          minHeight: "100vh",
           width: "40%",
           backgroundColor: "#0A1596",
         }}
@@ -92,7 +91,7 @@ const Signup_org = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </Typography>
           </Box>
-          <Label_field
+          <LabelField
             type="text"
             title="Full Name"
             placeholder="Full Name"
@@ -100,7 +99,7 @@ const Signup_org = () => {
             value={register.fullName}
             name="fullName"
           />
-          <Label_field
+          <LabelField
             type="email"
             title="Email"
             placeholder="Email"
@@ -108,7 +107,7 @@ const Signup_org = () => {
             value={register.email}
             name="email"
           />
-          <Label_field
+          <LabelField
             type="password"
             title="Password"
             placeholder="Password"
@@ -119,14 +118,12 @@ const Signup_org = () => {
           <Typography variant="body1">Glomt losenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
-              <Filled_btn
-                onClick={clickHandler}
-                title="Skapa konto" />
+              <FilledBtn onClick={clickHandler} title="Skapa konto" />
             </Link>
           </Box>
           <Typography variant="body1">eller</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Outline_btn title="Konto med Google" />
+            <OutlineBtn title="Konto med Google" />
           </Box>
           <Typography
             variant="body1"
@@ -153,4 +150,4 @@ const Signup_org = () => {
   );
 };
 
-export default Signup_org;
+export default SignupOrg;

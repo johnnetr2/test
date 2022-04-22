@@ -14,80 +14,82 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { instance, instance2, EndPoints } from "../../service/Route";
-
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-];
-
-const ITEM_HEIGHT = 48;
-
-export function LongMenu() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div>
-      <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls={open ? "long-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="long-menu"
-        MenuListProps={{
-          "aria-labelledby": "long-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch",
-          },
-        }}
-      >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === "Pyxis"}
-            onClick={handleClose}
-          >
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
-  );
-}
+import { useNavigate } from "react-router-dom";
 
 export const CategoryTable = (props) => {
-  const [tabledata, setTabledata] = useState([]);
-
   const categoryTable = props.tableHistory;
+  console.log(categoryTable, "category table");
+  const [sectionCategory, setSectionCategory] = useState("");
+
+  const navigate = useNavigate();
+
+  const MenuIcon = (row) => {
+    const options = "SE RESULTAT";
+    const ITEM_HEIGHT = 48;
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    return (
+      <div>
+        <IconButton
+          aria-label="more"
+          id="long-button"
+          aria-controls={open ? "long-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          MenuListProps={{
+            "aria-labelledby": "long-button",
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: "20ch",
+            },
+          }}
+        >
+          <MenuItem
+            onClick={() => {
+              ResultHandler(row);
+            }}
+          >
+            {options}
+          </MenuItem>
+        </Menu>
+      </div>
+    );
+  };
 
   useEffect(() => {
+    setSectionCategory(props?.sectionCategory);
   }, []);
+
+  const ResultHandler = (row) => {
+    navigate("/resultsummary", {
+      state: {
+        quizId: row.row.quiz,
+        sectionCategory: sectionCategory,
+        user: localStorage.getItem("userId"),
+        quiz: props?.quiz,
+      },
+    });
+  };
 
   return (
     <Box>
@@ -111,20 +113,20 @@ export const CategoryTable = (props) => {
           <TableBody>
             {categoryTable.map((row) => {
               return (
-                <>
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.createdAt}
-                    </TableCell>
-                    <TableCell align="left">
-                      {row.correctAnswer} av {row.totalQuestion}
-                    </TableCell>
-                    <TableCell align="left">0.0</TableCell>
-                    <TableCell align="left"><MoreVertIcon /></TableCell>
-                  </TableRow>
-                </>
+                <TableRow
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.createdAt}
+                  </TableCell>
+                  <TableCell align="left">
+                    {row.correctAnswer} av {row.totalQuestion}
+                  </TableCell>
+                  <TableCell align="left">0.0</TableCell>
+                  <TableCell align="left">
+                    <MenuIcon row={row} />
+                  </TableCell>
+                </TableRow>
               );
             })}
           </TableBody>

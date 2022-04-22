@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
 import BarChart from "../../../../../molecule/Charts/BarChart";
 import LineChart from "../../../../../molecule/Charts/LineChart";
@@ -18,25 +17,21 @@ const useStyles = makeStyles((theme) => ({
 
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
-  const [progressData, setProgressData] = useState("")
-  const [lastWeekTasks, setLastWeekTasks] = useState("")
-
-
+  const [progressData, setProgressData] = useState("");
+  const [lastWeekTasks, setLastWeekTasks] = useState("");
 
   useEffect(() => {
-    const URL = EndPoints.testHistory + props.item._id
+    const URL = EndPoints.testHistory + props.item._id;
     instance2.get(URL).then((response) => {
-      setProgressData(response.data, 'token response')
+      setProgressData(response.data, "token response");
     });
-
-    const LastWeekURL = EndPoints.lastWeekTasks + localStorage.getItem('userId')
-    instance2.get(LastWeekURL).then((response)=>{
-      setLastWeekTasks(response.data.totalData)
-    })
-
-    
+    const LastWeekURL =
+      EndPoints.lastWeekTasks + localStorage.getItem("userId");
+    instance2.get(LastWeekURL).then((response) => {
+      setLastWeekTasks(response.data.totalData);
+    });
   }, []);
-  
+
   const normalise = (progressData) => ((progressData - 0) * 100) / (1000 - 0);
 
   return (
@@ -81,7 +76,9 @@ const CategoryPagesRightBar = (props) => {
         <Box style={{ marginTop: "2rem" }}>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ width: "50%", marginLeft: "1rem" }}>
-              <Typography variant="h5">{lastWeekTasks}</Typography>
+              <Typography variant="h5">
+                {!lastWeekTasks ? "0" : lastWeekTasks}
+              </Typography>
               <Typography variant="body2">
                 Gjorda uppgifter förra veckan
               </Typography>

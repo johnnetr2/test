@@ -1,18 +1,15 @@
-import React from "react";
-import {
-  Container,
-  makeStyles,
-  Box,
-  Button,
-} from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Container, makeStyles, Box, Button } from "@material-ui/core";
 import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import InputField from "../../../atom/InputField/InputField";
 import FilledBtn from "../../../atom/FilledBtn/FilledBtn";
+import swal from 'sweetalert'
+import { instance2, EndPoints } from "../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(4)
   },
   test: {
     border: "2px solid #212121",
@@ -22,6 +19,64 @@ const useStyles = makeStyles((theme) => ({
 const ProfileFeedContent = () => {
   const classes = useStyles();
 
+  const LogoutFunc = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("fullName");
+    localStorage.removeItem("email");
+    window.location.href = "/login";
+  }
+
+
+  const DeleteFunc = (id) => {
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const URL = EndPoints.deleteAccount + localStorage.getItem("userId")
+        instance2.delete(URL).then(response => {
+          console.log(response)
+          if (response.data.message == "deleted Student") {
+            localStorage.removeItem("userId");
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
+            localStorage.removeItem("fullName");
+            localStorage.removeItem("email");
+            swal('Success', 'Account deleted successfully', 'success')
+            window.location.href = '/'
+          } else {
+            swal('warning', response.data.message, 'warning')
+          }
+        })
+          .catch((error) => {
+            swal("Oops!", "Something went wrong.", "error");
+          });
+      }
+    });
+  };
+
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+
+    } else {
+      swal({ title: "Please login to continue", icon: "warning", dangerMode: true, })
+        .then((willDelete) => {
+          if (willDelete) {
+            window.location.href = '/login'
+          } else {
+            window.location.href = '/login'
+          }
+        });
+    }
+
+  }, []);
+
+
   return (
     <Container className={classes.root}>
       <Box>
@@ -30,12 +85,14 @@ const ProfileFeedContent = () => {
           sx={{
             marginTop: "3rem",
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             alignItems: "center",
           }}
         >
           <BodyText title="E-MAIL" />
-          <Box sx={{ marginLeft: "4rem", width: "80%" }}>
+          <Box
+            sx={{ width: "65%" }}
+          >
             <InputField
               type="email"
               placeholder="magnusbest@hotmail.com"
@@ -44,8 +101,8 @@ const ProfileFeedContent = () => {
           </Box>
         </Box>
       </Box>
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ marginLeft: "6.5rem", marginRight: "0.75rem" }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Box sx={{ width: '24rem' }}>
           <FilledBtn title="Spara ändringar" />
         </Box>
       </Box>
@@ -80,11 +137,11 @@ const ProfileFeedContent = () => {
           flexDirection: "column",
         }}
       >
-        <Box sx={{marginTop:'1rem'}}>
-          <BodyText title="Ta bort mitt konto" />
+        <Box sx={{ marginTop: "1rem", color: 'red', cursor: 'pointer' }}>
+          <BodyText title="Ta bort mitt konto" onClick={DeleteFunc} />
         </Box>
-        <Box sx={{marginTop:'1rem'}}>
-          <BodyText title="logga ut" />
+        <Box sx={{ marginTop: "1rem", color: 'red', cursor: 'pointer' }}>
+          <BodyText title="logga ut" onClick={LogoutFunc} />
         </Box>
       </Box>
     </Container>
