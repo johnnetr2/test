@@ -129,8 +129,8 @@ const QuestionViewDTKOrg = (props) => {
     console.log(question, ';this is question')
     if (props.paragraphIndex != undefined && question.answer.option == option._id) {
       return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
-    } else if (props.paragraphIndex && optionIndex == question.selectedOptionIndex) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+    } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {
+      return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: ".4rem", }} />;
     }
     if (optionIndex == question.selectedIndex) {
       return <Radio color="primary" checked={true} />;
