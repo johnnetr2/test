@@ -237,9 +237,9 @@ const QuestionViewDTKOrg = (props) => {
             >
               <MarkLatex content={quiz?.description} />
             </Typography>
-            <Box>
+            {quiz?.image && <Box>
               <img src={quiz?.image} style={{ width: '100%' }} alt="" />
-            </Box>
+            </Box>}
           </Box>
           {
             showResult ? (<ResultQuestionViewDtkOrg paragraphIndex={props.paragraphIndex}
@@ -285,7 +285,7 @@ const QuestionViewDTKOrg = (props) => {
                       >
                         <MarkLatex content={question.questionStatement} />
 
-                        {question.images && <img src={question.images[0]} style={{ height: '10rem', marginBottom: '.4rem' }} />}
+                        {question.image && <img src={question.image[0]} style={{ height: '10rem', marginBottom: '.4rem' }} />}
                       </Typography>
                     </Box>
                     {question.options[0].options.map((option, optionIndex) => {
