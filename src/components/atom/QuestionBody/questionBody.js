@@ -134,12 +134,12 @@ const QuestionBody = (props) => {
                                         </Box>
 
                                         <Box mt={2} ml={5}>
-                                            {item.image ? (
+                                            {/* {item.image ? (
                                                 <img src={item.image} />
 
-                                            ) : (
+                                            ) : ( */}
                                                 <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
-                                            )}
+                                            {/* )} */}
                                         </Box>
                                     </Box>
                                 </Box>
