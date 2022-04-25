@@ -39,7 +39,6 @@ const ProfileFeedContent = () => {
       if (willDelete) {
         const URL = EndPoints.deleteAccount + localStorage.getItem("userId")
         instance2.delete(URL).then(response => {
-          console.log(response)
           if (response.data.message == "deleted Student") {
             localStorage.removeItem("userId");
             localStorage.removeItem("token");

@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 
 export const CategoryTable = (props) => {
   const categoryTable = props.tableHistory;
-  console.log(categoryTable, "category table");
   const [sectionCategory, setSectionCategory] = useState("");
 
   const navigate = useNavigate();

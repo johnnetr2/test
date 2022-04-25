@@ -51,7 +51,6 @@ export default function EndPopup({
 
   useEffect(() => {
     onSliderChange(1);
-    // console.log(valuetext, "slider text value")
   }, []);
 
   return (

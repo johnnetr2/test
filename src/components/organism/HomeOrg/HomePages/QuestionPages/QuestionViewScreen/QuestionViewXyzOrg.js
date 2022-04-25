@@ -143,7 +143,6 @@ const QuestionViewXyzOrg = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    console.log(params?.state.quiz, 'this is quiz')
     const questionToShow = params?.state?.paragraphIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -180,7 +179,7 @@ const QuestionViewXyzOrg = () => {
         })
       )
     } catch (error) {
-      console.log('in catch')
+      console.log('in catch block')
     }
   }
 

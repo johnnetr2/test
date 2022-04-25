@@ -7,11 +7,6 @@ import Wrong from '../../../assets/Imgs/wrong.png'
 
 const MultiAnswer = (props) => {
 
-  // useEffect(() => {
-  //   console.log(props.question, 'this is data on result screen')
-  // }, [])
-
-
   const options = (item, index) => {
     if (props?.question?.answer && props?.question?.answer?.option === item._id ) {
       return <img src={Correct} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem', marginTop: '.5rem', marginBottom: '.5rem', }} />
