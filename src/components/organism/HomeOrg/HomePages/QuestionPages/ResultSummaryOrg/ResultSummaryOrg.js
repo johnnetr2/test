@@ -82,7 +82,6 @@ const ResultSummaryOrg = (props) => {
   const [responseCollection, setresponseCollection] = useState({});
 
   useEffect(() => {
-    console.log(params.state)
     setPrevData(params?.state);
     let totalTime = params.state.totalTime * 60;
     let remainingTime = params.state.timeLeft;

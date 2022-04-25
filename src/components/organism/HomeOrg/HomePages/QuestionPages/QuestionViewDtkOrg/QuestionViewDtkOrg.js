@@ -126,7 +126,6 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const Options = (question, option, optionIndex) => {
-    console.log(question, ';this is question')
     if (props.paragraphIndex != undefined && question.answer.option == option._id) {
       return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
     } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {

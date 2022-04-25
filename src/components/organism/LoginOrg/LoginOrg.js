@@ -59,23 +59,6 @@ const LoginOrg = () => {
       });
   };
 
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(data => {
-  //     if(data.user) {
-
-  //     }
-  //     console.log(data)
-  //     setData(data);
-  //   })
-  // }, [])
-
-  // console.log(data);
-
-  // const signInWithGoogle = () => {
-  //   const provider = new firebase.auth.GoogleAuthProvider
-  //   auth.signInwithPopup(provider)
-  // }
-
   return (
     <Container
       disableGutters

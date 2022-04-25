@@ -75,11 +75,6 @@ const ResultQuestionViewDtkOrg = (props) => {
     props.nextQuestion()
   }
 
-  // useEffect(() => {
-  //   console.log(props?.quiz.question, 'this is props')
-  // }, [])
-
-
   const showResult = (item, index) => {
     const quiz = [...paragraph]
     const question = quiz[index]

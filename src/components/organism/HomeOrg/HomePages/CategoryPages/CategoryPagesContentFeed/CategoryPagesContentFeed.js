@@ -67,9 +67,7 @@ const CategoryPagesFeedContent = (props) => {
   const [allChecked, setAllChecked] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const params = useLocation();
-
   const quiz = params?.state?.quiz;
-  console.log(quiz, "category page: quiz");
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -101,6 +99,7 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectedItem = (e, item) => {
+    SetCategoryError(false)
     setSelectAll([]);
     setAllChecked(false);
 
@@ -119,6 +118,7 @@ const CategoryPagesFeedContent = (props) => {
     if (e.target.checked) {
       setAllChecked(true);
       setCheckData([]);
+      SetCategoryError(false)
 
       let newArray = [...selectAll];
       questionCategories?.map((item) => {
@@ -137,7 +137,7 @@ const CategoryPagesFeedContent = (props) => {
     if (chekedValue == undefined) {
       setError(true);
     } else {
-      // if (checkType) {
+      if (selectAll.length > 0 || checkedData.length > 0) {
       setOpen(true);
       const data = {
         questionCategory: allChecked ? selectAll : checkedData,
@@ -163,9 +163,9 @@ const CategoryPagesFeedContent = (props) => {
         }
       });
 
-      // } else {
-      //   SetCategoryError(true)
-      // }
+      } else {
+        SetCategoryError(true)
+      }
     }
   };
 
@@ -370,15 +370,16 @@ const CategoryPagesFeedContent = (props) => {
         </Box>
       </Box>
       <Box
-        variant="contained"
         sx={{
           marginTop: "2rem",
           backgroundColor: "#0A1596",
           color: "#fff",
           borderRadius: "6px",
           height: "3rem",
+          display: 'flex',
           alignItems: "center",
-          paddingTop: "1%",
+          justifyContent: 'center',
+          cursor: 'pointer'
         }}
         onClick={onSubmit}
       >

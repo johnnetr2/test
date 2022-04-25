@@ -13,11 +13,7 @@ import MarkLatex from "../Marklatex/MarkLatex";
 
 const QuestionBody = (props) => {
 
-    const [question, setQuestion] = useState(props?.question)
-    useEffect(() => {
-      console.log(props.question, 'this is a question')
-    }, [])
-    
+    const [question, setQuestion] = useState(props?.question)    
 
     if (props.question.type == "multiple") {
         return <QuestionViewDTKOrg
@@ -196,10 +192,10 @@ const QuestionBody = (props) => {
                                     marginTop: "2rem",
                                 }}
                             >
-                                {question.answer.image && (
+                                {question?.answer?.image && (
                                     <img
                                         style={{ height: 110 }}
-                                        src={question.answer.image}
+                                        src={question?.answer?.image}
                                         alt=""
                                     />
                                 )}
