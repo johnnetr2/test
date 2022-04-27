@@ -74,7 +74,7 @@ const QuestionViewXyzOrg = () => {
         const data = {
           quiz: params?.state?.data?._id,
           user: localStorage.getItem("userId"),
-          optionId: question.selectedOptionID,
+          optionId: question.optionId,
           questionId: question._id,
           sectionCategory: params?.state?.sectionCategory._id,
           timeleft: timeLeft ? timeLeft : null,
@@ -200,9 +200,9 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
-    if (question.answer && question.optionId == curentOption._id) {
+    if (question.answer && question.answer.option == curentOption._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
-    } else if (question.answer && curentOption._id === question?.answer.option) {
+    } else if (question.answer && curentOption._id === question?.optionId) {
       return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
     } 
     // else {
