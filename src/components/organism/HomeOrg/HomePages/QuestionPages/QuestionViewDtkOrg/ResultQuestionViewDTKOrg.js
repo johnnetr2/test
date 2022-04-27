@@ -111,7 +111,7 @@ const ResultQuestionViewDtkOrg = (props) => {
           >
             {/* <FormControlLabel control={<Checkbox color="primary" />} /> */}
 
-            {item.selectedOptionID === item?.answer?.option ? (<img src={Correct} style={{ height: '2rem', marginTop: '1.8rem' }} />)
+            {item.optionId === item?.answer?.option ? (<img src={Correct} style={{ height: '2rem', marginTop: '1.8rem' }} />)
               :
               (<img src={Wrong} style={{ height: '2rem', marginTop: '1.8rem' }} />)
             }

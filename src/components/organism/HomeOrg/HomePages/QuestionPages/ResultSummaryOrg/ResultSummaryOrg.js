@@ -361,6 +361,7 @@ const ResultSummaryOrg = (props) => {
             }}
           >
             {responseCollection && responseCollection?.questions?.map((item, index) => {
+              console.log(item,' ;this is item')
               return (
                 <Box
                   key={index}

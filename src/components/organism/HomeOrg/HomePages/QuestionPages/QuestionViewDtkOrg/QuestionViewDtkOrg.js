@@ -84,7 +84,7 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    if (props.questionIndex != undefined) {
+    if (props.paragraphIndex != undefined) {
       setSelectedIndex(props.questionIndex)
       setQuiz(props.question)
     } else {
@@ -120,17 +120,17 @@ const QuestionViewDTKOrg = (props) => {
     const qz = allQuiz?.question
     let question = qz[selectedIndex];
     question.selectedOptionIndex = optionIndex;
-    question.selectedOptionID = e.target.value;
+    question.optionId = e.target.value;
     allQuiz.question = qz
     setQuiz(allQuiz)
   };
 
   const Options = (question, option, optionIndex) => {
-    if (props.paragraphIndex != undefined && question.answer.option == option._id) {
-      return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
-    } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: ".4rem", }} />;
-    }
+    // if (props.paragraphIndex != undefined && question.answer.option == option._id) {
+    //   return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
+    // } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {
+    //   return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: ".4rem", }} />;
+    // }
     if (optionIndex == question.selectedIndex) {
       return <Radio color="primary" checked={true} />;
     } else {
@@ -164,7 +164,7 @@ const QuestionViewDTKOrg = (props) => {
       const data = {
         quiz: props.quizId,
         user: localStorage.getItem("userId"),
-        optionId: selectedquestion?.selectedOptionID,
+        optionId: selectedquestion?.optionId,
         questionId: selectedquestion?._id,
         sectionCategory: props?.sectionCategory._id,
         timeleft: props.timeLeft ? props.timeLeft : null,
