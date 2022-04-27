@@ -52,11 +52,7 @@ const QuestionViewXyzOrg = () => {
         localStorage.setItem('quizId', params?.state?.quizId)
         navigate("/resultsummary", {
           state: {
-            // quizId: params?.state?.data?._id,
             sectionCategory: params?.state?.sectionCategory,
-            timeLeft: timeLeft,
-            totalTime: time,
-            quiz: quiz,
             quizId: params?.state?.quizId
           },
         });
@@ -68,7 +64,7 @@ const QuestionViewXyzOrg = () => {
       if (question.selectedIndex + 1) {
         const questions = [...quiz];
         let ques = questions[selectedIndex];
-        const URL = EndPoints.getAnswerByQuestionId + ques.question._id;
+        const URL = EndPoints.getAnswerByQuestionId + ques._id;
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
@@ -79,7 +75,7 @@ const QuestionViewXyzOrg = () => {
           quiz: params?.state?.data?._id,
           user: localStorage.getItem("userId"),
           optionId: question.selectedOptionID,
-          questionId: question.question._id,
+          questionId: question._id,
           sectionCategory: params?.state?.sectionCategory._id,
           timeleft: timeLeft ? timeLeft : null,
           totaltime: time ? time * 60 : null,
@@ -140,15 +136,11 @@ const QuestionViewXyzOrg = () => {
 
   const classes = useStyles();
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const questionToShow = params?.state?.paragraphIndex;
+    const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
-      setQuiz(params?.state?.quiz);
-    } else if (params?.state?.questionIndex != undefined) {
-      setSelectedIndex(params?.state?.questionIndex);
       setQuiz(params?.state?.quiz);
     } else {
       setQuiz(params?.state?.data?.quiz);
@@ -161,7 +153,7 @@ const QuestionViewXyzOrg = () => {
     try {
       return await Promise.all(
         quiz.map(async (item) => {
-          if (!item.answerSubmited) {
+          if (!item.answer) {
             const data = {
               quiz: params?.state?.data?._id,
               user: localStorage.getItem("userId"),
@@ -188,7 +180,7 @@ const QuestionViewXyzOrg = () => {
     const questions = [...quiz];
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
-    question.selectedOptionID = e.target.value;
+    question.optionId = e.target.value;
     setQuiz(questions);
   };
 
@@ -208,15 +200,18 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
-    if (question.answer && question.answer.option == curentOption._id) {
+    if (question.answer && question.optionId == curentOption._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
-    } else if (question.answer && optionIndex == question.selectedIndex) {
+    } else if (question.answer && curentOption._id === question?.answer.option) {
       return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
-    }
+    } 
+    // else {
+    //   return <Radio color="primary" checked={false} />;
+    // }
     if (optionIndex == question.selectedIndex) {
-      return <Radio color="primary" checked={true} />;
+      return <Radio color="primary" checked={true} style={{ marginRight: "0.5rem" }} />;
     } else {
-      return <Radio color="primary" checked={false} />;
+      return <Radio color="primary" checked={false} style={{ marginRight: "0.5rem" }} />;
     }
   };
 
@@ -229,11 +224,7 @@ const QuestionViewXyzOrg = () => {
           onResultHandler={() => {
             navigate("/resultsummary", {
               state: {
-                // quizId: params?.state?.prevState?.quizId,
                 sectionCategory: params?.state?.sectionCategory,
-                timeLeft: params?.state?.prevState?.timeLeft,
-                totalTime: params?.state?.prevState?.totalTime,
-                quiz: quiz,
                 quizId: params?.state?.quizId
               },
             });
@@ -304,8 +295,10 @@ const QuestionViewXyzOrg = () => {
 
 
   const PopupHandler = () => {
-    const checkPopup = params?.state?.quiz;
-    if (checkPopup[0].answerSubmited == true) {
+    const checkPopup = params?.state?.questionIndex;
+    if (checkPopup != undefined) {
+
+    } else if (!params?.state?.questionIndex != undefined) {
       setOpen(true);
       setIsOpen(false);
     } else {
@@ -331,11 +324,6 @@ const QuestionViewXyzOrg = () => {
           }}
         >
           <Box
-            // onClick={() =>
-            //   params?.state?.questionIndex != undefined
-            //     ? setIsOpen(true)
-            //     : setOpen(true)
-            // }
             onClick={PopupHandler}
             sx={{
               height: "8vh",
@@ -426,11 +414,7 @@ const QuestionViewXyzOrg = () => {
             });
             navigate("/resultsummary", {
               state: {
-                // quizId: params?.state?.data?._id,
                 sectionCategory: params?.state?.sectionCategory,
-                timeLeft: params?.state?.prevState?.timeLeft,
-                totalTime: params?.state?.prevState?.totalTime,
-                quiz: quiz,
                 quizId: params?.state?.quizId
               },
             });
@@ -444,9 +428,6 @@ const QuestionViewXyzOrg = () => {
               navigate("/resultsummary", {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
-                  timeLeft: params?.state?.prevState?.timeLeft,
-                  totalTime: params?.state?.prevState?.totalTime,
-                  quiz: quiz,
                   quizId: params?.state?.quizId
                 },
               });
@@ -490,9 +471,6 @@ const QuestionViewXyzOrg = () => {
                 navigate("/resultsummary", {
                   state: {
                     sectionCategory: params?.state?.sectionCategory,
-                    timeLeft: params?.state?.prevState?.timeLeft,
-                    totalTime: params?.state?.prevState?.totalTime,
-                    quiz: quiz,
                     quizId: params?.state?.quizId
                   },
                 });
@@ -507,9 +485,6 @@ const QuestionViewXyzOrg = () => {
                   navigate("/resultsummary", {
                     state: {
                       sectionCategory: params?.state?.sectionCategory,
-                      timeLeft: params?.state?.timeLeft,
-                      totalTime: params?.state?.totalTime,
-                      quiz: quiz,
                       quizId: params?.state?.quizId
                     },
                   })
