@@ -62,16 +62,17 @@ function MultiQuestionSummary(props) {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
-                  backgroundColor: '#fff'
+                  backgroundColor: '#fff',
+                  overflow: 'auto' 
               }}
           >
 
               <Typography
                   variant="h6"
                   component="h6"
-                  style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
+                  style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex'}}
               >
-                  <MarkLatex content={question?.multipartQuestion.description} />
+                  {question?.multipartQuestion.description}
               </Typography>
 
               <Typography
@@ -137,7 +138,6 @@ function MultiQuestionSummary(props) {
                })}
               {/* {Button(question) } */}
           </Box>
-
               <Box
                   paddingX={4}
                   mt={3}
@@ -171,6 +171,7 @@ function MultiQuestionSummary(props) {
                                   fontSize: ".75rem",
                                   fontWeight: "500",
                                   marginTop: 10,
+                                  width: question?.answer.image ? 'auto' : 540
                               }}
                           >
                               <MarkLatex content={question?.answer.answer} />

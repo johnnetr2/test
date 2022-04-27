@@ -186,6 +186,7 @@ const QuestionBody = (props) => {
                                         fontSize: ".75rem",
                                         fontWeight: "500",
                                         marginTop: 10,
+                                        width: question?.answer.image ? 'auto' : 500
                                     }}
                                 >
                                     {/* {question.answer.answer} */}

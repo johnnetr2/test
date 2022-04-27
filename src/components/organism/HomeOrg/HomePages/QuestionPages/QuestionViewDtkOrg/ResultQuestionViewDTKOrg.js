@@ -109,7 +109,6 @@ const ResultQuestionViewDtkOrg = (props) => {
               display: "flex",
             }}
           >
-            {/* <FormControlLabel control={<Checkbox color="primary" />} /> */}
 
             {item.optionId === item?.answer?.option ? (<img src={Correct} style={{ height: '2rem', marginTop: '1.8rem' }} />)
               :
@@ -119,7 +118,7 @@ const ResultQuestionViewDtkOrg = (props) => {
               padding={1}
               mt={2}
               mb={2}
-              style={{ width: 500 }}
+              style={{ width: 500}}
             >
               <Typography
                 style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
