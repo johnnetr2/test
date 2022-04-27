@@ -9,13 +9,15 @@ import {
     Container,
 } from "@material-ui/core";
 import MarkLatex from "../Marklatex/MarkLatex";
+import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
+import { style } from "@mui/system";
 
 
 const QuestionBody = (props) => {
 
-    const [question, setQuestion] = useState(props?.question)    
+    const [question, setQuestion] = useState(props?.question)
 
-    if (props.question.type == "multiple") {
+    if (props.question.type == 'multiple') {
         return <QuestionViewDTKOrg
             question={props.question} selectedOption={props.selectedOption}
             selectedIndex={props.selectedIndex} onRightClick={() => props.onRightClick()}
@@ -25,7 +27,13 @@ const QuestionBody = (props) => {
             totalTime={props.totalTime} quiz={props.quiz} sectionCategory={props?.sectionCategory}
             nextQuestion={() => props.nextQuestion()}
             stopTimer={() => props.stopTime()}
-            startTimer={() => props.startTime() }
+            startTimer={() => props.startTime()}
+        />
+    } else if (props.question.multipartQuestion) {
+        return <MultiQuestionSummary question={props?.question}
+            selectedIndex={props.selectedIndex} onRightClick={() => props.onRightClick()}
+            questionIndex={props.questionIndex} quiz={props.quiz} onResultHandler={() => props.onResultHandler()}
+            onLeftClick={() => props.onLeftClick()}
         />
     } else {
         return (
@@ -61,15 +69,15 @@ const QuestionBody = (props) => {
                         component="h6"
                         style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex' }}
                     >
-                        <MarkLatex content={question?.question?.questionStatement} />
+                        <MarkLatex content={question?.questionStatement} />
                     </Typography>
 
-                    {question?.question?.images[0] && <Typography
+                    {question?.images[0] && <Typography
                         variant="h6"
                         component="h6"
                         style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
                     >
-                        <img style={{ height: '100%' }} src={question?.question?.images[0]} />
+                        <img style={{ height: '100%' }} src={question?.images[0]} />
 
                     </Typography>}
 
@@ -81,12 +89,12 @@ const QuestionBody = (props) => {
                         <MarkLatex content={question?.question?.information1} />
                     </Typography>}
 
-                    {question?.question?.information1 && <Typography
+                    {question?.information1 && <Typography
                         variant="h6"
                         component="h6"
                         style={{ fontSize: "0.75rem", fontWeight: "600" }}
                     >
-                        <MarkLatex content={question?.question?.information2} />
+                        <MarkLatex content={question?.information2} />
                     </Typography>}
 
                 </Box>
@@ -100,7 +108,7 @@ const QuestionBody = (props) => {
                         gridTemplateColumns: "1fr 1fr",
                     }}
                 >
-                    {question?.options?.map((item, optionIndex) => {
+                    {question?.options[0].options.map((item, optionIndex) => {
                         if (item.value) {
                             return (
                                 <Box
@@ -120,7 +128,7 @@ const QuestionBody = (props) => {
                                         >
                                             <FormControlLabel
                                                 onClick={(e) => {
-                                                    !question?.answerSubmited && props.SelectOption(e, optionIndex);
+                                                    !question?.answer && props.SelectOption(e, optionIndex);
                                                 }}
                                                 style={{ marginLeft: ".5rem" }}
                                                 value={item?._id}
@@ -134,7 +142,7 @@ const QuestionBody = (props) => {
                                                 <img src={item.image} />
 
                                             ) : ( */}
-                                                <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
+                                            <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
                                             {/* )} */}
                                         </Box>
                                     </Box>
@@ -187,15 +195,14 @@ const QuestionBody = (props) => {
                             <Box
                                 mt={2}
                                 style={{
-                                    backgroundColor: "blue",
                                     marginLeft: "15rem",
                                     marginTop: "2rem",
                                 }}
                             >
-                                {question?.answer?.image && (
+                                {question?.answer && (
                                     <img
                                         style={{ height: 110 }}
-                                        src={question?.answer?.image}
+                                        src={question?.answer.image}
                                         alt=""
                                     />
                                 )}
@@ -216,7 +223,7 @@ const QuestionBody = (props) => {
                                     fontSize: ".75rem",
                                     fontWeight: "500",
                                     marginTop: 10,
-                                    width: "32rem",
+                                    // width: "32rem",
                                 }}
                             >
                                 Berätta för oss om du var nöjd med lösningen

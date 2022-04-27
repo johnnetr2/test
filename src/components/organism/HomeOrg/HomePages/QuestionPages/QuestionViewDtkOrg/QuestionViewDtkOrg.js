@@ -84,7 +84,7 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    if (props.paragraphIndex != undefined) {
+    if (props.questionIndex != undefined) {
       setSelectedIndex(props.questionIndex)
       setQuiz(props.question)
     } else {
