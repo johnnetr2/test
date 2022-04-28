@@ -163,7 +163,7 @@ const ResultSummaryOrg = (props) => {
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {responseCollection?.correctAnswer} av{" "}
-              {responseCollection?.questions.length}
+              {responseCollection?.totalQuestion}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
@@ -259,7 +259,7 @@ const ResultSummaryOrg = (props) => {
                   responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {(responseCollection.correctAnswer /
-                      responseCollection.questions.length) *
+                        responseCollection.totalQuestion) *
                       2}
                   </Typography>
                 ) : (
@@ -361,7 +361,6 @@ const ResultSummaryOrg = (props) => {
             }}
           >
             {responseCollection && responseCollection?.questions?.map((item, index) => {
-              console.log(item,' ;this is item')
               return (
                 <Box
                   key={index}

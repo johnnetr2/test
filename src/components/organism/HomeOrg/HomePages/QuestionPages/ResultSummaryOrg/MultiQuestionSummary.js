@@ -151,7 +151,7 @@ function MultiQuestionSummary(props) {
                       //   '&::-webkit-scrollbar': { width : 0 },
                   }}
               >
-                  <Box sx={{ display: "flex" }}>
+                  <Box sx={{ display: "flex", justifyContent: 'space-between' }}>
                       <Box>
                           <Typography
                               variant="h5"
@@ -171,7 +171,7 @@ function MultiQuestionSummary(props) {
                                   fontSize: ".75rem",
                                   fontWeight: "500",
                                   marginTop: 10,
-                                  width: question?.answer.image ? 'auto' : 540
+                                  width: question?.answer.image ? 'auto' : 540,
                               }}
                           >
                               <MarkLatex content={question?.answer.answer} />
@@ -180,7 +180,7 @@ function MultiQuestionSummary(props) {
                       <Box
                           mt={2}
                           style={{
-                              marginLeft: "15rem",
+                            //   marginLeft: "15rem",
                               marginTop: "2rem",
                           }}
                       >

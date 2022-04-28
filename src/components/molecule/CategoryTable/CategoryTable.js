@@ -59,7 +59,10 @@ export const CategoryTable = (props) => {
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
-              width: "20ch",
+              width: "13ch",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             },
           }}
         >
@@ -85,7 +88,6 @@ export const CategoryTable = (props) => {
         quizId: row.row.quiz,
         sectionCategory: sectionCategory,
         user: localStorage.getItem("userId"),
-        quiz: props?.quiz,
       },
     });
   };

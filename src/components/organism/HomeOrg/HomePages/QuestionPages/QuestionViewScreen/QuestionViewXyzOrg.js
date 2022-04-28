@@ -34,7 +34,7 @@ const QuestionViewXyzOrg = () => {
   const params = useLocation();
   const [status, setStatus] = useState(true);
   const [timeLeft, setTimeLeft] = useState();
-  const time = 5;
+  const time = .25;
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
@@ -153,25 +153,28 @@ const QuestionViewXyzOrg = () => {
     try {
       return await Promise.all(
         quiz.map(async (item) => {
+          console.log(item, 'itemmmmm')
           if (!item.answer) {
+            console.log('In if statement')
             const data = {
               quiz: params?.state?.data?._id,
               user: localStorage.getItem("userId"),
-              questionId: item.question._id,
+              questionId: item._id,
               sectionCategory: params?.state?.sectionCategory._id,
               timeleft: timeLeft ? timeLeft : null,
               totaltime: time ? time * 60 : null,
               spendtime: timeLeft ? time * 60 - timeLeft : null,
             }
+            console.log(data, 'this is data')
             const URL = EndPoints.submitAnswer
             await instance2.post(URL, data).then(response => {
-              console.log(response)
+              console.log(response.data)
             })
-          }
+          } 
         })
       )
     } catch (error) {
-      console.log('in catch block')
+      console.log('in catch block: ', error)
     }
   }
 
@@ -298,7 +301,7 @@ const QuestionViewXyzOrg = () => {
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
 
-    } else if (!params?.state?.questionIndex != undefined) {
+    } else if (quiz[0].answer) {
       setOpen(true);
       setIsOpen(false);
     } else {
@@ -421,7 +424,7 @@ const QuestionViewXyzOrg = () => {
           }}
         />
 
-        {params?.state?.data?.quiz[0]?.answerSubmited == true ? (
+        {params?.state?.data?.quiz[0]?.answer ? (
           <DropPenPopup
             popUpstatus={timeEnd}
             redirect={() => {
@@ -475,7 +478,7 @@ const QuestionViewXyzOrg = () => {
                   },
                 });
               }}
-              startTime={() => setStatus(false)} showOptions={(question, item, optionIndex) => Options(question, item, optionIndex)}
+              startTime={() => setStatus(true)} showOptions={(question, item, optionIndex) => Options(question, item, optionIndex)}
               OptionValue={(optionIndex) => OptionIndex(optionIndex)} submitButton={(question) => getSubmitButton(question)}
               quizId={params?.state?.data?._id} timeLeft={timeLeft}
               nextQuestion={() => {
