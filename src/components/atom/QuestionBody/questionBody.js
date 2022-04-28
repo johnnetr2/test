@@ -138,12 +138,12 @@ const QuestionBody = (props) => {
                                         </Box>
 
                                         <Box mt={2} ml={5}>
-                                            {/* {item.image ? (
+                                            {item.image ? (
                                                 <img src={item.image} />
 
-                                            ) : ( */}
+                                            ) : (
                                             <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
-                                            {/* )} */}
+                                            )}
                                         </Box>
                                     </Box>
                                 </Box>
@@ -166,7 +166,7 @@ const QuestionBody = (props) => {
                             //   '&::-webkit-scrollbar': { width : 0 },
                         }}
                     >
-                        <Box sx={{ width: 500, display: "flex" }}>
+                        <Box sx={{ width: 500, display: "flex", justifyContent: 'space-between' }}>
                             <Box>
                                 <Typography
                                     variant="h5"
@@ -186,7 +186,7 @@ const QuestionBody = (props) => {
                                         fontSize: ".75rem",
                                         fontWeight: "500",
                                         marginTop: 10,
-                                        width: question?.answer.image ? 'auto' : 500
+                                        width: question?.answer.image ? 'auto' : 500,
                                     }}
                                 >
                                     {/* {question.answer.answer} */}
@@ -196,7 +196,7 @@ const QuestionBody = (props) => {
                             <Box
                                 mt={2}
                                 style={{
-                                    marginLeft: "15rem",
+                                    // marginLeft: "15rem",
                                     marginTop: "2rem",
                                 }}
                             >
