@@ -80,37 +80,28 @@ const ResultSummaryOrg = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
-    instance2.get(URL).then(response => {
+    let sumOfTimeSpent = 0
 
-      let totalTime = response.totalTime * 60;
-      let remainingTime = response.timeLeft;
-      let timeSpent = totalTime - remainingTime;
+    instance2.get(URL).then(response => {
+      console.log(response.data, 'this is api data')
+     
+      response.data.questions.map(item => {
+        return sumOfTimeSpent = sumOfTimeSpent + item.spendTime
+      })
+
+      let lengthOfQuestions = response.data.questions.length
+      // let totalTime = response.data.questions[0].totaltime;
+      // let remainingTime = response.data.questions[lengthOfQuestions - 1].timeleft;
       let timePerQuestion;
-      timePerQuestion = timeSpent / response.data.questions.length;
-      if (timeSpent && remainingTime) {
+      timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
+      
+      if (sumOfTimeSpent) {
         setTimePerQues(timePerQuestion);
       } else {
         setTimePerQues(false);
       }
       setresponseCollection(response.data)
     })
-
-    // const URL = EndPoints.getResult + params?.state?.quizId;
-    // try {
-    //   instance2.get(URL).then((response) => {
-    //     if (response.data) {
-    //       setresponseCollection(response.data);
-    //       timePerQuestion = timeSpent / response.data.answer.length;
-    //       if (timeSpent && remainingTime) {
-    //         setTimePerQues(timePerQuestion);
-    //       } else {
-    //         setTimePerQues(false);
-    //       }
-    //     }
-    //   });
-    // } catch (error) {
-    //   swal("Error", error.message);
-    // }
 
     return () => {
       // clearInterval(timer);
@@ -167,8 +158,8 @@ const ResultSummaryOrg = (props) => {
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
-              {responseCollection?.timeLeft
-                ? dispSecondsAsMins(responseCollection?.timeLeft)
+              {responseCollection
+                ? dispSecondsAsMins(responseCollection?.questions[responseCollection.questions.length - 1].timeleft)
                 : "00:00"}
             </Box>
           </Box>
@@ -327,8 +318,8 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 <Typography variant="h4">
-                  {responseCollection?.timeLeft
-                    ? dispSecondsAsMins(responseCollection?.timeLeft)
+                  {responseCollection
+                    ? dispSecondsAsMins(responseCollection?.questions.at(-1).timeleft)
                     : "00:00"}
                 </Typography>
                 <Typography
@@ -429,7 +420,10 @@ const ResultSummaryOrg = (props) => {
                     component="h6"
                     style={{ fontSize: ".75rem", fontWeight: "600" }}
                   >
-                    Tid: 04:51
+                    {/* Tid: 04:51 */}
+                    {item?.spendTime
+                      ? 'Tid: ' + dispSecondsAsMins(item?.spendTime)
+                      : "00:00"}
                   </Typography>
                   <Box
                     style={{

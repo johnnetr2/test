@@ -25,10 +25,9 @@ const CategoryPagesRightBar = (props) => {
     instance2.get(URL).then((response) => {
       setProgressData(response.data, "token response");
     });
-    const LastWeekURL =
-      EndPoints.lastWeekTasks + localStorage.getItem("userId");
+    const LastWeekURL = EndPoints.lastWeekTasks + localStorage.getItem("userId");
     instance2.get(LastWeekURL).then((response) => {
-      setLastWeekTasks(response.data.totalData);
+      setLastWeekTasks(response.data.lastWeek);
     });
   }, []);
 
@@ -126,7 +125,7 @@ const CategoryPagesRightBar = (props) => {
         >
           <Typography variant="h5">0.8</Typography>
           <Typography variant="body2">
-            Prognostiserad normerad poäng KVA
+            Prognostiserad normerad poäng {props?.item.title}
           </Typography>
         </Box>
         <Box sx={{ display: "flex" }}>

@@ -168,8 +168,8 @@ const QuestionViewDTKOrg = (props) => {
         questionId: selectedquestion?._id,
         sectionCategory: props?.sectionCategory._id,
         timeleft: props.timeLeft ? props.timeLeft : null,
-        totaltime: props.totalTime ? props.totalTime * 60 : null,
-        spendtime: props.timeLeft ? props.totalTime * 60 - props.timeLeft : null,
+        totaltime: props.totalTime ? props.totalTime : null,
+        spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
         MultipartQuestion: props.question._id
       }
       const URL = EndPoints.submitAnswer

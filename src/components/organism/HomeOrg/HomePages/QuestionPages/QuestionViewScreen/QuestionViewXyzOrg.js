@@ -33,11 +33,12 @@ const QuestionViewXyzOrg = () => {
   const [quiz, setQuiz] = useState();
   const params = useLocation();
   const [status, setStatus] = useState(true);
-  const [timeLeft, setTimeLeft] = useState();
-  const time = 5;
+  const [timeLeft, setTimeLeft] = useState(-99);
+  const [time, setTime] = useState(120);
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
+  const [nextPress, setNextPress] = useState(undefined);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -46,7 +47,18 @@ const QuestionViewXyzOrg = () => {
   }));
 
 
+  useEffect(() => {
+    const questionToShow = params?.state?.questionIndex;
+    if (questionToShow != undefined) {
+      setSelectedIndex(questionToShow);
+      setQuiz(params?.state?.quiz);
+    } else {
+      setQuiz(params?.state?.data?.quiz);
+    }
+  }, []);
+
   const Next = (question) => {
+    setNextPress(!nextPress)
     if (question.answerSubmited) {
       if (selectedIndex + 1 == quiz.length) {
         localStorage.setItem('quizId', params?.state?.quizId)
@@ -71,24 +83,39 @@ const QuestionViewXyzOrg = () => {
           setQuiz(questions);
           setStatus(false);
         });
-        const data = {
-          quiz: params?.state?.data?._id,
-          user: localStorage.getItem("userId"),
-          optionId: question.optionId,
-          questionId: question._id,
-          sectionCategory: params?.state?.sectionCategory._id,
-          timeleft: timeLeft ? timeLeft : null,
-          totaltime: time ? time * 60 : null,
-          spendtime: timeLeft ? time * 60 - timeLeft : null,
-          MultipartQuestion: null
-        };
-        const Submit = EndPoints.submitAnswer;
-        instance2.post(Submit, data).then((response) => {
-          console.log('Answer submited')
-        });
+
       }
     }
   };
+
+  useEffect(() => {
+    console.log(nextPress, 'this is next preeees')
+    if (nextPress === undefined) {
+      console.log('in if condition')
+      return
+    } else {
+      console.log('in else condition')
+      setTime(timeLeft)
+      const questions = [...quiz];
+      let question = questions[selectedIndex];
+      const data = {
+        quiz: params?.state?.data?._id,
+        user: localStorage.getItem("userId"),
+        optionId: question.optionId,
+        questionId: question._id,
+        sectionCategory: params?.state?.sectionCategory._id,
+        timeleft: timeLeft ? timeLeft : 0,
+        totaltime: time ? time : 0,
+        spendtime: timeLeft ? time - timeLeft : 0,
+        MultipartQuestion: null
+      };
+      const Submit = EndPoints.submitAnswer;
+      instance2.post(Submit, data).then((response) => {
+        console.log('Answer submited')
+      });
+    }
+  }, [nextPress])
+
 
 
   const useStyles = makeStyles((theme) => ({
@@ -137,15 +164,6 @@ const QuestionViewXyzOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const questionToShow = params?.state?.questionIndex;
-    if (questionToShow != undefined) {
-      setSelectedIndex(questionToShow);
-      setQuiz(params?.state?.quiz);
-    } else {
-      setQuiz(params?.state?.data?.quiz);
-    }
-  }, []);
 
   const CloseTimerFunc = async () => {
     setTimeEnd(true)
@@ -153,24 +171,21 @@ const QuestionViewXyzOrg = () => {
     try {
       return await Promise.all(
         quiz.map(async (item) => {
-          console.log(item, 'itemmmmm')
           if (!item.answer) {
-            console.log('In if statement')
             const data = {
               quiz: params?.state?.data?._id,
               user: localStorage.getItem("userId"),
               questionId: item._id,
               sectionCategory: params?.state?.sectionCategory._id,
-              timeleft: timeLeft ? timeLeft : null,
-              totaltime: time ? time * 60 : null,
-              spendtime: timeLeft ? time * 60 - timeLeft : null,
+              timeleft: 0,
+              totaltime: time ? time : 0,
+              spendtime: timeLeft ? time - timeLeft : 0,
             }
-            console.log(data, 'this is data')
             const URL = EndPoints.submitAnswer
             await instance2.post(URL, data).then(response => {
               console.log(response.data)
             })
-          } 
+          }
         })
       )
     } catch (error) {
@@ -207,7 +222,7 @@ const QuestionViewXyzOrg = () => {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
     } else if (question.answer && curentOption._id === question?.optionId) {
       return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
-    } 
+    }
     // else {
     //   return <Radio color="primary" checked={false} />;
     // }
@@ -373,7 +388,10 @@ const QuestionViewXyzOrg = () => {
                 <Timer
                   continueStatus={status}
                   time={time}
-                  timeleft={(timer) => setTimeLeft(timer)}
+                  timeleft={(timer) => {
+                    setTimeLeft(timer)
+                    setNextPress(!nextPress)
+                  }}
                   onCloseTimer={() => CloseTimerFunc()}
                 />
               </Box>
@@ -391,10 +409,10 @@ const QuestionViewXyzOrg = () => {
           >
             {quiz &&
               quiz?.map((item, index) => {
-                <Box
+                return <Box
                   key={index}
                   style={{
-                    backgroundColor: item.answerSubmited
+                    backgroundColor: item.answer
                       ? "#6fcf97"
                       : "#B4B4B4",
                     marginLeft: "2px",

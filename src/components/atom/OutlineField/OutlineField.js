@@ -20,6 +20,7 @@ const Outline_Field = (props) => {
           color: '#555555',
           justifyContent: 'center',
           alignItems: 'center',
+          cursor: "pointer",
         }}
       >
         <Checkbox
