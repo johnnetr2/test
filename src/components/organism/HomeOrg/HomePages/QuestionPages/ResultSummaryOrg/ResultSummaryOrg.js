@@ -154,7 +154,7 @@ const ResultSummaryOrg = (props) => {
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {responseCollection?.correctAnswer} av{" "}
-              {responseCollection?.totalQuestion}
+              {responseCollection?.questions.length}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
