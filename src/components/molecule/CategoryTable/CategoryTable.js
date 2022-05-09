@@ -121,9 +121,9 @@ export const CategoryTable = (props) => {
                     {row.createdAt}
                   </TableCell>
                   <TableCell align="left">
-                    {row.correctAnswer} av {row.totalQuestion}
+                    {row.correctAnswer} av {row.answer.length}
                   </TableCell>
-                  <TableCell align="left">0.0</TableCell>
+                  <TableCell align="left">{(row.correctAnswer / row.totalQuestion) * 2}</TableCell>
                   <TableCell align="left">
                     <MenuIcon row={row} />
                   </TableCell>

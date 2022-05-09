@@ -50,7 +50,7 @@ const CategoryPagesFeedContent = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [questionCategories, setQuestionCategories] = useState();
-  const [timer, setTimer] = useState(false);
+  const [timer, setTimer] = useState(true);
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
@@ -73,10 +73,38 @@ const CategoryPagesFeedContent = (props) => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       setQuestionCategories(response.data);
+      setAllChecked(true);
+      setCheckData([]);
+      SetCategoryError(false)
+
+      let newArray = [...selectAll];
+      response.data?.map((item) => {
+        newArray.push(item._id);
+      });
+      setSelectAll(newArray);
+
       const URLHistory = EndPoints.testHistory + props.item._id;
       instance2.get(URLHistory).then((response) => {
         setTableHistory(response?.data);
       });
+
+      setTitle(true)
+      setChecked(false);
+      setChecked2(false);
+      setChecked3(false);
+      setChecked4(false);
+      if (props?.item?.title === 'XYZ') {
+        setCheckedFunc(12)
+      } else if (props?.item?.title === 'KVA') {
+        setCheckedFunc(10)
+      } else if (props?.item?.title === 'NOG') {
+        setCheckedFunc(6)
+      } else if (props?.item?.title === 'DTK') {
+        setCheckedFunc(12)
+      } else {
+        setCheckedFunc(10)
+      }
+
     });
   }, []);
 
@@ -92,6 +120,7 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const setCheckedFunc = (value) => {
+    console.log(value)
     if (value) {
       setCheckedValue(value);
       setError(false);
@@ -129,6 +158,26 @@ const CategoryPagesFeedContent = (props) => {
       setSelectAll([]);
     }
   };
+
+  const realQuestionFunc = () => {
+    setTitle(true)
+    setChecked(false);
+    setChecked2(false);
+    setChecked3(false);
+    setChecked4(false);
+    if (props?.item?.title === 'XYZ') {
+      setCheckedFunc(12)
+    } else if (props?.item?.title === 'KVA') {
+      setCheckedFunc(10)
+    } else if (props?.item?.title === 'NOG') {
+      setCheckedFunc(6)
+    } else if (props?.item?.title === 'DTK') {
+      setCheckedFunc(12)
+    } else {
+      setCheckedFunc(10)
+    }
+  }
+
   const isChecked = (id) => {
     return checkedData.some((obj) => obj === id);
   };
@@ -138,30 +187,30 @@ const CategoryPagesFeedContent = (props) => {
       setError(true);
     } else {
       if (selectAll.length > 0 || checkedData.length > 0) {
-      setOpen(true);
-      const data = {
-        questionCategory: allChecked ? selectAll : checkedData,
-        totalQuestion: parseInt(chekedValue),
-        value: timer,
-        user: localStorage.getItem("userId"),
-        multipartQuestion: null
-      };
-      const URL = EndPoints.storeQuiz;
-      instance2.post(URL, data).then((response) => {
-        if (response.data.quiz.length < 1) {
-          setOpen(false);
-          swal("varning", "Det finns inga frågor mot denna kurs", "warning");
-        } else {
-          setOpen(false);
-          navigate("/question", {
-            state: {
-              data: response.data,
-              sectionCategory: props.item,
-              quizId: response.data._id,
-            },
-          });
-        }
-      });
+        setOpen(true);
+        const data = {
+          questionCategory: allChecked ? selectAll : checkedData,
+          totalQuestion: parseInt(chekedValue),
+          value: timer,
+          user: localStorage.getItem("userId"),
+          multipartQuestion: null
+        };
+        const URL = EndPoints.storeQuiz;
+        instance2.post(URL, data).then((response) => {
+          if (response.data.quiz.length < 1) {
+            setOpen(false);
+            swal("varning", "Det finns inga frågor mot denna kurs", "warning");
+          } else {
+            setOpen(false);
+            navigate("/question", {
+              state: {
+                data: response.data,
+                sectionCategory: props.item,
+                quizId: response.data._id,
+              },
+            });
+          }
+        });
 
       } else {
         SetCategoryError(true)
@@ -206,6 +255,7 @@ const CategoryPagesFeedContent = (props) => {
             <OutlineField
               title="Tidspress"
               type="checkbox"
+              checked={timer}
               onClickCheck={(e) => setTimer(e.target.checked)}
             />
           </Box>
@@ -272,7 +322,7 @@ const CategoryPagesFeedContent = (props) => {
               sx={{
                 width: "10rem",
                 height: "4rem",
-                backgroundColor: "#fff",
+                backgroundColor: title ? '#0a1596' : "#fff",
                 boxShadow: "1px 1px 8px #dfdfdf",
                 borderRadius: ".25rem",
                 marginLeft: ".25rem",
@@ -280,10 +330,12 @@ const CategoryPagesFeedContent = (props) => {
                 border: "1px solid #e1e1e1",
                 display: "flex",
                 flexWrap: "wrap",
-                color: "#555555",
+                color: title ? '#fff' : "#555555",
                 justifyContent: "center",
                 alignItems: "center",
+                cursor: 'pointer'
               }}
+              onClick={() => realQuestionFunc()}
             >
               Ett delprov
             </Box>
@@ -325,7 +377,6 @@ const CategoryPagesFeedContent = (props) => {
               width: "100%",
               height: "fit-content",
               flexWrap: "wrap",
-              cursor: "pointer",
             }}
           >
             <OutlineField
@@ -340,9 +391,7 @@ const CategoryPagesFeedContent = (props) => {
                   <OutlineField
                     title={item.title}
                     onClickCheck={(e) => {
-                      selectedItem(e, item);
-                      // setSelectedIndex(index);
-                      // setCheckType(item._id);
+                      selectAll.length === 0 && selectedItem(e, item);
                     }}
                     checked={isChecked(item._id)}
                   />
