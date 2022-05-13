@@ -33,7 +33,7 @@ const QuestionViewXyzOrg = () => {
   const [quiz, setQuiz] = useState();
   const params = useLocation();
   const [status, setStatus] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(-99);
+  const [timeLeft, setTimeLeft] = useState();
   const [time, setTime] = useState(120);
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +58,6 @@ const QuestionViewXyzOrg = () => {
   }, []);
 
   const Next = (question) => {
-    setNextPress(!nextPress)
     if (question.answerSubmited) {
       if (selectedIndex + 1 == quiz.length) {
         localStorage.setItem('quizId', params?.state?.quizId)
@@ -80,6 +79,7 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
+          setNextPress(!nextPress)
           setQuiz(questions);
           setStatus(false);
         });
