@@ -34,11 +34,13 @@ const QuestionViewXyzOrg = () => {
   const params = useLocation();
   const [status, setStatus] = useState(true);
   const [timeLeft, setTimeLeft] = useState();
+  // let timeLeft = 0
   const [time, setTime] = useState(120);
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
+  const [totalQuestions, setTotalQuestions] = useState(0)
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -52,7 +54,15 @@ const QuestionViewXyzOrg = () => {
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setQuiz(params?.state?.quiz);
+
     } else {
+      // params?.state && params?.state?.data?.quiz.map(item => {
+      //   if(item.description) {
+      //     return setTotalQuestions(totalQuestions + item.question.length)
+      //   } else {
+      //     return setTotalQuestions(totalQuestions + 1)
+      //   }
+      // })
       setQuiz(params?.state?.data?.quiz);
     }
   }, []);
@@ -79,7 +89,7 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
-          setNextPress(!nextPress)
+          !timeLeft && setNextPress(!nextPress)
           setQuiz(questions);
           setStatus(false);
         });
@@ -89,12 +99,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-    console.log(nextPress, 'this is next preeees')
-    if (nextPress === undefined) {
-      console.log('in if condition')
-      return
-    } else {
-      console.log('in else condition')
+    if (nextPress) {
       setTime(timeLeft)
       const questions = [...quiz];
       let question = questions[selectedIndex];
@@ -113,6 +118,8 @@ const QuestionViewXyzOrg = () => {
       instance2.post(Submit, data).then((response) => {
         console.log('Answer submited')
       });
+    } else {
+      return
     }
   }, [nextPress])
 
@@ -388,9 +395,13 @@ const QuestionViewXyzOrg = () => {
                 <Timer
                   continueStatus={status}
                   time={time}
-                  timeleft={(timer) => {
-                    setTimeLeft(timer)
-                    setNextPress(!nextPress)
+                  timeleft={(timer) => { 
+                    // timeLeft = timer
+                    if(!status) {
+                      console.log(timer, 'this is is timer')
+                      setTimeLeft(timer)
+                      setNextPress(!nextPress)
+                    } 
                   }}
                   onCloseTimer={() => CloseTimerFunc()}
                 />
