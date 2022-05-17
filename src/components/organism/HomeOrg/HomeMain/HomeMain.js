@@ -1,8 +1,8 @@
-import React from 'react'
-import { Grid, makeStyles } from '@material-ui/core'
-import HomeFeedContent from '../HomeFeedContent/HomeFeedContent'
-import HomeRightBar from '../HomeRightBar/HomeRightBar'
-import HomeLeftBar from '../HomeLeftBar/HomeLeftBar'
+import React from "react";
+import { Grid, makeStyles, Container } from "@material-ui/core";
+import HomeFeedContent from "../HomeFeedContent/HomeFeedContent";
+import HomeRightBar from "../HomeRightBar/HomeRightBar";
+import HomeLeftBar from "../HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -13,22 +13,44 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomeMainOrg = () => {
-
   const classes = useStyles();
 
   return (
-      <Grid container>
-        <Grid item sm={1} xs={2} >
-          <HomeLeftBar/>
+    <Container
+      maxWidth="xl"
+      disableGutters
+      sx={{
+        boxSizing: "border-box",
+        display: "flex",
+      }}
+    >
+      <Container
+        maxWidth="lg"
+        disableGutters
+        sx={{
+          boxSizing: "border-box",
+          display: "flex",
+        }}
+      >
+        <Grid container>
+          <Grid item sm={1} xs={2}>
+            <HomeLeftBar />
+          </Grid>
+          <Grid item sm={7} xs={10}>
+            <HomeFeedContent />
+          </Grid>
+          <Grid
+            item
+            sm={4}
+            style={{ backgroundColor: "#fafafa" }}
+            className={classes.right}
+          >
+            <HomeRightBar />
+          </Grid>
         </Grid>
-        <Grid item sm={7} xs={10}>
-          <HomeFeedContent />
-        </Grid>
-        <Grid item sm={4} style={{backgroundColor:'#fafafa'}} className={classes.right}>
-          <HomeRightBar />
-        </Grid>
-      </Grid>
-  )
-}
+      </Container>
+    </Container>
+  );
+};
 
-export default HomeMainOrg
+export default HomeMainOrg;

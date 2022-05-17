@@ -10,9 +10,9 @@ import { instance, EndPoints } from "../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'none !important'
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "none !important",
+    },
   },
 }));
 
@@ -60,13 +60,15 @@ const SignupOrg = () => {
 
   return (
     <Container
+      maxWidth="xl"
       disableGutters
-      maxWidth={false}
-      sx={{ boxSizing: "border-box", display: "flex" }}
+      sx={{
+        boxSizing: "border-box",
+        display: "flex",
+      }}
     >
       <Container
         className={classes.hideOnMobile}
-        // maxWidth="500"
         sx={{
           minHeight: "100vh",
           width: "40%",

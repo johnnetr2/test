@@ -73,73 +73,62 @@ const MessageFeedContent = () => {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
+          padding: "1rem",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            maxWidth: "50rem",
-            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            marginTop: "1rem",
+            marginBottom: "1rem",
+            flexWrap: "wrap",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "flex-start",
-              marginTop: "1rem",
-              marginBottom: "1rem",
-              width: "50vw",
-              flexWrap: "wrap",
-            }}
+          <Typography variant="body1">Din feedback</Typography>
+          <Typography
+            variant="body2"
+            style={{ color: "#999", marginLeft: "0.5rem" }}
           >
-            <Typography variant="body1">Din feedback</Typography>
-            <Typography
-              variant="body2"
-              style={{ color: "#999", marginLeft: "0.5rem" }}
-            >
-              (0/500)
-            </Typography>
-          </Box>
-          <TextareaAutosize
-            aria-label="empty textarea"
-            placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
+            (0/500)
+          </Typography>
+        </Box>
+        <textarea
+          aria-label="empty textarea"
+          placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
+          // minRows={3}
+          style={{
+            backgroundColor: "#f2f2f2",
+            border: "none",
+            padding: "2rem 2rem",
+            borderRadius: "5px",
+            display: "flex",
+            flexWrap: "wrap",
+            minWidth: "50ch",
+          }}
+        />
+        <Box
+          sx={{
+            marginTop: "2rem",
+            marginBottom: "2rem",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            variant="contained"
             style={{
               backgroundColor: "#f2f2f2",
-              border: "none",
-              padding: "2rem",
-              borderRadius: "5px",
-              display: "flex",
-              flexWrap: "wrap",
-              width: "50vw",
-            }}
-          />
-          <Box
-            sx={{
-              marginTop: "2rem",
-              marginBottom: "2rem",
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              width: "50vw",
+              color: "#252525",
+              textTransform: "initial",
+              boxShadow: "none",
+              fontWeight: "400",
             }}
           >
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#f2f2f2",
-                color: "#252525",
-                textTransform: "initial",
-                boxShadow: "none",
-                width: "10rem",
-                fontWeight: "400",
-              }}
-            >
-              Fler prov
-            </Button>
-          </Box>
+            Fler prov
+          </Button>
         </Box>
       </Box>
     </Container>
