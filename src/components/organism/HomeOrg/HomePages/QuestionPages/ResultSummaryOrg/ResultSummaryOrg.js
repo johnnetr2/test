@@ -80,16 +80,17 @@ const ResultSummaryOrg = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
+    console.log(URL)
     let sumOfTimeSpent = 0
 
     instance2.get(URL).then(response => {
       console.log(response.data, 'this is api data')
      
-      response.data.questions.map(item => {
+      response.data.question.map(item => {
         return sumOfTimeSpent = sumOfTimeSpent + item.spendTime
       })
 
-      let lengthOfQuestions = response.data.questions.length
+      let lengthOfQuestions = response.data.question.length
       // let totalTime = response.data.questions[0].totaltime;
       // let remainingTime = response.data.questions[lengthOfQuestions - 1].timeleft;
       let timePerQuestion;
@@ -154,12 +155,12 @@ const ResultSummaryOrg = (props) => {
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {responseCollection?.correctAnswer} av{" "}
-              {responseCollection?.questions.length}
+              {responseCollection?.question.length}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
               {responseCollection
-                ? dispSecondsAsMins(responseCollection?.questions[responseCollection.questions.length - 1].timeleft)
+                ? dispSecondsAsMins(responseCollection?.question[responseCollection.question.length - 1].timeleft)
                 : "00:00"}
             </Box>
           </Box>
@@ -216,7 +217,7 @@ const ResultSummaryOrg = (props) => {
                     {responseCollection &&
                       responseCollection.correctAnswer +
                       " /" +
-                      responseCollection.questions.length}
+                      responseCollection.question.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -319,7 +320,7 @@ const ResultSummaryOrg = (props) => {
               >
                 <Typography variant="h4">
                   {responseCollection
-                    ? dispSecondsAsMins(responseCollection?.questions.at(-1).timeleft)
+                    ? dispSecondsAsMins(responseCollection?.question.at(-1).timeleft)
                     : "00:00"}
                 </Typography>
                 <Typography
@@ -351,7 +352,7 @@ const ResultSummaryOrg = (props) => {
               flexDirection: "column",
             }}
           >
-            {responseCollection && responseCollection?.questions?.map((item, index) => {
+            {responseCollection && responseCollection?.question?.map((item, index) => {
               return (
                 <Box
                   key={index}
@@ -359,16 +360,16 @@ const ResultSummaryOrg = (props) => {
                   mt={2}
                   mb={2}
                   onClick={() => {
-                    let questionIndex = responseCollection.questions.findIndex(
+                    let questionIndex = responseCollection.question.findIndex(
                       (element) => element._id === item._id
                     )
                     navigate("/question", {
                         state: {
                           questionIndex,
-                          quiz: responseCollection.questions,
+                          quiz: responseCollection,
                           sectionCategory: params?.state?.sectionCategory,
                           quizId: params?.state?.quizId,
-                          quiz: responseCollection.questions
+                          // quiz: responseCollection.question
                         }
                       });
                   }}
@@ -413,7 +414,7 @@ const ResultSummaryOrg = (props) => {
                     {"Uppgift " +
                       `${index + 1}` +
                       " av " +
-                      responseCollection.questions.length}
+                      responseCollection.question.length}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -422,8 +423,8 @@ const ResultSummaryOrg = (props) => {
                   >
                     {/* Tid: 04:51 */}
                     {item?.spendTime
-                      ? 'Tid: ' + dispSecondsAsMins(item?.spendTime)
-                      : "00:00"}
+                      && 'Tid: ' + dispSecondsAsMins(item?.spendTime)
+                    }
                   </Typography>
                   <Box
                     style={{

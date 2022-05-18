@@ -11,6 +11,9 @@ import {
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
 import { style } from "@mui/system";
+import BarChart from '../../../assets/Icons/BarChart.svg'
+import Clock from "../../../assets/Icons/Clock.svg";
+import Timer from "../Timer/timer";
 
 
 const QuestionBody = (props) => {
@@ -19,7 +22,7 @@ const QuestionBody = (props) => {
 
     if (props.question.type == 'multiple') {
         return <QuestionViewDTKOrg
-            question={props.question} selectedOption={props.selectedOption}
+            question={props.question} selectedOption={props.selectedOption} totalQuestions={props.totalQuestions}
             selectedIndex={props.selectedIndex} onRightClick={() => props.onRightClick()}
             onLeftClick={() => props.onLeftClick()} onResultHandler={() => props.onResultHandler()}
             paragraphIndex={props.paragraphIndex} questionIndex={props.questionIndex}
@@ -30,7 +33,7 @@ const QuestionBody = (props) => {
             startTimer={() => props.startTime()}
         />
     } else if (props.question.multipartQuestion) {
-        return <MultiQuestionSummary question={props?.question}
+        return <MultiQuestionSummary question={props?.question} totalQuestions={props.totalQuestions}
             selectedIndex={props.selectedIndex} onRightClick={() => props.onRightClick()}
             questionIndex={props.questionIndex} quiz={props.quiz} onResultHandler={() => props.onResultHandler()}
             onLeftClick={() => props.onLeftClick()}
@@ -38,7 +41,7 @@ const QuestionBody = (props) => {
     } else {
         return (
             <Container
-                maxWidth="md"
+                maxWidth="Xl"
                 style={{
                     marginTop: 0,
                     backgroundColor: "#f9f9f9",
@@ -49,6 +52,66 @@ const QuestionBody = (props) => {
                     flexDirection: "column",
                 }}
             >
+                {/* <Container
+                    disableGutters
+                    maxWidth="Xl"
+                    style={{ backgroundColor: "#fff" }}
+                >
+                    <Box mt={8} sx={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", }}>
+                        <Box mt={2} width={100} sx={{ color: "#222" }}>
+                            <img src={BarChart} alt="" />
+                            {props.selectedIndex + 1} av {props?.totalQuestions}
+                        </Box>
+                        {props.params && props.params.value == true && (
+                            <Box
+                                mt={2}
+                                sx={{ color: "#222", display: "flex", flexDirection: "row" }}
+                            >
+                                <img src={Clock} alt="" />
+                                <Timer
+                                    continueStatus={props.status}
+                                    time={props.time}
+                                    timeleft={(timer) => {
+                                        if (!props.status) {
+                                            props.timeLeft(timer)
+                                            props.nextPress()
+                                        }
+                                    }}
+                                    onCloseTimer={() => props.onCloseTimer()}
+                                />
+                            </Box>
+                        )}
+                    </Box>
+
+                    <Box
+                        mt={2}
+                        sx={{
+                            //   backgroundColor: "#b4b4b4",
+                            backgroundColor: "#fff",
+                            height: "8px",
+                            display: "flex",
+                            flexDirection: "row",
+                        }}
+                    >
+                        {props?.quiz &&
+                            props.quiz?.map((item, index) => {
+                                return <Box
+                                    key={index}
+                                    style={{
+                                        backgroundColor: item.answer
+                                            ? "#6fcf97"
+                                            : "#B4B4B4",
+                                        marginLeft: "2px",
+                                        flex: "1",
+                                    }}
+                                ></Box>
+
+                            }
+
+                            )}
+                    </Box>
+                </Container> */}
+
                 <Box
                     mt={5}
                     paddingX={6}
@@ -142,7 +205,7 @@ const QuestionBody = (props) => {
                                                 <img src={item.image} />
 
                                             ) : (
-                                            <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
+                                                <Typography><MarkLatex content={item.value.replace("\f", "\\f")} /> </Typography>
                                             )}
                                         </Box>
                                     </Box>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import BarChart from "../../../../../../assets/Icons/BarChart.svg";
-import Clock from "../../../../../../assets/Icons/Clock.svg";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -18,7 +16,6 @@ import { useLocation } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { EndPoints, instance2 } from "../../../../../service/Route";
-import Timer from "../../../../../atom/Timer/timer";
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
@@ -27,6 +24,7 @@ import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
 import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
+import Header from "../../../../../atom/Header/header";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -34,13 +32,13 @@ const QuestionViewXyzOrg = () => {
   const params = useLocation();
   const [status, setStatus] = useState(true);
   const [timeLeft, setTimeLeft] = useState();
-  // let timeLeft = 0
   const [time, setTime] = useState(120);
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
   const [totalQuestions, setTotalQuestions] = useState(0)
+  // let totalQuestions = 0
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -50,19 +48,24 @@ const QuestionViewXyzOrg = () => {
 
 
   useEffect(() => {
+    console.log(params?.state?.data?.quiz, 'quizzzzzzzzzzzzzzzz')
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
-      setQuiz(params?.state?.quiz);
+      setQuiz(params?.state?.quiz.question);
+      setTotalQuestions(params.state.quiz.totalQuestion)
+      // totalQuestions = params.state.quiz.totalQuestion
 
     } else {
-      // params?.state && params?.state?.data?.quiz.map(item => {
-      //   if(item.description) {
-      //     return setTotalQuestions(totalQuestions + item.question.length)
-      //   } else {
-      //     return setTotalQuestions(totalQuestions + 1)
-      //   }
-      // })
+      params?.state && params?.state?.data?.quiz.map(item => {
+        if(item.description) {
+          setTotalQuestions(totalQ => totalQ + item?.question?.length)
+          // totalQuestions = totalQuestions + item?.question?.length
+        } else {
+           setTotalQuestions(totalQ => totalQ + 1)
+          // totalQuestions = totalQuestions + 1
+        }
+      })
       setQuiz(params?.state?.data?.quiz);
     }
   }, []);
@@ -89,7 +92,7 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
-          !timeLeft && setNextPress(!nextPress)
+          setNextPress(!nextPress)
           setQuiz(questions);
           setStatus(false);
         });
@@ -116,6 +119,7 @@ const QuestionViewXyzOrg = () => {
       };
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
+        setNextPress(undefined)
         console.log('Answer submited')
       });
     } else {
@@ -376,7 +380,19 @@ const QuestionViewXyzOrg = () => {
         maxWidth="lg"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
-        <Container
+      
+        {/* {quiz[0] && */}
+        {/* {console.log(quiz[0]?.multipartQuestion, 'this is quiz')} */}
+        {quiz && quiz.map(item => {
+          console.log(item.multipartQuestion, 'tthiithus')
+        })}
+        <Header selectedIndex={selectedIndex} totalQuestions={totalQuestions} params={params?.state?.data} status={status} time={time}
+          nextPress={() => setNextPress(!nextPress)} onCloseTimer={() => CloseTimerFunc()} quiz={quiz}
+          timeLeft={(timer) => setTimeLeft(timer) }
+        />
+        {/* } */}
+
+        {/* <Container
           disableGutters
           maxWidth="Xl"
           style={{ backgroundColor: "#fff" }}
@@ -384,7 +400,7 @@ const QuestionViewXyzOrg = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {selectedIndex + 1} av {quiz?.length}
+              {selectedIndex + 1} av {totalQuestions}
             </Box>
             {params.state.data && params.state.data.value == true && (
               <Box
@@ -395,7 +411,7 @@ const QuestionViewXyzOrg = () => {
                 <Timer
                   continueStatus={status}
                   time={time}
-                  timeleft={(timer) => { 
+                  timeleft={(timer) => {
                     // timeLeft = timer
                     if(!status) {
                       console.log(timer, 'this is is timer')
@@ -433,7 +449,7 @@ const QuestionViewXyzOrg = () => {
 
               })}
           </Box>
-        </Container>
+        </Container> */}
 
         <AlertDialogSlide
           popUpstatus={open}
@@ -492,7 +508,7 @@ const QuestionViewXyzOrg = () => {
 
         {quiz && quiz.map((item, index) => {
           if (index === selectedIndex) {
-            return <QuestionBody question={quiz[selectedIndex]}
+            return <QuestionBody question={quiz[selectedIndex]} totalQuestions={totalQuestions}
               selectedOption={params.state.selectedOption}
               paragraphIndex={params?.state?.paragraphIndex} questionIndex={params?.state?.questionIndex}
               selectedIndex={selectedIndex} onLeftClick={() => { setSelectedIndex((previousIndex) => previousIndex - 1) }}
