@@ -13,7 +13,7 @@ import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
-import CoursesRightBar from '../CoursesRightBar/CoursesRightBar'
+import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import { Input } from "reactstrap";
 
 const useStyles = makeStyles((theme) => ({
@@ -126,7 +126,10 @@ const CoursesFeedContent = () => {
           </Typography>
         </Box>
         <Box>
-          <Box sx={{ marginBottom: "1rem" }}>
+          <Box
+            sx={{ marginBottom: "1rem" }}
+            // onClick={() => navigate("/provpassinfo")}
+          >
             <CoursesCard />
           </Box>
           <Box sx={{ marginBottom: "1rem" }}>
@@ -252,7 +255,7 @@ const CoursesFeedContent = () => {
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
-          <CoursesRightBar/>
+        <CoursesRightBar />
       </TabPanel>
     </Container>
   );

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import {
@@ -10,10 +10,13 @@ import {
   DialogContent,
   IconButton,
   Typography,
+  Snackbar,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import InputField from "../../atom/InputField/InputField";
 import FilledBtn from "../../atom/FilledBtn/FilledBtn";
+import { EndPoints, instance2 } from "../../service/Route";
+import axios from "axios";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -55,43 +58,80 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs() {
-  const [open, setOpen] = React.useState(false);
+export default function PasswordUpdationDialog(props) {
+  const [updatePassword, setUpdatePassword] = useState({
+    currentPassword: "",
+    updatedPassword: "",
+  });
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setUpdatePassword({ ...updatePassword, [name]: value });
+    console.log(e.target.value, "my");
   };
-  const handleClose = () => {
-    setOpen(false);
+
+  const clickHandler = () => {
+    const payLoad = {
+      oldPassword: updatePassword.currentPassword,
+      password: updatePassword.updatedPassword,
+    };
+    const URL = EndPoints.changePassword + localStorage.getItem("userId");
+    console.log(URL, "url console");
+    instance2
+      .post(URL, payLoad)
+      .then((response) => {
+        if (response.status === 200) {
+          props.hidePopup();
+          props.showSnackbar();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button>
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={props.hidePopup}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={props.showPopup}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          onClose={handleClose}
+          onClose={props.hidePopup}
         ></BootstrapDialogTitle>
         <DialogContent>
           <Box marginX={15} paddingY={2}>
             <Typography variant="body1">Nuvarande lösenord</Typography>
             <Box sx={{ width: "100%" }}>
-              <InputField placeholder="6+ Characters, 1 Capital letter" />
+              <InputField
+                placeholder="6+ Characters, 1 Capital letter"
+                name="currentPassword"
+                onChange={changeHandler}
+                type="password"
+                value={updatePassword.currentPassword}
+              />
             </Box>
-            <Typography variant="body1"> Nytt lösenord</Typography>
-            <InputField placeholder="6+ Characters, 1 Capital letter" />
+            <Typography variant="body1">Nytt lösenord</Typography>
+            <InputField
+              placeholder="6+ Characters, 1 Capital letter"
+              name="updatedPassword"
+              onChange={changeHandler}
+              type="password"
+              value={updatePassword.updatedPassword}
+            />
           </Box>
         </DialogContent>
-        <DialogActions sx={{display:'flex', justifyContent:'center', marginBottom:'1rem'}}>
+        <DialogActions
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "1rem",
+          }}
+        >
           <Box>
-            <FilledBtn title="Uppdatera lösenord" />
+            <FilledBtn title="Uppdatera lösenord" onClick={clickHandler} />
           </Box>
         </DialogActions>
       </BootstrapDialog>

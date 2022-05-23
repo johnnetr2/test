@@ -33,4 +33,5 @@ export const EndPoints = {
   deleteAccount: "/admin/student/",
   getStudentScore: "/api/quizResult/getStudentScore",
   getQuizResult: "/api/quizResult/resultByUser/",
+  changePassword: "/auth/changePassword/",
 };
