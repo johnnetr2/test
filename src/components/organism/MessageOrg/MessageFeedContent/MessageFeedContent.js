@@ -14,6 +14,8 @@ import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
 import { Input } from "reactstrap";
 import { width } from "@mui/system";
+import FeedbackPopup from "../../../molecule/FeedbackPopup/FeedbackPopup";
+import { EndPoints, instance2 } from "../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,12 +32,57 @@ const useStyles = makeStyles((theme) => ({
       color: "#0A1596",
     },
   },
+  enableButton: {
+    backgroundColor: "#0A1596",
+    color: "#fff",
+    textTransform: "capitalize",
+    fontWeight: "regular",
+    padding: ".55rem 2rem",
+    marginBottom: "2rem",
+    "& .hover": {
+      cursor: "pointer",
+      backgroundColor: "#0A1596",
+    },
+  },
+  disableButton: {
+    backgroundColor: "#f2f2f2",
+    color: "#252525",
+    textTransform: "capitalize",
+    fontWeight: "regular",
+    padding: ".55rem 2rem",
+    marginBottom: "2rem",
+  },
 }));
 
 const MessageFeedContent = () => {
   const classes = useStyles();
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
+  const [feedback, setFeedback] = useState("");
+  const [feedbackPopup, setFeedbackPopup] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
+
+  const changeHandler = (e) => {
+    setFeedback(e.target.value);
+    setWordCount(e.target.value.length);
+  };
+
+  const clickHandler = () => {
+    const URL = EndPoints.feedbackSubmit;
+    const payLoad = {
+      userId: localStorage.getItem("userId"),
+      rating: value,
+      statement: feedback,
+    };
+    instance2.post(URL, payLoad).then((response) => {
+      if (response.status === 200) {
+        setFeedbackPopup(true);
+        setValue(0);
+        setFeedback("");
+        setWordCount(0);
+      }
+    });
+  };
 
   return (
     <Container className={classes.root} disableGutters>
@@ -48,6 +95,10 @@ const MessageFeedContent = () => {
           height: "20rem",
         }}
       >
+        <FeedbackPopup
+          show={feedbackPopup}
+          onClose={() => setFeedbackPopup(false)}
+        />
         <Typography variant="h5" component="h5" style={{ textAlign: "center" }}>
           Berätta för oss vad du tycker! Prov
         </Typography>
@@ -61,8 +112,8 @@ const MessageFeedContent = () => {
             name="simple-controlled"
             value={value}
             color="primary"
-            onChange={(event, newValue) => {
-              setValue(newValue);
+            onChange={(e) => {
+              setValue(e.target.value);
             }}
           />
         </Box>
@@ -91,13 +142,12 @@ const MessageFeedContent = () => {
             variant="body2"
             style={{ color: "#999", marginLeft: "0.5rem" }}
           >
-            (0/500)
+            ({wordCount}/500)
           </Typography>
         </Box>
         <textarea
           aria-label="empty textarea"
           placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
-          // minRows={3}
           style={{
             backgroundColor: "#f2f2f2",
             border: "none",
@@ -107,6 +157,9 @@ const MessageFeedContent = () => {
             flexWrap: "wrap",
             minWidth: "50ch",
           }}
+          onChange={changeHandler}
+          value={feedback}
+          maxLength={500}
         />
         <Box
           sx={{
@@ -119,13 +172,9 @@ const MessageFeedContent = () => {
         >
           <Button
             variant="contained"
-            style={{
-              backgroundColor: "#f2f2f2",
-              color: "#252525",
-              textTransform: "initial",
-              boxShadow: "none",
-              fontWeight: "400",
-            }}
+            className={classes.enableButton}
+            disabled={!value}
+            onClick={clickHandler}
           >
             Fler prov
           </Button>

@@ -6,7 +6,7 @@ import Label_field from "../../molecule/LabelField/LabelField";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
-import { instance, EndPoints } from "../../service/Route";
+import { instance, EndPoints, instance2 } from "../../service/Route";
 import { signInWithGoogle } from "../../service/firebase";
 import firebase from "../../service/firebase";
 
@@ -57,6 +57,18 @@ const LoginOrg = () => {
       .catch((error) => {
         swal("Warning!", "Invalid Credentials", "error");
       });
+  };
+
+  const forgotPassword = () => {
+    const URL = EndPoints.resetPassword;
+    const payLoad = {
+      email: localStorage.getItem("email"),
+    };
+    instance2.post(URL, payLoad).then((response) => {
+      if (response.status === 200) {
+        swal("Success!", response.data, "success");
+      }
+    });
   };
 
   // useEffect(() => {
@@ -131,7 +143,9 @@ const LoginOrg = () => {
             placeholder="Password"
             title="Password"
           />
-          <Link to="#">Glomt losenord?</Link>
+          <Link to="#" onClick={forgotPassword}>
+            Glomt losenord?
+          </Link>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link style={{ textDecoration: "none" }} to="/home">
               <Filled_btn title="Logga in" onClick={loginFunc} />
@@ -145,7 +159,7 @@ const LoginOrg = () => {
             />
           </Box>
           <Typography variant="body1">
-            Har du ingte konto? <Link to="#">Skapa konto har</Link>
+            Har du ingte konto? <Link to="/">Skapa konto har</Link>
           </Typography>
         </Box>
       </Container>

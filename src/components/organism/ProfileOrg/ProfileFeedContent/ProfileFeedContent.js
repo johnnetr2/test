@@ -24,7 +24,7 @@ const ProfileFeedContent = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [showSnack, setShowSnak] = useState();
+  const [showSnack, setShowSnack] = useState();
 
   const LogoutFunc = () => {
     localStorage.removeItem("userId");
@@ -86,11 +86,11 @@ const ProfileFeedContent = () => {
 
   return (
     <Container className={classes.root}>
-      <Snackbar show={showSnack} onClose={() => setShowSnak(false)} />
+      <Snackbar show={showSnack} onClose={() => setShowSnack(false)} />
       <PasswordUpdationDialog
         showPopup={isOpen}
         hidePopup={() => setIsOpen(false)}
-        showSnackbar={() => setShowSnak(true)}
+        showSnackbar={() => setShowSnack(true)}
       />
       <Box>
         <Heading title="Profil" />

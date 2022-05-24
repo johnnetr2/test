@@ -42,7 +42,7 @@ const SignupOrg = () => {
     instance
       .post(URL, data)
       .then((response) => {
-        if (response.data.message == "success") {
+        if (response.data.message === "success") {
           if (response.data.user.token) {
             localStorage.setItem("userId", response.data.user.user._id);
             localStorage.setItem("token", response.data.user.token);

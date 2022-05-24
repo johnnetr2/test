@@ -17,6 +17,7 @@ import InputField from "../../atom/InputField/InputField";
 import FilledBtn from "../../atom/FilledBtn/FilledBtn";
 import { EndPoints, instance2 } from "../../service/Route";
 import axios from "axios";
+import swal from "sweetalert";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -67,7 +68,6 @@ export default function PasswordUpdationDialog(props) {
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setUpdatePassword({ ...updatePassword, [name]: value });
-    console.log(e.target.value, "my");
   };
 
   const clickHandler = () => {
@@ -76,13 +76,19 @@ export default function PasswordUpdationDialog(props) {
       password: updatePassword.updatedPassword,
     };
     const URL = EndPoints.changePassword + localStorage.getItem("userId");
-    console.log(URL, "url console");
     instance2
       .post(URL, payLoad)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.data.message === "success") {
           props.hidePopup();
           props.showSnackbar();
+        } else {
+          swal({
+            title: response.data.message,
+            icon: "warning",
+            dangerMode: true,
+          });
+          props.hidePopup();
         }
       })
       .catch((error) => {
@@ -131,7 +137,11 @@ export default function PasswordUpdationDialog(props) {
           }}
         >
           <Box>
-            <FilledBtn title="Uppdatera lösenord" onClick={clickHandler} />
+            <FilledBtn
+              disabled={!updatePassword.updatedPassword}
+              title="Uppdatera lösenord"
+              onClick={clickHandler}
+            />
           </Box>
         </DialogActions>
       </BootstrapDialog>

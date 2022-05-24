@@ -34,4 +34,6 @@ export const EndPoints = {
   getStudentScore: "/api/quizResult/getStudentScore",
   getQuizResult: "/api/quizResult/resultByUser/",
   changePassword: "/auth/changePassword/",
+  feedbackSubmit: "/api/feedBack",
+  resetPassword: "/api/resetPasword",
 };

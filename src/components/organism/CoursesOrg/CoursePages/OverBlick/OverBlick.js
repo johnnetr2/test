@@ -77,25 +77,39 @@ const OverBlick = () => {
         style={{ boxShadow: "none" }}
         position="absolute"
       >
-        <Toolbar >
-          <Box>
-            <img src={LeftArrow} alt="" />
-          </Box>
-          <Typography
-            variant="body1"
-            style={{ width: 1200 }}
-            className={classes.center_align}
+        <Toolbar
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{
+              height: "8vh",
+              width: "2.3rem",
+              display: "flex",
+              alignItems: "center",
+              borderRight: "1px solid #E1E1E1",
+              cursor: "pointer",
+            }}
           >
+            <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
+          </Box>
+          <Typography variant="body1" className={classes.center_align}>
             Överblick
           </Typography>
-        <HelpOutlineIcon/>
+          <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
       </AppBar>
 
       <Container
-        maxWidth={false}
+        maxWidth="xl"
         disableGutters
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        style={{
+          backgroundColor: "#fff",
+          // marginBottom: "2rem",
+        }}
       >
         <Container
           maxWidth="md"
@@ -179,7 +193,7 @@ const OverBlick = () => {
             sx={{
               backgroundColor: "#fff",
               width: 600,
-              height: 373,
+              height: 450,
               overflow: "auto",
               display: "flex",
               justifyContent: "center",
@@ -227,7 +241,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -264,91 +278,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
-                      src={RightArrow}
-                      alt=""
-                    />
-                  </Box>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "30rem",
-                  height: "4rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                <Box
-                  sx={{
-                    border: "1px solid #e1e1e1",
-                    width: "14rem",
-                    height: "3rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "10rem",
-                      alignItems: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <img
-                      style={{ width: "1rem", marginRight: "1rem" }}
-                      src={Tick}
-                      alt=""
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ textTransform: "uppercase" }}
-                    >
-                      Uppgift 1
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <img
-                      style={{ marginRight: "1rem" }}
-                      src={RightArrow}
-                      alt=""
-                    />
-                  </Box>
-                </Box>
-                <Box
-                  sx={{
-                    border: "1px solid #e1e1e1",
-                    width: "14rem",
-                    height: "3rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "10rem",
-                      alignItems: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <img
-                      style={{ width: "1rem", marginRight: "1rem" }}
-                      src={Tick}
-                      alt=""
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ textTransform: "uppercase" }}
-                    >
-                      Uppgift 1
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -395,7 +325,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -432,91 +362,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
-                      src={RightArrow}
-                      alt=""
-                    />
-                  </Box>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "30rem",
-                  height: "4rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                <Box
-                  sx={{
-                    border: "1px solid #e1e1e1",
-                    width: "14rem",
-                    height: "3rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "10rem",
-                      alignItems: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <img
-                      style={{ width: "1rem", marginRight: "1rem" }}
-                      src={Tick}
-                      alt=""
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ textTransform: "uppercase" }}
-                    >
-                      Uppgift 1
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <img
-                      style={{ marginRight: "1rem" }}
-                      src={RightArrow}
-                      alt=""
-                    />
-                  </Box>
-                </Box>
-                <Box
-                  sx={{
-                    border: "1px solid #e1e1e1",
-                    width: "14rem",
-                    height: "3rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "10rem",
-                      alignItems: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <img
-                      style={{ width: "1rem", marginRight: "1rem" }}
-                      src={Tick}
-                      alt=""
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ textTransform: "uppercase" }}
-                    >
-                      Uppgift 1
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -563,7 +409,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -600,91 +446,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
-                      src={RightArrow}
-                      alt=""
-                    />
-                  </Box>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "30rem",
-                  height: "4rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                <Box
-                  sx={{
-                    border: "1px solid #e1e1e1",
-                    width: "14rem",
-                    height: "3rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "10rem",
-                      alignItems: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <img
-                      style={{ width: "1rem", marginRight: "1rem" }}
-                      src={Tick}
-                      alt=""
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ textTransform: "uppercase" }}
-                    >
-                      Uppgift 1
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <img
-                      style={{ marginRight: "1rem" }}
-                      src={RightArrow}
-                      alt=""
-                    />
-                  </Box>
-                </Box>
-                <Box
-                  sx={{
-                    border: "1px solid #e1e1e1",
-                    width: "14rem",
-                    height: "3rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      width: "10rem",
-                      alignItems: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <img
-                      style={{ width: "1rem", marginRight: "1rem" }}
-                      src={Tick}
-                      alt=""
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{ textTransform: "uppercase" }}
-                    >
-                      Uppgift 1
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -731,7 +493,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -768,7 +530,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -815,7 +577,7 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -852,7 +614,259 @@ const OverBlick = () => {
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <img
-                      style={{ marginRight: "1rem" }}
+                      style={{ marginRight: "1rem", width: ".75rem" }}
+                      src={RightArrow}
+                      alt=""
+                    />
+                  </Box>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "30rem",
+                  height: "4rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                <Box
+                  sx={{
+                    border: "1px solid #e1e1e1",
+                    width: "14rem",
+                    height: "3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "10rem",
+                      alignItems: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    <img
+                      style={{ width: "1rem", marginRight: "1rem" }}
+                      src={Tick}
+                      alt=""
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{ textTransform: "uppercase" }}
+                    >
+                      Uppgift 1
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      style={{ marginRight: "1rem", width: ".75rem" }}
+                      src={RightArrow}
+                      alt=""
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    border: "1px solid #e1e1e1",
+                    width: "14rem",
+                    height: "3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "10rem",
+                      alignItems: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    <img
+                      style={{ width: "1rem", marginRight: "1rem" }}
+                      src={Tick}
+                      alt=""
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{ textTransform: "uppercase" }}
+                    >
+                      Uppgift 1
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      style={{ marginRight: "1rem", width: ".75rem" }}
+                      src={RightArrow}
+                      alt=""
+                    />
+                  </Box>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "30rem",
+                  height: "4rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                <Box
+                  sx={{
+                    border: "1px solid #e1e1e1",
+                    width: "14rem",
+                    height: "3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "10rem",
+                      alignItems: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    <img
+                      style={{ width: "1rem", marginRight: "1rem" }}
+                      src={Tick}
+                      alt=""
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{ textTransform: "uppercase" }}
+                    >
+                      Uppgift 1
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      style={{ marginRight: "1rem", width: ".75rem" }}
+                      src={RightArrow}
+                      alt=""
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    border: "1px solid #e1e1e1",
+                    width: "14rem",
+                    height: "3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "10rem",
+                      alignItems: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    <img
+                      style={{ width: "1rem", marginRight: "1rem" }}
+                      src={Tick}
+                      alt=""
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{ textTransform: "uppercase" }}
+                    >
+                      Uppgift 1
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      style={{ marginRight: "1rem", width: ".75rem" }}
+                      src={RightArrow}
+                      alt=""
+                    />
+                  </Box>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "30rem",
+                  height: "4rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                <Box
+                  sx={{
+                    border: "1px solid #e1e1e1",
+                    width: "14rem",
+                    height: "3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "10rem",
+                      alignItems: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    <img
+                      style={{ width: "1rem", marginRight: "1rem" }}
+                      src={Tick}
+                      alt=""
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{ textTransform: "uppercase" }}
+                    >
+                      Uppgift 1
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      style={{ marginRight: "1rem", width: ".75rem" }}
+                      src={RightArrow}
+                      alt=""
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    border: "1px solid #e1e1e1",
+                    width: "14rem",
+                    height: "3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      width: "10rem",
+                      alignItems: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    <img
+                      style={{ width: "1rem", marginRight: "1rem" }}
+                      src={Tick}
+                      alt=""
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{ textTransform: "uppercase" }}
+                    >
+                      Uppgift 1
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      style={{ marginRight: "1rem", width: ".75rem" }}
                       src={RightArrow}
                       alt=""
                     />
@@ -861,29 +875,31 @@ const OverBlick = () => {
               </Box>
             </Box>
           </Box>
-          <Box
-            padding={3}
-            sx={{
-              width: "98vw",
-              backgroundColor: "#fff",
-              display: "flex",
-              justifyContent: "center",
-              boxShadow: "1px 1px 5px #999",
+        </Container>
+        <Box
+          maxWidth="xl"
+          disableGutters
+          padding={2}
+          sx={{
+            backgroundColor: "#fff",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            boxShadow: "1px 1px 5px #999",
+          }}
+        >
+          <Button
+            variant="outlined"
+            style={{
+              width: 600,
+              textTransform: "capitalize",
+              color: "#0A1596",
+              border: "1px solid #0A1596",
             }}
           >
-            <Button
-              variant="outlined"
-              style={{
-                width: 600,
-                textTransform: "capitalize",
-                color: "#0A1596",
-                border: "1px solid #0A1596",
-              }}
-            >
-              Lämna in provpass
-            </Button>
-          </Box>
-        </Container>
+            Lämna in provpass
+          </Button>
+        </Box>
       </Container>
     </div>
   );
