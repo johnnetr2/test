@@ -43,7 +43,7 @@ const QuestionBody = (props) => {
             <Container
                 maxWidth="Xl"
                 style={{
-                    marginTop: 0,
+                    // marginTop: 0,
                     backgroundColor: "#f9f9f9",
                     height: "fit-content",
                     display: "flex",
@@ -229,7 +229,7 @@ const QuestionBody = (props) => {
                             //   '&::-webkit-scrollbar': { width : 0 },
                         }}
                     >
-                        <Box sx={{ width: 500, display: "flex", justifyContent: 'space-between' }}>
+                        <Box sx={{ width: 500, display: "flex" }}>
                             <Box>
                                 <Typography
                                     variant="h5"

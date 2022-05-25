@@ -50,7 +50,7 @@ const MultiAnswer = (props) => {
         <Box mt={2} ml={5}></Box>
       </Box>
       <Box style={{ border: "1px solid #e1e1e1", padding: "2rem", width: 580 }}>
-        <Box sx={{ width: 500, display: "flex" }}>
+        <Box sx={{ width: 500, display: "flex", justifyContent: 'space-between' }}>
           <Box>
             <Typography
               variant="h5"
@@ -70,21 +70,19 @@ const MultiAnswer = (props) => {
                 fontSize: ".75rem",
                 fontWeight: "500",
                 marginTop: 10,
-                width: "30rem",
+                width: props?.question?.answer.image ? 'auto' : 500,
               }}
             >
-              {props?.options?.question?.answer?.answer}
+              {props?.question?.answer?.answer}
             </Typography>
           </Box>
           <Box
             mt={2}
             style={{
-              backgroundColor: "blue",
-              marginLeft: "15rem",
               marginTop: "2rem",
             }}
           >
-            <img style={{ height: 110 }} src="" alt="" />
+            <img style={{ height: 110 }} src={props?.question?.answer.image} alt="" />
           </Box>
         </Box>
         <Box

@@ -48,22 +48,18 @@ const QuestionViewXyzOrg = () => {
 
 
   useEffect(() => {
-    console.log(params?.state?.data?.quiz, 'quizzzzzzzzzzzzzzzz')
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setQuiz(params?.state?.quiz.question);
-      setTotalQuestions(params.state.quiz.totalQuestion)
-      // totalQuestions = params.state.quiz.totalQuestion
+      setTotalQuestions(params?.state?.quiz?.question.length)
 
     } else {
       params?.state && params?.state?.data?.quiz.map(item => {
-        if(item.description) {
+        if (item.description) {
           setTotalQuestions(totalQ => totalQ + item?.question?.length)
-          // totalQuestions = totalQuestions + item?.question?.length
         } else {
-           setTotalQuestions(totalQ => totalQ + 1)
-          // totalQuestions = totalQuestions + 1
+          setTotalQuestions(totalQ => totalQ + 1)
         }
       })
       setQuiz(params?.state?.data?.quiz);
@@ -380,15 +376,11 @@ const QuestionViewXyzOrg = () => {
         maxWidth="lg"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
-      
-        {/* {quiz[0] && */}
-        {/* {console.log(quiz[0]?.multipartQuestion, 'this is quiz')} */}
-        {quiz && quiz.map(item => {
-          console.log(item.multipartQuestion, 'tthiithus')
-        })}
+        {/* {params?.state?.data?.quiz[selectedIndex]?.multipartQuestion === null &&  */}
+
         <Header selectedIndex={selectedIndex} totalQuestions={totalQuestions} params={params?.state?.data} status={status} time={time}
           nextPress={() => setNextPress(!nextPress)} onCloseTimer={() => CloseTimerFunc()} quiz={quiz}
-          timeLeft={(timer) => setTimeLeft(timer) }
+          timeLeft={(timer) => setTimeLeft(timer)}
         />
         {/* } */}
 

@@ -80,12 +80,9 @@ const ResultSummaryOrg = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
-    console.log(URL)
     let sumOfTimeSpent = 0
 
     instance2.get(URL).then(response => {
-      console.log(response.data, 'this is api data')
-     
       response.data.question.map(item => {
         return sumOfTimeSpent = sumOfTimeSpent + item.spendTime
       })

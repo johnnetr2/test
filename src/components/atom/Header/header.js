@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Box,
     Container,
@@ -10,9 +10,11 @@ import Timer from '../Timer/timer'
 
 function Header(props) {
 
-    // useEffect(() => {
-    //     console.log(props.quiz, 'this is paramsjni')
-    // }, [])
+    const [quiz, setQuiz] = useState()
+
+    useEffect(() => {
+        setQuiz(props?.quiz)
+    }, [props?.quiz])
 
     return (
         <Container
@@ -25,7 +27,6 @@ function Header(props) {
                     <img src={BarChart} alt="" />
                     {props.selectedIndex + 1} av {props.totalQuestions}
                 </Box>
-                {console.log('I am mapng')}
                 {props.params && props.params.value == true && (
                     <Box
                         mt={2}
@@ -50,18 +51,17 @@ function Header(props) {
             <Box
                 mt={2}
                 sx={{
-                    //   backgroundColor: "#b4b4b4",
-                    
-                    backgroundColor: "#fff",
+                    backgroundColor: "#b4b4b4",
                     height: "8px",
                     display: "flex",
                     flexDirection: "row",
                 }}
             >
-                {props?.quiz &&
-                    props.quiz?.map((item, index) => {
+                {quiz &&
+                    quiz?.map((item, index) => {
+                        console.log(item, 'this is item')
                         if (item.type === 'multiple') {
-                           return item.question.map(question => 
+                            return item.question.map(question =>
                                 <Box
                                     key={index}
                                     style={{
@@ -75,7 +75,7 @@ function Header(props) {
                             )
                         } else {
                             return <Box
-                                // key={index}
+                                key={index}
                                 style={{
                                     backgroundColor: item.answer
                                         ? "#6fcf97"

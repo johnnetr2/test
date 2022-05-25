@@ -33,11 +33,7 @@ const QuestionViewDTKOrg = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState()
   const [showResult, setShowResult] = useState(false)
-// const [forceupdate, setForce] = useState()
 
-useEffect(() => {
-  console.log(props?.totalQuestions, 'totakoajfdoiaj')
-}, [])
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -94,7 +90,6 @@ useEffect(() => {
     } else {
       setQuiz(props.question)
     }
-    // quiz.question.multipartQuestion.questions.length
   }, [])
 
   const Button = (question) => {
@@ -195,7 +190,7 @@ useEffect(() => {
         maxWidth="lg"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
-        <Container
+        {/* <Container
           disableGutters
           maxWidth="Xl"
           style={{ backgroundColor: "#fff" }}
@@ -229,9 +224,7 @@ useEffect(() => {
           <Box
             mt={2}
             sx={{
-              //   backgroundColor: "#b4b4b4",
-
-              backgroundColor: "#fff",
+              backgroundColor: "#b4b4b4",
               height: "8px",
               display: "flex",
               flexDirection: "row",
@@ -257,7 +250,7 @@ useEffect(() => {
 
               )}
           </Box>
-        </Container>
+        </Container> */}
 
         <Container
           maxWidth="md"
