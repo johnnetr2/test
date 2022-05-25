@@ -50,9 +50,17 @@ const ProfileRightBar = () => {
           </Typography>
         </Box>
         <Box paddingX={10} sx={{ width: "100%" }}>
-          <Box sx={{ marginTop: "3rem"}}>
+          <Box sx={{ marginTop: "3rem" }}>
             <Typography variant="body1">Email</Typography>
-            <InputField placeholder="Enter your Email" />
+            <InputField
+              placeholder="Enter your Email"
+              style={{
+                width: "100%",
+                height: "3rem",
+                marginTop: ".5rem",
+                marginBottom: "1rem",
+              }}
+            />
             <FilledBtn title="Bjud in" />
           </Box>
         </Box>

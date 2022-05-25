@@ -108,6 +108,12 @@ const ProfileFeedContent = () => {
               type="email"
               placeholder="magnusbest@hotmail.com"
               name="email"
+              style={{
+                width: "100%",
+                height: "3rem",
+                marginTop: ".5rem",
+                marginBottom: "1rem",
+              }}
             />
           </Box>
         </Box>

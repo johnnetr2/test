@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Box, Typography } from "@mui/material";
+import { Input, FormGroup, Label, Col } from "reactstrap";
 import Label_field from "../../molecule/LabelField/LabelField";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
 import swal from "sweetalert";
 import { instance, EndPoints, instance2 } from "../../service/Route";
 import { signInWithGoogle } from "../../service/firebase";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import firebase from "../../service/firebase";
+import InputField from "../../atom/InputField/InputField";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -25,7 +29,7 @@ const LoginOrg = () => {
     email: "",
     password: "",
   });
-  const [data, setData] = useState();
+  const [showPassword, setShowPassword] = useState(true);
 
   const getVal = (e) => {
     const { name, value } = e.target;
@@ -134,15 +138,60 @@ const LoginOrg = () => {
             name="email"
             onChange={getVal}
             value={user.email}
+            style={{
+              width: "100%",
+              height: "3rem",
+              marginTop: ".5rem",
+              marginBottom: "1rem",
+            }}
           />
-          <Label_field
-            onChange={getVal}
-            value={user.password}
-            name="password"
-            type="password"
-            placeholder="Password"
-            title="Password"
-          />
+          <Label for="password">Password</Label>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              height: "3rem",
+              marginTop: ".5rem",
+              marginBottom: "1rem",
+              border: "1px solid #e1e1e1",
+              backgroundColor: "transparent",
+              borderRadius: "5px",
+            }}
+          >
+            <InputField
+              type={showPassword ? "password" : "text"}
+              title="Password"
+              placeholder="Password"
+              onChange={getVal}
+              value={user.password}
+              name="password"
+              id="password"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "3rem",
+                border: "none",
+              }}
+              className={classes.autoFillColor}
+            />
+            <Label
+              for="password"
+              style={{
+                paddingRight: "1rem",
+                margin: "0",
+              }}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {!showPassword ? (
+                <VisibilityOutlinedIcon />
+              ) : (
+                <VisibilityOffOutlinedIcon />
+              )}
+            </Label>
+          </Box>
           <Link to="#" onClick={forgotPassword}>
             Glomt losenord?
           </Link>
