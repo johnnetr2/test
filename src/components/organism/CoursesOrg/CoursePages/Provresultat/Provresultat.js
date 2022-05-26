@@ -114,7 +114,6 @@ const Provresultat = () => {
       >
         <Toolbar
           style={{
-            height: "11vh",
             backgroundColor: "#F9F9F9",
             borderBottom: "1px solid #F9F9F9",
           }}
@@ -126,13 +125,13 @@ const Provresultat = () => {
               alignItems: "center",
               color: "#222",
             }}
-            variant="h4"
+            variant="h6"
             component="div"
             sx={{ flexGrow: 3 }}
           >
             Provresultat
           </Typography>
-          <HelpOutlineIcon style={{color:'#222'}} />
+          <HelpOutlineIcon style={{ color: "#222" }} />
         </Toolbar>
       </AppBar>
       <Box

@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core";
-import { Container, Box, Typography, Stack, Chip, Button } from "@mui/material";
+import {
+  Container,
+  Box,
+  Typography,
+  Stack,
+  Chip,
+  Button,
+  Menu,
+  MenuItem,
+  IconButton,
+} from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +30,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CoursesCard = () => {
+const MenuIcon = () => {
+  const options = "STARTA OM";
+  const ITEM_HEIGHT = 48;
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <IconButton
+        aria-label="more"
+        id="long-button"
+        aria-controls={open ? "long-menu" : undefined}
+        aria-expanded={open ? "true" : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        MenuListProps={{
+          "aria-labelledby": "long-button",
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: "15ch",
+          },
+        }}
+      >
+        <MenuItem>{options}</MenuItem>
+      </Menu>
+    </div>
+  );
+};
+
+const CoursesCard = (props) => {
   const classes = useStyles();
 
   return (
@@ -36,7 +94,7 @@ const CoursesCard = () => {
       >
         <Box sx={{ margin: "0.25rem" }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <img src={Ellipsis} alt="" />
+            <MenuIcon />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box>

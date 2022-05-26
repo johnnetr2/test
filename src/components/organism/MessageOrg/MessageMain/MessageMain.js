@@ -1,8 +1,8 @@
-import React from 'react'
-import { Grid, makeStyles } from '@material-ui/core'
-import MessageFeedContent from '../MessageFeedContent/MessageFeedContent'
-import MessageRightBar from '../MessageRightBar/MessageRightBar'
-import MessageLeftBar from '../MessageLeftBar/MessageLeftBar'
+import React from "react";
+import { Grid, makeStyles, Container } from "@material-ui/core";
+import MessageFeedContent from "../MessageFeedContent/MessageFeedContent";
+import MessageLeftBar from "../MessageLeftBar/MessageLeftBar";
+import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -13,19 +13,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MessageMain = () => {
-
   const classes = useStyles();
 
   return (
-      <Grid container>
-        <Grid item sm={1} xs={2} >
-          <MessageLeftBar/>
+    <Container
+      maxWidth="xl"
+      disableGutters
+      sx={{
+        boxSizing: "border-box",
+        display: "flex",
+      }}
+    >
+      <Container
+        maxWidth="lg"
+        disableGutters
+        sx={{
+          boxSizing: "border-box",
+          display: "flex",
+        }}
+      >
+        <Grid container>
+          <Grid item sm={1} xs={2}>
+            <MessageLeftBar />
+          </Grid>
+          <Grid item sm={11} xs={10}>
+            <MessageFeedContent />
+          </Grid>
         </Grid>
-        <Grid item sm={11} xs={10}>
-          <MessageFeedContent />
-        </Grid>
-      </Grid>
-  )
-}
+      </Container>
+    </Container>
+  );
+};
 
-export default MessageMain
+export default MessageMain;

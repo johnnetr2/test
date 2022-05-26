@@ -21,7 +21,8 @@ import ResultFooter from "./components/molecule/ResultFooter/ResultFooter";
 import QuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
 import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDTKOrg";
 import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
-import Provresultat from './components/organism/CoursesOrg/CoursePages/Provresultat/Provresultat'
+import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresultat/Provresultat";
+import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route path="/provpassdtk" element={<ProvPassDtk />} />
         <Route path="/provpasscorrectans" element={<ProvPassCorrectAns />} />
         <Route path="/provresultat" element={<Provresultat />} />
+        <Route path="/overblick" element={<OverBlick />} />
       </Routes>
     </div>
   );
