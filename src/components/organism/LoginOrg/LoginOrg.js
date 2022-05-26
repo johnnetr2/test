@@ -101,7 +101,7 @@ const LoginOrg = () => {
 
   return (
     <Container
-      maxWidth="xl"
+      maxWidth="false"
       disableGutters
       sx={{
         boxSizing: "border-box",
@@ -109,8 +109,11 @@ const LoginOrg = () => {
       }}
     >
       <Container
-        xs={1}
+        // xs={3}
+        // md={6}
+        // lg={12}
         disableGutters
+        maxWidth="false"
         sx={{
           minHeight: "100vh",
           width: "40%",
@@ -119,7 +122,10 @@ const LoginOrg = () => {
         className={classes.hideOnMobile}
       ></Container>
       <Container
-        xs={11}
+        // xs={3}
+        // md={6}
+        // lg={12}
+        maxWidth="false"
         disableGutters
         sx={{
           width: "60%",
