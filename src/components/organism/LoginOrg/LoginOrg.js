@@ -20,6 +20,13 @@ const useStyles = makeStyles((theme) => ({
       display: "none !important",
     },
   },
+  mobileView: {
+    [theme.breakpoints.down("sm")]: {
+      margin: "0rem !important",
+      padding: "2rem !important",
+      width: "100% !important",
+    },
+  },
 }));
 
 const LoginOrg = () => {
@@ -116,11 +123,12 @@ const LoginOrg = () => {
         disableGutters
         sx={{
           width: "60%",
-          padding: "4rem",
+          padding: "4rem 12rem",
           display: "flex",
           justifyContent: "center",
           alignItem: "center",
         }}
+        className={classes.mobileView}
       >
         <Box>
           <Box sx={{ marginBottom: "1rem" }}>

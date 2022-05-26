@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
+import DtkImg from "../../../../../assets/Imgs/DtkImg.png";
 import Clock from "../../../../../assets/Icons/Clock.svg";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
+
 import {
   Typography,
   AppBar,
@@ -18,7 +20,7 @@ import {
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 
-const ProvPassInformation = () => {
+const TestInformation = () => {
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -124,16 +126,16 @@ const ProvPassInformation = () => {
             sx={{ display: "flex", width: 600, flexDirection: "column" }}
           >
             <Typography variant="h6" component="h6">
-              Kvantitativt provpass - Provpass 1
+              Högskoleprov 2021 vår mars
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>
                 <img style={{ marginRight: ".25rem" }} src={BarChart} alt="" />
-                40 frågor
+                160 frågor
               </Box>
               <Box mt={1} ml={1} sx={{ color: "#222" }}>
                 <img style={{ marginRight: ".25rem" }} src={Clock} alt="" />
-                55min
+                55min per provass
               </Box>
             </Box>
           </Box>
@@ -149,106 +151,100 @@ const ProvPassInformation = () => {
             }}
           >
             <Typography variant="h5" component="h5">
-              Kvantitativ provpass
-            </Typography>
-            <Typography variant="h6" component="h6">
-              Förberedande information
+              Instruktioner
             </Typography>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "600" }}
             >
-              XYZ - Matematisk problemlösning
+              Fyra provpass
             </Typography>
+
             <Typography
               mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              12 uppgifter. Rekommenderad provtid: 12 minuter
-            </Typography>
-            <Typography
-              mt={3}
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
-            >
-              Delprovet XYZ handlar om matematisk problemlösning. Varje uppgift
-              består av en fråga som följs av fyra svarsalternativ, varav endast
-              ett är rätt.
+              Ta paus mellan proven. Ditt provpass sparas och du kan fortsätta
+              provet vid ett annat tillfälle. När 55 minuter har gått avbryts
+              provpassen och du behöver lämna in för att få poäng. Du får din
+              poäng först när du gjort klart hela provet.
             </Typography>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "600" }}
             >
-              KVA - Kvantitativa jämförelser
+              Kvantiativt provpass
+            </Typography>
+
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".7rem", fontWeight: "500" }}
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              10 uppgifter. Rekommenderad provtid: 10 minuter
+              Lorem
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Delprovet KVA innehåller uppgifter med beskrivningar av två
-              kvantiteter, I och II. Din uppgift är att jämföra de två
-              kvantiteterna. I vissa fall ges inledande information som ska
-              användas vid jämförelsen. Till varje uppgift finns fyra
-              svarsalternativ, varav endast ett är rätt. I KVA har alla
-              uppgifter samma svarsalternativ.
+              Lorem
             </Typography>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "600" }}
             >
-              NOG - Kvantitativa resonemang
+              Verbalt provpass
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              12 uppgifter. Rekommenderad provtid: 12 minuter
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Delprovet NOG handlar om matematisk problemlösning. Varje uppgift
-              består av en fråga som följs av fyra svarsalternativ, varav endast
-              ett är rätt.
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "600" }}
-            >
-              DTK - Diagram, tabeller och kartor
+              Lorem
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              12 uppgifter. Rekommenderad provtid: 12 minuter
+              Lorem
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Delprovet DTK handlar om matematisk problemlösning. Varje uppgift
-              består av en fråga som följs av fyra svarsalternativ, varav endast
-              ett är rätt.
+              Lorem
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".7rem", fontWeight: "500" }}
+            >
+              Lorem
             </Typography>
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>
             <Link to="#">
-              <ExerciseBtn title="Starta delprov" />
+              <ExerciseBtn title="Nasta" />
             </Link>
           </Box>
         </Container>
@@ -257,4 +253,4 @@ const ProvPassInformation = () => {
   );
 };
 
-export default ProvPassInformation;
+export default TestInformation;

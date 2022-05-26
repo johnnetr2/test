@@ -31,8 +31,12 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#fff !important",
     },
   },
-  testClass: {
-    backgroundColor: "#f00",
+  mobileView: {
+    [theme.breakpoints.down("sm")]: {
+      margin: "0rem !important",
+      padding: "2rem !important",
+      width: "100% !important",
+    },
   },
 }));
 
@@ -89,6 +93,8 @@ const SignupOrg = () => {
       }}
     >
       <Container
+        // maxWidth="xl"
+        disableGutters
         className={classes.hideOnMobile}
         sx={{
           minHeight: "100vh",
@@ -97,17 +103,24 @@ const SignupOrg = () => {
         }}
       ></Container>
       <Container
+        maxWidth="xl"
+        disableGutters
         sx={{
           width: "60%",
-          padding: "4rem",
+          padding: "4rem 12rem",
           display: "flex",
           justifyContent: "center",
           alignItem: "center",
         }}
+        className={classes.mobileView}
       >
-        <Box sx={{ width: "50%" }}>
+        <Box>
           <Box sx={{ marginBottom: "1rem" }}>
-            <Typography variant="h3" sx={{ marginBottom: "1rem" }}>
+            <Typography
+              variant="h3"
+              component="h3"
+              sx={{ marginBottom: "1rem" }}
+            >
               Registrering
             </Typography>
             <Typography variant="body2">
@@ -172,7 +185,6 @@ const SignupOrg = () => {
                 border: "none",
                 backgroundColor: "transparent",
               }}
-              className={classes.testClass}
             />
             <Label
               for="password"
