@@ -16,27 +16,13 @@ const MessageMain = () => {
   const classes = useStyles();
 
   return (
-    <Container
-      maxWidth="xl"
-      disableGutters
-      sx={{
-        boxSizing: "border-box",
-        display: "flex",
-      }}
-    >
-      <Container
-        maxWidth="lg"
-        disableGutters
-        sx={{
-          boxSizing: "border-box",
-          display: "flex",
-        }}
-      >
+    <Container maxWidth="false" disableGutters>
+      <Container maxWidth="xl" disableGutters>
         <Grid container>
-          <Grid item sm={1} xs={2}>
+          <Grid item sm={1} xs={1} md={1} lg={1} xl={1}>
             <MessageLeftBar />
           </Grid>
-          <Grid item sm={11} xs={10}>
+          <Grid item sm={11} xs={11} md={11} lg={11} xl={11}>
             <MessageFeedContent />
           </Grid>
         </Grid>

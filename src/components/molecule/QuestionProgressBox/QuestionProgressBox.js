@@ -1,33 +1,34 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 
 const QuestionProgressBox = () => {
   return (
-    <Box
+    <Container
+      maxWidth="false"
+      disableGutters
       sx={{
-        height: "20%",
-        display: "flex",
-        justifyContent: "space-between",
         border: "1px solid #dddddd",
         boxShadow: "1px 1px 8px #dfdfdf",
         borderRadius: 2,
-        padding: "3rem"
+        padding: ".5rem 2rem",
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          width: "100%",
+          padding: ".75rem 1rem",
         }}
       >
         <Box>
           <Typography
             variant="body2"
-            sx={{ textTransform: "Uppercase", textAlign: "center" }}
+            style={{
+              textTransform: "Uppercase",
+              textAlign: "center",
+              fontSize: "0.5rem",
+              minHeight: "1.6rem",
+            }}
           >
-            {/* Gör minst 30 frågor för att få prognos */}
+            Gör minst 30 frågor för att få prognos
           </Typography>
         </Box>
         <Box
@@ -37,11 +38,13 @@ const QuestionProgressBox = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h5" style={{marginRight:'0.5rem'}}>10</Typography>
+          <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
+            10
+          </Typography>
           <Typography variant="body2">Prognos</Typography>
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

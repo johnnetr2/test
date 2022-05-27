@@ -16,22 +16,8 @@ const HomeMainOrg = () => {
   const classes = useStyles();
 
   return (
-    <Container
-      maxWidth="false"
-      disableGutters
-      sx={{
-        boxSizing: "border-box",
-        display: "flex",
-      }}
-    >
-      <Container
-        maxWidth="xl"
-        disableGutters
-        sx={{
-          boxSizing: "border-box",
-          display: "flex",
-        }}
-      >
+    <Container maxWidth="false" disableGutters>
+      <Container maxWidth="xl" disableGutters>
         <Grid container>
           <Grid item sm={1} xs={1} md={1} lg={1} xl={1}>
             <HomeLeftBar />

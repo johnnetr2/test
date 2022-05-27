@@ -16,30 +16,24 @@ const CoursesMain = () => {
   const classes = useStyles();
 
   return (
-    <Container
-      maxWidth="xl"
-      disableGutters
-      sx={{
-        boxSizing: "border-box",
-        display: "flex",
-      }}
-    >
-      <Container
-        maxWidth="lg"
-        disableGutters
-        sx={{
-          boxSizing: "border-box",
-          display: "flex",
-        }}
-      >
+    <Container maxWidth="false" disableGutters>
+      <Container maxWidth="xl" disableGutters>
         <Grid container>
-          <Grid item sm={1} xs={2}>
+          <Grid item sm={1} xs={1} md={1} lg={1} xl={1}>
             <CoursesLeftBar />
           </Grid>
-          <Grid item sm={7} xs={10}>
+          <Grid item sm={11} xs={11} md={7} lg={7} xl={7}>
             <CoursesFeedContent />
           </Grid>
-          <Grid item sm={4} className={classes.right}>
+          <Grid
+            item
+            sm={4}
+            md={4}
+            lg={4}
+            xl={4}
+            style={{ backgroundColor: "#fafafa" }}
+            className={classes.right}
+          >
             <CoursesRightBar />
           </Grid>
         </Grid>

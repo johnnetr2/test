@@ -87,12 +87,11 @@ const CoursesCard = (props) => {
         sx={{
           border: "1px solid #e1e1e1",
           borderRadius: ".25rem",
-          padding: "1.5rem",
           boxShadow: "1px 1px 5px #d4d4d4",
           backgroundColor: "transparent",
         }}
       >
-        <Box sx={{ margin: "0.25rem" }}>
+        <Box sx={{ margin: "0.25rem", padding: "1rem" }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <MenuIcon />
           </Box>

@@ -99,11 +99,13 @@ const ProfileFeedContent = () => {
             marginTop: "3rem",
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
           }}
         >
-          <BodyText title="E-MAIL" />
-          <Box sx={{ width: "65%" }}>
+          <Box sx={{ padding: "1rem 0" }}>
+            <BodyText title="E-MAIL :" />
+          </Box>
+          <Box>
             <InputField
               type="email"
               placeholder="magnusbest@hotmail.com"
@@ -115,12 +117,13 @@ const ProfileFeedContent = () => {
                 marginBottom: "1rem",
               }}
             />
+            <Box sx={{ width: "24rem" }}>
+              <FilledBtn
+                title="Spara ändringar"
+                onClick={() => setShow(true)}
+              />
+            </Box>
           </Box>
-        </Box>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Box sx={{ width: "24rem" }}>
-          <FilledBtn title="Spara ändringar" onClick={() => setShow(true)} />
         </Box>
       </Box>
       <Box
