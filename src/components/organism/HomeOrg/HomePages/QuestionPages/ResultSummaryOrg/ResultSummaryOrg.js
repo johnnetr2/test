@@ -23,13 +23,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 
-const ResultSummaryOrg = () => {
+const ResultSummaryOrg = (props) => {
   const params = useLocation();
-  const [prevData, setPrevData] = useState();
   const [timePerQues, setTimePerQues] = useState();
+  const [progress, setProgress] = useState(0);
+  const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
-  const quiz = params?.state?.quiz;
-  console.log(quiz, "first quiz");
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -79,34 +78,29 @@ const ResultSummaryOrg = () => {
 
   const classes = useStyles(10);
 
-  const [progress, setProgress] = useState(0);
-  const [responseCollection, setresponseCollection] = useState({});
-
   useEffect(() => {
-    setPrevData(params?.state);
-    // let totalTime = params.state.totalTime * 60;
-    // let remainingTime = params.state.timeLeft;
-    // let timeSpent = totalTime - remainingTime;
-    let timePerQuestion;
+    const URL = EndPoints.getQuizResult + params?.state?.quizId;
+    let sumOfTimeSpent = 0
 
-    const URL = EndPoints.getResult + params?.state?.quizId;
-    try {
-      instance2.get(URL).then((response) => {
-        if (response.data) {
-          setresponseCollection(response.data);
-          timePerQuestion =
-            response?.data?.spendtime / response?.data?.answer?.length;
-          if (response?.data?.spendtime && response?.data?.timeleft) {
-            setTimePerQues(timePerQuestion);
-          } else {
-            setTimePerQues(false);
-          }
-          // const URL2 = EndPoints.
-        }
-      });
-    } catch (error) {
-      swal("Error", error.message);
-    }
+    instance2.get(URL).then(response => {
+      response.data.question.map(item => {
+        return sumOfTimeSpent = sumOfTimeSpent + item.spendTime
+      })
+
+      let lengthOfQuestions = response.data.question.length
+      // let totalTime = response.data.questions[0].totaltime;
+      // let remainingTime = response.data.questions[lengthOfQuestions - 1].timeleft;
+      let timePerQuestion;
+      timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
+      
+      if (sumOfTimeSpent) {
+        setTimePerQues(timePerQuestion);
+      } else {
+        setTimePerQues(false);
+      }
+      setresponseCollection(response.data)
+    })
+
     return () => {
       // clearInterval(timer);
     };
@@ -157,13 +151,13 @@ const ResultSummaryOrg = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {responseCollection?.answer?.length} av{" "}
-              {responseCollection?.totalQuestion}
+              {responseCollection?.correctAnswer} av{" "}
+              {responseCollection?.question.length}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
-              {responseCollection?.timeleft
-                ? dispSecondsAsMins(responseCollection?.timeleft)
+              {responseCollection
+                ? dispSecondsAsMins(responseCollection?.question[responseCollection.question.length - 1].timeleft)
                 : "00:00"}
             </Box>
           </Box>
@@ -214,13 +208,13 @@ const ResultSummaryOrg = () => {
                   borderRadius: "5px",
                 }}
               >
-                {responseCollection.totalQuestion &&
-                responseCollection.correctAnswer != null ? (
+                {responseCollection?.totalQuestion &&
+                  responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                        " /" +
-                        responseCollection.totalQuestion}
+                      " /" +
+                      responseCollection.question.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -250,11 +244,11 @@ const ResultSummaryOrg = () => {
                   borderRadius: "5px",
                 }}
               >
-                {responseCollection.totalQuestion &&
-                responseCollection.correctAnswer != null ? (
+                {responseCollection?.totalQuestion &&
+                  responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {(responseCollection.correctAnswer /
-                      responseCollection.totalQuestion) *
+                        responseCollection.totalQuestion) *
                       2}
                   </Typography>
                 ) : (
@@ -322,8 +316,8 @@ const ResultSummaryOrg = () => {
                 }}
               >
                 <Typography variant="h4">
-                  {responseCollection?.timeleft
-                    ? dispSecondsAsMins(responseCollection?.timeleft)
+                  {responseCollection
+                    ? dispSecondsAsMins(responseCollection?.question.at(-1).timeleft)
                     : "00:00"}
                 </Typography>
                 <Typography
@@ -355,101 +349,92 @@ const ResultSummaryOrg = () => {
               flexDirection: "column",
             }}
           >
-            {responseCollection?.answer &&
-              responseCollection?.answer.map((item, index) => {
-                return (
-                  <Box
-                    key={index}
-                    padding={1}
-                    mt={2}
-                    mb={2}
-                    onClick={() => {
-                      const quiz = params?.state?.quiz;
-                      console.log(quiz, "my quiz ////");
-
-                      let questionIndex = quiz.findIndex(
-                        (element) => element.question._id === item.questionId
-                      );
-                      navigate("/question", {
+            {responseCollection && responseCollection?.question?.map((item, index) => {
+              return (
+                <Box
+                  key={index}
+                  padding={1}
+                  mt={2}
+                  mb={2}
+                  onClick={() => {
+                    let questionIndex = responseCollection.question.findIndex(
+                      (element) => element._id === item._id
+                    )
+                    navigate("/question", {
                         state: {
-                          quizId: prevData.quizId,
-                          user: localStorage.getItem("userId"),
-                          optionId: item.optionId,
-                          questionId: item.questionId,
-                          sectionCategory: prevData.sectionCategory,
                           questionIndex,
-                          quiz: quiz,
-                          prevState: params.state,
-                        },
+                          quiz: responseCollection,
+                          sectionCategory: params?.state?.sectionCategory,
+                          quizId: params?.state?.quizId,
+                          // quiz: responseCollection.question
+                        }
                       });
-                    }}
-                    // onClick={() =>
-                    //   navigate('/question', {state:{
-                    //       sectionCategory:prevData?.sectionCategory
-                    //   }})
-                    // }
+                  }}
+                  style={{
+                    height: "3.5rem",
+                    border: "1px solid #E3E3E3",
+                    width: 550,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                    "&:hover": {
+                      backgroundColor: "blue",
+                    },
+                  }}
+                >
+                  <FormControlLabel
+                    control={
+                      item.optionId === item.answer.option ? (
+                        <img
+                          style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                          src={Correct}
+                        />
+                      ) : (
+                        <img
+                          src={Wrong}
+                          style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                        />
+                      )
+                    }
+                  />
+                  <Typography
                     style={{
-                      height: "3.5rem",
-                      border: "1px solid #E3E3E3",
-                      width: 550,
+                      textTransform: "uppercase",
+                      fontSize: "0.75rem",
+                      fontWeight: "600",
+                      marginRight: "18rem",
+                    }}
+                    variant="body1"
+                    component="body1"
+                  >
+                    {"Uppgift " +
+                      `${index + 1}` +
+                      " av " +
+                      responseCollection.question.length}
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    style={{ fontSize: ".75rem", fontWeight: "600" }}
+                  >
+                    {/* Tid: 04:51 */}
+                    {item?.spendTime
+                      && 'Tid: ' + dispSecondsAsMins(item?.spendTime)
+                    }
+                  </Typography>
+                  <Box
+                    style={{
                       display: "flex",
+                      justifyContent: "center",
                       alignItems: "center",
-                      justifyContent: "space-between",
-                      cursor: "pointer",
-                      "&:hover": {
-                        backgroundColor: "blue",
-                      },
                     }}
                   >
-                    <FormControlLabel
-                      control={
-                        item.optionId == item.isCorrect ? (
-                          <img
-                            style={{ height: "1.5rem", marginLeft: "1.5rem" }}
-                            src={Correct}
-                          />
-                        ) : (
-                          <img
-                            src={Wrong}
-                            style={{ height: "1.5rem", marginLeft: "1.5rem" }}
-                          />
-                        )
-                      }
-                    />
-                    <Typography
-                      style={{
-                        textTransform: "uppercase",
-                        fontSize: "0.75rem",
-                        fontWeight: "600",
-                        marginRight: "18rem",
-                      }}
-                      variant="body1"
-                      component="body1"
-                    >
-                      {"Uppgift " +
-                        `${index + 1}` +
-                        " av " +
-                        responseCollection.totalQuestion}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      component="h6"
-                      style={{ fontSize: ".75rem", fontWeight: "600" }}
-                    >
-                      Tid: 04:51
-                    </Typography>
-                    <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img src={RightArrow} className={classes.size} alt="" />
-                    </Box>
+                    <img src={RightArrow} className={classes.size} alt="" />
                   </Box>
-                );
-              })}
+                </Box>
+              );
+            })}
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>
             <Button
@@ -458,7 +443,6 @@ const ResultSummaryOrg = () => {
                 navigate("/category", {
                   state: {
                     item: params?.state?.sectionCategory,
-                    quiz: quiz,
                   },
                 })
               }

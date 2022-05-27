@@ -14,6 +14,8 @@ import {
 import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 import TopArrow from '../../../../../../assets/Icons/TopArrow.svg'
 import Correct from '../../../../../../assets/Imgs/correct.png'
+import Wrong from '../../../../../../assets/Imgs/wrong.png'
+import { set } from "date-fns";
 
 const ResultQuestionViewDtkOrg = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
@@ -64,6 +66,7 @@ const ResultQuestionViewDtkOrg = (props) => {
 
   const classes = useStyles(10);
   const [explanation, setExplanation] = useState()
+  const [paragraph, setPAragraph] = useState(props?.quiz?.question)
 
   const [progress, setProgress] = useState(0);
 
@@ -72,95 +75,118 @@ const ResultQuestionViewDtkOrg = (props) => {
     props.nextQuestion()
   }
 
+  const showResult = (item, index) => {
+    const quiz = [...paragraph]
+    const question = quiz[index]
+    question.showResult = true
+    setPAragraph(quiz)
+  }
+
+  const hideResult = (item, index) => {
+    const quiz = [...paragraph]
+    const question = quiz[index]
+    question.showResult = false
+    setPAragraph(quiz)
+  }
+
   return (
     <div>
       <CssBaseline />
 
-      <Container
-        maxWidth="lg"
-        style={{ backgroundColor: "#fff", height: "fit-content", padding: '.5rem', marginTop: '5%', width: 600 }}
-      >
-        <Box
-          paddingX={4}
-          mt={5}
-          sx={{
-            backgroundColor: "#fff",
-            width: 580,
-            height: 120,
-            border: "1px solid #e1e1e1",
-            display: "flex",
-          }}
+      {paragraph && paragraph?.map((item, index) => {
+        return <Container
+          maxWidth="lg"
+          style={{ backgroundColor: "#fff", height: "fit-content", padding: '.5rem', marginTop: '5%', width: 600 }}
         >
-          {/* <FormControlLabel control={<Checkbox color="primary" />} /> */}
-          <img src={Correct} style={{ height: '2rem', marginTop: '2.3rem' }} />
           <Box
-            padding={1}
-            mt={2}
-            mb={2}
-            style={{ width: 500 }}
+            paddingX={4}
+            mt={5}
+            sx={{
+              backgroundColor: "#fff",
+              width: 580,
+              height: 120,
+              border: "1px solid #e1e1e1",
+              display: "flex",
+            }}
           >
-            <Typography
-              style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
-              variant="body1"
-              component="body1"
-            >
-              Uppgift 8 av 12
-            </Typography>
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: ".75rem", fontWeight: "600" }}
-            >
-              Vilket år såg samtliga fem typer av institutioner och grupper
-              sina intäkter ökajämfört med föregående år?
-            </Typography>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                marginBottom: 10,
-              }}
-            >
-              {/* <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} 
-              <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} */}
-              {
-                explanation ? (<img src={TopArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(false)} className={classes.size} alt="" />)
-                  : (
-                    <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} className={classes.size} alt="" />
-                  )
-              }
 
+            {item.optionId === item?.answer?.option ? (<img src={Correct} style={{ height: '2rem', marginTop: '1.8rem' }} />)
+              :
+              (<img src={Wrong} style={{ height: '2rem', marginTop: '1.8rem' }} />)
+            }
+            <Box
+              padding={1}
+              mt={2}
+              mb={2}
+              style={{ width: 500}}
+            >
+              <Typography
+                style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
+                variant="body1"
+                component="body1"
+              >
+                {"Uppgift " +
+                  `${index + 1}` +
+                  " av " +
+                  paragraph?.length}
+              </Typography>
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ fontSize: ".75rem", fontWeight: "600" }}
+              >
+                {item.questionStatement}
+              </Typography>
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  marginBottom: 10,
+                }}
+              >
+                {/* <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} 
+              <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} */}
+                {
+                  item.showResult ? (<img src={TopArrow} style={{ cursor: 'pointer' }} onClick={() => hideResult(item, index)} className={classes.size} alt="" />)
+                    : (
+                      <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => showResult(item, index)} className={classes.size} alt="" />
+                    )
+                }
+
+              </Box>
             </Box>
           </Box>
-        </Box>
 
-        {explanation && <MultiAnswer />}
+          {item.showResult && <MultiAnswer question={item} selectOption={item.selectedOptionID} />}
 
-      </Container>
+        </Container>
+      })}
 
-      <Box
-        padding={1}
-        mt={2}
-        style={{
-          backgroundColor: '#0A1596', color: "#FFFFFF", height: '2.7rem', 
-          borderRadius: '.4rem', width: '100%', marginTop: '2%', 
-          marginBottom: '2%', marginLeft: '1%', display: 'flex', 
-          justifyContent: 'center', alignItems: 'center', cursor: 'pointer'
-        }}
-        onClick={() => changeQuestion()}
-      >
-        <Typography
-          variant="h6"
+       <Box
+          padding={1}
+          mt={2}
           style={{
-            fontSize: "0.75rem",
-            marginRight: "0.5rem",
-            width: '3rem',
+            backgroundColor: '#0A1596', color: "#FFFFFF", height: '2.7rem',
+            borderRadius: '.4rem', width: '100%', marginTop: '2%',
+            marginBottom: '2%', marginLeft: '1%', display: 'flex',
+            justifyContent: 'center', alignItems: 'center', cursor: 'pointer'
           }}
+          onClick={changeQuestion}
         >
-          Nästa
-        </Typography>
-      </Box>
+          <Typography
+            variant="h6"
+            style={{
+              fontSize: "0.75rem",
+              marginRight: "0.5rem",
+              width: '3rem',
+            }}
+          >
+            Nästa
+          </Typography>
+        </Box>
+      
+
     </div>
   );
 };

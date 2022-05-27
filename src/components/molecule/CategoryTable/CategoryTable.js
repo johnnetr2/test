@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 
 export const CategoryTable = (props) => {
   const categoryTable = props.tableHistory;
-  console.log(categoryTable, "category table");
   const [sectionCategory, setSectionCategory] = useState("");
 
   const navigate = useNavigate();
@@ -60,7 +59,10 @@ export const CategoryTable = (props) => {
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
-              width: "20ch",
+              width: "13ch",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             },
           }}
         >
@@ -86,7 +88,6 @@ export const CategoryTable = (props) => {
         quizId: row.row.quiz,
         sectionCategory: sectionCategory,
         user: localStorage.getItem("userId"),
-        quiz: props?.quiz,
       },
     });
   };
@@ -120,9 +121,9 @@ export const CategoryTable = (props) => {
                     {row.createdAt}
                   </TableCell>
                   <TableCell align="left">
-                    {row.correctAnswer} av {row.totalQuestion}
+                    {row.correctAnswer} av {row.answer.length}
                   </TableCell>
-                  <TableCell align="left">0.0</TableCell>
+                  <TableCell align="left">{(row.correctAnswer / row.totalQuestion) * 2}</TableCell>
                   <TableCell align="left">
                     <MenuIcon row={row} />
                   </TableCell>

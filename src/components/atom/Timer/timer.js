@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
 const Timer = (props) => {
-  const sec = props.time * 60;
+  const sec = props.time;
   const [timer, setTimer] = useState(sec); // 25 minutes
   const [start, setStart] = useState();
   const firstStart = useRef(true);
@@ -19,9 +19,10 @@ const Timer = (props) => {
 
   useEffect(() => {
     setStart(props.continueStatus);
-    if (!props.continueStatus) {
+    // props.onChangeTime(timer)
+    // if (!props.continueStatus) {
       props.timeleft(timer);
-    }
+    // }
   }, [props.continueStatus]);
 
   useEffect(() => {
@@ -35,9 +36,6 @@ const Timer = (props) => {
         setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1));
       }, 1000);
     }
-    // else {
-    //   clearInterval(tick.current);
-    // }
     return () => clearInterval(tick.current);
   }, [start]);
 

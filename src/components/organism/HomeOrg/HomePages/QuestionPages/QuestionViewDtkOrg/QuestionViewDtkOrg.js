@@ -24,16 +24,15 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { useNavigate } from "react-router-dom";
 import ResultQuestionViewDtkOrg from './ResultQuestionViewDTKOrg'
 import { EndPoints, instance2 } from "../../../../../service/Route";
+import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
+import Timer from "../../../../../atom/Timer/timer";
+
 
 const QuestionViewDTKOrg = (props) => {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [optionId, setOptionId] = useState()
-  const question = props.question
   const [quiz, setQuiz] = useState()
-  const navigate = useNavigate()
-  const [showResult, setShowResult] = useState()
-
+  const [showResult, setShowResult] = useState(false)
 
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -85,55 +84,102 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    setQuiz(props.question.questions)
+    if (props.paragraphIndex != undefined) {
+      setSelectedIndex(props.questionIndex)
+      setQuiz(props.question)
+    } else {
+      setQuiz(props.question)
+    }
   }, [])
 
+  const Button = (question) => {
+    if (props.paragraphIndex != undefined) {
+      return <ResultFooter
+        questionLength={props.quiz.length}
+        questionIndex={props.selectedIndex}
+        onResultHandler={() => props.onResultHandler()}
+        onLeftClick={() => {
+          props.onLeftClick();
+        }}
+        onRightClick={() => {
+          props.onRightClick();
+        }}
+      />
+    } else {
+      return <Box sx={{ width: 600, marginLeft: '.5rem' }}>
+        <ExerciseBtn title="Nästa"
+          onClick={() => submitAnswer(question)}
+        />
+      </Box>
+    }
+  }
+
   const SelectFunc = (e, optionIndex) => {
-    const questions = [...quiz];
-    let question = questions[selectedIndex];
+    let allQuiz = { ...quiz }
+    const qz = allQuiz?.question
+    let question = qz[selectedIndex];
     question.selectedOptionIndex = optionIndex;
-    question.selectedOptionID = e.target.value;
-    setQuiz(questions);
+    question.optionId = e.target.value;
+    allQuiz.question = qz
+    setQuiz(allQuiz)
+  };
+
+  const Options = (question, option, optionIndex) => {
+    // if (props.paragraphIndex != undefined && question.answer.option == option._id) {
+    //   return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
+    // } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {
+    //   return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: ".4rem", }} />;
+    // }
+    if (optionIndex == question.selectedIndex) {
+      return <Radio color="primary" checked={true} />;
+    } else {
+      return <Radio color="primary" checked={false} />;
+    }
   };
 
 
-  const submitAnswer = (question, index) => {
-    //     navigate("/resultsummary", {
-    //       state: {
-            // quizId: params?.state?.data?._id,
-            // sectionCategory: params?.state?.sectionCategory,
-            // timeLeft: timeLeft,
-            // totalTime: time,
-            // quiz: quiz,
-            // quizId: params?.state?.quizId
-    //       },
-    //     });
+  const submitAnswer = (question) => {
+    if (!question.answerSubmited) {
+      const allQuiz = { ...quiz };
+      const qz = allQuiz.question
+      let selectedquestion = qz[selectedIndex];
 
-      const questions = [...quiz];
-      let selectedquestion = questions[selectedIndex];
-      selectedquestion.answerSubmited = true;
-      setQuiz(questions);
+      const getAnswer = EndPoints.getAnswerByQuestionId + selectedquestion._id;
+      instance2.get(getAnswer).then((response) => {
+        selectedquestion.answer = response.data;
+        selectedquestion.answerSubmited = true;
+
+        const selectedAnswers = qz.filter(item => item.answerSubmited)
+        if (selectedAnswers.length === qz.length) {
+          setShowResult(true)
+          props.stopTimer()
+        }
+
+        setQuiz(allQuiz);
+      });
+
+      selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
 
       const data = {
-        quiz: props.data.quizId,
+        quiz: props.quizId,
         user: localStorage.getItem("userId"),
-        optionId: question.selectedOptionID,
-        questionId: question.question._id,
-        sectionCategory: props.sectionCategory._id
+        optionId: selectedquestion?.optionId,
+        questionId: selectedquestion?._id,
+        sectionCategory: props?.sectionCategory._id,
+        timeleft: props.timeLeft ? props.timeLeft : null,
+        totaltime: props.totalTime ? props.totalTime : null,
+        spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
+        MultipartQuestion: props.question._id
       }
-      console.log(data, 'this is json body')
-      // const URL = EndPoints.submitAnswer
-      // instance2.post(URL, data).then(response => {
-      //   console.log("Answer submitted")
-      // })
-    // }
+      const URL = EndPoints.submitAnswer
+      instance2.post(URL, data).then(response => {
+        console.log("Answer submitted")
 
-    const slectedAnswers = questions.filter(item => item.selectedOptionID)
-    console.log(slectedAnswers.length, 'length of answers')
-    if (slectedAnswers.length === questions.length) {
-      setShowResult(true)
-      props.stopTimer()
+      })
+    } else {
+      selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
     }
+    // setForce(!forceupdate)
   };
 
   return (
@@ -144,6 +190,67 @@ const QuestionViewDTKOrg = (props) => {
         maxWidth="lg"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
+        {/* <Container
+          disableGutters
+          maxWidth="Xl"
+          style={{ backgroundColor: "#fff" }}
+        >
+          <Box mt={8} sx={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", }}>
+            <Box mt={2} width={100} sx={{ color: "#222" }}>
+              <img src={BarChart} alt="" />
+              {props.selectedIndex + 1} av {props?.totalQuestions}
+            </Box>
+            {props.params && props.params.value == true && (
+              <Box
+                mt={2}
+                sx={{ color: "#222", display: "flex", flexDirection: "row" }}
+              >
+                <img src={Clock} alt="" />
+                <Timer
+                  continueStatus={props.status}
+                  time={props.time}
+                  timeleft={(timer) => {
+                    if (!props.status) {
+                      props.timeLeft(timer)
+                      props.nextPress()
+                    }
+                  }}
+                  onCloseTimer={() => props.onCloseTimer()}
+                />
+              </Box>
+            )}
+          </Box>
+
+          <Box
+            mt={2}
+            sx={{
+              backgroundColor: "#b4b4b4",
+              height: "8px",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {props?.quiz &&
+              props.quiz?.map((item, index) => {
+                if (item.type === 'multiple') {
+                  return item.question.map(question =>
+                    <Box
+                      key={index}
+                      style={{
+                        backgroundColor: question.answer
+                          ? "#6fcf97"
+                          : "#B4B4B4",
+                        marginLeft: "2px",
+                        flex: "1",
+                      }}
+                    ></Box>
+                  )
+                }
+              }
+
+              )}
+          </Box>
+        </Container> */}
 
         <Container
           maxWidth="md"
@@ -179,119 +286,120 @@ const QuestionViewDTKOrg = (props) => {
                 fontWeight: "500",
               }}
             >
-              {question.questions.length + ' uppgifter:'}
+              {selectedIndex + 1 + ' uppgifter:'}
             </Typography>
             <Typography variant="h6" component="h6">
-              {question.title}
+              {quiz?.title}
             </Typography>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              <MarkLatex content={question.paragraph} />
+              <MarkLatex content={quiz?.description} />
             </Typography>
-            <Box>
-              <img src={question.image} style={{ width: '100%' }} alt="" />
-            </Box>
+            {quiz?.image && <Box>
+              <img src={quiz?.image} style={{ width: '100%' }} alt="" />
+            </Box>}
           </Box>
-          {showResult ? (<ResultQuestionViewDtkOrg stopTimer={() => props.stopTimer()} startTimer={() => props.startTimer()} 
-            nextQuestion={() => props.nextQuestion()}
-          />) : 
-           quiz && quiz.map((question, index) => {
-             console.log(question, 'question')
-            if (index == selectedIndex) {
-              return <Box>
-                <Box
-                  paddingX={4}
-                  mt={5}
-                  sx={{
-                    backgroundColor: "#fff",
-                    width: 600,
-                    border: "1px solid #e1e1e1",
-                    marginLeft: '.5rem'
-                  }}
-                >
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "center",
-                      marginTop: 10,
-                    }}
-                  >
-                    <Box style={{ width: 70, display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }} >
-                      {selectedIndex > 0 && <img onClick={() => setSelectedIndex(selectedIndex - 1)} src={BlueLeftIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />}
-                      <Typography variant="body1" component="body1" style={{ fontSize: '.8rem' }} >
-                        {selectedIndex + 1 + '/' + quiz.length}
-                      </Typography>
-                      <img onClick={() => selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1)} src={BlueRightIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />
-                    </Box>
-                  </Box>
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: ".75rem", fontWeight: "600", marginTop: 20, display: 'flex', flexDirection: 'column' }}
-                  >
-                    <MarkLatex content={question.question.questionStatement} />
-
-                    {question.image && <img src={question.image} style={{ height: '10rem', marginBottom: '.4rem' }} />}
-                  </Typography>
-                </Box>
-                {question.options.map((option, optionIndex) => {
-                  return <Box
-                    padding={1}
-                    sx={{
-                      backgroundColor: "#fff",
-                      width: 600,
-                      border: "1px solid #e1e1e1",
-                      marginLeft: '.5rem'
-                    }}
-                  >
-                    <FormControlLabel onClick={(e) => {
-                      !question.answerSubmited && SelectFunc(e, optionIndex);
-                    }} value={option._id}
-                      style={{ marginLeft: '.5rem' }}
-
-                      control={<Radio color="primary" checked={optionIndex == question.selectedOptionIndex} />}
-
-                      label={<MarkLatex content={option.value.replace("\f", "\\f")} />} />
-                  </Box>
-
-                })}
-
-                {question.selectedOptionIndex + 1 ? (<Box sx={{ width: 600, marginLeft: '.5rem' }}>
-                  <ExerciseBtn title="Nästa"
-                    onClick={() => submitAnswer(question, index)}
-                  />
-                </Box>) : (
-                  <Box
-                    padding={1}
-                    mt={2}
-                    style={{
-                      backgroundColor: 'grey', color: "#FFFFFF", height: '2.7rem', borderRadius: '.4rem', width: '100%', marginTop: '2%', marginBottom: '2%', marginLeft: '1%', display: 'flex', justifyContent: 'center', alignItems: 'center'
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      style={{
-                        fontSize: "0.75rem",
-                        marginRight: "0.5rem",
-                        width: '3rem',
+          {
+            showResult ? (<ResultQuestionViewDtkOrg paragraphIndex={props.paragraphIndex}
+              onRightClick={() => props.onRightClick()}
+              onLeftClick={() => props.onLeftClick()} onResultHandler={() => props.onResultHandler()}
+              questionIndex={props.questionIndex} quiz={quiz} stopTimer={() => props.stopTimer()}
+              startTimer={() => props.startTimer()} selectedIndex={props.selectedIndex}
+              nextQuestion={() => props.nextQuestion()}
+            />) :
+              quiz && quiz?.question?.map((question, index) => {
+                if (index == selectedIndex) {
+                  return <Box>
+                    <Box
+                      paddingX={4}
+                      mt={5}
+                      sx={{
+                        backgroundColor: "#fff",
+                        width: 600,
+                        border: "1px solid #e1e1e1",
+                        marginLeft: '.5rem'
                       }}
                     >
-                      Nästa
-                    </Typography>
+                      <Box
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "center",
+                          marginTop: 10,
+                        }}
+                      >
+                        <Box style={{ width: 70, display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }} >
+                          {selectedIndex > 0 && <img onClick={() => setSelectedIndex(selectedIndex - 1)} src={BlueLeftIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />}
+                          <Typography variant="body1" component="body1" style={{ fontSize: '.8rem' }} >
+                            {selectedIndex + 1 + '/' + quiz.question.length}
+                          </Typography>
+                          <img onClick={() => selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)} src={BlueRightIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />
+                        </Box>
+                      </Box>
+                      <Typography
+                        variant="h6"
+                        component="h6"
+                        style={{ fontSize: ".75rem", fontWeight: "600", marginTop: 20, display: 'flex', flexDirection: 'column' }}
+                      >
+                        <MarkLatex content={question.questionStatement} />
+
+                        {question.image && <img src={question.image[0]} style={{ height: '10rem', marginBottom: '.4rem' }} />}
+                      </Typography>
+                    </Box>
+                    {question.options[0].options.map((option, optionIndex) => {
+                      return <Box
+                        padding={1}
+                        sx={{
+                          backgroundColor: "#fff",
+                          width: 600,
+                          border: "1px solid #e1e1e1",
+                          marginLeft: '.5rem'
+                        }}
+                      >
+                        <FormControlLabel onClick={(e) => {
+                          !question.answerSubmited && SelectFunc(e, optionIndex);
+                        }} value={option._id}
+                          style={{ marginLeft: '.5rem', alignItems: 'center' }}
+
+                          control={
+                            props.paragraphIndex != undefined ? Options(question, option, optionIndex)
+                              : <Radio color="primary" checked={optionIndex == question.selectedOptionIndex} />
+                          }
+
+                          label={<MarkLatex content={option.value.replace("\f", "\\f")} />} />
+                      </Box>
+
+                    })}
+
+                    {question.selectedOptionIndex + 1 ? Button(question) : (
+                      <Box
+                        padding={1}
+                        mt={2}
+                        style={{
+                          backgroundColor: 'grey', color: "#FFFFFF", height: '2.7rem', borderRadius: '.4rem', width: '100%', marginTop: '2%', marginBottom: '2%', marginLeft: '1%', display: 'flex', justifyContent: 'center', alignItems: 'center'
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          style={{
+                            fontSize: "0.75rem",
+                            marginRight: "0.5rem",
+                            width: '3rem',
+                          }}
+                        >
+                          Nästa
+                        </Typography>
+                      </Box>
+
+                    )
+                    }
+
                   </Box>
-
-                )
                 }
-
-              </Box>
-            }
-          })
+              })
           }
-
-          
 
         </Container>
       </Container>
