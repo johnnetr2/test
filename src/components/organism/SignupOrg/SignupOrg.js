@@ -85,7 +85,7 @@ const SignupOrg = () => {
 
   return (
     <Container
-      maxWidth="xl"
+      maxWidth="false"
       disableGutters
       sx={{
         boxSizing: "border-box",
@@ -93,7 +93,7 @@ const SignupOrg = () => {
       }}
     >
       <Container
-        // maxWidth="xl"
+        maxWidth="false"
         disableGutters
         className={classes.hideOnMobile}
         sx={{
@@ -103,7 +103,7 @@ const SignupOrg = () => {
         }}
       ></Container>
       <Container
-        maxWidth="xl"
+        maxWidth="false"
         disableGutters
         sx={{
           width: "60%",

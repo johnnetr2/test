@@ -109,9 +109,6 @@ const LoginOrg = () => {
       }}
     >
       <Container
-        // xs={3}
-        // md={6}
-        // lg={12}
         disableGutters
         maxWidth="false"
         sx={{
