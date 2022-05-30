@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
@@ -17,13 +17,166 @@ import {
   Container,
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
+import { useNavigate } from "react-router-dom";
 
 const ProvPassInformation = () => {
+
+  const navigate = useNavigate()
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+
+  const data = [
+    {
+      "_id": "624d39eded9bf72128ae736a",
+      "multipartQuestion": null,
+      "images": [
+        "https://hp-appen.s3.eu-north-1.amazonaws.com/81dcafe5-c62a-4a33-8eb2-e1b0a13fc78c.png"
+      ],
+      "questionCategory": "6203d116b8a43736188935c8",
+      "year": "624566f9b099e234602868da",
+      "sectionCategories": "61f2903f35d8e6277cc2d6e6",
+      "questionStatement": "is this algebra5 multi(none)",
+      "createdAt": "2022-04-06T06:57:49.629Z",
+      "updatedAt": "2022-04-06T06:57:49.629Z",
+      "__v": 0,
+      "options": [
+        {
+          "_id": "624d3b158fb42b2e34857e48",
+          "question": "624d39eded9bf72128ae736a",
+          "options": [
+            {
+              "_id": "624d3b158fb42b2e34857e49",
+              "value": "1",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3b158fb42b2e34857e4a",
+              "value": "2",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3b158fb42b2e34857e4b",
+              "value": "3",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3b158fb42b2e34857e4c",
+              "value": "4",
+              "image": "",
+              "type": "Math"
+            }
+          ],
+          "createdAt": "2022-04-06T07:02:45.410Z",
+          "updatedAt": "2022-04-06T07:02:45.410Z",
+          "__v": 0
+        }
+      ]
+    },
+    {
+      "_id": "624d39e0ed9bf72128ae7355",
+      "multipartQuestion": null,
+      "images": [
+        "https://hp-appen.s3.eu-north-1.amazonaws.com/5cb18a40-91a3-4378-bef7-3698d4d53fa0.png"
+      ],
+      "questionCategory": "6203d116b8a43736188935c8",
+      "year": "624566f9b099e234602868da",
+      "sectionCategories": "61f2903f35d8e6277cc2d6e6",
+      "questionStatement": "is this algebra2 multi(none)",
+      "createdAt": "2022-04-06T06:57:36.671Z",
+      "updatedAt": "2022-04-06T06:57:36.671Z",
+      "__v": 0,
+      "options": [
+        {
+          "_id": "624d3af48fb42b2e34857e2a",
+          "question": "624d39e0ed9bf72128ae7355",
+          "options": [
+            {
+              "_id": "624d3af48fb42b2e34857e2b",
+              "value": "1",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3af48fb42b2e34857e2c",
+              "value": "2",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3af48fb42b2e34857e2d",
+              "value": "3",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3af48fb42b2e34857e2e",
+              "value": "4",
+              "image": "",
+              "type": "Math"
+            }
+          ],
+          "createdAt": "2022-04-06T07:02:12.629Z",
+          "updatedAt": "2022-04-06T07:02:12.629Z",
+          "__v": 0
+        }
+      ]
+    },
+    {
+      "_id": "624d39dbed9bf72128ae734e",
+      "multipartQuestion": null,
+      "images": [
+        "https://hp-appen.s3.eu-north-1.amazonaws.com/fac9548a-8872-4fda-8cfd-ace351231731.png"
+      ],
+      "questionCategory": "6203d116b8a43736188935c8",
+      "year": "624566f9b099e234602868da",
+      "sectionCategories": "61f2903f35d8e6277cc2d6e6",
+      "questionStatement": "is this algebra1 multi(none)",
+      "createdAt": "2022-04-06T06:57:31.902Z",
+      "updatedAt": "2022-04-06T06:57:31.902Z",
+      "__v": 0,
+      "options": [
+        {
+          "_id": "624d3ae98fb42b2e34857e20",
+          "question": "624d39dbed9bf72128ae734e",
+          "options": [
+            {
+              "_id": "624d3ae98fb42b2e34857e21",
+              "value": "1",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3ae98fb42b2e34857e22",
+              "value": "2",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3ae98fb42b2e34857e23",
+              "value": "3",
+              "image": "",
+              "type": "Math"
+            },
+            {
+              "_id": "624d3ae98fb42b2e34857e24",
+              "value": "4",
+              "image": "",
+              "type": "Math"
+            }
+          ],
+          "createdAt": "2022-04-06T07:02:01.245Z",
+          "updatedAt": "2022-04-06T07:02:01.245Z",
+          "__v": 0
+        }
+      ]
+    }
+  ]
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -247,9 +400,14 @@ const ProvPassInformation = () => {
             </Typography>
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>
-            <Link to="#">
-              <ExerciseBtn title="Starta delprov" />
-            </Link>
+            {/* <Link to="#"> */}
+            <ExerciseBtn title="Starta delprov" onClick={() => 
+              navigate('/simuleraprov', {
+              state: {
+                quiz: data
+              }
+            })}  />
+            {/* </Link> */}
           </Box>
         </Container>
       </Container>

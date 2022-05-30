@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
@@ -25,8 +25,31 @@ import {
   Container,
   LinearProgress,
 } from "@material-ui/core";
+import MarkLatex from '../../../../atom/Marklatex/MarkLatex'
+import Correct from "../../../../../assets/Imgs/correct.png";
+import Wrong from "../../../../../assets/Imgs/wrong.png";
+import { useNavigate, useLocation } from "react-router-dom";
+import WhiteStar from "../../../../../assets/Imgs/whiteStar.png";
 
 const StandardViewXyz = () => {
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const navigate = useNavigate()
+  const params = useLocation()
+
+  const [quiz, setQuiz] = useState()
+
+  useEffect(() => {
+    console.log(params?.state, ';this is params')
+    if (params?.state?.questionIndex) {
+      setQuiz(params?.state?.quiz)
+      setCurrentIndex(params?.state?.questionIndex)
+    } else {
+      setQuiz(params?.state?.quiz)
+    }
+  }, [])
+  
+
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -78,23 +101,56 @@ const StandardViewXyz = () => {
 
   const classes = useStyles();
 
-  //   const [progress, setProgress] = useState(0);
+  function OptionIndex(index) {
+    switch (index) {
+      case 0:
+        return "A";
+      case 1:
+        return "B";
+      case 2:
+        return "C";
+      case 3:
+        return "D";
+      default:
+        return "";
+    }
+  }
 
-  // useEffect(() => {
-  //     const timer = setInterval(() => {
-  //         setProgress((oldProgress) => {
-  //             if (oldProgress === 100) {
-  //                 return 0;
-  //             }
-  //             const diff = Math.random() * 10;
-  //             return Math.min(oldProgress + diff, 100);
-  //         });
-  //     }, 500);
+  const Options = (question, option, optionIndex) => {
+    if (question.answer && question.answer.option == option._id) {
+      return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
+    } else if (question.answer && option._id === question?.optionId) {
+      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+    }
+    // else {
+    //   return <Radio color="primary" checked={false} />;
+    // }
+    if (optionIndex == question.selectedIndex) {
+      return <Radio color="primary" checked={true} style={{ marginRight: "0.5rem" }} />;
+    } else {
+      return <Radio color="primary" checked={false} style={{ marginRight: "0.5rem" }} />;
+    }
+  };
 
-  //     return () => {
-  //         clearInterval(timer);
-  //     };
-  // }, []);
+  const SelectFunc = (e, optionIndex) => {
+    const questions = [...quiz];
+    let question = questions[currentIndex];
+    question.selectedIndex = optionIndex;
+    question.optionId = e.target.value;
+    setQuiz(questions);
+  };
+
+  const flagQuestion = () => {
+    const questions = [...quiz];
+    let question = questions[currentIndex];
+    if (question.isFlaged) {
+      question.isFlaged = false;
+      setQuiz(questions);
+    } else {
+      question.isFlaged = true;
+      setQuiz(questions);
+    }
+  }
 
   return (
     <div>
@@ -160,6 +216,19 @@ const StandardViewXyz = () => {
               flexDirection: "row",
             }}
           >
+            {quiz &&
+              quiz?.map((item, index) => {
+                return <Box
+                  key={index}
+                  style={{
+                    backgroundColor: item.answer
+                      ? "#6fcf97"
+                      : "#B4B4B4",
+                    marginLeft: "2px",
+                    flex: "1",
+                  }}
+                ></Box>
+              })}
             <Box
               mt={2}
               sx={{
@@ -191,166 +260,208 @@ const StandardViewXyz = () => {
               justifyContent: "center",
             }}
           >
-            <Button
+
+            {quiz && quiz[currentIndex] && <Button
               style={{
                 width: "6rem",
                 border: "1px solid #0A1596",
-                color: "#0A1596",
+                color: quiz[currentIndex].isFlaged ? '#fff' : "#0A1596",
+                backgroundColor: quiz[currentIndex].isFlaged ? '#0A1596' : ''
               }}
+              onClick={() => flagQuestion()}
             >
               {" "}
-              <img
-                style={{ width: "1rem", marginRight: ".5rem" }}
-                src={StarIcon}
-                alt=""
-              />{" "}
+              {quiz[currentIndex].isFlaged ? (
+                <img
+                  src={WhiteStar}
+                  style={{ width: "1rem", marginRight: ".5rem", }}
+                  alt=""
+                />
+              ) : (
+                <img
+                  style={{ width: "1rem", marginRight: ".5rem", }}
+                  src={StarIcon}
+                  alt=""
+                />
+              )
+              }
+              {" "}
               Spara
-            </Button>
+            </Button>}
+      
           </Box>
-          <Box
-            mt={5}
-            paddingX={6}
-            paddingY={2}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 280,
-              border: "1px solid #e1e1e1",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <Typography
-              variant="subtitle1"
-              style={{
-                fontSize: "0.75rem",
-                fontWeight: "500",
-                marginBottom: 30,
-              }}
-            >
-              f(x)=x/2-1
-            </Typography>
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600" }}
-            >
-              Vilket svarsalternativ visar grafen till funktionen g(x)= 2 f (x)+
-              3?
-            </Typography>
-          </Box>
-          <Box
-            mt={5}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 240,
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-            }}
-          >
-            <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-              <Box sx={{ display: "flex" }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormControlLabel
-                    style={{ marginLeft: ".5rem" }}
-                    value="A"
-                    control={<Radio color="primary" />}
-                    label="A"
-                  />
+
+          {/* start of question component */}
+
+          {quiz && quiz.map((question, questionIndex) => {
+            if (questionIndex === currentIndex) {
+              console.log(question)
+              return (
+                <Box>
+                  <Box
+                    mt={5}
+                    paddingX={6}
+                    paddingY={2}
+                    sx={{
+                      backgroundColor: "#fff",
+                      width: 600,
+                      height: 280,
+                      border: "1px solid #e1e1e1",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        fontSize: "0.75rem",
+                        fontWeight: "500",
+                        marginBottom: 30,
+                      }}
+                    >
+                      <MarkLatex content={question.questionStatement} />
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="h6"
+                      style={{ fontSize: "0.75rem", fontWeight: "600" }}
+                    >
+                      Vilket svarsalternativ visar grafen till funktionen g(x)= 2 f (x)+
+                      3?
+                    </Typography>
+                  </Box>
+                  <Box
+                    mt={5}
+                    sx={{
+                      backgroundColor: "#fff",
+                      width: 600,
+                      height: 240,
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                    }}
+                  >
+                    {question.options[0].options.map((option, optionIndex) => {
+                      return (
+                        <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
+                          <Box sx={{ display: "flex" }}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            >
+                              <FormControlLabel
+                                onClick={(e) => {
+                                  !question?.answer && SelectFunc(e, optionIndex);
+                                }}
+                                style={{ marginLeft: ".5rem" }}
+                                value={option?._id}
+                                // control={<Radio color="primary" />}
+                                control={Options(question, option, optionIndex)}
+                                label={OptionIndex(optionIndex)}
+                              // label='A'
+                              />
+                            </Box>
+                            <Box mt={2} ml={5}>
+                              {option.image ? (<img
+                                className={classes.piechart_size}
+                                src={option.image}
+                                alt=""
+                              />)
+                                :
+                                <MarkLatex content={option.value} />
+
+                              }
+                            </Box>
+                          </Box>
+                        </Box>
+                      )
+                    })
+
+                    }
+                    {/* <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
+                      <Box sx={{ display: "flex" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <FormControlLabel
+                            style={{ marginLeft: ".5rem" }}
+                            value="B"
+                            control={<Radio color="primary" />}
+                            label="B"
+                          />
+                        </Box>
+                        <Box mt={2} ml={5}>
+                          <img
+                            className={classes.piechart_size}
+                            src={QuestionOption}
+                            alt=""
+                          />
+                        </Box>
+                      </Box>
+                    </Box>
+                    <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
+                      <Box sx={{ display: "flex" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <FormControlLabel
+                            style={{ marginLeft: ".5rem" }}
+                            value="C"
+                            control={<Radio color="primary" />}
+                            label="C"
+                          />
+                        </Box>
+                        <Box mt={2} ml={5}>
+                          <img
+                            className={classes.piechart_size}
+                            src={QuestionOption}
+                            alt=""
+                          />
+                        </Box>
+                      </Box>
+                    </Box>
+                    <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
+                      <Box sx={{ display: "flex" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <FormControlLabel
+                            style={{ marginLeft: ".5rem" }}
+                            value="D"
+                            control={<Radio color="primary" />}
+                            label="D"
+                          />
+                        </Box>
+                        <Box mt={2} ml={5}>
+                          <img
+                            className={classes.piechart_size}
+                            src={QuestionOption}
+                            alt=""
+                          />
+                        </Box>
+                      </Box>
+                    </Box> */}
+                  </Box>
                 </Box>
-                <Box mt={2} ml={5}>
-                  <img
-                    className={classes.piechart_size}
-                    src={QuestionOption}
-                    alt=""
-                  />
-                </Box>
-              </Box>
-            </Box>
-            <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-              <Box sx={{ display: "flex" }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormControlLabel
-                    style={{ marginLeft: ".5rem" }}
-                    value="B"
-                    control={<Radio color="primary" />}
-                    label="B"
-                  />
-                </Box>
-                <Box mt={2} ml={5}>
-                  <img
-                    className={classes.piechart_size}
-                    src={QuestionOption}
-                    alt=""
-                  />
-                </Box>
-              </Box>
-            </Box>
-            <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-              <Box sx={{ display: "flex" }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormControlLabel
-                    style={{ marginLeft: ".5rem" }}
-                    value="C"
-                    control={<Radio color="primary" />}
-                    label="C"
-                  />
-                </Box>
-                <Box mt={2} ml={5}>
-                  <img
-                    className={classes.piechart_size}
-                    src={QuestionOption}
-                    alt=""
-                  />
-                </Box>
-              </Box>
-            </Box>
-            <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-              <Box sx={{ display: "flex" }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <FormControlLabel
-                    style={{ marginLeft: ".5rem" }}
-                    value="D"
-                    control={<Radio color="primary" />}
-                    label="D"
-                  />
-                </Box>
-                <Box mt={2} ml={5}>
-                  <img
-                    className={classes.piechart_size}
-                    src={QuestionOption}
-                    alt=""
-                  />
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+              )
+            }
+          })}
+
           <Box
             padding={1}
             mt={2}
@@ -365,7 +476,9 @@ const StandardViewXyz = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                cursor: 'pointer'
               }}
+              onClick={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}
             >
               {" "}
               <img src={LeftArrow} alt="" />
@@ -380,10 +493,14 @@ const StandardViewXyz = () => {
                 Föregående
               </Typography>
             </Box>
-            <Box>
+            <Box onClick={() => navigate('/overblick', {
+              state: {
+                quiz: quiz
+              }
+            })} >
               <Typography
                 variant="h6"
-                style={{ fontSize: "0.75rem", textTransform: "uppercase" }}
+                style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer' }}
               >
                 överblick
               </Typography>
@@ -393,7 +510,9 @@ const StandardViewXyz = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                cursor: 'pointer'
               }}
+              onClick={() => currentIndex + 1 < quiz.length && setCurrentIndex(currentIndex + 1)}
             >
               <Typography
                 variant="h6"

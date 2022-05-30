@@ -49,8 +49,7 @@ function App() {
         <Route path="/resultsummary" element={<ResultSummaryOrg />} />
         <Route path="/resultinfo" element={<ResultInformation />} />
         <Route path="/provpassinfo" element={<ProvPassInformation />} />
-        <Route path="/testinfo" element={<TestInformation />} />
-        <Route path="/standardviewxyz" element={<StandardViewXyz />} />
+        <Route path="/simuleraprov" element={<StandardViewXyz />} />
         <Route path="/provpassnog" element={<ProvPassNog />} />
         <Route path="/provpassdtk" element={<ProvPassDtk />} />
         <Route path="/provpasscorrectans" element={<ProvPassCorrectAns />} />
