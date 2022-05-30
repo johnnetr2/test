@@ -37,7 +37,7 @@ const QuestionViewXyzOrg = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
-  const [totalQuestions, setTotalQuestions] = useState(0)
+  const [totalQuestions, setTotalQuestions] = useState(0);
   // let totalQuestions = 0
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -46,22 +46,21 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setQuiz(params?.state?.quiz.question);
-      setTotalQuestions(params?.state?.quiz?.question.length)
-
+      setTotalQuestions(params?.state?.quiz?.question.length);
     } else {
-      params?.state && params?.state?.data?.quiz.map(item => {
-        if (item.description) {
-          setTotalQuestions(totalQ => totalQ + item?.question?.length)
-        } else {
-          setTotalQuestions(totalQ => totalQ + 1)
-        }
-      })
+      params?.state &&
+        params?.state?.data?.quiz.map((item) => {
+          if (item.description) {
+            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+          } else {
+            setTotalQuestions((totalQ) => totalQ + 1);
+          }
+        });
       setQuiz(params?.state?.data?.quiz);
     }
   }, []);
@@ -69,11 +68,11 @@ const QuestionViewXyzOrg = () => {
   const Next = (question) => {
     if (question.answerSubmited) {
       if (selectedIndex + 1 == quiz.length) {
-        localStorage.setItem('quizId', params?.state?.quizId)
+        localStorage.setItem("quizId", params?.state?.quizId);
         navigate("/resultsummary", {
           state: {
             sectionCategory: params?.state?.sectionCategory,
-            quizId: params?.state?.quizId
+            quizId: params?.state?.quizId,
           },
         });
       } else {
@@ -88,18 +87,17 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
-          setNextPress(!nextPress)
+          setNextPress(!nextPress);
           setQuiz(questions);
           setStatus(false);
         });
-
       }
     }
   };
 
   useEffect(() => {
     if (nextPress) {
-      setTime(timeLeft)
+      setTime(timeLeft);
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
@@ -111,19 +109,17 @@ const QuestionViewXyzOrg = () => {
         timeleft: timeLeft ? timeLeft : 0,
         totaltime: time ? time : 0,
         spendtime: timeLeft ? time - timeLeft : 0,
-        MultipartQuestion: null
+        MultipartQuestion: null,
       };
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
-        setNextPress(undefined)
-        console.log('Answer submited')
+        setNextPress(undefined);
+        console.log("Answer submited");
       });
     } else {
-      return
+      return;
     }
-  }, [nextPress])
-
-
+  }, [nextPress]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -171,9 +167,8 @@ const QuestionViewXyzOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-
   const CloseTimerFunc = async () => {
-    setTimeEnd(true)
+    setTimeEnd(true);
 
     try {
       return await Promise.all(
@@ -187,19 +182,18 @@ const QuestionViewXyzOrg = () => {
               timeleft: 0,
               totaltime: time ? time : 0,
               spendtime: timeLeft ? time - timeLeft : 0,
-            }
-            const URL = EndPoints.submitAnswer
-            await instance2.post(URL, data).then(response => {
-              console.log(response.data)
-            })
+            };
+            const URL = EndPoints.submitAnswer;
+            await instance2.post(URL, data).then((response) => {
+              console.log(response.data);
+            });
           }
         })
-      )
+      );
     } catch (error) {
-      console.log('in catch block: ', error)
+      console.log("in catch block: ", error);
     }
-  }
-
+  };
 
   const SelectFunc = (e, optionIndex) => {
     const questions = [...quiz];
@@ -234,9 +228,21 @@ const QuestionViewXyzOrg = () => {
     //   return <Radio color="primary" checked={false} />;
     // }
     if (optionIndex == question.selectedIndex) {
-      return <Radio color="primary" checked={true} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <Radio
+          color="primary"
+          checked={true}
+          style={{ marginRight: "0.5rem" }}
+        />
+      );
     } else {
-      return <Radio color="primary" checked={false} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <Radio
+          color="primary"
+          checked={false}
+          style={{ marginRight: "0.5rem" }}
+        />
+      );
     }
   };
 
@@ -250,7 +256,7 @@ const QuestionViewXyzOrg = () => {
             navigate("/resultsummary", {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
-                quizId: params?.state?.quizId
+                quizId: params?.state?.quizId,
               },
             });
           }}
@@ -318,11 +324,9 @@ const QuestionViewXyzOrg = () => {
     }
   };
 
-
   const PopupHandler = () => {
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
-
     } else if (quiz[0].answer) {
       setOpen(true);
       setIsOpen(false);
@@ -339,7 +343,7 @@ const QuestionViewXyzOrg = () => {
         color="#fff"
         className={classes.appbar}
         style={{ boxShadow: "none" }}
-        position="absolute"
+        position="fixed"
       >
         <Toolbar
           style={{
@@ -373,13 +377,20 @@ const QuestionViewXyzOrg = () => {
       </AppBar>
 
       <Container
-        maxWidth="lg"
+        maxWidth="xl"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
         {/* {params?.state?.data?.quiz[selectedIndex]?.multipartQuestion === null &&  */}
 
-        <Header selectedIndex={selectedIndex} totalQuestions={totalQuestions} params={params?.state?.data} status={status} time={time}
-          nextPress={() => setNextPress(!nextPress)} onCloseTimer={() => CloseTimerFunc()} quiz={quiz}
+        <Header
+          selectedIndex={selectedIndex}
+          totalQuestions={totalQuestions}
+          params={params?.state?.data}
+          status={status}
+          time={time}
+          nextPress={() => setNextPress(!nextPress)}
+          onCloseTimer={() => CloseTimerFunc()}
+          quiz={quiz}
           timeLeft={(timer) => setTimeLeft(timer)}
         />
         {/* } */}
@@ -455,7 +466,7 @@ const QuestionViewXyzOrg = () => {
             navigate("/resultsummary", {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
-                quizId: params?.state?.quizId
+                quizId: params?.state?.quizId,
               },
             });
           }}
@@ -468,7 +479,7 @@ const QuestionViewXyzOrg = () => {
               navigate("/resultsummary", {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
-                  quizId: params?.state?.quizId
+                  quizId: params?.state?.quizId,
                 },
               });
             }}
@@ -498,43 +509,60 @@ const QuestionViewXyzOrg = () => {
           }
         />
 
-        {quiz && quiz.map((item, index) => {
-          if (index === selectedIndex) {
-            return <QuestionBody question={quiz[selectedIndex]} totalQuestions={totalQuestions}
-              selectedOption={params.state.selectedOption}
-              paragraphIndex={params?.state?.paragraphIndex} questionIndex={params?.state?.questionIndex}
-              selectedIndex={selectedIndex} onLeftClick={() => { setSelectedIndex((previousIndex) => previousIndex - 1) }}
-              onRightClick={() => { setSelectedIndex((previousIndex) => previousIndex + 1) }}
-              stopTime={() => setStatus(false)} SelectOption={(e, index) => SelectFunc(e, index)}
-              totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
-              onResultHandler={() => {
-                navigate("/resultsummary", {
-                  state: {
-                    sectionCategory: params?.state?.sectionCategory,
-                    quizId: params?.state?.quizId
-                  },
-                });
-              }}
-              startTime={() => setStatus(true)} showOptions={(question, item, optionIndex) => Options(question, item, optionIndex)}
-              OptionValue={(optionIndex) => OptionIndex(optionIndex)} submitButton={(question) => getSubmitButton(question)}
-              quizId={params?.state?.data?._id} timeLeft={timeLeft}
-              nextQuestion={() => {
-                if (selectedIndex + 1 < quiz.length) {
-                  setSelectedIndex(selectedIndex + 1)
-                } else {
-                  navigate("/resultsummary", {
-                    state: {
-                      sectionCategory: params?.state?.sectionCategory,
-                      quizId: params?.state?.quizId
-                    },
-                  })
-                }
-              }}
-            />
-          }
-        })
-
-        }
+        {quiz &&
+          quiz.map((item, index) => {
+            if (index === selectedIndex) {
+              return (
+                <QuestionBody
+                  question={quiz[selectedIndex]}
+                  totalQuestions={totalQuestions}
+                  selectedOption={params.state.selectedOption}
+                  paragraphIndex={params?.state?.paragraphIndex}
+                  questionIndex={params?.state?.questionIndex}
+                  selectedIndex={selectedIndex}
+                  onLeftClick={() => {
+                    setSelectedIndex((previousIndex) => previousIndex - 1);
+                  }}
+                  onRightClick={() => {
+                    setSelectedIndex((previousIndex) => previousIndex + 1);
+                  }}
+                  stopTime={() => setStatus(false)}
+                  SelectOption={(e, index) => SelectFunc(e, index)}
+                  totalTime={time}
+                  quiz={quiz}
+                  sectionCategory={params?.state?.sectionCategory}
+                  onResultHandler={() => {
+                    navigate("/resultsummary", {
+                      state: {
+                        sectionCategory: params?.state?.sectionCategory,
+                        quizId: params?.state?.quizId,
+                      },
+                    });
+                  }}
+                  startTime={() => setStatus(true)}
+                  showOptions={(question, item, optionIndex) =>
+                    Options(question, item, optionIndex)
+                  }
+                  OptionValue={(optionIndex) => OptionIndex(optionIndex)}
+                  submitButton={(question) => getSubmitButton(question)}
+                  quizId={params?.state?.data?._id}
+                  timeLeft={timeLeft}
+                  nextQuestion={() => {
+                    if (selectedIndex + 1 < quiz.length) {
+                      setSelectedIndex(selectedIndex + 1);
+                    } else {
+                      navigate("/resultsummary", {
+                        state: {
+                          sectionCategory: params?.state?.sectionCategory,
+                          quizId: params?.state?.quizId,
+                        },
+                      });
+                    }
+                  }}
+                />
+              );
+            }
+          })}
       </Container>
     </div>
   );
