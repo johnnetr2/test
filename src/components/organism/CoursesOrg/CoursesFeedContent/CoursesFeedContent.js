@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Container,
   makeStyles,
@@ -15,8 +15,6 @@ import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import { Input } from "reactstrap";
-import { EndPoints, instance, instance2 } from "../../../service/Route";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,36 +40,6 @@ const CoursesFeedContent = () => {
   const navigate = useNavigate();
 
   const [tabValue, setTabValue] = useState(0);
-  const [previousExams, setPreviousExams] = useState()
-  const [limit, setLimit] = useState(7)
-
-  useEffect(() => {
-    const data = {
-      limit
-    }
-    const URL = EndPoints.getPreviousExams
-    instance2.get(URL, data).then(response => {
-      console.log(response.data, 'this is api response')
-      setPreviousExams(response.data.data)
-    })
-  }, [])
-
-  const LoadMore = () => {
-    const limit = setLimit(lim => lim + 10)
-  }
-
-  useEffect(() => {
-    console.log(limit, 'new limit')
-    return
-    // const data = {
-    //   limit
-    // }
-    // const URL = EndPoints.getPreviousExams
-    // instance2.get(URL, data).then(response => {
-    //   console.log(response.data, 'this is api response')
-    //   setPreviousExams(response.data.data)
-    // })
-  }, [limit])
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -161,11 +129,27 @@ const CoursesFeedContent = () => {
         <Box>
           <Box
             sx={{ marginBottom: "1rem" }}
-            // onClick={() => navigate("/provpassinfo")}
+            onClick={() => navigate("/provpassinfo")}
           >
-            {previousExams && previousExams.map(item => {
-              return <CoursesCard title={item.title} month={item.month} progress={item.progress} />
-            })}
+            <CoursesCard />
+          </Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            <CoursesCard />
+          </Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            <CoursesCard />
+          </Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            <CoursesCard />
+          </Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            <CoursesCard />
+          </Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            <CoursesCard />
+          </Box>
+          <Box sx={{ marginBottom: "1rem" }}>
+            <CoursesCard />
           </Box>
         </Box>
         <Box
@@ -179,10 +163,8 @@ const CoursesFeedContent = () => {
           <Button
             variant="contained"
             style={{ backgroundColor: "#0A1596", color: "#fff" }}
-            onClick={() => LoadMore()}
           >
-            Fler prov 
-            <KeyboardArrowDownIcon />
+            Fler prov
           </Button>
         </Box>
         <Box sx={{ marginBottom: "2rem" }}>

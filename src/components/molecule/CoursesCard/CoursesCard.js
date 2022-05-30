@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
-import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -80,7 +79,6 @@ const MenuIcon = () => {
 
 const CoursesCard = (props) => {
   const classes = useStyles();
-  const navigate = useNavigate()
 
   return (
     <Container disableGutters maxWidth={false}>
@@ -91,22 +89,21 @@ const CoursesCard = (props) => {
           borderRadius: ".25rem",
           boxShadow: "1px 1px 5px #d4d4d4",
           backgroundColor: "transparent",
-          cursor: 'pointer'
         }}
       >
         <Box sx={{ margin: "0.25rem", padding: "1rem" }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <MenuIcon />
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between"}}  >
-            <Box onClick={() => navigate("/provpassinfo")} >
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box>
               <Typography variant="h5" component="h5">
                 {" "}
-                {props.title}{" "}
+                Hösten 2021{" "}
               </Typography>
               <Typography variant="body2" component="body2">
                 {" "}
-                {props.month}{" "}
+                Oktober{" "}
               </Typography>
               <Stack
                 direction="row"
@@ -148,7 +145,7 @@ const CoursesCard = (props) => {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="h4" component="h4">
                   {" "}
-                  {props.progress}{" "}
+                  1.4{" "}
                 </Typography>
                 <Typography
                   variant="body2"
@@ -156,7 +153,7 @@ const CoursesCard = (props) => {
                   style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
                 >
                   {" "}
-                  {props.month}{" "}
+                  Oktober{" "}
                 </Typography>
               </Box>
               <Box>
