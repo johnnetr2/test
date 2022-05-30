@@ -59,20 +59,20 @@ export default function TestSubmitPopup(props) {
   };
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open dialog
-      </Button>
+      </Button> */}
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={() => props.closePopUp() }
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={props.status}
         style={{
           textAlign: "center",
         }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          onClose={handleClose}
+          onClose={() => props.closePopUp()}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "1.5rem 5rem" }}>
           <Typography gutterTop variant="h4">
