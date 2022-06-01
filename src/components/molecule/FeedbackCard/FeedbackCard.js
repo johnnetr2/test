@@ -10,6 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -49,29 +50,22 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs() {
+export default function CustomizedDialogs(props) {
   const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open dialog
-      </Button>
+      </Button> */}
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={props.onClose}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={props.show}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          onClose={handleClose}
+          onClose={props.onClose}
         ></BootstrapDialogTitle>
         <DialogContent>
           <Typography gutterBottom sx={{ marginTop: "2rem", color: "#999" }}>
@@ -84,12 +78,17 @@ export default function CustomizedDialogs() {
               height: "10rem",
               backgroundColor: "#f9f9f9",
             }}
-          ></Box>
+          >
+            <TextareaAutosize
+              aria-label="empty textarea"
+              style={{ width: "35.5rem", padding: "1rem", height: "10rem" }}
+            />
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button
             autoFocus
-            onClick={handleClose}
+            onClick={props.onClose}
             style={{
               backgroundColor: "#e1e1e1",
               color: "#252525",

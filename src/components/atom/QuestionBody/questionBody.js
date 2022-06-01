@@ -14,9 +14,11 @@ import { style } from "@mui/system";
 import BarChart from "../../../assets/Icons/BarChart.svg";
 import Clock from "../../../assets/Icons/Clock.svg";
 import Timer from "../Timer/timer";
+import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 
 const QuestionBody = (props) => {
   const [question, setQuestion] = useState(props?.question);
+  const [feedbackPopup, setFeedbackPopup] = useState(false);
 
   if (props.question.type == "multiple") {
     return (
@@ -67,6 +69,11 @@ const QuestionBody = (props) => {
           flexDirection: "column",
         }}
       >
+        <FeedbackCard
+          show={feedbackPopup}
+          onClose={() => setFeedbackPopup(false)}
+        />
+
         {/* <Container
                     disableGutters
                     maxWidth="Xl"
@@ -319,10 +326,18 @@ const QuestionBody = (props) => {
                 Berätta för oss om du var nöjd med lösningen
               </Typography>
               <Box ml={1} mr={0.5}>
-                <img src={Increment} alt="" />
+                <img
+                  src={Increment}
+                  onClick={() => setFeedbackPopup(true)}
+                  alt=""
+                />
               </Box>
               <Box mr={1}>
-                <img src={Decrement} alt="" />
+                <img
+                  src={Decrement}
+                  onClick={() => setFeedbackPopup(true)}
+                  alt=""
+                />
               </Box>
             </Box>
           </Box>

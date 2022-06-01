@@ -36,7 +36,8 @@ export const EndPoints = {
   changePassword: "/auth/changePassword/",
   feedbackSubmit: "/api/feedBack",
   resetPassword: "/api/resetPasword",
-  getPreviousExams: '/api/previousExam',
-  getStudentPreference: '/api/studentPrefenence/byUser/',
-  getSimuleraQuiz: '/api/simuleraQuiz/quizBy/'
+  getPreviousExams: "/api/previousExam",
+  getStudentPreference: "/api/studentPrefenence/byUser/",
+  getSimuleraQuiz: "/api/simuleraQuiz/quizBy/",
+  getSimuleraQuizByUser: "/api/simuleraQuizResult/quizByUser/",
 };
