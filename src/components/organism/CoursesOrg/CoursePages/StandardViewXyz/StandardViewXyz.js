@@ -30,25 +30,34 @@ import Correct from "../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../assets/Imgs/wrong.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import WhiteStar from "../../../../../assets/Imgs/whiteStar.png";
+import { instance2, EndPoints } from '../../../../service/Route'
+import Timer from "../../../../atom/Timer/timer";
+import ProvPassDtk from '../ProvPassDtk/ProvPassDtk'
 
 const StandardViewXyz = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const navigate = useNavigate()
   const params = useLocation()
-
   const [quiz, setQuiz] = useState()
+  const [status, setStatus] = useState(false)
+  const time = 55 * 60
+  // let SubmitedQuestions = []
 
   useEffect(() => {
-    console.log(params?.state, ';this is params')
-    if (params?.state?.questionIndex) {
+    console.log(params.state)
+    if (params?.state?.questionIndex != undefined) {
       setQuiz(params?.state?.quiz)
       setCurrentIndex(params?.state?.questionIndex)
     } else {
-      setQuiz(params?.state?.quiz)
+      const URL = EndPoints.getSimuleraQuiz + params.state.id
+      instance2.get(URL).then(response => {
+        console.log(response, ';this is api response')
+        setQuiz(response.data.simuleraQuiz)
+      })
     }
   }, [])
-  
+
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -125,7 +134,7 @@ const StandardViewXyz = () => {
     // else {
     //   return <Radio color="primary" checked={false} />;
     // }
-    if (optionIndex == question.selectedIndex) {
+    if (optionIndex === question.selectedOptionIndex) {
       return <Radio color="primary" checked={true} style={{ marginRight: "0.5rem" }} />;
     } else {
       return <Radio color="primary" checked={false} style={{ marginRight: "0.5rem" }} />;
@@ -133,22 +142,35 @@ const StandardViewXyz = () => {
   };
 
   const SelectFunc = (e, optionIndex) => {
-    const questions = [...quiz];
-    let question = questions[currentIndex];
-    question.selectedIndex = optionIndex;
+    let allQuiz = { ...quiz }
+    const qz = allQuiz?.simuleraQuestion
+    let question = qz[currentIndex];
+
+    // let data = {
+    //   questionId: question._id,
+    //   optionId: e.target.value
+    // }
+
+    // SubmitedQuestions.push(data)
+
+    // console.log(data, 'this is data for submit')
+
+    question.selectedOptionIndex = optionIndex;
     question.optionId = e.target.value;
-    setQuiz(questions);
+    allQuiz.question = qz
+    setQuiz(allQuiz)
   };
 
   const flagQuestion = () => {
-    const questions = [...quiz];
-    let question = questions[currentIndex];
+    let allQuiz = { ...quiz }
+    const qz = allQuiz?.simuleraQuestion
+    let question = qz[currentIndex];
     if (question.isFlaged) {
       question.isFlaged = false;
-      setQuiz(questions);
+      setQuiz(allQuiz);
     } else {
       question.isFlaged = true;
-      setQuiz(questions);
+      setQuiz(allQuiz);
     }
   }
 
@@ -200,11 +222,20 @@ const StandardViewXyz = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              10 av 40
+              {currentIndex + 1} av {quiz?.simuleraQuestion.length}
             </Box>
-            <Box mt={2} sx={{ color: "#222" }}>
+            <Box mt={2} sx={{ color: "#222", display: 'flex' }}>
               <img src={Clock} alt="" />
-              43:00 min
+              <Timer continueStatus={status}
+                time={time}
+                timeleft={(timer) => {
+                  // if (!props.status) {
+                  //   props.timeLeft(timer);
+                  //   props.nextPress();
+                  // }
+                }}
+              // onCloseTimer={() => props.onCloseTimer()}
+              />
             </Box>
           </Box>
           <Box
@@ -217,11 +248,11 @@ const StandardViewXyz = () => {
             }}
           >
             {quiz &&
-              quiz?.map((item, index) => {
+              quiz?.simuleraQuestion.map((item, index) => {
                 return <Box
                   key={index}
                   style={{
-                    backgroundColor: item.answer
+                    backgroundColor: item.optionId
                       ? "#6fcf97"
                       : "#B4B4B4",
                     marginLeft: "2px",
@@ -261,17 +292,17 @@ const StandardViewXyz = () => {
             }}
           >
 
-            {quiz && quiz[currentIndex] && <Button
+            {quiz && quiz.simuleraQuestion[currentIndex] && <Button
               style={{
                 width: "6rem",
                 border: "1px solid #0A1596",
-                color: quiz[currentIndex].isFlaged ? '#fff' : "#0A1596",
-                backgroundColor: quiz[currentIndex].isFlaged ? '#0A1596' : ''
+                color: quiz.simuleraQuestion[currentIndex].isFlaged ? '#fff' : "#0A1596",
+                backgroundColor: quiz.simuleraQuestion[currentIndex].isFlaged ? '#0A1596' : ''
               }}
               onClick={() => flagQuestion()}
             >
               {" "}
-              {quiz[currentIndex].isFlaged ? (
+              {quiz.simuleraQuestion[currentIndex].isFlaged ? (
                 <img
                   src={WhiteStar}
                   style={{ width: "1rem", marginRight: ".5rem", }}
@@ -288,100 +319,126 @@ const StandardViewXyz = () => {
               {" "}
               Spara
             </Button>}
-      
+
           </Box>
 
           {/* start of question component */}
 
-          {quiz && quiz.map((question, questionIndex) => {
+          {quiz && quiz.simuleraQuestion.map((question, questionIndex) => {
             if (questionIndex === currentIndex) {
-              console.log(question)
-              return (
-                <Box>
-                  <Box
-                    mt={5}
-                    paddingX={6}
-                    paddingY={2}
-                    sx={{
-                      backgroundColor: "#fff",
-                      width: 600,
-                      height: 280,
-                      border: "1px solid #e1e1e1",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typography
-                      variant="subtitle1"
-                      style={{
-                        fontSize: "0.75rem",
-                        fontWeight: "500",
-                        marginBottom: 30,
+              if (question.type === 'multiple') {
+                return <ProvPassDtk Options={(question, option, optionIndex) => Options((question, option, optionIndex))}
+                  index={questionIndex} question={question}
+                  SelectOption={(e, optionIndex) => SelectFunc(e, optionIndex)
+                  }
+                />
+              } else {
+                return (
+                  <Box>
+                    <Box
+                      mt={5}
+                      paddingX={6}
+                      paddingY={2}
+                      sx={{
+                        backgroundColor: "#fff",
+                        width: 600,
+                        height: 380,
+                        border: "1px solid #e1e1e1",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        paddingLeft: '5rem'
                       }}
                     >
-                      <MarkLatex content={question.questionStatement} />
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      component="h6"
-                      style={{ fontSize: "0.75rem", fontWeight: "600" }}
+                      <Typography
+                        variant="subtitle1"
+                        style={{
+                          fontSize: "1rem",
+                          fontWeight: "500",
+                          // marginBottom: 30,
+                        }}
+                      >
+                        <MarkLatex content={question.title} />
+                      </Typography>
+                      {question.images[0] && <Box>
+                        <img style={{ height: '15rem' }} src={question.images[0]} />
+                      </Box>
+                      }
+                      {question.information_1 && <Typography
+                        variant="h6"
+                        component="h6"
+                        style={{ fontSize: "0.75rem", fontWeight: "600" }}
+                      >
+                        <MarkLatex content={'(1)' + ' ' + question.information_1} />
+                      </Typography>
+                      }
+                      {question.information_2 && <Typography
+                        variant="h6"
+                        component="h6"
+                        style={{ fontSize: "0.75rem", fontWeight: "600" }}
+                      >
+                        <MarkLatex content={'(2)' + ' ' + question.information_2} />
+                      </Typography>
+                      }
+                      <Typography
+                        variant="h6"
+                        component="h6"
+                        style={{ fontSize: "0.75rem", fontWeight: "600" }}
+                      >
+                        <MarkLatex content={question.questionStatment} />
+                      </Typography>
+                    </Box>
+                    <Box
+                      mt={5}
+                      sx={{
+                        backgroundColor: "#fff",
+                        width: 600,
+                        height: 240,
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                      }}
                     >
-                      Vilket svarsalternativ visar grafen till funktionen g(x)= 2 f (x)+
-                      3?
-                    </Typography>
-                  </Box>
-                  <Box
-                    mt={5}
-                    sx={{
-                      backgroundColor: "#fff",
-                      width: 600,
-                      height: 240,
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                    }}
-                  >
-                    {question.options[0].options.map((option, optionIndex) => {
-                      return (
-                        <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-                          <Box sx={{ display: "flex" }}>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                              }}
-                            >
-                              <FormControlLabel
-                                onClick={(e) => {
-                                  !question?.answer && SelectFunc(e, optionIndex);
+                      {question.options.map((option, optionIndex) => {
+                        return (
+                          <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
+                            <Box sx={{ display: "flex" }}>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
                                 }}
-                                style={{ marginLeft: ".5rem" }}
-                                value={option?._id}
-                                // control={<Radio color="primary" />}
-                                control={Options(question, option, optionIndex)}
-                                label={OptionIndex(optionIndex)}
-                              // label='A'
-                              />
-                            </Box>
-                            <Box mt={2} ml={5}>
-                              {option.image ? (<img
-                                className={classes.piechart_size}
-                                src={option.image}
-                                alt=""
-                              />)
-                                :
-                                <MarkLatex content={option.value} />
+                              >
+                                <FormControlLabel
+                                  onClick={(e) => {
+                                    !question?.answer && SelectFunc(e, optionIndex);
+                                  }}
+                                  style={{ marginLeft: ".5rem" }}
+                                  value={option?._id}
+                                  // control={<Radio color="primary" />}
+                                  control={Options(question, option, optionIndex)}
+                                  label={OptionIndex(optionIndex)}
+                                // label='A'
+                                />
+                              </Box>
+                              <Box mt={2} ml={5}>
+                                {option.image ? (<img
+                                  className={classes.piechart_size}
+                                  src={option.image}
+                                  alt=""
+                                />)
+                                  :
+                                  <MarkLatex content={option.value} />
 
-                              }
+                                }
+                              </Box>
                             </Box>
                           </Box>
-                        </Box>
-                      )
-                    })
+                        )
+                      })
 
-                    }
-                    {/* <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
+                      }
+                      {/* <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
                       <Box sx={{ display: "flex" }}>
                         <Box
                           sx={{
@@ -456,9 +513,10 @@ const StandardViewXyz = () => {
                         </Box>
                       </Box>
                     </Box> */}
+                    </Box>
                   </Box>
-                </Box>
-              )
+                )
+              }
             }
           })}
 
@@ -512,7 +570,7 @@ const StandardViewXyz = () => {
                 alignItems: "center",
                 cursor: 'pointer'
               }}
-              onClick={() => currentIndex + 1 < quiz.length && setCurrentIndex(currentIndex + 1)}
+              onClick={() => currentIndex + 1 < quiz.simuleraQuestion.length && setCurrentIndex(currentIndex + 1)}
             >
               <Typography
                 variant="h6"

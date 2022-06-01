@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import {
   Container,
@@ -43,7 +43,7 @@ const MenuIcon = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
+  };  
 
   return (
     <div>
@@ -99,14 +99,18 @@ const CoursesCard = (props) => {
             <MenuIcon />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "space-between"}}  >
-            <Box onClick={() => navigate("/provpassinfo")} >
+            <Box onClick={() => navigate("/provpassinfo", {
+              state: {
+                id: props.id
+              }
+            })} >
               <Typography variant="h5" component="h5">
                 {" "}
-                {props.title}{" "}
+                {props?.item?.simuleraSeason.title}{" "}
               </Typography>
               <Typography variant="body2" component="body2">
                 {" "}
-                {props.month}{" "}
+                {props?.item?.simuleraSeason.month}{" "}
               </Typography>
               <Stack
                 direction="row"

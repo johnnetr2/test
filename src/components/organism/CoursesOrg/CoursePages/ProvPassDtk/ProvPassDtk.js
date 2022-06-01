@@ -28,8 +28,30 @@ import {
   LinearProgress,
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
+import MarkLatex from "../../../../atom/Marklatex/MarkLatex";
 
-const ProvPassDtk = () => {
+const ProvPassDtk = (props) => {
+
+  const [question, setQuestion] = useState()
+
+  useEffect(() => {
+    console.log(props?.question)
+    setQuestion(props.question)
+  }, [])
+
+  const Options = (question, option, optionIndex) => {
+    // if (props.paragraphIndex != undefined && question.answer.option == option._id) {
+    //   return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
+    // } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {
+    //   return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: ".4rem", }} />;
+    // }
+    if (optionIndex == question.selectedOptionIndex) {
+      return <Radio color="primary" checked={true} />;
+    } else {
+      return <Radio color="primary" checked={false} />;
+    }
+  };
+
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -78,24 +100,6 @@ const ProvPassDtk = () => {
 
   const classes = useStyles(10);
 
-  // const [progress, setProgress] = useState(0);
-
-  // useEffect(() => {
-  //     const timer = setInterval(() => {
-  //         setProgress((oldProgress) => {
-  //             if (oldProgress === 100) {
-  //                 return 0;
-  //             }
-  //             const diff = Math.random() * 10;
-  //             return Math.min(oldProgress + diff, 100);
-  //         });
-  //     }, 500);
-
-  //     return () => {
-  //         clearInterval(timer);
-  //     };
-  // }, []);
-
   return (
     <div>
       <CssBaseline />
@@ -136,41 +140,6 @@ const ProvPassDtk = () => {
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
         <Container
-          disableGutters
-          padding={0}
-          maxWidth={"md"}
-          style={{ backgroundColor: "#fff" }}
-        >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} width={100} sx={{ color: "#222" }}>
-              <img src={BarChart} alt="" />1 av 10
-            </Box>
-            <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" />
-              20:00 min
-            </Box>
-          </Box>
-          <Box
-            mt={2}
-            sx={{
-              backgroundColor: "#b4b4b4",
-              height: "8px",
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <Box
-              mt={2}
-              sx={{
-                backgroundColor: "#6fcf97",
-                height: "8px",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            ></Box>
-          </Box>
-        </Container>
-        <Container
           maxWidth="md"
           style={{
             marginTop: 0,
@@ -182,30 +151,6 @@ const ProvPassDtk = () => {
             flexDirection: "column",
           }}
         >
-          <Box
-            style={{
-              marginLeft: "70rem",
-              width: "10rem",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              style={{
-                width: "6rem",
-                border: "1px solid #0A1596",
-                color: "#0A1596",
-              }}
-            >
-              {" "}
-              <img
-                style={{ width: "1rem", marginRight: ".5rem" }}
-                src={StarIcon}
-                alt=""
-              />
-              Spara
-            </Button>
-          </Box>
           <Box
             mt={5}
             paddingX={6}
@@ -225,21 +170,21 @@ const ProvPassDtk = () => {
                 fontWeight: "500",
               }}
             >
-              3 uppgifter:
+              {props.index + 1} uppgifter:
             </Typography>
             <Typography variant="h6" component="h6">
-              Teater och dans i siffror
+              {question?.title}
             </Typography>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Verksamhet och ekonomi för samtliga statligt stödda institutioner
-              och fria grupper inom teater och dans åren 1997–2005.
+              {question?.pargraphDescription}
             </Typography>
-            <Box>
-              <img src={DtkImg} alt="" />
+            {question && <Box style={{ display: 'flex', justifyContent: 'center' }} >
+              <img style={{ height: '15rem' }} src={question?.images[0]} alt="" />
             </Box>
+            }
           </Box>
           <Box
             paddingX={4}
@@ -258,122 +203,30 @@ const ProvPassDtk = () => {
               component="h6"
               style={{ fontSize: ".75rem", fontWeight: "600" }}
             >
-              Vilket år såg samtliga fem typer av institutioner och grupper sina
-              intäkter ökajämfört med föregående år?
+              <MarkLatex content={question?.questionStatment} />
             </Typography>
           </Box>
-          <Box
-            padding={1}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              border: "1px solid #e1e1e1",
-            }}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="1998" />
-          </Box>
-          <Box
-            padding={1}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              border: "1px solid #e1e1e1",
-            }}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="2000" />
-          </Box>
-          <Box
-            padding={1}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              border: "1px solid #e1e1e1",
-            }}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="2002" />
-          </Box>
-          <Box
-            padding={1}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              border: "1px solid #e1e1e1",
-            }}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="2004" />
-          </Box>
-          <Box
-            padding={1}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              border: "1px solid #e1e1e1",
-            }}
-          >
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="ej genom de båda påståendena"
-            />
-          </Box>
-          <Box
-            padding={1}
-            mt={2}
-            sx={{
-              width: 615,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {" "}
-              <img src={LeftArrow} alt="" />
-              <Typography
-                variant="h6"
-                style={{
-                  fontSize: "0.75rem",
-                  textTransform: "uppercase",
-                  marginLeft: "0.5rem",
-                }}
-              >
-                Föregående
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                variant="h6"
-                style={{ fontSize: "0.75rem", textTransform: "uppercase" }}
-              >
-                överblick
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                variant="h6"
-                style={{
-                  fontSize: "0.75rem",
-                  textTransform: "uppercase",
-                  marginRight: "0.5rem",
-                }}
-              >
-                Nästa
-              </Typography>
-              <img src={RightArrow} alt="" />
-            </Box>
-          </Box>
+          {
+            question && question.options.map((option, optionIndex) => {
+              return (
+                <Box
+                  padding={1}
+                  sx={{
+                    backgroundColor: "#fff",
+                    width: 600,
+                    border: "1px solid #e1e1e1",
+                  }}
+                >
+                  <FormControlLabel value={option._id}
+                    onClick={(e) => props.SelectOption(e, optionIndex)}
+                    control={ Options(question, option, optionIndex)}
+                    label={option.value}
+                  />
+                </Box>
+              )
+            })
+          }
+
         </Container>
       </Container>
     </div>

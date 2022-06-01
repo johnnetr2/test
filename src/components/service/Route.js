@@ -38,4 +38,5 @@ export const EndPoints = {
   resetPassword: "/api/resetPasword",
   getPreviousExams: '/api/previousExam',
   getStudentPreference: '/api/studentPrefenence/byUser/',
+  getSimuleraQuiz: '/api/simuleraQuiz/quizBy/'
 };

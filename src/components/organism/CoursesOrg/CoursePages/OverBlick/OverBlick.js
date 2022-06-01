@@ -250,7 +250,7 @@ const OverBlick = () => {
                   gridGap: '1rem'
                 }}
               >
-                {quiz && quiz.map((item, index) => {
+                {quiz && quiz.simuleraQuestion.map((item, index) => {
                   return (
                     <Box
                       sx={{

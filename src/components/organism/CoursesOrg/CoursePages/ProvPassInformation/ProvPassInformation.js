@@ -17,11 +17,13 @@ import {
   Container,
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { PanoramaSharp } from "@mui/icons-material";
 
 const ProvPassInformation = () => {
 
   const navigate = useNavigate()
+  const params = useLocation()
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -404,7 +406,8 @@ const ProvPassInformation = () => {
             <ExerciseBtn title="Starta delprov" onClick={() => 
               navigate('/simuleraprov', {
               state: {
-                quiz: data
+                quiz: data,
+                id: params.state.id
               }
             })}  />
             {/* </Link> */}

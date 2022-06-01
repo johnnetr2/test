@@ -164,7 +164,8 @@ const CoursesFeedContent = () => {
             // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams && previousExams.map(item => {
-              return <CoursesCard title={item.title} month={item.month} progress={item.progress} />
+              console.log(item, 'this is item')
+              return <CoursesCard id={item.simuleraSeason._id} item={item} progress={item.progress} />
             })}
           </Box>
         </Box>
