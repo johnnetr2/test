@@ -59,20 +59,20 @@ export default function BackButtonPopup(props) {
   };
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open dialog
-      </Button>
+      </Button> */}
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={props.closePopup}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={props.status}
         style={{
           textAlign: "center",
         }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          onClose={handleClose}
+          onClose={props.closePopup}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem" }}>
           <Typography gutterTop variant="h4">
@@ -101,7 +101,7 @@ export default function BackButtonPopup(props) {
           </Button>
           <Button
             autoFocus
-            onClick={handleClose}
+            onClick={props.closePopup}
             style={{
               backgroundColor: "#0A1596",
               color: "#fff",

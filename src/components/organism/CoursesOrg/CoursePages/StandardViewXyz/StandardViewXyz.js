@@ -5,9 +5,6 @@ import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import StarIcon from "../../../../../assets/Icons/StarIcon.svg";
 import Clock from "../../../../../assets/Icons/Clock.svg";
-import QuestionOption from "../../../../../assets/Icons/QuestionOption.svg";
-import PieChart from "../../../../../assets/Imgs/SinglePieChart.png";
-import DtkImg from "../../../../../assets/Imgs/DtkQuestion.png";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
@@ -17,13 +14,11 @@ import {
   Paper,
   Box,
   CssBaseline,
-  Grid,
   Radio,
   Button,
   FormControlLabel,
   Toolbar,
   Container,
-  LinearProgress,
 } from "@material-ui/core";
 import MarkLatex from '../../../../atom/Marklatex/MarkLatex'
 import Correct from "../../../../../assets/Imgs/correct.png";
@@ -33,6 +28,8 @@ import WhiteStar from "../../../../../assets/Imgs/whiteStar.png";
 import { instance2, EndPoints } from '../../../../service/Route'
 import Timer from "../../../../atom/Timer/timer";
 import ProvPassDtk from '../ProvPassDtk/ProvPassDtk'
+import TestOverPopup from '../../../../molecule/TestOverPopup/TestOverPopup'
+import BackButtonPopup from '../../../../molecule/BackButtonPopup/BackButtonPopup'
 
 const StandardViewXyz = () => {
 
@@ -41,18 +38,19 @@ const StandardViewXyz = () => {
   const params = useLocation()
   const [quiz, setQuiz] = useState()
   const [status, setStatus] = useState(false)
+  const [timeOverPopUp, setTimeOverPopUp] = useState(false)
   const time = 55 * 60
-  // let SubmitedQuestions = []
+  const [SubmitedQuestions, setSubmitedQuestions] = useState([])
+  const [backPressPopup, setBackPressPopup] = useState(false)
+
 
   useEffect(() => {
-    console.log(params.state)
     if (params?.state?.questionIndex != undefined) {
       setQuiz(params?.state?.quiz)
       setCurrentIndex(params?.state?.questionIndex)
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id
       instance2.get(URL).then(response => {
-        console.log(response, ';this is api response')
         setQuiz(response.data.simuleraQuiz)
       })
     }
@@ -145,20 +143,30 @@ const StandardViewXyz = () => {
     let allQuiz = { ...quiz }
     const qz = allQuiz?.simuleraQuestion
     let question = qz[currentIndex];
-
-    // let data = {
-    //   questionId: question._id,
-    //   optionId: e.target.value
-    // }
-
-    // SubmitedQuestions.push(data)
-
-    // console.log(data, 'this is data for submit')
-
     question.selectedOptionIndex = optionIndex;
     question.optionId = e.target.value;
     allQuiz.question = qz
     setQuiz(allQuiz)
+
+    let data = {
+      simuleraQuestion: question._id,
+      optionId: e.target.value,
+      timeleft: 0,
+      totaltime: 0,
+      spendtime: 0
+    }
+
+    let questions = [...SubmitedQuestions]
+
+    const exist = questions.some(obj => obj.simuleraQuestion === question._id)
+    if (exist) {
+      const ind = questions.findIndex(obj => obj.simuleraQuestion === question._id)
+      questions.splice(ind, 1, data)
+      setSubmitedQuestions(questions)
+    } else {
+      questions.push(data);
+      setSubmitedQuestions(questions);
+    }
   };
 
   const flagQuestion = () => {
@@ -199,6 +207,7 @@ const StandardViewXyz = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => setBackPressPopup(true)}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
@@ -234,8 +243,9 @@ const StandardViewXyz = () => {
                   //   props.nextPress();
                   // }
                 }}
-              // onCloseTimer={() => props.onCloseTimer()}
+                onCloseTimer={() => setTimeOverPopUp(true)}
               />
+              <BackButtonPopup status={backPressPopup} closePopup={() => setBackPressPopup(false)} />
             </Box>
           </Box>
           <Box
@@ -321,11 +331,13 @@ const StandardViewXyz = () => {
             </Button>}
 
           </Box>
+          <TestOverPopup status={timeOverPopUp} closePopUp={() => setTimeOverPopUp(false)} />
 
           {/* start of question component */}
 
           {quiz && quiz.simuleraQuestion.map((question, questionIndex) => {
             if (questionIndex === currentIndex) {
+              console.log(question, 'this is single question')
               if (question.type === 'multiple') {
                 return <ProvPassDtk Options={(question, option, optionIndex) => Options((question, option, optionIndex))}
                   index={questionIndex} question={question}
@@ -342,7 +354,7 @@ const StandardViewXyz = () => {
                       sx={{
                         backgroundColor: "#fff",
                         width: 600,
-                        height: 380,
+                        height: question.images[0] ? 380 : 330,
                         border: "1px solid #e1e1e1",
                         display: "flex",
                         flexDirection: "column",
@@ -355,7 +367,6 @@ const StandardViewXyz = () => {
                         style={{
                           fontSize: "1rem",
                           fontWeight: "500",
-                          // marginBottom: 30,
                         }}
                       >
                         <MarkLatex content={question.title} />
@@ -364,7 +375,7 @@ const StandardViewXyz = () => {
                         <img style={{ height: '15rem' }} src={question.images[0]} />
                       </Box>
                       }
-                      {question.information_1 && <Typography
+                      { question.information_1 && <Typography
                         variant="h6"
                         component="h6"
                         style={{ fontSize: "0.75rem", fontWeight: "600" }}
@@ -372,7 +383,7 @@ const StandardViewXyz = () => {
                         <MarkLatex content={'(1)' + ' ' + question.information_1} />
                       </Typography>
                       }
-                      {question.information_2 && <Typography
+                      { question.information_2 && <Typography
                         variant="h6"
                         component="h6"
                         style={{ fontSize: "0.75rem", fontWeight: "600" }}
@@ -551,11 +562,16 @@ const StandardViewXyz = () => {
                 Föregående
               </Typography>
             </Box>
-            <Box onClick={() => navigate('/overblick', {
-              state: {
-                quiz: quiz
-              }
-            })} >
+            <Box
+              onClick={() => navigate('/overblick', {
+                state: {
+                  quiz: quiz,
+                  SubmitedQuestions,
+                  simuleraQuiz: quiz?._id,
+                  simuleraSeason: quiz?.season
+                }
+              })}
+            >
               <Typography
                 variant="h6"
                 style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer' }}

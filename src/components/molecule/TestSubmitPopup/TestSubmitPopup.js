@@ -86,7 +86,7 @@ export default function TestSubmitPopup(props) {
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
           <Button
             autoFocus
-            onClick={handleClose}
+            // onClick={handleClose}
             style={{
               backgroundColor: "#0A1596",
               color: "#fff",
@@ -95,6 +95,7 @@ export default function TestSubmitPopup(props) {
               padding: ".60rem 3rem",
               marginBottom: "2rem",
             }}
+            onClick={() => props.testSubmit()}
           >
             Lämna in provpasset
           </Button>

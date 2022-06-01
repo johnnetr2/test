@@ -20,19 +20,34 @@ import {
 } from "@material-ui/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import BootstrapDialogTitle from '../../../../molecule/TestSubmitPopup/TestSubmitPopup'
+import { EndPoints, instance, instance2 } from "../../../../service/Route";
 
 
 const OverBlick = () => {
 
   const [quiz, setQuiz] = useState()
-  const [testSubmitPopUp, setTestSubmitPopUp] =  useState(false)
+  const [testSubmitPopUp, setTestSubmitPopUp] = useState(false)
   const params = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(params.state.quiz)
+    console.log(params.state)
     setQuiz(params.state.quiz)
   }, [])
+
+
+  const submitQuiz = () => {
+    const data = {
+      simuleraQuiz: params.state.simuleraQuiz,
+      simuleraSeason: params.state.simuleraSeason,
+      quiz: params.state.SubmitedQuestions 
+    }
+
+    const URL = EndPoints.submitSimuleraTest
+    instance2.post(URL, data).then(response => {
+      console.log(response, 'this is api response')
+    })
+  }
 
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -301,9 +316,10 @@ const OverBlick = () => {
             </Box>
           </Box>
         </Container>
-        <BootstrapDialogTitle status={testSubmitPopUp} 
-        closePopUp={() => setTestSubmitPopUp(false)}
-         />
+        <BootstrapDialogTitle status={testSubmitPopUp}
+          closePopUp={() => setTestSubmitPopUp(false)}
+          testSubmit={() => submitQuiz()}
+        />
         <Box
           maxWidth="xl"
           disableGutters
