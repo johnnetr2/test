@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import DownArrow from "../../../../../assets/Icons/DownArrow.svg";
@@ -14,16 +14,22 @@ import {
   Paper,
   Box,
   CssBaseline,
-  Grid,
   Checkbox,
   FormControlLabel,
   Toolbar,
   Container,
-  LinearProgress,
-  Button,
 } from "@material-ui/core";
+import Correct from '../../../../../assets/Imgs/correct.png'
+import Wrong from '../../../../../assets/Imgs/wrong.png'
+import { useLocation, useNavigate } from "react-router-dom";
+import { EndPoints, instance2 } from "../../../../service/Route";
 
 const RattedOverblick = () => {
+
+  const params = useLocation()
+  const [result, setResult] = useState()
+  const navigate = useNavigate()
+
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -69,6 +75,15 @@ const RattedOverblick = () => {
       width: "90vw",
     },
   }));
+
+  useEffect(() => {
+    const URL = EndPoints.getSimuleraQuizResult + params.state.quizId
+    instance2.get(URL).then(response => {
+      setResult(response.data)
+      console.log(response.data, 'this is quiz result')
+    })
+  }, [])
+
 
   const classes = useStyles(10);
 
@@ -180,196 +195,75 @@ const RattedOverblick = () => {
                 display: "flex",
                 width: "100%",
                 justifyContent: "space-around",
+                flexWrap: 'wrap'
               }}
             >
-              <Box
-                mt={2}
-                mb={2}
-                padding={1}
-                style={{
-                  border: "1px solid #E3E3E3",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "45%",
-                }}
-              >
-                <Box>
-                  <FormControlLabel control={<Checkbox />} />
-                  <Typography
+              {
+                result && result.simuleraQuestion.map((item, index) => {
+                  console.log(item, 'this is item')
+                  return <Box
+                    mt={2}
+                    mb={2}
+                    padding={1}
                     style={{
-                      textTransform: "uppercase",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                    }}
-                    variant="body1"
-                    component="body1"
-                  >
-                    Uppgift 1 av 12
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex" }}>
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: ".75rem", fontWeight: "600" }}
-                  >
-                    Tid: 04:51
-                  </Typography>
-                  <Box
-                    style={{
+                      border: "1px solid #E3E3E3",
                       display: "flex",
-                      justifyContent: "center",
                       alignItems: "center",
+                      // justifyContent: "space-evenly",
+                      width: "45%",
+                      height: '3.5rem',
+                      cursor: 'pointer'
                     }}
+                    onClick={() => navigate('/simuleraprov', {
+                      state: {
+                        quiz: result,
+                        questionIndex: index
+                      }
+                    })}
                   >
-                    <img src={RightArrow} className={classes.size} alt="" />
+                    <Box>
+                      {
+                        item.answer.option === item.optionId ? (
+                          <img src={Correct} style={{ height: '1.5rem', marginRight: '0.75rem' }} />
+                        ) : (
+                          <img src={Wrong} style={{ height: '1.5rem', marginRight: '0.75rem' }} />
+                        )
+                      }
+                      <Typography
+                        style={{
+                          textTransform: "uppercase",
+                          fontSize: "0.75rem",
+                          fontWeight: "600",
+                        }}
+                        variant="body1"
+                        component="body1"
+                      >
+                        Uppgift {index + 1} av {result.simuleraQuestion.lenght}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", marginLeft: '7rem', justifyContent: 'space-around' }}>
+                      <Typography
+                        variant="h6"
+                        component="h6"
+                        style={{ fontSize: ".75rem", fontWeight: "600" }}
+                      >
+                        TID: 04:51
+                      </Typography>
+                      <Box
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginLeft: '0.2rem'
+                        }}
+                      >
+                        <img src={RightArrow} className={classes.size} alt="" />
+                      </Box>
+                    </Box>
                   </Box>
-                </Box>
-              </Box>
-              <Box
-                mt={2}
-                mb={2}
-                padding={1}
-                style={{
-                  border: "1px solid #E3E3E3",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "45%",
-                }}
-              >
-                <Box>
-                  <FormControlLabel control={<Checkbox />} />
-                  <Typography
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                    }}
-                    variant="body1"
-                    component="body1"
-                  >
-                    Uppgift 1 av 12
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex" }}>
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: ".75rem", fontWeight: "600" }}
-                  >
-                    Tid: 04:51
-                  </Typography>
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img src={RightArrow} className={classes.size} alt="" />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "space-around",
-              }}
-            >
-              <Box
-                mt={2}
-                mb={2}
-                padding={1}
-                style={{
-                  border: "1px solid #E3E3E3",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "45%",
-                }}
-              >
-                <Box>
-                  <FormControlLabel control={<Checkbox />} />
-                  <Typography
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                    }}
-                    variant="body1"
-                    component="body1"
-                  >
-                    Uppgift 1 av 12
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex" }}>
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: ".75rem", fontWeight: "600" }}
-                  >
-                    Tid: 04:51
-                  </Typography>
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img src={RightArrow} className={classes.size} alt="" />
-                  </Box>
-                </Box>
-              </Box>
-              <Box
-                mt={2}
-                mb={2}
-                padding={1}
-                style={{
-                  border: "1px solid #E3E3E3",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "45%",
-                }}
-              >
-                <Box>
-                  <FormControlLabel control={<Checkbox />} />
-                  <Typography
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                    }}
-                    variant="body1"
-                    component="body1"
-                  >
-                    Uppgift 1 av 12
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex" }}>
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: ".75rem", fontWeight: "600" }}
-                  >
-                    Tid: 04:51
-                  </Typography>
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img src={RightArrow} className={classes.size} alt="" />
-                  </Box>
-                </Box>
-              </Box>
+                })
+              }
+
             </Box>
           </Box>
         </Container>

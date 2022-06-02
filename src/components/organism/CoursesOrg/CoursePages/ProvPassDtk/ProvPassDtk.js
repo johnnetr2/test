@@ -27,8 +27,9 @@ import {
   Container,
   LinearProgress,
 } from "@material-ui/core";
-import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../atom/Marklatex/MarkLatex";
+import Correct from "../../../../../assets/Imgs/correct.png";
+import Wrong from "../../../../../assets/Imgs/wrong.png";
 
 const ProvPassDtk = (props) => {
 
@@ -40,11 +41,11 @@ const ProvPassDtk = (props) => {
   }, [])
 
   const Options = (question, option, optionIndex) => {
-    // if (props.paragraphIndex != undefined && question.answer.option == option._id) {
-    //   return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
-    // } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {
-    //   return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: ".4rem", }} />;
-    // }
+    if (question.answer && question.answer.option == option._id) {
+      return <img src={Correct} style={{ marginRight: "0.5rem", marginLeft: '0.5rem', height: '1.5rem' }} />;
+    } else if (question.answer && option._id === question?.optionId) {
+      return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: '0.5rem', height: '1.5rem'}} />;
+    }
     if (optionIndex == question.selectedOptionIndex) {
       return <Radio color="primary" checked={true} />;
     } else {
@@ -125,6 +126,7 @@ const ProvPassDtk = (props) => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => question.answer && props.backPressPopup()}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>

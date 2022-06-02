@@ -21,6 +21,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import BootstrapDialogTitle from '../../../../molecule/TestSubmitPopup/TestSubmitPopup'
 import { EndPoints, instance, instance2 } from "../../../../service/Route";
+import RattedOverblick from '../RattadOverblick/RattadOverblick'
 
 
 const OverBlick = () => {
@@ -46,9 +47,18 @@ const OverBlick = () => {
     const URL = EndPoints.submitSimuleraTest
     instance2.post(URL, data).then(response => {
       console.log(response, 'this is api response')
+      if(response.status == 200) {
+        navigate('/rattadoverblick', {
+          state: {
+            quizId: params.state.simuleraQuiz,
+          }
+        })
+        // return alert('Ok')
+      } else {
+       return alert('Fail')
+      }
     })
   }
-
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,

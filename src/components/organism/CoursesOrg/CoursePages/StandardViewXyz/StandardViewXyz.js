@@ -340,7 +340,7 @@ const StandardViewXyz = () => {
               console.log(question, 'this is single question')
               if (question.type === 'multiple') {
                 return <ProvPassDtk Options={(question, option, optionIndex) => Options((question, option, optionIndex))}
-                  index={questionIndex} question={question}
+                  index={questionIndex} question={question} backPressPopup={() => setBackPressPopup(true)}
                   SelectOption={(e, optionIndex) => SelectFunc(e, optionIndex)
                   }
                 />
@@ -375,7 +375,7 @@ const StandardViewXyz = () => {
                         <img style={{ height: '15rem' }} src={question.images[0]} />
                       </Box>
                       }
-                      { question.information_1 && <Typography
+                      {question.information_1 && <Typography
                         variant="h6"
                         component="h6"
                         style={{ fontSize: "0.75rem", fontWeight: "600" }}
@@ -383,7 +383,7 @@ const StandardViewXyz = () => {
                         <MarkLatex content={'(1)' + ' ' + question.information_1} />
                       </Typography>
                       }
-                      { question.information_2 && <Typography
+                      {question.information_2 && <Typography
                         variant="h6"
                         component="h6"
                         style={{ fontSize: "0.75rem", fontWeight: "600" }}
@@ -562,23 +562,42 @@ const StandardViewXyz = () => {
                 Föregående
               </Typography>
             </Box>
-            <Box
-              onClick={() => navigate('/overblick', {
-                state: {
-                  quiz: quiz,
-                  SubmitedQuestions,
-                  simuleraQuiz: quiz?._id,
-                  simuleraSeason: quiz?.season
+            {
+              params?.state.questionIndex ? (
+                <Box
+                  onClick={() => navigate('/rattadoverblick', {
+                    state: {
+                      quizId: params.state.simuleraQuiz,
+                    }
+                  })}
+                >
+                  <Typography
+                    variant="h6"
+                    style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer' }}
+                  >
+                    Rättad Överblick
+                  </Typography>
+                </Box>
+              ) : (<Box
+                  onClick={() => navigate('/overblick', {
+                  state: {
+                      quiz: quiz,
+                      SubmitedQuestions,
+                      simuleraQuiz: quiz?._id,
+                      simuleraSeason: quiz?.season
+                  }
+                })
                 }
-              })}
-            >
-              <Typography
-                variant="h6"
-                style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer' }}
               >
-                överblick
-              </Typography>
-            </Box>
+                <Typography
+                  variant="h6"
+                  style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer' }}
+                >
+                  överblick
+                </Typography>
+              </Box>
+              )
+            }
             <Box
               sx={{
                 display: "flex",
