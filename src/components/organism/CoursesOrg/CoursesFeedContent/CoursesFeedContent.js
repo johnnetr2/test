@@ -16,7 +16,7 @@ import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import { Input } from "reactstrap";
 import { EndPoints, instance, instance2 } from "../../../service/Route";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,41 +37,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CoursesFeedContent = () => {
+const CoursesFeedContent = (props) => {
+  console.log(props, "content feed props");
   const classes = useStyles();
   const navigate = useNavigate();
 
   const [tabValue, setTabValue] = useState(0);
-  const [previousExams, setPreviousExams] = useState()
-  const [limit, setLimit] = useState(7)
 
-  useEffect(() => {
-    const data = {
-      limit
-    }
-    const URL = EndPoints.getPreviousExams
-    instance2.get(URL, data).then(response => {
-      console.log(response.data, 'this is api response')
-      setPreviousExams(response.data.data)
-    })
-  }, [])
+  let previousExams = props.previousExams;
 
-  const LoadMore = () => {
-    const limit = setLimit(lim => lim + 10)
-  }
-
-  useEffect(() => {
-    console.log(limit, 'new limit')
-    return
-    // const data = {
-    //   limit
-    // }
-    // const URL = EndPoints.getPreviousExams
-    // instance2.get(URL, data).then(response => {
-    //   console.log(response.data, 'this is api response')
-    //   setPreviousExams(response.data.data)
-    // })
-  }, [limit])
+  // const LoadMore = () => {
+  //   alert("hello");
+  // };
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -86,6 +63,7 @@ const CoursesFeedContent = () => {
     <Container className={classes.root}>
       <Box>
         <Heading title="Simulera Prov" />
+        {console.log(previousExams, "here is the previous exam console")}
         <BodyText title="Gör prov från tidigare år eller välj att slumpa ett helt prov med uppgifter från gamla prov du inte stött på tidigare. " />
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
@@ -163,10 +141,17 @@ const CoursesFeedContent = () => {
             sx={{ marginBottom: "1rem" }}
             // onClick={() => navigate("/provpassinfo")}
           >
-            {previousExams && previousExams.map(item => {
-              console.log(item, 'this is item')
-              return <CoursesCard id={item.simuleraSeason._id} item={item} progress={item.progress} />
-            })}
+            {previousExams &&
+              previousExams.map((item) => {
+                console.log(item, "this is item");
+                return (
+                  <CoursesCard
+                    id={item.simuleraSeason._id}
+                    item={item}
+                    progress={item.progress}
+                  />
+                );
+              })}
           </Box>
         </Box>
         <Box
@@ -180,9 +165,9 @@ const CoursesFeedContent = () => {
           <Button
             variant="contained"
             style={{ backgroundColor: "#0A1596", color: "#fff" }}
-            onClick={() => LoadMore()}
+            onClick={() => props.loadMore()}
           >
-            Fler prov 
+            Fler prov
             <KeyboardArrowDownIcon />
           </Button>
         </Box>

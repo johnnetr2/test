@@ -43,7 +43,7 @@ const MenuIcon = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };  
+  };
 
   return (
     <div>
@@ -68,7 +68,10 @@ const MenuIcon = () => {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "15ch",
+            width: "12ch",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           },
         }}
       >
@@ -80,7 +83,7 @@ const MenuIcon = () => {
 
 const CoursesCard = (props) => {
   const classes = useStyles();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Container disableGutters maxWidth={false}>
@@ -91,19 +94,23 @@ const CoursesCard = (props) => {
           borderRadius: ".25rem",
           boxShadow: "1px 1px 5px #d4d4d4",
           backgroundColor: "transparent",
-          cursor: 'pointer'
+          cursor: "pointer",
         }}
       >
         <Box sx={{ margin: "0.25rem", padding: "1rem" }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <MenuIcon />
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between"}}  >
-            <Box onClick={() => navigate("/provpassinfo", {
-              state: {
-                id: props.id
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              onClick={() =>
+                navigate("/provpassinfo", {
+                  state: {
+                    id: props.id,
+                  },
+                })
               }
-            })} >
+            >
               <Typography variant="h5" component="h5">
                 {" "}
                 {props?.item?.simuleraSeason.title}{" "}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   makeStyles,
@@ -18,6 +18,7 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import Thumb from "../../../../assets/Imgs/Thumb.png";
+import { EndPoints, instance2 } from "../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
@@ -119,8 +120,28 @@ const rows = [
   ),
 ];
 
-const RightBar = () => {
+const RightBar = (props) => {
   const classes = useStyles();
+
+  const [provHistoryData, setProvHistoryData] = useState("");
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    console.log(userId, "here is user id");
+    const URL = EndPoints.getSimuleraQuizByUser + userId;
+    console.log(URL, "my url");
+    instance2.get(URL).then((response) => {
+      setProvHistoryData(response.data);
+      console.log(response.data, "@@@@here is the data");
+    });
+  }, []);
+
+  console.log(props, "%%%%%%%%%%%% Success");
+
+  // console.log(
+  //   props.previousExams[0].simuleraSeason._id,
+  //   "%%%%%%%%%%%% Success"
+  // );
 
   return (
     <Container disableGutters maxWidth={false}>

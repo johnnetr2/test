@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, makeStyles, Container } from "@material-ui/core";
 import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import CoursesLeftBar from "../CoursesLeftBar/CoursesLeftBar";
+import { EndPoints, instance2 } from "../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -14,6 +15,37 @@ const useStyles = makeStyles((theme) => ({
 
 const CoursesMain = () => {
   const classes = useStyles();
+  const [previousExams, setPreviousExams] = useState();
+  const [limit, setLimit] = useState(7);
+
+  useEffect(() => {
+    const data = {
+      limit,
+    };
+    const URL = EndPoints.getPreviousExams;
+    instance2.get(URL, data).then((response) => {
+      console.log(response.data, "this is api response");
+      setPreviousExams(response.data.data);
+    });
+  }, []);
+
+  const LoadMore = () => {
+    const limit = setLimit((lim) => lim + 10);
+  };
+  useEffect(() => {
+    console.log(limit, "new limit");
+    return;
+    // const data = {
+    //   limit
+    // }
+    // const URL = EndPoints.getPreviousExams
+    // instance2.get(URL, data).then(response => {
+    //   console.log(response.data, 'this is api response')
+    //   setPreviousExams(response.data.data)
+    // })
+  }, [limit]);
+
+  console.log("Courses Main content");
 
   return (
     <Container maxWidth="false" disableGutters>
@@ -23,7 +55,10 @@ const CoursesMain = () => {
             <CoursesLeftBar />
           </Grid>
           <Grid item sm={11} xs={11} md={7} lg={7} xl={7}>
-            <CoursesFeedContent />
+            <CoursesFeedContent
+              previousExams={previousExams}
+              loadMore={() => LoadMore()}
+            />
           </Grid>
           <Grid
             item
@@ -34,7 +69,7 @@ const CoursesMain = () => {
             style={{ backgroundColor: "#fafafa" }}
             className={classes.right}
           >
-            <CoursesRightBar />
+            <CoursesRightBar previousExams={previousExams} />
           </Grid>
         </Grid>
       </Container>
