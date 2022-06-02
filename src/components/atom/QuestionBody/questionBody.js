@@ -18,7 +18,20 @@ import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 
 const QuestionBody = (props) => {
   const [question, setQuestion] = useState(props?.question);
+  const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
+
+  const PlusPoint = () => {
+    setCount(1);
+    setFeedbackPopup(true);
+  };
+
+  const MinusPoint = () => {
+    setCount(0);
+    setFeedbackPopup(true);
+  };
+
+  const questionId = props.question._id;
 
   if (props.question.type == "multiple") {
     return (
@@ -70,8 +83,10 @@ const QuestionBody = (props) => {
         }}
       >
         <FeedbackCard
+          count={count}
           show={feedbackPopup}
           onClose={() => setFeedbackPopup(false)}
+          questionId={questionId}
         />
 
         {/* <Container
@@ -326,18 +341,10 @@ const QuestionBody = (props) => {
                 Berätta för oss om du var nöjd med lösningen
               </Typography>
               <Box ml={1} mr={0.5}>
-                <img
-                  src={Increment}
-                  onClick={() => setFeedbackPopup(true)}
-                  alt=""
-                />
+                <img src={Increment} onClick={PlusPoint} alt="" />
               </Box>
               <Box mr={1}>
-                <img
-                  src={Decrement}
-                  onClick={() => setFeedbackPopup(true)}
-                  alt=""
-                />
+                <img src={Decrement} onClick={MinusPoint} alt="" />
               </Box>
             </Box>
           </Box>

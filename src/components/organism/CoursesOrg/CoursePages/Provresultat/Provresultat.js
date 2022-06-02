@@ -14,7 +14,6 @@ import {
   Button,
   makeStyles,
 } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FacebookIcon from "../../../../../assets/Icons/FacebookIcon.svg";
 import TwitterIcon from "../../../../../assets/Icons/TwitterIcon.svg";

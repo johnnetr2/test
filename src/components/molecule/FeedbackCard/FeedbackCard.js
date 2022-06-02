@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { EndPoints, instance2 } from "../../service/Route";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -52,12 +53,26 @@ BootstrapDialogTitle.propTypes = {
 
 export default function CustomizedDialogs(props) {
   const [open, setOpen] = React.useState(false);
+  const [questionFeedback, setQuestionFeedback] = useState("");
+
+  const cardSubmittion = () => {
+    const payLoad = {
+      point: props.count,
+      explanation: questionFeedback,
+      question: props.questionId,
+      user: localStorage.getItem("userId"),
+    };
+    const URL = EndPoints.questionRating;
+    instance2.post(URL, payLoad).then((response) => {
+      if (response.status === 200) {
+        props.onClose();
+        setQuestionFeedback("");
+      }
+    });
+  };
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <BootstrapDialog
         onClose={props.onClose}
         aria-labelledby="customized-dialog-title"
@@ -69,8 +84,9 @@ export default function CustomizedDialogs(props) {
         ></BootstrapDialogTitle>
         <DialogContent>
           <Typography gutterBottom sx={{ marginTop: "2rem", color: "#999" }}>
-            Tack för din feedback! Vill du även berätta några ord för oss vad
-            som inte var bra så att vi kan förbättra det? (frivilligt)
+            {props.count} Tack för din feedback! Vill du även berätta några ord
+            för oss vad som inte var bra så att vi kan förbättra det?
+            (frivilligt)
           </Typography>
           <Box
             style={{
@@ -82,21 +98,26 @@ export default function CustomizedDialogs(props) {
             <TextareaAutosize
               aria-label="empty textarea"
               style={{ width: "35.5rem", padding: "1rem", height: "10rem" }}
+              onChange={(e) => setQuestionFeedback(e.target.value)}
+              value={questionFeedback}
             />
           </Box>
         </DialogContent>
         <DialogActions>
           <Button
             autoFocus
-            onClick={props.onClose}
+            onClick={cardSubmittion}
+            disabled={!questionFeedback}
             style={{
-              backgroundColor: "#e1e1e1",
-              color: "#252525",
+              backgroundColor: "#0A1596",
+              color: "#fff",
               display: "block",
               margin: "auto",
               width: "35rem",
+              height: "2.25rem",
               textTransform: "initial",
               fontWeight: "400",
+              borderRadius: "5px",
             }}
           >
             Skicka in
