@@ -24,6 +24,7 @@ import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/Qu
 import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
 import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresultat/Provresultat";
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
+import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path="/provpasscorrectans" element={<ProvPassCorrectAns />} />
         <Route path="/provresultat" element={<Provresultat />} />
         <Route path="/overblick" element={<OverBlick />} />
+        <Route path="/rattadoverblick" element={<RattadOverblick />} />
       </Routes>
     </div>
   );
