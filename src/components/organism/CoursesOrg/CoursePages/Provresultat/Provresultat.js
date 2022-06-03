@@ -14,7 +14,6 @@ import {
   Button,
   makeStyles,
 } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FacebookIcon from "../../../../../assets/Icons/FacebookIcon.svg";
 import TwitterIcon from "../../../../../assets/Icons/TwitterIcon.svg";
@@ -22,6 +21,7 @@ import LinkedInIcon from "../../../../../assets/Icons/LinkedInIcon.svg";
 import WhatsappIcon from "../../../../../assets/Icons/WhatsappIcon.svg";
 import LinkIcon from "../../../../../assets/Icons/LinkIcon.svg";
 import { fontWeight, style, typography } from "@mui/system";
+import OutlineBtn from "../../../../atom/OutlineBtn/OutlineBtn";
 // import { typography } from '@mui/system';
 
 function createData(name, calories, fat, carbs, protein) {
@@ -553,6 +553,17 @@ const Provresultat = () => {
                 </a>
               </Box>
             </Box>
+            <Button
+              variant="outlined"
+              sx={{
+                width: "100%",
+                border: "1px solid #0A1596",
+                margin: "1rem 0",
+                color: "#0A1596",
+              }}
+            >
+              Klar
+            </Button>
           </Box>
         </Box>
       </Box>

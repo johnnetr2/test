@@ -51,9 +51,6 @@ BootstrapDialogTitle.propTypes = {
 export default function FeedbackPopup(props) {
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <BootstrapDialog
         onClose={props.onClose}
         aria-labelledby="customized-dialog-title"
