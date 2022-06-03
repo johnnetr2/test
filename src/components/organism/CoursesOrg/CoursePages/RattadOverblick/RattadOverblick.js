@@ -77,6 +77,7 @@ const RattedOverblick = () => {
   }));
 
   useEffect(() => {
+    console.log(params.state, 'this is result')
     const URL = EndPoints.getSimuleraQuizResult + params.state.quizId
     instance2.get(URL).then(response => {
       setResult(response.data)
@@ -112,6 +113,7 @@ const RattedOverblick = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => navigate('/provresultat')}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
@@ -138,7 +140,7 @@ const RattedOverblick = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              40 av 40
+              {result?.simuleraQuestion.length} av {result?.simuleraQuestion.length}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import Clock from "../../../../../assets/Icons/Clock.svg";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
@@ -30,10 +30,13 @@ import {
 import MarkLatex from "../../../../atom/Marklatex/MarkLatex";
 import Correct from "../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../assets/Imgs/wrong.png";
+import Increment from "../../../../../assets/Icons/Increment.svg";
+import Decrement from "../../../../../assets/Icons/Decrement.svg";
 
 const ProvPassDtk = (props) => {
 
   const [question, setQuestion] = useState()
+  const navigate = useNavigate()
 
   useEffect(() => {
     console.log(props?.question)
@@ -44,7 +47,7 @@ const ProvPassDtk = (props) => {
     if (question.answer && question.answer.option == option._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem", marginLeft: '0.5rem', height: '1.5rem' }} />;
     } else if (question.answer && option._id === question?.optionId) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: '0.5rem', height: '1.5rem'}} />;
+      return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: '0.5rem', height: '1.5rem' }} />;
     }
     if (optionIndex == question.selectedOptionIndex) {
       return <Radio color="primary" checked={true} />;
@@ -126,12 +129,18 @@ const ProvPassDtk = (props) => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
-            onClick={() => question.answer && props.backPressPopup()}
+            onClick={() => {
+              question && question.answer ?
+                navigate('/provresultat')
+                :
+                !question.answer && props.backPressPopup()
+            }}
+
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
           <Typography variant="body1" className={classes.center_align}>
-            DTK
+            {question?.simuleraSectionCategories.title}
           </Typography>
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
@@ -220,8 +229,8 @@ const ProvPassDtk = (props) => {
                   }}
                 >
                   <FormControlLabel value={option._id}
-                    onClick={(e) => props.SelectOption(e, optionIndex)}
-                    control={ Options(question, option, optionIndex)}
+                    onClick={(e) => !question?.answer && props.SelectOption(e, optionIndex)}
+                    control={Options(question, option, optionIndex)}
                     label={option.value}
                   />
                 </Box>
@@ -230,6 +239,101 @@ const ProvPassDtk = (props) => {
           }
 
         </Container>
+        {question?.answer && (
+          <Box
+            paddingX={4}
+            mt={3}
+            sx={{
+              backgroundColor: "#fff",
+              marginLeft: '1.6rem',
+              width: 600,
+              height: 220,
+              border: "1px solid #e1e1e1",
+              overflow: "auto",
+              "&::-webkit-scrollbar": { display: "none" },
+              //   '&::-webkit-scrollbar': { width : 0 },
+            }}
+          >
+            <Box sx={{ width: 500, display: "flex" }}>
+              <Box>
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  style={{
+                    fontSize: ".75rem",
+                    fontWeight: "600",
+                    marginTop: 20,
+                  }}
+                >
+                  Förklaring:
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  style={{
+                    fontSize: ".75rem",
+                    fontWeight: "500",
+                    marginTop: 10,
+                    width: question?.answer.image ? "auto" : 500,
+                  }}
+                >
+                  {/* {question.answer.answer} */}
+                  <MarkLatex content={question.answer.answer} />
+                </Typography>
+              </Box>
+              <Box
+                mt={2}
+                style={{
+                  // marginLeft: "15rem",
+                  marginTop: "2rem",
+                }}
+              >
+                {question?.answer && (
+                  <img
+                    style={{ height: 110 }}
+                    src={question?.answer.image}
+                    alt=""
+                  />
+                )}
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+                height: 60,
+              }}
+            >
+              <Typography
+                variant="body1"
+                component="body1"
+                style={{
+                  fontSize: ".75rem",
+                  fontWeight: "500",
+                  marginTop: 10,
+                  // width: "32rem",
+                }}
+              >
+                Berätta för oss om du var nöjd med lösningen
+              </Typography>
+              <Box ml={1} mr={0.5}>
+                <img
+                  src={Increment}
+                  // onClick={() => setFeedbackPopup(true)}
+                  alt=""
+                />
+              </Box>
+              <Box mr={1}>
+                <img
+                  src={Decrement}
+                  // onClick={() => setFeedbackPopup(true)}
+                  alt=""
+                />
+              </Box>
+            </Box>
+          </Box>
+        )}
       </Container>
     </div>
   );

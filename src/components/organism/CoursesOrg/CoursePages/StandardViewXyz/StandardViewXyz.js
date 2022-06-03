@@ -30,6 +30,8 @@ import Timer from "../../../../atom/Timer/timer";
 import ProvPassDtk from '../ProvPassDtk/ProvPassDtk'
 import TestOverPopup from '../../../../molecule/TestOverPopup/TestOverPopup'
 import BackButtonPopup from '../../../../molecule/BackButtonPopup/BackButtonPopup'
+import Increment from "../../../../../assets/Icons/Increment.svg";
+import Decrement from "../../../../../assets/Icons/Decrement.svg";
 
 const StandardViewXyz = () => {
 
@@ -45,6 +47,7 @@ const StandardViewXyz = () => {
 
 
   useEffect(() => {
+    console.log(params.state.quiz)
     if (params?.state?.questionIndex != undefined) {
       setQuiz(params?.state?.quiz)
       setCurrentIndex(params?.state?.questionIndex)
@@ -182,6 +185,8 @@ const StandardViewXyz = () => {
     }
   }
 
+  const numberOfAttemptedQuestions = quiz?.simuleraQuestion.filter(item => item.optionId).length
+
   return (
     <div>
       <CssBaseline />
@@ -207,12 +212,17 @@ const StandardViewXyz = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
-            onClick={() => setBackPressPopup(true)}
+            onClick={() => {
+              quiz && quiz.simuleraQuestion[currentIndex].answer ?
+                navigate('/provresultat')
+                :
+                setBackPressPopup(true)
+            }}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
           <Typography variant="body1" className={classes.center_align}>
-            XYZ
+            {quiz?.simuleraQuestion[currentIndex].simuleraSectionCategories.title}
           </Typography>
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
@@ -235,7 +245,8 @@ const StandardViewXyz = () => {
             </Box>
             <Box mt={2} sx={{ color: "#222", display: 'flex' }}>
               <img src={Clock} alt="" />
-              <Timer continueStatus={status}
+              {quiz && quiz.simuleraQuestion[currentIndex].answer ? 'Slutfört'
+              : <Timer continueStatus={status}
                 time={time}
                 timeleft={(timer) => {
                   // if (!props.status) {
@@ -244,7 +255,7 @@ const StandardViewXyz = () => {
                   // }
                 }}
                 onCloseTimer={() => setTimeOverPopUp(true)}
-              />
+              />}
               <BackButtonPopup status={backPressPopup} closePopup={() => setBackPressPopup(false)} />
             </Box>
           </Box>
@@ -262,7 +273,7 @@ const StandardViewXyz = () => {
                 return <Box
                   key={index}
                   style={{
-                    backgroundColor: item.optionId
+                    backgroundColor: numberOfAttemptedQuestions > index
                       ? "#6fcf97"
                       : "#B4B4B4",
                     marginLeft: "2px",
@@ -302,7 +313,7 @@ const StandardViewXyz = () => {
             }}
           >
 
-            {quiz && quiz.simuleraQuestion[currentIndex] && <Button
+            {quiz && !quiz.simuleraQuestion[currentIndex].answer && <Button
               style={{
                 width: "6rem",
                 border: "1px solid #0A1596",
@@ -449,87 +460,107 @@ const StandardViewXyz = () => {
                       })
 
                       }
-                      {/* <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-                      <Box sx={{ display: "flex" }}>
+                    </Box>
+                    {question.answer && (
+                      <Box
+                        paddingX={4}
+                        mt={3}
+                        sx={{
+                          backgroundColor: "#fff",
+                          width: 600,
+                          height: 220,
+                          border: "1px solid #e1e1e1",
+                          overflow: "auto",
+                          "&::-webkit-scrollbar": { display: "none" },
+                          //   '&::-webkit-scrollbar': { width : 0 },
+                        }}
+                      >
+                        <Box sx={{ width: 500, display: "flex" }}>
+                          <Box>
+                            <Typography
+                              variant="h5"
+                              component="h5"
+                              style={{
+                                fontSize: ".75rem",
+                                fontWeight: "600",
+                                marginTop: 20,
+                              }}
+                            >
+                              Förklaring:
+                            </Typography>
+                            <Typography
+                              variant="body1"
+                              component="div"
+                              style={{
+                                fontSize: ".75rem",
+                                fontWeight: "500",
+                                marginTop: 10,
+                                width: question?.answer.image ? "auto" : 500,
+                              }}
+                            >
+                              {/* {question.answer.answer} */}
+                              <MarkLatex content={question.answer.answer} />
+                            </Typography>
+                          </Box>
+                          <Box
+                            mt={2}
+                            style={{
+                              // marginLeft: "15rem",
+                              marginTop: "2rem",
+                            }}
+                          >
+                            {question?.answer && (
+                              <img
+                                style={{ height: 110 }}
+                                src={question?.answer.image}
+                                alt=""
+                              />
+                            )}
+                          </Box>
+                        </Box>
                         <Box
                           sx={{
                             display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            justifyContent: "flex-end",
+                            alignItems: "flex-end",
+                            height: 60,
                           }}
                         >
-                          <FormControlLabel
-                            style={{ marginLeft: ".5rem" }}
-                            value="B"
-                            control={<Radio color="primary" />}
-                            label="B"
-                          />
-                        </Box>
-                        <Box mt={2} ml={5}>
-                          <img
-                            className={classes.piechart_size}
-                            src={QuestionOption}
-                            alt=""
-                          />
-                        </Box>
-                      </Box>
-                    </Box>
-                    <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-                      <Box sx={{ display: "flex" }}>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <FormControlLabel
-                            style={{ marginLeft: ".5rem" }}
-                            value="C"
-                            control={<Radio color="primary" />}
-                            label="C"
-                          />
-                        </Box>
-                        <Box mt={2} ml={5}>
-                          <img
-                            className={classes.piechart_size}
-                            src={QuestionOption}
-                            alt=""
-                          />
+                          <Typography
+                            variant="body1"
+                            component="body1"
+                            style={{
+                              fontSize: ".75rem",
+                              fontWeight: "500",
+                              marginTop: 10,
+                              // width: "32rem",
+                            }}
+                          >
+                            Berätta för oss om du var nöjd med lösningen
+                          </Typography>
+                          <Box ml={1} mr={0.5}>
+                            <img
+                              src={Increment}
+                              // onClick={() => setFeedbackPopup(true)}
+                              alt=""
+                            />
+                          </Box>
+                          <Box mr={1}>
+                            <img
+                              src={Decrement}
+                              // onClick={() => setFeedbackPopup(true)}
+                              alt=""
+                            />
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
-                    <Box sx={{ height: 120, border: "1px solid #e1e1e1", width: 300 }}>
-                      <Box sx={{ display: "flex" }}>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <FormControlLabel
-                            style={{ marginLeft: ".5rem" }}
-                            value="D"
-                            control={<Radio color="primary" />}
-                            label="D"
-                          />
-                        </Box>
-                        <Box mt={2} ml={5}>
-                          <img
-                            className={classes.piechart_size}
-                            src={QuestionOption}
-                            alt=""
-                          />
-                        </Box>
-                      </Box>
-                    </Box> */}
-                    </Box>
+                    )}
                   </Box>
                 )
               }
             }
           })}
+
 
           <Box
             padding={1}
@@ -563,11 +594,11 @@ const StandardViewXyz = () => {
               </Typography>
             </Box>
             {
-              params?.state.questionIndex ? (
+              params?.state.questionIndex != undefined ? (
                 <Box
                   onClick={() => navigate('/rattadoverblick', {
                     state: {
-                      quizId: params.state.simuleraQuiz,
+                      quizId: params.state.quiz.quizId._id,
                     }
                   })}
                 >
@@ -579,12 +610,12 @@ const StandardViewXyz = () => {
                   </Typography>
                 </Box>
               ) : (<Box
-                  onClick={() => navigate('/overblick', {
+                onClick={() => navigate('/overblick', {
                   state: {
-                      quiz: quiz,
-                      SubmitedQuestions,
-                      simuleraQuiz: quiz?._id,
-                      simuleraSeason: quiz?.season
+                    quiz: quiz,
+                    SubmitedQuestions,
+                    simuleraQuiz: quiz?._id,
+                    simuleraSeason: quiz?.season
                   }
                 })
                 }

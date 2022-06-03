@@ -22,6 +22,7 @@ import WhatsappIcon from "../../../../../assets/Icons/WhatsappIcon.svg";
 import LinkIcon from "../../../../../assets/Icons/LinkIcon.svg";
 import { fontWeight, style, typography } from "@mui/system";
 import OutlineBtn from "../../../../atom/OutlineBtn/OutlineBtn";
+import { useNavigate } from "react-router-dom";
 // import { typography } from '@mui/system';
 
 function createData(name, calories, fat, carbs, protein) {
@@ -102,6 +103,8 @@ const the = [
   ),
 ];
 const Provresultat = () => {
+  const navigate = useNavigate()
+
   return (
     <>
       <AppBar
@@ -561,6 +564,7 @@ const Provresultat = () => {
                 margin: "1rem 0",
                 color: "#0A1596",
               }}
+              onClick={() => navigate('/courses')}
             >
               Klar
             </Button>
