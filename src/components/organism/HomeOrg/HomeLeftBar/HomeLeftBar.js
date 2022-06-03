@@ -69,20 +69,18 @@ const HomeLeftBar = () => {
   const navigate = useNavigate();
 
   return (
-    <Container className={classes.container}>
-      <Box
+    <Container disableGutters maxWidth="false" className={classes.container}>
+      <Container
+        disableGutters
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "2rem",
+          padding: "1rem",
           borderBottom: "1px solid #e1e1e1",
         }}
       >
         <Link to="/home">
-          <img src={Logo} style={{ height: "3rem", padding: "5px" }} />
+          <img src={Logo} />
         </Link>
-      </Box>
+      </Container>
       <NavLink
         to="/home"
         className={classes.navStyle}

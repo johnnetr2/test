@@ -14,7 +14,6 @@ import {
   Button,
   makeStyles,
 } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FacebookIcon from "../../../../../assets/Icons/FacebookIcon.svg";
 import TwitterIcon from "../../../../../assets/Icons/TwitterIcon.svg";
@@ -22,6 +21,8 @@ import LinkedInIcon from "../../../../../assets/Icons/LinkedInIcon.svg";
 import WhatsappIcon from "../../../../../assets/Icons/WhatsappIcon.svg";
 import LinkIcon from "../../../../../assets/Icons/LinkIcon.svg";
 import { fontWeight, style, typography } from "@mui/system";
+import OutlineBtn from "../../../../atom/OutlineBtn/OutlineBtn";
+import { useNavigate } from "react-router-dom";
 // import { typography } from '@mui/system';
 
 function createData(name, calories, fat, carbs, protein) {
@@ -102,6 +103,8 @@ const the = [
   ),
 ];
 const Provresultat = () => {
+  const navigate = useNavigate()
+
   return (
     <>
       <AppBar
@@ -114,7 +117,6 @@ const Provresultat = () => {
       >
         <Toolbar
           style={{
-            height: "11vh",
             backgroundColor: "#F9F9F9",
             borderBottom: "1px solid #F9F9F9",
           }}
@@ -126,13 +128,13 @@ const Provresultat = () => {
               alignItems: "center",
               color: "#222",
             }}
-            variant="h4"
+            variant="h6"
             component="div"
             sx={{ flexGrow: 3 }}
           >
             Provresultat
           </Typography>
-          <HelpOutlineIcon style={{color:'#222'}} />
+          <HelpOutlineIcon style={{ color: "#222" }} />
         </Toolbar>
       </AppBar>
       <Box
@@ -554,6 +556,18 @@ const Provresultat = () => {
                 </a>
               </Box>
             </Box>
+            <Button
+              variant="outlined"
+              sx={{
+                width: "100%",
+                border: "1px solid #0A1596",
+                margin: "1rem 0",
+                color: "#0A1596",
+              }}
+              onClick={() => navigate('/courses')}
+            >
+              Klar
+            </Button>
           </Box>
         </Box>
       </Box>

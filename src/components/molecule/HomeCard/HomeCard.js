@@ -4,9 +4,8 @@ import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 import { useNavigate } from "react-router-dom";
 
 const HomeCard = (props) => {
-
   const data = props?.item;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -19,17 +18,21 @@ const HomeCard = (props) => {
         padding: 3,
         marginTop: 2,
         borderRadius: 2,
-        cursor: 'pointer'
+        cursor: "pointer",
       }}
-      onClick={() => navigate('/category', {
-        state: {
-         item: data
-        }
-      })} 
+      onClick={() =>
+        navigate("/category", {
+          state: {
+            item: data,
+          },
+        })
+      }
     >
-      <Box sx={{ width: "60%"}}>
+      <Box sx={{ width: "60%" }}>
         <Typography variant="h5">{data?.title}</Typography>
-        <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>{data?.information}</Typography>
+        <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
+          {data?.information}
+        </Typography>
         <Box>
           <ProgressBar />
         </Box>
@@ -42,7 +45,7 @@ const HomeCard = (props) => {
           width: "20%",
         }}
       >
-        <Typography variant="h4" mr={1}>
+        <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
           0.0
         </Typography>
         <Typography variant="body1" sx={{ fontSize: ".75rem" }}>

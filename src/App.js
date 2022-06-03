@@ -9,6 +9,7 @@ import Signup from "./pages/Signup/Signup";
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import ProvPassInformation from "./components/organism/CoursesOrg/CoursePages/ProvPassInformation/ProvPassInformation";
+import TestInformation from "./components/organism/CoursesOrg/CoursePages/TestInformation/TestInformation";
 import ResultSummaryOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/ResultSummaryOrg";
 import StandardViewXyz from "./components/organism/CoursesOrg/CoursePages/StandardViewXyz/StandardViewXyz";
 import ProvPassNog from "./components/organism/CoursesOrg/CoursePages/ProvPassNog/ProvPassNog";
@@ -21,7 +22,9 @@ import ResultFooter from "./components/molecule/ResultFooter/ResultFooter";
 import QuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
 import ResultQuestionViewDtkOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/ResultQuestionViewDTKOrg";
 import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
-import Provresultat from './components/organism/CoursesOrg/CoursePages/Provresultat/Provresultat'
+import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresultat/Provresultat";
+import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
+import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 
 function App() {
   return (
@@ -47,11 +50,13 @@ function App() {
         <Route path="/resultsummary" element={<ResultSummaryOrg />} />
         <Route path="/resultinfo" element={<ResultInformation />} />
         <Route path="/provpassinfo" element={<ProvPassInformation />} />
-        <Route path="/standardviewxyz" element={<StandardViewXyz />} />
+        <Route path="/simuleraprov" element={<StandardViewXyz />} />
         <Route path="/provpassnog" element={<ProvPassNog />} />
         <Route path="/provpassdtk" element={<ProvPassDtk />} />
         <Route path="/provpasscorrectans" element={<ProvPassCorrectAns />} />
         <Route path="/provresultat" element={<Provresultat />} />
+        <Route path="/overblick" element={<OverBlick />} />
+        <Route path="/rattadoverblick" element={<RattadOverblick />} />
       </Routes>
     </div>
   );

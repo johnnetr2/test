@@ -20,9 +20,9 @@ const Timer = (props) => {
   useEffect(() => {
     setStart(props.continueStatus);
     // props.onChangeTime(timer)
-    if (!props.continueStatus) {
+    // if (!props.continueStatus) {
       props.timeleft(timer);
-    }
+    // }
   }, [props.continueStatus]);
 
   useEffect(() => {

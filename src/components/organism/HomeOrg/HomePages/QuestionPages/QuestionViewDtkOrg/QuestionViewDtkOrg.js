@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import ResultQuestionViewDtkOrg from './ResultQuestionViewDTKOrg'
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
+import Timer from "../../../../../atom/Timer/timer";
 
 
 const QuestionViewDTKOrg = (props) => {
@@ -32,7 +33,6 @@ const QuestionViewDTKOrg = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState()
   const [showResult, setShowResult] = useState(false)
-
 
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -90,7 +90,6 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       setQuiz(props.question)
     }
-    // quiz.question.multipartQuestion.questions.length
   }, [])
 
   const Button = (question) => {
@@ -180,6 +179,7 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
     }
+    // setForce(!forceupdate)
   };
 
   return (
@@ -190,6 +190,67 @@ const QuestionViewDTKOrg = (props) => {
         maxWidth="lg"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
+        {/* <Container
+          disableGutters
+          maxWidth="Xl"
+          style={{ backgroundColor: "#fff" }}
+        >
+          <Box mt={8} sx={{ display: "flex", flexDirection: 'row', justifyContent: "space-between", }}>
+            <Box mt={2} width={100} sx={{ color: "#222" }}>
+              <img src={BarChart} alt="" />
+              {props.selectedIndex + 1} av {props?.totalQuestions}
+            </Box>
+            {props.params && props.params.value == true && (
+              <Box
+                mt={2}
+                sx={{ color: "#222", display: "flex", flexDirection: "row" }}
+              >
+                <img src={Clock} alt="" />
+                <Timer
+                  continueStatus={props.status}
+                  time={props.time}
+                  timeleft={(timer) => {
+                    if (!props.status) {
+                      props.timeLeft(timer)
+                      props.nextPress()
+                    }
+                  }}
+                  onCloseTimer={() => props.onCloseTimer()}
+                />
+              </Box>
+            )}
+          </Box>
+
+          <Box
+            mt={2}
+            sx={{
+              backgroundColor: "#b4b4b4",
+              height: "8px",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {props?.quiz &&
+              props.quiz?.map((item, index) => {
+                if (item.type === 'multiple') {
+                  return item.question.map(question =>
+                    <Box
+                      key={index}
+                      style={{
+                        backgroundColor: question.answer
+                          ? "#6fcf97"
+                          : "#B4B4B4",
+                        marginLeft: "2px",
+                        flex: "1",
+                      }}
+                    ></Box>
+                  )
+                }
+              }
+
+              )}
+          </Box>
+        </Container> */}
 
         <Container
           maxWidth="md"
@@ -225,7 +286,7 @@ const QuestionViewDTKOrg = (props) => {
                 fontWeight: "500",
               }}
             >
-              {quiz?.question?.length + ' uppgifter:'}
+              {selectedIndex + 1 + ' uppgifter:'}
             </Typography>
             <Typography variant="h6" component="h6">
               {quiz?.title}

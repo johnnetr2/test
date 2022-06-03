@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   makeStyles,
@@ -8,13 +8,15 @@ import {
   Tab,
   Tabs,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
-import CoursesRightBar from '../CoursesRightBar/CoursesRightBar'
+import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import { Input } from "reactstrap";
+import { EndPoints, instance, instance2 } from "../../../service/Route";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,10 +37,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CoursesFeedContent = () => {
+const CoursesFeedContent = (props) => {
+  console.log(props, "content feed props");
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [tabValue, setTabValue] = useState(0);
+
+  let previousExams = props.previousExams;
+
+  // const LoadMore = () => {
+  //   alert("hello");
+  // };
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -53,6 +63,7 @@ const CoursesFeedContent = () => {
     <Container className={classes.root}>
       <Box>
         <Heading title="Simulera Prov" />
+        {console.log(previousExams, "here is the previous exam console")}
         <BodyText title="Gör prov från tidigare år eller välj att slumpa ett helt prov med uppgifter från gamla prov du inte stött på tidigare. " />
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
@@ -126,26 +137,21 @@ const CoursesFeedContent = () => {
           </Typography>
         </Box>
         <Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
+          <Box
+            sx={{ marginBottom: "1rem" }}
+            // onClick={() => navigate("/provpassinfo")}
+          >
+            {previousExams &&
+              previousExams.map((item) => {
+                console.log(item, "this is item");
+                return (
+                  <CoursesCard
+                    id={item.simuleraSeason._id}
+                    item={item}
+                    progress={item.progress}
+                  />
+                );
+              })}
           </Box>
         </Box>
         <Box
@@ -159,8 +165,10 @@ const CoursesFeedContent = () => {
           <Button
             variant="contained"
             style={{ backgroundColor: "#0A1596", color: "#fff" }}
+            onClick={() => props.loadMore()}
           >
             Fler prov
+            <KeyboardArrowDownIcon />
           </Button>
         </Box>
         <Box sx={{ marginBottom: "2rem" }}>
@@ -252,7 +260,7 @@ const CoursesFeedContent = () => {
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
-          <CoursesRightBar/>
+        <CoursesRightBar />
       </TabPanel>
     </Container>
   );

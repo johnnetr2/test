@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -10,8 +9,6 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
-import { EndPoints, instance2 } from "../../service/Route";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -51,76 +48,70 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs(props) {
+export default function BackButtonPopup(props) {
   const [open, setOpen] = React.useState(false);
-  const [questionFeedback, setQuestionFeedback] = useState("");
 
-  const cardSubmittion = () => {
-    const payLoad = {
-      point: props.count,
-      explanation: questionFeedback,
-      question: props.questionId,
-      user: localStorage.getItem("userId"),
-    };
-    const URL = EndPoints.questionRating;
-    instance2.post(URL, payLoad).then((response) => {
-      if (response.status === 200) {
-        props.onClose();
-        setQuestionFeedback("");
-      }
-    });
+  const handleClickOpen = () => {
+    setOpen(true);
   };
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
+        Open dialog
+      </Button> */}
       <BootstrapDialog
-        onClose={props.onClose}
+        onClose={props.closePopup}
         aria-labelledby="customized-dialog-title"
-        open={props.show}
+        open={props.status}
+        style={{
+          textAlign: "center",
+        }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          onClose={props.onClose}
+          onClose={props.closePopup}
         ></BootstrapDialogTitle>
-        <DialogContent>
-          <Typography gutterBottom sx={{ marginTop: "2rem", color: "#999" }}>
-            {props.count} Tack för din feedback! Vill du även berätta några ord
-            för oss vad som inte var bra så att vi kan förbättra det?
-            (frivilligt)
+        <DialogContent style={{ padding: "2rem 5rem" }}>
+          <Typography gutterTop variant="h4">
+            Vill du avsluta provet?
           </Typography>
-          <Box
-            style={{
-              width: "auto",
-              height: "10rem",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
-            <TextareaAutosize
-              aria-label="empty textarea"
-              style={{ width: "35.5rem", padding: "1rem", height: "10rem" }}
-              onChange={(e) => setQuestionFeedback(e.target.value)}
-              value={questionFeedback}
-            />
-          </Box>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
+            Du måste göra klart provpasset för att få din poäng. Om du trycker
+            på avsluta, sparas inte dina svar.
+          </Typography>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ display: "flex", justifyContent: "center" }}>
           <Button
             autoFocus
-            onClick={cardSubmittion}
-            disabled={!questionFeedback}
+            onClick={handleClose}
+            style={{
+              backgroundColor: "transparent",
+              color: "#0A1596",
+              border: "1px solid #0A1596",
+              textTransform: "capitalize",
+              fontWeight: "regular",
+              padding: ".60rem 3rem",
+              marginBottom: "2rem",
+            }}
+          >
+            Avsluta prov
+          </Button>
+          <Button
+            autoFocus
+            onClick={props.closePopup}
             style={{
               backgroundColor: "#0A1596",
               color: "#fff",
-              display: "block",
-              margin: "auto",
-              width: "35rem",
-              height: "2.25rem",
-              textTransform: "initial",
-              fontWeight: "400",
-              borderRadius: "5px",
+              textTransform: "capitalize",
+              fontWeight: "regular",
+              padding: ".60rem 3rem",
+              marginBottom: "2rem",
             }}
           >
-            Skicka in
+            Gör klart provpass
           </Button>
         </DialogActions>
       </BootstrapDialog>

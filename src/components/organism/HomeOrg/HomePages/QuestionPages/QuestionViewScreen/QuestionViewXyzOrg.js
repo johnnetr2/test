@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import BarChart from "../../../../../../assets/Icons/BarChart.svg";
-import Clock from "../../../../../../assets/Icons/Clock.svg";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -18,7 +16,6 @@ import { useLocation } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { EndPoints, instance2 } from "../../../../../service/Route";
-import Timer from "../../../../../atom/Timer/timer";
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
@@ -27,6 +24,7 @@ import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
 import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
+import Header from "../../../../../atom/Header/header";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -39,6 +37,8 @@ const QuestionViewXyzOrg = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  // let totalQuestions = 0
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -46,13 +46,21 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
-      setQuiz(params?.state?.quiz);
+      setQuiz(params?.state?.quiz.question);
+      setTotalQuestions(params?.state?.quiz?.question.length);
     } else {
+      params?.state &&
+        params?.state?.data?.quiz.map((item) => {
+          if (item.description) {
+            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+          } else {
+            setTotalQuestions((totalQ) => totalQ + 1);
+          }
+        });
       setQuiz(params?.state?.data?.quiz);
     }
   }, []);
@@ -60,11 +68,11 @@ const QuestionViewXyzOrg = () => {
   const Next = (question) => {
     if (question.answerSubmited) {
       if (selectedIndex + 1 == quiz.length) {
-        localStorage.setItem('quizId', params?.state?.quizId)
+        localStorage.setItem("quizId", params?.state?.quizId);
         navigate("/resultsummary", {
           state: {
             sectionCategory: params?.state?.sectionCategory,
-            quizId: params?.state?.quizId
+            quizId: params?.state?.quizId,
           },
         });
       } else {
@@ -79,23 +87,17 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
-          setNextPress(!nextPress)
+          setNextPress(!nextPress);
           setQuiz(questions);
           setStatus(false);
         });
-
       }
     }
   };
 
   useEffect(() => {
-    console.log(nextPress, 'this is next preeees')
-    if (nextPress === undefined) {
-      console.log('in if condition')
-      return
-    } else {
-      console.log('in else condition')
-      setTime(timeLeft)
+    if (nextPress) {
+      setTime(timeLeft);
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
@@ -107,16 +109,17 @@ const QuestionViewXyzOrg = () => {
         timeleft: timeLeft ? timeLeft : 0,
         totaltime: time ? time : 0,
         spendtime: timeLeft ? time - timeLeft : 0,
-        MultipartQuestion: null
+        MultipartQuestion: null,
       };
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
-        console.log('Answer submited')
+        setNextPress(undefined);
+        console.log("Answer submited");
       });
+    } else {
+      return;
     }
-  }, [nextPress])
-
-
+  }, [nextPress]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -164,9 +167,8 @@ const QuestionViewXyzOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-
   const CloseTimerFunc = async () => {
-    setTimeEnd(true)
+    setTimeEnd(true);
 
     try {
       return await Promise.all(
@@ -180,19 +182,18 @@ const QuestionViewXyzOrg = () => {
               timeleft: 0,
               totaltime: time ? time : 0,
               spendtime: timeLeft ? time - timeLeft : 0,
-            }
-            const URL = EndPoints.submitAnswer
-            await instance2.post(URL, data).then(response => {
-              console.log(response.data)
-            })
+            };
+            const URL = EndPoints.submitAnswer;
+            await instance2.post(URL, data).then((response) => {
+              console.log(response.data);
+            });
           }
         })
-      )
+      );
     } catch (error) {
-      console.log('in catch block: ', error)
+      console.log("in catch block: ", error);
     }
-  }
-
+  };
 
   const SelectFunc = (e, optionIndex) => {
     const questions = [...quiz];
@@ -227,9 +228,21 @@ const QuestionViewXyzOrg = () => {
     //   return <Radio color="primary" checked={false} />;
     // }
     if (optionIndex == question.selectedIndex) {
-      return <Radio color="primary" checked={true} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <Radio
+          color="primary"
+          checked={true}
+          style={{ marginRight: "0.5rem" }}
+        />
+      );
     } else {
-      return <Radio color="primary" checked={false} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <Radio
+          color="primary"
+          checked={false}
+          style={{ marginRight: "0.5rem" }}
+        />
+      );
     }
   };
 
@@ -243,7 +256,7 @@ const QuestionViewXyzOrg = () => {
             navigate("/resultsummary", {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
-                quizId: params?.state?.quizId
+                quizId: params?.state?.quizId,
               },
             });
           }}
@@ -311,11 +324,9 @@ const QuestionViewXyzOrg = () => {
     }
   };
 
-
   const PopupHandler = () => {
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
-
     } else if (quiz[0].answer) {
       setOpen(true);
       setIsOpen(false);
@@ -332,7 +343,7 @@ const QuestionViewXyzOrg = () => {
         color="#fff"
         className={classes.appbar}
         style={{ boxShadow: "none" }}
-        position="absolute"
+        position="fixed"
       >
         <Toolbar
           style={{
@@ -366,10 +377,25 @@ const QuestionViewXyzOrg = () => {
       </AppBar>
 
       <Container
-        maxWidth="lg"
+        maxWidth="xl"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
-        <Container
+        {/* {params?.state?.data?.quiz[selectedIndex]?.multipartQuestion === null &&  */}
+
+        <Header
+          selectedIndex={selectedIndex}
+          totalQuestions={totalQuestions}
+          params={params?.state?.data}
+          status={status}
+          time={time}
+          nextPress={() => setNextPress(!nextPress)}
+          onCloseTimer={() => CloseTimerFunc()}
+          quiz={quiz}
+          timeLeft={(timer) => setTimeLeft(timer)}
+        />
+        {/* } */}
+
+        {/* <Container
           disableGutters
           maxWidth="Xl"
           style={{ backgroundColor: "#fff" }}
@@ -377,7 +403,7 @@ const QuestionViewXyzOrg = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {selectedIndex + 1} av {quiz?.length}
+              {selectedIndex + 1} av {totalQuestions}
             </Box>
             {params.state.data && params.state.data.value == true && (
               <Box
@@ -389,8 +415,12 @@ const QuestionViewXyzOrg = () => {
                   continueStatus={status}
                   time={time}
                   timeleft={(timer) => {
-                    setTimeLeft(timer)
-                    setNextPress(!nextPress)
+                    // timeLeft = timer
+                    if(!status) {
+                      console.log(timer, 'this is is timer')
+                      setTimeLeft(timer)
+                      setNextPress(!nextPress)
+                    } 
                   }}
                   onCloseTimer={() => CloseTimerFunc()}
                 />
@@ -422,7 +452,7 @@ const QuestionViewXyzOrg = () => {
 
               })}
           </Box>
-        </Container>
+        </Container> */}
 
         <AlertDialogSlide
           popUpstatus={open}
@@ -436,7 +466,7 @@ const QuestionViewXyzOrg = () => {
             navigate("/resultsummary", {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
-                quizId: params?.state?.quizId
+                quizId: params?.state?.quizId,
               },
             });
           }}
@@ -449,7 +479,7 @@ const QuestionViewXyzOrg = () => {
               navigate("/resultsummary", {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
-                  quizId: params?.state?.quizId
+                  quizId: params?.state?.quizId,
                 },
               });
             }}
@@ -479,43 +509,60 @@ const QuestionViewXyzOrg = () => {
           }
         />
 
-        {quiz && quiz.map((item, index) => {
-          if (index === selectedIndex) {
-            return <QuestionBody question={quiz[selectedIndex]}
-              selectedOption={params.state.selectedOption}
-              paragraphIndex={params?.state?.paragraphIndex} questionIndex={params?.state?.questionIndex}
-              selectedIndex={selectedIndex} onLeftClick={() => { setSelectedIndex((previousIndex) => previousIndex - 1) }}
-              onRightClick={() => { setSelectedIndex((previousIndex) => previousIndex + 1) }}
-              stopTime={() => setStatus(false)} SelectOption={(e, index) => SelectFunc(e, index)}
-              totalTime={time} quiz={quiz} sectionCategory={params?.state?.sectionCategory}
-              onResultHandler={() => {
-                navigate("/resultsummary", {
-                  state: {
-                    sectionCategory: params?.state?.sectionCategory,
-                    quizId: params?.state?.quizId
-                  },
-                });
-              }}
-              startTime={() => setStatus(true)} showOptions={(question, item, optionIndex) => Options(question, item, optionIndex)}
-              OptionValue={(optionIndex) => OptionIndex(optionIndex)} submitButton={(question) => getSubmitButton(question)}
-              quizId={params?.state?.data?._id} timeLeft={timeLeft}
-              nextQuestion={() => {
-                if (selectedIndex + 1 < quiz.length) {
-                  setSelectedIndex(selectedIndex + 1)
-                } else {
-                  navigate("/resultsummary", {
-                    state: {
-                      sectionCategory: params?.state?.sectionCategory,
-                      quizId: params?.state?.quizId
-                    },
-                  })
-                }
-              }}
-            />
-          }
-        })
-
-        }
+        {quiz &&
+          quiz.map((item, index) => {
+            if (index === selectedIndex) {
+              return (
+                <QuestionBody
+                  question={quiz[selectedIndex]}
+                  totalQuestions={totalQuestions}
+                  selectedOption={params.state.selectedOption}
+                  paragraphIndex={params?.state?.paragraphIndex}
+                  questionIndex={params?.state?.questionIndex}
+                  selectedIndex={selectedIndex}
+                  onLeftClick={() => {
+                    setSelectedIndex((previousIndex) => previousIndex - 1);
+                  }}
+                  onRightClick={() => {
+                    setSelectedIndex((previousIndex) => previousIndex + 1);
+                  }}
+                  stopTime={() => setStatus(false)}
+                  SelectOption={(e, index) => SelectFunc(e, index)}
+                  totalTime={time}
+                  quiz={quiz}
+                  sectionCategory={params?.state?.sectionCategory}
+                  onResultHandler={() => {
+                    navigate("/resultsummary", {
+                      state: {
+                        sectionCategory: params?.state?.sectionCategory,
+                        quizId: params?.state?.quizId,
+                      },
+                    });
+                  }}
+                  startTime={() => setStatus(true)}
+                  showOptions={(question, item, optionIndex) =>
+                    Options(question, item, optionIndex)
+                  }
+                  OptionValue={(optionIndex) => OptionIndex(optionIndex)}
+                  submitButton={(question) => getSubmitButton(question)}
+                  quizId={params?.state?.data?._id}
+                  timeLeft={timeLeft}
+                  nextQuestion={() => {
+                    if (selectedIndex + 1 < quiz.length) {
+                      setSelectedIndex(selectedIndex + 1);
+                    } else {
+                      navigate("/resultsummary", {
+                        state: {
+                          sectionCategory: params?.state?.sectionCategory,
+                          quizId: params?.state?.quizId,
+                        },
+                      });
+                    }
+                  }}
+                />
+              );
+            }
+          })}
       </Container>
     </div>
   );
