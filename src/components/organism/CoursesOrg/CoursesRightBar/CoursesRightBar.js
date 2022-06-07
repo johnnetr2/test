@@ -127,21 +127,11 @@ const RightBar = (props) => {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    console.log(userId, "here is user id");
     const URL = EndPoints.getSimuleraQuizByUser + userId;
-    console.log(URL, "my url");
     instance2.get(URL).then((response) => {
       setProvHistoryData(response.data);
-      console.log(response.data, "@@@@here is the data");
     });
   }, []);
-
-  console.log(props, "%%%%%%%%%%%% Success");
-
-  // console.log(
-  //   props.previousExams[0].simuleraSeason._id,
-  //   "%%%%%%%%%%%% Success"
-  // );
 
   return (
     <Container disableGutters maxWidth={false}>

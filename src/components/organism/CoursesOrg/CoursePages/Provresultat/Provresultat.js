@@ -221,7 +221,7 @@ const Provresultat = () => {
                     </Typography>
                     <Typography
                       variant="body1"
-                      sx={{ marginLeft: ".5rem", fontWeight: 500 }}
+                      sx={{ marginLeft: ".5rem", fontWeight: 500, color: '#505050' }}
                     >
                       Antal poäng
                     </Typography>
@@ -250,12 +250,20 @@ const Provresultat = () => {
                     <Typography variant="h3" component="h3">
                       82.4
                     </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{ marginLeft: ".3rem", fontWeight: 500 }}
-                    >
-                      Medelvärde samtliga provdeltagare
-                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '0.5rem' }} >
+                      <Typography
+                        variant="body1"
+                        sx={{ marginLeft: ".3rem", fontWeight: 500, color: '#505050' }}
+                      >
+                        Medelvärde samtliga
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{ marginLeft: ".3rem", fontWeight: 500, color: '#505050' }}
+                      >
+                        provdeltagare
+                      </Typography>
+                    </Box>
                   </Box>
                 </Box>
               </Box>
@@ -285,7 +293,7 @@ const Provresultat = () => {
                     </Typography>
                     <Typography
                       variant="body1"
-                      sx={{ marginLeft: ".5rem", fontWeight: 500 }}
+                      sx={{ marginLeft: ".5rem", fontWeight: 500, color: '#505050' }}
                     >
                       Normerad poäng
                     </Typography>
@@ -315,12 +323,20 @@ const Provresultat = () => {
                     <Typography variant="h3" component="h3">
                       0.86
                     </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{ marginLeft: ".5rem", fontWeight: 500 }}
-                    >
-                      Medelvärde normerad poäng
-                    </Typography>
+                    <Box sx={{ marginLeft: '0.5rem' }} >
+                      <Typography
+                        variant="body1"
+                        sx={{ marginLeft: ".5rem", fontWeight: 500, color: '#505050' }}
+                      >
+                        Medelvärde
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{ marginLeft: ".5rem", fontWeight: 500, color: '#505050' }}
+                      >
+                        normerad poäng
+                      </Typography>
+                    </Box>
                   </Box>
                 </Box>
               </Box>
@@ -515,7 +531,11 @@ const Provresultat = () => {
                       </TableCell>
                       <TableCell align="left">{row.calories}</TableCell>
                       <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
+                      <TableCell onClick={() => navigate('/rattadoverblick', {
+                        state: {
+                          quizId: '6290d237c73893292cff319d'
+                        }
+                      })} align="left">{row.carbs}</TableCell>
                       <TableCell align="left">{row.protein}</TableCell>
                     </TableRow>
                   ))}
@@ -548,12 +568,22 @@ const Provresultat = () => {
                   marginLeft: "1rem",
                   border: "1px solid #e1e1e1",
                   padding: "0.5rem",
+                  display: 'flex',
+                  cursor: 'pointer'
                 }}
+                onClick="window.open('https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh','_blank')"
               >
-                <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
-                  {" "}
-                  <img src={LinkIcon} />
-                </a>
+                {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
+                  {" "} */}
+                <img src={LinkIcon} />
+                  <Typography sx={{ 
+                    fontSize: '0.7rem',
+                    marginLeft: '0.3rem'
+                   }}
+                    >
+                  https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh
+                  </Typography>
+                {/* </a> */}
               </Box>
             </Box>
             <Button

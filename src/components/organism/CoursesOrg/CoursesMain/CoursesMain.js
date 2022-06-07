@@ -24,7 +24,6 @@ const CoursesMain = () => {
     };
     const URL = EndPoints.getPreviousExams;
     instance2.get(URL, data).then((response) => {
-      console.log(response.data, "this is api response");
       setPreviousExams(response.data.data);
     });
   }, []);
@@ -40,12 +39,9 @@ const CoursesMain = () => {
     // }
     // const URL = EndPoints.getPreviousExams
     // instance2.get(URL, data).then(response => {
-    //   console.log(response.data, 'this is api response')
     //   setPreviousExams(response.data.data)
     // })
   }, [limit]);
-
-  console.log("Courses Main content");
 
   return (
     <Container maxWidth="false" disableGutters>

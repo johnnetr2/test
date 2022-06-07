@@ -19,13 +19,10 @@ const Home = () => {
   useEffect(() => {
 
     const URL = EndPoints.getStudentPreference + localStorage.getItem('userId')
-    console.log(URL)
   instance2.get(URL).then(response => {
     if (response.data.StudentPreference) {
-      console.log('in if')
       setFirstPopup(false);
     } else {
-      console.log('in else')
       setFirstPopup(true);
     }
   })
