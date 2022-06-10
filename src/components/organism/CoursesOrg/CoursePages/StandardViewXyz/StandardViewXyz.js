@@ -58,9 +58,9 @@ const StandardViewXyz = () => {
       setCurrentIndex(params?.state?.questionIndex)
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id
-      console.log(ids, 'this is apiu data')
-      console.log(URL, 'this is URLLLLLLLLLLLLLLLL')
-      instance2.get(URL, ids).then(response => {
+      // console.log(ids, 'this is apiu data')
+      // console.log(URL, 'this is URLLLLLLLLLLLLLLLL')
+      instance2.get(URL).then(response => {
         console.log(response.data, 'this is api response')
         setQuiz(response.data.simuleraQuiz)
         setTime(3300)
