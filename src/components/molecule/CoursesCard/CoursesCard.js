@@ -14,6 +14,7 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 import { useNavigate } from "react-router-dom";
+import Image70 from '../../../assets/Imgs/image70.png'
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -74,6 +75,7 @@ const MenuIcon = () => {
             alignItems: "center",
           },
         }}
+        onClick={() => alert('Page is under progress')}
       >
         <MenuItem>{options}</MenuItem>
       </Menu>
@@ -107,6 +109,7 @@ const CoursesCard = (props) => {
                 navigate("/provpassinfo", {
                   state: {
                     id: props.id,
+                    session: props.item.simuleraSeason
                   },
                 })
               }
@@ -136,49 +139,83 @@ const CoursesCard = (props) => {
                 />
                 <Chip
                   label="Provpass 3"
-                  style={{ backgroundColor: "#6FCF97", color: "#064923" }}
+                  style={{ backgroundColor: "#E1E1E1", color: "#505050" }}
                   size="small"
                 />
                 <Chip
                   label="Provpass 4"
-                  style={{ backgroundColor: "#6FCF97", color: "#064923" }}
+                  style={{ backgroundColor: "#E1E1E1", color: "#505050" }}
                   size="small"
                 />
                 <Typography variant="body2" component="body2">
-                  100%
+                  50%
                 </Typography>
               </Stack>
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="h4" component="h4">
-                  {" "}
-                  {props.progress}{" "}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  component="body2"
-                  style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
+            {
+              props?.item?.simuleraQuiz.length < 4 ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    // alignItems: "center",
+                    flexDirection: "column",
+                    marginRight: '6rem',
+                    marginBottom: '1.5rem'
+                  }}
                 >
-                  {" "}
-                  {props.month}{" "}
-                </Typography>
-              </Box>
-              <Box>
-                <Button
-                  variant="outlined"
-                  style={{ width: "10rem", textTransform: "capitalize" }}
-                >
-                  Gör om prov
-                </Button>
-              </Box>
-            </Box>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Typography
+                      style={{
+                        display: 'flex', fontSize: '3rem', color: '#505050',
+                        marginBottom: '1rem',
+                      }} >
+                      -
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      component="body2"
+                      style={{ marginLeft: ".5rem", marginTop: ".5rem", color: '#505050', }}
+                    >
+                      {" "}
+                      {'Poäng'}{" "}
+                    </Typography>
+                    <img src={Image70} style={{ marginLeft: '1.5rem', marginBottom: '1rem' }} />
+                  </Box>
+                </Box>               
+              ) : (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Typography variant="h4" component="h4">
+                        {" "}
+                        {props.progress}{" "}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="body2"
+                        style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
+                      >
+                        {" "}
+                        {'Poäng'}{" "}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <Button
+                        variant="outlined"
+                        style={{ width: "10rem", textTransform: "capitalize" }}
+                      >
+                        Gör om prov
+                      </Button>
+                    </Box>
+                  </Box>
+              )
+            }
+
           </Box>
         </Box>
       </Box>

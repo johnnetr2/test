@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CoursesFeedContent = (props) => {
-  console.log(props, "content feed props");
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -63,7 +62,6 @@ const CoursesFeedContent = (props) => {
     <Container className={classes.root}>
       <Box>
         <Heading title="Simulera Prov" />
-        {console.log(previousExams, "here is the previous exam console")}
         <BodyText title="Gör prov från tidigare år eller välj att slumpa ett helt prov med uppgifter från gamla prov du inte stött på tidigare. " />
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
@@ -143,7 +141,6 @@ const CoursesFeedContent = (props) => {
           >
             {previousExams &&
               previousExams.map((item) => {
-                console.log(item, "this is item");
                 return (
                   <CoursesCard
                     id={item.simuleraSeason._id}

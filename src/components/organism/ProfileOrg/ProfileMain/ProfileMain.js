@@ -1,20 +1,18 @@
 import React from "react";
-import { Grid, makeStyles, Container } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 import ProfileFeedContent from "../ProfileFeedContent/ProfileFeedContent";
 import ProfileRightBar from "../ProfileRightBar/ProfileRightBar";
 import ProfileLeftBar from "../ProfileLeftBar/ProfileLeftBar";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
-const useStyles = makeStyles((theme) => ({
-  right: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   right: {
+//     [theme.breakpoints.down("sm")]: {
+//       display: "none",
+//     },
+//   },
+// }));
 
 const ProfileMain = () => {
-  const classes = useStyles();
 
   return (
     <Container

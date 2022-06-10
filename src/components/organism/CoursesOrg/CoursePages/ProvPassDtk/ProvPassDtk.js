@@ -39,7 +39,6 @@ const ProvPassDtk = (props) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(props?.question)
     setQuestion(props.question)
   }, [])
 

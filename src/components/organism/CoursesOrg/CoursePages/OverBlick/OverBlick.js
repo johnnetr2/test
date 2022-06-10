@@ -32,7 +32,6 @@ const OverBlick = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(params.state)
     setQuiz(params.state.quiz)
   }, [])
 
@@ -46,7 +45,6 @@ const OverBlick = () => {
 
     const URL = EndPoints.submitSimuleraTest
     instance2.post(URL, data).then(response => {
-      console.log(response, 'this is api response')
       if(response.status == 200) {
         navigate('/rattadoverblick', {
           state: {
@@ -290,7 +288,8 @@ const OverBlick = () => {
                       onClick={() => navigate('/simuleraprov', {
                         state: {
                           questionIndex: index,
-                          quiz: quiz
+                          quiz: quiz,
+                          timeLeft: params.state.timeLeft
                         }
                       })}
                     >

@@ -1,13 +1,13 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  // baseURL: "http://localhost:2000",
-  baseURL: 'http://13.53.194.168:2000',
+  baseURL: "http://localhost:2000",
+  // baseURL: 'http://13.53.194.168:2000',
 });
 
 export const instance2 = axios.create({
-  // baseURL: "http://localhost:2000",
-  baseURL: 'http://13.53.194.168:2000',
+  baseURL: "http://localhost:2000",
+  // baseURL: 'http://13.53.194.168:2000',
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
@@ -17,8 +17,7 @@ export const EndPoints = {
   SignUp: "/auth/signup",
   Login: "/auth/login",
   getAllCategories: "admin/sectionCategories",
-  questionCategoryBysectionCategory:
-    "/admin/QuestionCategory/questionCategoryBysectionCategory/",
+  questionCategoryBysectionCategory: "/admin/QuestionCategory/questionCategoryBysectionCategory/",
   ResultByUser: "/quizResult/resultByUser/",
   testDate: "/api/studentPrefenence",
   getResult: "/api/quizResult/resultByUserAndQuizid/",
@@ -43,4 +42,5 @@ export const EndPoints = {
   getSimuleraQuizByUser: "/api/simuleraQuizResult/quizByUser/",
   getSimuleraQuizResult: '/api/simuleraQuizResult/',
   questionRating: "/api/questionRating",
+  getUserHistory: '/api/simuleraQuizResult/testSummaryByUser/',
 };

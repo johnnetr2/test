@@ -65,7 +65,6 @@ function MultiQuestionSummary(props) {
                       <img src={BarChart} alt="" />
                       {props.selectedIndex + 1} av {props.totalQuestions}
                   </Box>
-                  {console.log('I am mapng')}
                   {props.params && props.params.value == true && (
                       <Box
                           mt={2}

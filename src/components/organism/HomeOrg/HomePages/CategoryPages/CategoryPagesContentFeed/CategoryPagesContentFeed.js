@@ -120,7 +120,6 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const setCheckedFunc = (value) => {
-    console.log(value)
     if (value) {
       setCheckedValue(value);
       setError(false);

@@ -39,25 +39,48 @@ const StandardViewXyz = () => {
   const navigate = useNavigate()
   const params = useLocation()
   const [quiz, setQuiz] = useState()
-  const [status, setStatus] = useState(true)
+  const [status, setStatus] = useState(false)
   const [timeOverPopUp, setTimeOverPopUp] = useState(false)
-  const time = 55 * 60
+  const [time, setTime] = useState()
   const [SubmitedQuestions, setSubmitedQuestions] = useState([])
   const [backPressPopup, setBackPressPopup] = useState(false)
+  const [timeLeft, setTimeLeft] = useState()
+  const [shouldNavigate, setShouldNavigate] = useState(false)
 
 
   useEffect(() => {
-    console.log(params.state.quiz)
+    const ids = {
+      simuleraQuizIds: ["6290d237c73893292cff319d"]
+    }
     if (params?.state?.questionIndex != undefined) {
+      setTime(params?.state?.timeLeft)
       setQuiz(params?.state?.quiz)
       setCurrentIndex(params?.state?.questionIndex)
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id
-      instance2.get(URL).then(response => {
+      console.log(ids, 'this is apiu data')
+      console.log(URL, 'this is URLLLLLLLLLLLLLLLL')
+      instance2.get(URL, ids).then(response => {
+        console.log(response.data, 'this is api response')
         setQuiz(response.data.simuleraQuiz)
+        setTime(3300)
       })
     }
   }, [])
+
+  useEffect(() => {
+    if (shouldNavigate) {
+      navigate('/overblick', {
+        state: {
+          quiz: quiz,
+          SubmitedQuestions,
+          simuleraQuiz: quiz?._id,
+          simuleraSeason: quiz?.season,
+          timeLeft
+        }
+      })
+    }
+  }, [timeLeft])
 
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -187,6 +210,8 @@ const StandardViewXyz = () => {
 
   const numberOfAttemptedQuestions = quiz?.simuleraQuestion.filter(item => item.optionId).length
 
+  const ifAnswerExist = quiz?.simuleraQuestion.some(question => question.answer)
+
   return (
     <div>
       <CssBaseline />
@@ -246,16 +271,14 @@ const StandardViewXyz = () => {
             <Box mt={2} sx={{ color: "#222", display: 'flex' }}>
               <img src={Clock} alt="" />
               {quiz && quiz.simuleraQuestion[currentIndex].answer ? 'Slutfört'
-              : <Timer continueStatus={status}
-                time={time}
-                timeleft={(timer) => {
-                  // if (!props.status) {
-                  //   props.timeLeft(timer);
-                  //   props.nextPress();
-                  // }
-                }}
-                onCloseTimer={() => setTimeOverPopUp(true)}
-              />}
+                : time && <Timer continueStatus={status}
+                  time={time}
+                  timeleft={(timer) => {
+                    setTimeLeft(timer)
+                  }}
+                  onCloseTimer={() => setTimeOverPopUp(true)}
+                />
+              }
               <BackButtonPopup status={backPressPopup} closePopup={() => setBackPressPopup(false)} />
             </Box>
           </Box>
@@ -348,7 +371,6 @@ const StandardViewXyz = () => {
 
           {quiz && quiz.simuleraQuestion.map((question, questionIndex) => {
             if (questionIndex === currentIndex) {
-              console.log(question, 'this is single question')
               if (question.type === 'multiple') {
                 return <ProvPassDtk Options={(question, option, optionIndex) => Options((question, option, optionIndex))}
                   index={questionIndex} question={question} backPressPopup={() => setBackPressPopup(true)}
@@ -594,7 +616,7 @@ const StandardViewXyz = () => {
               </Typography>
             </Box>
             {
-              params?.state.questionIndex != undefined ? (
+              ifAnswerExist ? (
                 <Box
                   onClick={() => navigate('/rattadoverblick', {
                     state: {
@@ -610,14 +632,22 @@ const StandardViewXyz = () => {
                   </Typography>
                 </Box>
               ) : (<Box
-                onClick={() => navigate('/overblick', {
-                  state: {
-                    quiz: quiz,
-                    SubmitedQuestions,
-                    simuleraQuiz: quiz?._id,
-                    simuleraSeason: quiz?.season
-                  }
-                })
+                onClick={() => {
+                  setStatus(false)
+                  setShouldNavigate(true)
+                  // setTimeout(() => {
+                  //   // navigate('/overblick', {
+                  //   //   state: {
+                  //   //     quiz: quiz,
+                  //   //     SubmitedQuestions,
+                  //   //     simuleraQuiz: quiz?._id,
+                  //   //     simuleraSeason: quiz?.season,
+                  //   //     timeLeft
+                  //   //   }
+                  //   // })
+                  // }, 1500);
+                }
+
                 }
               >
                 <Typography

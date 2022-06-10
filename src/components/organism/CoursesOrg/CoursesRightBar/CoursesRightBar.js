@@ -16,7 +16,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
+import moment from "moment";
 import Thumb from "../../../../assets/Imgs/Thumb.png";
 import { EndPoints, instance2 } from "../../../service/Route";
 
@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuIcon = () => {
-  const options = "STARTA OM";
+const MenuIcon = (row) => {
+  const options = "SE RESULTAT";
   const ITEM_HEIGHT = 48;
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -68,11 +68,20 @@ const MenuIcon = () => {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "15ch",
+            width: "13ch",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           },
         }}
       >
-        <MenuItem>{options}</MenuItem>
+        <MenuItem
+          // onClick={() => {
+          //   ResultHandler(row);
+          // }}
+        >
+          {options}
+        </MenuItem>
       </Menu>
     </div>
   );
@@ -82,43 +91,43 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-  createData(
-    "21.09.24 10:38",
-    "Hösten 2021, Oktober",
-    "0 av 160",
-    0.0,
-    <MenuIcon />
-  ),
-  createData(
-    "21.09.24 10:38",
-    "Hösten 2021, Oktober",
-    "0 av 160",
-    0.0,
-    <MenuIcon />
-  ),
-  createData(
-    "21.09.24 10:38",
-    "Hösten 2021, Oktober",
-    "0 av 160",
-    0.0,
-    <MenuIcon />
-  ),
-  createData(
-    "21.09.24 10:38",
-    "Hösten 2021, Oktober",
-    "0 av 160",
-    0.0,
-    <MenuIcon />
-  ),
-  createData(
-    "21.09.24 10:38",
-    "Hösten 2021, Oktober",
-    "0 av 160",
-    0.0,
-    <MenuIcon />
-  ),
-];
+// const rows = [
+//   createData(
+//     "21.09.24 10:38",
+//     "Hösten 2021, Oktober",
+//     "0 av 160",
+//     0.0,
+//     <MenuIcon />
+//   ),
+//   createData(
+//     "21.09.24 10:38",
+//     "Hösten 2021, Oktober",
+//     "0 av 160",
+//     0.0,
+//     <MenuIcon />
+//   ),
+//   createData(
+//     "21.09.24 10:38",
+//     "Hösten 2021, Oktober",
+//     "0 av 160",
+//     0.0,
+//     <MenuIcon />
+//   ),
+//   createData(
+//     "21.09.24 10:38",
+//     "Hösten 2021, Oktober",
+//     "0 av 160",
+//     0.0,
+//     <MenuIcon />
+//   ),
+//   createData(
+//     "21.09.24 10:38",
+//     "Hösten 2021, Oktober",
+//     "0 av 160",
+//     0.0,
+//     <MenuIcon />
+//   ),
+// ];
 
 const RightBar = (props) => {
   const classes = useStyles();
@@ -127,21 +136,16 @@ const RightBar = (props) => {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    console.log(userId, "here is user id");
-    const URL = EndPoints.getSimuleraQuizByUser + userId;
-    console.log(URL, "my url");
+    const URL = EndPoints.getUserHistory + userId;
     instance2.get(URL).then((response) => {
       setProvHistoryData(response.data);
-      console.log(response.data, "@@@@here is the data");
     });
   }, []);
 
-  console.log(props, "%%%%%%%%%%%% Success");
-
-  // console.log(
-  //   props.previousExams[0].simuleraSeason._id,
-  //   "%%%%%%%%%%%% Success"
-  // );
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" }
+    return new Date(dateString).toLocaleDateString(undefined, options)
+  }
 
   return (
     <Container disableGutters maxWidth={false}>
@@ -173,18 +177,18 @@ const RightBar = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {provHistoryData && provHistoryData.map((row) => (
                     <TableRow
-                      key={row.name}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      // key={row.name}
+                      // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {moment(row.attemptedDate).format('YYYY.MM.D hh:m')}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.simuleraSeason.title}</TableCell>
+                      <TableCell align="left">{row.correctAnswerNum} av 160</TableCell>
+                      <TableCell align="left">{row.progress}</TableCell>
+                      <TableCell align="left"><MenuIcon row={row} /></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

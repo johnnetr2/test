@@ -57,7 +57,6 @@ function Header(props) {
       >
         {quiz &&
           quiz?.map((item, index) => {
-            console.log(item, "this is item");
             if (item.type === "multiple") {
               return item.question.map((question) => (
                 <Box

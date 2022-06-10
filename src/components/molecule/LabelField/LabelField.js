@@ -3,7 +3,6 @@ import Label from "../../atom/Label/Label";
 import InputField from "../../atom/InputField/InputField";
 
 const LabelField = (props) => {
-  console.log(props, "label field console");
   return (
     <div className="label-field-1">
       <Label title={props?.title} />

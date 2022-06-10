@@ -417,7 +417,6 @@ const QuestionViewXyzOrg = () => {
                   timeleft={(timer) => {
                     // timeLeft = timer
                     if(!status) {
-                      console.log(timer, 'this is is timer')
                       setTimeLeft(timer)
                       setNextPress(!nextPress)
                     } 

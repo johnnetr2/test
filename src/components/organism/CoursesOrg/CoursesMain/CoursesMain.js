@@ -24,7 +24,6 @@ const CoursesMain = () => {
     };
     const URL = EndPoints.getPreviousExams;
     instance2.get(URL, data).then((response) => {
-      console.log(response.data, "this is api response");
       setPreviousExams(response.data.data);
     });
   }, []);
@@ -33,19 +32,15 @@ const CoursesMain = () => {
     const limit = setLimit((lim) => lim + 10);
   };
   useEffect(() => {
-    console.log(limit, "new limit");
     return;
     // const data = {
     //   limit
     // }
     // const URL = EndPoints.getPreviousExams
     // instance2.get(URL, data).then(response => {
-    //   console.log(response.data, 'this is api response')
     //   setPreviousExams(response.data.data)
     // })
   }, [limit]);
-
-  console.log("Courses Main content");
 
   return (
     <Container maxWidth="false" disableGutters>
