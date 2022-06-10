@@ -42,4 +42,5 @@ export const EndPoints = {
   getSimuleraQuizByUser: "/api/simuleraQuizResult/quizByUser/",
   getSimuleraQuizResult: '/api/simuleraQuizResult/',
   questionRating: "/api/questionRating",
+  getUserHistory: '/api/simuleraQuizResult/testSummaryByUser/',
 };

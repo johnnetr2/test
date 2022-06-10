@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileFeedContent = () => {
   const classes = useStyles();
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [showSnack, setShowSnack] = useState();
@@ -47,7 +46,7 @@ const ProfileFeedContent = () => {
         instance2
           .delete(URL)
           .then((response) => {
-            if (response.data.message == "deleted Student") {
+            if (response.data.message === "deleted Student") {
               localStorage.removeItem("userId");
               localStorage.removeItem("token");
               localStorage.removeItem("role");

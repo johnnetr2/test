@@ -32,7 +32,6 @@ const OverBlick = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(params.state)
     setQuiz(params.state.quiz)
   }, [])
 

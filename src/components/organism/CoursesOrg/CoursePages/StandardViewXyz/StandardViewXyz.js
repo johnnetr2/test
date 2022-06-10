@@ -39,7 +39,7 @@ const StandardViewXyz = () => {
   const navigate = useNavigate()
   const params = useLocation()
   const [quiz, setQuiz] = useState()
-  const [status, setStatus] = useState(true)
+  const [status, setStatus] = useState(false)
   const [timeOverPopUp, setTimeOverPopUp] = useState(false)
   const [time, setTime] = useState()
   const [SubmitedQuestions, setSubmitedQuestions] = useState([])
@@ -49,14 +49,19 @@ const StandardViewXyz = () => {
 
 
   useEffect(() => {
-    // console.log(params.state.timeLeft, 'this is state')
+    const ids = {
+      simuleraQuizIds: ["6290d237c73893292cff319d"]
+    }
     if (params?.state?.questionIndex != undefined) {
       setTime(params?.state?.timeLeft)
       setQuiz(params?.state?.quiz)
       setCurrentIndex(params?.state?.questionIndex)
-      } else {
+    } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id
-      instance2.get(URL).then(response => {
+      console.log(ids, 'this is apiu data')
+      console.log(URL, 'this is URLLLLLLLLLLLLLLLL')
+      instance2.get(URL, ids).then(response => {
+        console.log(response.data, 'this is api response')
         setQuiz(response.data.simuleraQuiz)
         setTime(3300)
       })
@@ -65,7 +70,6 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     if (shouldNavigate) {
-      console.log(timeLeft, 'this is useeffect')
       navigate('/overblick', {
         state: {
           quiz: quiz,
@@ -75,7 +79,6 @@ const StandardViewXyz = () => {
           timeLeft
         }
       })
-
     }
   }, [timeLeft])
 
@@ -275,7 +278,7 @@ const StandardViewXyz = () => {
                   }}
                   onCloseTimer={() => setTimeOverPopUp(true)}
                 />
-                }
+              }
               <BackButtonPopup status={backPressPopup} closePopup={() => setBackPressPopup(false)} />
             </Box>
           </Box>
@@ -631,9 +634,8 @@ const StandardViewXyz = () => {
               ) : (<Box
                 onClick={() => {
                   setStatus(false)
-                    setShouldNavigate(true)
+                  setShouldNavigate(true)
                   // setTimeout(() => {
-                  //   console.log(timeLeft, 'this is time left')
                   //   // navigate('/overblick', {
                   //   //   state: {
                   //   //     quiz: quiz,

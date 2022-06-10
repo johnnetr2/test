@@ -9,6 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -50,6 +51,7 @@ BootstrapDialogTitle.propTypes = {
 
 export default function BackButtonPopup(props) {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -86,7 +88,7 @@ export default function BackButtonPopup(props) {
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
           <Button
             autoFocus
-            onClick={handleClose}
+            onClick={() => navigate('/courses')}
             style={{
               backgroundColor: "transparent",
               color: "#0A1596",

@@ -32,7 +32,6 @@ const CoursesMain = () => {
     const limit = setLimit((lim) => lim + 10);
   };
   useEffect(() => {
-    console.log(limit, "new limit");
     return;
     // const data = {
     //   limit

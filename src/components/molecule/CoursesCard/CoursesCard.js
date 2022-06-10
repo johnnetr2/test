@@ -87,11 +87,6 @@ const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(props.item,' äthis is item')
-  }, [])
-  
-
   return (
     <Container disableGutters maxWidth={false}>
       <Box

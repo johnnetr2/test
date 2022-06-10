@@ -30,11 +30,6 @@ const ProvPassInformation = () => {
     color: theme.palette.text.secondary,
   }));
 
-  useEffect(() => {
-    console.log(params.state, 'thisi isiuastatae')
-  }, [])
-  
-
   const useStyles = makeStyles((theme) => ({
     root: {
       minHeight: "100vh",

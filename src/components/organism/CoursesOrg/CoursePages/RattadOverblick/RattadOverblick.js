@@ -138,7 +138,7 @@ const RattedOverblick = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {result?.simuleraQuestion.length} av {result?.simuleraQuestion.length}
+              {result?.correctAnswer} av {result?.simuleraQuestion.length}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
