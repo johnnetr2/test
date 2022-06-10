@@ -39,7 +39,7 @@ const StandardViewXyz = () => {
   const navigate = useNavigate()
   const params = useLocation()
   const [quiz, setQuiz] = useState()
-  const [status, setStatus] = useState(false)
+  const [status, setStatus] = useState(true)
   const [timeOverPopUp, setTimeOverPopUp] = useState(false)
   const [time, setTime] = useState()
   const [SubmitedQuestions, setSubmitedQuestions] = useState([])
