@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import DownArrow from "../../../../../assets/Icons/DownArrow.svg";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import Clock from "../../../../../assets/Icons/Clock.svg";
@@ -14,8 +12,6 @@ import {
   Paper,
   Box,
   CssBaseline,
-  Checkbox,
-  FormControlLabel,
   Toolbar,
   Container,
 } from "@material-ui/core";

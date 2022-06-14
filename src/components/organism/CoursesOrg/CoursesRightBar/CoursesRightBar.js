@@ -138,6 +138,7 @@ const RightBar = (props) => {
     const userId = localStorage.getItem("userId");
     const URL = EndPoints.getUserHistory + userId;
     instance2.get(URL).then((response) => {
+      console.log(response.data)
       setProvHistoryData(response.data);
     });
   }, []);

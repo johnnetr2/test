@@ -50,22 +50,22 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     const ids = {
-      simuleraQuizIds: ["6290d237c73893292cff319d"]
+      simuleraQuizIds: ["6290946ded39cf48cc86b723"]
     }
-    if (params?.state?.questionIndex != undefined) {
-      setTime(params?.state?.timeLeft)
-      setQuiz(params?.state?.quiz)
-      setCurrentIndex(params?.state?.questionIndex)
-    } else {
-      const URL = EndPoints.getSimuleraQuiz + params.state.id
-      // console.log(ids, 'this is apiu data')
-      // console.log(URL, 'this is URLLLLLLLLLLLLLLLL')
-      instance2.get(URL).then(response => {
+    // if (params?.state?.questionIndex != undefined) {
+    //   setTime(params?.state?.timeLeft)
+    //   setQuiz(params?.state?.quiz)
+    //   setCurrentIndex(params?.state?.questionIndex)
+    // } else {
+      const URL = EndPoints.getSimuleraQuiz + '62a2f021371e474358254257'
+      console.log(ids, 'this is apiu data')
+      console.log(URL, 'this is URLLLLLLLLLLLLLLLL')
+      instance2.get(URL, ids).then(response => {
         console.log(response.data, 'this is api response')
         setQuiz(response.data.simuleraQuiz)
         setTime(3300)
       })
-    }
+    // }
   }, [])
 
   useEffect(() => {
