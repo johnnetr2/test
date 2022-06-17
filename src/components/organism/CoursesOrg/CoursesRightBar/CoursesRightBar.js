@@ -180,9 +180,10 @@ const RightBar = (props) => {
                 <TableBody>
                   {provHistoryData && provHistoryData.map((row) => (
                     <TableRow
-                      // key={row.name}
-                      // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      key={row.name}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
+                      {console.log(row, ';this isrow')}
                       <TableCell component="th" scope="row">
                         {moment(row.attemptedDate).format('YYYY.MM.D hh:m')}
                       </TableCell>

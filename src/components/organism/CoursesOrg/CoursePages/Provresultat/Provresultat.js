@@ -20,13 +20,14 @@ import TwitterIcon from "../../../../../assets/Icons/TwitterIcon.svg";
 import LinkedInIcon from "../../../../../assets/Icons/LinkedInIcon.svg";
 import WhatsappIcon from "../../../../../assets/Icons/WhatsappIcon.svg";
 import LinkIcon from "../../../../../assets/Icons/LinkIcon.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../service/Route";
 
 
 
 const Provresultat = () => {
   const navigate = useNavigate()
+  const params = useLocation()
   const [testSummary, setTestSummary] = useState()
   const [totalQuestionsOfKvantitative, setTotalQuestionsOfKvantitative] = useState()
   const [correctAnswersOfKvantitative, setCorrectAnswersOfKvantitative] = useState()
@@ -35,7 +36,8 @@ const Provresultat = () => {
 
 
   useEffect(() => {
-    const URL = EndPoints.testSummary + '62a321fbaaebf43eb47b1626'
+    console.log(params.state)
+    const URL = EndPoints.testSummary + params.state.seasonId
     instance2.get(URL).then(response => {
       console.log(response.data, 'this is test summary')
       setTestSummary(response.data)
@@ -64,9 +66,11 @@ const Provresultat = () => {
     createData("LAS", testSummary?.correctQuestions_of_LAS, testSummary?.totalQuestion_of_LAS, 10.1),
     createData("MEK", testSummary?.correctQuestions_of_MEK, testSummary?.totalQuestion_of_MEK, 6.3),
     createData("ELF", testSummary?.correctQuestions_of_ELF, testSummary?.totalQuestion_of_ELF, 12.7),
-    createData("SAMMANFATTNING", correctAnswersOfVerbal, totalQuestionsOfVerbal, 41.2, (correctAnswersOfVerbal / totalQuestionsOfVerbal * 2).toFixed(1).replace(/\.0+$/, '')),
+    createData("SAMMANFATTNING", correctAnswersOfVerbal, totalQuestionsOfVerbal, 41.2, correctAnswersOfVerbal && (correctAnswersOfVerbal / totalQuestionsOfVerbal * 2).toFixed(1).replace(/\.0+$/, '')),
   ];
-  const its = [createData("SAMMANFATTNING", 129, 160, 86.3)];
+  const its = [createData("SAMMANFATTNING", correctAnswersOfKvantitative + correctAnswersOfVerbal, totalQuestionsOfKvantitative + totalQuestionsOfVerbal, 
+    ((correctAnswersOfKvantitative + correctAnswersOfVerbal) / (totalQuestionsOfKvantitative + totalQuestionsOfVerbal) * 100).toFixed(1).replace(/\.0+$/, '')
+          )];
 
   return (
     <>
@@ -443,12 +447,12 @@ const Provresultat = () => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: "1px solid red" }}
+                        sx={{ border: "1px solid red", width: '5rem' }}
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
+                      <TableCell style={{ width: '10rem' }} align="left">{row.calories}</TableCell>
+                      <TableCell style={{ width: '7rem' }} align="left">{row.fat}</TableCell>
                       <TableCell align="left">{row.carbs}</TableCell>
                     </TableRow>
                   ))}
@@ -495,11 +499,14 @@ const Provresultat = () => {
                       <TableCell align="left">{row.correctAnswerCounter}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
                       <TableCell
-                        // onClick={() => navigate('/rattadoverblick', {
-                        //   state: {
-                        //     quizId: '6290d237c73893292cff319d'
-                        //   }
-                        // })} 
+                        onClick={() => 
+                          navigate('/rattadoverblick', {
+                          state: {
+                              quizId: row.simuleraQuiz,
+                              seasonId: row.simuleraSeason
+                          }
+                        })
+                      } 
                         align="left"><Button
                           style={{
                             backgroundColor: "#fff",

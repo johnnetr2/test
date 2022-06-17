@@ -75,6 +75,7 @@ const RattedOverblick = () => {
   useEffect(() => {
     const URL = EndPoints.getSimuleraQuizResult + params.state.quizId
     instance2.get(URL).then(response => {
+      console.log(response.data)
       setResult(response.data)
     })
   }, [])
@@ -107,7 +108,11 @@ const RattedOverblick = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
-            onClick={() => navigate('/provresultat')}
+            onClick={() => navigate('/provresultat', {
+              state: {
+                seasonId: params.state.seasonId
+              }
+            })}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
@@ -134,7 +139,7 @@ const RattedOverblick = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {result?.correctAnswer} av {result?.simuleraQuestion.length}
+              {result?.correctAnswer} av {result?.totalQuestions}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
@@ -212,7 +217,8 @@ const RattedOverblick = () => {
                     onClick={() => navigate('/simuleraprov', {
                       state: {
                         quiz: result,
-                        questionIndex: index
+                        questionIndex: index,
+                        seasonId: params.state.seasonId
                       }
                     })}
                   >

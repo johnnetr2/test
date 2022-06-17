@@ -39,7 +39,7 @@ const StandardViewXyz = () => {
   const navigate = useNavigate()
   const params = useLocation()
   const [quiz, setQuiz] = useState()
-  const [status, setStatus] = useState(true)
+  const [status, setStatus] = useState()
   const [timeOverPopUp, setTimeOverPopUp] = useState(false)
   const [time, setTime] = useState()
   const [SubmitedQuestions, setSubmitedQuestions] = useState([])
@@ -49,27 +49,27 @@ const StandardViewXyz = () => {
 
 
   useEffect(() => {
-    const ids = {
-      simuleraQuizIds: ["6290946ded39cf48cc86b723"]
-    }
-    // if (params?.state?.questionIndex != undefined) {
-    //   setTime(params?.state?.timeLeft)
-    //   setQuiz(params?.state?.quiz)
-    //   setCurrentIndex(params?.state?.questionIndex)
-    // } else {
-      const URL = EndPoints.getSimuleraQuiz + '62a2f021371e474358254257'
-      console.log(ids, 'this is apiu data')
-      console.log(URL, 'this is URLLLLLLLLLLLLLLLL')
-      instance2.get(URL, ids).then(response => {
+    console.log(params.state)
+    if (params?.state?.questionIndex != undefined) {
+      setTime(params?.state?.timeLeft)
+      setQuiz(params?.state?.quiz)
+      setCurrentIndex(params?.state?.questionIndex)
+      setStatus(true)
+    } else {
+      const URL = EndPoints.getSimuleraQuiz + params.state.id
+      console.log(URL)
+      instance2.get(URL).then(response => {
         console.log(response.data, 'this is api response')
         setQuiz(response.data.simuleraQuiz)
         setTime(3300)
+        response.data.simuleraQuiz && setStatus(true)
       })
-    // }
+    }
   }, [])
 
   useEffect(() => {
     if (shouldNavigate) {
+      console.log(SubmitedQuestions)
       navigate('/overblick', {
         state: {
           quiz: quiz,
@@ -177,6 +177,7 @@ const StandardViewXyz = () => {
     let data = {
       simuleraQuestion: question._id,
       optionId: e.target.value,
+      simuleraSectionCategories: question.simuleraSectionCategories._id,
       timeleft: 0,
       totaltime: 0,
       spendtime: 0
@@ -192,6 +193,7 @@ const StandardViewXyz = () => {
     } else {
       questions.push(data);
       setSubmitedQuestions(questions);
+      console.log('question submited')
     }
   };
 
@@ -239,7 +241,11 @@ const StandardViewXyz = () => {
             }}
             onClick={() => {
               quiz && quiz.simuleraQuestion[currentIndex].answer ?
-                navigate('/provresultat')
+                navigate('/provresultat', {
+                  state: {
+                    seasonId: params.state.seasonId
+                  }
+                })
                 :
                 setBackPressPopup(true)
             }}
@@ -620,7 +626,8 @@ const StandardViewXyz = () => {
                 <Box
                   onClick={() => navigate('/rattadoverblick', {
                     state: {
-                      quizId: params.state.quiz.quizId._id,
+                      quizId: params.state.quiz.quizId,
+                      seasonId: params.state.seasonId
                     }
                   })}
                 >
@@ -635,17 +642,6 @@ const StandardViewXyz = () => {
                 onClick={() => {
                   setStatus(false)
                   setShouldNavigate(true)
-                  // setTimeout(() => {
-                  //   // navigate('/overblick', {
-                  //   //   state: {
-                  //   //     quiz: quiz,
-                  //   //     SubmitedQuestions,
-                  //   //     simuleraQuiz: quiz?._id,
-                  //   //     simuleraSeason: quiz?.season,
-                  //   //     timeLeft
-                  //   //   }
-                  //   // })
-                  // }, 1500);
                 }
 
                 }
