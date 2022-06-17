@@ -143,7 +143,7 @@ const CoursesFeedContent = (props) => {
               previousExams.map((item) => {
                 return (
                   <CoursesCard
-                    id={item.simuleraSeason._id}
+                    id={item?.simuleraSeason._id}
                     item={item}
                     progress={item.progress}
                   />

@@ -45,15 +45,24 @@ const OverBlick = () => {
 
     const URL = EndPoints.submitSimuleraTest
     instance2.post(URL, data).then(response => {
+      console.log(response.data, 'response for test submit api')
       if(response.status == 200) {
-        navigate('/rattadoverblick', {
+        const updatePreviosExam = EndPoints.updatePreviousExam
+        const examData = {
+          simuleraSeason: params.state.simuleraSeason,
+          simuleraQuiz: params.state.simuleraQuiz
+        }
+        console.log(examData, ';this is data for api')
+        instance2.post(updatePreviosExam, examData).then(res => {
+          console.log(res)
+        })
+        navigate('/provresultat', {
           state: {
-            quizId: params.state.simuleraQuiz,
+            seasonId: response.data.simuleraQuizResult.simuleraSeason
           }
         })
-        // return alert('Ok')
       } else {
-       return alert('Fail')
+       console.log('Fail to submit questions')
       }
     })
   }

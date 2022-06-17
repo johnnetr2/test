@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -20,90 +20,57 @@ import TwitterIcon from "../../../../../assets/Icons/TwitterIcon.svg";
 import LinkedInIcon from "../../../../../assets/Icons/LinkedInIcon.svg";
 import WhatsappIcon from "../../../../../assets/Icons/WhatsappIcon.svg";
 import LinkIcon from "../../../../../assets/Icons/LinkIcon.svg";
-import { fontWeight, style, typography } from "@mui/system";
-import OutlineBtn from "../../../../atom/OutlineBtn/OutlineBtn";
-import { useNavigate } from "react-router-dom";
-// import { typography } from '@mui/system';
+import { useNavigate, useLocation } from "react-router-dom";
+import { EndPoints, instance2 } from "../../../../service/Route";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
 
-const rows = [
-  createData("XYZ", 20, 24, 12.1),
-  createData("KYA", 15, 20, 10.1),
-  createData("NOG", 10, 12, 6.3),
-  createData("DRK", 12, 24, 12.7),
-  createData("SAMMANFATTNING", 57, 80, 41.2, 1.3),
-];
-const row = [
-  createData("ORD", 20, 24, 12.1),
-  createData("LAS", 15, 20, 10.1),
-  createData("MEK", 10, 12, 6.3),
-  createData("ELF", 12, 24, 12.7),
-  createData("SAMMANFATTNING", 57, 80, 41.2, 1.3),
-];
-const its = [createData("SAMMANFATTNING", 129, 160, 86.3)];
-const the = [
-  createData(
-    "Provpass 1",
-    20,
-    24,
-    <Button
-      style={{
-        backgroundColor: "#fff",
-        color: "#0A1596",
-        border: "1px solid #0A1596",
-      }}
-    >
-      SE RATTNING
-    </Button>
-  ),
-  createData(
-    "Provpass 3",
-    15,
-    20,
-    <Button
-      style={{
-        backgroundColor: "#fff",
-        color: "#0A1596",
-        border: "1px solid #0A1596",
-      }}
-    >
-      SE RATTNING
-    </Button>
-  ),
-  createData(
-    "Provpass 4",
-    10,
-    12,
-    <Button
-      style={{
-        backgroundColor: "#fff",
-        color: "#0A1596",
-        border: "1px solid #0A1596",
-      }}
-    >
-      SE RATTNING
-    </Button>
-  ),
-  createData(
-    "Provpass 5",
-    12,
-    24,
-    <Button
-      style={{
-        backgroundColor: "#fff",
-        color: "#0A1596",
-        border: "1px solid #0A1596",
-      }}
-    >
-      SE RATTNING
-    </Button>
-  ),
-];
+
 const Provresultat = () => {
   const navigate = useNavigate()
+  const params = useLocation()
+  const [testSummary, setTestSummary] = useState()
+  const [totalQuestionsOfKvantitative, setTotalQuestionsOfKvantitative] = useState()
+  const [correctAnswersOfKvantitative, setCorrectAnswersOfKvantitative] = useState()
+  const [totalQuestionsOfVerbal, setTotalQuestionsOfVerbal] = useState()
+  const [correctAnswersOfVerbal, setCorrectAnswersOfVerbal] = useState()
+
+
+  useEffect(() => {
+    console.log(params.state)
+    const URL = EndPoints.testSummary + params.state.seasonId
+    instance2.get(URL).then(response => {
+      console.log(response.data, 'this is test summary')
+      setTestSummary(response.data)
+      setCorrectAnswersOfKvantitative(response.data.correctQuestions_of_XYZ + response.data.correctQuestions_of_KVA + response.data.correctQuestions_of_NOG + response.data.correctQuestions_of_DTK)
+      setTotalQuestionsOfKvantitative(response.data.totalQuestion_of_XYZ + response.data.totalQuestion_of_KVA + response.data.totalQuestion_of_NOG + response.data.totalQuestion_of_DTK)
+
+      setCorrectAnswersOfVerbal(response.data.correctQuestions_of_ORD + response.data.correctQuestions_of_LAS + response.data.correctQuestions_of_MEK + response.data.correctQuestions_of_ELF)
+      setTotalQuestionsOfVerbal(response.data.totalQuestion_of_ORD + response.data.totalQuestion_of_LAS + response.data.totalQuestion_of_MEK + response.data.totalQuestion_of_ELF)
+    })
+  }, [])
+
+  function createData(name, calories, fat, carbs, protein) {
+    return { name, calories, fat, carbs, protein };
+  }
+
+  const rows = [
+    createData("XYZ", testSummary?.correctQuestions_of_XYZ, testSummary?.totalQuestion_of_XYZ, 12.1),
+    createData("KYA", testSummary?.correctQuestions_of_KVA, testSummary?.totalQuestion_of_KVA, 10.1),
+    createData("NOG", testSummary?.correctQuestions_of_NOG, testSummary?.totalQuestion_of_NOG, 6.3),
+    createData("DRK", testSummary?.correctQuestions_of_DTK, testSummary?.totalQuestion_of_DTK, 12.7),
+    createData("SAMMANFATTNING", correctAnswersOfKvantitative, totalQuestionsOfKvantitative, 41.2, (correctAnswersOfKvantitative / totalQuestionsOfKvantitative * 2).toFixed(1).replace(/\.0+$/, '')),
+  ];
+
+  const row = [
+    createData("ORD", testSummary?.correctQuestions_of_ORD, testSummary?.totalQuestion_of_ORD, 12.1),
+    createData("LAS", testSummary?.correctQuestions_of_LAS, testSummary?.totalQuestion_of_LAS, 10.1),
+    createData("MEK", testSummary?.correctQuestions_of_MEK, testSummary?.totalQuestion_of_MEK, 6.3),
+    createData("ELF", testSummary?.correctQuestions_of_ELF, testSummary?.totalQuestion_of_ELF, 12.7),
+    createData("SAMMANFATTNING", correctAnswersOfVerbal, totalQuestionsOfVerbal, 41.2, correctAnswersOfVerbal && (correctAnswersOfVerbal / totalQuestionsOfVerbal * 2).toFixed(1).replace(/\.0+$/, '')),
+  ];
+  const its = [createData("SAMMANFATTNING", correctAnswersOfKvantitative + correctAnswersOfVerbal, totalQuestionsOfKvantitative + totalQuestionsOfVerbal, 
+    ((correctAnswersOfKvantitative + correctAnswersOfVerbal) / (totalQuestionsOfKvantitative + totalQuestionsOfVerbal) * 100).toFixed(1).replace(/\.0+$/, '')
+          )];
 
   return (
     <>
@@ -217,7 +184,7 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      129
+                      {testSummary?.correctQuestion}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -289,7 +256,7 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      1.50
+                      {testSummary?.normering.toFixed(2).replace(/\.0+$/, '')}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -480,12 +447,12 @@ const Provresultat = () => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: "1px solid red" }}
+                        sx={{ border: "1px solid red", width: '5rem' }}
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
+                      <TableCell style={{ width: '10rem' }} align="left">{row.calories}</TableCell>
+                      <TableCell style={{ width: '7rem' }} align="left">{row.fat}</TableCell>
                       <TableCell align="left">{row.carbs}</TableCell>
                     </TableRow>
                   ))}
@@ -521,21 +488,35 @@ const Provresultat = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {the.map((row) => (
+                  {testSummary && testSummary.quizArray.map((row, index) => (
                     <TableRow
-                      key={row.name}
+                      // key={row.name}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {'Provpass'}  {index + 1}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell onClick={() => navigate('/rattadoverblick', {
-                        state: {
-                          quizId: '6290d237c73893292cff319d'
-                        }
-                      })} align="left">{row.carbs}</TableCell>
+                      <TableCell align="left">{row.correctAnswerCounter}</TableCell>
+                      <TableCell align="left">{row.totalQuestions}</TableCell>
+                      <TableCell
+                        onClick={() => 
+                          navigate('/rattadoverblick', {
+                          state: {
+                              quizId: row.simuleraQuiz,
+                              seasonId: row.simuleraSeason
+                          }
+                        })
+                      } 
+                        align="left"><Button
+                          style={{
+                            backgroundColor: "#fff",
+                            color: "#0A1596",
+                            border: "1px solid #0A1596",
+                          }}
+                        >
+                          SE RATTNING
+                        </Button>
+                      </TableCell>
                       <TableCell align="left">{row.protein}</TableCell>
                     </TableRow>
                   ))}
@@ -576,13 +557,13 @@ const Provresultat = () => {
                 {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
                   {" "} */}
                 <img src={LinkIcon} />
-                  <Typography sx={{ 
-                    fontSize: '0.7rem',
-                    marginLeft: '0.3rem'
-                   }}
-                    >
+                <Typography sx={{
+                  fontSize: '0.7rem',
+                  marginLeft: '0.3rem'
+                }}
+                >
                   https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh
-                  </Typography>
+                </Typography>
                 {/* </a> */}
               </Box>
             </Box>

@@ -10,6 +10,7 @@ export const instance2 = axios.create({
   baseURL: 'http://13.53.194.168:2000',
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
+    'Content-Type': 'application/json',
   },
 });
 
@@ -43,4 +44,6 @@ export const EndPoints = {
   getSimuleraQuizResult: '/api/simuleraQuizResult/',
   questionRating: "/api/questionRating",
   getUserHistory: '/api/simuleraQuizResult/testSummaryByUser/',
+  testSummary: '/api/simuleraQuizResult/resultSummarybyPE/',
+  updatePreviousExam: '/api/previousExam',
 };
