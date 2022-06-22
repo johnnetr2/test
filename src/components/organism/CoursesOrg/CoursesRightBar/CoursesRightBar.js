@@ -19,6 +19,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
 import Thumb from "../../../../assets/Imgs/Thumb.png";
 import { EndPoints, instance2 } from "../../../service/Route";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
@@ -35,6 +36,7 @@ const MenuIcon = (row) => {
   const options = "SE RESULTAT";
   const ITEM_HEIGHT = 48;
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate()
 
   const open = Boolean(anchorEl);
 
@@ -76,9 +78,13 @@ const MenuIcon = (row) => {
         }}
       >
         <MenuItem
-          // onClick={() => {
-          //   ResultHandler(row);
-          // }}
+          onClick={() => {
+            navigate('/provresultat', {
+              state: {
+                seasonId: row.row.simuleraSeason._id
+              }
+            })
+          }}
         >
           {options}
         </MenuItem>
@@ -178,18 +184,17 @@ const RightBar = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {provHistoryData && provHistoryData.map((row) => (
+                  {provHistoryData && provHistoryData?.map((row) => (
                     <TableRow
                       key={row.name}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      {console.log(row, ';this isrow')}
                       <TableCell component="th" scope="row">
-                        {moment(row.attemptedDate).format('YYYY.MM.D hh:m')}
+                        {moment(row?.attemptedDate).format('YYYY.MM.D hh:m')}
                       </TableCell>
-                      <TableCell align="left">{row.simuleraSeason.title}</TableCell>
-                      <TableCell align="left">{row.correctAnswerNum} av 160</TableCell>
-                      <TableCell align="left">{row.progress}</TableCell>
+                      <TableCell align="left">{row?.simuleraSeason.title}</TableCell>
+                      <TableCell style={{ width: '6rem' }} align="left">{row?.correctAnswerNum} av {row?.totalQuestions}</TableCell>
+                      <TableCell align="left">{(row?.correctAnswerNum / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
                       <TableCell align="left"><MenuIcon row={row} /></TableCell>
                     </TableRow>
                   ))}

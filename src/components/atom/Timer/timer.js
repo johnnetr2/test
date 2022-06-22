@@ -9,7 +9,6 @@ const Timer = (props) => {
   const [start, setStart] = useState();
   const firstStart = useRef(true);
   const tick = useRef();
-  const navigate = useNavigate();
 
   const clearAll = () => {
     props.onCloseTimer();

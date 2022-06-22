@@ -22,6 +22,8 @@ import WhatsappIcon from "../../../../../assets/Icons/WhatsappIcon.svg";
 import LinkIcon from "../../../../../assets/Icons/LinkIcon.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../service/Route";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 
@@ -33,12 +35,14 @@ const Provresultat = () => {
   const [correctAnswersOfKvantitative, setCorrectAnswersOfKvantitative] = useState()
   const [totalQuestionsOfVerbal, setTotalQuestionsOfVerbal] = useState()
   const [correctAnswersOfVerbal, setCorrectAnswersOfVerbal] = useState()
+  const [open, setOpen] = useState(true);
 
 
   useEffect(() => {
     console.log(params.state)
     const URL = EndPoints.testSummary + params.state.seasonId
     instance2.get(URL).then(response => {
+      setOpen(false)
       console.log(response.data, 'this is test summary')
       setTestSummary(response.data)
       setCorrectAnswersOfKvantitative(response.data.correctQuestions_of_XYZ + response.data.correctQuestions_of_KVA + response.data.correctQuestions_of_NOG + response.data.correctQuestions_of_DTK)
@@ -152,6 +156,14 @@ const Provresultat = () => {
                 deltagare.
               </Typography>
             </Typography>
+            <Box>
+              <Backdrop
+                sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+              >
+                <CircularProgress color="inherit" size="5rem" />
+              </Backdrop>
+            </Box>
             <Box
               style={{
                 width: "100%",
@@ -256,13 +268,14 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      {testSummary?.normering.toFixed(2).replace(/\.0+$/, '')}
+                      {testSummary ? testSummary?.normering.toFixed(2).replace(/\.0+$/, '') : ''}
                     </Typography>
                     <Typography
                       variant="body1"
                       sx={{ marginLeft: ".5rem", fontWeight: 500, color: '#505050' }}
                     >
                       Normerad poäng
+                      
                     </Typography>
                   </Box>
                 </Box>

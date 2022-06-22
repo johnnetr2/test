@@ -28,7 +28,6 @@ import WhiteStar from "../../../../../assets/Imgs/whiteStar.png";
 import { instance2, EndPoints } from '../../../../service/Route'
 import Timer from "../../../../atom/Timer/timer";
 import ProvPassDtk from '../ProvPassDtk/ProvPassDtk'
-import TestOverPopup from '../../../../molecule/TestOverPopup/TestOverPopup'
 import BackButtonPopup from '../../../../molecule/BackButtonPopup/BackButtonPopup'
 import Increment from "../../../../../assets/Icons/Increment.svg";
 import Decrement from "../../../../../assets/Icons/Decrement.svg";
@@ -40,7 +39,6 @@ const StandardViewXyz = () => {
   const params = useLocation()
   const [quiz, setQuiz] = useState()
   const [status, setStatus] = useState()
-  const [timeOverPopUp, setTimeOverPopUp] = useState(false)
   const [time, setTime] = useState()
   const [SubmitedQuestions, setSubmitedQuestions] = useState([])
   const [backPressPopup, setBackPressPopup] = useState(false)
@@ -49,7 +47,6 @@ const StandardViewXyz = () => {
 
 
   useEffect(() => {
-    console.log(params.state)
     if (params?.state?.questionIndex != undefined) {
       setTime(params?.state?.timeLeft)
       setQuiz(params?.state?.quiz)
@@ -57,11 +54,10 @@ const StandardViewXyz = () => {
       setStatus(true)
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id
-      console.log(URL)
       instance2.get(URL).then(response => {
         console.log(response.data, 'this is api response')
         setQuiz(response.data.simuleraQuiz)
-        setTime(3300)
+        setTime(30)
         response.data.simuleraQuiz && setStatus(true)
       })
     }
@@ -69,7 +65,6 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     if (shouldNavigate) {
-      console.log(SubmitedQuestions)
       navigate('/overblick', {
         state: {
           quiz: quiz,
@@ -282,7 +277,10 @@ const StandardViewXyz = () => {
                   timeleft={(timer) => {
                     setTimeLeft(timer)
                   }}
-                  onCloseTimer={() => setTimeOverPopUp(true)}
+                  onCloseTimer={() => {
+                    setTimeLeft(0)
+                    setShouldNavigate(true)
+                  }}
                 />
               }
               <BackButtonPopup status={backPressPopup} closePopup={() => setBackPressPopup(false)} />
@@ -371,7 +369,6 @@ const StandardViewXyz = () => {
             </Button>}
 
           </Box>
-          <TestOverPopup status={timeOverPopUp} closePopUp={() => setTimeOverPopUp(false)} />
 
           {/* start of question component */}
 
@@ -642,20 +639,45 @@ const StandardViewXyz = () => {
                 onClick={() => {
                   setStatus(false)
                   setShouldNavigate(true)
-                }
-
-                }
+                }}
               >
                 <Typography
                   variant="h6"
                   style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer' }}
                 >
-                  överblick
+                  {currentIndex + 1 === quiz?.simuleraQuestion.length ? '' : 'överblick'}
                 </Typography>
               </Box>
               )
             }
-            <Box
+
+            {!params?.state?.questionIndex && currentIndex + 1 === quiz?.simuleraQuestion.length ? 
+            ( <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: 'pointer'
+                }}
+                onClick={() => {
+                  setStatus(false)
+                  setShouldNavigate(true)
+                }}              
+              >
+                <Typography
+                  variant="h6"
+                  style={{
+                    fontSize: "0.75rem",
+                    textTransform: "uppercase",
+                    marginRight: "0.5rem",
+                  }}
+                >
+                  se Överblick
+                </Typography>
+                <img src={RightArrow} alt="" />
+              </Box>
+            ) : 
+            ( <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -676,6 +698,8 @@ const StandardViewXyz = () => {
               </Typography>
               <img src={RightArrow} alt="" />
             </Box>
+            ) 
+             }
           </Box>
         </Container>
       </Container>

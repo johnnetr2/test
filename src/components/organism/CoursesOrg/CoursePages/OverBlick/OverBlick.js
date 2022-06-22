@@ -20,23 +20,29 @@ import {
 } from "@material-ui/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import BootstrapDialogTitle from '../../../../molecule/TestSubmitPopup/TestSubmitPopup'
-import { EndPoints, instance, instance2 } from "../../../../service/Route";
-import RattedOverblick from '../RattadOverblick/RattadOverblick'
-
+import { EndPoints, instance2 } from "../../../../service/Route";
+import TestOverPopup from '../../../../molecule/TestOverPopup/TestOverPopup'
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const OverBlick = () => {
 
   const [quiz, setQuiz] = useState()
   const [testSubmitPopUp, setTestSubmitPopUp] = useState(false)
+  const [timeOverPopUp, setTimeOverPopUp] = useState(false)
   const params = useLocation()
   const navigate = useNavigate()
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setQuiz(params.state.quiz)
+    params.state.timeLeft === 0 && setTimeOverPopUp(true)
   }, [])
 
 
   const submitQuiz = () => {
+    setTimeOverPopUp(false)
+    setOpen(true)
     const data = {
       simuleraQuiz: params.state.simuleraQuiz,
       simuleraSeason: params.state.simuleraSeason,
@@ -52,9 +58,9 @@ const OverBlick = () => {
           simuleraSeason: params.state.simuleraSeason,
           simuleraQuiz: params.state.simuleraQuiz
         }
-        console.log(examData, ';this is data for api')
         instance2.post(updatePreviosExam, examData).then(res => {
           console.log(res)
+          setOpen(false)
         })
         navigate('/provresultat', {
           state: {
@@ -172,7 +178,14 @@ const OverBlick = () => {
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
       </AppBar>
-
+      <Box>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" size="5rem" />
+        </Backdrop>
+      </Box>
       <Container
         maxWidth="xl"
         disableGutters
@@ -330,6 +343,9 @@ const OverBlick = () => {
                 })
                 }
               </Box>
+              <TestOverPopup status={timeOverPopUp} closePopUp={() => setTimeOverPopUp(false)}
+                onClick={() => submitQuiz()}
+              />
 
             </Box>
           </Box>

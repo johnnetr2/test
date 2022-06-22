@@ -19,12 +19,15 @@ import Correct from '../../../../../assets/Imgs/correct.png'
 import Wrong from '../../../../../assets/Imgs/wrong.png'
 import { useLocation, useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../service/Route";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const RattedOverblick = () => {
 
   const params = useLocation()
   const [result, setResult] = useState()
   const navigate = useNavigate()
+  const [open, setOpen] = useState(true);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -76,6 +79,7 @@ const RattedOverblick = () => {
     const URL = EndPoints.getSimuleraQuizResult + params.state.quizId
     instance2.get(URL).then(response => {
       console.log(response.data)
+      setOpen(false)
       setResult(response.data)
     })
   }, [])
@@ -139,7 +143,7 @@ const RattedOverblick = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {result?.correctAnswer} av {result?.totalQuestions}
+              {result?.correctAnswer} av {result?.simuleraQuestion.length}
             </Box>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
@@ -191,6 +195,14 @@ const RattedOverblick = () => {
               flexDirection: "column",
             }}
           >
+            <Box>
+              <Backdrop
+                sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+              >
+                <CircularProgress color="inherit" size="5rem" />
+              </Backdrop>
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -209,10 +221,11 @@ const RattedOverblick = () => {
                       border: "1px solid #E3E3E3",
                       display: "flex",
                       alignItems: "center",
-                      // justifyContent: "space-evenly",
+                      justifyContent: "space-evenly",
+                      flexDirection: 'row',
                       width: "45%",
                       height: '3.5rem',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
                     }}
                     onClick={() => navigate('/simuleraprov', {
                       state: {
@@ -222,7 +235,7 @@ const RattedOverblick = () => {
                       }
                     })}
                   >
-                    <Box>
+                    <Box style={{ display: 'flex', alignItems: 'center' }} >
                       {
                         item.answer.option === item.optionId ? (
                           <img src={Correct} style={{ height: '1.5rem', marginRight: '0.75rem' }} />
@@ -235,14 +248,16 @@ const RattedOverblick = () => {
                           textTransform: "uppercase",
                           fontSize: "0.75rem",
                           fontWeight: "600",
+                          display: 'flex',
+                          width: '7rem'
                         }}
                         variant="body1"
                         component="body1"
                       >
-                        Uppgift {index + 1} av {result.simuleraQuestion.lenght}
+                        Uppgift {index + 1} av {result?.simuleraQuestion.length}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", marginLeft: '7rem', justifyContent: 'space-around' }}>
+                    <Box sx={{ display: "flex", marginLeft: '4rem', justifyContent: 'space-around' }}>
                       <Typography
                         variant="h6"
                         component="h6"
