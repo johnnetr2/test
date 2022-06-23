@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import BarChart from "../../../../../assets/Icons/BarChart.svg";
-import Clock from "../../../../../assets/Icons/Clock.svg";
-import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
-import DtkImg from "../../../../../assets/Imgs/DtkImg.png";
-import StarIcon from "../../../../../assets/Icons/StarIcon.svg";
+import { useNavigate } from "react-router-dom";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { styled } from "@mui/material/styles";
@@ -12,20 +7,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   AppBar,
-  Card,
   Paper,
   Box,
-  CardActions,
-  CardContent,
-  CardMedia,
   CssBaseline,
-  Grid,
   Radio,
-  Button,
   FormControlLabel,
   Toolbar,
   Container,
-  LinearProgress,
 } from "@material-ui/core";
 import MarkLatex from "../../../../atom/Marklatex/MarkLatex";
 import Correct from "../../../../../assets/Imgs/correct.png";
@@ -121,7 +109,7 @@ const ProvPassDtk = (props) => {
         >
           <Box
             sx={{
-              height: "8vh",
+              height: "4rem",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
@@ -145,10 +133,10 @@ const ProvPassDtk = (props) => {
         </Toolbar>
       </AppBar>
 
-      <Container
+      {/* <Container
         maxWidth={false}
         style={{ backgroundColor: "#fff", height: "fit-content" }}
-      >
+      > */}
         <Container
           maxWidth="md"
           style={{
@@ -238,6 +226,7 @@ const ProvPassDtk = (props) => {
           }
 
         </Container>
+        
         {question?.answer && (
           <Box
             paddingX={4}
@@ -333,7 +322,7 @@ const ProvPassDtk = (props) => {
             </Box>
           </Box>
         )}
-      </Container>
+      {/* </Container> */}
     </div>
   );
 };

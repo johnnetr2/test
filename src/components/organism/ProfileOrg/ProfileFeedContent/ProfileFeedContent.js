@@ -7,7 +7,6 @@ import FilledBtn from "../../../atom/FilledBtn/FilledBtn";
 import swal from "sweetalert";
 import { instance2, EndPoints } from "../../../service/Route";
 import PasswordUpdationDialog from "../../../molecule/PasswordUpdationDialog/PasswordUpdationDialog";
-import { useNavigate } from "react-router-dom";
 import Snackbar from "../../../molecule/Snackbar/Snackbar";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfileFeedContent = () => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [showSnack, setShowSnack] = useState();
 
   const LogoutFunc = () => {
@@ -118,7 +117,7 @@ const ProfileFeedContent = () => {
             <Box sx={{ width: "24rem" }}>
               <FilledBtn
                 title="Spara ändringar"
-                onClick={() => setShow(true)}
+                // onClick={() => setShow(true)}
               />
             </Box>
           </Box>

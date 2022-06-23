@@ -46,13 +46,13 @@ const OverBlick = () => {
     const data = {
       simuleraQuiz: params.state.simuleraQuiz,
       simuleraSeason: params.state.simuleraSeason,
-      quiz: params.state.SubmitedQuestions 
+      quiz: params.state.SubmitedQuestions
     }
 
     const URL = EndPoints.submitSimuleraTest
     instance2.post(URL, data).then(response => {
       console.log(response.data, 'response for test submit api')
-      if(response.status == 200) {
+      if (response.status == 200) {
         const updatePreviosExam = EndPoints.updatePreviousExam
         const examData = {
           simuleraSeason: params.state.simuleraSeason,
@@ -68,7 +68,7 @@ const OverBlick = () => {
           }
         })
       } else {
-       console.log('Fail to submit questions')
+        console.log('Fail to submit questions')
       }
     })
   }
@@ -95,6 +95,10 @@ const OverBlick = () => {
     appbar: {
       border: "1px solid #E1E1E1",
       backgroundColor: "#f9f9f9",
+      // [theme.breakpoints.down(1024)]: {
+      //   // display: 'block'
+      //   height: '5rem'
+      // },
     },
     size: {
       width: 15,
@@ -151,7 +155,7 @@ const OverBlick = () => {
         color="#fff"
         className={classes.appbar}
         style={{ boxShadow: "none" }}
-        position="absolute"
+        // position="absolute"
       >
         <Toolbar
           style={{
@@ -162,7 +166,7 @@ const OverBlick = () => {
         >
           <Box
             sx={{
-              height: "8vh",
+              height: "4rem",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
@@ -292,7 +296,7 @@ const OverBlick = () => {
                   width: "30rem",
                   marginBottom: "1rem",
                   flexWrap: 'wrap',
-                  gridGap: '1rem'
+                  gridGap: '1rem',
                 }}
               >
                 {quiz && quiz.simuleraQuestion.map((item, index) => {
@@ -354,6 +358,17 @@ const OverBlick = () => {
           closePopUp={() => setTestSubmitPopUp(false)}
           testSubmit={() => submitQuiz()}
         />
+
+        {/* <Box
+          sx={{
+            backgroundColor: "green",
+            height: '5rem',
+            display: 'flex',
+            marginTop: '2.3rem'
+          }}
+        >
+        </Box> */}
+
         <Box
           maxWidth="xl"
           disableGutters
@@ -364,6 +379,7 @@ const OverBlick = () => {
             justifyContent: "center",
             alignItems: "center",
             boxShadow: "1px 1px 5px #999",
+            // marginTop: '2.9rem'
           }}
         >
           <Button
@@ -379,6 +395,7 @@ const OverBlick = () => {
             Lämna in provpass
           </Button>
         </Box>
+
       </Container>
     </div>
   );

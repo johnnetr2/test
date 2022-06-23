@@ -12,7 +12,6 @@ import {
   TableHead,
   TableContainer,
   Button,
-  makeStyles,
 } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import FacebookIcon from "../../../../../assets/Icons/FacebookIcon.svg";
@@ -24,6 +23,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../service/Route";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { styled } from "@mui/material/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 
 
@@ -72,9 +73,86 @@ const Provresultat = () => {
     createData("ELF", testSummary?.correctQuestions_of_ELF, testSummary?.totalQuestion_of_ELF, 12.7),
     createData("SAMMANFATTNING", correctAnswersOfVerbal, totalQuestionsOfVerbal, 41.2, correctAnswersOfVerbal && (correctAnswersOfVerbal / totalQuestionsOfVerbal * 2).toFixed(1).replace(/\.0+$/, '')),
   ];
-  const its = [createData("SAMMANFATTNING", correctAnswersOfKvantitative + correctAnswersOfVerbal, totalQuestionsOfKvantitative + totalQuestionsOfVerbal, 
+  const its = [createData("SAMMANFATTNING", correctAnswersOfKvantitative + correctAnswersOfVerbal, totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
     ((correctAnswersOfKvantitative + correctAnswersOfVerbal) / (totalQuestionsOfKvantitative + totalQuestionsOfVerbal) * 100).toFixed(1).replace(/\.0+$/, '')
-          )];
+  )];
+
+  const useStyles = makeStyles((theme) => ({
+    main: {
+      '@media (max-width: 1025px)': {
+        width: "85%",
+        backgroundColor: "#f9f9f9",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      },
+
+      [theme.breakpoints.up(1025)]: {
+        width: "70vw",
+        backgroundColor: "#f9f9f9",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }
+    },
+
+    cards: {
+      [theme.breakpoints.up(1025)]: {
+        width: "23vw",
+        height: "15vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        border: "1px solid #e1e1e1",
+        borderRadius: "0.3rem",
+        boxShadow: "0px 1px 1px #e1e1e1",
+        marginTop: '3rem'
+      },
+      [theme.breakpoints.down(1025)]: {
+        width: "100%",
+        height: "10vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        border: "1px solid #e1e1e1",
+        borderRadius: "0.3rem",
+        boxShadow: "0px 1px 1px #e1e1e1",
+        fontSize: '5rem',
+        marginTop: '2rem'
+      }
+    },
+
+    resultText: {
+      [theme.breakpoints.up(1025)]: {
+        paddingLeft: '8rem',
+        paddingTop: '5rem'
+      },
+      [theme.breakpoints.down(1025)]: {
+        paddingLeft: '2.2rem',
+        paddingTop: '2rem'
+      }
+    },
+
+    resultCard: {
+      // [theme.breakpoints.up(1025)]: {
+      //   boxShadow: "none", 
+      //   border: "1px solid #e1e1e1", 
+      //   width: '20rem', 
+      //   marginLeft: '4.5rem',
+      //   backgroundColor: 'blue'
+      // },
+      [theme.breakpoints.down(1025)]: {
+        boxShadow: "none",
+        border: "1px solid #e1e1e1",
+        // width: '20rem'
+      },
+
+    },
+  }));
+
+  const classes = useStyles();
 
   return (
     <>
@@ -119,15 +197,9 @@ const Provresultat = () => {
         }}
       >
         <Box
-          sx={{
-            width: "73.5vw",
-            backgroundColor: "#f9f9f9",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          className={classes.main}
         >
-          <Box sx={{ width: "50vw", backgroundColor: "transparent" }}>
+          <Box sx={{ backgroundColor: "transparent" }}>
             <Typography
               style={{ fontWeight: "500", marginTop: "4%" }}
               variant="h4"
@@ -137,23 +209,19 @@ const Provresultat = () => {
             </Typography>
             <Typography style={{ fontWeight: "300", marginTop: "3%" }}>
               <Typography>
-                <b>Normerad poäng:</b> Ges i skalan 0,0-2,0 beroende på ditt
-                resultat jämfört med andra provdeltagare
+                <b>Normerad poäng:</b> Ges i skalan 0,0-2,0 beroende på ditt resultat jämfört med andra provdeltagare
               </Typography>
               <Typography>
-                <b>Medelvärde normerad poäng:</b> Snittpoängen bland alla
-                provdeltagarna det året.
+                <b>Medelvärde normerad poäng:</b> Snittpoängen bland alla provdeltagarna det året.
               </Typography>
               <Typography>
-                <b>Normerad poäng per del:</b> Poäng för kvantiativ och verbal
-                del för sig.
+                <b>Normerad poäng per del:</b> Poäng för kvantiativ och verbal del för sig.
               </Typography>
               <Typography>
                 <b>Antal poäng:</b> Så kallade råpoäng, d.v.s antal rätta svar.
               </Typography>
               <Typography>
-                <b>Medelv. samtliga provdelt:</b> Medelvärdet råpoäng alla
-                deltagare.
+                <b>Medelv. samtliga provdelt:</b> Medelvärdet råpoäng alla deltagare.
               </Typography>
             </Typography>
             <Box>
@@ -168,25 +236,26 @@ const Provresultat = () => {
               style={{
                 width: "100%",
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-evenly",
                 alignItems: "center",
                 marginTop: "3%",
                 backgroundColor: "transparent",
               }}
             >
-              <Box sx={{ dispaly: "flex", flexDirection: "column" }}>
+              <Box sx={{ dispaly: "flex", flexDirection: "column", width: '18rem' }}>
                 <Box
-                  sx={{
-                    width: "24.5vw",
-                    height: "15vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#fff",
-                    border: "1px solid #e1e1e1",
-                    borderRadius: "0.3rem",
-                    boxShadow: "0px 1px 1px #e1e1e1",
-                  }}
+                  className={classes.cards}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -207,17 +276,18 @@ const Provresultat = () => {
                   </Box>
                 </Box>
                 <Box
-                  sx={{
-                    width: "24.5vw",
-                    height: "15vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#fff",
-                    marginTop: "5%",
-                    borderRadius: "0.3rem",
-                    boxShadow: "0px 1px 1px #e1e1e1",
-                  }}
+                  className={classes.cards}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -246,19 +316,21 @@ const Provresultat = () => {
                   </Box>
                 </Box>
               </Box>
-              <Box sx={{ dispaly: "flex", flexDirection: "column" }}>
+
+              <Box sx={{ dispaly: "flex", flexDirection: "column", width: '18rem' }}>
                 <Box
-                  sx={{
-                    width: "24.5vw",
-                    height: "15vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#fff",
-                    border: "1px solid #e1e1e1",
-                    borderRadius: "0.3rem",
-                    boxShadow: "0px 1px 1px #e1e1e1",
-                  }}
+                  className={classes.cards}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -275,23 +347,24 @@ const Provresultat = () => {
                       sx={{ marginLeft: ".5rem", fontWeight: 500, color: '#505050' }}
                     >
                       Normerad poäng
-                      
+
                     </Typography>
                   </Box>
                 </Box>
                 <Box
-                  sx={{
-                    width: "24.5vw",
-                    height: "15vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#fff",
-                    marginTop: "5%",
-                    border: "1px solid #e1e1e1",
-                    borderRadius: "0.5rem",
-                    boxShadow: "0px 1px 1px #e1e1e1",
-                  }}
+                  className={classes.cards}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.5rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -322,7 +395,9 @@ const Provresultat = () => {
               </Box>
             </Box>
             <Box>
-              <Typography style={{ marginTop: "3%" }}>
+              <Typography className={classes.resultText}
+                // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
+              >
                 <Typography variant="h5" component="h5">
                   Kvantitativ del resultat
                 </Typography>
@@ -330,7 +405,10 @@ const Provresultat = () => {
             </Box>
 
             <TableContainer
-              sx={{ boxShadow: "none", border: "1px solid #e1e1e1" }}
+              className={classes.resultCard}
+              sx={{ boxShadow: "none", border: "1px solid #e1e1e1", 
+              //width: '49rem', marginLeft: '7.8rem'
+             }}
               component={Paper}
             >
               <Table sx={{ boxShadow: "none" }} aria-label="simple table">
@@ -376,6 +454,7 @@ const Provresultat = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+
             <Box>
               <Typography style={{ marginTop: "3%", fontWeight: "bold" }}>
                 <Typography variant="h5" component="h5">
@@ -512,14 +591,14 @@ const Provresultat = () => {
                       <TableCell align="left">{row.correctAnswerCounter}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
                       <TableCell
-                        onClick={() => 
+                        onClick={() =>
                           navigate('/rattadoverblick', {
-                          state: {
+                            state: {
                               quizId: row.simuleraQuiz,
                               seasonId: row.simuleraSeason
-                          }
-                        })
-                      } 
+                            }
+                          })
+                        }
                         align="left"><Button
                           style={{
                             backgroundColor: "#fff",

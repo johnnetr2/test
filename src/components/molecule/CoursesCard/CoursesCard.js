@@ -125,7 +125,7 @@ const CoursesCard = (props) => {
               <Stack
                 direction="row"
                 spacing={1}
-                style={{ display: "flex", flexWrap: "wrap" }}
+                style={{ display: "flex", flexWrap: "wrap", gap: '0.1rem' }}
               >
                 <Chip
                   label="Provpass 1"

@@ -73,6 +73,7 @@ const RattedOverblick = () => {
       justifyContent: "center",
       width: "90vw",
     },
+
   }));
 
   useEffect(() => {
@@ -105,7 +106,7 @@ const RattedOverblick = () => {
         >
           <Box
             sx={{
-              height: "8vh",
+              height: "4rem",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
@@ -145,7 +146,7 @@ const RattedOverblick = () => {
               <img src={BarChart} alt="" />
               {result?.correctAnswer} av {result?.simuleraQuestion.length}
             </Box>
-            <Box mt={2} sx={{ color: "#222" }}>
+            <Box mt={2} sx={{ color: "#222", marginRight: '0.3rem' }}>
               <img src={Clock} alt="" />
               Slutfört
             </Box>
@@ -182,6 +183,15 @@ const RattedOverblick = () => {
               Har kan du titta närmre på din resultat för varje uppgift
             </Typography>
           </Box>
+          <Box>
+            <Backdrop
+              sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+              open={open}
+            >
+              <CircularProgress color="inherit" size="5rem" />
+            </Backdrop>
+          </Box>
+
           <Box
             mt={2}
             marginX={10}
@@ -189,26 +199,20 @@ const RattedOverblick = () => {
             sx={{
               backgroundColor: "#fff",
               height: "fit-content",
+              // width: 'fit-content',
               border: "1px solid #e1e1e1",
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "column",
             }}
           >
-            <Box>
-              <Backdrop
-                sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={open}
-              >
-                <CircularProgress color="inherit" size="5rem" />
-              </Backdrop>
-            </Box>
+           
             <Box
               sx={{
                 display: "flex",
-                width: "100%",
+                // width: "100%",
                 justifyContent: "space-around",
-                flexWrap: 'wrap'
+                flexWrap: 'wrap',
               }}
             >
               {
@@ -221,7 +225,7 @@ const RattedOverblick = () => {
                       border: "1px solid #E3E3E3",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "space-evenly",
+                      justifyContent: "space-between",
                       flexDirection: 'row',
                       width: "45%",
                       height: '3.5rem',
@@ -257,7 +261,7 @@ const RattedOverblick = () => {
                         Uppgift {index + 1} av {result?.simuleraQuestion.length}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", marginLeft: '4rem', justifyContent: 'space-around' }}>
+                    <Box sx={{ display: "flex", justifyContent: 'space-around' }}>
                       <Typography
                         variant="h6"
                         component="h6"
