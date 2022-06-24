@@ -49,10 +49,6 @@ const CoursesFeedContent = (props) => {
 
   let previousExams = props.previousExams;
 
-  // const LoadMore = () => {
-  //   alert("hello");
-  // };
-
   const handleTabs = (e, val) => {
     setTabValue(val);
   };
@@ -146,12 +142,13 @@ const CoursesFeedContent = (props) => {
           >
             {previousExams &&
               previousExams.map((item) => {
-                console.log(item, 'this is item')
+                console.log(props.seasons[item?.simuleraSeason._id].season, 'props.provHistoryData[item?.simuleraSeason._id].season')
                 return (
                   <CoursesCard
                     id={item?.simuleraSeason._id}
                     item={item}
                     progress={item.progress}
+                    quizzes={props.seasons[item?.simuleraSeason._id].season}
                   />
                 );
               })}

@@ -96,6 +96,19 @@ const Provresultat = () => {
       }
     },
 
+    info: {
+      [theme.breakpoints.down(1025)]: {
+        display: 'flex',
+        flexDirection: 'column',
+        paddingLeft: '1.5rem'
+      },
+      [theme.breakpoints.up(1025)]: {
+        display: 'flex',
+        flexDirection: 'column',
+        paddingLeft: '4rem'
+      },
+    },
+
     cards: {
       [theme.breakpoints.up(1025)]: {
         width: "23vw",
@@ -126,30 +139,58 @@ const Provresultat = () => {
 
     resultText: {
       [theme.breakpoints.up(1025)]: {
-        paddingLeft: '8rem',
+        paddingLeft: '4rem',
         paddingTop: '5rem'
       },
       [theme.breakpoints.down(1025)]: {
-        paddingLeft: '2.2rem',
+        paddingLeft: '1.3rem',
         paddingTop: '2rem'
       }
     },
 
     resultCard: {
-      // [theme.breakpoints.up(1025)]: {
-      //   boxShadow: "none", 
-      //   border: "1px solid #e1e1e1", 
-      //   width: '20rem', 
-      //   marginLeft: '4.5rem',
-      //   backgroundColor: 'blue'
-      // },
+      [theme.breakpoints.up(1025)]: {
+        width: '48rem',
+        marginLeft: '4rem',
+      },
       [theme.breakpoints.down(1025)]: {
         boxShadow: "none",
         border: "1px solid #e1e1e1",
-        // width: '20rem'
+        marginLeft: '1.3rem',
+        width: '94%'
       },
-
     },
+
+    footer: {
+      [theme.breakpoints.up(1025)]: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: "2%",
+        justifyContent: 'flex-end',
+        // backgroundColor: 'blue'
+      },
+      [theme.breakpoints.down(1025)]: {
+        display: "flex",
+        flexDirection: 'column',
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: "2%",
+        // backgroundColor: 'blue'
+      },
+    },
+
+    exitButton: {
+      [theme.breakpoints.up(1025)]: {
+        display: 'flex',
+        justifyContent: 'flex-end'
+      },
+      [theme.breakpoints.down(1025)]: {
+        display: 'flex',
+        justifyContent: 'center'
+      },
+    },
+
   }));
 
   const classes = useStyles();
@@ -200,30 +241,34 @@ const Provresultat = () => {
           className={classes.main}
         >
           <Box sx={{ backgroundColor: "transparent" }}>
-            <Typography
-              style={{ fontWeight: "500", marginTop: "4%" }}
-              variant="h4"
-              component="h4"
-            >
-              Provresultat - Hösten 2021, Oktober
-            </Typography>
-            <Typography style={{ fontWeight: "300", marginTop: "3%" }}>
-              <Typography>
-                <b>Normerad poäng:</b> Ges i skalan 0,0-2,0 beroende på ditt resultat jämfört med andra provdeltagare
+            <Box className={classes.info}>
+              <Typography
+                style={{ fontWeight: "500", marginTop: "4%" }}
+                variant="h4"
+                component="h4"
+              >
+                Provresultat - Hösten 2021, Oktober
               </Typography>
-              <Typography>
-                <b>Medelvärde normerad poäng:</b> Snittpoängen bland alla provdeltagarna det året.
+              <Typography style={{ fontWeight: "300", marginTop: "3%" }}>
+                <Typography>
+                  <b>Normerad poäng:</b> Ges i skalan 0,0-2,0 beroende på ditt resultat jämfört med andra provdeltagare
+                </Typography>
+                <Typography>
+                  <b>Medelvärde normerad poäng:</b> Snittpoängen bland alla provdeltagarna det året.
+                </Typography>
+                <Typography>
+                  <b>Normerad poäng per del:</b> Poäng för kvantiativ och verbal del för sig.
+                </Typography>
+                <Typography>
+                  <b>Antal poäng:</b> Så kallade råpoäng, d.v.s antal rätta svar.
+                </Typography>
+                <Typography>
+                  <b>Medelv. samtliga provdelt:</b> Medelvärdet råpoäng alla deltagare.
+                </Typography>
               </Typography>
-              <Typography>
-                <b>Normerad poäng per del:</b> Poäng för kvantiativ och verbal del för sig.
-              </Typography>
-              <Typography>
-                <b>Antal poäng:</b> Så kallade råpoäng, d.v.s antal rätta svar.
-              </Typography>
-              <Typography>
-                <b>Medelv. samtliga provdelt:</b> Medelvärdet råpoäng alla deltagare.
-              </Typography>
-            </Typography>
+            </Box>
+
+
             <Box>
               <Backdrop
                 sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -242,7 +287,7 @@ const Provresultat = () => {
                 backgroundColor: "transparent",
               }}
             >
-              <Box sx={{ dispaly: "flex", flexDirection: "column", width: '18rem' }}>
+              <Box sx={{ dispaly: "flex", flexDirection: "column", width: '20rem' }}>
                 <Box
                   className={classes.cards}
                 // sx={{
@@ -317,7 +362,7 @@ const Provresultat = () => {
                 </Box>
               </Box>
 
-              <Box sx={{ dispaly: "flex", flexDirection: "column", width: '18rem' }}>
+              <Box sx={{ dispaly: "flex", flexDirection: "column", width: '20rem' }}>
                 <Box
                   className={classes.cards}
                 // sx={{
@@ -396,7 +441,7 @@ const Provresultat = () => {
             </Box>
             <Box>
               <Typography className={classes.resultText}
-                // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
+              // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
               >
                 <Typography variant="h5" component="h5">
                   Kvantitativ del resultat
@@ -406,9 +451,10 @@ const Provresultat = () => {
 
             <TableContainer
               className={classes.resultCard}
-              sx={{ boxShadow: "none", border: "1px solid #e1e1e1", 
-              //width: '49rem', marginLeft: '7.8rem'
-             }}
+              sx={{
+                boxShadow: "none", border: "1px solid #e1e1e1",
+                //width: '49rem', marginLeft: '7.8rem'
+              }}
               component={Paper}
             >
               <Table sx={{ boxShadow: "none" }} aria-label="simple table">
@@ -456,13 +502,17 @@ const Provresultat = () => {
             </TableContainer>
 
             <Box>
-              <Typography style={{ marginTop: "3%", fontWeight: "bold" }}>
+              <Typography className={classes.resultText}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
+              >
                 <Typography variant="h5" component="h5">
                   Verbal del resultat
                 </Typography>
               </Typography>
             </Box>
+
             <TableContainer
+              className={classes.resultCard}
               sx={{ boxShadow: "none", border: "1px solid #e1e1e1" }}
               component={Paper}
             >
@@ -510,13 +560,16 @@ const Provresultat = () => {
               </Table>
             </TableContainer>
             <Box>
-              <Typography style={{ marginTop: "3%", fontWeight: "bold" }}>
+              <Typography className={classes.resultText}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
+              >
                 <Typography variant="h5" component="h5">
                   Hela provet
                 </Typography>
               </Typography>
             </Box>
             <TableContainer
+              className={classes.resultCard}
               sx={{ boxShadow: "none", border: "1px solid #e1e1e1" }}
               component={Paper}
             >
@@ -552,13 +605,16 @@ const Provresultat = () => {
               </Table>
             </TableContainer>
             <Box>
-              <Typography style={{ marginTop: "3%", fontWeight: "bold" }}>
+              <Typography className={classes.resultText}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
+              >
                 <Typography variant="h5" component="h5">
                   Resultat per provpass
                 </Typography>
               </Typography>
             </Box>
             <TableContainer
+              className={classes.resultCard}
               sx={{ boxShadow: "none", border: "1px solid #e1e1e1" }}
               component={Paper}
             >
@@ -616,23 +672,25 @@ const Provresultat = () => {
               </Table>
             </TableContainer>
             <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "2%",
-              }}
+              className={classes.footer}
+            // sx={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   marginTop: "2%",
+            //   backgroundColor: 'blue'
+            // }}
             >
-              <Box>
-                <Typography variant="body2" style={{ fontSize: ".75rem" }}>
+              <Box style={{ display: 'flex', flexDirection: 'row' }} >
+                <Typography variant="body2" style={{ fontSize: ".75rem", marginTop: '0.3rem' }}>
                   Dela resultat med dina vanner:
                 </Typography>
-              </Box>
-              <Box>
-                <img style={{ marginLeft: "0.5rem" }} src={FacebookIcon} />
-                <img style={{ marginLeft: "0.5rem" }} src={TwitterIcon} />
-                <img style={{ marginLeft: "0.5rem" }} src={LinkedInIcon} />
-                <img style={{ marginLeft: "0.5rem" }} src={WhatsappIcon} />
+                <Box>
+                  <img style={{ marginLeft: "0.5rem" }} src={FacebookIcon} />
+                  <img style={{ marginLeft: "0.5rem" }} src={TwitterIcon} />
+                  <img style={{ marginLeft: "0.5rem" }} src={LinkedInIcon} />
+                  <img style={{ marginLeft: "0.5rem" }} src={WhatsappIcon} />
+                </Box>
               </Box>
               <Box
                 sx={{
@@ -640,9 +698,12 @@ const Provresultat = () => {
                   fontSize: "0.65rem",
                   marginLeft: "1rem",
                   border: "1px solid #e1e1e1",
-                  padding: "0.5rem",
+                  // padding: "0.5rem",
+                  paddingTop: '0.5rem',
+                  paddingLeft: '0.5rem',
+                  paddingBottom: '0.5rem',
                   display: 'flex',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
                 onClick="window.open('https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh','_blank')"
               >
@@ -651,7 +712,8 @@ const Provresultat = () => {
                 <img src={LinkIcon} />
                 <Typography sx={{
                   fontSize: '0.7rem',
-                  marginLeft: '0.3rem'
+                  marginLeft: '0.3rem',
+                  width: '27rem'
                 }}
                 >
                   https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh
@@ -659,18 +721,29 @@ const Provresultat = () => {
                 {/* </a> */}
               </Box>
             </Box>
-            <Button
-              variant="outlined"
-              sx={{
-                width: "100%",
-                border: "1px solid #0A1596",
-                margin: "1rem 0",
-                color: "#0A1596",
-              }}
-              onClick={() => navigate('/courses')}
+            <Box 
+            className={classes.exitButton}
+            // style={{
+            //   display: 'flex',
+            //   justifyContent: 'flex-end'
+            // }} 
+
             >
-              Klar
-            </Button>
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "92%",
+                  border: "1px solid #0A1596",
+                  margin: "1rem 0",
+                  color: "#0A1596",
+                  display: 'flex',
+                }}
+                onClick={() => navigate('/courses')}
+              >
+                Klar
+              </Button>
+            </Box>
+
           </Box>
         </Box>
       </Box>

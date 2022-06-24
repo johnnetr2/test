@@ -79,11 +79,12 @@ const MenuIcon = (row) => {
       >
         <MenuItem
           onClick={() => {
-            navigate('/provresultat', {
-              state: {
-                seasonId: row.row.simuleraSeason._id
-              }
-            })
+            // console.log(row.row, 'this is raw')
+            // navigate('/provresultat', {
+            //   state: {
+            //     seasonId: row.row.simuleraSeason._id
+            //   }
+            // })
           }}
         >
           {options}
@@ -138,16 +139,10 @@ function createData(name, calories, fat, carbs, protein) {
 const RightBar = (props) => {
   const classes = useStyles();
 
-  const [provHistoryData, setProvHistoryData] = useState("");
+  const [provHistoryData, setProvHistoryData] = useState();
+  const [seasons, setSeasons] = useState()
 
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    const URL = EndPoints.getUserHistory + userId;
-    instance2.get(URL).then((response) => {
-      console.log(response.data)
-      setProvHistoryData(response.data);
-    });
-  }, []);
+
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" }
@@ -184,20 +179,21 @@ const RightBar = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {provHistoryData && provHistoryData?.map((row) => (
-                    <TableRow
-                      key={row.name}
+                  {props.data && props.data?.map((row) => {
+                    {console.log(row, 'rowwwwwwwwwwwww')}
+                   return <TableRow
+                      key={row.createdAt}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
                         {moment(row?.attemptedDate).format('YYYY.MM.D hh:m')}
                       </TableCell>
                       <TableCell align="left">{row?.simuleraSeason.title}</TableCell>
-                      <TableCell style={{ width: '6rem' }} align="left">{row?.correctAnswerNum} av {row?.totalQuestions}</TableCell>
-                      <TableCell align="left">{(row?.correctAnswerNum / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
+                      <TableCell style={{ width: '6rem' }} align="left">{row?.correctAnswerCounter} av {row?.totalQuestions}</TableCell>
+                     <TableCell align="left">{(row?.correctAnswerCounter / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
                       <TableCell align="left"><MenuIcon row={row} /></TableCell>
                     </TableRow>
-                  ))}
+                  } )}
                 </TableBody>
               </Table>
             </TableContainer>
