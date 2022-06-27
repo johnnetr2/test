@@ -31,8 +31,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   tabToggle: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up(820)]: {
       display: "none",
+      border: '1px solid green'
+    },
+    [theme.breakpoints.down(820)]: {
+      // display: 'block'
     },
   },
 }));
@@ -44,10 +48,6 @@ const CoursesFeedContent = (props) => {
   const [tabValue, setTabValue] = useState(0);
 
   let previousExams = props.previousExams;
-
-  // const LoadMore = () => {
-  //   alert("hello");
-  // };
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -66,7 +66,7 @@ const CoursesFeedContent = (props) => {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
             style={{
-              maxWidth: "30rem",
+              // maxWidth: "30rem",
               display: "flex",
               justifyContent: "space-between",
               marginTop: "3rem",
@@ -81,6 +81,7 @@ const CoursesFeedContent = (props) => {
               scrollButtons={false}
               aria-label="scrollable prevent tabs example"
               TabIndicatorProps={{ style: { background: "#0A1596" } }}
+              // style={{ backgroundColor:'blue' }}
             >
               <Tab style={{ textTransform: "initial" }} label="Alla" />
               <Tab
@@ -141,11 +142,13 @@ const CoursesFeedContent = (props) => {
           >
             {previousExams &&
               previousExams.map((item) => {
+                console.log(props.seasons[item?.simuleraSeason._id].season, 'props.provHistoryData[item?.simuleraSeason._id].season')
                 return (
                   <CoursesCard
                     id={item?.simuleraSeason._id}
                     item={item}
                     progress={item.progress}
+                    quizzes={props.seasons[item?.simuleraSeason._id].season}
                   />
                 );
               })}
@@ -182,7 +185,7 @@ const CoursesFeedContent = (props) => {
           </Typography>
         </Box>
         <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
+          {/* <CoursesCard /> */}
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
@@ -201,25 +204,7 @@ const CoursesFeedContent = (props) => {
         </Box>
         <Box>
           <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
-          </Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            <CoursesCard />
+            {/* <CoursesCard /> */}
           </Box>
         </Box>
         <Box
@@ -253,7 +238,7 @@ const CoursesFeedContent = (props) => {
           </Typography>
         </Box>
         <Box sx={{ marginBottom: "1rem" }}>
-          <CoursesCard />
+          {/* <CoursesCard /> */}
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={3}>

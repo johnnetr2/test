@@ -17,6 +17,9 @@ const CoursesMain = () => {
   const classes = useStyles();
   const [previousExams, setPreviousExams] = useState();
   const [limit, setLimit] = useState(7);
+  const [provHistoryData, setProvHistoryData] = useState("");
+  const [seasons, setSeasons] = useState()
+
 
   useEffect(() => {
     const data = {
@@ -25,6 +28,31 @@ const CoursesMain = () => {
     const URL = EndPoints.getPreviousExams;
     instance2.get(URL, data).then((response) => {
       setPreviousExams(response.data.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    const URL = EndPoints.simuleraQuizHistory + userId;
+    instance2.get(URL).then((response) => {
+      setProvHistoryData(response.data);
+
+      let allSeasons;
+      let newSeasons;
+      response.data.map(item => {
+        allSeasons = allSeasons ?? {}
+        allSeasons[item.simuleraSeason._id] = allSeasons[item.simuleraSeason._id] ?? []
+        allSeasons[item.simuleraSeason._id].push(item)
+      })
+      Object.keys(allSeasons).map(key => {
+        newSeasons = newSeasons ?? {}
+        newSeasons[key] = {
+          time: allSeasons[key][allSeasons[key].length - 1].createdAt,
+          season: allSeasons[key]
+        }
+      })
+      setSeasons(newSeasons)
+      console.log(newSeasons, 'this is iiiiiiiiiiiiiiiiiiiiii')
     });
   }, []);
 
@@ -53,6 +81,7 @@ const CoursesMain = () => {
             <CoursesFeedContent
               previousExams={previousExams}
               loadMore={() => LoadMore()}
+              seasons={seasons}
             />
           </Grid>
           <Grid
@@ -64,7 +93,7 @@ const CoursesMain = () => {
             style={{ backgroundColor: "#fafafa" }}
             className={classes.right}
           >
-            <CoursesRightBar previousExams={previousExams} />
+            <CoursesRightBar data={provHistoryData} previousExams={previousExams} />
           </Grid>
         </Grid>
       </Container>

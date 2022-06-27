@@ -103,6 +103,7 @@ const CoursesCard = (props) => {
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <MenuIcon />
           </Box>
+          {console.log(props.quizzes, 'data on cardddddssssssssssssssssss')}
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box
               onClick={() =>
@@ -125,14 +126,17 @@ const CoursesCard = (props) => {
               <Stack
                 direction="row"
                 spacing={1}
-                style={{ display: "flex", flexWrap: "wrap" }}
+                style={{ display: "flex", flexWrap: "wrap", gap: '0.1rem' }}
               >
-                <Chip
-                  label="Provpass 1"
-                  style={{ backgroundColor: "#6FCF97", color: "#064923" }}
-                  size="small"
-                />
-                <Chip
+                {[1,2,3,4].map(item=> {
+                    return <Chip
+                      label={'Provpass ' + item}
+                      style={{ backgroundColor: item <= props.quizzes.length ? "#6FCF97" : '#E1E1E1', color: "#064923" }}
+                      size="small"
+                    />
+                  
+                }) }
+                {/* <Chip
                   label="Provpass 2"
                   style={{ backgroundColor: "#6FCF97", color: "#064923" }}
                   size="small"
@@ -146,7 +150,7 @@ const CoursesCard = (props) => {
                   label="Provpass 4"
                   style={{ backgroundColor: "#E1E1E1", color: "#505050" }}
                   size="small"
-                />
+                /> */}
                 <Typography variant="body2" component="body2">
                   50%
                 </Typography>

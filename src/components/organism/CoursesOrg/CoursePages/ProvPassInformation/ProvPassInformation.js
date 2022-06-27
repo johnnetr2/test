@@ -90,7 +90,7 @@ const ProvPassInformation = () => {
         >
           <Box
             sx={{
-              height: "8vh",
+              height: "5rem",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
@@ -147,8 +147,9 @@ const ProvPassInformation = () => {
             padding={6}
             sx={{
               backgroundColor: "#fff",
-              width: 600,
-              height: 373,
+              maxWidth: 600,
+              // width: 600,
+              height: 480,
               overflow: "auto",
               border: "1px solid #e1e1e1",
             }}
@@ -181,6 +182,7 @@ const ProvPassInformation = () => {
               består av en fråga som följs av fyra svarsalternativ, varav endast
               ett är rätt.
             </Typography>
+            <br></br>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "600" }}
@@ -206,6 +208,7 @@ const ProvPassInformation = () => {
               svarsalternativ, varav endast ett är rätt. I KVA har alla
               uppgifter samma svarsalternativ.
             </Typography>
+            <br></br>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "600" }}
@@ -228,6 +231,7 @@ const ProvPassInformation = () => {
               består av en fråga som följs av fyra svarsalternativ, varav endast
               ett är rätt.
             </Typography>
+            <br></br>
             <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "600" }}

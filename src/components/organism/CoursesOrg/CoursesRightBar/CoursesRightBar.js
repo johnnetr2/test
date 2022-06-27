@@ -19,6 +19,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
 import Thumb from "../../../../assets/Imgs/Thumb.png";
 import { EndPoints, instance2 } from "../../../service/Route";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
@@ -35,6 +36,7 @@ const MenuIcon = (row) => {
   const options = "SE RESULTAT";
   const ITEM_HEIGHT = 48;
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate()
 
   const open = Boolean(anchorEl);
 
@@ -76,9 +78,14 @@ const MenuIcon = (row) => {
         }}
       >
         <MenuItem
-          // onClick={() => {
-          //   ResultHandler(row);
-          // }}
+          onClick={() => {
+            // console.log(row.row, 'this is raw')
+            // navigate('/provresultat', {
+            //   state: {
+            //     seasonId: row.row.simuleraSeason._id
+            //   }
+            // })
+          }}
         >
           {options}
         </MenuItem>
@@ -132,16 +139,10 @@ function createData(name, calories, fat, carbs, protein) {
 const RightBar = (props) => {
   const classes = useStyles();
 
-  const [provHistoryData, setProvHistoryData] = useState("");
+  const [provHistoryData, setProvHistoryData] = useState();
+  const [seasons, setSeasons] = useState()
 
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    const URL = EndPoints.getUserHistory + userId;
-    instance2.get(URL).then((response) => {
-      console.log(response.data)
-      setProvHistoryData(response.data);
-    });
-  }, []);
+
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" }
@@ -178,21 +179,21 @@ const RightBar = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {provHistoryData && provHistoryData.map((row) => (
-                    <TableRow
-                      key={row.name}
+                  {props.data && props.data?.map((row) => {
+                    {console.log(row, 'rowwwwwwwwwwwww')}
+                   return <TableRow
+                      key={row.createdAt}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      {console.log(row, ';this isrow')}
                       <TableCell component="th" scope="row">
-                        {moment(row.attemptedDate).format('YYYY.MM.D hh:m')}
+                        {moment(row?.attemptedDate).format('YYYY.MM.D hh:m')}
                       </TableCell>
-                      <TableCell align="left">{row.simuleraSeason.title}</TableCell>
-                      <TableCell align="left">{row.correctAnswerNum} av 160</TableCell>
-                      <TableCell align="left">{row.progress}</TableCell>
+                      <TableCell align="left">{row?.simuleraSeason.title}</TableCell>
+                      <TableCell style={{ width: '6rem' }} align="left">{row?.correctAnswerCounter} av {row?.totalQuestions}</TableCell>
+                     <TableCell align="left">{(row?.correctAnswerCounter / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
                       <TableCell align="left"><MenuIcon row={row} /></TableCell>
                     </TableRow>
-                  ))}
+                  } )}
                 </TableBody>
               </Table>
             </TableContainer>
