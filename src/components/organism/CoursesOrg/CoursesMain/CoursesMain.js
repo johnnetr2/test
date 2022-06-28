@@ -34,25 +34,29 @@ const CoursesMain = () => {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     const URL = EndPoints.simuleraQuizHistory + userId;
+    console.log(URL, 'this is url')
     instance2.get(URL).then((response) => {
-      setProvHistoryData(response.data);
+      console.log(response.data)
+      if(response.data.length > 0) {
+        setProvHistoryData(response.data);
 
-      let allSeasons;
-      let newSeasons;
-      response.data.map(item => {
-        allSeasons = allSeasons ?? {}
-        allSeasons[item.simuleraSeason._id] = allSeasons[item.simuleraSeason._id] ?? []
-        allSeasons[item.simuleraSeason._id].push(item)
-      })
-      Object.keys(allSeasons).map(key => {
-        newSeasons = newSeasons ?? {}
-        newSeasons[key] = {
-          time: allSeasons[key][allSeasons[key].length - 1].createdAt,
-          season: allSeasons[key]
-        }
-      })
-      setSeasons(newSeasons)
-      console.log(newSeasons, 'this is iiiiiiiiiiiiiiiiiiiiii')
+        let allSeasons;
+        let newSeasons;
+        response?.data.map(item => {
+          allSeasons = allSeasons ?? {}
+          allSeasons[item.simuleraSeason._id] = allSeasons[item.simuleraSeason._id] ?? []
+          allSeasons[item.simuleraSeason._id].push(item)
+        })
+        Object.keys(allSeasons).map(key => {
+          newSeasons = newSeasons ?? {}
+          newSeasons[key] = {
+            time: allSeasons[key][allSeasons[key].length - 1].createdAt,
+            season: allSeasons[key]
+          }
+        })
+        setSeasons(newSeasons)
+        console.log(newSeasons, 'this is iiiiiiiiiiiiiiiiiiiiii')
+      }
     });
   }, []);
 
@@ -78,11 +82,13 @@ const CoursesMain = () => {
             <CoursesLeftBar />
           </Grid>
           <Grid item sm={11} xs={11} md={7} lg={7} xl={7}>
-            <CoursesFeedContent
+           {/* {seasons &&  */}
+           <CoursesFeedContent
               previousExams={previousExams}
               loadMore={() => LoadMore()}
               seasons={seasons}
             />
+            {/* } */}
           </Grid>
           <Grid
             item

@@ -4,6 +4,7 @@ import Increment from "../../../assets/Icons/Increment.svg";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import Correct from '../../../assets/Imgs/correct.png'
 import Wrong from '../../../assets/Imgs/wrong.png'
+import MarkLatex from "../../atom/Marklatex/MarkLatex";
 
 const MultiAnswer = (props) => {
 
@@ -73,7 +74,8 @@ const MultiAnswer = (props) => {
                 width: props?.question?.answer.image ? 'auto' : 500,
               }}
             >
-              {props?.question?.answer?.answer}
+              {/* {props?.question?.answer?.answer} */}
+              <MarkLatex content={props?.question?.answer?.answer} />
             </Typography>
           </Box>
           <Box

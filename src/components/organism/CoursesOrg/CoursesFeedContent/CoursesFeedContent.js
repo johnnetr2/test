@@ -53,6 +53,11 @@ const CoursesFeedContent = (props) => {
     setTabValue(val);
   };
 
+  useEffect(() => {
+    console.log(props.seasons, 'rhis is season')
+  }, [])
+  
+
   const TabPanel = (props) => {
     const { children, value, index } = props;
     return <div>{value === index && <div>{children}</div>}</div>;
@@ -137,18 +142,18 @@ const CoursesFeedContent = (props) => {
         </Box>
         <Box>
           <Box
-            sx={{ marginBottom: "1rem" }}
+            sx={{ marginBottom: "1rem", gap: '5rem' }}
             // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
               previousExams.map((item) => {
-                console.log(props.seasons[item?.simuleraSeason._id].season, 'props.provHistoryData[item?.simuleraSeason._id].season')
+                console.log(props?.seasons && props?.seasons[item?.simuleraSeason._id]?.season, 'props.provHistoryData[item?.simuleraSeason._id].season')
                 return (
                   <CoursesCard
                     id={item?.simuleraSeason._id}
                     item={item}
                     progress={item.progress}
-                    quizzes={props.seasons[item?.simuleraSeason._id].season}
+                    quizzes={props?.seasons && props?.seasons[item?.simuleraSeason._id]?.season}
                   />
                 );
               })}

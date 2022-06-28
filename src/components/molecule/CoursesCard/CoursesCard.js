@@ -87,8 +87,30 @@ const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  console.log(props?.quizzes, 'this is number of quizzes')
+
+  const percentage = () => {
+    // if (props?.quizzes != undefined) {
+      switch (props?.quizzes?.length) {
+        case 1:
+          return 25;
+        case 2:
+          return 50;
+        case 3:
+          return 75;
+        case 4:
+          return 100;
+        default:
+          return 0;
+      }
+    // } else {
+    //   return 0
+    // }
+    
+  }
+
   return (
-    <Container disableGutters maxWidth={false}>
+    <Container style={{ marginTop: '1.3rem' }} disableGutters maxWidth={false}>
       <Box
         className={classes.box}
         sx={{
@@ -103,14 +125,14 @@ const CoursesCard = (props) => {
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <MenuIcon />
           </Box>
-          {console.log(props.quizzes, 'data on cardddddssssssssssssssssss')}
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box
-              onClick={() =>
+              onClick={() => 
                 navigate("/provpassinfo", {
                   state: {
                     id: props.id,
-                    session: props.item.simuleraSeason
+                    session: props.item.simuleraSeason,
+                    provpass: props?.quizzes
                   },
                 })
               }
@@ -131,28 +153,13 @@ const CoursesCard = (props) => {
                 {[1,2,3,4].map(item=> {
                     return <Chip
                       label={'Provpass ' + item}
-                      style={{ backgroundColor: item <= props.quizzes.length ? "#6FCF97" : '#E1E1E1', color: "#064923" }}
+                      style={{ backgroundColor: item <= props.quizzes && props?.quizzes?.length ? "#6FCF97" : '#E1E1E1', color: "#505050" }}
                       size="small"
                     />
                   
                 }) }
-                {/* <Chip
-                  label="Provpass 2"
-                  style={{ backgroundColor: "#6FCF97", color: "#064923" }}
-                  size="small"
-                />
-                <Chip
-                  label="Provpass 3"
-                  style={{ backgroundColor: "#E1E1E1", color: "#505050" }}
-                  size="small"
-                />
-                <Chip
-                  label="Provpass 4"
-                  style={{ backgroundColor: "#E1E1E1", color: "#505050" }}
-                  size="small"
-                /> */}
                 <Typography variant="body2" component="body2">
-                  50%
+                  {percentage()}%
                 </Typography>
               </Stack>
             </Box>
