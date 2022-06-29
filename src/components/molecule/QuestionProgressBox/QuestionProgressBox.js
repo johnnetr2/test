@@ -10,27 +10,32 @@ const QuestionProgressBox = () => {
         border: "1px solid #dddddd",
         boxShadow: "1px 1px 8px #dfdfdf",
         borderRadius: 2,
-        padding: ".5rem 2rem",
+        padding: ".5rem",
       }}
     >
       <Box
         sx={{
-          padding: ".75rem 1rem",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <Box>
-          <Typography
-            variant="body2"
-            style={{
-              textTransform: "Uppercase",
-              textAlign: "center",
-              fontSize: "0.5rem",
-              minHeight: "1.6rem",
-            }}
-          >
-            Gör minst 30 frågor för att få prognos
-          </Typography>
-        </Box>
+        <Typography
+          variant="body2"
+          style={{
+            textTransform: "Uppercase",
+            textAlign: "center",
+            fontSize: "0.5rem",
+            width: "80%",
+          }}
+        >
+          Gör minst 30 frågor för att få prognos
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          padding: "1rem 1rem",
+        }}
+      >
         <Box
           sx={{
             display: "flex",

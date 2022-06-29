@@ -113,7 +113,7 @@ const HomeFeedContent = () => {
         </Box>
       </Box>
       <TabPanel value={tabValue} index={0}>
-        <Box sx={{ marginBottom: "2rem" }}>
+        <Box sx={{ marginBottom: "1rem" }}>
           <Typography variant="h5" component="h5">
             Kvantitativ del
           </Typography>
@@ -128,7 +128,7 @@ const HomeFeedContent = () => {
               })}
           </Box>
         </Box>
-        <Box sx={{ marginTop: "2rem" }}>
+        <Box sx={{ marginTop: "rem" }}>
           <Typography variant="h5" component="h5">
             Verbal del
           </Typography>
@@ -143,7 +143,7 @@ const HomeFeedContent = () => {
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <Box sx={{ marginBottom: "2rem" }}>
+        <Box sx={{ marginBottom: "1rem" }}>
           <Typography variant="h5" component="h5">
             Kvantitativ del
           </Typography>
@@ -160,7 +160,7 @@ const HomeFeedContent = () => {
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        <Box sx={{ marginBottom: "2rem" }}>
+        <Box sx={{ marginBottom: "1rem" }}>
           <Typography variant="h5" component="h5">
             Verbal del
           </Typography>

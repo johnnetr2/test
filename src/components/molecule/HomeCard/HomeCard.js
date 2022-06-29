@@ -11,6 +11,7 @@ const HomeCard = (props) => {
     <Box
       sx={{
         height: "20%",
+        maxWidth: "41rem",
         display: "flex",
         justifyContent: "space-between",
         border: "1px solid #dddddd",
