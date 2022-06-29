@@ -17,6 +17,7 @@ const QuestionProgressBox = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
+          height: "1.6rem",
         }}
       >
         <Typography

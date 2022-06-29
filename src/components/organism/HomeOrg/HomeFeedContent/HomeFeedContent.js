@@ -128,11 +128,15 @@ const HomeFeedContent = () => {
               })}
           </Box>
         </Box>
-        <Box sx={{ marginTop: "rem" }}>
+        <Box sx={{ marginTop: "2rem" }}>
           <Typography variant="h5" component="h5">
             Verbal del
           </Typography>
-          <Box sx={{ marginBottom: "3rem", marginTop: "2rem" }}>
+          <Box
+            sx={{
+              marginTop: "1rem",
+            }}
+          >
             {sections &&
               sections.map((item) => {
                 if (item.section.title === "Verbal del") {
@@ -160,11 +164,11 @@ const HomeFeedContent = () => {
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        <Box sx={{ marginBottom: "1rem" }}>
+        <Box>
           <Typography variant="h5" component="h5">
             Verbal del
           </Typography>
-          <Box sx={{ marginBottom: "1rem", marginTop: "2rem" }}>
+          <Box sx={{ marginTop: "1rem" }}>
             {sections &&
               sections.map((item) => {
                 if (item.section.title === "Verbal del") {
