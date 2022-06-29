@@ -47,4 +47,5 @@ export const EndPoints = {
   testSummary: '/api/simuleraQuizResult/resultSummarybyPE/',
   updatePreviousExam: '/api/previousExam',
   simuleraQuizHistory: '/api/simuleraQuizResult/ByUser/',
+  createNewResultForSeason: '/api/simuleraSeasonResult'
 };

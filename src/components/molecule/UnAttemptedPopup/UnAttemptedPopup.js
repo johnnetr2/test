@@ -30,7 +30,7 @@ export default function UnAttemptedPopup(props) {
           open={props.currentStatus}
           TransitionComponent={Transition}
           keepMounted
-          onClose={props.handleCloseOption}
+          onClose={props.handleOptionClose}
           aria-describedby="alert-dialog-slide-description"
           fullWidth
           maxWidth="sm"

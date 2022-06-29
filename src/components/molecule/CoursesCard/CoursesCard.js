@@ -12,9 +12,8 @@ import {
   IconButton,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 import { useNavigate } from "react-router-dom";
-import Image70 from '../../../assets/Imgs/image70.png'
+import { EndPoints, instance2 } from "../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -90,23 +89,31 @@ const CoursesCard = (props) => {
   console.log(props?.quizzes, 'this is number of quizzes')
 
   const percentage = () => {
-    // if (props?.quizzes != undefined) {
-      switch (props?.quizzes?.length) {
-        case 1:
-          return 25;
-        case 2:
-          return 50;
-        case 3:
-          return 75;
-        case 4:
-          return 100;
-        default:
-          return 0;
-      }
-    // } else {
-    //   return 0
-    // }
-    
+    switch (props?.quizzes?.length) {
+      case 1:
+        return 25;
+      case 2:
+        return 50;
+      case 3:
+        return 75;
+      case 4:
+        return 100;
+      default:
+        return 0;
+    }
+  }
+
+  const restartQuiz = () => {
+    const URL = EndPoints.createNewResultForSeason
+    const data = {
+      simuleraSeason: "62b4472f4b3c6e357483a005",
+      user: localStorage.getItem("userId")
+    }
+    console.log(data)
+    return
+    instance2.post(URL, data).then(response => {
+      console.log(response.data)
+    })
   }
 
   return (
@@ -121,13 +128,13 @@ const CoursesCard = (props) => {
           cursor: "pointer",
         }}
       >
-        <Box sx={{ margin: "0.25rem", padding: "1rem" }}>
+        <Box sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <MenuIcon />
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
             <Box
-              onClick={() => 
+              onClick={() =>
                 navigate("/provpassinfo", {
                   state: {
                     id: props.id,
@@ -137,33 +144,37 @@ const CoursesCard = (props) => {
                 })
               }
             >
-              <Typography variant="h5" component="h5">
-                {" "}
-                {props?.item?.simuleraSeason.title}{" "}
-              </Typography>
-              <Typography variant="body2" component="body2">
-                {" "}
-                {props?.item?.simuleraSeason.month}{" "}
-              </Typography>
-              <Stack
-                direction="row"
-                spacing={1}
-                style={{ display: "flex", flexWrap: "wrap", gap: '0.1rem' }}
+              <Box 
+                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '6.5rem' }}
               >
-                {[1,2,3,4].map(item=> {
+                <Typography variant="h5" component="h5">
+                  {" "}
+                  {props?.item?.simuleraSeason.title}{" "}
+                </Typography>
+                <Typography variant="body2" component="body2">
+                  {" "}
+                  {props?.item?.simuleraSeason.month}{" "}
+                </Typography>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  style={{ display: "flex", flexWrap: "wrap", gap: '0.1rem' }}
+                >
+                  {[1, 2, 3, 4].map(item => {
                     return <Chip
                       label={'Provpass ' + item}
                       style={{ backgroundColor: item <= props.quizzes && props?.quizzes?.length ? "#6FCF97" : '#E1E1E1', color: "#505050" }}
                       size="small"
                     />
-                  
-                }) }
-                <Typography variant="body2" component="body2">
-                  {percentage()}%
-                </Typography>
-              </Stack>
+
+                  })}
+                  <Typography variant="body2" component="body2">
+                    {percentage()}%
+                  </Typography>
+                </Stack>
+              </Box>
             </Box>
-            {
+            {/* {
               props?.item?.simuleraQuiz.length < 4 ? (
                 <Box
                   sx={{
@@ -193,39 +204,43 @@ const CoursesCard = (props) => {
                     <img src={Image70} style={{ marginLeft: '1.5rem', marginBottom: '1rem' }} />
                   </Box>
                 </Box>               
-              ) : (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Typography variant="h4" component="h4">
-                        {" "}
-                        {props.progress}{" "}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="body2"
-                        style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
-                      >
-                        {" "}
-                        {'Poäng'}{" "}
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Button
-                        variant="outlined"
-                        style={{ width: "10rem", textTransform: "capitalize" }}
-                      >
-                        Gör om prov
-                      </Button>
-                    </Box>
-                  </Box>
-              )
-            }
+              ) : 
+              ( */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                marginRight: '1.5rem'
+                // backgroundColor: 'blue'
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography variant="h4" component="h4">
+                  {" "}
+                  {props.progress}{" "}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="body2"
+                  style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
+                >
+                  {" "}
+                  {'Poäng'}{" "}
+                </Typography>
+              </Box>
+              <Box>
+                <Button
+                  variant="outlined"
+                  style={{ width: "10rem", textTransform: "capitalize", border: '2px solid #0A1596', color: '#0A1596' }}
+                  onClick={() => restartQuiz()}
+                >
+                  Gör om prov
+                </Button>
+              </Box>
+            </Box>
+            {/* )
+            } */}
 
           </Box>
         </Box>

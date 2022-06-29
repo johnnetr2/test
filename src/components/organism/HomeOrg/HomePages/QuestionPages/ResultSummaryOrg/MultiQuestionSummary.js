@@ -55,7 +55,7 @@ function MultiQuestionSummary(props) {
               flexDirection: "column",
           }}
       >
-          <Box
+          {/* <Box
               mt={5}
               paddingX={6}
               paddingY={2}
@@ -74,9 +74,12 @@ function MultiQuestionSummary(props) {
               <Typography
                   variant="h6"
                   component="h6"
-                  style={{ fontSize: "0.75rem", fontWeight: "600", display: 'flex'}}
+                  style={{ fontSize: "0.75rem", fontWeight: "600", marginTop: '5rem', backgroundColor: 'blue', height: 'fit-content', bottom: 0 }}
               >
-                  {question?.multipartQuestion.description}
+                  {console.log(question?.multipartQuestion.description)}
+
+                  {/* {question?.multipartQuestion.description} */}
+                  {/* <MarkLatex content={question?.multipartQuestion.description} />
               </Typography>
 
               <Typography
@@ -86,9 +89,49 @@ function MultiQuestionSummary(props) {
               >
                   {question?.multipartQuestion?.image &&  <img style={{ height: '100%' }} src={question?.multipartQuestion?.image} />}
 
-              </Typography>
+              </Typography> */}
 
+          {/* </Box> */}
+
+          <Box
+              mt={5}
+              paddingX={6}
+              paddingY={2}
+              sx={{
+                  backgroundColor: "#fff",
+                  width: 600,
+                  height: 373,
+                  border: '1px solid #e1e1e1',
+                  overflow: 'auto',
+                  "&::-webkit-scrollbar": {
+                      width: 10
+                  }
+              }}
+          >
+              <Typography
+                  variant="subtitle1"
+                  style={{
+                      fontSize: ".7rem",
+                      fontWeight: "500",
+                  }}
+              >
+                  {props.selectedIndex + 1 + ' uppgifter:'}
+              </Typography>
+              <Typography variant="h6" component="h6">
+                  {question?.multipartQuestion.title}
+              </Typography>
+              <Typography
+                  variant="subtitle1"
+                  style={{ fontSize: ".7rem", fontWeight: "500" }}
+              >
+                  <MarkLatex content={question?.multipartQuestion.description} />
+              </Typography>
+              {question?.multipartQuestion.image && <Box>
+                  <img src={question?.multipartQuestion.image} style={{ width: '100%' }} alt="" />
+              </Box>}
           </Box>
+
+          
           <Box>
               <Box
                   paddingX={4}

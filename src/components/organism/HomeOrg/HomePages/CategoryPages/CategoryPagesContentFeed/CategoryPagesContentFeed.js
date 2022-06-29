@@ -127,6 +127,7 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectedItem = (e, item) => {
+    console.log('select singlke category')
     SetCategoryError(false)
     setSelectAll([]);
     setAllChecked(false);
@@ -390,7 +391,8 @@ const CategoryPagesFeedContent = (props) => {
                   <OutlineField
                     title={item.title}
                     onClickCheck={(e) => {
-                      selectAll.length === 0 && selectedItem(e, item);
+                      // selectAll.length === 0 && 
+                      selectedItem(e, item);
                     }}
                     checked={isChecked(item._id)}
                   />

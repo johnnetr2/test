@@ -325,8 +325,10 @@ const QuestionViewXyzOrg = () => {
   };
 
   const PopupHandler = () => {
+    console.log(quiz, 'this is quiz')
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
+
     } else if (quiz[0].answer) {
       setOpen(true);
       setIsOpen(false);
