@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const GoalBox = () => {
+const GoalBox = (props) => {
   const MenuIcon = () => {
     const options = "STARTA OM";
     const ITEM_HEIGHT = 48;
@@ -100,7 +100,7 @@ const GoalBox = () => {
           }}
         >
           <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
-            10
+            {props.goalPoint && props.goalPoint}
           </Typography>
           <Typography variant="body2">Mål</Typography>
         </Box>

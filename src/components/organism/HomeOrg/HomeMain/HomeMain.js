@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeMainOrg = () => {
+const HomeMainOrg = (props) => {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,11 @@ const HomeMainOrg = () => {
             style={{ backgroundColor: "#fafafa" }}
             className={classes.right}
           >
-            <HomeRightBar />
+            <HomeRightBar
+              studentPreference={
+                props.studentPreference && props.studentPreference
+              }
+            />
           </Grid>
         </Grid>
       </Container>

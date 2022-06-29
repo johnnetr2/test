@@ -6,7 +6,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { Box, Typography, Button } from "@mui/material";
 import Slide from "@material-ui/core/Slide";
 import Slider from "@mui/material/Slider";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -22,7 +22,7 @@ export default function EndPopup({
   const [file, setFile] = useState();
   const [slider, setSlider] = useState();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const marks = [
     {
@@ -40,17 +40,17 @@ export default function EndPopup({
   // }
 
   const changeHandler = (e) => {
+    onSliderChange(e.target.value);
     setSlider(e.target.value);
   };
 
-  const clickHandler = () =>
-  {
-    navigate('/home')
+  const clickHandler = () => {
+    navigate("/home");
     // alert(slider, "clicked")
-  }
+  };
 
   useEffect(() => {
-    onSliderChange(1);
+    console.log(slider, "slider value changed");
   }, []);
 
   return (

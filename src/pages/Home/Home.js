@@ -3,55 +3,75 @@ import HomeMainOrg from "../../components/organism/HomeOrg/HomeMain/HomeMain";
 import StartPopup from "../../components/molecule/StartPopup/StartPopup";
 import EndPopup from "../../components/molecule/EndPopup/EndPopup";
 import { EndPoints, instance2 } from "../../components/service/Route";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
   const [firstPopup, setFirstPopup] = useState("");
   const [secondPopup, setSecondPopup] = useState("");
   const [collection, setCollection] = useState({
-    date: '',
-    gpa: '',
+    date: "",
+    gpa: "",
+    StudentPreference: "",
     // userId: '61d44d9ca94c4e0398b040da'
-    userId: localStorage.getItem('userId'),
-  })
+    userId: localStorage.getItem("userId"),
+  });
+  const navigate = useNavigate();
   useEffect(() => {
-
-    const URL = EndPoints.getStudentPreference + localStorage.getItem('userId')
-  instance2.get(URL).then(response => {
-    if (response.data.StudentPreference) {
-      setFirstPopup(false);
-    } else {
-      setFirstPopup(true);
-    }
-  })
-
+    const URL = EndPoints.getStudentPreference + localStorage.getItem("userId");
+    instance2.get(URL).then((response) => {
+      if (response.data.StudentPreference) {
+        setFirstPopup(false);
+      } else {
+        setFirstPopup(true);
+      }
+    });
   }, []);
 
   const data = {
     attemptDate: collection.date,
     point: collection.gpa,
     user: collection.userId,
-  }
+  };
 
-  const URL = EndPoints.testDate
+  const URL = EndPoints.testDate;
   function sendData() {
-    instance2.post(URL, data, {
-    }).then((response) => {
-      if (response.data.StudentPreference) {
-        setSecondPopup(false)
+    instance2.post(URL, data, {}).then((response) => {
+      if (response?.data?.StudentPreference) {
+        setCollection({
+          ...collection,
+          StudentPreference: response.data.StudentPreference,
+        });
+        setSecondPopup(false);
+        navigate("/home");
       }
-    })
+    });
   }
   const submitFunc = () => {
-    setFirstPopup(false)
-    setSecondPopup(true)
-  }
+    setFirstPopup(false);
+    setSecondPopup(true);
+  };
 
   return (
     <div>
-      <StartPopup onDateChange={(value) => setCollection({ ...collection, date: value })} showPopup={firstPopup} hidePopup={() => setFirstPopup(false)} submit={submitFunc} />
-      <EndPopup onSliderChange={(value) => { setCollection({ ...collection, gpa: value }) }} showPopup={secondPopup} hidePopup={() => setSecondPopup(false)} submit={sendData} />
-      <HomeMainOrg />
+      <StartPopup
+        onDateChange={(value) => setCollection({ ...collection, date: value })}
+        showPopup={firstPopup}
+        hidePopup={() => setFirstPopup(false)}
+        submit={submitFunc}
+      />
+      <EndPopup
+        onSliderChange={(value) => {
+          setCollection({ ...collection, gpa: value });
+        }}
+        showPopup={secondPopup}
+        hidePopup={() => setSecondPopup(false)}
+        submit={sendData}
+      />
+      <HomeMainOrg
+        StudentPreference={
+          collection.StudentPreference && collection.StudentPreference
+        }
+      />
     </div>
   );
 };

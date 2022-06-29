@@ -10,13 +10,10 @@ import {
 import Graph from "../../../assets/Graph/Graph.svg";
 import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import moment from "moment";
 
-const ImpDatesCard = () => {
-  const currentDate = new Date();
-  const convertedDate = `${currentDate.getDate()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()}`;
-
+const ImpDatesCard = (props) => {
+  const convertedDate = moment(props.date).format("DD/MM/YYYY");
   const MenuIcon = () => {
     const options = "STARTA OM";
     const ITEM_HEIGHT = 48;
