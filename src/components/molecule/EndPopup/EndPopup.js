@@ -18,7 +18,6 @@ export default function EndPopup({
   submit,
   onSliderChange,
 }) {
-  const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [slider, setSlider] = useState();
 
@@ -35,10 +34,6 @@ export default function EndPopup({
     },
   ];
 
-  // function valuetext(value) {
-  //   return `${value}`;
-  // }
-
   const changeHandler = (e) => {
     onSliderChange(e.target.value);
     setSlider(e.target.value);
@@ -46,12 +41,7 @@ export default function EndPopup({
 
   const clickHandler = () => {
     navigate("/home");
-    // alert(slider, "clicked")
   };
-
-  useEffect(() => {
-    console.log(slider, "slider value changed");
-  }, []);
 
   return (
     <Dialog

@@ -29,7 +29,7 @@ const Home = () => {
 
   const data = {
     attemptDate: collection.date,
-    point: collection.gpa,
+    point: collection.gpa ? collection.gpa : 1,
     user: collection.userId,
   };
 
@@ -42,7 +42,8 @@ const Home = () => {
           StudentPreference: response.data.StudentPreference,
         });
         setSecondPopup(false);
-        navigate("/home");
+        // navigate("home");
+        window.location.reload();
       }
     });
   }
