@@ -8,40 +8,51 @@ const QuestionProgressBox = () => {
       disableGutters
       sx={{
         border: "1px solid #dddddd",
-        boxShadow: "1px 1px 8px #dfdfdf",
-        borderRadius: 2,
-        padding: ".5rem 2rem",
+        boxShadow: "0px 5px 10px #f2f2f2",
+        borderRadius: 1,
+        padding: ".5rem",
       }}
     >
       <Box
         sx={{
-          padding: ".75rem 1rem",
+          display: "flex",
+          justifyContent: "center",
+          height: "1.6rem",
         }}
       >
-        <Box>
-          <Typography
-            variant="body2"
-            style={{
-              textTransform: "Uppercase",
-              textAlign: "center",
-              fontSize: "0.5rem",
-              minHeight: "1.6rem",
-            }}
-          >
-            Gör minst 30 frågor för att få prognos
-          </Typography>
-        </Box>
+        <Typography
+          variant="body2"
+          style={{
+            textTransform: "Uppercase",
+            textAlign: "center",
+            fontSize: "0.5rem",
+            width: "80%",
+          }}
+        >
+          Gör minst 30 frågor för att få prognos
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          padding: ".25rem 1rem",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "flex-end",
           }}
         >
-          <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
+          <Typography
+            variant="h3"
+            style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
+          >
             10
           </Typography>
-          <Typography variant="body2">Prognos</Typography>
+          <Typography variant="body2" style={{ marginBottom: ".5rem" }}>
+            Prognos
+          </Typography>
         </Box>
       </Box>
     </Container>
