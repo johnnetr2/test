@@ -34,7 +34,7 @@ const HomeRightBar = () => {
             style={{
               marginLeft: "1rem",
               marginTop: "2rem",
-              marginBottom: "1rem",
+              marginBottom: "1.5rem",
             }}
           >
             Analys
@@ -64,12 +64,12 @@ const HomeRightBar = () => {
             sx={{
               display: "flex",
               height: "18rem",
-              borderRadius: 5,
+              borderRadius: 3,
               justifyContent: "flex-start",
               alignItems: "flex-start",
               flexDirection: "column",
               border: "1px solid #dddddd",
-              boxShadow: "1px 1px 8px #dfdfdf",
+              boxShadow: "0px 5px 10px #f2f2f2",
               padding: "2rem",
               marginRight: "1rem",
               marginLeft: "1rem",

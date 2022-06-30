@@ -65,8 +65,8 @@ const GoalBox = () => {
       disableGutters
       sx={{
         border: "1px solid #dddddd",
-        boxShadow: "1px 1px 8px #dfdfdf",
-        borderRadius: 2,
+        boxShadow: "0px 5px 10px #f2f2f2",
+        borderRadius: 1,
         padding: ".5rem",
       }}
     >
@@ -80,20 +80,25 @@ const GoalBox = () => {
       </Box>
       <Box
         sx={{
-          padding: "1rem 1rem",
+          padding: ".25rem 1rem",
         }}
       >
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "flex-end",
           }}
         >
-          <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
-            10
+          <Typography
+            variant="h3"
+            style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
+          >
+            1
           </Typography>
-          <Typography variant="body2">Mål</Typography>
+          <Typography variant="body2" style={{ marginBottom: "0.5rem" }}>
+            Mål
+          </Typography>
         </Box>
       </Box>
     </Container>

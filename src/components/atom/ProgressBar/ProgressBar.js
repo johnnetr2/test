@@ -14,8 +14,15 @@ const ProgressBar = () => {
   const classes = useStyles();
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Box sx={{ width: "100%", mr: 1 }}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: ".5rem",
+      }}
+    >
+      {/* <Box sx={{ width: "100%", mr: 1 }}>
         <LinearProgress
           className={classes.root}
           sx={{
@@ -27,24 +34,55 @@ const ProgressBar = () => {
           variant="determinate"
           value={50}
         />
-        {/* <Chip
+        <Chip
           label="Copy här"
           variant="outlined"
           className={classes.root}
           style={{
-            // width: "100%",
-            height: "1.5rem",
+            width: "100%",
+            height: "1.25rem",
             borderRadius: "5rem",
             textTransform: "uppercase",
             backgroundColor: "#6FCF97",
             color: "#0A5B2D",
             border: "none",
           }}
-        /> */}
+        />
+      </Box> */}
+      <Box
+        sx={{
+          width: "100%",
+          height: "1.25rem",
+          mr: 1,
+          backgroundColor: "#e1e1e1",
+          borderRadius: "100px",
+        }}
+      >
+        <Box
+          sx={{
+            width: "90%",
+            height: "1.25rem",
+            borderRadius: "100px   0 0 100px",
+            backgroundColor: "#6FCF97",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            style={{
+              textTransform: "uppercase",
+              fontSize: "0.65rem",
+              color: "#0A5B2D",
+            }}
+          >
+            Copy här
+          </Typography>
+        </Box>
       </Box>
       <Box>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
-          50
+          90
         )}%`}</Typography>
       </Box>
     </Box>

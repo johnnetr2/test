@@ -70,9 +70,9 @@ const ImpDatesCard = () => {
         maxWidth="false"
         disableGutters
         sx={{
-          border: "1px solid #dddddd",
-          boxShadow: "1px 1px 8px #dfdfdf",
-          borderRadius: 2,
+          border: "1px solid #e1e1e1",
+          boxShadow: "0px 5px 10px #f2f2f2",
+          borderRadius: 1,
           padding: "0.5rem 0 0 0",
         }}
       >
