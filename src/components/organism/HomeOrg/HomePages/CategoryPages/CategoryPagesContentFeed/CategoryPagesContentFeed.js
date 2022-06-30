@@ -77,11 +77,22 @@ const CategoryPagesFeedContent = (props) => {
       setCheckData([]);
       SetCategoryError(false)
 
-      let newArray = [...selectAll];
+      let newArray = [...checkedData];
       response.data?.map((item) => {
         newArray.push(item._id);
       });
-      setSelectAll(newArray);
+      setCheckData(newArray);
+
+      // const already = checkedData.some((obj) => obj === item._id);
+      // if (already) {
+      //   const index = checkedData.findIndex((obj) => obj === item._id);
+      //   let newArray = [...checkedData];
+      //   newArray.splice(index, 1);
+      //   setCheckData(newArray);
+      // } else {
+      //   setCheckData([...checkedData, item._id]);
+      // }
+      // });
 
       const URLHistory = EndPoints.testHistory + props.item._id;
       instance2.get(URLHistory).then((response) => {
@@ -144,18 +155,18 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectAllCategories = (e) => {
+    console.log('Alla clicked')
+    setAllChecked(!allChecked);
     if (e.target.checked) {
-      setAllChecked(true);
-      setCheckData([]);
       SetCategoryError(false)
 
       let newArray = [...selectAll];
       questionCategories?.map((item) => {
         newArray.push(item._id);
       });
-      setSelectAll(newArray);
+      setCheckData(newArray);
     } else {
-      setSelectAll([]);
+      setCheckData([]);
     }
   };
 
@@ -183,21 +194,24 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const onSubmit = () => {
+    console.log(checkedData)
     if (chekedValue == undefined) {
       setError(true);
     } else {
-      if (selectAll.length > 0 || checkedData.length > 0) {
+      if (checkedData.length > 0) {
         setOpen(true);
         const data = {
-          questionCategory: allChecked ? selectAll : checkedData,
+          questionCategory: checkedData,
           totalQuestion: parseInt(chekedValue),
           value: timer,
           user: localStorage.getItem("userId"),
           multipartQuestion: null
         };
+        console.log(data, 'this is api data')
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
-          if (response.data.quiz.length < 1) {
+          console.log(response.data, ';this is response')
+          if (response.data == '' || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
@@ -224,7 +238,7 @@ const CategoryPagesFeedContent = (props) => {
         <Heading title={"Kvantitativa jämförelser - " + props.item.title} />
         <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
       </Box>
-      <Box sx={{ marginBottom: "1rem", marginTop: "4rem" }}>
+      <Box sx={{ marginBottom: "1rem", marginTop: "4rem", marginLeft: '0.1rem' }}>
         <Typography variant="h5" component="h5">
           Övningsuppgifter för {props.item.title}
           <Box>
@@ -246,6 +260,7 @@ const CategoryPagesFeedContent = (props) => {
                 textTransform: "uppercase",
                 fontSize: "0.75rem",
                 width: "12rem",
+                marginLeft: '0.2rem'
               }}
             >
               Välj om du vill köra på tid
@@ -264,7 +279,7 @@ const CategoryPagesFeedContent = (props) => {
           <Box>
             <Typography
               variant="body2"
-              style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
+              style={{ textTransform: "uppercase", fontSize: "0.75rem", marginLeft: '0.2rem' }}
             >
               Välj antal frågor
             </Typography>
@@ -365,7 +380,7 @@ const CategoryPagesFeedContent = (props) => {
           <Box>
             <Typography
               variant="body2"
-              style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
+              style={{ textTransform: "uppercase", fontSize: "0.75rem", marginLeft: '0.2rem' }}
             >
               Välj frågetyper
             </Typography>
@@ -382,7 +397,7 @@ const CategoryPagesFeedContent = (props) => {
             <OutlineField
               title="Alla"
               onClickCheck={(e) => selectAllCategories(e)}
-              checked={selectAll.length > 0 ? true : false}
+              checked={questionCategories?.length === checkedData.length ? true: false}
             />
 
             {questionCategories &&
@@ -429,7 +444,8 @@ const CategoryPagesFeedContent = (props) => {
           display: 'flex',
           alignItems: "center",
           justifyContent: 'center',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          width: '99%'
         }}
         onClick={onSubmit}
       >
@@ -444,7 +460,7 @@ const CategoryPagesFeedContent = (props) => {
           aria-label="scrollable prevent tabs example"
           TabIndicatorProps={{ style: { background: "#fff" } }}
         >
-          <Tab style={{ textTransform: "initial" }} label="Historia" />
+          <Tab style={{ textTransform: "initial", display: 'flex' }} label='Historia' />
           <Tab
             style={{ textTransform: "initial" }}
             label="/ Statistik"

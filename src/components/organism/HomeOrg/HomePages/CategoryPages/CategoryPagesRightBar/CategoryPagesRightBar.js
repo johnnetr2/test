@@ -38,17 +38,17 @@ const CategoryPagesRightBar = (props) => {
       <Box
         sx={{
           height: "fit-content",
-          marginTop: "6rem",
+          marginTop: "11.5rem",
         }}
       >
         <Box style={{ marginLeft: "1rem" }}>
           <Typography variant="h5">Statistik</Typography>
-          <Typography variant="body2">
+          <Typography variant="body2" sx={{ marginTop: '1rem' }}>
             Du har klarat {progressData.length} av 1000 uppgifter
           </Typography>
         </Box>
         <Box
-          sx={{ marginTop: "2rem", marginLeft: "1rem", marginRight: "1rem" }}
+          sx={{ marginTop: "1rem", marginLeft: "1rem", marginRight: "1rem" }}
         >
           <Box
             sx={{

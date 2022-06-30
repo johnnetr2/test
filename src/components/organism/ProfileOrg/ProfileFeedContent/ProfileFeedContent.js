@@ -25,6 +25,7 @@ const ProfileFeedContent = () => {
   const [showSnack, setShowSnack] = useState();
 
   const LogoutFunc = () => {
+    console.log('log out function')
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -158,8 +159,10 @@ const ProfileFeedContent = () => {
         <Box sx={{ marginTop: "1rem", color: "red", cursor: "pointer" }}>
           <BodyText title="Ta bort mitt konto" onClick={DeleteFunc} />
         </Box>
-        <Box sx={{ marginTop: "1rem", color: "red", cursor: "pointer" }}>
-          <BodyText title="logga ut" onClick={LogoutFunc} />
+        <Box sx={{ marginTop: "1rem", color: "red", cursor: "pointer" }}
+          onClick={() => LogoutFunc()}
+        >
+          <BodyText title="logga ut" />
         </Box>
       </Box>
     </Container>
