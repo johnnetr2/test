@@ -11,6 +11,7 @@ const InputField = (props) => {
         onChange={props.onChange}
         id={props.icon}
         style={props?.style}
+        autofocus=""
       />
     </div>
   );

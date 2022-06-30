@@ -79,11 +79,17 @@ const HomeFeedContent = () => {
   }, []);
 
   return (
-    <Container className={classes.root}>
+    <Container className={classes.root} maxWidth="false">
       <Box>
         <Heading title="Dashboard" />
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Box sx={{ width: "100%", marginBottom: "2rem", marginTop: "1rem" }}>
+          <Box
+            sx={{
+              width: "100%",
+              marginBottom: "2rem",
+              marginTop: "1rem",
+            }}
+          >
             <Box>
               <Tabs
                 value={tabValue}
@@ -179,7 +185,7 @@ const HomeFeedContent = () => {
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
-        <Box>
+        <Box sx={{ marginTop: "-10.5rem" }}>
           <HomeRightBar />
         </Box>
       </TabPanel>

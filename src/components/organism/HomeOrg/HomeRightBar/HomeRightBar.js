@@ -16,9 +16,11 @@ const HomeRightBar = () => {
 
   return (
     <Container
-      disableGutters
       maxWidth={false}
-      style={{ backgrounColor: "#fafafa" }}
+      style={{
+        backgrounColor: "#fafafa",
+        width: "27rem",
+      }}
     >
       <Box
         sx={{
@@ -32,18 +34,22 @@ const HomeRightBar = () => {
             variant="h6"
             component="h6"
             style={{
-              marginLeft: "1rem",
               marginTop: "2rem",
               marginBottom: "1.5rem",
             }}
           >
             Analys
           </Typography>
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ width: "50%", marginLeft: "1rem" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ width: "49%" }}>
               <QuestionProgressBox />
             </Box>
-            <Box sx={{ width: "50%", marginLeft: "1rem", marginRight: "1rem" }}>
+            <Box sx={{ width: "49%" }}>
               <GoalBox />
             </Box>
           </Box>
@@ -53,7 +59,6 @@ const HomeRightBar = () => {
             variant="h6"
             component="h6"
             style={{
-              marginLeft: "1rem",
               marginTop: "2rem",
               marginBottom: "1rem",
             }}
@@ -71,8 +76,6 @@ const HomeRightBar = () => {
               border: "1px solid #dddddd",
               boxShadow: "0px 5px 10px #f2f2f2",
               padding: "2rem",
-              marginRight: "1rem",
-              marginLeft: "1rem",
             }}
           >
             <Typography
@@ -90,7 +93,6 @@ const HomeRightBar = () => {
           variant="h6"
           component="h6"
           style={{
-            marginLeft: "1rem",
             marginTop: "2rem",
             marginBottom: "1rem",
           }}
@@ -98,7 +100,7 @@ const HomeRightBar = () => {
           Viktiga datum
         </Typography>
         <Box sx={{ display: "flex" }}>
-          <Box sx={{ width: "100%", marginLeft: "1rem", marginRight: "1rem" }}>
+          <Box sx={{ width: "100%" }}>
             <ImpDatesCard />
           </Box>
         </Box>
