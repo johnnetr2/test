@@ -3,136 +3,109 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableContainer,
-  TableHead,
   TableRow,
   Paper,
   Box,
   IconButton,
   Menu,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { instance, instance2, EndPoints } from "../../service/Route";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
+import Dropdown from "../../atom/ArrowDropDown/dropdown";
+import useWindowDimensions from "../WindowDimensions/dimension";
 
 export const CategoryTable = (props) => {
-  const categoryTable = props.tableHistory;
+  const [categoryTable, setCategoryTable] = useState(props.tableHistory);
   const [sectionCategory, setSectionCategory] = useState("");
+  const { height, width } = useWindowDimensions();
 
   const navigate = useNavigate();
 
-  const MenuIcon = (row) => {
-    const options = "SE RESULTAT";
-    const ITEM_HEIGHT = 48;
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
-    return (
-      <div>
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          aria-controls={open ? "long-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          id="long-menu"
-          MenuListProps={{
-            "aria-labelledby": "long-button",
-          }}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          PaperProps={{
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: "13ch",
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          }}
-        >
-          <MenuItem
-            onClick={() => {
-              ResultHandler(row);
-            }}
-          >
-            {options}
-          </MenuItem>
-        </Menu>
-      </div>
-    );
-  };
 
   useEffect(() => {
     setSectionCategory(props?.sectionCategory);
+    console.log(props)
   }, []);
 
   const ResultHandler = (row) => {
     navigate("/resultsummary", {
       state: {
-        quizId: row.row.quiz,
+        quizId: row.quiz,
         sectionCategory: sectionCategory,
         user: localStorage.getItem("userId"),
       },
     });
   };
 
+  const showPopup = (index) => {
+    const history = [...props.tableHistory]
+    let singlerow = history[index]
+    if(singlerow.result == true) {
+      singlerow.result = false
+      setCategoryTable(history)
+    } else {
+      singlerow.result = true
+      setCategoryTable(history)
+    }
+    console.log(singlerow)
+  }
+
   return (
     <Box>
-      <TableContainer
+      <Box style={{ 
+        display: 'flex',
+        textTransform: 'uppercase',
+        // paddingLeft: '2rem'
+      }} >
+        {console.log(width)}
+        <Typography style={{ display: 'flex', marginLeft: width*0.01 }} >Datum</Typography>
+        <Typography style={{ display: 'flex', marginLeft: width > 900 ? width*0.21 : width*0.32 }} >Resultat</Typography>
+        <Typography style={{ display: 'flex', marginLeft: width > 900 ? width*0.11 : width*0.13 }} >Normering</Typography>
+      </Box>
+
+      <Box
         component={Paper}
         elevation={0}
         style={{
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
+          marginTop: '2rem'
         }}
       >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Datum</TableCell>
-              <TableCell align="left">Resultat</TableCell>
-              <TableCell align="leftt">Normering</TableCell>
-              <TableCell align="left"></TableCell>
-            </TableRow>
-          </TableHead>
+        <Table sx={{ minWidth: width*0.0863 }}>
           <TableBody>
-            {categoryTable.map((row) => {
+            {categoryTable.map((row, index) => {
               return (
                 <TableRow
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.createdAt}
+                    {moment(row?.createdAt).format('YYYY.MM.D hh:mm:ss')}
                   </TableCell>
                   <TableCell align="left">
                     {row.correctAnswer} av {row.answer.length}
                   </TableCell>
-                  <TableCell align="left">{(row.correctAnswer / row.totalQuestion) * 2}</TableCell>
-                  <TableCell align="left">
-                    <MenuIcon row={row} />
+
+                  <TableCell align="right">{((row.correctAnswer / row.totalQuestion) * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
+                  
+                  <TableCell style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row-reverse', color: 'grey', height: '5rem', alignItems: 'center' }} >
+                    
+                    <MoreVertIcon onClick={() => showPopup(index)} />
+
+                    {row.result &&
+                      <Dropdown onClick={() => ResultHandler(row)} /> 
+                    }
+                    
                   </TableCell>
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
-      </TableContainer>
+      </Box>
     </Box>
   );
 };

@@ -7,6 +7,8 @@ import {
   EndPoints,
   instance2,
 } from "../../../../../../components/service/Route";
+import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .css-5xe99f-MuiLinearProgress-bar1": {
@@ -19,32 +21,33 @@ const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
   const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     const URL = EndPoints.testHistory + props.item._id;
+    console.log(URL)
     instance2.get(URL).then((response) => {
       setProgressData(response.data, "token response");
     });
-    const LastWeekURL = EndPoints.lastWeekTasks + localStorage.getItem("userId");
+    const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
-      setLastWeekTasks(response.data.lastWeek);
+      console.log(response.data, 'this is last week data')
+      setLastWeekTasks(response.data);
     });
   }, []);
-
-  const normalise = (progressData) => ((progressData - 0) * 100) / (1000 - 0);
 
   return (
     <Container disableGutters maxWidth={false}>
       <Box
         sx={{
           height: "fit-content",
-          marginTop: "11.5rem",
+          marginTop: width < 901 ? '2rem' : "11.5rem",
         }}
       >
         <Box style={{ marginLeft: "1rem" }}>
-          <Typography variant="h5">Statistik</Typography>
+          {width > 900 && <Typography variant="h5">Statistik</Typography>}
           <Typography variant="body2" sx={{ marginTop: '1rem' }}>
-            Du har klarat {progressData.length} av 1000 uppgifter
+            Du har klarat {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions} uppgifter
           </Typography>
         </Box>
         <Box
@@ -68,7 +71,7 @@ const CategoryPagesRightBar = (props) => {
                 backgroundColor: "#e1e1e1",
               }}
               variant="determinate"
-              value={normalise(progressData.length)}
+              value={(lastWeekTasks.totalCorrectQuestions / lastWeekTasks.totalQuestions) * 100}
             />
           </Box>
         </Box>
@@ -76,14 +79,14 @@ const CategoryPagesRightBar = (props) => {
           <Box sx={{ display: "flex" }}>
             <Box sx={{ width: "50%", marginLeft: "1rem" }}>
               <Typography variant="h5">
-                {!lastWeekTasks ? "0" : lastWeekTasks}
+                {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
               </Typography>
               <Typography variant="body2">
                 Gjorda uppgifter förra veckan
               </Typography>
             </Box>
             <Box sx={{ width: "50%", marginLeft: "1rem", marginRight: "1rem" }}>
-              <Typography variant="h5">{progressData.length}</Typography>
+              <Typography variant="h5">{lastWeekTasks.totalCorrectQuestions}</Typography>
               <Typography variant="body2">Gjorda uppgifter totalt</Typography>
             </Box>
           </Box>
@@ -100,7 +103,7 @@ const CategoryPagesRightBar = (props) => {
           >
             <Box
               sx={{
-                height: "20%",
+                height: "30%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -123,7 +126,7 @@ const CategoryPagesRightBar = (props) => {
             marginBottom: "2rem",
           }}
         >
-          <Typography variant="h5">0.8</Typography>
+          <Typography variant="h5">{((lastWeekTasks.totalCorrectQuestions / lastWeekTasks.totalQuestions) * 2).toFixed(1).replace(/\.0+$/, '')}</Typography>
           <Typography variant="body2">
             Prognostiserad normerad poäng {props?.item.title}
           </Typography>
@@ -139,7 +142,7 @@ const CategoryPagesRightBar = (props) => {
           >
             <Box
               sx={{
-                height: "20%",
+                height: "30%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
