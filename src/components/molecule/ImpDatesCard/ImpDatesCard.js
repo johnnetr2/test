@@ -7,8 +7,6 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
-import Graph from "../../../assets/Graph/Graph.svg";
-import Ellipsis from "../../../assets/Icons/Ellipsis.svg";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const ImpDatesCard = () => {
@@ -18,7 +16,7 @@ const ImpDatesCard = () => {
   }/${currentDate.getFullYear()}`;
 
   const MenuIcon = () => {
-    const options = "STARTA OM";
+    const options = "EDIT";
     const ITEM_HEIGHT = 48;
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -41,7 +39,7 @@ const ImpDatesCard = () => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon />
+          <MoreVertIcon sx={{ color: "#999" }} />
         </IconButton>
         <Menu
           id="long-menu"
@@ -67,36 +65,54 @@ const ImpDatesCard = () => {
   };
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignItems: "center",
-        border: "1px solid #dddddd",
-        boxShadow: "1px 1px 8px #dfdfdf",
-        borderRadius: 2,
-        padding: "2rem",
-      }}
-    >
-      <Box
+    <>
+      <Container
+        maxWidth="false"
+        disableGutters
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          border: "1px solid #e1e1e1",
+          boxShadow: "0px 5px 10px #f2f2f2",
+          borderRadius: 1,
+          padding: "0.5rem 0 0 0",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography variant="h5" style={{ marginRight: "0.5rem" }}>
-            {convertedDate}
-          </Typography>
-          <Typography variant="body2">100 dagar till anmälan öppnar</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "2rem  0 2rem 2rem",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "flex-end",
+              }}
+            >
+              <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
+                {convertedDate}
+              </Typography>
+              <Typography
+                variant="body2"
+                style={{ fontSize: ".65rem", marginBottom: "0.35rem" }}
+              >
+                100 dagar till anmälan öppnar
+              </Typography>
+            </Box>
+          </Box>
+          <Box>
+            <MenuIcon />
+          </Box>
         </Box>
-        <Box>
-          <MenuIcon />
-        </Box>
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };
 

@@ -71,7 +71,7 @@ const HomeLeftBar = () => {
   return (
     <Container disableGutters maxWidth="false" className={classes.container}>
       <Container
-        disableGutters
+        // disableGutters
         style={{
           padding: "1rem",
           borderBottom: "1px solid #e1e1e1",

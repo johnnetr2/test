@@ -11,13 +11,15 @@ const HomeCard = (props) => {
     <Box
       sx={{
         height: "20%",
+        maxWidth: "41rem",
         display: "flex",
         justifyContent: "space-between",
-        border: "1px solid #dddddd",
-        boxShadow: "1px 1px 8px #dfdfdf",
+        border: "1px solid #e1e1e1",
+        boxShadow: "0px 5px 10px #f2f2f2",
         padding: 3,
-        marginTop: 2,
-        borderRadius: 2,
+        marginTop: 3,
+        marginBottom: 3,
+        borderRadius: 1,
         cursor: "pointer",
       }}
       onClick={() =>
@@ -48,7 +50,13 @@ const HomeCard = (props) => {
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
           0.0
         </Typography>
-        <Typography variant="body1" sx={{ fontSize: ".75rem" }}>
+        <Typography
+          variant="body1"
+          style={{
+            fontSize: ".75rem",
+            marginTop: ".75rem",
+          }}
+        >
           Prognos
         </Typography>
       </Box>

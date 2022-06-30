@@ -11,7 +11,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const GoalBox = () => {
   const MenuIcon = () => {
-    const options = "STARTA OM";
+    const options = "EDIT";
     const ITEM_HEIGHT = 48;
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -34,7 +34,7 @@ const GoalBox = () => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon />
+          <MoreVertIcon sx={{ color: "#999" }} />
         </IconButton>
         <Menu
           id="long-menu"
@@ -65,44 +65,40 @@ const GoalBox = () => {
       disableGutters
       sx={{
         border: "1px solid #dddddd",
-        boxShadow: "1px 1px 8px #dfdfdf",
-        borderRadius: 2,
-        padding: ".5rem 2rem",
+        boxShadow: "0px 5px 10px #f2f2f2",
+        borderRadius: 1,
+        padding: ".5rem",
       }}
     >
       <Box
         sx={{
-          padding: ".75rem 1rem",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <MenuIcon sx={{ color: "#b4b4b4" }} />
+      </Box>
+      <Box
+        sx={{
+          padding: ".25rem 1rem",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "center",
+            alignItems: "flex-end",
           }}
         >
           <Typography
-            variant="body2"
-            style={{
-              textTransform: "Uppercase",
-              textAlign: "center",
-              fontSize: "0.5rem",
-            }}
+            variant="h3"
+            style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
           >
-            <MenuIcon />
+            1
           </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
-            10
+          <Typography variant="body2" style={{ marginBottom: "0.5rem" }}>
+            Mål
           </Typography>
-          <Typography variant="body2">Mål</Typography>
         </Box>
       </Box>
     </Container>
