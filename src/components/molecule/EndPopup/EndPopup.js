@@ -15,11 +15,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function EndPopup({
   showPopup,
   hidePopup,
+  defaultValue,
   submit,
   onSliderChange,
 }) {
   const [file, setFile] = useState();
   const [slider, setSlider] = useState();
+  useEffect(() => {
+    setSlider(defaultValue);
+  }, [defaultValue]);
 
   const navigate = useNavigate();
 

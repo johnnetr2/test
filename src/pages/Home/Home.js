@@ -3,7 +3,6 @@ import HomeMainOrg from "../../components/organism/HomeOrg/HomeMain/HomeMain";
 import StartPopup from "../../components/molecule/StartPopup/StartPopup";
 import EndPopup from "../../components/molecule/EndPopup/EndPopup";
 import { EndPoints, instance2 } from "../../components/service/Route";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [firstPopup, setFirstPopup] = useState("");
@@ -12,10 +11,9 @@ const Home = () => {
     date: "",
     gpa: "",
     StudentPreference: "",
-    // userId: '61d44d9ca94c4e0398b040da'
     userId: localStorage.getItem("userId"),
   });
-  const navigate = useNavigate();
+
   useEffect(() => {
     const URL = EndPoints.getStudentPreference + localStorage.getItem("userId");
     instance2.get(URL).then((response) => {
@@ -42,7 +40,7 @@ const Home = () => {
           StudentPreference: response.data.StudentPreference,
         });
         setSecondPopup(false);
-        // navigate("home");
+
         window.location.reload();
       }
     });
