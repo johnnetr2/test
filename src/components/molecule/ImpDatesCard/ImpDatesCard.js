@@ -123,7 +123,7 @@ const ImpDatesCard = (props) => {
       <StartPopup
         onDateChange={(value) => setCollection({ ...collection, date: value })}
         showPopup={collection.popup}
-        hidePopup={false}
+        hidePopup={() => setCollection({ ...collection, popup: false })}
         defualtValue={collection.date}
         submit={updateDate}
       />
