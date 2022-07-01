@@ -5,7 +5,7 @@ const Filled_btn = ({ title, onClick, disabled }) => {
   return (
     <div className="filled-btn-1">
       <Button
-        variant="contained"
+        // variant="contained"
         onClick={onClick}
         disabled={disabled}
         sx={{

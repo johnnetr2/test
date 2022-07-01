@@ -22,15 +22,13 @@ import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import CoursesCard from "../../../../../molecule/CoursesCard/CoursesCard";
 import {
   CategoryTable,
-  LongMenu,
 } from "../../../../../molecule/CategoryTable/CategoryTable";
-import { Input } from "reactstrap";
-import Alert from "@mui/material/Alert";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import swal from "sweetalert";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import CategoryPagesRightBar from "../CategoryPagesRightBar/CategoryPagesRightBar";
+import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,8 +55,6 @@ const CategoryPagesFeedContent = (props) => {
   const [checked4, setChecked4] = useState(false);
   const [chekedValue, setCheckedValue] = useState();
   const [title, setTitle] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState();
-  const [checkType, setCheckType] = useState();
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
   const [categoryError, SetCategoryError] = useState();
@@ -67,7 +63,10 @@ const CategoryPagesFeedContent = (props) => {
   const [allChecked, setAllChecked] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const params = useLocation();
-  const quiz = params?.state?.quiz;
+  const [historyText, setHistoryText] = useState(false)
+  const [resultText, setResultText] = useState(false)
+  const { height, width } = useWindowDimensions();
+
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -77,11 +76,22 @@ const CategoryPagesFeedContent = (props) => {
       setCheckData([]);
       SetCategoryError(false)
 
-      let newArray = [...selectAll];
+      let newArray = [...checkedData];
       response.data?.map((item) => {
         newArray.push(item._id);
       });
-      setSelectAll(newArray);
+      setCheckData(newArray);
+
+      // const already = checkedData.some((obj) => obj === item._id);
+      // if (already) {
+      //   const index = checkedData.findIndex((obj) => obj === item._id);
+      //   let newArray = [...checkedData];
+      //   newArray.splice(index, 1);
+      //   setCheckData(newArray);
+      // } else {
+      //   setCheckData([...checkedData, item._id]);
+      // }
+      // });
 
       const URLHistory = EndPoints.testHistory + props.item._id;
       instance2.get(URLHistory).then((response) => {
@@ -110,9 +120,10 @@ const CategoryPagesFeedContent = (props) => {
 
   const [tabValue, setTabValue] = useState(0);
 
-  const handleTabs = (e, val) => {
-    setTabValue(val);
-  };
+  // const handleTabs = (e, val) => {
+  //   console.log(val, 'cahnge view')
+  //   setTabValue(val);
+  // };
 
   const TabPanel = (props) => {
     const { children, value, index } = props;
@@ -144,18 +155,18 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectAllCategories = (e) => {
+    console.log('Alla clicked')
+    setAllChecked(!allChecked);
     if (e.target.checked) {
-      setAllChecked(true);
-      setCheckData([]);
       SetCategoryError(false)
 
       let newArray = [...selectAll];
       questionCategories?.map((item) => {
         newArray.push(item._id);
       });
-      setSelectAll(newArray);
+      setCheckData(newArray);
     } else {
-      setSelectAll([]);
+      setCheckData([]);
     }
   };
 
@@ -183,21 +194,24 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const onSubmit = () => {
+    console.log(checkedData)
     if (chekedValue == undefined) {
       setError(true);
     } else {
-      if (selectAll.length > 0 || checkedData.length > 0) {
+      if (checkedData.length > 0) {
         setOpen(true);
         const data = {
-          questionCategory: allChecked ? selectAll : checkedData,
+          questionCategory: checkedData,
           totalQuestion: parseInt(chekedValue),
           value: timer,
           user: localStorage.getItem("userId"),
           multipartQuestion: null
         };
+        console.log(data, 'this is api data')
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
-          if (response.data.quiz.length < 1) {
+          console.log(response.data, ';this is response')
+          if (response.data == '' || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
@@ -224,7 +238,7 @@ const CategoryPagesFeedContent = (props) => {
         <Heading title={"Kvantitativa jämförelser - " + props.item.title} />
         <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
       </Box>
-      <Box sx={{ marginBottom: "1rem", marginTop: "4rem" }}>
+      <Box sx={{ marginBottom: "1rem", marginTop: "4rem", marginLeft: '0.1rem' }}>
         <Typography variant="h5" component="h5">
           Övningsuppgifter för {props.item.title}
           <Box>
@@ -246,6 +260,7 @@ const CategoryPagesFeedContent = (props) => {
                 textTransform: "uppercase",
                 fontSize: "0.75rem",
                 width: "12rem",
+                marginLeft: '0.2rem'
               }}
             >
               Välj om du vill köra på tid
@@ -264,7 +279,7 @@ const CategoryPagesFeedContent = (props) => {
           <Box>
             <Typography
               variant="body2"
-              style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
+              style={{ textTransform: "uppercase", fontSize: "0.75rem", marginLeft: '0.2rem' }}
             >
               Välj antal frågor
             </Typography>
@@ -365,7 +380,7 @@ const CategoryPagesFeedContent = (props) => {
           <Box>
             <Typography
               variant="body2"
-              style={{ textTransform: "uppercase", fontSize: "0.75rem" }}
+              style={{ textTransform: "uppercase", fontSize: "0.75rem", marginLeft: '0.2rem' }}
             >
               Välj frågetyper
             </Typography>
@@ -382,7 +397,7 @@ const CategoryPagesFeedContent = (props) => {
             <OutlineField
               title="Alla"
               onClickCheck={(e) => selectAllCategories(e)}
-              checked={selectAll.length > 0 ? true : false}
+              checked={questionCategories?.length === checkedData.length ? true : false}
             />
 
             {questionCategories &&
@@ -429,28 +444,57 @@ const CategoryPagesFeedContent = (props) => {
           display: 'flex',
           alignItems: "center",
           justifyContent: 'center',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          width: '99%'
         }}
         onClick={onSubmit}
       >
         <FilledBtn title="Starta övningar" />
       </Box>
       <Box sx={{ marginTop: "4rem" }}>
-        <Tabs
-          value={tabValue}
-          onChange={handleTabs}
-          variant="scrollable"
-          scrollButtons={false}
-          aria-label="scrollable prevent tabs example"
-          TabIndicatorProps={{ style: { background: "#fff" } }}
-        >
-          <Tab style={{ textTransform: "initial" }} label="Historia" />
-          <Tab
-            style={{ textTransform: "initial" }}
-            label="/ Statistik"
+
+        <Box style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }} >
+          <Typography style={{
+            fontSize: '28px',
+            fontWeight: 400,
+            height: 'fit-content',
+            textDecorationLine: width < 900 && historyText && 'underline',
+            textDecorationThickness: '1.5px',
+            cursor: width < 900 && 'pointer'
+          }}
+          onClick={() => { 
+            width < 900 && setHistoryText(true)
+            setResultText(false)
+            setTabValue(0)
+          }}
+          >
+            Historia
+          </Typography>
+
+          <Typography style={{
+            fontSize: '28px',
+            fontWeight: 400,
+            height: 'fit-content',
+            textDecorationLine: width < 900 && resultText && 'underline',
+            textDecorationThickness: '1.5px',
+            textDecorationWidth: '80%',
+            cursor: width < 900 && 'pointer'
+          }}
             className={classes.hideStatistics}
-          />
-        </Tabs>
+            onClick={() => {
+              width < 900 && setResultText(true)
+              setHistoryText(false)
+              setTabValue(1)
+            }}
+          >
+            {' '} / Statistik
+          </Typography>
+        </Box>
+
+
         <TabPanel value={tabValue} index={0}>
           <Box sx={{ marginTop: "1rem" }}>
             <CategoryTable
