@@ -80,10 +80,10 @@ const LineChart = () => {
     <Box
       sx={{
         width: "100%",
-        height: "100%",
+        height: "15rem",
       }}
     >
-      <Line
+      <Line 
         data={{
           labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
           datasets: [
