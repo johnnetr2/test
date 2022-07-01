@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   tabToggle: {
     [theme.breakpoints.up(820)]: {
       display: "none",
-      border: '1px solid green'
+      border: "1px solid green",
     },
     [theme.breakpoints.down(820)]: {
       // display: 'block'
@@ -54,9 +54,8 @@ const CoursesFeedContent = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.seasons, 'rhis is season')
-  }, [])
-  
+    console.log(props.seasons, "rhis is season");
+  }, []);
 
   const TabPanel = (props) => {
     const { children, value, index } = props;
@@ -142,18 +141,25 @@ const CoursesFeedContent = (props) => {
         </Box>
         <Box>
           <Box
-            sx={{ marginBottom: "1rem", gap: '5rem' }}
+            sx={{ marginBottom: "1rem", gap: "5rem" }}
             // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
               previousExams.map((item) => {
-                console.log(props?.seasons && props?.seasons[item?.simuleraSeason._id]?.season, 'props.provHistoryData[item?.simuleraSeason._id].season')
+                console.log(
+                  props?.seasons &&
+                    props?.seasons[item?.simuleraSeason._id]?.season,
+                  "props.provHistoryData[item?.simuleraSeason._id].season"
+                );
                 return (
                   <CoursesCard
                     id={item?.simuleraSeason._id}
                     item={item}
                     progress={item.progress}
-                    quizzes={props?.seasons && props?.seasons[item?.simuleraSeason._id]?.season}
+                    quizzes={
+                      props?.seasons &&
+                      props?.seasons[item?.simuleraSeason._id]?.season
+                    }
                   />
                 );
               })}
@@ -165,6 +171,7 @@ const CoursesFeedContent = (props) => {
             marginTop: "1rem",
             display: "flex",
             justifyContent: "center",
+            maxWidth: "48rem",
           }}
         >
           <Button
@@ -189,9 +196,7 @@ const CoursesFeedContent = (props) => {
             övningsdelen.
           </Typography>
         </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          {/* <CoursesCard /> */}
-        </Box>
+        <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
         <Box sx={{ marginBottom: "2rem" }}>
@@ -208,9 +213,7 @@ const CoursesFeedContent = (props) => {
           </Typography>
         </Box>
         <Box>
-          <Box sx={{ marginBottom: "1rem" }}>
-            {/* <CoursesCard /> */}
-          </Box>
+          <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
         </Box>
         <Box
           sx={{
@@ -242,9 +245,7 @@ const CoursesFeedContent = (props) => {
             övningsdelen.
           </Typography>
         </Box>
-        <Box sx={{ marginBottom: "1rem" }}>
-          {/* <CoursesCard /> */}
-        </Box>
+        <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
         <CoursesRightBar />

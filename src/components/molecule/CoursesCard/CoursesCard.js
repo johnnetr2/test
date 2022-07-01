@@ -74,7 +74,7 @@ const MenuIcon = () => {
             alignItems: "center",
           },
         }}
-        onClick={() => alert('Page is under progress')}
+        onClick={() => alert("Page is under progress")}
       >
         <MenuItem>{options}</MenuItem>
       </Menu>
@@ -86,7 +86,7 @@ const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  console.log(props?.quizzes, 'this is number of quizzes')
+  console.log(props?.quizzes, "this is number of quizzes");
 
   const percentage = () => {
     switch (props?.quizzes?.length) {
@@ -101,51 +101,65 @@ const CoursesCard = (props) => {
       default:
         return 0;
     }
-  }
+  };
 
   const restartQuiz = () => {
-    const URL = EndPoints.createNewResultForSeason
+    const URL = EndPoints.createNewResultForSeason;
     const data = {
       simuleraSeason: "62b4472f4b3c6e357483a005",
-      user: localStorage.getItem("userId")
-    }
-    console.log(data)
-    return
-    instance2.post(URL, data).then(response => {
-      console.log(response.data)
-    })
-  }
+      user: localStorage.getItem("userId"),
+    };
+    console.log(data);
+    return;
+    instance2.post(URL, data).then((response) => {
+      console.log(response.data);
+    });
+  };
 
   return (
-    <Container style={{ marginTop: '1.3rem' }} disableGutters maxWidth={false}>
+    <Container style={{ marginTop: "1.3rem" }} disableGutters maxWidth={false}>
       <Box
         className={classes.box}
         sx={{
           border: "1px solid #e1e1e1",
           borderRadius: ".25rem",
-          boxShadow: "1px 1px 5px #d4d4d4",
+          boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
           cursor: "pointer",
+          maxWidth: "48rem",
         }}
       >
-        <Box sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}>
+        <Box
+          sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
+        >
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <MenuIcon />
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <Box
               onClick={() =>
                 navigate("/provpassinfo", {
                   state: {
                     id: props.id,
                     session: props.item.simuleraSeason,
-                    provpass: props?.quizzes
+                    provpass: props?.quizzes,
                   },
                 })
               }
             >
-              <Box 
-                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '6.5rem' }}
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-around",
+                  height: "6.5rem",
+                }}
               >
                 <Typography variant="h5" component="h5">
                   {" "}
@@ -158,15 +172,22 @@ const CoursesCard = (props) => {
                 <Stack
                   direction="row"
                   spacing={1}
-                  style={{ display: "flex", flexWrap: "wrap", gap: '0.1rem' }}
+                  style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}
                 >
-                  {[1, 2, 3, 4].map(item => {
-                    return <Chip
-                      label={'Provpass ' + item}
-                      style={{ backgroundColor: item <= props.quizzes && props?.quizzes?.length ? "#6FCF97" : '#E1E1E1', color: "#505050" }}
-                      size="small"
-                    />
-
+                  {[1, 2, 3, 4].map((item) => {
+                    return (
+                      <Chip
+                        label={"Provpass " + item}
+                        style={{
+                          backgroundColor:
+                            item <= props.quizzes && props?.quizzes?.length
+                              ? "#6FCF97"
+                              : "#E1E1E1",
+                          color: "#505050",
+                        }}
+                        size="small"
+                      />
+                    );
                   })}
                   <Typography variant="body2" component="body2">
                     {percentage()}%
@@ -211,7 +232,7 @@ const CoursesCard = (props) => {
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
-                marginRight: '1.5rem'
+                marginRight: "1.5rem",
                 // backgroundColor: 'blue'
               }}
             >
@@ -226,13 +247,18 @@ const CoursesCard = (props) => {
                   style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
                 >
                   {" "}
-                  {'Poäng'}{" "}
+                  {"Poäng"}{" "}
                 </Typography>
               </Box>
               <Box>
                 <Button
                   variant="outlined"
-                  style={{ width: "10rem", textTransform: "capitalize", border: '2px solid #0A1596', color: '#0A1596' }}
+                  style={{
+                    width: "10rem",
+                    textTransform: "capitalize",
+                    border: "2px solid #0A1596",
+                    color: "#0A1596",
+                  }}
                   onClick={() => restartQuiz()}
                 >
                   Gör om prov
@@ -241,7 +267,6 @@ const CoursesCard = (props) => {
             </Box>
             {/* )
             } */}
-
           </Box>
         </Box>
       </Box>

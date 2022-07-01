@@ -36,7 +36,7 @@ const MenuIcon = (row) => {
   const options = "SE RESULTAT";
   const ITEM_HEIGHT = 48;
   const [anchorEl, setAnchorEl] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
 
@@ -71,9 +71,9 @@ const MenuIcon = (row) => {
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
             width: "13ch",
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           },
         }}
       >
@@ -140,17 +140,15 @@ const RightBar = (props) => {
   const classes = useStyles();
 
   const [provHistoryData, setProvHistoryData] = useState();
-  const [seasons, setSeasons] = useState()
-
-
+  const [seasons, setSeasons] = useState();
 
   const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }
-    return new Date(dateString).toLocaleDateString(undefined, options)
-  }
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   return (
-    <Container disableGutters maxWidth={false}>
+    <Container maxWidth={false}>
       <Box sx={{ backgroundColor: "#fafafa" }}>
         <Box className={classes.topspace} style={{ marginBottom: "2rem" }}>
           <Typography variant="h6" component="h6">
@@ -164,7 +162,7 @@ const RightBar = (props) => {
                 border: "1px solid #e1e1e1",
                 borderRadius: ".25rem",
                 padding: "1.5rem",
-                boxShadow: "1px 1px 5px #d4d4d4",
+                boxShadow: "0px 5px 10px #f2f2f2",
                 backgroundColor: "#fff",
               }}
             >
@@ -179,21 +177,44 @@ const RightBar = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.data && props.data?.map((row) => {
-                    {console.log(row, 'rowwwwwwwwwwwww')}
-                   return <TableRow
-                      key={row.createdAt}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {moment(row?.attemptedDate).format('YYYY.MM.D hh:m')}
-                      </TableCell>
-                      <TableCell align="left">{row?.simuleraSeason.title}</TableCell>
-                      <TableCell style={{ width: '6rem' }} align="left">{row?.correctAnswerCounter} av {row?.totalQuestions}</TableCell>
-                     <TableCell align="left">{(row?.correctAnswerCounter / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
-                      <TableCell align="left"><MenuIcon row={row} /></TableCell>
-                    </TableRow>
-                  } )}
+                  {props.data &&
+                    props.data?.map((row) => {
+                      {
+                        console.log(row, "rowwwwwwwwwwwww");
+                      }
+                      return (
+                        <TableRow
+                          key={row.createdAt}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {moment(row?.attemptedDate).format(
+                              "YYYY.MM.D hh:m"
+                            )}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row?.simuleraSeason.title}
+                          </TableCell>
+                          <TableCell style={{ width: "6rem" }} align="left">
+                            {row?.correctAnswerCounter} av {row?.totalQuestions}
+                          </TableCell>
+                          <TableCell align="left">
+                            {(
+                              (row?.correctAnswerCounter /
+                                row?.totalQuestions) *
+                              2
+                            )
+                              .toFixed(1)
+                              .replace(/\.0+$/, "")}
+                          </TableCell>
+                          <TableCell align="left">
+                            <MenuIcon row={row} />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -203,7 +224,7 @@ const RightBar = (props) => {
               border: "1px solid #e1e1e1",
               borderRadius: ".25rem",
               padding: "1.5rem",
-              boxShadow: "1px 1px 5px #d4d4d4",
+              boxShadow: "0px 5px 10px #f2f2f2",
               backgroundColor: "#fff",
               display: "flex",
               justifyContent: "space-between",
