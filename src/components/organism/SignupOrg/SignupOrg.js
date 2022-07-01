@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#fff !important",
     },
   },
+  focusTest: {
+    "&:focus": {
+      outline: "none !important",
+    },
+  },
   mobileView: {
     [theme.breakpoints.down("sm")]: {
       margin: "0rem !important",

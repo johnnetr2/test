@@ -16,16 +16,22 @@ const MessageMain = () => {
 
   return (
     <Container maxWidth="false" disableGutters>
-      <Container maxWidth="xl" disableGutters>
-        <Grid container>
-          <Grid item sm={1} xs={1} md={1} lg={1} xl={1}>
-            <MessageLeftBar />
-          </Grid>
-          <Grid item sm={11} xs={11} md={11} lg={11} xl={11}>
-            <MessageFeedContent />
-          </Grid>
+      <Grid container>
+        <Grid
+          item
+          style={{ maxWidth: "6rem" }}
+          sm={1}
+          xs={1}
+          md={1}
+          lg={1}
+          xl={1}
+        >
+          <MessageLeftBar />
         </Grid>
-      </Container>
+        <Grid item sm={11} xs={11} md={11} lg={11} xl={11}>
+          <MessageFeedContent />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

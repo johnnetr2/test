@@ -1,9 +1,10 @@
 import React from "react";
 import { Input } from "reactstrap";
+import "../../../App.css";
 
 const InputField = (props) => {
   return (
-    <div className="input-field-1">
+    <div>
       <Input
         type={props.type}
         placeholder={props.placeholder}
@@ -11,7 +12,6 @@ const InputField = (props) => {
         onChange={props.onChange}
         id={props.icon}
         style={props?.style}
-        autofocus=""
       />
     </div>
   );
