@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import LabelField from "../../molecule/LabelField/LabelField";
@@ -15,6 +11,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Label } from "reactstrap";
 import { instance, EndPoints } from "../../service/Route";
 import InputField from "../../atom/InputField/InputField";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -39,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignupOrg = () => {
   const classes = useStyles();
-
+  const navegate = useNavigate();
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
@@ -64,13 +61,11 @@ const SignupOrg = () => {
     instance
       .post(URL, data)
       .then((response) => {
-        if (response.data.message === "success") {
-          if (response.data.user.token) {
-            localStorage.setItem("userId", response.data.user.user._id);
-            localStorage.setItem("token", response.data.user.token);
-            swal("Success!", response.data.message, "success");
-            window.location.href = "/login";
-          }
+        if (!response.data.message) {
+          localStorage.setItem("userId", response.data.user._id);
+          localStorage.setItem("token", response.data.user.token);
+          swal("Success!", "user registered successfully", "success");
+          navegate("/login");
         } else {
           swal("Warning!", response.data.message, "warning");
         }

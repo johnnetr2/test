@@ -10,9 +10,10 @@ const Home = () => {
   const [collection, setCollection] = useState({
     date: "",
     gpa: "",
-    // userId: '61d44d9ca94c4e0398b040da'
+    StudentPreference: "",
     userId: localStorage.getItem("userId"),
   });
+
   useEffect(() => {
     const URL = EndPoints.getStudentPreference + localStorage.getItem("userId");
     instance2.get(URL).then((response) => {
@@ -26,15 +27,21 @@ const Home = () => {
 
   const data = {
     attemptDate: collection.date,
-    point: collection.gpa,
+    point: collection.gpa ? collection.gpa : 1,
     user: collection.userId,
   };
 
   const URL = EndPoints.testDate;
   function sendData() {
     instance2.post(URL, data, {}).then((response) => {
-      if (response.data.StudentPreference) {
+      if (response?.data?.StudentPreference) {
+        setCollection({
+          ...collection,
+          StudentPreference: response.data.StudentPreference,
+        });
         setSecondPopup(false);
+
+        window.location.reload();
       }
     });
   }
@@ -59,7 +66,11 @@ const Home = () => {
         hidePopup={() => setSecondPopup(false)}
         submit={sendData}
       />
-      <HomeMainOrg />
+      <HomeMainOrg
+        StudentPreference={
+          collection.StudentPreference && collection.StudentPreference
+        }
+      />
     </div>
   );
 };

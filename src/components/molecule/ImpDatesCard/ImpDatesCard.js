@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Box,
@@ -8,13 +8,33 @@ import {
   IconButton,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import moment from "moment";
+import StartPopup from "../StartPopup/StartPopup";
+import { EndPoints, instance2 } from "../../service/Route";
 
-const ImpDatesCard = () => {
-  const currentDate = new Date();
-  const convertedDate = `${currentDate.getDate()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()}`;
-
+const ImpDatesCard = (props) => {
+  const [collection, setCollection] = useState({
+    date: "",
+    popup: false,
+  });
+  const updateDate = () => {
+    const pointURL =
+      EndPoints.testDate + "/User/" + localStorage.getItem("userId");
+    const body = {
+      attemptDate: collection.date,
+    };
+    instance2.put(pointURL, body).then((response) => {
+      console.log(response, "success");
+      setCollection({ ...collection, popup: false });
+    });
+  };
+  useEffect(() => {
+    setCollection({ ...collection, date: props.date });
+  }, [props.date]);
+  const menuBtnClick = () => {
+    setCollection({ ...collection, popup: true });
+  };
+  const convertedDate = moment(collection.date).format("DD/MM/YYYY");
   const MenuIcon = () => {
     const options = "EDIT";
     const ITEM_HEIGHT = 48;
@@ -58,7 +78,7 @@ const ImpDatesCard = () => {
             },
           }}
         >
-          <MenuItem>{options}</MenuItem>
+          <MenuItem onClick={menuBtnClick}>{options}</MenuItem>
         </Menu>
       </div>
     );
@@ -112,6 +132,13 @@ const ImpDatesCard = () => {
           </Box>
         </Box>
       </Container>
+      <StartPopup
+        onDateChange={(value) => setCollection({ ...collection, date: value })}
+        showPopup={collection.popup}
+        hidePopup={() => setCollection({ ...collection, popup: false })}
+        defualtValue={collection.date}
+        submit={updateDate}
+      />
     </>
   );
 };

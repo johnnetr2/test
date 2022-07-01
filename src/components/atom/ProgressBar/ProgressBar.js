@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProgressBar = () => {
+const ProgressBar = (props) => {
   const classes = useStyles();
 
   return (
@@ -60,7 +60,27 @@ const ProgressBar = () => {
       >
         <Box
           sx={{
-            width: "90%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {props.average < 20 && (
+            <Typography
+              style={{
+                textTransform: "uppercase",
+                fontSize: "0.65rem",
+                color: "#505050",
+                position: "absolute",
+                marginTop: 3,
+              }}
+            >
+              Copy här
+            </Typography>
+          )}
+        </Box>
+        <Box
+          sx={{
+            width: props.average + "%",
             height: "1.25rem",
             borderRadius: "100px   0 0 100px",
             backgroundColor: "#6FCF97",
@@ -69,20 +89,22 @@ const ProgressBar = () => {
             alignItems: "center",
           }}
         >
-          <Typography
-            style={{
-              textTransform: "uppercase",
-              fontSize: "0.65rem",
-              color: "#0A5B2D",
-            }}
-          >
-            Copy här
-          </Typography>
+          {props.average > 20 && (
+            <Typography
+              style={{
+                textTransform: "uppercase",
+                fontSize: "0.65rem",
+                color: "#0A5B2D",
+              }}
+            >
+              Copy här
+            </Typography>
+          )}
         </Box>
       </Box>
       <Box>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
-          90
+          props.average
         )}%`}</Typography>
       </Box>
     </Box>

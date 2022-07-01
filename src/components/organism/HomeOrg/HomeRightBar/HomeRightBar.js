@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LineChart from "../../../molecule/Charts/LineChart";
+import { EndPoints, instance2 } from "../../../service/Route";
+import { set } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,8 +13,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeRightBar = () => {
+const HomeRightBar = (props) => {
   const classes = useStyles();
+  const [studentPreference, setStudentPreference] = useState();
+  useEffect(() => {
+    const studentPrefenenceURL =
+      EndPoints.getStudentPreference + localStorage.getItem("userId");
+    instance2.get(studentPrefenenceURL).then((response) => {
+      if (response?.data?.StudentPreference) {
+        setStudentPreference(response.data.StudentPreference);
+      }
+    });
+  }, [props.StudentPreference]);
 
   return (
     <Container
@@ -47,10 +59,16 @@ const HomeRightBar = () => {
             }}
           >
             <Box sx={{ width: "49%" }}>
-              <QuestionProgressBox />
+              <QuestionProgressBox totalPrognos={props?.totalPrognos} />
             </Box>
             <Box sx={{ width: "49%" }}>
-              <GoalBox />
+              <GoalBox
+                goalPoint={
+                  props.studentPreference && props.studentPreference
+                    ? props.studentPreference.point
+                    : studentPreference?.point
+                }
+              />
             </Box>
           </Box>
         </Box>
@@ -86,22 +104,23 @@ const HomeRightBar = () => {
             </Typography>
             <LineChart />
           </Box>
-        </Box>
-      </Box>
-      <Box style={{ marginTop: "2rem" }}>
-        <Typography
-          variant="h6"
-          component="h6"
-          style={{
-            marginTop: "2rem",
-            marginBottom: "1rem",
-          }}
-        >
-          Viktiga datum
-        </Typography>
-        <Box sx={{ display: "flex" }}>
-          <Box sx={{ width: "100%" }}>
-            <ImpDatesCard />
+
+          <Box style={{ marginTop: "2rem" }}>
+            <Typography
+              variant="h6"
+              component="h6"
+              style={{
+                marginTop: "2rem",
+                marginBottom: "1rem",
+              }}
+            >
+              Viktiga datum
+            </Typography>
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ width: "100%" }}>
+                <ImpDatesCard />
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Box>

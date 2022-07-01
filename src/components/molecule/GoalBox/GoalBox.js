@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Box,
@@ -8,8 +8,32 @@ import {
   IconButton,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { EndPoints, instance2 } from "../../service/Route";
+import EndPopup from "../EndPopup/EndPopup";
 
-const GoalBox = () => {
+const GoalBox = (props) => {
+  const [pointCollection, setPointCollection] = useState({
+    point: "",
+    popup: false,
+  });
+  useEffect(() => {
+    setPointCollection({ ...pointCollection, point: props.goalPoint });
+  }, [props.goalPoint]);
+
+  const menuBtnClick = () => {
+    setPointCollection({ ...pointCollection, popup: true });
+  };
+  const updatePoint = () => {
+    const pointURL =
+      EndPoints.testDate + "/User/" + localStorage.getItem("userId");
+
+    const body = {
+      point: pointCollection.point,
+    };
+    instance2.put(pointURL, body).then((response) => {
+      setPointCollection({ ...pointCollection, popup: false });
+    });
+  };
   const MenuIcon = () => {
     const options = "EDIT";
     const ITEM_HEIGHT = 48;
@@ -23,6 +47,7 @@ const GoalBox = () => {
     const handleClose = () => {
       setAnchorEl(null);
     };
+    const handleClickMenuItem = () => {};
 
     return (
       <div>
@@ -53,55 +78,67 @@ const GoalBox = () => {
             },
           }}
         >
-          <MenuItem>{options}</MenuItem>
+          <MenuItem onClick={menuBtnClick}>{options}</MenuItem>
         </Menu>
       </div>
     );
   };
 
   return (
-    <Container
-      maxWidth="false"
-      disableGutters
-      sx={{
-        border: "1px solid #dddddd",
-        boxShadow: "0px 5px 10px #f2f2f2",
-        borderRadius: 1,
-        padding: ".5rem",
-      }}
-    >
-      <Box
+    <>
+      <Container
+        maxWidth="false"
+        disableGutters
         sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <MenuIcon sx={{ color: "#b4b4b4" }} />
-      </Box>
-      <Box
-        sx={{
-          padding: ".25rem 1rem",
+          border: "1px solid #dddddd",
+          boxShadow: "0px 5px 10px #f2f2f2",
+          borderRadius: 1,
+          padding: ".5rem",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-end",
+            justifyContent: "flex-end",
           }}
         >
-          <Typography
-            variant="h3"
-            style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
-          >
-            1
-          </Typography>
-          <Typography variant="body2" style={{ marginBottom: "0.5rem" }}>
-            Mål
-          </Typography>
+          <MenuIcon sx={{ color: "#b4b4b4" }} />
         </Box>
-      </Box>
-    </Container>
+        <Box
+          sx={{
+            padding: ".25rem 1rem",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-end",
+            }}
+          >
+            <Typography
+              variant="h3"
+              style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
+            >
+              {pointCollection.point && pointCollection.point}
+            </Typography>
+
+            <Typography variant="body2" style={{ marginBottom: "0.5rem" }}>
+              Mål
+            </Typography>
+          </Box>
+        </Box>
+      </Container>
+      <EndPopup
+        onSliderChange={(value) => {
+          setPointCollection({ ...pointCollection, point: value });
+        }}
+        showPopup={pointCollection.popup}
+        hidePopup={false}
+        defaultValue={pointCollection.point}
+        submit={updatePoint}
+      />
+    </>
   );
 };
 
