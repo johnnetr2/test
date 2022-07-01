@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Box } from "@mui/material";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 import { useNavigate } from "react-router-dom";
 
 const HomeCard = (props) => {
   const data = props?.item;
+  const previousRecord = props?.previousRecord;
   const navigate = useNavigate();
-
   return (
     <Box
       sx={{
@@ -31,12 +31,12 @@ const HomeCard = (props) => {
       }
     >
       <Box sx={{ width: "60%" }}>
-        <Typography variant="h5">{data?.title}</Typography>
+        <Typography variant="h5">{data.title}</Typography>
         <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
           {data?.information}
         </Typography>
         <Box>
-          <ProgressBar />
+          <ProgressBar average={previousRecord && previousRecord} />
         </Box>
       </Box>
       <Box
@@ -48,7 +48,7 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          0.0
+          {props.prognos}
         </Typography>
         <Typography
           variant="body1"

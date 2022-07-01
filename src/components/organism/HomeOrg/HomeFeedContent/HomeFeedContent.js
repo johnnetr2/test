@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeFeedContent = () => {
+const HomeFeedContent = (props) => {
   const classes = useStyles();
 
   const [tabValue, setTabValue] = useState(0);
@@ -56,12 +56,23 @@ const HomeFeedContent = () => {
   const navigate = useNavigate();
   // const [categories, setCategories] = useState();
   const [sections, setSections] = useState();
-
+  const [previousRecordProgress, setPreviousRecordProgress] = useState();
+  const [totalPrognos, setTotalPrognos] = useState();
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
         setSections(response.data.data);
+      });
+
+      //get pervious record
+      const previousRecordURL =
+        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+      instance2.get(previousRecordURL).then((response) => {
+        if (response.data.success == true) {
+          setPreviousRecordProgress(response.data.Data);
+          console.log(response.data, "previousRecord");
+        }
       });
     } else {
       swal({
@@ -77,6 +88,22 @@ const HomeFeedContent = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    let count = 0;
+    let prognos;
+    previousRecordProgress &&
+      previousRecordProgress.map((item) => {
+        prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
+        count = count + prognos;
+      });
+    let avgPrognos =
+      previousRecordProgress && count / previousRecordProgress.length;
+    // avgPrognos=  count /previousRecordProgress.length;
+    previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
+    previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
+    console.log(count.toFixed(2), "total prognos");
+  }, [previousRecordProgress]);
 
   return (
     <Container className={classes.root} maxWidth="false">
@@ -127,9 +154,28 @@ const HomeFeedContent = () => {
         <Box>
           <Box sx={{ marginBottom: "1rem" }}>
             {sections &&
-              sections.map((item) => {
+              previousRecordProgress &&
+              sections.map((item, index) => {
                 if (item.section.title === "Kvantitativ del") {
-                  return <HomeCard item={item} />;
+                  let progressResult;
+                  let prognos;
+                  if (item._id === previousRecordProgress[index]._id) {
+                    progressResult =
+                      (previousRecordProgress[index].AttemptedQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      100;
+                    prognos =
+                      (previousRecordProgress[index].CorrectQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      2;
+                  }
+                  return (
+                    <HomeCard
+                      item={item}
+                      previousRecord={progressResult}
+                      prognos={prognos.toFixed(1)}
+                    />
+                  );
                 }
               })}
           </Box>
@@ -144,9 +190,32 @@ const HomeFeedContent = () => {
             }}
           >
             {sections &&
-              sections.map((item) => {
+              previousRecordProgress &&
+              sections.map((item, index) => {
                 if (item.section.title === "Verbal del") {
-                  return <HomeCard item={item} />;
+                  let progressResult;
+                  let prognos;
+                  if (item._id === previousRecordProgress[index]._id) {
+                    progressResult =
+                      (previousRecordProgress[index].AttemptedQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      100;
+                    prognos =
+                      (previousRecordProgress[index].CorrectQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      2;
+                    console.log(
+                      progressResult.toFixed(),
+                      "Progress percentage"
+                    );
+                  }
+                  return (
+                    <HomeCard
+                      item={item}
+                      previousRecord={progressResult}
+                      prognos={prognos.toFixed(1)}
+                    />
+                  );
                 }
               })}
           </Box>
@@ -161,9 +230,32 @@ const HomeFeedContent = () => {
         <Box>
           <Box sx={{ marginBottom: "1rem" }}>
             {sections &&
-              sections.map((item) => {
+              previousRecordProgress &&
+              sections.map((item, index) => {
                 if (item.section.title === "Kvantitativ del") {
-                  return <HomeCard item={item} />;
+                  let progressResult;
+                  let prognos;
+                  if (item._id === previousRecordProgress[index]._id) {
+                    progressResult =
+                      (previousRecordProgress[index].AttemptedQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      100;
+                    prognos =
+                      (previousRecordProgress[index].CorrectQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      2;
+                    console.log(
+                      progressResult.toFixed(),
+                      "Progress percentage"
+                    );
+                  }
+                  return (
+                    <HomeCard
+                      item={item}
+                      previousRecord={progressResult}
+                      prognos={prognos.toFixed(1)}
+                    />
+                  );
                 }
               })}
           </Box>
@@ -176,9 +268,32 @@ const HomeFeedContent = () => {
           </Typography>
           <Box sx={{ marginTop: "1rem" }}>
             {sections &&
-              sections.map((item) => {
+              previousRecordProgress &&
+              sections.map((item, index) => {
                 if (item.section.title === "Verbal del") {
-                  return <HomeCard item={item} />;
+                  let progressResult;
+                  let prognos;
+                  if (item._id === previousRecordProgress[index]._id) {
+                    progressResult =
+                      (previousRecordProgress[index].AttemptedQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      100;
+                    prognos =
+                      (previousRecordProgress[index].CorrectQuestion /
+                        previousRecordProgress[index].TotalQuestion) *
+                      2;
+                    console.log(
+                      progressResult.toFixed(),
+                      "Progress percentage"
+                    );
+                  }
+                  return (
+                    <HomeCard
+                      item={item}
+                      previousRecord={progressResult}
+                      prognos={prognos.toFixed(1)}
+                    />
+                  );
                 }
               })}
           </Box>
@@ -186,7 +301,7 @@ const HomeFeedContent = () => {
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
         <Box sx={{ marginTop: "-10.5rem" }}>
-          <HomeRightBar />
+          {totalPrognos && <HomeRightBar totalPrognos={totalPrognos} />}
         </Box>
       </TabPanel>
     </Container>
