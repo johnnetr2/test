@@ -66,13 +66,22 @@ const CategoryPagesRightBar = (props) => {
             <LinearProgress
               className={classes.root}
               sx={{
-                height: 12,
+                height: 13,
                 borderRadius: "5rem",
                 backgroundColor: "#e1e1e1",
               }}
               variant="determinate"
               value={(lastWeekTasks.totalCorrectQuestions / lastWeekTasks.totalQuestions) * 100}
             />
+            <Typography style={{
+                marginTop: '-1rem',
+                position: 'absolute',
+                fontSize: '13px',
+                alignSelf: 'center',
+                marginLeft: width*0.11
+            }}>
+              {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions}
+            </Typography>
           </Box>
         </Box>
         <Box style={{ marginTop: "2rem" }}>
