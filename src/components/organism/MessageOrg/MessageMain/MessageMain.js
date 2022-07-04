@@ -9,6 +9,11 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  leftBarHide: {
+    [theme.breakpoints.down("600")]: {
+      display: "none",
+    },
+  },
 }));
 
 const MessageMain = () => {
@@ -19,6 +24,7 @@ const MessageMain = () => {
       <Grid container>
         <Grid
           item
+          className={classes.leftBarHide}
           style={{ maxWidth: "6rem" }}
           sm={1}
           xs={1}
@@ -28,7 +34,7 @@ const MessageMain = () => {
         >
           <MessageLeftBar />
         </Grid>
-        <Grid item sm={11} xs={11} md={11} lg={11} xl={11}>
+        <Grid item sm={12} xs={11} md={11} lg={11} xl={11}>
           <MessageFeedContent />
         </Grid>
       </Grid>

@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "flex-start",
     },
   },
+  leftBarHide: {
+    [theme.breakpoints.down("600")]: {
+      display: "none",
+    },
+  },
 }));
 
 const ProfileMain = () => {
@@ -36,6 +41,7 @@ const ProfileMain = () => {
     >
       <Grid container className={classes.main}>
         <Grid
+          className={classes.leftBarHide}
           item
           style={{ maxWidth: "6rem" }}
           sm={1}
@@ -49,7 +55,7 @@ const ProfileMain = () => {
         <Grid
           item
           sm={11}
-          xs={11}
+          xs={12}
           md={7}
           lg={7}
           xl={7}

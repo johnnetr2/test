@@ -11,13 +11,24 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   main: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("1300")]: {
       display: "flex",
       justifyContent: "space-between",
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("1280")]: {
       display: "flex",
       justifyContent: "flex-start",
+    },
+  },
+  flexStart: {
+    [theme.breakpoints.up("lg")]: {
+      display: "flex",
+      justifyContent: "flex-start",
+    },
+  },
+  leftBarHide: {
+    [theme.breakpoints.down("600")]: {
+      display: "none",
     },
   },
 }));
@@ -29,6 +40,7 @@ const HomeMainOrg = (props) => {
     <Container maxWidth="false" disableGutters>
       <Grid container className={classes.main}>
         <Grid
+          className={classes.leftBarHide}
           style={{ maxWidth: "6rem" }}
           item
           xs={1}
@@ -39,14 +51,14 @@ const HomeMainOrg = (props) => {
         >
           <HomeLeftBar />
         </Grid>
-        <Grid item xs={11} sm={11} md={7} lg={7} xl={7}>
+        <Grid item xs={12} sm={11} md={7} lg={7} xl={7}>
           <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)} />
         </Grid>
         <Grid
           item
-          md={4}
-          lg={4}
-          xl={4}
+          // md={4}
+          // lg={4}
+          // xl={4}
           style={{
             maxWidth: "30rem",
             backgroundColor: "#fafafa",
