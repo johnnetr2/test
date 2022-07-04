@@ -12,13 +12,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   main: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("1300")]: {
       display: "flex",
       justifyContent: "space-between",
     },
     [theme.breakpoints.down("md")]: {
       display: "flex",
       justifyContent: "flex-start",
+    },
+  },
+  leftBarHide: {
+    [theme.breakpoints.down("600")]: {
+      display: "none",
     },
   },
 }));
@@ -89,6 +94,7 @@ const CoursesMain = () => {
       <Grid container className={classes.main}>
         <Grid
           item
+          className={classes.leftBarHide}
           style={{ maxWidth: "6rem" }}
           sm={1}
           xs={1}
@@ -98,7 +104,7 @@ const CoursesMain = () => {
         >
           <CoursesLeftBar />
         </Grid>
-        <Grid item sm={11} xs={11} md={7} lg={7} xl={7}>
+        <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
           {/* {seasons &&  */}
           <CoursesFeedContent
             previousExams={previousExams}
