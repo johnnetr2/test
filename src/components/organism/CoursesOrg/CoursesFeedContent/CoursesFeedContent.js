@@ -63,8 +63,8 @@ const CoursesFeedContent = (props) => {
   };
 
   return (
-    <Container className={classes.root}>
-      <Box>
+    <Container className={classes.root} maxWidth="false">
+      <Box sx={{ border: "1px solid #000" }}>
         <Heading title="Simulera Prov" />
         <BodyText title="Gör prov från tidigare år eller välj att slumpa ett helt prov med uppgifter från gamla prov du inte stött på tidigare. " />
         <Box sx={{ display: "flex", alignItems: "center" }}>

@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   topspace: {
     paddingTop: theme.spacing(18),
     paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   tablespace: {
     paddingLeft: theme.spacing(2),
@@ -18,7 +19,14 @@ const ProfileRightBar = () => {
   const classes = useStyles();
 
   return (
-    <Container disableGutters maxWidth={false}>
+    <Container
+      maxWidth={false}
+      style={{
+        backgrounColor: "#fafafa",
+        width: "27rem",
+        border: "1px solid #00f",
+      }}
+    >
       <Box sx={{ backgroundColor: "#fafafa" }}>
         <Box
           className={classes.topspace}
@@ -40,16 +48,13 @@ const ProfileRightBar = () => {
           >
             Du har 4 inbjudningar
           </Typography>
-          <Typography
-            variant="body2"
-            style={{ textAlign: "center", width: "70%" }}
-          >
+          <Typography variant="body2" style={{ textAlign: "center" }}>
             Känner du någon som du tror skulle gilla HP-appen? Endast ett
             begränsat antal användare kan få tillgång till Beta-versionen av
             HP-appen, så välj nogrannt vilka du bjuder in!
           </Typography>
         </Box>
-        <Box paddingX={10} sx={{ width: "100%" }}>
+        <Box className={classes.tablespace} sx={{ width: "100%" }}>
           <Box sx={{ marginTop: "3rem" }}>
             <Typography variant="body1">Email</Typography>
             <InputField

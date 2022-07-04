@@ -7,7 +7,24 @@ import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("1234")]: {
+      display: "none",
+    },
+  },
+  main: {
+    [theme.breakpoints.up("1300")]: {
+      display: "flex",
+      flexWrap: "nowrap",
+      justifyContent: "space-between",
+    },
+    [theme.breakpoints.down("1280")]: {
+      display: "flex",
+      flexWrap: "nowrap",
+      justifyContent: "flex-start",
+    },
+  },
+  leftBarHide: {
+    [theme.breakpoints.down("600")]: {
       display: "none",
     },
   },
@@ -19,19 +36,45 @@ const CategoryPagesMain = () => {
 
   return (
     <Container maxWidth="false" disableGutters>
-      <Container maxWidth="xl" disableGutters>
-        <Grid container>
-          <Grid item sm={1} xs={1} md={1} lg={1} xl={1}>
-            <CategoryPagesLeftBar />
-          </Grid>
-          <Grid item sm={11} xs={11} md={7} lg={7} xl={7}>
-            <CategoryPagesFeedContent item={params?.state?.item} />
-          </Grid>
-          <Grid item sm={4} md={4} lg={4} xl={4} className={classes.right}>
-            <CategoryPagesRightBar item={params?.state?.item} />
-          </Grid>
+      <Grid container className={classes.main}>
+        <Grid
+          item
+          style={{ maxWidth: "6rem" }}
+          className={classes.leftBarHide}
+          sm={1}
+          xs={1}
+          md={1}
+          lg={1}
+          xl={1}
+        >
+          <CategoryPagesLeftBar />
         </Grid>
-      </Container>
+        <Grid
+          item
+          style={{ maxWidth: "100rem" }}
+          sm={12}
+          xs={11}
+          md={7}
+          lg={7}
+          xl={7}
+        >
+          <CategoryPagesFeedContent item={params?.state?.item} />
+        </Grid>
+        <Grid
+          item
+          sm={4}
+          md={4}
+          lg={4}
+          xl={4}
+          style={{
+            maxWidth: "30rem",
+            backgroundColor: "#fafafa",
+          }}
+          className={classes.right}
+        >
+          <CategoryPagesRightBar item={params?.state?.item} />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

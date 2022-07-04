@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 import { LinearProgress } from "@mui/material";
 import BarChart from "../../../../../molecule/Charts/BarChart";
-import LineChart from "../../../../../molecule/Charts/LineChart";
+import LinesChart from "../../../../../molecule/Charts/LinesChart";
 import {
   EndPoints,
   instance2,
@@ -25,29 +25,36 @@ const CategoryPagesRightBar = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.testHistory + props.item._id;
-    console.log(URL)
+    console.log(URL);
     instance2.get(URL).then((response) => {
       setProgressData(response.data, "token response");
     });
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
-      console.log(response.data, 'this is last week data')
       setLastWeekTasks(response.data);
     });
   }, []);
 
   return (
-    <Container disableGutters maxWidth={false}>
+    <Container
+      maxWidth={false}
+      style={{
+        backgrounColor: "#fafafa",
+        width: "27rem",
+        border: "1px solid #00f",
+      }}
+    >
       <Box
         sx={{
           height: "fit-content",
-          marginTop: width < 901 ? '2rem' : "11.5rem",
+          marginTop: width < 901 ? "2rem" : "11.5rem",
         }}
       >
         <Box style={{ marginLeft: "1rem" }}>
           {width > 900 && <Typography variant="h5">Statistik</Typography>}
-          <Typography variant="body2" sx={{ marginTop: '1rem' }}>
-            Du har klarat {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions} uppgifter
+          <Typography variant="body2" sx={{ marginTop: "1rem" }}>
+            Du har klarat {lastWeekTasks.totalCorrectQuestions} av{" "}
+            {lastWeekTasks.totalQuestions} uppgifter
           </Typography>
         </Box>
         <Box
@@ -71,16 +78,23 @@ const CategoryPagesRightBar = (props) => {
                 backgroundColor: "#e1e1e1",
               }}
               variant="determinate"
-              value={(lastWeekTasks.totalCorrectQuestions / lastWeekTasks.totalQuestions) * 100}
+              value={
+                (lastWeekTasks.totalCorrectQuestions /
+                  lastWeekTasks.totalQuestions) *
+                100
+              }
             />
-            <Typography style={{
-                marginTop: '-1rem',
-                position: 'absolute',
-                fontSize: '13px',
-                alignSelf: 'center',
-                marginLeft: width*0.11
-            }}>
-              {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions}
+            <Typography
+              style={{
+                marginTop: "-1rem",
+                position: "absolute",
+                fontSize: "13px",
+                alignSelf: "center",
+                marginLeft: width * 0.11,
+              }}
+            >
+              {lastWeekTasks.totalCorrectQuestions} av{" "}
+              {lastWeekTasks.totalQuestions}
             </Typography>
           </Box>
         </Box>
@@ -95,7 +109,9 @@ const CategoryPagesRightBar = (props) => {
               </Typography>
             </Box>
             <Box sx={{ width: "50%", marginLeft: "1rem", marginRight: "1rem" }}>
-              <Typography variant="h5">{lastWeekTasks.totalCorrectQuestions}</Typography>
+              <Typography variant="h5">
+                {lastWeekTasks.totalCorrectQuestions}
+              </Typography>
               <Typography variant="body2">Gjorda uppgifter totalt</Typography>
             </Box>
           </Box>
@@ -135,7 +151,15 @@ const CategoryPagesRightBar = (props) => {
             marginBottom: "2rem",
           }}
         >
-          <Typography variant="h5">{((lastWeekTasks.totalCorrectQuestions / lastWeekTasks.totalQuestions) * 2).toFixed(1).replace(/\.0+$/, '')}</Typography>
+          <Typography variant="h5">
+            {(
+              (lastWeekTasks.totalCorrectQuestions /
+                lastWeekTasks.totalQuestions) *
+              2
+            )
+              .toFixed(1)
+              .replace(/\.0+$/, "")}
+          </Typography>
           <Typography variant="body2">
             Prognostiserad normerad poäng {props?.item.title}
           </Typography>
@@ -151,17 +175,36 @@ const CategoryPagesRightBar = (props) => {
           >
             <Box
               sx={{
-                height: "30%",
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                height: "18rem",
+                borderRadius: 3,
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+                flexDirection: "column",
                 border: "1px solid #dddddd",
-                boxShadow: "1px 1px 8px #dfdfdf",
-                borderRadius: 5,
+                boxShadow: "0px 5px 10px #f2f2f2",
                 padding: "2rem",
               }}
             >
-              <LineChart />
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 540,
+                  marginBottom: ".5rem",
+                }}
+              >
+                POANG
+              </Typography>
+
+              <LinesChart
+                syncId="anyId"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
             </Box>
           </Box>
         </Box>

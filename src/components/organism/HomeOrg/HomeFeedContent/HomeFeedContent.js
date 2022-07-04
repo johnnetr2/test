@@ -80,7 +80,7 @@ const HomeFeedContent = () => {
 
   return (
     <Container className={classes.root} maxWidth="false">
-      <Box>
+      <Box sx={{ border: "1px solid #00f" }}>
         <Heading title="Dashboard" />
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box

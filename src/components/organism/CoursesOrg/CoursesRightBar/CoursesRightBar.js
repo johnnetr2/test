@@ -24,12 +24,12 @@ import { useNavigate } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   topspace: {
     paddingTop: theme.spacing(18),
-    paddingLeft: theme.spacing(2),
+    // paddingLeft: theme.spacing(2),
   },
-  tablespace: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-  },
+  // tablespace: {
+  //   paddingLeft: theme.spacing(2),
+  //   paddingRight: theme.spacing(2),
+  // },
 }));
 
 const MenuIcon = (row) => {
@@ -148,7 +148,15 @@ const RightBar = (props) => {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container
+      maxWidth={false}
+      // disableGutters
+      style={{
+        backgrounColor: "#fafafa",
+        width: "27rem",
+        border: "1px solid #0f0",
+      }}
+    >
       <Box sx={{ backgroundColor: "#fafafa" }}>
         <Box className={classes.topspace} style={{ marginBottom: "2rem" }}>
           <Typography variant="h6" component="h6">
