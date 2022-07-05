@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
   },
   newItem: {
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("1000")]: {
       display: "none",
     },
   },
