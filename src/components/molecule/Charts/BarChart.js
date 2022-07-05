@@ -19,7 +19,6 @@ const LineDemo = (props) => {
       const URL = EndPoints.oneDayExercise + localStorage.getItem('userId')
       instance2.get(URL).then((response)=>
       {
-          console.log(response.data, 'barrrrr data')
           setMondayExercise(response.data.days_of_exam.Monday)
           setTuesdayExercise(response.data.days_of_exam.Tuesday)
           setWednesdayExercise(response.data.days_of_exam.Wednesday)
@@ -34,7 +33,7 @@ const LineDemo = (props) => {
     return (
         <div>
             <Card style={{
-                height: '90%',
+                // height: '90%',
                 paddingTop: '2rem',
                 paddingBottom: '2rem',
             }} >
@@ -131,7 +130,6 @@ export default LineDemo;
 //       const URL = EndPoints.oneDayExercise + localStorage.getItem('userId')
 //       instance2.get(URL).then((response)=>
 //       {
-//           console.log(response.data, 'barrrrr data')
 //           setMondayExercise(response.data.days_of_exam.Monday)
 //           setTuesdayExercise(response.data.days_of_exam.Tuesday)
 //           setWednesdayExercise(response.data.days_of_exam.Wednesday)

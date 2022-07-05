@@ -23,6 +23,7 @@ const ProfileFeedContent = () => {
   const [isOpen, setIsOpen] = useState(false);
   // const [show, setShow] = useState(false);
   const [showSnack, setShowSnack] = useState();
+  const [data, setData] = useState('')
 
   const LogoutFunc = () => {
     console.log("log out function");
@@ -113,13 +114,30 @@ const ProfileFeedContent = () => {
                 height: "3rem",
                 marginTop: ".5rem",
                 marginBottom: "1rem",
+                borderRadius: '7.5px'
               }}
+              onChange={(e) => setData(e.target.value)}
             />
-            <Box sx={{ width: "24rem" }}>
-              <FilledBtn
+            <Box sx={{
+              width: "24rem", 
+              display: 'flex', 
+              justifyContent: 'center',
+              backgroundColor: data.length > 0 ? '#0A1596' : '#E1E1E1', 
+              height: '3rem',
+              alignItems: 'center',
+              borderRadius: '7.5px',
+              color: data.length > 0 ? '#FFFFFF' : '#505050',
+              cursor: 'pointer'
+            }}>
+              <Box
+                onClick={() => console.log(data.length)}
+              >
+                Spara ändringar
+              </Box>
+              {/* <FilledBtn
                 title="Spara ändringar"
                 // onClick={() => setShow(true)}
-              />
+              /> */}
             </Box>
           </Box>
         </Box>

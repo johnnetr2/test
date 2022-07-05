@@ -53,9 +53,9 @@ const CoursesFeedContent = (props) => {
     setTabValue(val);
   };
 
-  useEffect(() => {
-    console.log(props.seasons, "rhis is season");
-  }, []);
+  const getSeasonQuizzzes = (seasons, item) => {
+    return seasons.find(elem => item._id === elem.simuleraSeason._id)
+  }
 
   const TabPanel = (props) => {
     const { children, value, index } = props;
@@ -85,7 +85,6 @@ const CoursesFeedContent = (props) => {
               scrollButtons={false}
               aria-label="scrollable prevent tabs example"
               TabIndicatorProps={{ style: { background: "#0A1596" } }}
-              // style={{ backgroundColor:'blue' }}
             >
               <Tab style={{ textTransform: "initial" }} label="Alla" />
               <Tab
@@ -122,6 +121,7 @@ const CoursesFeedContent = (props) => {
             <Box>
               <img style={{ marginLeft: ".5rem" }} src={SearchIcon} alt="" />
             </Box>
+            {console.log(props?.seasons, 'seasons')}
           </Box>
         </Box>
       </Box>
@@ -146,20 +146,12 @@ const CoursesFeedContent = (props) => {
           >
             {previousExams &&
               previousExams.map((item) => {
-                console.log(
-                  props?.seasons &&
-                    props?.seasons[item?.simuleraSeason._id]?.season,
-                  "props.provHistoryData[item?.simuleraSeason._id].season"
-                );
                 return (
                   <CoursesCard
-                    id={item?.simuleraSeason._id}
+                    id={item?._id}
                     item={item}
-                    progress={item.progress}
-                    quizzes={
-                      props?.seasons &&
-                      props?.seasons[item?.simuleraSeason._id]?.season
-                    }
+                    progress={'1.5'}
+                    quizzes={props.seasons && getSeasonQuizzzes(props.seasons, item)}
                   />
                 );
               })}

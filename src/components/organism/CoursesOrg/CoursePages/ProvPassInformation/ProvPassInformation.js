@@ -73,7 +73,7 @@ const ProvPassInformation = () => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    console.log(params?.provpass, 'this is')
+    console.log(params?.state.provpass.simuleraQuizResult.length, 'this is')
   }, [])
   
 
@@ -134,7 +134,7 @@ const ProvPassInformation = () => {
             sx={{ display: "flex", width: 600, flexDirection: "column" }}
           >
             <Typography variant="h6" component="h6">
-              Kvantitativt provpass - Provpass {params?.provpass === undefined ? 1 : params?.provpass.length + 1}
+              Kvantitativt provpass - Provpass {params?.state.provpass == undefined ? 1 : params?.state.provpass.simuleraQuizResult.length + 1}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>

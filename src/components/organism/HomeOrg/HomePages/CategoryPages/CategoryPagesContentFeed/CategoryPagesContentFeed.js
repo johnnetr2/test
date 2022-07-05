@@ -120,11 +120,6 @@ const CategoryPagesFeedContent = (props) => {
 
   const [tabValue, setTabValue] = useState(0);
 
-  // const handleTabs = (e, val) => {
-  //   console.log(val, 'cahnge view')
-  //   setTabValue(val);
-  // };
-
   const TabPanel = (props) => {
     const { children, value, index } = props;
     return <div>{value === index && <div>{children}</div>}</div>;

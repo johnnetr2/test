@@ -57,12 +57,14 @@ const CategoryPagesRightBar = (props) => {
           <Box
             sx={{
               width: "100%",
-              // mr: 1,
+              mr: 1,
               border: "1px solid #dddddd",
               boxShadow: "1px 1px 8px #dfdfdf",
               borderRadius: 5,
               padding: "2rem",
               marginRight: '3rem',
+              // display: 'flex',
+              // justifyContent: 'center'
             }}
           >
             <LinearProgress
@@ -76,11 +78,12 @@ const CategoryPagesRightBar = (props) => {
               value={(lastWeekTasks.totalCorrectQuestions / lastWeekTasks.totalQuestions) * 100}
             />
             <Typography style={{
-              marginTop: '-1rem',
+              marginTop: '-0.95rem',
               position: 'absolute',
-              fontSize: '13px',
+              fontSize: '12px',
               alignSelf: 'center',
-              marginLeft: width * 0.11
+              marginLeft: width > 900 ? width*0.125 : width*0.34,
+              color: lastWeekTasks.totalCorrectQuestions > (lastWeekTasks.totalQuestions / 2) ? '#F9F9F9' : ''
             }}>
               {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions}
             </Typography>
@@ -102,37 +105,14 @@ const CategoryPagesRightBar = (props) => {
             </Box>
           </Box>
         </Box>
-        {/* <Box sx={{ display: "flex" }}> */}
-        {/* <Box
-            sx={{
-              width: "55rem",
-              height: "100%",
-              marginLeft: "1rem",
-              marginRight: "1rem",
-              marginTop: "3rem",
-            }}
-          >
-            <Box
-              sx={{
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                // border: "1px solid #dddddd",
-                boxShadow: "1px 1px 8px #dfdfdf",
-                borderRadius: 5,
-                padding: "2rem",
-              }}
-            > */}
         <Box style={{
            marginTop: '3rem',
            marginRight: '2rem',
         }}>
           <LineDemo />
-          {/* <BarChart /> */}
-          {/* </Box>
-          </Box> */}
+          
         </Box>
+
         <Box
           sx={{
             width: "80%",
