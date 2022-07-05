@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Container } from "@mui/material";
 
-const QuestionProgressBox = () => {
+const QuestionProgressBox = (props) => {
   return (
     <Container
       maxWidth="false"
@@ -48,7 +48,7 @@ const QuestionProgressBox = () => {
             variant="h3"
             style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
           >
-            10
+            {props.totalPrognos && props.totalPrognos}
           </Typography>
           <Typography variant="body2" style={{ marginBottom: ".5rem" }}>
             Prognos

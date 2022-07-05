@@ -10,7 +10,7 @@ export const instance2 = axios.create({
   // baseURL: 'http://13.53.194.168:2000',
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -18,7 +18,8 @@ export const EndPoints = {
   SignUp: "/auth/signup",
   Login: "/auth/login",
   getAllCategories: "admin/sectionCategories",
-  questionCategoryBysectionCategory: "/admin/QuestionCategory/questionCategoryBysectionCategory/",
+  questionCategoryBysectionCategory:
+    "/admin/QuestionCategory/questionCategoryBysectionCategory/",
   ResultByUser: "/quizResult/resultByUser/",
   testDate: "/api/studentPrefenence",
   getResult: "/api/quizResult/resultByUserAndQuizid/",
@@ -36,16 +37,17 @@ export const EndPoints = {
   changePassword: "/auth/changePassword/",
   feedbackSubmit: "/api/feedBack",
   resetPassword: "/api/resetPasword",
-  getPreviousExams: '/api/previousExam',
-  getStudentPreference: '/api/studentPrefenence/byUser/',
-  getSimuleraQuiz: '/api/simuleraQuiz/quizBy/',
-  submitSimuleraTest: '/api/simuleraQuizResult',
+  getPreviousExams: "/api/previousExam",
+  getStudentPreference: "/api/studentPrefenence/byUser/",
+  getSimuleraQuiz: "/api/simuleraQuiz/quizBy/",
+  submitSimuleraTest: "/api/simuleraQuizResult",
   getSimuleraQuizByUser: "/api/simuleraQuizResult/quizByUser/",
-  getSimuleraQuizResult: '/api/simuleraQuizResult/',
+  getSimuleraQuizResult: "/api/simuleraQuizResult/",
   questionRating: "/api/questionRating",
-  getUserHistory: '/api/simuleraQuizResult/testSummaryByUser/',
-  testSummary: '/api/simuleraQuizResult/resultSummarybyPE/',
-  updatePreviousExam: '/api/previousExam',
-  simuleraQuizHistory: '/api/simuleraQuizResult/ByUser/',
-  createNewResultForSeason: '/api/simuleraSeasonResult'
+  getUserHistory: "/api/simuleraQuizResult/testSummaryByUser/",
+  testSummary: "/api/simuleraQuizResult/resultSummarybyPE/",
+  updatePreviousExam: "/api/previousExam",
+  simuleraQuizHistory: "/api/simuleraQuizResult/ByUser/",
+  studentPerviousProgress: "/api/tableHistory/getProgress/",
+  createNewResultForSeason: "/api/simuleraSeasonResult",
 };

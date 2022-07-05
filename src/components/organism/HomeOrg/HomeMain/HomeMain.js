@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, makeStyles, Container, Box } from "@material-ui/core";
 import HomeFeedContent from "../HomeFeedContent/HomeFeedContent";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeMainOrg = (props) => {
   const classes = useStyles();
-
+  const [totalPrognos, setTotalPrognos] = useState();
   return (
     <Container maxWidth="false" disableGutters>
       <Grid container className={classes.main}>
@@ -52,7 +52,7 @@ const HomeMainOrg = (props) => {
           <HomeLeftBar />
         </Grid>
         <Grid item xs={12} sm={11} md={7} lg={7} xl={7}>
-          <HomeFeedContent />
+          <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)} />
         </Grid>
         <Grid
           item
@@ -63,6 +63,7 @@ const HomeMainOrg = (props) => {
           className={classes.right}
         >
           <HomeRightBar
+            totalPrognos={totalPrognos && totalPrognos}
             studentPreference={
               props.studentPreference && props.studentPreference
             }
