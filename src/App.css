@@ -2,9 +2,17 @@
   font-family: "Roboto";
 }
 
-.input-style:focus {
+/* .input-style:focus {
   outline: none;
-}
+} */
+
 .input-style {
   border: "2px solid #f00";
+}
+
+input:focus {
+  outline: none;
+}
+input {
+  background-color: "#f00";
 }

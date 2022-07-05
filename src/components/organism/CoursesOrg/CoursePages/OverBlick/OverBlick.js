@@ -19,59 +19,57 @@ import {
   Button,
 } from "@material-ui/core";
 import { useLocation, useNavigate } from "react-router-dom";
-import BootstrapDialogTitle from '../../../../molecule/TestSubmitPopup/TestSubmitPopup'
+import BootstrapDialogTitle from "../../../../molecule/TestSubmitPopup/TestSubmitPopup";
 import { EndPoints, instance2 } from "../../../../service/Route";
-import TestOverPopup from '../../../../molecule/TestOverPopup/TestOverPopup'
+import TestOverPopup from "../../../../molecule/TestOverPopup/TestOverPopup";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const OverBlick = () => {
-
-  const [quiz, setQuiz] = useState()
-  const [testSubmitPopUp, setTestSubmitPopUp] = useState(false)
-  const [timeOverPopUp, setTimeOverPopUp] = useState(false)
-  const params = useLocation()
-  const navigate = useNavigate()
+  const [quiz, setQuiz] = useState();
+  const [testSubmitPopUp, setTestSubmitPopUp] = useState(false);
+  const [timeOverPopUp, setTimeOverPopUp] = useState(false);
+  const params = useLocation();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setQuiz(params.state.quiz)
-    params.state.timeLeft === 0 && setTimeOverPopUp(true)
-  }, [])
-
+    setQuiz(params.state.quiz);
+    params.state.timeLeft === 0 && setTimeOverPopUp(true);
+  }, []);
 
   const submitQuiz = () => {
-    setTimeOverPopUp(false)
-    setOpen(true)
+    setTimeOverPopUp(false);
+    setOpen(true);
     const data = {
       simuleraQuiz: params.state.simuleraQuiz,
       simuleraSeason: params.state.simuleraSeason,
-      quiz: params.state.SubmitedQuestions
-    }
+      quiz: params.state.SubmitedQuestions,
+    };
 
-    const URL = EndPoints.submitSimuleraTest
-    instance2.post(URL, data).then(response => {
-      console.log(response.data, 'response for test submit api')
+    const URL = EndPoints.submitSimuleraTest;
+    instance2.post(URL, data).then((response) => {
       if (response.status == 200) {
-        const updatePreviosExam = EndPoints.updatePreviousExam
+        const updatePreviosExam = EndPoints.updatePreviousExam;
         const examData = {
           simuleraSeason: params.state.simuleraSeason,
-          simuleraQuiz: params.state.simuleraQuiz
-        }
-        instance2.post(updatePreviosExam, examData).then(res => {
-          console.log(res)
-          setOpen(false)
-        })
-        navigate('/provresultat', {
+          user: response?.data?.simuleraQuizResult?.user,
+          simuleraQuizResult: response?.data?.simuleraQuizResult._id,
+        };
+        instance2.post(updatePreviosExam, examData).then((res) => {
+          setOpen(false);
+        });
+        navigate("/provresultat", {
           state: {
-            seasonId: response.data.simuleraQuizResult.simuleraSeason
-          }
-        })
+            seasonId: response.data.simuleraQuizResult.simuleraSeason,
+            simuleraQuizResultId: response.data.simuleraQuizResult._id,
+          },
+        });
       } else {
-        console.log('Fail to submit questions')
+        console.log("Fail to submit questions");
       }
-    })
-  }
+    });
+  };
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -125,28 +123,29 @@ const OverBlick = () => {
 
   const classes = useStyles(10);
 
-
   const ShowImage = (item) => {
     if (item.optionId) {
-      return <img
-        style={{ width: "1rem", marginRight: "1rem" }}
-        src={Tick}
-        alt=""
-      />
+      return (
+        <img style={{ width: "1rem", marginRight: "1rem" }} src={Tick} alt="" />
+      );
     } else if (item.isFlaged) {
-      return <img
-        style={{ width: "1rem", marginRight: "1rem" }}
-        src={YellowStar}
-        alt=""
-      />
+      return (
+        <img
+          style={{ width: "1rem", marginRight: "1rem" }}
+          src={YellowStar}
+          alt=""
+        />
+      );
     } else {
-      return <img
-        style={{ width: "1rem", marginRight: "1rem" }}
-        src={Warning}
-        alt=""
-      />
+      return (
+        <img
+          style={{ width: "1rem", marginRight: "1rem" }}
+          src={Warning}
+          alt=""
+        />
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -288,73 +287,75 @@ const OverBlick = () => {
             }}
           >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
                   width: "30rem",
                   marginBottom: "1rem",
-                  flexWrap: 'wrap',
-                  gridGap: '1rem',
+                  flexWrap: "wrap",
+                  gridGap: "1rem",
                 }}
               >
-                {quiz && quiz.simuleraQuestion.map((item, index) => {
-                  return (
-                    <Box
-                      sx={{
-                        border: "1px solid #e1e1e1",
-                        width: "14rem",
-                        height: "3rem",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        cursor: 'pointer'
-                      }}
-
-                      onClick={() => navigate('/simuleraprov', {
-                        state: {
-                          questionIndex: index,
-                          quiz: quiz,
-                          timeLeft: params.state.timeLeft
-                        }
-                      })}
-                    >
+                {quiz &&
+                  quiz.question.map((item, index) => {
+                    return (
                       <Box
                         sx={{
+                          border: "1px solid #e1e1e1",
+                          width: "14rem",
+                          height: "3rem",
                           display: "flex",
-                          width: "10rem",
-                          alignItems: "center",
-                          padding: "1rem",
+                          justifyContent: "space-between",
+                          cursor: "pointer",
                         }}
+                        onClick={() =>
+                          navigate("/simuleraprov", {
+                            state: {
+                              questionIndex: index,
+                              quiz: quiz,
+                              timeLeft: params.state.timeLeft,
+                            },
+                          })
+                        }
                       >
-                        {ShowImage(item)}
-                        <Typography
-                          variant="body2"
-                          sx={{ textTransform: "uppercase" }}
+                        <Box
+                          sx={{
+                            display: "flex",
+                            width: "10rem",
+                            alignItems: "center",
+                            padding: "1rem",
+                          }}
                         >
-                          Uppgift {index + 1}
-                        </Typography>
+                          {ShowImage(item)}
+                          <Typography
+                            variant="body2"
+                            sx={{ textTransform: "uppercase" }}
+                          >
+                            Uppgift {index + 1}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: "flex", justifyContent: "center" }}>
+                          <img
+                            style={{ marginRight: "1rem", width: ".75rem" }}
+                            src={RightArrow}
+                            alt=""
+                          />
+                        </Box>
                       </Box>
-                      <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <img
-                          style={{ marginRight: "1rem", width: ".75rem" }}
-                          src={RightArrow}
-                          alt=""
-                        />
-                      </Box>
-                    </Box>
-                  )
-                })
-                }
+                    );
+                  })}
               </Box>
-              <TestOverPopup status={timeOverPopUp} closePopUp={() => setTimeOverPopUp(false)}
+              <TestOverPopup
+                status={timeOverPopUp}
+                closePopUp={() => setTimeOverPopUp(false)}
                 onClick={() => submitQuiz()}
               />
-
             </Box>
           </Box>
         </Container>
-        <BootstrapDialogTitle status={testSubmitPopUp}
+        <BootstrapDialogTitle
+          status={testSubmitPopUp}
           closePopUp={() => setTestSubmitPopUp(false)}
           testSubmit={() => submitQuiz()}
         />
@@ -395,7 +396,6 @@ const OverBlick = () => {
             Lämna in provpass
           </Button>
         </Box>
-
       </Container>
     </div>
   );
