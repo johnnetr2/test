@@ -24,7 +24,6 @@ const ProfileRightBar = () => {
       style={{
         backgrounColor: "#fafafa",
         width: "27rem",
-        border: "1px solid #00f",
       }}
     >
       <Box sx={{ backgroundColor: "#fafafa" }}>

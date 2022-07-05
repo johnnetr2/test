@@ -43,7 +43,6 @@ const HomeRightBar = (props) => {
       style={{
         backgrounColor: "#fafafa",
         width: "27rem",
-        border: "1px solid #00f",
       }}
     >
       <Box

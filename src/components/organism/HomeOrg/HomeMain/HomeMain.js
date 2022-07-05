@@ -6,29 +6,24 @@ import HomeLeftBar from "../HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1000")]: {
+    [theme.breakpoints.down("1234")]: {
       display: "none",
     },
   },
   main: {
     [theme.breakpoints.up("1300")]: {
       display: "flex",
-      // flexWrap: "nowrap",
       justifyContent: "space-between",
-      border: "1px solid #f00",
     },
     [theme.breakpoints.down("1280")]: {
       display: "flex",
-      // flexWrap: "nowrap",
       justifyContent: "flex-start",
-      border: "1px solid #f0f",
     },
   },
   flexStart: {
     [theme.breakpoints.up("lg")]: {
       display: "flex",
       justifyContent: "flex-start",
-      border: "1px solid #00f",
     },
   },
   leftBarHide: {
@@ -56,15 +51,7 @@ const HomeMainOrg = (props) => {
         >
           <HomeLeftBar />
         </Grid>
-        <Grid
-          style={{ border: "1px solid #f00", backgroundColor: "#0ff" }}
-          item
-          xs={12}
-          sm={11}
-          md={11}
-          lg={11}
-          xl={11}
-        >
+        <Grid item xs={12} sm={11} md={7} lg={7} xl={7}>
           <HomeFeedContent />
         </Grid>
         <Grid

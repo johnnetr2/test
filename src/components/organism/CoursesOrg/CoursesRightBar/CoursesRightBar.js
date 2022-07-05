@@ -154,7 +154,6 @@ const RightBar = (props) => {
       style={{
         backgrounColor: "#fafafa",
         width: "27rem",
-        border: "1px solid #0f0",
       }}
     >
       <Box sx={{ backgroundColor: "#fafafa" }}>
