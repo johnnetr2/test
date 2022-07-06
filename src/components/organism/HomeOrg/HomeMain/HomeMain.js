@@ -63,7 +63,7 @@ const HomeMainOrg = (props) => {
         <Grid
           item
           style={{
-            maxWidth: "30rem",
+            maxWidth: "27rem",
             backgroundColor: "#fafafa",
           }}
           className={classes.right}

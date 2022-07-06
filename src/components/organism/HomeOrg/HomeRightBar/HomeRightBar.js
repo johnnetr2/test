@@ -113,20 +113,12 @@ const HomeRightBar = (props) => {
             <LinesChart
               width={550}
               height={200}
-              // padding={2}
               style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              // data={synchronizedLineChartData}
               syncId="anyId"
-              // margin={{
-              //   top: 10,
-              //   right: 30,
-              //   left: 0,
-              //   bottom: 0,
-              // }}
             />
           </Box>
 
