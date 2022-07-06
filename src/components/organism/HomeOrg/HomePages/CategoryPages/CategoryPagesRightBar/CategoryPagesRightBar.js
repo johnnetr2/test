@@ -87,7 +87,7 @@ const CategoryPagesRightBar = (props) => {
               position: 'absolute',
               fontSize: '12px',
               alignSelf: 'center',
-              marginLeft: width > 900 ? width*0.125 : width*0.34,
+              marginLeft: width > 900 ? width*0.10 : width*0.34,
               color: lastWeekTasks.totalCorrectQuestions > (lastWeekTasks.totalQuestions / 2) ? '#F9F9F9' : ''
             }}>
               {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions}
