@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       justifyContent: "space-between",
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("1280")]: {
       display: "flex",
       justifyContent: "flex-start",
     },
@@ -90,7 +90,13 @@ const CoursesMain = () => {
   }, [limit]);
 
   return (
-    <Container maxWidth="false" disableGutters>
+    <Container
+      maxWidth="false"
+      disableGutters
+      sx={{
+        boxSizing: "border-box",
+      }}
+    >
       <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           item
@@ -115,11 +121,7 @@ const CoursesMain = () => {
         </Grid>
         <Grid
           item
-          // sm={4}
-          // md={4}
-          // lg={4}
-          // xl={4}
-          style={{ backgroundColor: "#fafafa", maxWidth: "30rem" }}
+          style={{ maxWidth: "30rem", backgroundColor: "#fafafa" }}
           className={classes.right}
         >
           <CoursesRightBar

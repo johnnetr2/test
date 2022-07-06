@@ -20,7 +20,13 @@ const MessageMain = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="false" disableGutters>
+    <Container
+      maxWidth="false"
+      disableGutters
+      sx={{
+        boxSizing: "border-box",
+      }}
+    >
       <Grid container wrap="nowrap">
         <Grid
           item

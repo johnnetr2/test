@@ -245,10 +245,11 @@ const CoursesFeedContent = (props) => {
             övningsdelen.
           </Typography>
         </Box>
-        <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
-        <CoursesRightBar />
+        <Box sx={{ marginTop: "-9.5rem" }}>
+          <CoursesRightBar />
+        </Box>
       </TabPanel>
     </Container>
   );

@@ -37,7 +37,13 @@ const HomeMainOrg = (props) => {
   const classes = useStyles();
   const [totalPrognos, setTotalPrognos] = useState();
   return (
-    <Container maxWidth="false" disableGutters>
+    <Container
+      maxWidth="false"
+      disableGutters
+      sx={{
+        boxSizing: "border-box",
+      }}
+    >
       <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           item

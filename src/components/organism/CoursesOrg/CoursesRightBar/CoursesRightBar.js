@@ -148,15 +148,8 @@ const RightBar = (props) => {
   };
 
   return (
-    <Container
-      maxWidth={false}
-      // disableGutters
-      style={{
-        backgrounColor: "#fafafa",
-        width: "27rem",
-      }}
-    >
-      <Box sx={{ backgroundColor: "#fafafa" }}>
+    <Container maxWidth={false} style={props.style}>
+      <Box>
         <Box className={classes.topspace} style={{ marginBottom: "2rem" }}>
           <Typography variant="h6" component="h6">
             Dina slutförda prov

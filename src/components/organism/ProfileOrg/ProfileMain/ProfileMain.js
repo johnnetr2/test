@@ -36,7 +36,6 @@ const ProfileMain = () => {
       disableGutters
       sx={{
         boxSizing: "border-box",
-        display: "flex",
       }}
     >
       <Grid container wrap="nowrap" className={classes.main}>

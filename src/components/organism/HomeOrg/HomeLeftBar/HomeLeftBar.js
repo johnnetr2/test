@@ -5,7 +5,13 @@ import Home from "../../../../assets/Icons/HomeC.svg";
 import Course from "../../../../assets/Icons/Courses.svg";
 import Feedback from "../../../../assets/Icons/Msg.svg";
 import Profile from "../../../../assets/Icons/Profile.svg";
-import { Container, makeStyles, Typography, Box } from "@material-ui/core";
+import {
+  Container,
+  makeStyles,
+  Typography,
+  Box,
+  TableContainer,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -69,9 +75,12 @@ const HomeLeftBar = () => {
   const navigate = useNavigate();
 
   return (
-    <Container disableGutters maxWidth="false" className={classes.container}>
-      <Container
-        // disableGutters
+    <Container
+      maxWidth="false"
+      style={{ width: "6rem" }}
+      className={classes.container}
+    >
+      <TableContainer
         style={{
           padding: "1rem",
           borderBottom: "1px solid #e1e1e1",
@@ -80,7 +89,7 @@ const HomeLeftBar = () => {
         <Link to="/home">
           <img src={Logo} />
         </Link>
-      </Container>
+      </TableContainer>
       <NavLink
         to="/home"
         className={classes.navStyle}
@@ -127,7 +136,10 @@ const HomeLeftBar = () => {
       >
         <Box
           className={classes.item}
-          style={{ display: "flex", justifyContent: "center" }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
           <img src={Course} className={classes.icon} />
           <Typography
