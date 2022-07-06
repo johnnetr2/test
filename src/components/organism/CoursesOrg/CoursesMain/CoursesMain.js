@@ -149,7 +149,7 @@ const CoursesMain = () => {
           <CoursesFeedContent
             previousExams={previousExams}
             loadMore={() => LoadMore()}
-            seasons={seasons}
+            seasons={provpassSeasons}
           />
           {/* } */}
         </Grid>

@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js";
 import { Card } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../service/Route";
+import { Box } from "@material-ui/core";
 
 const LineDemo = (props) => {
   const LALA = useRef();
@@ -28,6 +29,7 @@ const LineDemo = (props) => {
           setSaturdayExercise(response.data.days_of_exam.Saturday)
           setSundayExercise(response.data.days_of_exam.Sunday)
       })
+    })
 
   return (
     <Box sx={{ width: "100%", height: "100%" }}>
@@ -97,7 +99,7 @@ const LineDemo = (props) => {
       />
     </Box>
   );
-};
+}
 
 export default LineDemo;
 
