@@ -80,26 +80,26 @@ const ResultSummaryOrg = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
-    let sumOfTimeSpent = 0
+    let sumOfTimeSpent = 0;
 
-    instance2.get(URL).then(response => {
-      response.data.question.map(item => {
-        return sumOfTimeSpent = sumOfTimeSpent + item.spendTime
-      })
+    instance2.get(URL).then((response) => {
+      response.data.question.map((item) => {
+        return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
+      });
 
-      let lengthOfQuestions = response.data.question.length
+      let lengthOfQuestions = response.data.question.length;
       // let totalTime = response.data.questions[0].totaltime;
       // let remainingTime = response.data.questions[lengthOfQuestions - 1].timeleft;
       let timePerQuestion;
       timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
-      
+
       if (sumOfTimeSpent) {
         setTimePerQues(timePerQuestion);
       } else {
         setTimePerQues(false);
       }
-      setresponseCollection(response.data)
-    })
+      setresponseCollection(response.data);
+    });
 
     return () => {
       // clearInterval(timer);
@@ -157,7 +157,11 @@ const ResultSummaryOrg = (props) => {
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
               {responseCollection
-                ? dispSecondsAsMins(responseCollection?.question[responseCollection.question.length - 1].timeleft)
+                ? dispSecondsAsMins(
+                    responseCollection?.question[
+                      responseCollection.question.length - 1
+                    ].timeleft
+                  )
                 : "00:00"}
             </Box>
           </Box>
@@ -209,12 +213,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
+                responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                      " /" +
-                      responseCollection.question.length}
+                        " /" +
+                        responseCollection.question.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -245,11 +249,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
+                responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
-                    {(responseCollection.correctAnswer /
-                        responseCollection.totalQuestion) *
-                      2}
+                    {Math.round(
+                      responseCollection.correctAnswer /
+                        responseCollection.totalQuestion
+                    ) * 2}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -317,7 +322,9 @@ const ResultSummaryOrg = (props) => {
               >
                 <Typography variant="h4">
                   {responseCollection
-                    ? dispSecondsAsMins(responseCollection?.question.at(-1).timeleft)
+                    ? dispSecondsAsMins(
+                        responseCollection?.question.at(-1).timeleft
+                      )
                     : "00:00"}
                 </Typography>
                 <Typography
@@ -349,92 +356,92 @@ const ResultSummaryOrg = (props) => {
               flexDirection: "column",
             }}
           >
-            {responseCollection && responseCollection?.question?.map((item, index) => {
-              return (
-                <Box
-                  key={index}
-                  padding={1}
-                  mt={2}
-                  mb={2}
-                  onClick={() => {
-                    let questionIndex = responseCollection.question.findIndex(
-                      (element) => element._id === item._id
-                    )
-                    navigate("/question", {
+            {responseCollection &&
+              responseCollection?.question?.map((item, index) => {
+                return (
+                  <Box
+                    key={index}
+                    padding={1}
+                    mt={2}
+                    mb={2}
+                    onClick={() => {
+                      let questionIndex = responseCollection.question.findIndex(
+                        (element) => element._id === item._id
+                      );
+                      navigate("/question", {
                         state: {
                           questionIndex,
                           quiz: responseCollection,
                           sectionCategory: params?.state?.sectionCategory,
                           quizId: params?.state?.quizId,
                           // quiz: responseCollection.question
-                        }
+                        },
                       });
-                  }}
-                  style={{
-                    height: "3.5rem",
-                    border: "1px solid #E3E3E3",
-                    width: 550,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: "blue",
-                    },
-                  }}
-                >
-                  <FormControlLabel
-                    control={
-                      item.optionId === item.answer.option ? (
-                        <img
-                          style={{ height: "1.5rem", marginLeft: "1.5rem" }}
-                          src={Correct}
-                        />
-                      ) : (
-                        <img
-                          src={Wrong}
-                          style={{ height: "1.5rem", marginLeft: "1.5rem" }}
-                        />
-                      )
-                    }
-                  />
-                  <Typography
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                      marginRight: "18rem",
                     }}
-                    variant="body1"
-                    component="body1"
-                  >
-                    {"Uppgift " +
-                      `${index + 1}` +
-                      " av " +
-                      responseCollection.question.length}
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    component="h6"
-                    style={{ fontSize: ".75rem", fontWeight: "600" }}
-                  >
-                    {/* Tid: 04:51 */}
-                    {item?.spendTime
-                      && 'Tid: ' + dispSecondsAsMins(item?.spendTime)
-                    }
-                  </Typography>
-                  <Box
                     style={{
+                      height: "3.5rem",
+                      border: "1px solid #E3E3E3",
+                      width: 550,
                       display: "flex",
-                      justifyContent: "center",
                       alignItems: "center",
+                      justifyContent: "space-between",
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: "blue",
+                      },
                     }}
                   >
-                    <img src={RightArrow} className={classes.size} alt="" />
+                    <FormControlLabel
+                      control={
+                        item.optionId === item.answer.option ? (
+                          <img
+                            style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                            src={Correct}
+                          />
+                        ) : (
+                          <img
+                            src={Wrong}
+                            style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                          />
+                        )
+                      }
+                    />
+                    <Typography
+                      style={{
+                        textTransform: "uppercase",
+                        fontSize: "0.75rem",
+                        fontWeight: "600",
+                        marginRight: "18rem",
+                      }}
+                      variant="body1"
+                      component="body1"
+                    >
+                      {"Uppgift " +
+                        `${index + 1}` +
+                        " av " +
+                        responseCollection.question.length}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="h6"
+                      style={{ fontSize: ".75rem", fontWeight: "600" }}
+                    >
+                      {/* Tid: 04:51 */}
+                      {item?.spendTime &&
+                        "Tid: " + dispSecondsAsMins(item?.spendTime)}
+                    </Typography>
+                    <Box
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src={RightArrow} className={classes.size} alt="" />
+                    </Box>
                   </Box>
-                </Box>
-              );
-            })}
+                );
+              })}
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>
             <Button
