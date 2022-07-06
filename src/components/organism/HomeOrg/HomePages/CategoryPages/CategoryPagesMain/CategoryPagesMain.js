@@ -62,7 +62,7 @@ const CategoryPagesMain = () => {
         </Grid>
         <Grid
           style={{
-            maxWidth: "30rem",
+            maxWidth: "40rem",
           }}
           className={classes.right}
         >

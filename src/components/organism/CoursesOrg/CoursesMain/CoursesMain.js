@@ -33,62 +33,67 @@ const CoursesMain = () => {
   const [previousExams, setPreviousExams] = useState();
   const [limit, setLimit] = useState(7);
   const [provHistoryData, setProvHistoryData] = useState("");
-  const [provpassSeasons, setProvpassSeasons] = useState()
-
+  const [provpassSeasons, setProvpassSeasons] = useState();
 
   useEffect(() => {
-
     const data = {
       limit,
     };
     const getPreviosExams = EndPoints.getPreviousExams;
     instance2.get(getPreviosExams, data).then((response) => {
       setPreviousExams(response.data.data);
-    })
+    });
 
     const userId = localStorage.getItem("userId");
     const URL = EndPoints.simuleraQuizHistory + userId;
     instance2.get(URL).then((response) => {
-      console.log(response.data, 'this is quiz history')
+      console.log(response.data, "this is quiz history");
       if (response.data.length > 0) {
         // setProvHistoryData(response.data);
 
-        let newArray = []
+        let newArray = [];
 
-        response.data && response.data.map(item => {
-          let obj = item ?? {}
-          let totalQuestions = 0
-          let totalAnswer = 0
-          let date
+        response.data &&
+          response.data.map((item) => {
+            let obj = item ?? {};
+            let totalQuestions = 0;
+            let totalAnswer = 0;
+            let date;
 
-          item.simuleraQuizResult.map(result => {
-            totalQuestions = totalQuestions + result.totalQuestions
-            totalAnswer = totalAnswer + result.correctAnswerCounter
-          })
-          obj['totalQuestions'] = totalQuestions
-          obj['totalAnswer'] = totalAnswer
+            item.simuleraQuizResult.map((result) => {
+              totalQuestions = totalQuestions + result.totalQuestions;
+              totalAnswer = totalAnswer + result.correctAnswerCounter;
+            });
+            obj["totalQuestions"] = totalQuestions;
+            obj["totalAnswer"] = totalAnswer;
 
-          newArray.push(obj)
-        })
-        setProvHistoryData(newArray)
+            newArray.push(obj);
+          });
+        setProvHistoryData(newArray);
 
         let provPassArray = [];
-        newArray?.map(item => {
-          const exist = provPassArray.some(elem => item.simuleraSeason._id == elem.simuleraSeason._id)
+        newArray?.map((item) => {
+          const exist = provPassArray.some(
+            (elem) => item.simuleraSeason._id == elem.simuleraSeason._id
+          );
           if (!exist) {
-            provPassArray.push(item)
+            provPassArray.push(item);
           } else {
-            const simuleraQ = provPassArray.find(ques => item.simuleraSeason._id == ques.simuleraSeason._id)
-            const date1 = new Date(simuleraQ.createdAt)
-            const date2 = new Date(item.createdAt)
+            const simuleraQ = provPassArray.find(
+              (ques) => item.simuleraSeason._id == ques.simuleraSeason._id
+            );
+            const date1 = new Date(simuleraQ.createdAt);
+            const date2 = new Date(item.createdAt);
             if (date1.getTime() < date2.getTime()) {
-              const index = provPassArray.findIndex(obj => item.simuleraSeason._id == obj.simuleraSeason._id)
-              provPassArray.splice(index, 1, item)
+              const index = provPassArray.findIndex(
+                (obj) => item.simuleraSeason._id == obj.simuleraSeason._id
+              );
+              provPassArray.splice(index, 1, item);
             }
           }
-        })
-        setProvpassSeasons(provPassArray)
-        console.log('here is console of new array ====> ', provPassArray)
+        });
+        setProvpassSeasons(provPassArray);
+        console.log("here is console of new array ====> ", provPassArray);
         // let allSeasons;
         // let newSeasons;
         // response?.data.map(item => {
@@ -155,7 +160,7 @@ const CoursesMain = () => {
         </Grid>
         <Grid
           item
-          style={{ maxWidth: "27rem", backgroundColor: "#fafafa" }}
+          style={{ maxWidth: "40rem", backgroundColor: "#fafafa" }}
           className={classes.right}
         >
           <CoursesRightBar
