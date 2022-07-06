@@ -41,6 +41,7 @@ const RightBar = (props) => {
 
   useEffect(() => {
     setResultHistory(props?.data)
+    console.log(props?.data)
   }, [props?.data])
 
   const showPopup = (index) => {
@@ -101,6 +102,8 @@ const RightBar = (props) => {
                 padding: "1.5rem",
                 boxShadow: "0px 5px 10px #f2f2f2",
                 backgroundColor: "#fff",
+                display: 'flex',
+                width: '28rem'
               }}
             >
               <Table aria-label="simple table">
@@ -123,11 +126,11 @@ const RightBar = (props) => {
                        {moment(row?.createdAt).format('YYYY.MM.D hh:m')}
                       </TableCell>
                       <TableCell align="left">{row?.simuleraSeason.title}</TableCell>
-                      <TableCell style={{ width: '6rem' }} align="left">{row?.totalAnswer} av {row?.totalQuestions}</TableCell>
-                     <TableCell align="left">{(row?.totalAnswer / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
+                     <TableCell style={{ width: '6rem' }} align="left">{row?.totalAnswer ? row?.totalAnswer : 0} av {row?.totalQuestions ? row?.totalQuestions : 0}</TableCell>
+                     <TableCell align="left">{row?.totalAnswer ? (row?.totalAnswer / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '') : 0}</TableCell>
                      <TableCell style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row-reverse', color: 'grey', height: '5rem', alignItems: 'center' }} >
 
-                       <MoreVertIcon onClick={() => showPopup(index)} />
+                       <MoreVertIcon onClick={() => row?.totalQuestions && showPopup(index)} />
 
                        {row.result &&
                          <Dropdown onClick={() => ResultHandler(row)} />

@@ -47,7 +47,7 @@ export const EndPoints = {
   getUserHistory: "/api/simuleraQuizResult/testSummaryByUser/",
   testSummary: "/api/simuleraQuizResult/resultSummarybyPE/",
   updatePreviousExam: "/api/simuleraSeasonResult/seasonResult",
-  simuleraQuizHistory: "/api/simuleraQuizResult/ByUser/",
+  simuleraQuizHistory: "/api/simuleraQuizResult/HistoryOfUser/",
   studentPerviousProgress: "/api/tableHistory/getProgress/",
   createNewResultForSeason: "/api/simuleraSeasonResult",
   testSummaryByHistoryPage: '/api/simuleraQuizResult/resultSummary/',

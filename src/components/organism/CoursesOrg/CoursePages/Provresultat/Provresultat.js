@@ -156,7 +156,7 @@ const Provresultat = () => {
 
     resultText: {
       [theme.breakpoints.up(1025)]: {
-        paddingLeft: '5.8rem',
+        paddingLeft: '4rem',
         paddingTop: '5rem'
       },
       [theme.breakpoints.down(1025)]: {
@@ -187,6 +187,7 @@ const Provresultat = () => {
         alignItems: "center",
         marginTop: "2%",
         marginLeft: '10.5%',
+        justifyContent: 'space-around'
       },
       [theme.breakpoints.down(1025)]: {
         display: "flex",
@@ -477,8 +478,8 @@ const Provresultat = () => {
             <TableContainer
               sx={{
                 display: 'flex',
-                marginLeft: width > 1025 ? '5.8rem' : '1.3rem',
-                width: width > 1025 ? '50.5rem' : '94%',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
                 boxShadow: "none",
                 border: "1px solid #e1e1e1",
               }}
@@ -541,8 +542,8 @@ const Provresultat = () => {
             <TableContainer
               sx={{
                 display: 'flex',
-                marginLeft: width > 1025 ? '5.8rem' : '1.3rem',
-                width: width > 1025 ? '50.5rem' : '94%',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
                 boxShadow: "none",
                 border: "1px solid #e1e1e1",
               }}
@@ -603,8 +604,8 @@ const Provresultat = () => {
             <TableContainer
               sx={{
                 display: 'flex',
-                marginLeft: width > 1025 ? '5.8rem' : '1.3rem',
-                width: width > 1025 ? '50.5rem' : '94%',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
                 boxShadow: "none",
                 border: "1px solid #e1e1e1",
               }}
@@ -653,8 +654,8 @@ const Provresultat = () => {
             <TableContainer
               sx={{
                 display: 'flex',
-                marginLeft: width > 1025 ? '5.8rem' : '1.3rem',
-                width: width > 1025 ? '50.5rem' : '94%',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
                 boxShadow: "none",
                 border: "1px solid #e1e1e1",
               }}
@@ -689,11 +690,10 @@ const Provresultat = () => {
                       <TableCell align="left">{row.correctAnswerCounter}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
                       <TableCell
-                        onClick={() =>
-                          console.log(row._id)
+                        onClick={() => console.log(row._id)
                           // navigate('/rattadoverblick', {
                           //   state: {
-                          //     quizId: row.simuleraQuiz,
+                          //     quizId: row._id,
                           //     seasonId: row.simuleraSeason
                           //   }
                           // })
@@ -732,9 +732,7 @@ const Provresultat = () => {
                 sx={{
                   backgroundColor: "#fff",
                   fontSize: "0.65rem",
-                  marginLeft: "1rem",
                   border: "1px solid #e1e1e1",
-                  // padding: "0.5rem",
                   paddingTop: '0.5rem',
                   paddingLeft: '0.5rem',
                   paddingBottom: '0.5rem',
@@ -759,16 +757,11 @@ const Provresultat = () => {
             </Box>
             <Box
               className={classes.exitButton}
-            // style={{
-            //   display: 'flex',
-            //   justifyContent: 'flex-end'
-            // }} 
-
             >
               <Button
                 variant="outlined"
                 sx={{
-                  width: width > 1025 ? "89.5%" : '92%',
+                  width: width > 1025 ? "89.1%" : '92%',
                   border: "1px solid #0A1596",
                   margin: "1rem 0",
                   color: "#0A1596",
