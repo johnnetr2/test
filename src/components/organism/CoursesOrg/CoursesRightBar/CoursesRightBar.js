@@ -20,6 +20,7 @@ import moment from "moment";
 import Thumb from "../../../../assets/Imgs/Thumb.png";
 import { EndPoints, instance2 } from "../../../service/Route";
 import { useNavigate } from "react-router-dom";
+import useWindowDimensions from '../../../molecule/WindowDimensions/dimension'
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
@@ -30,120 +31,50 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuIcon = (row) => {
-  const options = "SE RESULTAT";
-  const ITEM_HEIGHT = 48;
-  const [anchorEl, setAnchorEl] = useState(null);
-  const navigate = useNavigate();
-
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div>
-      <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls={open ? "long-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="long-menu"
-        MenuListProps={{
-          "aria-labelledby": "long-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: "13ch",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          },
-        }}
-      >
-        <MenuItem
-          onClick={() => {
-            // console.log(row.row, 'this is raw')
-            // navigate('/provresultat', {
-            //   state: {
-            //     seasonId: row.row.simuleraSeason._id
-            //   }
-            // })
-          }}
-        >
-          {options}
-        </MenuItem>
-      </Menu>
-    </div>
-  );
-};
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-// const rows = [
-//   createData(
-//     "21.09.24 10:38",
-//     "Hösten 2021, Oktober",
-//     "0 av 160",
-//     0.0,
-//     <MenuIcon />
-//   ),
-//   createData(
-//     "21.09.24 10:38",
-//     "Hösten 2021, Oktober",
-//     "0 av 160",
-//     0.0,
-//     <MenuIcon />
-//   ),
-//   createData(
-//     "21.09.24 10:38",
-//     "Hösten 2021, Oktober",
-//     "0 av 160",
-//     0.0,
-//     <MenuIcon />
-//   ),
-//   createData(
-//     "21.09.24 10:38",
-//     "Hösten 2021, Oktober",
-//     "0 av 160",
-//     0.0,
-//     <MenuIcon />
-//   ),
-//   createData(
-//     "21.09.24 10:38",
-//     "Hösten 2021, Oktober",
-//     "0 av 160",
-//     0.0,
-//     <MenuIcon />
-//   ),
-// ];
-
 const RightBar = (props) => {
+
+  const [resultHistory, setResultHistory] = useState()
   const classes = useStyles();
+  const navigate = useNavigate()
 
-  const [provHistoryData, setProvHistoryData] = useState();
-  const [seasons, setSeasons] = useState();
+  useEffect(() => {
+    setResultHistory(props?.data)
+    console.log(props?.data)
+  }, [props?.data])
 
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+  const showPopup = (index) => {
+    const history = [...resultHistory]
+    let singlerow = history[index]
+    if (singlerow.result == true) {
+      singlerow.result = false
+      setResultHistory(history)
+    } else {
+      singlerow.result = true
+      setResultHistory(history)
+    }
+  }
+
+  const ResultHandler = (row) => {
+
+    navigate("/provresultat", {
+      state: {
+        quizId: row._id,
+      },
+    });
   };
+
+  function Dropdown(props) {
+    const { height, width } = useWindowDimensions();
+
+    return (
+      <div className='result_popup'
+        onClick={() => props.onClick()}
+        style={{ marginRight: width > 900 ? '3.39%' : '4.4%', marginTop: width > 900 ? '4.4%' : '9%', cursor: 'pointer' }}
+      >SE resultat
+        <div className='popup' ></div>
+      </div>
+    )
+  }
 
   return (
     <Container maxWidth={false}>

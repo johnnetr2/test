@@ -82,17 +82,15 @@ const CategoryPagesRightBar = (props) => {
                 100
               }
             />
-            <Typography
-              style={{
-                marginTop: "-1rem",
-                position: "absolute",
-                fontSize: "13px",
-                alignSelf: "center",
-                marginLeft: width * 0.11,
-              }}
-            >
-              {lastWeekTasks.totalCorrectQuestions} av{" "}
-              {lastWeekTasks.totalQuestions}
+            <Typography style={{
+              marginTop: '-0.95rem',
+              position: 'absolute',
+              fontSize: '12px',
+              alignSelf: 'center',
+              marginLeft: width > 900 ? width*0.125 : width*0.34,
+              color: lastWeekTasks.totalCorrectQuestions > (lastWeekTasks.totalQuestions / 2) ? '#F9F9F9' : ''
+            }}>
+              {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions}
             </Typography>
           </Box>
         </Box>
@@ -144,10 +142,9 @@ const CategoryPagesRightBar = (props) => {
             UPPGIFTER
           </Typography>
           <LineDemo />
-          {/* <BarChart /> */}
-          {/* </Box>
-          </Box> */}
+          
         </Box>
+
         <Box
           sx={{
             width: "80%",

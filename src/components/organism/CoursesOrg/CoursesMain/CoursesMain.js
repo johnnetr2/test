@@ -33,44 +33,77 @@ const CoursesMain = () => {
   const [previousExams, setPreviousExams] = useState();
   const [limit, setLimit] = useState(7);
   const [provHistoryData, setProvHistoryData] = useState("");
-  const [seasons, setSeasons] = useState();
+  const [provpassSeasons, setProvpassSeasons] = useState()
+
 
   useEffect(() => {
+
     const data = {
       limit,
     };
-    const URL = EndPoints.getPreviousExams;
-    instance2.get(URL, data).then((response) => {
+    const getPreviosExams = EndPoints.getPreviousExams;
+    instance2.get(getPreviosExams, data).then((response) => {
       setPreviousExams(response.data.data);
-    });
-  }, []);
+    })
 
-  useEffect(() => {
     const userId = localStorage.getItem("userId");
     const URL = EndPoints.simuleraQuizHistory + userId;
-    console.log(URL, "this is url");
     instance2.get(URL).then((response) => {
-      console.log(response.data);
+      console.log(response.data, 'this is quiz history')
       if (response.data.length > 0) {
-        setProvHistoryData(response.data);
+        // setProvHistoryData(response.data);
 
-        let allSeasons;
-        let newSeasons;
-        response?.data.map((item) => {
-          allSeasons = allSeasons ?? {};
-          allSeasons[item.simuleraSeason._id] =
-            allSeasons[item.simuleraSeason._id] ?? [];
-          allSeasons[item.simuleraSeason._id].push(item);
-        });
-        Object.keys(allSeasons).map((key) => {
-          newSeasons = newSeasons ?? {};
-          newSeasons[key] = {
-            time: allSeasons[key][allSeasons[key].length - 1].createdAt,
-            season: allSeasons[key],
-          };
-        });
-        setSeasons(newSeasons);
-        console.log(newSeasons, "this is iiiiiiiiiiiiiiiiiiiiii");
+        let newArray = []
+
+        response.data && response.data.map(item => {
+          let obj = item ?? {}
+          let totalQuestions = 0
+          let totalAnswer = 0
+          let date
+
+          item.simuleraQuizResult.map(result => {
+            totalQuestions = totalQuestions + result.totalQuestions
+            totalAnswer = totalAnswer + result.correctAnswerCounter
+          })
+          obj['totalQuestions'] = totalQuestions
+          obj['totalAnswer'] = totalAnswer
+
+          newArray.push(obj)
+        })
+        setProvHistoryData(newArray)
+
+        let provPassArray = [];
+        newArray?.map(item => {
+          const exist = provPassArray.some(elem => item.simuleraSeason._id == elem.simuleraSeason._id)
+          if (!exist) {
+            provPassArray.push(item)
+          } else {
+            const simuleraQ = provPassArray.find(ques => item.simuleraSeason._id == ques.simuleraSeason._id)
+            const date1 = new Date(simuleraQ.createdAt)
+            const date2 = new Date(item.createdAt)
+            if (date1.getTime() < date2.getTime()) {
+              const index = provPassArray.findIndex(obj => item.simuleraSeason._id == obj.simuleraSeason._id)
+              provPassArray.splice(index, 1, item)
+            }
+          }
+        })
+        setProvpassSeasons(provPassArray)
+        console.log('here is console of new array ====> ', provPassArray)
+        // let allSeasons;
+        // let newSeasons;
+        // response?.data.map(item => {
+        //   allSeasons = allSeasons ?? {}
+        //   allSeasons[item.simuleraSeason._id] = allSeasons[item.simuleraSeason._id] ?? []
+        //   allSeasons[item.simuleraSeason._id].push(item)
+        // })
+        // Object.keys(allSeasons).map(key => {
+        //   newSeasons = newSeasons ?? {}
+        //   newSeasons[key] = {
+        //     time: allSeasons[key][allSeasons[key].length - 1].createdAt,
+        //     season: allSeasons[key]
+        //   }
+        // })
+        // setSeasons(newSeasons)
       }
     });
   }, []);
@@ -78,16 +111,17 @@ const CoursesMain = () => {
   const LoadMore = () => {
     const limit = setLimit((lim) => lim + 10);
   };
-  useEffect(() => {
-    return;
-    // const data = {
-    //   limit
-    // }
-    // const URL = EndPoints.getPreviousExams
-    // instance2.get(URL, data).then(response => {
-    //   setPreviousExams(response.data.data)
-    // })
-  }, [limit]);
+
+  // useEffect(() => {
+  //   return;
+  // const data = {
+  //   limit
+  // }
+  // const URL = EndPoints.getPreviousExams
+  // instance2.get(URL, data).then(response => {
+  //   setPreviousExams(response.data.data)
+  // })
+  // }, [limit]);
 
   return (
     <Container

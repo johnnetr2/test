@@ -46,13 +46,16 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
+      console.log(params.state.quiz.simuleraQuiz)
       setTime(params?.state?.timeLeft);
-      setQuiz(params?.state?.quiz);
+      setQuiz(params?.state?.quiz.simuleraQuiz);
       setCurrentIndex(params?.state?.questionIndex);
       setStatus(true);
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
+      console.log(URL)
       instance2.get(URL).then((response) => {
+        console.log(response.data, 'this is response')
         setQuiz(response.data.simuleraQuiz);
         setTime(3300);
         response.data.simuleraQuiz && setStatus(true);
@@ -180,9 +183,9 @@ const StandardViewXyz = () => {
   }
 
   const Options = (question, option, optionIndex) => {
-    if (question.answer && question.answer.option == option._id) {
+    if (question.questionAnswer && question.questionAnswer.option == option._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
-    } else if (question.answer && option._id === question?.optionId) {
+    } else if (question.questionAnswer && option._id === question?.optionId) {
       return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
     }
     // else {
@@ -256,7 +259,7 @@ const StandardViewXyz = () => {
     (item) => item.optionId
   ).length;
 
-  const ifAnswerExist = quiz?.question.some((question) => question.answer);
+  const ifAnswerExist = quiz?.question.some((question) => question.questionAnswer);
 
   return (
     <div>
@@ -284,7 +287,7 @@ const StandardViewXyz = () => {
               cursor: "pointer",
             }}
             onClick={() => {
-              quiz && quiz.question[currentIndex].answer
+              quiz && quiz.question[currentIndex].questionAnswer
                 ? navigate("/provresultat", {
                     state: {
                       seasonId: params.state.seasonId,
@@ -296,7 +299,8 @@ const StandardViewXyz = () => {
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
           <Typography variant="body1" className={classes.center_align}>
-            {quiz?.question[currentIndex].questionStatement}
+            {/* {quiz?.question[currentIndex].sectionCategories.title} */}
+            {quiz?.question[currentIndex].sectionCategories.title}
           </Typography>
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
@@ -319,7 +323,7 @@ const StandardViewXyz = () => {
             </Box>
             <Box mt={2} sx={{ color: "#222", display: "flex" }}>
               <img src={Clock} alt="" />
-              {quiz && quiz.question[currentIndex].answer
+              {quiz && quiz.question[currentIndex].questionAnswer
                 ? "Slutfört"
                 : time && (
                     <Timer
@@ -441,7 +445,7 @@ const StandardViewXyz = () => {
                               fontWeight: "500",
                             }}
                           >
-                            <MarkLatex content={question.title} />
+                            <MarkLatex content={question.questionStatement} />
                           </Typography>
                           {question.images[0] && (
                             <Box>
@@ -511,7 +515,7 @@ const StandardViewXyz = () => {
                                     >
                                       <FormControlLabel
                                         onClick={(e) => {
-                                          !question?.answer &&
+                                          !question?.questionAnswer &&
                                             SelectFunc(e, optionIndex);
                                         }}
                                         style={{ marginLeft: ".5rem" }}
@@ -543,7 +547,7 @@ const StandardViewXyz = () => {
                             }
                           )}
                         </Box>
-                        {question.answer && (
+                        {question.questionAnswer && (
                           <Box
                             paddingX={4}
                             mt={3}
@@ -577,13 +581,13 @@ const StandardViewXyz = () => {
                                     fontSize: ".75rem",
                                     fontWeight: "500",
                                     marginTop: 10,
-                                    width: question?.answer.image
+                                    width: question?.questionAnswer.image
                                       ? "auto"
                                       : 500,
                                   }}
                                 >
                                   {/* {question.answer.answer} */}
-                                  <MarkLatex content={question.answer.answer} />
+                                  <MarkLatex content={question.questionAnswer.answer} />
                                 </Typography>
                               </Box>
                               <Box
@@ -593,10 +597,10 @@ const StandardViewXyz = () => {
                                   marginTop: "2rem",
                                 }}
                               >
-                                {question?.answer && (
+                                {question?.questionAnswer && (
                                   <img
                                     style={{ height: 110 }}
-                                    src={question?.answer.image}
+                                    src={question?.questionAnswer.image}
                                     alt=""
                                   />
                                 )}
@@ -683,7 +687,7 @@ const StandardViewXyz = () => {
                   onClick={() =>
                     navigate("/rattadoverblick", {
                       state: {
-                        quizId: params.state.quiz.quizId,
+                        quizId: params.state.quizId,
                         seasonId: params.state.seasonId,
                       },
                     })
@@ -787,7 +791,7 @@ const StandardViewXyz = () => {
             //   // marginLeft: '-10rem'
             // }}
           >
-            {quiz && !quiz.question[currentIndex].answer && (
+            {quiz && !quiz.question[currentIndex].questionAnswer && (
               <Button
                 style={{
                   width: "6rem",

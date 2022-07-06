@@ -25,7 +25,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
-
+import useWindowDimensions from '../../../../molecule/WindowDimensions/dimension'
 
 
 const Provresultat = () => {
@@ -37,21 +37,38 @@ const Provresultat = () => {
   const [totalQuestionsOfVerbal, setTotalQuestionsOfVerbal] = useState()
   const [correctAnswersOfVerbal, setCorrectAnswersOfVerbal] = useState()
   const [open, setOpen] = useState(true);
+  const { height, width } = useWindowDimensions();
 
 
   useEffect(() => {
     console.log(params.state)
-    const URL = EndPoints.testSummary + params.state.seasonId
-    instance2.get(URL).then(response => {
-      setOpen(false)
-      console.log(response.data, 'this is test summary')
-      setTestSummary(response.data)
-      setCorrectAnswersOfKvantitative(response.data.correctQuestions_of_XYZ + response.data.correctQuestions_of_KVA + response.data.correctQuestions_of_NOG + response.data.correctQuestions_of_DTK)
-      setTotalQuestionsOfKvantitative(response.data.totalQuestion_of_XYZ + response.data.totalQuestion_of_KVA + response.data.totalQuestion_of_NOG + response.data.totalQuestion_of_DTK)
+    if (params.state.seasonId) {
+      const URL = EndPoints.testSummary + params.state.seasonId
+      instance2.get(URL).then(response => {
+        setOpen(false)
+        console.log(response.data, 'this is test summary')
+        setTestSummary(response.data)
+        setCorrectAnswersOfKvantitative(response.data.correctQuestions_of_XYZ + response.data.correctQuestions_of_KVA + response.data.correctQuestions_of_NOG + response.data.correctQuestions_of_DTK)
+        setTotalQuestionsOfKvantitative(response.data.totalQuestion_of_XYZ + response.data.totalQuestion_of_KVA + response.data.totalQuestion_of_NOG + response.data.totalQuestion_of_DTK)
 
-      setCorrectAnswersOfVerbal(response.data.correctQuestions_of_ORD + response.data.correctQuestions_of_LAS + response.data.correctQuestions_of_MEK + response.data.correctQuestions_of_ELF)
-      setTotalQuestionsOfVerbal(response.data.totalQuestion_of_ORD + response.data.totalQuestion_of_LAS + response.data.totalQuestion_of_MEK + response.data.totalQuestion_of_ELF)
-    })
+        setCorrectAnswersOfVerbal(response.data.correctQuestions_of_ORD + response.data.correctQuestions_of_LAS + response.data.correctQuestions_of_MEK + response.data.correctQuestions_of_ELF)
+        setTotalQuestionsOfVerbal(response.data.totalQuestion_of_ORD + response.data.totalQuestion_of_LAS + response.data.totalQuestion_of_MEK + response.data.totalQuestion_of_ELF)
+      })
+    } else {
+
+      const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId
+      instance2.get(URL).then(response => {
+        setOpen(false)
+        console.log(response.data, 'this is test summary')
+        setTestSummary(response.data)
+        setCorrectAnswersOfKvantitative(response.data.correctQuestions_of_XYZ + response.data.correctQuestions_of_KVA + response.data.correctQuestions_of_NOG + response.data.correctQuestions_of_DTK)
+        setTotalQuestionsOfKvantitative(response.data.totalQuestion_of_XYZ + response.data.totalQuestion_of_KVA + response.data.totalQuestion_of_NOG + response.data.totalQuestion_of_DTK)
+
+        setCorrectAnswersOfVerbal(response.data.correctQuestions_of_ORD + response.data.correctQuestions_of_LAS + response.data.correctQuestions_of_MEK + response.data.correctQuestions_of_ELF)
+        setTotalQuestionsOfVerbal(response.data.totalQuestion_of_ORD + response.data.totalQuestion_of_LAS + response.data.totalQuestion_of_MEK + response.data.totalQuestion_of_ELF)
+      })
+    }
+
   }, [])
 
   function createData(name, calories, fat, carbs, protein) {
@@ -149,15 +166,18 @@ const Provresultat = () => {
     },
 
     resultCard: {
-      [theme.breakpoints.up(1025)]: {
-        width: '48rem',
+      [theme.breakpoints.up(900)]: {
+        display: 'flex',
         marginLeft: '4rem',
+        // width: '80%',
+        // backgroundColor: 'blue'
       },
       [theme.breakpoints.down(1025)]: {
         boxShadow: "none",
         border: "1px solid #e1e1e1",
         marginLeft: '1.3rem',
-        width: '94%'
+        width: '94%',
+        backgroundColor: 'blue'
       },
     },
 
@@ -165,10 +185,9 @@ const Provresultat = () => {
       [theme.breakpoints.up(1025)]: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
         marginTop: "2%",
-        justifyContent: 'flex-end',
-        // backgroundColor: 'blue'
+        marginLeft: '10.5%',
+        justifyContent: 'space-around'
       },
       [theme.breakpoints.down(1025)]: {
         display: "flex",
@@ -176,7 +195,6 @@ const Provresultat = () => {
         alignItems: "center",
         justifyContent: "center",
         marginTop: "2%",
-        // backgroundColor: 'blue'
       },
     },
 
@@ -241,7 +259,15 @@ const Provresultat = () => {
           className={classes.main}
         >
           <Box sx={{ backgroundColor: "transparent" }}>
-            <Box className={classes.info}>
+            <Box 
+            // className={classes.info}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                paddingLeft: width > 1025 ? '5.5rem' : '1rem',
+                display: 'flex',
+              }}
+            >
               <Typography
                 style={{ fontWeight: "500", marginTop: "4%" }}
                 variant="h4"
@@ -385,7 +411,7 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      {testSummary ? testSummary?.normering.toFixed(2).replace(/\.0+$/, '') : ''}
+                      {testSummary ? testSummary?.normering.toFixed(1).replace(/\.0+$/, '') : ''}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -450,10 +476,12 @@ const Provresultat = () => {
             </Box>
 
             <TableContainer
-              className={classes.resultCard}
               sx={{
-                boxShadow: "none", border: "1px solid #e1e1e1",
-                //width: '49rem', marginLeft: '7.8rem'
+                display: 'flex',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
+                boxShadow: "none",
+                border: "1px solid #e1e1e1",
               }}
               component={Paper}
             >
@@ -512,8 +540,13 @@ const Provresultat = () => {
             </Box>
 
             <TableContainer
-              className={classes.resultCard}
-              sx={{ boxShadow: "none", border: "1px solid #e1e1e1" }}
+              sx={{
+                display: 'flex',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
+                boxShadow: "none",
+                border: "1px solid #e1e1e1",
+              }}
               component={Paper}
             >
               <Table sx={{ boxShadow: "none" }} aria-label="simple table">
@@ -569,8 +602,13 @@ const Provresultat = () => {
               </Typography>
             </Box>
             <TableContainer
-              className={classes.resultCard}
-              sx={{ boxShadow: "none", border: "1px solid #e1e1e1" }}
+              sx={{
+                display: 'flex',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
+                boxShadow: "none",
+                border: "1px solid #e1e1e1",
+              }}
               component={Paper}
             >
               <Table sx={{ boxShadow: "none" }} aria-label="simple table">
@@ -614,8 +652,13 @@ const Provresultat = () => {
               </Typography>
             </Box>
             <TableContainer
-              className={classes.resultCard}
-              sx={{ boxShadow: "none", border: "1px solid #e1e1e1" }}
+              sx={{
+                display: 'flex',
+                marginLeft: width > 1025 ? '4rem' : '1.3rem',
+                width: width > 1025 ? '47.1rem' : '94%',
+                boxShadow: "none",
+                border: "1px solid #e1e1e1",
+              }}
               component={Paper}
             >
               <Table sx={{ boxShadow: "none" }} aria-label="simple table">
@@ -647,13 +690,13 @@ const Provresultat = () => {
                       <TableCell align="left">{row.correctAnswerCounter}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
                       <TableCell
-                        onClick={() =>
-                          navigate('/rattadoverblick', {
-                            state: {
-                              quizId: row.simuleraQuiz,
-                              seasonId: row.simuleraSeason
-                            }
-                          })
+                        onClick={() => console.log(row._id)
+                          // navigate('/rattadoverblick', {
+                          //   state: {
+                          //     quizId: row._id,
+                          //     seasonId: row.simuleraSeason
+                          //   }
+                          // })
                         }
                         align="left"><Button
                           style={{
@@ -673,13 +716,6 @@ const Provresultat = () => {
             </TableContainer>
             <Box
               className={classes.footer}
-            // sx={{
-            //   display: "flex",
-            //   alignItems: "center",
-            //   justifyContent: "center",
-            //   marginTop: "2%",
-            //   backgroundColor: 'blue'
-            // }}
             >
               <Box style={{ display: 'flex', flexDirection: 'row' }} >
                 <Typography variant="body2" style={{ fontSize: ".75rem", marginTop: '0.3rem' }}>
@@ -696,9 +732,7 @@ const Provresultat = () => {
                 sx={{
                   backgroundColor: "#fff",
                   fontSize: "0.65rem",
-                  marginLeft: "1rem",
                   border: "1px solid #e1e1e1",
-                  // padding: "0.5rem",
                   paddingTop: '0.5rem',
                   paddingLeft: '0.5rem',
                   paddingBottom: '0.5rem',
@@ -721,18 +755,13 @@ const Provresultat = () => {
                 {/* </a> */}
               </Box>
             </Box>
-            <Box 
-            className={classes.exitButton}
-            // style={{
-            //   display: 'flex',
-            //   justifyContent: 'flex-end'
-            // }} 
-
+            <Box
+              className={classes.exitButton}
             >
               <Button
                 variant="outlined"
                 sx={{
-                  width: "92%",
+                  width: width > 1025 ? "89.1%" : '92%',
                   border: "1px solid #0A1596",
                   margin: "1rem 0",
                   color: "#0A1596",

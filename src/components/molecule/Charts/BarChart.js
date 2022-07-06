@@ -1,8 +1,7 @@
 import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
 // import Chart from 'chart.js';
-import Chart from "chart.js/auto";
-import { Box } from "@mui/material";
+import Chart from "chart.js";
 import { Card } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../service/Route";
 
@@ -17,19 +16,18 @@ const LineDemo = (props) => {
   const [saturdayExercise, setSaturdayExercise] = useState("");
   const [sundayExercise, setSundayExercise] = useState("");
 
-  useEffect(() => {
-    const URL = EndPoints.oneDayExercise + localStorage.getItem("userId");
-    instance2.get(URL).then((response) => {
-      console.log(response.data, "barrrrr data");
-      setMondayExercise(response.data.days_of_exam.Monday);
-      setTuesdayExercise(response.data.days_of_exam.Tuesday);
-      setWednesdayExercise(response.data.days_of_exam.Wednesday);
-      setThursdayExercise(response.data.days_of_exam.Thursday);
-      setFridayExercise(response.data.days_of_exam.Friday);
-      setSaturdayExercise(response.data.days_of_exam.Saturday);
-      setSundayExercise(response.data.days_of_exam.Sunday);
-    });
-  }, []);
+    useEffect(() => {
+      const URL = EndPoints.oneDayExercise + localStorage.getItem('userId')
+      instance2.get(URL).then((response)=>
+      {
+          setMondayExercise(response.data.days_of_exam.Monday)
+          setTuesdayExercise(response.data.days_of_exam.Tuesday)
+          setWednesdayExercise(response.data.days_of_exam.Wednesday)
+          setThursdayExercise(response.data.days_of_exam.Thursday)
+          setFridayExercise(response.data.days_of_exam.Friday)
+          setSaturdayExercise(response.data.days_of_exam.Saturday)
+          setSundayExercise(response.data.days_of_exam.Sunday)
+      })
 
   return (
     <Box sx={{ width: "100%", height: "100%" }}>
@@ -122,7 +120,6 @@ export default LineDemo;
 //       const URL = EndPoints.oneDayExercise + localStorage.getItem('userId')
 //       instance2.get(URL).then((response)=>
 //       {
-//           console.log(response.data, 'barrrrr data')
 //           setMondayExercise(response.data.days_of_exam.Monday)
 //           setTuesdayExercise(response.data.days_of_exam.Tuesday)
 //           setWednesdayExercise(response.data.days_of_exam.Wednesday)

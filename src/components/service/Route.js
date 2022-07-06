@@ -37,7 +37,7 @@ export const EndPoints = {
   changePassword: "/auth/changePassword/",
   feedbackSubmit: "/api/feedBack",
   resetPassword: "/api/resetPasword",
-  getPreviousExams: "/api/previousExam",
+  getPreviousExams: "/api/simuleraSeasion",
   getStudentPreference: "/api/studentPrefenence/byUser/",
   getSimuleraQuiz: "/api/simuleraQuiz/quiz/",
   submitSimuleraTest: "/api/simuleraQuizResult",
@@ -47,7 +47,8 @@ export const EndPoints = {
   getUserHistory: "/api/simuleraQuizResult/testSummaryByUser/",
   testSummary: "/api/simuleraQuizResult/resultSummarybyPE/",
   updatePreviousExam: "/api/simuleraSeasonResult/seasonResult",
-  simuleraQuizHistory: "/api/simuleraQuizResult/ByUser/",
+  simuleraQuizHistory: "/api/simuleraQuizResult/HistoryOfUser/",
   studentPerviousProgress: "/api/tableHistory/getProgress/",
   createNewResultForSeason: "/api/simuleraSeasonResult",
+  testSummaryByHistoryPage: '/api/simuleraQuizResult/resultSummary/',
 };

@@ -35,6 +35,17 @@ const RattedOverblick = () => {
     color: theme.palette.text.secondary,
   }));
 
+  const dispSecondsAsMins = (seconds) => {
+    // 25:00
+    const mins = Math.floor(seconds / 60);
+    const seconds_ = seconds % 60;
+    return (
+      Math.floor(mins?.toString()) +
+      ":" +
+      (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
+    );
+  };
+
   const useStyles = makeStyles((theme) => ({
     root: {
       minHeight: "100vh",
@@ -79,7 +90,7 @@ const RattedOverblick = () => {
   useEffect(() => {
     const URL = EndPoints.getSimuleraQuizResult + params.state.quizId
     instance2.get(URL).then(response => {
-      console.log(response.data)
+      console.log(response.data.simuleraQuiz.question)
       setOpen(false)
       setResult(response.data)
     })
@@ -144,7 +155,7 @@ const RattedOverblick = () => {
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {result?.correctAnswer} av {result?.simuleraQuestion.length}
+              {'1'} av {result?.simuleraQuiz.question.length}
             </Box>
             <Box mt={2} sx={{ color: "#222", marginRight: '0.3rem' }}>
               <img src={Clock} alt="" />
@@ -206,7 +217,7 @@ const RattedOverblick = () => {
               flexDirection: "column",
             }}
           >
-           
+
             <Box
               sx={{
                 display: "flex",
@@ -216,7 +227,7 @@ const RattedOverblick = () => {
               }}
             >
               {
-                result && result.simuleraQuestion.map((item, index) => {
+                result && result.simuleraQuiz.question.map((item, index) => {
                   return <Box
                     mt={2}
                     mb={2}
@@ -231,17 +242,20 @@ const RattedOverblick = () => {
                       height: '3.5rem',
                       cursor: 'pointer',
                     }}
-                    onClick={() => navigate('/simuleraprov', {
-                      state: {
-                        quiz: result,
-                        questionIndex: index,
-                        seasonId: params.state.seasonId
-                      }
-                    })}
+                    onClick={() =>
+                      navigate('/simuleraprov', {
+                        state: {
+                          quiz: result,
+                          questionIndex: index,
+                          seasonId: params.state.seasonId,
+                          quizId: params.state.quizId
+                        }
+                      })
+                    }
                   >
                     <Box style={{ display: 'flex', alignItems: 'center' }} >
                       {
-                        item.answer.option === item.optionId ? (
+                        item.questionAnswer.option === item.optionId ? (
                           <img src={Correct} style={{ height: '1.5rem', marginRight: '0.75rem' }} />
                         ) : (
                           <img src={Wrong} style={{ height: '1.5rem', marginRight: '0.75rem' }} />
@@ -258,7 +272,7 @@ const RattedOverblick = () => {
                         variant="body1"
                         component="body1"
                       >
-                        Uppgift {index + 1} av {result?.simuleraQuestion.length}
+                        Uppgift {index + 1} av {result?.simuleraQuiz.question.length}
                       </Typography>
                     </Box>
                     <Box sx={{ display: "flex", justifyContent: 'space-around' }}>
@@ -267,7 +281,7 @@ const RattedOverblick = () => {
                         component="h6"
                         style={{ fontSize: ".75rem", fontWeight: "600" }}
                       >
-                        TID: 04:51
+                        TID: {dispSecondsAsMins(item.spendtime)}
                       </Typography>
                       <Box
                         style={{
