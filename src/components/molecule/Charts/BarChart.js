@@ -2,6 +2,7 @@ import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
 // import Chart from 'chart.js';
 import Chart from "chart.js/auto";
+import { Box } from "@mui/material";
 import { Card } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../service/Route";
 
@@ -31,78 +32,72 @@ const LineDemo = (props) => {
   }, []);
 
   return (
-    <div>
-      <Card
-        style={{
-          height: "90%",
-          paddingTop: "2rem",
-          paddingBottom: "2rem",
-        }}
-      >
-        <Bar
-          options={{
-            legend: {
-              display: false,
-            },
-            borderRadius: 2,
-            scales: {
-              barPercentage: 0.2,
-              xAxes: [
-                {
-                  gridLines: {
-                    display: false,
-                  },
-                  barThickness: 5, // number (pixels) or 'flex'
-                  maxBarThickness: 12, // number (pixels)
-                },
-              ],
-              yAxes: [
-                {
-                  ticks: {
-                    stepSize: 2,
-                    beginAtZero: true,
-                    // callback: function (value, index, values) {
-                    //   return value;
-                    // }
-                  },
-                  barPercentage: 1.0,
-                  categoryPercentage: 1.0,
-                },
-              ],
-            },
-          }}
-          data={{
-            labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
-            datasets: [
+    <Box sx={{ width: "100%", height: "100%" }}>
+      <Bar
+        width={320}
+        height={200}
+        options={{
+          legend: {
+            display: false,
+          },
+          borderRadius: 2,
+          scales: {
+            barPercentage: 0.2,
+            xAxes: [
               {
-                backgroundColor: [
-                  "#0A1596",
-                  "#0A1596",
-                  "#0A1596",
-                  "#0A1596",
-                  "#0A1596",
-                  "#0A1596",
-                  "#0A1596",
-                  "#0A1596",
-                  "#0A1596",
-                ],
-                barPercentage: 0.1,
-                categorySpacing: 2,
-                data: [
-                  mondayExercise,
-                  tuesdayExercise,
-                  wednesdayExercise,
-                  thursdayExercise,
-                  fridayExercise,
-                  saturdayExercise,
-                  sundayExercise,
-                ],
+                gridLines: {
+                  display: false,
+                },
+                barThickness: 5, // number (pixels) or 'flex'
+                maxBarThickness: 12, // number (pixels)
               },
             ],
-          }}
-        />
-      </Card>
-    </div>
+            yAxes: [
+              {
+                ticks: {
+                  stepSize: 2,
+                  beginAtZero: true,
+                  // callback: function (value, index, values) {
+                  //   return value;
+                  // }
+                },
+                barPercentage: 1.0,
+                categoryPercentage: 1.0,
+              },
+            ],
+          },
+        }}
+        data={{
+          labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
+          datasets: [
+            {
+              backgroundColor: [
+                "#0A1596",
+                "#0A1596",
+                "#0A1596",
+                "#0A1596",
+                "#0A1596",
+                "#0A1596",
+                "#0A1596",
+                "#0A1596",
+                "#0A1596",
+              ],
+              barPercentage: 0.1,
+              categorySpacing: 2,
+              data: [
+                mondayExercise,
+                tuesdayExercise,
+                wednesdayExercise,
+                thursdayExercise,
+                fridayExercise,
+                saturdayExercise,
+                sundayExercise,
+              ],
+            },
+          ],
+        }}
+      />
+    </Box>
   );
 };
 

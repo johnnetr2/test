@@ -38,16 +38,9 @@ const HomeRightBar = (props) => {
   }, [props.StudentPreference]);
 
   return (
-    <Container
-      maxWidth={false}
-      style={{
-        backgrounColor: "#fafafa",
-        width: "27rem",
-      }}
-    >
+    <Container maxWidth={false} style={props.style}>
       <Box
         sx={{
-          backgroundColor: "#fafafa",
           height: "auto",
           marginTop: "6rem",
         }}
@@ -148,7 +141,7 @@ const HomeRightBar = (props) => {
             >
               Viktiga datum
             </Typography>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", marginBottom: "1rem" }}>
               <Box sx={{ width: "100%" }}>
                 <ImpDatesCard />
               </Box>

@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1234")]: {
+    [theme.breakpoints.down("1000")]: {
       display: "none",
     },
   },
@@ -36,7 +36,7 @@ const CategoryPagesMain = () => {
 
   return (
     <Container maxWidth="false" disableGutters>
-      <Grid container className={classes.main}>
+      <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           item
           style={{ maxWidth: "6rem" }}
@@ -61,14 +61,8 @@ const CategoryPagesMain = () => {
           <CategoryPagesFeedContent item={params?.state?.item} />
         </Grid>
         <Grid
-          item
-          sm={4}
-          md={4}
-          lg={4}
-          xl={4}
           style={{
             maxWidth: "30rem",
-            backgroundColor: "#fafafa",
           }}
           className={classes.right}
         >

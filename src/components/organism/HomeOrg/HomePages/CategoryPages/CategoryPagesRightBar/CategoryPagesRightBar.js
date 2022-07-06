@@ -57,16 +57,15 @@ const CategoryPagesRightBar = (props) => {
             {lastWeekTasks.totalQuestions} uppgifter
           </Typography>
         </Box>
-        <Box sx={{ marginTop: "1rem", marginRight: "1rem" }}>
+        <Box sx={{ marginTop: "1rem" }}>
           <Box
             sx={{
               width: "100%",
-              // mr: 1,
               border: "1px solid #dddddd",
-              boxShadow: "1px 1px 8px #dfdfdf",
+              boxShadow: "0px 5px 10px #f2f2f2",
               borderRadius: 5,
               padding: "2rem",
-              marginRight: "3rem",
+              backgroundColor: "#fff",
             }}
           >
             <LinearProgress
@@ -97,52 +96,53 @@ const CategoryPagesRightBar = (props) => {
             </Typography>
           </Box>
         </Box>
-        <Box style={{ marginTop: "2rem" }}>
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ width: "50%" }}>
-              <Typography variant="h5">
-                {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
-              </Typography>
-              <Typography variant="body2">
-                Gjorda uppgifter förra veckan
-              </Typography>
-            </Box>
-            <Box sx={{ width: "50%", marginLeft: "1rem", marginRight: "1rem" }}>
-              <Typography variant="h5">
-                {lastWeekTasks.totalCorrectQuestions}
-              </Typography>
-              <Typography variant="body2">Gjorda uppgifter totalt</Typography>
-            </Box>
-          </Box>
-        </Box>
-        {/* <Box sx={{ display: "flex" }}> */}
-        {/* <Box
-            sx={{
-              width: "55rem",
-              height: "100%",
-              marginLeft: "1rem",
-              marginRight: "1rem",
-              marginTop: "3rem",
-            }}
-          >
-            <Box
-              sx={{
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                // border: "1px solid #dddddd",
-                boxShadow: "1px 1px 8px #dfdfdf",
-                borderRadius: 5,
-                padding: "2rem",
-              }}
-            > */}
         <Box
-          style={{
+          sx={{
             marginTop: "3rem",
-            marginRight: "2rem",
+            marginBottom: "2rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
+          <Box sx={{ marginRight: "1rem" }}>
+            <Typography variant="h5">
+              {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
+            </Typography>
+            <Typography variant="body2">
+              Gjorda uppgifter förra veckan
+            </Typography>
+          </Box>
+          <Box sx={{ marginLeft: "1rem" }}>
+            <Typography variant="h5">
+              {lastWeekTasks.totalCorrectQuestions}
+            </Typography>
+            <Typography variant="body2">Gjorda uppgifter totalt</Typography>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            height: "18rem",
+            borderRadius: 3,
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            flexDirection: "column",
+            border: "1px solid #dddddd",
+            boxShadow: "0px 5px 10px #f2f2f2",
+            padding: "2rem",
+            backgroundColor: "#fff",
+          }}
+        >
+          <Typography
+            variant="body1"
+            style={{
+              fontSize: "0.75rem",
+              fontWeight: 540,
+              marginBottom: ".5rem",
+            }}
+          >
+            UPPGIFTER
+          </Typography>
           <LineDemo />
           {/* <BarChart /> */}
           {/* </Box>
@@ -171,15 +171,7 @@ const CategoryPagesRightBar = (props) => {
             Prognostiserad normerad poäng {props?.item.title}
           </Typography>
         </Box>
-        <Box sx={{ display: "flex" }}>
-          {/* <Box
-            sx={{
-              width: "100%",
-              height: "100%",
-              marginLeft: "1rem",
-              marginRight: "1rem",
-            }}
-          > */}
+        <Box sx={{ display: "flex", marginBottom: "1rem" }}>
           <Box
             sx={{
               display: "flex",
@@ -191,6 +183,7 @@ const CategoryPagesRightBar = (props) => {
               border: "1px solid #dddddd",
               boxShadow: "0px 5px 10px #f2f2f2",
               padding: "2rem",
+              backgroundColor: "#fff",
             }}
           >
             <Typography
@@ -213,7 +206,6 @@ const CategoryPagesRightBar = (props) => {
               }}
             />
           </Box>
-          {/* </Box> */}
         </Box>
       </Box>
     </Container>

@@ -300,7 +300,13 @@ const HomeFeedContent = (props) => {
         </Box>
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
-        <Box sx={{ marginTop: "-10.5rem" }}>
+        <Box
+          sx={{
+            marginTop: "-10.5rem",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+        >
           {totalPrognos && <HomeRightBar totalPrognos={totalPrognos} />}
         </Box>
       </TabPanel>

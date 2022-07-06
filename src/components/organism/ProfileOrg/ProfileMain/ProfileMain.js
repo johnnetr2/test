@@ -65,10 +65,6 @@ const ProfileMain = () => {
         </Grid>
         <Grid
           item
-          sm={4}
-          md={4}
-          lg={4}
-          xl={4}
           style={{ backgroundColor: "#fafafa", maxWidth: "30rem" }}
           className={classes.right}
         >
