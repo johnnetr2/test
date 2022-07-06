@@ -7,7 +7,7 @@ import { EndPoints, instance2 } from "../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1243")]: {
+    [theme.breakpoints.down("1000")]: {
       display: "none",
     },
   },
@@ -91,7 +91,7 @@ const CoursesMain = () => {
 
   return (
     <Container maxWidth="false" disableGutters>
-      <Grid container className={classes.main}>
+      <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           item
           className={classes.leftBarHide}

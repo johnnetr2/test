@@ -1,116 +1,112 @@
 import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
-import Chart from 'chart.js';
+// import Chart from 'chart.js';
+import Chart from "chart.js/auto";
 import { Card } from "@material-ui/core";
-import {EndPoints, instance2} from '../../service/Route'
+import { EndPoints, instance2 } from "../../service/Route";
 
 const LineDemo = (props) => {
-    const LALA = useRef();
+  const LALA = useRef();
 
-        const [mondayExercise, setMondayExercise] = useState("")
-    const [tuesdayExercise, setTuesdayExercise] = useState("")
-    const [wednesdayExercise, setWednesdayExercise] = useState("")
-    const [thursdayExercise, setThursdayExercise] = useState("")
-    const [fridayExercise, setFridayExercise] = useState("")
-    const [saturdayExercise, setSaturdayExercise] = useState("")
-    const [sundayExercise, setSundayExercise] = useState("")
+  const [mondayExercise, setMondayExercise] = useState("");
+  const [tuesdayExercise, setTuesdayExercise] = useState("");
+  const [wednesdayExercise, setWednesdayExercise] = useState("");
+  const [thursdayExercise, setThursdayExercise] = useState("");
+  const [fridayExercise, setFridayExercise] = useState("");
+  const [saturdayExercise, setSaturdayExercise] = useState("");
+  const [sundayExercise, setSundayExercise] = useState("");
 
-    useEffect(() => {
-      const URL = EndPoints.oneDayExercise + localStorage.getItem('userId')
-      instance2.get(URL).then((response)=>
-      {
-          console.log(response.data, 'barrrrr data')
-          setMondayExercise(response.data.days_of_exam.Monday)
-          setTuesdayExercise(response.data.days_of_exam.Tuesday)
-          setWednesdayExercise(response.data.days_of_exam.Wednesday)
-          setThursdayExercise(response.data.days_of_exam.Thursday)
-          setFridayExercise(response.data.days_of_exam.Friday)
-          setSaturdayExercise(response.data.days_of_exam.Saturday)
-          setSundayExercise(response.data.days_of_exam.Sunday)
-      })
+  useEffect(() => {
+    const URL = EndPoints.oneDayExercise + localStorage.getItem("userId");
+    instance2.get(URL).then((response) => {
+      console.log(response.data, "barrrrr data");
+      setMondayExercise(response.data.days_of_exam.Monday);
+      setTuesdayExercise(response.data.days_of_exam.Tuesday);
+      setWednesdayExercise(response.data.days_of_exam.Wednesday);
+      setThursdayExercise(response.data.days_of_exam.Thursday);
+      setFridayExercise(response.data.days_of_exam.Friday);
+      setSaturdayExercise(response.data.days_of_exam.Saturday);
+      setSundayExercise(response.data.days_of_exam.Sunday);
+    });
+  }, []);
 
-    }, [])
-
-    return (
-        <div>
-            <Card style={{
-                height: '90%',
-                paddingTop: '2rem',
-                paddingBottom: '2rem',
-            }} >
-                <Bar
-                    options={{
-
-                        legend: {
-                            display: false
-                        },
-                        borderRadius: 2,
-                        scales: {
-                            barPercentage: 0.2,
-                            xAxes: [
-                                {
-                                    gridLines: {
-                                        display: false
-                                    },
-                                    barThickness: 5, // number (pixels) or 'flex'
-                                    maxBarThickness: 12 // number (pixels)
-                                }
-                            ],
-                            yAxes: [
-                                {
-                                    ticks: {
-                                        stepSize: 2,
-                                        beginAtZero: true
-                                        // callback: function (value, index, values) {
-                                        //   return value;
-                                        // }
-                                    },
-                                    barPercentage: 1.0,
-                                    categoryPercentage: 1.0
-                                }
-                            ]
-                        }
-                    }}
-                    data={{
-                labels: ['V.35', 'V.39', 'V.37', 'V.38', 'V.39', 'V.40', 'V.41'],
-                datasets: [
-                    {
-                                backgroundColor: [
-                                    "#0A1596",
-                                    "#0A1596",
-                                    "#0A1596",
-                                    "#0A1596",
-                                    "#0A1596",
-                                    "#0A1596",
-                                    "#0A1596",
-                                    "#0A1596",
-                                    "#0A1596"
-                                ],
-                                barPercentage: 0.1,
-                                categorySpacing: 2,
-                        data: [mondayExercise, tuesdayExercise, wednesdayExercise, thursdayExercise, fridayExercise, saturdayExercise, sundayExercise]
-                            }
-                        ]
-                    }}
-                />
-            </Card>
-        </div>
-    );
+  return (
+    <div>
+      <Card
+        style={{
+          height: "90%",
+          paddingTop: "2rem",
+          paddingBottom: "2rem",
+        }}
+      >
+        <Bar
+          options={{
+            legend: {
+              display: false,
+            },
+            borderRadius: 2,
+            scales: {
+              barPercentage: 0.2,
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false,
+                  },
+                  barThickness: 5, // number (pixels) or 'flex'
+                  maxBarThickness: 12, // number (pixels)
+                },
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    stepSize: 2,
+                    beginAtZero: true,
+                    // callback: function (value, index, values) {
+                    //   return value;
+                    // }
+                  },
+                  barPercentage: 1.0,
+                  categoryPercentage: 1.0,
+                },
+              ],
+            },
+          }}
+          data={{
+            labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
+            datasets: [
+              {
+                backgroundColor: [
+                  "#0A1596",
+                  "#0A1596",
+                  "#0A1596",
+                  "#0A1596",
+                  "#0A1596",
+                  "#0A1596",
+                  "#0A1596",
+                  "#0A1596",
+                  "#0A1596",
+                ],
+                barPercentage: 0.1,
+                categorySpacing: 2,
+                data: [
+                  mondayExercise,
+                  tuesdayExercise,
+                  wednesdayExercise,
+                  thursdayExercise,
+                  fridayExercise,
+                  saturdayExercise,
+                  sundayExercise,
+                ],
+              },
+            ],
+          }}
+        />
+      </Card>
+    </div>
+  );
 };
 
 export default LineDemo;
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import react, { useEffect, useState } from 'react'
 // import { Bar } from 'react-chartjs-2'
@@ -142,7 +138,6 @@ export default LineDemo;
 //       })
 
 //     }, [])
-    
 
 //     return (
 //         <Bar style={{ height: '15rem' }}
@@ -187,4 +182,3 @@ export default LineDemo;
 // }
 
 // export default BarChart;
-
