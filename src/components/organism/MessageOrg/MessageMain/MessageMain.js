@@ -5,7 +5,7 @@ import MessageLeftBar from "../MessageLeftBar/MessageLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("1000")]: {
       display: "none",
     },
   },
@@ -21,7 +21,7 @@ const MessageMain = () => {
 
   return (
     <Container maxWidth="false" disableGutters>
-      <Grid container>
+      <Grid container wrap="nowrap">
         <Grid
           item
           className={classes.leftBarHide}

@@ -6,7 +6,7 @@ import ProfileLeftBar from "../ProfileLeftBar/ProfileLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1243")]: {
+    [theme.breakpoints.down("1000")]: {
       display: "none",
     },
   },
@@ -39,7 +39,7 @@ const ProfileMain = () => {
         display: "flex",
       }}
     >
-      <Grid container className={classes.main}>
+      <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           className={classes.leftBarHide}
           item

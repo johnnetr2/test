@@ -1,19 +1,20 @@
 import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
-import Chart from 'chart.js';
+// import Chart from 'chart.js';
+import Chart from "chart.js";
 import { Card } from "@material-ui/core";
-import {EndPoints, instance2} from '../../service/Route'
+import { EndPoints, instance2 } from "../../service/Route";
 
 const LineDemo = (props) => {
-    const LALA = useRef();
+  const LALA = useRef();
 
-        const [mondayExercise, setMondayExercise] = useState("")
-    const [tuesdayExercise, setTuesdayExercise] = useState("")
-    const [wednesdayExercise, setWednesdayExercise] = useState("")
-    const [thursdayExercise, setThursdayExercise] = useState("")
-    const [fridayExercise, setFridayExercise] = useState("")
-    const [saturdayExercise, setSaturdayExercise] = useState("")
-    const [sundayExercise, setSundayExercise] = useState("")
+  const [mondayExercise, setMondayExercise] = useState("");
+  const [tuesdayExercise, setTuesdayExercise] = useState("");
+  const [wednesdayExercise, setWednesdayExercise] = useState("");
+  const [thursdayExercise, setThursdayExercise] = useState("");
+  const [fridayExercise, setFridayExercise] = useState("");
+  const [saturdayExercise, setSaturdayExercise] = useState("");
+  const [sundayExercise, setSundayExercise] = useState("");
 
     useEffect(() => {
       const URL = EndPoints.oneDayExercise + localStorage.getItem('userId')
@@ -99,18 +100,6 @@ const LineDemo = (props) => {
 
 export default LineDemo;
 
-
-
-
-
-
-
-
-
-
-
-
-
 // import react, { useEffect, useState } from 'react'
 // import { Bar } from 'react-chartjs-2'
 // import {Chart as ChartJS} from 'chart.js/auto'
@@ -140,7 +129,6 @@ export default LineDemo;
 //       })
 
 //     }, [])
-    
 
 //     return (
 //         <Bar style={{ height: '15rem' }}
@@ -185,4 +173,3 @@ export default LineDemo;
 // }
 
 // export default BarChart;
-

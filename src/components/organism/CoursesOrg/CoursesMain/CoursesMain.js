@@ -7,7 +7,22 @@ import { EndPoints, instance2 } from "../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("1000")]: {
+      display: "none",
+    },
+  },
+  main: {
+    [theme.breakpoints.up("1300")]: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "flex",
+      justifyContent: "flex-start",
+    },
+  },
+  leftBarHide: {
+    [theme.breakpoints.down("600")]: {
       display: "none",
     },
   },
@@ -111,8 +126,17 @@ const CoursesMain = () => {
   return (
     <Container maxWidth="false" disableGutters>
       <Container maxWidth="xl" disableGutters>
-        <Grid container>
-          <Grid item sm={1} xs={1} md={1} lg={1} xl={1}>
+        <Grid container wrap="nowrap" className={classes.main}>
+          <Grid
+            item
+            className={classes.leftBarHide}
+            style={{ maxWidth: "6rem" }}
+            sm={1}
+            xs={1}
+            md={1}
+            lg={1}
+            xl={1}
+          >
             <CoursesLeftBar />
           </Grid>
           <Grid item sm={11} xs={11} md={7} lg={7} xl={7}>
