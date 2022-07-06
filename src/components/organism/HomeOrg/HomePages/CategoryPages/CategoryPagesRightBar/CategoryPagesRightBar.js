@@ -82,15 +82,22 @@ const CategoryPagesRightBar = (props) => {
                 100
               }
             />
-            <Typography style={{
-              marginTop: '-0.95rem',
-              position: 'absolute',
-              fontSize: '12px',
-              alignSelf: 'center',
-              marginLeft: width > 900 ? width*0.125 : width*0.34,
-              color: lastWeekTasks.totalCorrectQuestions > (lastWeekTasks.totalQuestions / 2) ? '#F9F9F9' : ''
-            }}>
-              {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions}
+            <Typography
+              style={{
+                marginTop: "-0.95rem",
+                position: "absolute",
+                fontSize: "12px",
+                alignSelf: "center",
+                marginLeft: width > 900 ? width * 0.125 : width * 0.34,
+                color:
+                  lastWeekTasks.totalCorrectQuestions >
+                  lastWeekTasks.totalQuestions / 2
+                    ? "#F9F9F9"
+                    : "",
+              }}
+            >
+              {lastWeekTasks.totalCorrectQuestions} av{" "}
+              {lastWeekTasks.totalQuestions}
             </Typography>
           </Box>
         </Box>
@@ -142,7 +149,6 @@ const CategoryPagesRightBar = (props) => {
             UPPGIFTER
           </Typography>
           <LineDemo />
-          
         </Box>
 
         <Box
@@ -197,6 +203,7 @@ const CategoryPagesRightBar = (props) => {
             <LinesChart
               syncId="anyId"
               style={{
+                fontSize: "0.75rem",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
