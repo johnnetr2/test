@@ -64,7 +64,7 @@ const CategoryPagesRightBar = (props) => {
               border: "1px solid #dddddd",
               boxShadow: "0px 5px 10px #f2f2f2",
               borderRadius: 5,
-              padding: "2rem",
+              padding: "2rem 1rem",
               backgroundColor: "#fff",
             }}
           >

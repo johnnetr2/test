@@ -217,7 +217,7 @@ const RightBar = (props) => {
           sx={{
             border: "1px solid #e1e1e1",
             borderRadius: ".25rem",
-            padding: "1.5rem",
+            padding: "1.5rem 0 1.5rem 1.5rem",
             boxShadow: "0px 5px 10px #f2f2f2",
             backgroundColor: "#fff",
             display: "flex",
@@ -225,10 +225,18 @@ const RightBar = (props) => {
           }}
         >
           <Box style={{ display: "flex", flexDirection: "column" }}>
-            <Typography variant="h5" component="h5">
+            <Typography
+              variant="h5"
+              component="h5"
+              style={{ marginBottom: ".25rem" }}
+            >
               Lås upp fler prov
             </Typography>
-            <Typography variant="body2" component="body2">
+            <Typography
+              style={{ marginBottom: ".25rem" }}
+              variant="body2"
+              component="body2"
+            >
               Lås upp premiumfunktioner endast för 199 sek per sektion
             </Typography>
             <Button
