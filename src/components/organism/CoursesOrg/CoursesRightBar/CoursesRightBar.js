@@ -25,12 +25,12 @@ import useWindowDimensions from '../../../molecule/WindowDimensions/dimension'
 const useStyles = makeStyles((theme) => ({
   topspace: {
     paddingTop: theme.spacing(18),
-    paddingLeft: theme.spacing(2),
+    // paddingLeft: theme.spacing(2),
   },
-  tablespace: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-  },
+  // tablespace: {
+  //   paddingLeft: theme.spacing(2),
+  //   paddingRight: theme.spacing(2),
+  // },
 }));
 
 const RightBar = (props) => {
@@ -78,7 +78,14 @@ const RightBar = (props) => {
   }
 
   return (
-    <Container maxWidth={false}>
+    <Container
+      maxWidth={false}
+      // disableGutters
+      style={{
+        backgrounColor: "#fafafa",
+        width: "27rem",
+      }}
+    >
       <Box sx={{ backgroundColor: "#fafafa" }}>
         <Box className={classes.topspace} style={{ marginBottom: "2rem" }}>
           <Typography variant="h6" component="h6">

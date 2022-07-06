@@ -3,9 +3,20 @@ import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
-import LineChart from "../../../molecule/Charts/LineChart";
+import LinesChart from "../../../molecule/Charts/LinesChart";
 import { EndPoints, instance2 } from "../../../service/Route";
 import { set } from "date-fns";
+import {
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Brush,
+  AreaChart,
+  Area,
+} from "recharts";
+// import { synchronizedLineChartData } from "../data/Data";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -98,11 +109,32 @@ const HomeRightBar = (props) => {
           >
             <Typography
               variant="body1"
-              style={{ fontSize: "0.75rem", fontWeight: 540 }}
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 540,
+                marginBottom: ".5rem",
+              }}
             >
               POANG
             </Typography>
-            <LineChart />
+            <LinesChart
+              width={550}
+              height={200}
+              // padding={2}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              // data={synchronizedLineChartData}
+              syncId="anyId"
+              // margin={{
+              //   top: 10,
+              //   right: 30,
+              //   left: 0,
+              //   bottom: 0,
+              // }}
+            />
           </Box>
 
           <Box style={{ marginTop: "2rem" }}>

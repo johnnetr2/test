@@ -6,7 +6,7 @@ import HomeLeftBar from "../HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1243")]: {
+    [theme.breakpoints.down("1000")]: {
       display: "none",
     },
   },
@@ -38,11 +38,11 @@ const HomeMainOrg = (props) => {
   const [totalPrognos, setTotalPrognos] = useState();
   return (
     <Container maxWidth="false" disableGutters>
-      <Grid container className={classes.main}>
+      <Grid container wrap="nowrap" className={classes.main}>
         <Grid
+          item
           className={classes.leftBarHide}
           style={{ maxWidth: "6rem" }}
-          item
           xs={1}
           sm={1}
           md={1}
@@ -56,9 +56,6 @@ const HomeMainOrg = (props) => {
         </Grid>
         <Grid
           item
-          // md={4}
-          // lg={4}
-          // xl={4}
           style={{
             maxWidth: "30rem",
             backgroundColor: "#fafafa",

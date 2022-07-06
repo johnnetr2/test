@@ -21,9 +21,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { PanoramaSharp } from "@mui/icons-material";
 
 const ProvPassInformation = () => {
-
-  const navigate = useNavigate()
-  const params = useLocation()
+  const navigate = useNavigate();
+  const params = useLocation();
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -73,9 +72,8 @@ const ProvPassInformation = () => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    console.log(params?.state.provpass.simuleraQuizResult.length, 'this is')
-  }, [])
-  
+    console.log(params?.provpass, "this is");
+  }, []);
 
   return (
     <div>
@@ -106,7 +104,8 @@ const ProvPassInformation = () => {
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
           <Typography variant="body1" className={classes.center_align}>
-            Högskoleprov {params.state.session.title} {params.state.session.month}
+            Högskoleprov {params.state.session.title}{" "}
+            {params.state.session.month}
           </Typography>
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
@@ -262,12 +261,16 @@ const ProvPassInformation = () => {
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>
             {/* <Link to="#"> */}
-            <ExerciseBtn title="Starta delprov" onClick={() => 
-              navigate('/simuleraprov', {
-              state: {
-                id: params.state.id
+            <ExerciseBtn
+              title="Starta delprov"
+              onClick={() =>
+                navigate("/simuleraprov", {
+                  state: {
+                    id: params.state.id,
+                  },
+                })
               }
-            })}  />
+            />
             {/* </Link> */}
           </Box>
         </Container>

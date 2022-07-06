@@ -29,6 +29,7 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "reactstrap": "^9.0.1",
+    "recharts": "^2.1.12",
     "rehype-katex": "^6.0.2",
     "remark-math": "^5.1.1",
     "sweet-alert": "^2.0.5",

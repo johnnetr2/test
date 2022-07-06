@@ -4,8 +4,8 @@ import "../../../App.css";
 
 const InputField = (props) => {
   return (
-    <div>
-      <Input
+    <div className="input-style">
+      <input
         type={props.type}
         placeholder={props.placeholder}
         name={props.name}

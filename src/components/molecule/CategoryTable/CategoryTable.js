@@ -24,10 +24,9 @@ export const CategoryTable = (props) => {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     setSectionCategory(props?.sectionCategory);
-    console.log(props)
+    console.log(props);
   }, []);
 
   const ResultHandler = (row) => {
@@ -41,29 +40,46 @@ export const CategoryTable = (props) => {
   };
 
   const showPopup = (index) => {
-    const history = [...props.tableHistory]
-    let singlerow = history[index]
-    if(singlerow.result == true) {
-      singlerow.result = false
-      setCategoryTable(history)
+    const history = [...props.tableHistory];
+    let singlerow = history[index];
+    if (singlerow.result == true) {
+      singlerow.result = false;
+      setCategoryTable(history);
     } else {
-      singlerow.result = true
-      setCategoryTable(history)
+      singlerow.result = true;
+      setCategoryTable(history);
     }
-    console.log(singlerow)
-  }
+    console.log(singlerow);
+  };
 
   return (
     <Box>
-      <Box style={{ 
-        display: 'flex',
-        textTransform: 'uppercase',
-        // paddingLeft: '2rem'
-      }} >
+      <Box
+        style={{
+          display: "flex",
+          textTransform: "uppercase",
+          // maxWidth: 600,
+          // paddingLeft: '2rem'
+        }}
+      >
         {console.log(width)}
-        <Typography style={{ display: 'flex', marginLeft: width*0.01 }} >Datum</Typography>
-        <Typography style={{ display: 'flex', marginLeft: width > 900 ? width*0.21 : width*0.32 }} >Resultat</Typography>
-        <Typography style={{ display: 'flex', marginLeft: width > 900 ? width*0.11 : width*0.13 }} >Normering</Typography>
+        <Typography style={{ display: "flex" }}>Datum</Typography>
+        <Typography
+          style={{
+            display: "flex",
+            marginLeft: width > 900 ? width * 0.21 : width * 0.32,
+          }}
+        >
+          Resultat
+        </Typography>
+        <Typography
+          style={{
+            display: "flex",
+            marginLeft: width > 900 ? width * 0.11 : width * 0.13,
+          }}
+        >
+          Normering
+        </Typography>
       </Box>
 
       <Box
@@ -72,10 +88,10 @@ export const CategoryTable = (props) => {
         style={{
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
-          marginTop: '2rem'
+          marginTop: "2rem",
         }}
       >
-        <Table sx={{ minWidth: width*0.0863 }}>
+        <Table sx={{ minWidth: width * 0.0863 }}>
           <TableBody>
             {categoryTable.map((row, index) => {
               return (
@@ -83,22 +99,33 @@ export const CategoryTable = (props) => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {moment(row?.createdAt).format('YYYY.MM.D hh:mm:ss')}
+                    {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
                   </TableCell>
                   <TableCell align="left">
                     {row.correctAnswer} av {row.answer.length}
                   </TableCell>
 
-                  <TableCell align="right">{((row.correctAnswer / row.totalQuestion) * 2).toFixed(1).replace(/\.0+$/, '')}</TableCell>
-                  
-                  <TableCell style={{ cursor: 'pointer', display: 'flex', flexDirection: 'row-reverse', color: 'grey', height: '5rem', alignItems: 'center' }} >
-                    
+                  <TableCell align="right">
+                    {((row.correctAnswer / row.totalQuestion) * 2)
+                      .toFixed(1)
+                      .replace(/\.0+$/, "")}
+                  </TableCell>
+
+                  <TableCell
+                    style={{
+                      cursor: "pointer",
+                      display: "flex",
+                      flexDirection: "row-reverse",
+                      color: "grey",
+                      height: "5rem",
+                      alignItems: "center",
+                    }}
+                  >
                     <MoreVertIcon onClick={() => showPopup(index)} />
 
-                    {row.result &&
-                      <Dropdown onClick={() => ResultHandler(row)} /> 
-                    }
-                    
+                    {row.result && (
+                      <Dropdown onClick={() => ResultHandler(row)} />
+                    )}
                   </TableCell>
                 </TableRow>
               );

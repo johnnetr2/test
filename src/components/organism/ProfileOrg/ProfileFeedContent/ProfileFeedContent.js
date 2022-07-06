@@ -112,7 +112,10 @@ const ProfileFeedContent = () => {
               style={{
                 width: "100%",
                 height: "3rem",
+                padding: "1rem",
+                border: "1px solid #e1e1e1",
                 marginTop: ".5rem",
+                borderRadius: "5px",
                 marginBottom: "1rem",
                 borderRadius: '7.5px'
               }}

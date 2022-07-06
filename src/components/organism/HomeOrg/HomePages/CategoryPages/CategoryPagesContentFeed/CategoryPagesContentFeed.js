@@ -20,9 +20,7 @@ import HomeCard from "../../../../../molecule/HomeCard/HomeCard";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import CoursesCard from "../../../../../molecule/CoursesCard/CoursesCard";
-import {
-  CategoryTable,
-} from "../../../../../molecule/CategoryTable/CategoryTable";
+import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import swal from "sweetalert";
 import Backdrop from "@mui/material/Backdrop";
@@ -63,10 +61,9 @@ const CategoryPagesFeedContent = (props) => {
   const [allChecked, setAllChecked] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const params = useLocation();
-  const [historyText, setHistoryText] = useState(false)
-  const [resultText, setResultText] = useState(false)
+  const [historyText, setHistoryText] = useState(false);
+  const [resultText, setResultText] = useState(false);
   const { height, width } = useWindowDimensions();
-
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -74,7 +71,7 @@ const CategoryPagesFeedContent = (props) => {
       setQuestionCategories(response.data);
       setAllChecked(true);
       setCheckData([]);
-      SetCategoryError(false)
+      SetCategoryError(false);
 
       let newArray = [...checkedData];
       response.data?.map((item) => {
@@ -98,23 +95,22 @@ const CategoryPagesFeedContent = (props) => {
         setTableHistory(response?.data);
       });
 
-      setTitle(true)
+      setTitle(true);
       setChecked(false);
       setChecked2(false);
       setChecked3(false);
       setChecked4(false);
-      if (props?.item?.title === 'XYZ') {
-        setCheckedFunc(12)
-      } else if (props?.item?.title === 'KVA') {
-        setCheckedFunc(10)
-      } else if (props?.item?.title === 'NOG') {
-        setCheckedFunc(6)
-      } else if (props?.item?.title === 'DTK') {
-        setCheckedFunc(12)
+      if (props?.item?.title === "XYZ") {
+        setCheckedFunc(12);
+      } else if (props?.item?.title === "KVA") {
+        setCheckedFunc(10);
+      } else if (props?.item?.title === "NOG") {
+        setCheckedFunc(6);
+      } else if (props?.item?.title === "DTK") {
+        setCheckedFunc(12);
       } else {
-        setCheckedFunc(10)
+        setCheckedFunc(10);
       }
-
     });
   }, []);
 
@@ -133,8 +129,8 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectedItem = (e, item) => {
-    console.log('select singlke category')
-    SetCategoryError(false)
+    console.log("select singlke category");
+    SetCategoryError(false);
     setSelectAll([]);
     setAllChecked(false);
 
@@ -150,10 +146,10 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectAllCategories = (e) => {
-    console.log('Alla clicked')
+    console.log("Alla clicked");
     setAllChecked(!allChecked);
     if (e.target.checked) {
-      SetCategoryError(false)
+      SetCategoryError(false);
 
       let newArray = [...selectAll];
       questionCategories?.map((item) => {
@@ -166,30 +162,30 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const realQuestionFunc = () => {
-    setTitle(true)
+    setTitle(true);
     setChecked(false);
     setChecked2(false);
     setChecked3(false);
     setChecked4(false);
-    if (props?.item?.title === 'XYZ') {
-      setCheckedFunc(12)
-    } else if (props?.item?.title === 'KVA') {
-      setCheckedFunc(10)
-    } else if (props?.item?.title === 'NOG') {
-      setCheckedFunc(6)
-    } else if (props?.item?.title === 'DTK') {
-      setCheckedFunc(12)
+    if (props?.item?.title === "XYZ") {
+      setCheckedFunc(12);
+    } else if (props?.item?.title === "KVA") {
+      setCheckedFunc(10);
+    } else if (props?.item?.title === "NOG") {
+      setCheckedFunc(6);
+    } else if (props?.item?.title === "DTK") {
+      setCheckedFunc(12);
     } else {
-      setCheckedFunc(10)
+      setCheckedFunc(10);
     }
-  }
+  };
 
   const isChecked = (id) => {
     return checkedData.some((obj) => obj === id);
   };
 
   const onSubmit = () => {
-    console.log(checkedData)
+    console.log(checkedData);
     if (chekedValue == undefined) {
       setError(true);
     } else {
@@ -200,13 +196,13 @@ const CategoryPagesFeedContent = (props) => {
           totalQuestion: parseInt(chekedValue),
           value: timer,
           user: localStorage.getItem("userId"),
-          multipartQuestion: null
+          multipartQuestion: null,
         };
-        console.log(data, 'this is api data')
+        console.log(data, "this is api data");
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
-          console.log(response.data, ';this is response')
-          if (response.data == '' || response.data.quiz.length < 1) {
+          console.log(response.data, ";this is response");
+          if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
@@ -220,9 +216,8 @@ const CategoryPagesFeedContent = (props) => {
             });
           }
         });
-
       } else {
-        SetCategoryError(true)
+        SetCategoryError(true);
       }
     }
   };
@@ -233,7 +228,9 @@ const CategoryPagesFeedContent = (props) => {
         <Heading title={"Kvantitativa jämförelser - " + props.item.title} />
         <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
       </Box>
-      <Box sx={{ marginBottom: "1rem", marginTop: "4rem", marginLeft: '0.1rem' }}>
+      <Box
+        sx={{ marginBottom: "1rem", marginTop: "4rem", marginLeft: "0.1rem" }}
+      >
         <Typography variant="h5" component="h5">
           Övningsuppgifter för {props.item.title}
           <Box>
@@ -255,7 +252,7 @@ const CategoryPagesFeedContent = (props) => {
                 textTransform: "uppercase",
                 fontSize: "0.75rem",
                 width: "12rem",
-                marginLeft: '0.2rem'
+                marginLeft: "0.2rem",
               }}
             >
               Välj om du vill köra på tid
@@ -274,7 +271,11 @@ const CategoryPagesFeedContent = (props) => {
           <Box>
             <Typography
               variant="body2"
-              style={{ textTransform: "uppercase", fontSize: "0.75rem", marginLeft: '0.2rem' }}
+              style={{
+                textTransform: "uppercase",
+                fontSize: "0.75rem",
+                marginLeft: "0.2rem",
+              }}
             >
               Välj antal frågor
             </Typography>
@@ -332,7 +333,7 @@ const CategoryPagesFeedContent = (props) => {
               sx={{
                 width: "10rem",
                 height: "4rem",
-                backgroundColor: title ? '#0a1596' : "#fff",
+                backgroundColor: title ? "#0a1596" : "#fff",
                 boxShadow: "1px 1px 8px #dfdfdf",
                 borderRadius: ".25rem",
                 marginLeft: ".25rem",
@@ -340,10 +341,10 @@ const CategoryPagesFeedContent = (props) => {
                 border: "1px solid #e1e1e1",
                 display: "flex",
                 flexWrap: "wrap",
-                color: title ? '#fff' : "#555555",
+                color: title ? "#fff" : "#555555",
                 justifyContent: "center",
                 alignItems: "center",
-                cursor: 'pointer'
+                cursor: "pointer",
               }}
               onClick={() => realQuestionFunc()}
             >
@@ -375,7 +376,11 @@ const CategoryPagesFeedContent = (props) => {
           <Box>
             <Typography
               variant="body2"
-              style={{ textTransform: "uppercase", fontSize: "0.75rem", marginLeft: '0.2rem' }}
+              style={{
+                textTransform: "uppercase",
+                fontSize: "0.75rem",
+                marginLeft: "0.2rem",
+              }}
             >
               Välj frågetyper
             </Typography>
@@ -392,7 +397,9 @@ const CategoryPagesFeedContent = (props) => {
             <OutlineField
               title="Alla"
               onClickCheck={(e) => selectAllCategories(e)}
-              checked={questionCategories?.length === checkedData.length ? true : false}
+              checked={
+                questionCategories?.length === checkedData.length ? true : false
+              }
             />
 
             {questionCategories &&
@@ -401,7 +408,7 @@ const CategoryPagesFeedContent = (props) => {
                   <OutlineField
                     title={item.title}
                     onClickCheck={(e) => {
-                      // selectAll.length === 0 && 
+                      // selectAll.length === 0 &&
                       selectedItem(e, item);
                     }}
                     checked={isChecked(item._id)}
@@ -436,59 +443,62 @@ const CategoryPagesFeedContent = (props) => {
           color: "#fff",
           borderRadius: "6px",
           height: "3rem",
-          display: 'flex',
+          display: "flex",
           alignItems: "center",
-          justifyContent: 'center',
-          cursor: 'pointer',
-          width: '99%'
+          justifyContent: "center",
+          cursor: "pointer",
+          width: "99%",
         }}
         onClick={onSubmit}
       >
         <FilledBtn title="Starta övningar" />
       </Box>
       <Box sx={{ marginTop: "4rem" }}>
-
-        <Box style={{
-          display: 'flex',
-          flexDirection: 'row',
-        }} >
-          <Typography style={{
-            fontSize: '28px',
-            fontWeight: 400,
-            height: 'fit-content',
-            textDecorationLine: width < 900 && historyText && 'underline',
-            textDecorationThickness: '1.5px',
-            cursor: width < 900 && 'pointer'
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "row",
           }}
-          onClick={() => { 
-            width < 900 && setHistoryText(true)
-            setResultText(false)
-            setTabValue(0)
-          }}
+        >
+          <Typography
+            style={{
+              fontSize: "28px",
+              fontWeight: 400,
+              height: "fit-content",
+              textDecorationLine: width < 900 && historyText && "underline",
+              textDecorationThickness: "1.5px",
+              cursor: width < 900 && "pointer",
+            }}
+            onClick={() => {
+              width < 900 && setHistoryText(true);
+              setResultText(false);
+              setTabValue(0);
+            }}
           >
             Historia
           </Typography>
 
-          <Typography style={{
-            fontSize: '28px',
-            fontWeight: 400,
-            height: 'fit-content',
-            textDecorationLine: width < 900 && resultText && 'underline',
-            textDecorationThickness: '1.5px',
-            textDecorationWidth: '80%',
-            cursor: width < 900 && 'pointer'
-          }}
+          <Typography
+            style={{
+              fontSize: "28px",
+              fontWeight: 400,
+              height: "fit-content",
+              textDecorationLine: width < 900 && resultText && "underline",
+              textDecorationThickness: "1.5px",
+              textDecorationWidth: "80%",
+              cursor: width < 900 && "pointer",
+            }}
             className={classes.hideStatistics}
             onClick={() => {
-              width < 900 && setResultText(true)
-              setHistoryText(false)
-              setTabValue(1)
+              width < 900 && setResultText(true);
+              setHistoryText(false);
+              setTabValue(1);
             }}
           >
-            {' '} / Statistik
+            {" "}
+            / Statistik
           </Typography>
         </Box>
-
 
         <TabPanel value={tabValue} index={0}>
           <Box sx={{ marginTop: "1rem" }}>
