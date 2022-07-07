@@ -33,7 +33,7 @@ const LineDemo = (props) => {
   return (
     <Box>
       <Bar
-        width={450}
+        width={420}
         height={200}
         options={{
           legend: {

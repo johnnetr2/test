@@ -180,7 +180,7 @@ const HomeFeedContent = (props) => {
               })}
           </Box>
         </Box>
-        <Box sx={{ marginTop: "2rem" }}>
+        <Box sx={{ marginTop: "5rem" }}>
           <Typography variant="h5" component="h5">
             Verbal del
           </Typography>
