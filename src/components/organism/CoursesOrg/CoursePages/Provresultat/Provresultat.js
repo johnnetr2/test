@@ -41,12 +41,10 @@ const Provresultat = () => {
 
 
   useEffect(() => {
-    console.log(params.state)
     if (params.state.seasonId) {
       const URL = EndPoints.testSummary + params.state.seasonId
       instance2.get(URL).then(response => {
         setOpen(false)
-        console.log(response.data, 'this is test summary')
         setTestSummary(response.data)
         setCorrectAnswersOfKvantitative(response.data.correctQuestions_of_XYZ + response.data.correctQuestions_of_KVA + response.data.correctQuestions_of_NOG + response.data.correctQuestions_of_DTK)
         setTotalQuestionsOfKvantitative(response.data.totalQuestion_of_XYZ + response.data.totalQuestion_of_KVA + response.data.totalQuestion_of_NOG + response.data.totalQuestion_of_DTK)
@@ -59,7 +57,6 @@ const Provresultat = () => {
       const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId
       instance2.get(URL).then(response => {
         setOpen(false)
-        console.log(response.data, 'this is test summary')
         setTestSummary(response.data)
         setCorrectAnswersOfKvantitative(response.data.correctQuestions_of_XYZ + response.data.correctQuestions_of_KVA + response.data.correctQuestions_of_NOG + response.data.correctQuestions_of_DTK)
         setTotalQuestionsOfKvantitative(response.data.totalQuestion_of_XYZ + response.data.totalQuestion_of_KVA + response.data.totalQuestion_of_NOG + response.data.totalQuestion_of_DTK)
@@ -186,8 +183,7 @@ const Provresultat = () => {
         display: "flex",
         alignItems: "center",
         marginTop: "2%",
-        marginLeft: '10.5%',
-        justifyContent: 'space-around'
+        justifyContent: 'flex-end'
       },
       [theme.breakpoints.down(1025)]: {
         display: "flex",
@@ -690,13 +686,13 @@ const Provresultat = () => {
                       <TableCell align="left">{row.correctAnswerCounter}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
                       <TableCell
-                        onClick={() => console.log(row._id)
-                          // navigate('/rattadoverblick', {
-                          //   state: {
-                          //     quizId: row._id,
-                          //     seasonId: row.simuleraSeason
-                          //   }
-                          // })
+                        onClick={() =>
+                          navigate('/rattadoverblick', {
+                            state: {
+                              quizId: row._id,
+                              seasonId: row.simuleraSeason
+                            }
+                          })
                         }
                         align="left"><Button
                           style={{
@@ -717,43 +713,53 @@ const Provresultat = () => {
             <Box
               className={classes.footer}
             >
-              <Box style={{ display: 'flex', flexDirection: 'row' }} >
-                <Typography variant="body2" style={{ fontSize: ".75rem", marginTop: '0.3rem' }}>
-                  Dela resultat med dina vanner:
-                </Typography>
-                <Box>
-                  <img style={{ marginLeft: "0.5rem" }} src={FacebookIcon} />
-                  <img style={{ marginLeft: "0.5rem" }} src={TwitterIcon} />
-                  <img style={{ marginLeft: "0.5rem" }} src={LinkedInIcon} />
-                  <img style={{ marginLeft: "0.5rem" }} src={WhatsappIcon} />
+              <Box style={{
+                display: 'flex', flexDirection: 'row', width: '92%'
+              }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} >
+                  <Typography variant="body2" style={{ fontSize: ".75rem", marginTop: '0.3rem' }}>
+                    Dela resultat med dina vanner:
+                  </Typography>
+                  <Box style={{
+                    display: 'flex',
+                    flexDirection: 'row'
+                  }}>
+                    <img style={{ marginLeft: "0.5rem" }} src={FacebookIcon} />
+                    <img style={{ marginLeft: "0.5rem" }} src={TwitterIcon} />
+                    <img style={{ marginLeft: "0.5rem" }} src={LinkedInIcon} />
+                    <img style={{ marginLeft: "0.5rem" }} src={WhatsappIcon} />
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    backgroundColor: "#fff",
+                    // fontSize: "10px",
+                    border: "1px solid #e1e1e1",
+                    paddingTop: '0.5rem',
+                    paddingLeft: '0.5rem',
+                    paddingBottom: '0.5rem',
+                    display: 'flex',
+                    cursor: 'pointer',
+                  }}
+                  // onClick={() => openInNewTab('https://stackoverflow.com')}
+                >
+                  {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
+                  {" "} */}
+                  <img src={LinkIcon} />
+                  <Typography sx={{
+                    fontSize: '0.6rem',
+                    marginLeft: '0.3rem',
+                    width: '23rem',
+                  }}
+                    onClick={() => window.open("https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh", "_blank")
+                  }
+                  >
+                    https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh
+                  </Typography>
+                  {/* </a> */}
                 </Box>
               </Box>
-              <Box
-                sx={{
-                  backgroundColor: "#fff",
-                  fontSize: "0.65rem",
-                  border: "1px solid #e1e1e1",
-                  paddingTop: '0.5rem',
-                  paddingLeft: '0.5rem',
-                  paddingBottom: '0.5rem',
-                  display: 'flex',
-                  cursor: 'pointer',
-                }}
-                onClick="window.open('https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh','_blank')"
-              >
-                {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
-                  {" "} */}
-                <img src={LinkIcon} />
-                <Typography sx={{
-                  fontSize: '0.7rem',
-                  marginLeft: '0.3rem',
-                  width: '27rem'
-                }}
-                >
-                  https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh
-                </Typography>
-                {/* </a> */}
-              </Box>
+              
             </Box>
             <Box
               className={classes.exitButton}
@@ -761,7 +767,7 @@ const Provresultat = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  width: width > 1025 ? "89.1%" : '92%',
+                  width: width > 1025 ? "91%" : '92%',
                   border: "1px solid #0A1596",
                   margin: "1rem 0",
                   color: "#0A1596",

@@ -49,7 +49,6 @@ const CoursesMain = () => {
     const userId = localStorage.getItem("userId");
     const URL = EndPoints.simuleraQuizHistory + userId;
     instance2.get(URL).then((response) => {
-      console.log(response.data, 'this is quiz history')
       if (response.data.length > 0) {
         // setProvHistoryData(response.data);
 
@@ -86,9 +85,8 @@ const CoursesMain = () => {
               provPassArray.splice(index, 1, item)
             }
           }
-        })
-        setProvpassSeasons(provPassArray)
-        console.log('here is console of new array ====> ', provPassArray)
+        });
+        setProvpassSeasons(provPassArray);
         // let allSeasons;
         // let newSeasons;
         // response?.data.map(item => {

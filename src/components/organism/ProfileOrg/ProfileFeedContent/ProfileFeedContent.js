@@ -3,7 +3,6 @@ import { Container, makeStyles, Box, Button } from "@material-ui/core";
 import Heading from "../../../atom/Heading/Heading";
 import BodyText from "../../../atom/BodyText/BodyText";
 import InputField from "../../../atom/InputField/InputField";
-import FilledBtn from "../../../atom/FilledBtn/FilledBtn";
 import swal from "sweetalert";
 import { instance2, EndPoints } from "../../../service/Route";
 import PasswordUpdationDialog from "../../../molecule/PasswordUpdationDialog/PasswordUpdationDialog";
@@ -114,7 +113,6 @@ const ProfileFeedContent = () => {
                 height: "3rem",
                 padding: "1rem",
                 border: "1px solid #e1e1e1",
-                borderRadius: "5px",
                 marginBottom: "1rem",
                 borderRadius: '7.5px'
               }}
