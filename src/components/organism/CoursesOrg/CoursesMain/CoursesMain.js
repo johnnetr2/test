@@ -129,13 +129,7 @@ const CoursesMain = () => {
   // }, [limit]);
 
   return (
-    <Container
-      maxWidth="false"
-      disableGutters
-      sx={{
-        boxSizing: "border-box",
-      }}
-    >
+    <Container maxWidth="false" disableGutters>
       <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           item
@@ -160,7 +154,10 @@ const CoursesMain = () => {
         </Grid>
         <Grid
           item
-          style={{ maxWidth: "40rem", backgroundColor: "#fafafa" }}
+          style={{
+            maxWidth: "35rem",
+            backgroundColor: "#fafafa",
+          }}
           className={classes.right}
         >
           <CoursesRightBar

@@ -38,7 +38,7 @@ const HomeRightBar = (props) => {
   }, [props.StudentPreference]);
 
   return (
-    <Container maxWidth={false} style={props.style}>
+    <Container maxWidth={false} style={{ padding: "0 3rem" }}>
       <Box
         sx={{
           height: "auto",
@@ -62,10 +62,10 @@ const HomeRightBar = (props) => {
               justifyContent: "space-between",
             }}
           >
-            <Box sx={{ width: "49%" }}>
+            <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
               <QuestionProgressBox totalPrognos={props?.totalPrognos} />
             </Box>
-            <Box sx={{ width: "49%" }}>
+            <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
               <GoalBox
                 goalPoint={
                   props.studentPreference && props.studentPreference
@@ -91,6 +91,8 @@ const HomeRightBar = (props) => {
             sx={{
               display: "flex",
               height: "18rem",
+              backgroundColor: "#fff",
+
               borderRadius: 3,
               justifyContent: "flex-start",
               alignItems: "flex-start",
@@ -110,16 +112,7 @@ const HomeRightBar = (props) => {
             >
               POANG
             </Typography>
-            <LinesChart
-              width={550}
-              height={200}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              syncId="anyId"
-            />
+            <LinesChart syncId="anyId" />
           </Box>
 
           <Box style={{ marginTop: "2rem" }}>
@@ -134,7 +127,7 @@ const HomeRightBar = (props) => {
               Viktiga datum
             </Typography>
             <Box sx={{ display: "flex", marginBottom: "1rem" }}>
-              <Box sx={{ width: "100%" }}>
+              <Box sx={{ width: "100%", backgroundColor: "#fff" }}>
                 <ImpDatesCard />
               </Box>
             </Box>

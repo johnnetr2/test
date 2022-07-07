@@ -31,9 +31,9 @@ const LineDemo = (props) => {
   });
 
   return (
-    <Box sx={{ width: "100%", height: "100%" }}>
+    <Box>
       <Bar
-        width={320}
+        width={450}
         height={200}
         options={{
           legend: {
