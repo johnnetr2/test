@@ -392,6 +392,7 @@ const CategoryPagesFeedContent = (props) => {
               width: "100%",
               height: "fit-content",
               flexWrap: "wrap",
+              // justifyContent: 'space-between'
             }}
           >
             <OutlineField
@@ -408,7 +409,6 @@ const CategoryPagesFeedContent = (props) => {
                   <OutlineField
                     title={item.title}
                     onClickCheck={(e) => {
-                      // selectAll.length === 0 &&
                       selectedItem(e, item);
                     }}
                     checked={isChecked(item._id)}
@@ -447,7 +447,7 @@ const CategoryPagesFeedContent = (props) => {
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
-          width: "99%",
+          width: "99.35%",
         }}
         onClick={onSubmit}
       >

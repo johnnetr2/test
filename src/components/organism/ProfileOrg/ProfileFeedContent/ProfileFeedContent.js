@@ -127,7 +127,7 @@ const ProfileFeedContent = () => {
               alignItems: 'center',
               borderRadius: '7.5px',
               color: data.length > 0 ? '#FFFFFF' : '#505050',
-              cursor: 'pointer'
+              cursor: data.length > 0 && 'pointer'
             }}>
               <Box
                 onClick={() => console.log(data.length)}

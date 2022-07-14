@@ -240,7 +240,10 @@ const CoursesFeedContent = (props) => {
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
         <Box sx={{ marginTop: "-9.5rem" }}>
-          <CoursesRightBar />
+          <CoursesRightBar 
+            data={props.data}
+            previousExams={props.previousExams}
+          />
         </Box>
       </TabPanel>
     </Container>

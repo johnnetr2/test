@@ -62,8 +62,10 @@ export const CategoryTable = (props) => {
           // paddingLeft: '2rem'
         }}
       >
-        {console.log(width)}
-        <Typography style={{ display: "flex" }}>Datum</Typography>
+        <Typography style={{
+          display: "flex",
+          marginLeft: width > 900 ? width * 0.01 : width * 0.02,
+        }}>Datum</Typography>
         <Typography
           style={{
             display: "flex",
@@ -89,9 +91,11 @@ export const CategoryTable = (props) => {
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
+          width: 'fit-content'
+          // backgroundColor: 'green'
         }}
       >
-        <Table sx={{ minWidth: width * 0.0863 }}>
+        <Table sx={{ width: width > 900 ? width * 0.542 : width * 0.813 }}>
           <TableBody>
             {categoryTable.map((row, index) => {
               return (
@@ -113,7 +117,6 @@ export const CategoryTable = (props) => {
 
                   <TableCell
                     style={{
-                      cursor: "pointer",
                       display: "flex",
                       flexDirection: "row-reverse",
                       color: "grey",
@@ -121,7 +124,7 @@ export const CategoryTable = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    <MoreVertIcon onClick={() => showPopup(index)} />
+                    <MoreVertIcon sx={{ cursor: 'pointer' }} onClick={() => showPopup(index)} />
 
                     {row.result && (
                       <Dropdown onClick={() => ResultHandler(row)} />

@@ -143,17 +143,16 @@ const CoursesMain = () => {
           <CoursesLeftBar />
         </Grid>
         <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
-          {/* {seasons &&  */}
           <CoursesFeedContent
             previousExams={previousExams}
+            data={provHistoryData}
             loadMore={() => LoadMore()}
             seasons={provpassSeasons}
           />
-          {/* } */}
         </Grid>
         <Grid
           item
-          style={{ maxWidth: "27rem", backgroundColor: "#fafafa" }}
+          style={{ width: "40rem", backgroundColor: "#fafafa", paddingLeft: '2.5rem'}}
           className={classes.right}
         >
           <CoursesRightBar
