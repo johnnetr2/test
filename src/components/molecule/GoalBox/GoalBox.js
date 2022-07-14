@@ -123,7 +123,7 @@ const GoalBox = (props) => {
               {pointCollection.point ? pointCollection.point : "0.0"}
             </Typography>
 
-            <Typography variant="body2" style={{ marginBottom: "0.5rem" }}>
+            <Typography variant="body2" style={{ marginBottom: "0.25rem" }}>
               Mål
             </Typography>
           </Box>

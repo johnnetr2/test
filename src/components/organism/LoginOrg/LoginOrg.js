@@ -116,9 +116,6 @@ const LoginOrg = () => {
         className={classes.hideOnMobile}
       ></Container>
       <Container
-        // xs={3}
-        // md={6}
-        // lg={12}
         maxWidth="false"
         disableGutters
         sx={{

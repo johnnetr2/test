@@ -112,7 +112,11 @@ const SignupOrg = () => {
         className={classes.mobileView}
       >
         <Box>
-          <Box sx={{ marginBottom: "1rem" }}>
+          <Box
+            sx={{
+              marginBottom: "1rem",
+            }}
+          >
             <Typography
               variant="h3"
               component="h3"
@@ -181,20 +185,20 @@ const SignupOrg = () => {
               name="password"
               id="password"
               style={{
+                width: "100%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "space-between",
                 height: "3rem",
                 border: "none",
                 padding: "1rem",
-
                 backgroundColor: "transparent",
               }}
             />
             <Label
               for="password"
               style={{
-                paddingRight: "1rem",
+                padding: "0 1rem",
                 margin: "0",
               }}
               onClick={() => setShowPassword(!showPassword)}
