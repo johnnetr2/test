@@ -87,99 +87,39 @@ const LinesChart = (props) => {
   }, []);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        // border: "2px solid #f0f",
-      }}
-    >
-      {/* <Line
-        data={{
-          labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
-          datasets: [
-            {
-              label: "# of votes",
-              data: [
-                mondayData,
-                tuesdayData,
-                wednesdayData,
-                thursdayData,
-                fridayData,
-                saturdayData,
-                sundayData,
-              ],
-              backgroundColor: ["#0A1596"],
-              borderWidth: 2,
-            },
-          ],
-        }}
-        width="100%"
-        height="100%"
-        options={{
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-          },
-          legend: {
-            labels: {
-              fontSize: 25,
-            },
-          },
-        }}
-      /> */}
+    <Box>
       <LineChart
-        width={320}
+        width={400}
         height={200}
         style={props.style}
         data={[
           {
             name: "v35",
             point: mondayData,
-            pv: 2400,
-            amt: 2400,
           },
           {
             name: "v39",
             point: tuesdayData,
-            pv: 1398,
-            amt: 2210,
           },
           {
             name: "v37",
             point: wednesdayData,
-            pv: 9800,
-            amt: 2290,
           },
           {
             name: "v38",
             point: thursdayData,
-            pv: 3908,
-            amt: 2000,
           },
           {
             name: "v39",
             point: fridayData,
-            pv: 4800,
-            amt: 2181,
           },
           {
             name: "v40",
             point: saturdayData,
-            pv: 3800,
-            amt: 2500,
           },
           {
             name: "v41",
             point: sundayData,
-            pv: 4300,
-            amt: 2100,
           },
         ]}
         syncId="anyId"
@@ -190,7 +130,7 @@ const LinesChart = (props) => {
           bottom: 0,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid />
         <XAxis dataKey="name" />
         <YAxis
         // dataKey={[0, 0.4, 0.8, 1.2, 1.6, 2.0]}

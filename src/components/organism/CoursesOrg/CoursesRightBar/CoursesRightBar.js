@@ -20,45 +20,38 @@ import moment from "moment";
 import Thumb from "../../../../assets/Imgs/Thumb.png";
 import { EndPoints, instance2 } from "../../../service/Route";
 import { useNavigate } from "react-router-dom";
-import useWindowDimensions from '../../../molecule/WindowDimensions/dimension'
+import useWindowDimensions from "../../../molecule/WindowDimensions/dimension";
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
     paddingTop: theme.spacing(18),
-    // paddingLeft: theme.spacing(2),
   },
-  // tablespace: {
-  //   paddingLeft: theme.spacing(2),
-  //   paddingRight: theme.spacing(2),
-  // },
 }));
 
 const RightBar = (props) => {
-
-  const [resultHistory, setResultHistory] = useState()
+  const [resultHistory, setResultHistory] = useState();
   const classes = useStyles();
   const navigate = useNavigate()
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
-    setResultHistory(props?.data)
-    console.log(props?.data)
-  }, [props?.data])
+    setResultHistory(props?.data);
+    console.log(props?.data);
+  }, [props?.data]);
 
   const showPopup = (index) => {
-    const history = [...resultHistory]
-    let singlerow = history[index]
+    const history = [...resultHistory];
+    let singlerow = history[index];
     if (singlerow.result == true) {
-      singlerow.result = false
-      setResultHistory(history)
+      singlerow.result = false;
+      setResultHistory(history);
     } else {
-      singlerow.result = true
-      setResultHistory(history)
+      singlerow.result = true;
+      setResultHistory(history);
     }
-  }
+  };
 
   const ResultHandler = (row) => {
-
     navigate("/provresultat", {
       state: {
         quizId: row._id,
@@ -69,13 +62,14 @@ const RightBar = (props) => {
   function Dropdown(props) {
 
     return (
-      <div className='result_popup'
+      <div
+        className="result_popup"
         onClick={() => props.onClick()}
         style={{ marginRight: width > 900 ? '3.6%' : '16.95%', marginTop: width > 900 ? '4.4%' : '9%', cursor: 'pointer' }}
       >SE resultat
         <div className='popup' ></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -137,7 +131,7 @@ const RightBar = (props) => {
                   <TableRow>
                     <TableCell>Datum </TableCell>
                     <TableCell align="left">Prov</TableCell>
-                    <TableCell align="left">Antal</TableCell>
+                    <TableCell align="left">Antal </TableCell>
                     <TableCell align="left">Normerad</TableCell>
                     <TableCell align="left"></TableCell>
                   </TableRow>

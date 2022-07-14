@@ -35,7 +35,7 @@ const GoalBox = (props) => {
     });
   };
   const MenuIcon = () => {
-    const options = "EDIT";
+    const options = "ÄNDRA";
     const ITEM_HEIGHT = 48;
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -120,7 +120,7 @@ const GoalBox = (props) => {
               variant="h3"
               style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
             >
-              {pointCollection.point && pointCollection.point}
+              {pointCollection.point ? pointCollection.point : "0.0"}
             </Typography>
 
             <Typography variant="body2" style={{ marginBottom: "0.5rem" }}>

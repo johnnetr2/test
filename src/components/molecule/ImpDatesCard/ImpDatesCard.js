@@ -36,7 +36,7 @@ const ImpDatesCard = (props) => {
   };
   const convertedDate = moment(collection.date).format("DD/MM/YYYY");
   const MenuIcon = () => {
-    const options = "EDIT";
+    const options = "ÄNDRA";
     const ITEM_HEIGHT = 48;
     const [anchorEl, setAnchorEl] = useState(null);
 

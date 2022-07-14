@@ -20,12 +20,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "flex-start",
     },
   },
-  flexStart: {
-    [theme.breakpoints.up("lg")]: {
-      display: "flex",
-      justifyContent: "flex-start",
-    },
-  },
   leftBarHide: {
     [theme.breakpoints.down("600")]: {
       display: "none",
@@ -37,13 +31,7 @@ const HomeMainOrg = (props) => {
   const classes = useStyles();
   const [totalPrognos, setTotalPrognos] = useState();
   return (
-    <Container
-      maxWidth="false"
-      disableGutters
-      sx={{
-        boxSizing: "border-box",
-      }}
-    >
+    <Container maxWidth="false" disableGutters>
       <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           item
@@ -63,7 +51,7 @@ const HomeMainOrg = (props) => {
         <Grid
           item
           style={{
-            maxWidth: "27rem",
+            width: "35rem",
             backgroundColor: "#fafafa",
           }}
           className={classes.right}

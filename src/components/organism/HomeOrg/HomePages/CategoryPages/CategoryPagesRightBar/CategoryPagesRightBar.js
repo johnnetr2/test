@@ -41,7 +41,7 @@ const CategoryPagesRightBar = (props) => {
       maxWidth={false}
       style={{
         backgrounColor: "#fafafa",
-        width: "27rem",
+        padding: "0 3rem",
       }}
     >
       <Box
@@ -82,15 +82,22 @@ const CategoryPagesRightBar = (props) => {
                 100
               }
             />
-            <Typography style={{
-              marginTop: '-0.95rem',
-              position: 'absolute',
-              fontSize: '12px',
-              alignSelf: 'center',
-              marginLeft: width > 900 ? width*0.10 : width*0.34,
-              color: lastWeekTasks.totalCorrectQuestions > (lastWeekTasks.totalQuestions / 2) ? '#F9F9F9' : ''
-            }}>
-              {lastWeekTasks.totalCorrectQuestions} av {lastWeekTasks.totalQuestions}
+            <Typography
+              style={{
+                marginTop: "-0.95rem",
+                position: "absolute",
+                fontSize: "12px",
+                alignSelf: "center",
+                marginLeft: width > 900 ? width * 0.125 : width * 0.34,
+                color:
+                  lastWeekTasks.totalCorrectQuestions >
+                  lastWeekTasks.totalQuestions / 2
+                    ? "#F9F9F9"
+                    : "",
+              }}
+            >
+              {lastWeekTasks.totalCorrectQuestions} av{" "}
+              {lastWeekTasks.totalQuestions}
             </Typography>
           </Box>
         </Box>
@@ -99,10 +106,9 @@ const CategoryPagesRightBar = (props) => {
             marginTop: "3rem",
             marginBottom: "2rem",
             display: "flex",
-            justifyContent: "space-between",
           }}
         >
-          <Box sx={{ marginRight: "1rem" }}>
+          <Box sx={{ marginRight: "3rem" }}>
             <Typography variant="h5">
               {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
             </Typography>
@@ -120,7 +126,6 @@ const CategoryPagesRightBar = (props) => {
         <Box
           sx={{
             display: "flex",
-            height: "18rem",
             borderRadius: 3,
             justifyContent: "flex-start",
             alignItems: "flex-start",
@@ -142,13 +147,10 @@ const CategoryPagesRightBar = (props) => {
             UPPGIFTER
           </Typography>
           <LineDemo />
-          
         </Box>
 
         <Box
           sx={{
-            width: "80%",
-            marginRight: "1rem",
             marginTop: "4rem",
             marginBottom: "2rem",
           }}
@@ -172,7 +174,6 @@ const CategoryPagesRightBar = (props) => {
           <Box
             sx={{
               display: "flex",
-              height: "18rem",
               borderRadius: 3,
               justifyContent: "flex-start",
               alignItems: "flex-start",
@@ -194,14 +195,7 @@ const CategoryPagesRightBar = (props) => {
               POANG
             </Typography>
 
-            <LinesChart
-              syncId="anyId"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
+            <LinesChart />
           </Box>
         </Box>
       </Box>
