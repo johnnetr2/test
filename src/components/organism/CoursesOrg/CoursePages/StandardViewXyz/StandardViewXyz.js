@@ -31,6 +31,8 @@ import ProvPassDtk from "../ProvPassDtk/ProvPassDtk";
 import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
 import Increment from "../../../../../assets/Icons/Increment.svg";
 import Decrement from "../../../../../assets/Icons/Decrement.svg";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,6 +45,7 @@ const StandardViewXyz = () => {
   const [backPressPopup, setBackPressPopup] = useState(false);
   const [timeLeft, setTimeLeft] = useState();
   const [shouldNavigate, setShouldNavigate] = useState(false);
+  const [open, setOpen] = useState(true)
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
@@ -58,6 +61,7 @@ const StandardViewXyz = () => {
         console.log(response.data, 'this is response')
         setQuiz(response.data.simuleraQuiz);
         setTime(3300);
+        setOpen(false)
         response.data.simuleraQuiz && setStatus(true);
       });
     }
@@ -223,9 +227,9 @@ const StandardViewXyz = () => {
       question: question._id,
       optionId: e.target.value,
       sectionCategories: question.sectionCategories,
-      timeleft: 0,
-      totaltime: 0,
-      spendtime: 0,
+      timeleft: timeLeft,
+      totaltime: time,
+      spendtime: time - timeLeft,
     };
 
     let questions = [...SubmitedQuestions];
@@ -239,6 +243,7 @@ const StandardViewXyz = () => {
       questions.push(data);
       setSubmitedQuestions(questions);
       console.log("question submited");
+      setTime(timeLeft)
     }
   };
 
@@ -305,7 +310,12 @@ const StandardViewXyz = () => {
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
       </AppBar>
-
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, width: '100%' }}
+        open={open}
+      >
+        <CircularProgress color="inherit" size="5rem" />
+      </Backdrop>
       <Container
         disableGutters
         maxWidth="xl"

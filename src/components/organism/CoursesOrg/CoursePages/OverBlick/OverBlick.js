@@ -49,13 +49,15 @@ const OverBlick = () => {
 
     const URL = EndPoints.submitSimuleraTest;
     instance2.post(URL, data).then((response) => {
+      console.log(response.data, ';this is api response')
       if (response.status == 200) {
         const updatePreviosExam = EndPoints.updatePreviousExam;
         const examData = {
           simuleraSeason: params.state.simuleraSeason,
-          user: response?.data?.simuleraQuizResult?.user,
+          user: localStorage.getItem('userId'),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
+        console.log(examData, 'exam data')
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
         });
