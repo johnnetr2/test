@@ -22,18 +22,15 @@ import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { useNavigate } from "react-router-dom";
-import ResultQuestionViewDtkOrg from './ResultQuestionViewDTKOrg'
+import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Timer from "../../../../../atom/Timer/timer";
 
-
 const QuestionViewDTKOrg = (props) => {
-
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [quiz, setQuiz] = useState()
-  const [showResult, setShowResult] = useState(false)
-
+  const [quiz, setQuiz] = useState();
+  const [showResult, setShowResult] = useState(false);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -85,43 +82,45 @@ const QuestionViewDTKOrg = (props) => {
 
   useEffect(() => {
     if (props.paragraphIndex != undefined) {
-      setSelectedIndex(props.questionIndex)
-      setQuiz(props.question)
+      setSelectedIndex(props.questionIndex);
+      setQuiz(props.question);
     } else {
-      setQuiz(props.question)
+      setQuiz(props.question);
     }
-  }, [])
+  }, []);
 
   const Button = (question) => {
     if (props.paragraphIndex != undefined) {
-      return <ResultFooter
-        questionLength={props.quiz.length}
-        questionIndex={props.selectedIndex}
-        onResultHandler={() => props.onResultHandler()}
-        onLeftClick={() => {
-          props.onLeftClick();
-        }}
-        onRightClick={() => {
-          props.onRightClick();
-        }}
-      />
-    } else {
-      return <Box sx={{ width: 600, marginLeft: '.5rem' }}>
-        <ExerciseBtn title="Nästa"
-          onClick={() => submitAnswer(question)}
+      return (
+        <ResultFooter
+          questionLength={props.quiz.length}
+          questionIndex={props.selectedIndex}
+          onResultHandler={() => props.onResultHandler()}
+          onLeftClick={() => {
+            props.onLeftClick();
+          }}
+          onRightClick={() => {
+            props.onRightClick();
+          }}
         />
-      </Box>
+      );
+    } else {
+      return (
+        <Box sx={{ width: 600, marginLeft: ".5rem" }}>
+          <ExerciseBtn title="Nästa" onClick={() => submitAnswer(question)} />
+        </Box>
+      );
     }
-  }
+  };
 
   const SelectFunc = (e, optionIndex) => {
-    let allQuiz = { ...quiz }
-    const qz = allQuiz?.question
+    let allQuiz = { ...quiz };
+    const qz = allQuiz?.question;
     let question = qz[selectedIndex];
     question.selectedOptionIndex = optionIndex;
     question.optionId = e.target.value;
-    allQuiz.question = qz
-    setQuiz(allQuiz)
+    allQuiz.question = qz;
+    setQuiz(allQuiz);
   };
 
   const Options = (question, option, optionIndex) => {
@@ -137,11 +136,10 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-
   const submitAnswer = (question) => {
     if (!question.answerSubmited) {
       const allQuiz = { ...quiz };
-      const qz = allQuiz.question
+      const qz = allQuiz.question;
       let selectedquestion = qz[selectedIndex];
 
       const getAnswer = EndPoints.getAnswerByQuestionId + selectedquestion._id;
@@ -149,16 +147,17 @@ const QuestionViewDTKOrg = (props) => {
         selectedquestion.answer = response.data;
         selectedquestion.answerSubmited = true;
 
-        const selectedAnswers = qz.filter(item => item.answerSubmited)
+        const selectedAnswers = qz.filter((item) => item.answerSubmited);
         if (selectedAnswers.length === qz.length) {
-          setShowResult(true)
-          props.stopTimer()
+          setShowResult(true);
+          props.stopTimer();
         }
 
         setQuiz(allQuiz);
       });
 
-      selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
+      selectedIndex + 1 < quiz.question.length &&
+        setSelectedIndex(selectedIndex + 1);
 
       const data = {
         quiz: props.quizId,
@@ -169,15 +168,15 @@ const QuestionViewDTKOrg = (props) => {
         timeleft: props.timeLeft ? props.timeLeft : null,
         totaltime: props.totalTime ? props.totalTime : null,
         spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
-        MultipartQuestion: props.question._id
-      }
-      const URL = EndPoints.submitAnswer
-      instance2.post(URL, data).then(response => {
-        console.log("Answer submitted")
-
-      })
+        MultipartQuestion: props.question._id,
+      };
+      const URL = EndPoints.submitAnswer;
+      instance2.post(URL, data).then((response) => {
+        console.log("Answer submitted");
+      });
     } else {
-      selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)
+      selectedIndex + 1 < quiz.question.length &&
+        setSelectedIndex(selectedIndex + 1);
     }
     // setForce(!forceupdate)
   };
@@ -190,7 +189,6 @@ const QuestionViewDTKOrg = (props) => {
         maxWidth="lg"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
-        
         <Container
           maxWidth="md"
           style={{
@@ -211,11 +209,11 @@ const QuestionViewDTKOrg = (props) => {
               backgroundColor: "#fff",
               width: 600,
               height: 373,
-              border: '1px solid #e1e1e1',
-              overflow: 'auto',
+              // border: '1px solid #e1e1e1',
+              overflow: "auto",
               "&::-webkit-scrollbar": {
-                width: 10
-              }
+                width: 10,
+              },
             }}
           >
             <Typography
@@ -225,7 +223,7 @@ const QuestionViewDTKOrg = (props) => {
                 fontWeight: "500",
               }}
             >
-              {selectedIndex + 1 + ' uppgifter:'}
+              {selectedIndex + 1 + " uppgifter:"}
             </Typography>
             <Typography variant="h6" component="h6">
               {quiz?.title}
@@ -236,21 +234,31 @@ const QuestionViewDTKOrg = (props) => {
             >
               <MarkLatex content={quiz?.description} />
             </Typography>
-            {quiz?.image && <Box>
-              <img src={quiz?.image} style={{ width: '100%' }} alt="" />
-            </Box>}
+            {quiz?.image && (
+              <Box>
+                <img src={quiz?.image} style={{ width: "100%" }} alt="" />
+              </Box>
+            )}
           </Box>
-          {
-            showResult ? (<ResultQuestionViewDtkOrg paragraphIndex={props.paragraphIndex}
+          {showResult ? (
+            <ResultQuestionViewDtkOrg
+              paragraphIndex={props.paragraphIndex}
               onRightClick={() => props.onRightClick()}
-              onLeftClick={() => props.onLeftClick()} onResultHandler={() => props.onResultHandler()}
-              questionIndex={props.questionIndex} quiz={quiz} stopTimer={() => props.stopTimer()}
-              startTimer={() => props.startTimer()} selectedIndex={props.selectedIndex}
+              onLeftClick={() => props.onLeftClick()}
+              onResultHandler={() => props.onResultHandler()}
+              questionIndex={props.questionIndex}
+              quiz={quiz}
+              stopTimer={() => props.stopTimer()}
+              startTimer={() => props.startTimer()}
+              selectedIndex={props.selectedIndex}
               nextQuestion={() => props.nextQuestion()}
-            />) :
-              quiz && quiz?.question?.map((question, index) => {
-                if (index == selectedIndex) {
-                  return <Box>
+            />
+          ) : (
+            quiz &&
+            quiz?.question?.map((question, index) => {
+              if (index == selectedIndex) {
+                return (
+                  <Box>
                     <Box
                       paddingX={4}
                       mt={5}
@@ -258,7 +266,7 @@ const QuestionViewDTKOrg = (props) => {
                         backgroundColor: "#fff",
                         width: 600,
                         border: "1px solid #e1e1e1",
-                        marginLeft: '.5rem'
+                        marginLeft: ".5rem",
                       }}
                     >
                       <Box
@@ -269,55 +277,126 @@ const QuestionViewDTKOrg = (props) => {
                           marginTop: 10,
                         }}
                       >
-                        <Box style={{ width: 70, display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }} >
-                          {selectedIndex > 0 && <img onClick={() => setSelectedIndex(selectedIndex - 1)} src={BlueLeftIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />}
-                          <Typography variant="body1" component="body1" style={{ fontSize: '.8rem' }} >
-                            {selectedIndex + 1 + '/' + quiz.question.length}
+                        <Box
+                          style={{
+                            width: 70,
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                            alignItems: "center",
+                          }}
+                        >
+                          {selectedIndex > 0 && (
+                            <img
+                              onClick={() =>
+                                setSelectedIndex(selectedIndex - 1)
+                              }
+                              src={BlueLeftIcon}
+                              style={{ cursor: "pointer" }}
+                              className={classes.size}
+                              alt=""
+                            />
+                          )}
+                          <Typography
+                            variant="body1"
+                            component="body1"
+                            style={{ fontSize: ".8rem" }}
+                          >
+                            {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
-                          <img onClick={() => selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1)} src={BlueRightIcon} style={{ cursor: 'pointer' }} className={classes.size} alt="" />
+                          <img
+                            onClick={() =>
+                              selectedIndex + 1 < quiz.question.length &&
+                              setSelectedIndex(selectedIndex + 1)
+                            }
+                            src={BlueRightIcon}
+                            style={{ cursor: "pointer" }}
+                            className={classes.size}
+                            alt=""
+                          />
                         </Box>
                       </Box>
                       <Typography
                         variant="h6"
                         component="h6"
-                        style={{ fontSize: ".75rem", fontWeight: "600", marginTop: 20, display: 'flex', flexDirection: 'column' }}
+                        style={{
+                          fontSize: ".75rem",
+                          fontWeight: "600",
+                          marginTop: 20,
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
                       >
                         <MarkLatex content={question.questionStatement} />
 
-                        {question.image && <img src={question.image[0]} style={{ height: '10rem', marginBottom: '.4rem' }} />}
+                        {question.image && (
+                          <img
+                            src={question.image[0]}
+                            style={{ height: "10rem", marginBottom: ".4rem" }}
+                          />
+                        )}
                       </Typography>
                     </Box>
                     {question.options[0].options.map((option, optionIndex) => {
-                      return <Box
-                        padding={1}
-                        sx={{
-                          backgroundColor: "#fff",
-                          width: 600,
-                          border: "1px solid #e1e1e1",
-                          marginLeft: '.5rem'
-                        }}
-                      >
-                        <FormControlLabel onClick={(e) => {
-                          !question.answerSubmited && SelectFunc(e, optionIndex);
-                        }} value={option._id}
-                          style={{ marginLeft: '.5rem', alignItems: 'center' }}
-
-                          control={
-                            props.paragraphIndex != undefined ? Options(question, option, optionIndex)
-                              : <Radio color="primary" checked={optionIndex == question.selectedOptionIndex} />
-                          }
-
-                          label={<MarkLatex content={option.value.replace("\f", "\\f")} />} />
-                      </Box>
-
+                      return (
+                        <Box
+                          padding={1}
+                          sx={{
+                            backgroundColor: "#fff",
+                            width: 600,
+                            border: "1px solid #e1e1e1",
+                            marginLeft: ".5rem",
+                          }}
+                        >
+                          <FormControlLabel
+                            onClick={(e) => {
+                              !question.answerSubmited &&
+                                SelectFunc(e, optionIndex);
+                            }}
+                            value={option._id}
+                            style={{
+                              marginLeft: ".5rem",
+                              alignItems: "center",
+                            }}
+                            control={
+                              props.paragraphIndex != undefined ? (
+                                Options(question, option, optionIndex)
+                              ) : (
+                                <Radio
+                                  color="primary"
+                                  checked={
+                                    optionIndex == question.selectedOptionIndex
+                                  }
+                                />
+                              )
+                            }
+                            label={
+                              <MarkLatex
+                                content={option.value.replace("\f", "\\f")}
+                              />
+                            }
+                          />
+                        </Box>
+                      );
                     })}
 
-                    {question.selectedOptionIndex + 1 ? Button(question) : (
+                    {question.selectedOptionIndex + 1 ? (
+                      Button(question)
+                    ) : (
                       <Box
                         padding={1}
                         mt={2}
                         style={{
-                          backgroundColor: 'grey', color: "#FFFFFF", height: '2.7rem', borderRadius: '.4rem', width: '100%', marginTop: '2%', marginBottom: '2%', marginLeft: '1%', display: 'flex', justifyContent: 'center', alignItems: 'center'
+                          backgroundColor: "grey",
+                          color: "#FFFFFF",
+                          height: "2.7rem",
+                          borderRadius: ".4rem",
+                          width: "100%",
+                          marginTop: "2%",
+                          marginBottom: "2%",
+                          marginLeft: "1%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}
                       >
                         <Typography
@@ -325,21 +404,18 @@ const QuestionViewDTKOrg = (props) => {
                           style={{
                             fontSize: "0.75rem",
                             marginRight: "0.5rem",
-                            width: '3rem',
+                            width: "3rem",
                           }}
                         >
                           Nästa
                         </Typography>
                       </Box>
-
-                    )
-                    }
-
+                    )}
                   </Box>
-                }
-              })
-          }
-
+                );
+              }
+            })
+          )}
         </Container>
       </Container>
     </div>

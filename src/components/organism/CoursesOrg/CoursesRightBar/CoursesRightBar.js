@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const RightBar = (props) => {
   const [resultHistory, setResultHistory] = useState();
   const classes = useStyles();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
@@ -60,14 +60,18 @@ const RightBar = (props) => {
   };
 
   function Dropdown(props) {
-
     return (
       <div
         className="result_popup"
         onClick={() => props.onClick()}
-        style={{ marginRight: width > 900 ? '3.6%' : '16.95%', marginTop: width > 900 ? '4.4%' : '9%', cursor: 'pointer' }}
-      >SE resultat
-        <div className='popup' ></div>
+        style={{
+          marginRight: width > 900 ? "3.6%" : "16.95%",
+          marginTop: width > 900 ? "4.4%" : "9%",
+          cursor: "pointer",
+        }}
+      >
+        SE resultat
+        <div className="popup"></div>
       </div>
     );
   }
@@ -75,46 +79,82 @@ const RightBar = (props) => {
   return (
     <Container
       maxWidth={false}
-      disableGutters
+      // disableGutters
       style={{
-        // backgrounColor: "#fff",
-        marginLeft: width < 900 && '2.5rem'
-        // backgrounColor: "#fafafa",
-        // width: "27rem",
+        marginLeft: width < 900 && "2.5rem",
+        padding: "0 3rem",
       }}
     >
-      <Box sx={{ backgroundColor: width < 900 ? "#fff" : '#fafafa', display: 'flex', flexDirection: 'column'}}>
-        <Box className={classes.topspace} style={{ marginBottom: "2rem", marginTop: '1.3rem' }}>
+      <Box
+        sx={{
+          backgroundColor: width < 900 ? "#fff" : "#fafafa",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Box
+          className={classes.topspace}
+          style={{
+            marginBottom: "2rem",
+            marginTop: "1.3rem",
+          }}
+        >
           <Typography variant="h6" component="h6">
             Dina slutförda prov
           </Typography>
         </Box>
-        <Box style={{
-          display: 'flex',
-          flexDirection: 'row',
-          textTransform: 'uppercase',
-          marginBottom: '1.1rem',
-          width: '100%',
-          alignItems: 'flex-end' 
-        }}
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            textTransform: "uppercase",
+            marginBottom: "1.1rem",
+            width: "100%",
+            alignItems: "flex-end",
+          }}
         >
-          <Typography style={{ marginLeft: width > 900 ? '7.2%' : '6.3%', fontSize: '14px' }} >Datum</Typography>
+          <Typography
+            style={{
+              marginLeft: width > 900 ? "7.2%" : "6.3%",
+              fontSize: "14px",
+            }}
+          >
+            Datum
+          </Typography>
 
-          <Typography style={{ marginLeft: width > 900 ? '19.5%' : '15.5%', fontSize: '14px' }} >Prov</Typography>
+          <Typography
+            style={{
+              marginLeft: width > 900 ? "19.5%" : "15.5%",
+              fontSize: "14px",
+            }}
+          >
+            Prov
+          </Typography>
 
-          <Box style={{ display: 'flex', flexDirection: 'column', marginLeft: width > 900 ? '16.5%' : '14%' }}>
-            <Typography style={{ fontSize: '14px' }} >Antal</Typography>
-            <Typography style={{ fontSize: '14px' }} >poäng</Typography>
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: width > 900 ? "16.5%" : "14%",
+            }}
+          >
+            <Typography style={{ fontSize: "14px" }}>Antal</Typography>
+            <Typography style={{ fontSize: "14px" }}>poäng</Typography>
           </Box>
 
-          <Box style={{ display: 'flex', flexDirection: 'column', marginLeft: width > 900 ? '8%' : '7.5%' }}>
-            <Typography style={{ fontSize: '14px' }}>normerad</Typography>
-            <Typography style={{ fontSize: '14px' }}>poäng</Typography>
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: width > 900 ? "8%" : "7.5%",
+            }}
+          >
+            <Typography style={{ fontSize: "14px" }}>normerad</Typography>
+            <Typography style={{ fontSize: "14px" }}>poäng</Typography>
           </Box>
-
         </Box>
         <Box className={classes.tablespace} style={{ marginBottom: "2rem" }}>
-          <Box style={{ marginBottom: "2rem", width: '' }}>
+          <Box style={{ marginBottom: "2rem", width: "" }}>
             <TableContainer
               style={{
                 border: "1px solid #e1e1e1",
@@ -122,8 +162,9 @@ const RightBar = (props) => {
                 padding: "1.5rem",
                 boxShadow: "0px 5px 10px #f2f2f2",
                 backgroundColor: "#fff",
-                display: 'flex',
-                width: '33rem'
+                display: "flex",
+                //removed width
+                // width: "33rem",
               }}
             >
               <Table aria-label="simple table">
@@ -137,34 +178,61 @@ const RightBar = (props) => {
                   </TableRow>
                 </TableHead> */}
                 <TableBody>
-                  {resultHistory && resultHistory?.map((row, index) => {
-                    return <TableRow
-                      key={row.createdAt}
-                    // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {moment(row?.createdAt).format('YYYY.MM.D hh:m')}
-                      </TableCell>
-                      {/* <Box style={{ display: 'flex' }}> */}
-                      <TableCell align="left">
-                        <Typography style={{ fontSize: '14px' }} >{row?.simuleraSeason.title},</Typography>
-                        <Typography style={{ fontSize: '14px' }}>{row?.simuleraSeason.month}</Typography>
-                      </TableCell>
-                      {/* </Box> */}
+                  {resultHistory &&
+                    resultHistory?.map((row, index) => {
+                      return (
+                        <TableRow
+                          key={row.createdAt}
+                          // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
+                          </TableCell>
+                          {/* <Box style={{ display: 'flex' }}> */}
+                          <TableCell align="left">
+                            <Typography style={{ fontSize: "14px" }}>
+                              {row?.simuleraSeason.title},
+                            </Typography>
+                            <Typography style={{ fontSize: "14px" }}>
+                              {row?.simuleraSeason.month}
+                            </Typography>
+                          </TableCell>
+                          {/* </Box> */}
 
-                      <TableCell style={{ width: '6rem' }} align="left">{row?.totalAnswer ? row?.totalAnswer : 0} av {row?.totalQuestions ? row?.totalQuestions : 0}</TableCell>
-                      <TableCell align="left">{row?.totalAnswer ? (row?.totalAnswer / row?.totalQuestions * 2).toFixed(1).replace(/\.0+$/, '') : 0}</TableCell>
-                      <TableCell style={{ cursor: 'pointer', display: 'flex', color: 'grey', height: '5rem', alignItems: 'center', width: '.5rem' }} >
+                          <TableCell style={{ width: "6rem" }} align="left">
+                            {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
+                            {row?.totalQuestions ? row?.totalQuestions : 0}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row?.totalAnswer
+                              ? ((row?.totalAnswer / row?.totalQuestions) * 2)
+                                  .toFixed(1)
+                                  .replace(/\.0+$/, "")
+                              : 0}
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              cursor: "pointer",
+                              display: "flex",
+                              color: "grey",
+                              height: "5rem",
+                              alignItems: "center",
+                              width: ".5rem",
+                            }}
+                          >
+                            <MoreVertIcon
+                              onClick={() =>
+                                row?.totalQuestions && showPopup(index)
+                              }
+                            />
 
-                        <MoreVertIcon onClick={() => row?.totalQuestions && showPopup(index)} />
-
-                        {row.result &&
-                          <Dropdown onClick={() => ResultHandler(row)} />
-                        }
-
-                      </TableCell>
-                    </TableRow>
-                  })}
+                            {row.result && (
+                              <Dropdown onClick={() => ResultHandler(row)} />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -177,30 +245,42 @@ const RightBar = (props) => {
               backgroundColor: "#fff",
               display: "flex",
               justifyContent: "space-between",
-              width: '33rem',
-              alignItems: 'center'
+              // width: "33rem",
+              alignItems: "center",
             }}
           >
-            <Box style={{
-              display: "flex", flexDirection: "column",
-              height: '13rem', marginLeft: '2rem', justifyContent: 'space-around'
-            }}>
-              <Box style={{height: '5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "12rem",
+                marginLeft: "2rem",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <Box
+                style={{
+                  height: "5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 <Typography variant="h5" component="h5">
                   Lås upp fler prov
                 </Typography>
                 <Typography variant="body2" component="body2">
-                  Lås upp premiumfunktioner <br></br> endast för 199 sek per sektion
+                  Lås upp premiumfunktioner <br /> endast för 199 sek per
+                  sektion
                 </Typography>
               </Box>
-              
+
               <Button
                 contained
                 style={{
                   backgroundColor: "#0A1596",
                   textTransform: "capitalize",
                   color: "#fff",
-                  width: "8rem",
+                  width: "12rem",
                 }}
               >
                 Lås upp prov

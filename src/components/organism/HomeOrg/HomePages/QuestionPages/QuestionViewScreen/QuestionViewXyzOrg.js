@@ -274,6 +274,7 @@ const QuestionViewXyzOrg = () => {
           onClick={() => Next(question)}
           padding={1}
           mt={2}
+          mb={2}
           sx={{
             width: 600,
             display: "flex",
@@ -299,6 +300,7 @@ const QuestionViewXyzOrg = () => {
         <Box
           padding={1}
           mt={2}
+          mb={2}
           sx={{
             width: 600,
             display: "flex",
@@ -325,10 +327,9 @@ const QuestionViewXyzOrg = () => {
   };
 
   const PopupHandler = () => {
-    console.log(quiz, 'this is quiz')
+    console.log(quiz, "this is quiz");
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
-
     } else if (quiz[0].answer) {
       setOpen(true);
       setIsOpen(false);
@@ -339,13 +340,15 @@ const QuestionViewXyzOrg = () => {
   };
 
   return (
-    <div>
+    <>
       <CssBaseline />
       <AppBar
         color="#fff"
         className={classes.appbar}
-        style={{ boxShadow: "none" }}
-        position="fixed"
+        style={{
+          boxShadow: "none",
+        }}
+        position="static"
       >
         <Toolbar
           style={{
@@ -379,8 +382,11 @@ const QuestionViewXyzOrg = () => {
       </AppBar>
 
       <Container
-        maxWidth="xl"
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        maxWidth="false"
+        style={{
+          backgroundColor: "#fff",
+          minHeight: "100vh",
+        }}
       >
         {/* {params?.state?.data?.quiz[selectedIndex]?.multipartQuestion === null &&  */}
 
@@ -565,7 +571,7 @@ const QuestionViewXyzOrg = () => {
             }
           })}
       </Container>
-    </div>
+    </>
   );
 };
 

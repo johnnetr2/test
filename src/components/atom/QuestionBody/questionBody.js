@@ -73,11 +73,10 @@ const QuestionBody = (props) => {
       <Container
         maxWidth="md"
         style={{
-          // marginTop: 0,
+          minHeight: "100vh",
           backgroundColor: "#f9f9f9",
-          height: "fit-content",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
           flexDirection: "column",
         }}
@@ -94,8 +93,9 @@ const QuestionBody = (props) => {
           paddingX={6}
           paddingY={2}
           sx={{
-            width: 600,
             height: 280,
+            // maxWidth: "100rem",
+            width: 600,
             border: "1px solid #e1e1e1",
             display: "flex",
             flexDirection: "column",
@@ -149,7 +149,6 @@ const QuestionBody = (props) => {
           mt={5}
           sx={{
             backgroundColor: "#fff",
-            width: 600,
             height: 240,
             display: "grid",
             gridTemplateColumns: "1fr 1fr",

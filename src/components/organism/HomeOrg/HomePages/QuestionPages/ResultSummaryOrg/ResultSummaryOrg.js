@@ -123,8 +123,13 @@ const ResultSummaryOrg = (props) => {
       <AppBar
         color="#fff"
         className={classes.appbar}
-        style={{ boxShadow: "none" }}
-        position="absolute"
+        style={{
+          boxShadow: "none",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        position="static"
       >
         <Toolbar>
           {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
@@ -139,8 +144,8 @@ const ResultSummaryOrg = (props) => {
       </AppBar>
 
       <Container
-        maxWidth="lg"
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        maxWidth="false"
+        style={{ backgroundColor: "#fff", minHeight: "100vh" }}
       >
         <Container
           disableGutters
@@ -148,7 +153,7 @@ const ResultSummaryOrg = (props) => {
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
         >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {responseCollection?.correctAnswer} av{" "}

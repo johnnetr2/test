@@ -3,6 +3,7 @@ import { Box, Container } from "@material-ui/core";
 import BarChart from "../../../assets/Icons/BarChart.svg";
 import Clock from "../../../assets/Icons/Clock.svg";
 import Timer from "../Timer/timer";
+import { Typography } from "@mui/material";
 
 function Header(props) {
   const [quiz, setQuiz] = useState();
@@ -14,21 +15,37 @@ function Header(props) {
   return (
     <Container disableGutters maxWidth="md" style={{ backgroundColor: "#fff" }}>
       <Box
-        mt={8}
         sx={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <Box mt={2} width={100} sx={{ color: "#222" }}>
+        <Box
+          mt={2}
+          width={100}
+          sx={{
+            color: "#222",
+            display: "flex",
+            alignItems: "center",
+            marginRight: "0.4rem",
+          }}
+        >
           <img src={BarChart} alt="" />
-          {props.selectedIndex + 1} av {props.totalQuestions}
+          <Typography variant="body1" style={{ marginLeft: "0.4rem" }}>
+            {props.selectedIndex + 1} av {props.totalQuestions}
+          </Typography>
         </Box>
         {props.params && props.params.value == true && (
           <Box
             mt={2}
-            sx={{ color: "#222", display: "flex", flexDirection: "row" }}
+            sx={{
+              color: "#222",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             <img src={Clock} alt="" />
             <Timer

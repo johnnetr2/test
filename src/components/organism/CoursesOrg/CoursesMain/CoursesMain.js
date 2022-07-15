@@ -152,7 +152,7 @@ const CoursesMain = () => {
         <Grid
           item
           style={{
-            maxWidth: "35rem",
+            width: "35rem",
             backgroundColor: "#fafafa",
           }}
           className={classes.right}

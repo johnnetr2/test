@@ -20,7 +20,7 @@ const Timer = (props) => {
     setStart(props.continueStatus);
     // props.onChangeTime(timer)
     // if (!props.continueStatus) {
-      props.timeleft(timer);
+    props.timeleft(timer);
     // }
   }, [props.continueStatus]);
 
@@ -48,10 +48,10 @@ const Timer = (props) => {
   return (
     <Box
       style={{
-        width: "5rem",
-        marginTop: ".4rem",
+        // marginTop: ".4rem",
         display: "flex",
         alignItems: "center",
+        justifyContent: "center",
         marginLeft: ".4rem",
       }}
     >
