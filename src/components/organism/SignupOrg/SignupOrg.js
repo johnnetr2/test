@@ -12,6 +12,7 @@ import { Label } from "reactstrap";
 import { instance, EndPoints } from "../../service/Route";
 import InputField from "../../atom/InputField/InputField";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../../assets/Icons/whiteLogo.svg";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -96,22 +97,45 @@ const SignupOrg = () => {
         sx={{
           minHeight: "100vh",
           width: "40%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
           backgroundColor: "#0A1596",
         }}
-      ></Container>
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img src={Logo} style={{ width: "10rem" }} alt="" />
+          <Typography
+            variant="body2"
+            style={{
+              color: "white",
+              marginTop: "2rem",
+            }}
+          >
+            Din väg mot Högskoleprovet.
+          </Typography>
+        </Box>
+      </Container>
       <Container
         maxWidth="false"
         disableGutters
         sx={{
           width: "60%",
-          padding: "4rem 12rem",
+          paddingTop: "6rem",
           display: "flex",
           justifyContent: "center",
           alignItem: "center",
         }}
         className={classes.mobileView}
       >
-        <Box>
+        <Box sx={{ padding: "1rem 0" }}>
           <Box
             sx={{
               marginBottom: "1rem",
@@ -122,10 +146,10 @@ const SignupOrg = () => {
               component="h3"
               sx={{ marginBottom: "1rem" }}
             >
-              Registrering
+              Registrera dig
             </Typography>
             <Typography variant="body2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Påbörja resan mot Högskoleprovet idag.
             </Typography>
           </Box>
           <LabelField
@@ -222,23 +246,31 @@ const SignupOrg = () => {
           </Box>
           <Typography
             variant="body1"
-            sx={{ textAlign: "center", width: "100%" }}
+            // sx={{ textAlign: "center", width: "100%" }}
           >
             Har du redan ett konto?<Link to="/login">Logga in</Link>
           </Typography>
-          <Typography
-            variant="body1"
-            mt={2}
+          <Box
             sx={{
-              textTransform: "uppercase",
-              fontSize: ".75rem",
-              textAlign: "center",
-              width: "100%",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            This site is protected by recaptcha and the Google privacy policy
-            and terms of service apply
-          </Typography>
+            <Typography
+              variant="body1"
+              component="span"
+              mt={2}
+              sx={{
+                textTransform: "uppercase",
+                fontSize: ".75rem",
+                textAlign: "center",
+                width: "60ch",
+              }}
+            >
+              This site is protected by recaptcha and the Google privacy policy
+              and terms of service apply
+            </Typography>
+          </Box>
         </Box>
       </Container>
     </Container>

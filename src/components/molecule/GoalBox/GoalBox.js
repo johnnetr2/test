@@ -106,27 +106,22 @@ const GoalBox = (props) => {
         </Box>
         <Box
           sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
             padding: ".25rem 1rem",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
+          <Typography
+            variant="h3"
+            style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
           >
-            <Typography
-              variant="h3"
-              style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
-            >
-              {pointCollection.point ? pointCollection.point : "0.0"}
-            </Typography>
+            {pointCollection.point ? pointCollection.point : "0.0"}
+          </Typography>
 
-            <Typography variant="body2" style={{ marginBottom: "0.25rem" }}>
-              Mål
-            </Typography>
-          </Box>
+          <Typography variant="body2" style={{ marginBottom: "0.25rem" }}>
+            Mål
+          </Typography>
         </Box>
       </Container>
       <EndPopup

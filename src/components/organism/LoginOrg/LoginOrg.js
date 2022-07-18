@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Box, Typography } from "@mui/material";
-import { Input, FormGroup, Label, Col } from "reactstrap";
+import { Label } from "reactstrap";
 import Label_field from "../../molecule/LabelField/LabelField";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
@@ -12,6 +12,7 @@ import { signInWithGoogle } from "../../service/firebase";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import firebase from "../../service/firebase";
+import Logo from "../../../assets/Icons/whiteLogo.svg";
 import InputField from "../../atom/InputField/InputField";
 
 const useStyles = makeStyles((theme) => ({
@@ -106,34 +107,57 @@ const LoginOrg = () => {
       }}
     >
       <Container
-        disableGutters
         maxWidth="false"
+        disableGutters
         sx={{
           minHeight: "100vh",
           width: "40%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           backgroundColor: "#0A1596",
         }}
         className={classes.hideOnMobile}
-      ></Container>
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img src={Logo} style={{ width: "10rem" }} alt="" />
+          <Typography
+            variant="body2"
+            style={{
+              color: "white",
+              marginTop: "2rem",
+            }}
+          >
+            Din väg mot Högskoleprovet.
+          </Typography>
+        </Box>
+      </Container>
       <Container
         maxWidth="false"
         disableGutters
         sx={{
           width: "60%",
-          padding: "4rem 12rem",
+          paddingTop: "6rem",
           display: "flex",
           justifyContent: "center",
           alignItem: "center",
         }}
         className={classes.mobileView}
       >
-        <Box>
+        <Box sx={{ padding: "1rem 0" }}>
           <Box sx={{ marginBottom: "1rem" }}>
             <Typography variant="h3" sx={{ marginBottom: "1rem" }}>
               Logga in
             </Typography>
             <Typography variant="body2">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit
+              Välkommen tillbaka! Logga för att sätta igång med plugget.
             </Typography>
           </Box>
           <Label_field
@@ -182,7 +206,7 @@ const LoginOrg = () => {
                 height: "3rem",
                 border: "none",
                 padding: "1rem",
-
+                width: "100%",
                 backgroundColor: "transparent",
               }}
               className={classes.autoFillColor}
