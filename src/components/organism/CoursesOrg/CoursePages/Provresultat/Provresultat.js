@@ -205,7 +205,6 @@ const Provresultat = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        border: "2px solid #000",
       },
 
       [theme.breakpoints.up(1025)]: {
@@ -215,7 +214,6 @@ const Provresultat = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        border: "2px solid #f00",
       },
     },
 
@@ -223,14 +221,11 @@ const Provresultat = () => {
       [theme.breakpoints.down(1025)]: {
         display: "flex",
         flexDirection: "column",
-        // paddingLeft: "1.5rem",
-        border: "1px solid #f0f",
       },
       [theme.breakpoints.up(1025)]: {
         display: "flex",
         flexDirection: "column",
         // paddingLeft: "4rem",
-        border: "1px solid #ff0",
       },
     },
 
@@ -360,19 +355,15 @@ const Provresultat = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          border: "2px solid #0f0",
         }}
       >
-        <Box className={classes.main} sx={{ border: "2px solid #f0f" }}>
-          <Box
-            sx={{ backgroundColor: "transparent", border: "2px solid #999" }}
-          >
+        <Box className={classes.main}>
+          <Box sx={{ backgroundColor: "transparent" }}>
             <Box
               className={classes.info}
               style={{
                 display: "flex",
                 flexDirection: "column",
-                border: "2px solid purple",
                 // paddingLeft: width > 1025 ? "3.5rem" : "1rem",
               }}
             >
@@ -426,15 +417,12 @@ const Provresultat = () => {
                 alignItems: "center",
                 marginTop: "3%",
                 backgroundColor: "transparent",
-                border: "3px solid #00f",
               }}
             >
               <Box
                 sx={{
                   dispaly: "flex",
                   flexDirection: "column",
-                  // width: "20rem",
-                  border: "2px solid #f00",
                   paddingRight: "1rem",
                 }}
               >
@@ -800,7 +788,7 @@ const Provresultat = () => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: "1px solid red", width: "5rem" }}
+                        sx={{ width: "5rem" }}
                       >
                         {row.name}
                       </TableCell>
@@ -897,38 +885,51 @@ const Provresultat = () => {
               </Table>
             </TableContainer>
             <Box className={classes.footer}>
+              {/* <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  border: "3px solid orange",
+                }}
+              > */}
               <Box
                 style={{
                   display: "flex",
                   flexDirection: "row",
+                  width: "100%",
+                  paddingRight: "1.5rem",
                 }}
               >
+                <Typography
+                  variant="body2"
+                  style={{ fontSize: ".75rem", marginTop: "0.3rem" }}
+                >
+                  Dela resultat med dina vanner:
+                </Typography>
                 <Box
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    width: "100%",
-                    paddingRight: "1.5rem",
+                    alignItems: "center",
+                    paddingRight: "1rem",
                   }}
                 >
-                  <Typography
-                    variant="body2"
-                    style={{ fontSize: ".75rem", marginTop: "0.3rem" }}
-                  >
-                    Dela resultat med dina vanner:
-                  </Typography>
-                  <Box
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      paddingRight: "1rem",
-                    }}
-                  >
-                    <img style={{ marginLeft: "0.5rem" }} src={FacebookIcon} />
-                    <img style={{ marginLeft: "0.5rem" }} src={TwitterIcon} />
-                    <img style={{ marginLeft: "0.5rem" }} src={LinkedInIcon} />
-                    <img style={{ marginLeft: "0.5rem" }} src={WhatsappIcon} />
-                  </Box>
+                  <img
+                    style={{ marginLeft: "0.5rem", height: "1.5rem" }}
+                    src={FacebookIcon}
+                  />
+                  <img
+                    style={{ marginLeft: "0.5rem", height: "1.5rem" }}
+                    src={TwitterIcon}
+                  />
+                  <img
+                    style={{ marginLeft: "0.5rem", height: "1.5rem" }}
+                    src={LinkedInIcon}
+                  />
+                  <img
+                    style={{ marginLeft: "0.5rem", height: "1.5rem" }}
+                    src={WhatsappIcon}
+                  />
                 </Box>
                 <Box
                   sx={{
@@ -950,7 +951,7 @@ const Provresultat = () => {
                     sx={{
                       fontSize: "0.6rem",
                       marginLeft: "0.3rem",
-                      width: "23rem",
+                      // width: "23rem",
                     }}
                     onClick={() =>
                       window.open(
@@ -964,6 +965,8 @@ const Provresultat = () => {
                   {/* </a> */}
                 </Box>
               </Box>
+
+              {/* </Box> */}
             </Box>
             <Box className={classes.exitButton}>
               <Button
