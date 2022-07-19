@@ -59,7 +59,7 @@ const GoalBox = (props) => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon sx={{ color: "#999" }} />
+          <MoreVertIcon sx={{ color: "#e1e1e1" }} />
         </IconButton>
         <Menu
           id="long-menu"

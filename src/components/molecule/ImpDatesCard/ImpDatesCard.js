@@ -34,7 +34,7 @@ const ImpDatesCard = (props) => {
   const menuBtnClick = () => {
     setCollection({ ...collection, popup: true });
   };
-  const convertedDate = moment(collection.date).format("DD/MM/YYYY");
+  const convertedDate = moment(collection.date).format("DD.MM.YYYY");
   const MenuIcon = () => {
     const options = "ÄNDRA";
     const ITEM_HEIGHT = 48;
@@ -59,7 +59,7 @@ const ImpDatesCard = (props) => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon sx={{ color: "#999" }} />
+          <MoreVertIcon sx={{ color: "#e1e1e1" }} />
         </IconButton>
         <Menu
           id="long-menu"

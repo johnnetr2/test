@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../../../assets/Icons/Logo.svg";
-import Home from "../../../../assets/Icons/HomeC.svg";
+import Home from "../../../../assets/Icons/Home.svg";
+import HomeC from "../../../../assets/Icons/HomeC.svg";
 import Course from "../../../../assets/Icons/Courses.svg";
+import CourseC from "../../../../assets/Icons/CoursesC.svg";
 import Feedback from "../../../../assets/Icons/Msg.svg";
+import FeedbackC from "../../../../assets/Icons/FeedbackC.svg";
 import Profile from "../../../../assets/Icons/Profile.svg";
+import ProfileC from "../../../../assets/Icons/ProfileC.svg";
 import {
   Container,
   makeStyles,
@@ -54,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
-    color: "#252525",
+    color: "#b4b4b4",
     textDecoration: "none",
   },
   text: {
@@ -64,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#fff",
     },
     textTransform: "uppercase",
+    // color: "#b4b4b4",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -73,6 +78,12 @@ const useStyles = makeStyles((theme) => ({
 const HomeLeftBar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [toggleIcon, setToggleIcon] = useState({
+    dashboard: false,
+    course: false,
+    feedback: false,
+    profile: false,
+  });
 
   return (
     <Container
@@ -92,6 +103,7 @@ const HomeLeftBar = () => {
       </TableContainer>
       <NavLink
         to="/home"
+        onClick={() => setToggleIcon({ ...toggleIcon, dashboard: true })}
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
@@ -114,19 +126,27 @@ const HomeLeftBar = () => {
             })
           }
         >
-          <img src={Home} className={classes.icon} />
+          {/* <img src={HomeC} alt="" srcset="" /> */}
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {toggleIcon.dashboard ? (
+              <img src={HomeC} className={classes.icon} />
+            ) : (
+              <img src={Home} className={classes.icon} />
+            )}
+          </Box>
           <Typography
             variant="body1"
             component="body1"
             className={classes.text}
           >
-            Dashboard
+            Övningar
           </Typography>
         </Box>
       </NavLink>
       <NavLink
         to="/courses"
         className={classes.navStyle}
+        onClick={() => setToggleIcon({ ...toggleIcon, course: true })}
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
@@ -141,19 +161,26 @@ const HomeLeftBar = () => {
             justifyContent: "center",
           }}
         >
-          <img src={Course} className={classes.icon} />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {toggleIcon.course ? (
+              <img src={CourseC} className={classes.icon} />
+            ) : (
+              <img src={Course} className={classes.icon} />
+            )}
+          </Box>
           <Typography
             variant="body1"
             component="body1"
             className={classes.text}
           >
-            Simulera prov
+            prov
           </Typography>
         </Box>
       </NavLink>
       <NavLink
         to="/message"
         className={classes.navStyle}
+        onClick={() => setToggleIcon({ ...toggleIcon, feedback: true })}
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
@@ -165,7 +192,13 @@ const HomeLeftBar = () => {
           className={classes.item}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <img src={Feedback} className={classes.icon} />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {toggleIcon.feedback ? (
+              <img src={FeedbackC} className={classes.icon} />
+            ) : (
+              <img src={Feedback} className={classes.icon} />
+            )}
+          </Box>
           <Typography
             variant="body1"
             component="body1"
@@ -177,6 +210,7 @@ const HomeLeftBar = () => {
       </NavLink>
       <NavLink
         to="/profile"
+        onClick={() => setToggleIcon({ ...toggleIcon, profile: true })}
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
@@ -189,7 +223,13 @@ const HomeLeftBar = () => {
           className={classes.item}
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <img src={Profile} className={classes.icon} />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {toggleIcon.profile ? (
+              <img src={ProfileC} className={classes.icon} />
+            ) : (
+              <img src={Profile} className={classes.icon} />
+            )}
+          </Box>
           <Typography
             variant="body1"
             component="body1"

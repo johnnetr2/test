@@ -108,8 +108,13 @@ const HomeFeedContent = (props) => {
   return (
     <Container className={classes.root} maxWidth="false">
       <Box>
-        <Heading title="Dashboard" />
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Heading title="Övningar" />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <Box
             sx={{
               width: "100%",
@@ -123,12 +128,19 @@ const HomeFeedContent = (props) => {
                 onChange={handleTabs}
                 variant="scrollable"
                 scrollButtons={false}
+                // textColor="#252525"
+                // indicatorColor="primary"
                 aria-label="scrollable prevent tabs example"
-                TabIndicatorProps={{ style: { background: "#0A1596" } }}
+                TabIndicatorProps={{
+                  style: {
+                    background: "#0A1596",
+                    border: "4px solid #0A1596",
+                  },
+                }}
               >
                 <Tab
                   style={{ textTransform: "initial" }}
-                  label="Alla kategorier"
+                  label="Alla delprov"
                 />
                 <Tab
                   style={{ textTransform: "initial" }}

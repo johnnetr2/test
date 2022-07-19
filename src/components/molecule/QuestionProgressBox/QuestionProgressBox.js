@@ -29,7 +29,7 @@ const QuestionProgressBox = (props) => {
             width: "80%",
           }}
         >
-          Gör minst 30 frågor för att få prognos
+          {props.totalPrognos ? null : "Gör minst 30 frågor för att få prognos"}
         </Typography>
       </Box>
       <Box
