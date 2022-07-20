@@ -20,7 +20,10 @@ const HomeCard = (props) => {
         marginTop: 3,
         marginBottom: 3,
         borderRadius: 1,
-        cursor: "pointer",
+        "&:hover": {
+          cursor: "pointer",
+          backgroundColor: "#f9f9f9",
+        },
       }}
       onClick={() =>
         navigate("/category", {

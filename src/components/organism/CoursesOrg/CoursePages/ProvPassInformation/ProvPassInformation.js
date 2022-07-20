@@ -82,7 +82,7 @@ const ProvPassInformation = () => {
         color="#fff"
         className={classes.appbar}
         style={{ boxShadow: "none" }}
-        position="absolute"
+        position="static"
       >
         <Toolbar
           style={{
@@ -110,11 +110,14 @@ const ProvPassInformation = () => {
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
       </AppBar>
-
       <Container
         maxWidth={false}
         disableGutters
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        style={{
+          backgroundColor: "#fff",
+          height: "fit-content",
+          border: "1px solid #fff",
+        }}
       >
         <Container
           maxWidth="md"
@@ -133,7 +136,10 @@ const ProvPassInformation = () => {
             sx={{ display: "flex", width: 600, flexDirection: "column" }}
           >
             <Typography variant="h6" component="h6">
-              Kvantitativt provpass - Provpass {params?.state.provpass == undefined ? 1 : params?.state.provpass.simuleraQuizResult.length + 1}
+              Kvantitativt provpass - Provpass{" "}
+              {params?.state.provpass == undefined
+                ? 1
+                : params?.state.provpass.simuleraQuizResult.length + 1}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>
