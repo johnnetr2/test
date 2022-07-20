@@ -81,12 +81,8 @@ const RightBar = (props) => {
       maxWidth={false}
       // disableGutters
       style={{
-<<<<<<< Updated upstream
         marginLeft: width < 900 && "2.5rem",
         padding: "0 3rem",
-=======
-        marginLeft: width < 900 && '2.5rem'
->>>>>>> Stashed changes
       }}
     >
       <Box
