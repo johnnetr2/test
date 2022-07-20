@@ -78,12 +78,10 @@ const useStyles = makeStyles((theme) => ({
 const HomeLeftBar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [toggleIcon, setToggleIcon] = useState({
-    dashboard: false,
-    course: false,
-    feedback: false,
-    profile: false,
-  });
+  const [dashboardIcon, setDashboardIcon] = useState(false);
+  const [courseIcon, setCourseIcon] = useState(false);
+  const [feedbackIcon, setFeedbackIcon] = useState(false);
+  const [profileIcon, setProfileIcon] = useState(false);
 
   return (
     <Container
@@ -103,7 +101,7 @@ const HomeLeftBar = () => {
       </TableContainer>
       <NavLink
         to="/home"
-        onClick={() => setToggleIcon({ ...toggleIcon, dashboard: true })}
+        onClick={() => setDashboardIcon(true)}
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
@@ -128,7 +126,8 @@ const HomeLeftBar = () => {
         >
           {/* <img src={HomeC} alt="" srcset="" /> */}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {toggleIcon.dashboard ? (
+            {console.log(dashboardIcon, "dashboard console")}
+            {dashboardIcon ? (
               <img src={HomeC} className={classes.icon} />
             ) : (
               <img src={Home} className={classes.icon} />
@@ -146,7 +145,7 @@ const HomeLeftBar = () => {
       <NavLink
         to="/courses"
         className={classes.navStyle}
-        onClick={() => setToggleIcon({ ...toggleIcon, course: true })}
+        onClick={() => setCourseIcon(true)}
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
@@ -162,7 +161,8 @@ const HomeLeftBar = () => {
           }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {toggleIcon.course ? (
+            {console.log(courseIcon, "course console")}
+            {courseIcon ? (
               <img src={CourseC} className={classes.icon} />
             ) : (
               <img src={Course} className={classes.icon} />
@@ -180,7 +180,7 @@ const HomeLeftBar = () => {
       <NavLink
         to="/message"
         className={classes.navStyle}
-        onClick={() => setToggleIcon({ ...toggleIcon, feedback: true })}
+        onClick={() => setFeedbackIcon(true)}
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
@@ -193,7 +193,8 @@ const HomeLeftBar = () => {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {toggleIcon.feedback ? (
+            {console.log(feedbackIcon, "feedback console")}
+            {feedbackIcon ? (
               <img src={FeedbackC} className={classes.icon} />
             ) : (
               <img src={Feedback} className={classes.icon} />
@@ -210,7 +211,6 @@ const HomeLeftBar = () => {
       </NavLink>
       <NavLink
         to="/profile"
-        onClick={() => setToggleIcon({ ...toggleIcon, profile: true })}
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
@@ -220,11 +220,13 @@ const HomeLeftBar = () => {
         }}
       >
         <Box
+          onClick={() => setProfileIcon(true)}
           className={classes.item}
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {toggleIcon.profile ? (
+            {console.log(profileIcon, "profile console")}
+            {profileIcon ? (
               <img src={ProfileC} className={classes.icon} />
             ) : (
               <img src={Profile} className={classes.icon} />
