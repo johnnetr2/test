@@ -66,6 +66,7 @@ const CategoryPagesFeedContent = (props) => {
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
+    // console.log(localS)
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       setQuestionCategories(response.data);
@@ -129,7 +130,6 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectedItem = (e, item) => {
-    console.log("select singlke category");
     SetCategoryError(false);
     setSelectAll([]);
     setAllChecked(false);
@@ -146,7 +146,7 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const selectAllCategories = (e) => {
-    console.log("Alla clicked");
+    console.log(e.target.checked, 'this is checked')
     setAllChecked(!allChecked);
     if (e.target.checked) {
       SetCategoryError(false);
@@ -185,7 +185,6 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   const onSubmit = () => {
-    console.log(checkedData);
     if (chekedValue == undefined) {
       setError(true);
     } else {
@@ -193,6 +192,7 @@ const CategoryPagesFeedContent = (props) => {
         setOpen(true);
         const data = {
           questionCategory: checkedData,
+          sectionCategory: props.item._id,
           totalQuestion: parseInt(chekedValue),
           value: timer,
           user: localStorage.getItem("userId"),
@@ -207,14 +207,21 @@ const CategoryPagesFeedContent = (props) => {
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
             setOpen(false);
-            navigate("/question", {
+            // const state = {
+            //   data: response.data,
+            //   sectionCategory: props.item,
+            //   quizId: response.data._id,
+            // }
+            // localStorage.setItem('quizState', state)
+             navigate("/question", {
               state: {
                 data: response.data,
                 sectionCategory: props.item,
                 quizId: response.data._id,
               },
             });
-          }
+           
+           }
         });
       } else {
         SetCategoryError(true);

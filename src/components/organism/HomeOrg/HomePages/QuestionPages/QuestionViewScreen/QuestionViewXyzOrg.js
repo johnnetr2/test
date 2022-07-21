@@ -25,12 +25,14 @@ import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttempt
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
 import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
 import Header from "../../../../../atom/Header/header";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const params = useLocation();
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState();
   const [timeLeft, setTimeLeft] = useState();
   const [time, setTime] = useState(120);
   const [open, setOpen] = useState(false);
@@ -38,6 +40,7 @@ const QuestionViewXyzOrg = () => {
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
   const [totalQuestions, setTotalQuestions] = useState(0);
+  const [loading, setLoading] = useState(true)
   // let totalQuestions = 0
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -46,27 +49,50 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
+
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setQuiz(params?.state?.quiz.question);
       setTotalQuestions(params?.state?.quiz?.question.length);
+      setLoading(false)
     } else {
-      params?.state &&
-        params?.state?.data?.quiz.map((item) => {
-          if (item.description) {
-            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-          } else {
-            setTotalQuestions((totalQ) => totalQ + 1);
-          }
-        });
-      setQuiz(params?.state?.data?.quiz);
+      const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId
+      console.log(URL)
+      instance2.get(URL).then(response => {
+        setStatus(true)
+        console.log(response.data.question, 'this is api responssee data')
+        response.data &&
+          response.data.question.map((item) => {
+            setLoading(false)
+            if (item.description) {
+              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+            } else {
+              setTotalQuestions((totalQ) => totalQ + 1);
+            }
+          });
+        setQuiz(response.data.question);
+      })
+
+      // instance2.get(URL).then(response => {
+      //   console.log(response.data.question, 'this is api responssee data')
+      //   console.log(params?.state?.data?.quiz, 'quiz from previos screen')
+      // })
+      // params?.state &&
+      //   params?.state?.data?.quiz.map((item) => {
+      //     if (item.description) {
+      //       setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+      //     } else {
+      //       setTotalQuestions((totalQ) => totalQ + 1);
+      //     }
+      //   });
+      // setQuiz(params?.state?.data?.quiz);
     }
   }, []);
 
   const Next = (question) => {
-    if (question.answerSubmited) {
+    if (question.answer) {
       if (selectedIndex + 1 == quiz.length) {
         localStorage.setItem("quizId", params?.state?.quizId);
         navigate("/resultsummary", {
@@ -96,7 +122,10 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-    if (nextPress) {
+    if (nextPress && quiz?.length > 0) {
+      // console.log(nextPress, 'next pressss button')
+      // console.log(quiz, 'this is quiz')
+      // console.log(status, 'this is status')
       setTime(timeLeft);
       const questions = [...quiz];
       let question = questions[selectedIndex];
@@ -219,9 +248,12 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
+    console.log(question, 'this is question')
+    console.log(curentOption, 'this is current option')
+    console.log(optionIndex, 'this is option Index')
     if (question.answer && question.answer.option == curentOption._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
-    } else if (question.answer && curentOption._id === question?.optionId) {
+    } else if (question.answer && curentOption._id == question?.optionId) {
       return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
     }
     // else {
@@ -269,7 +301,7 @@ const QuestionViewXyzOrg = () => {
         />
       );
     } else {
-      return question.selectedIndex + 1 ? (
+      return question.selectedIndex + 1 || question.answer ? (
         <Box
           onClick={() => Next(question)}
           padding={1}
@@ -327,7 +359,6 @@ const QuestionViewXyzOrg = () => {
   };
 
   const PopupHandler = () => {
-    console.log(quiz, "this is quiz");
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
     } else if (quiz[0].answer) {
@@ -350,6 +381,12 @@ const QuestionViewXyzOrg = () => {
         }}
         position="static"
       >
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" size="5rem" />
+        </Backdrop>
         <Toolbar
           style={{
             display: "flex",
@@ -519,6 +556,7 @@ const QuestionViewXyzOrg = () => {
         {quiz &&
           quiz.map((item, index) => {
             if (index === selectedIndex) {
+              // if (index !== item.answer) {
               return (
                 <QuestionBody
                   question={quiz[selectedIndex]}
@@ -568,6 +606,7 @@ const QuestionViewXyzOrg = () => {
                   }}
                 />
               );
+              // }
             }
           })}
       </Container>
