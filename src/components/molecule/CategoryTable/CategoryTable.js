@@ -11,13 +11,34 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
+import { makeStyles } from "@material-ui/core";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Dropdown from "../../atom/ArrowDropDown/dropdown";
 import useWindowDimensions from "../WindowDimensions/dimension";
 
+const useStyles = makeStyles((theme) => ({
+  scrollbar: {
+    "&::-webkit-scrollbar": {
+      width: 3,
+      height: 5,
+    },
+    "&::-webkit-scrollbar-track": {
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#505050",
+      borderRadius: "10px",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+      backgroundColor: "#707070",
+    },
+  },
+}));
+
 export const CategoryTable = (props) => {
+  const classes = useStyles();
   const [categoryTable, setCategoryTable] = useState(props.tableHistory);
   const [sectionCategory, setSectionCategory] = useState("");
   const { height, width } = useWindowDimensions();
@@ -53,25 +74,17 @@ export const CategoryTable = (props) => {
   };
 
   return (
-    <Box
-      sx={
-        {
-          // border: "2px solid #00f",
-        }
-      }
-    >
+    <Box>
       <Box
         style={{
           display: "flex",
           textTransform: "uppercase",
-          // maxWidth: 600,
-          // paddingLeft: '2rem'
+          justifyContent: "space-around",
         }}
       >
         <Typography
           style={{
             display: "flex",
-            marginLeft: width > 900 ? width * 0.01 : width * 0.02,
           }}
         >
           Datum
@@ -79,7 +92,8 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            marginLeft: width > 900 ? width * 0.21 : width * 0.32,
+            // marginLeft: width > 900 ? width * 0.21 : width * 0.32,
+            // border: "1px solid #00f",
           }}
         >
           Resultat
@@ -87,7 +101,8 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            marginLeft: width > 900 ? width * 0.11 : width * 0.13,
+            // marginLeft: width > 900 ? width * 0.11 : width * 0.13,
+            // border: "1px solid #f0f",
           }}
         >
           Normering
@@ -101,11 +116,14 @@ export const CategoryTable = (props) => {
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
-          width: "fit-content",
-          // backgroundColor: 'green'
+          height: "40rem",
+          // width: "40rem",
+          overflow: "auto",
+          marginBottom: "2rem",
         }}
+        className={classes.scrollbar}
       >
-        <Table sx={{ width: width > 900 ? width * 0.542 : width * 0.813 }}>
+        <Table>
           <TableBody>
             {categoryTable.map((row, index) => {
               return (

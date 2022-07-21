@@ -25,6 +25,7 @@ import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttempt
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
 import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
 import Header from "../../../../../atom/Header/header";
+import HelpPopup from "../../../../../atom/HelpPopup/HelpPopup";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -38,6 +39,7 @@ const QuestionViewXyzOrg = () => {
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
   const [totalQuestions, setTotalQuestions] = useState(0);
+  const [helpPopup, setHelpPopup] = useState(false);
   // let totalQuestions = 0
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -375,12 +377,12 @@ const QuestionViewXyzOrg = () => {
             {params.state.sectionCategory.title}
           </Typography>
 
-          <Box>
+          <Box onClick={() => setHelpPopup(!helpPopup)}>
             <HelpOutlineIcon sx={{ cursor: "pointer" }} />
           </Box>
         </Toolbar>
       </AppBar>
-
+      {helpPopup ? <HelpPopup /> : null}
       <Container
         maxWidth="false"
         style={{
