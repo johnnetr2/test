@@ -91,7 +91,6 @@ const LinesChart = (props) => {
       <LineChart
         width={400}
         height={200}
-        style={props.style}
         data={[
           {
             name: "v35",
@@ -132,15 +131,30 @@ const LinesChart = (props) => {
       >
         <CartesianGrid />
         <XAxis dataKey="name" />
-        <YAxis
-        // dataKey={[0, 0.4, 0.8, 1.2, 1.6, 2.0]}
-        />
+        <YAxis />
         <Tooltip />
         <Line
           type="monotone"
           dataKey="point"
           stroke="#0A1596"
+          strokeWidth="3"
           fill="#0A1596"
+          dot={{ stroke: "#0A1596", strokeWidth: 3, r: 4, strokeDasharray: "" }}
+          // options={{
+          //   scales: {
+          //     xAxes: [
+          //       {
+          //         gridLines: {
+          //           display: false,
+          //         },
+          //       },
+          //     ],
+          //   },
+          // }}
+          options={{
+            scaleShowVerticalLines: false,
+          }}
+
           // data={{
           //   labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
           //   datasets: [

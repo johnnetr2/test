@@ -53,7 +53,13 @@ export const CategoryTable = (props) => {
   };
 
   return (
-    <Box>
+    <Box
+      sx={
+        {
+          // border: "2px solid #00f",
+        }
+      }
+    >
       <Box
         style={{
           display: "flex",
@@ -62,10 +68,14 @@ export const CategoryTable = (props) => {
           // paddingLeft: '2rem'
         }}
       >
-        <Typography style={{
-          display: "flex",
-          marginLeft: width > 900 ? width * 0.01 : width * 0.02,
-        }}>Datum</Typography>
+        <Typography
+          style={{
+            display: "flex",
+            marginLeft: width > 900 ? width * 0.01 : width * 0.02,
+          }}
+        >
+          Datum
+        </Typography>
         <Typography
           style={{
             display: "flex",
@@ -91,7 +101,7 @@ export const CategoryTable = (props) => {
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
-          width: 'fit-content'
+          width: "fit-content",
           // backgroundColor: 'green'
         }}
       >
@@ -124,7 +134,10 @@ export const CategoryTable = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    <MoreVertIcon sx={{ cursor: 'pointer' }} onClick={() => showPopup(index)} />
+                    <MoreVertIcon
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => showPopup(index)}
+                    />
 
                     {row.result && (
                       <Dropdown onClick={() => ResultHandler(row)} />

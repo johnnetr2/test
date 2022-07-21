@@ -288,12 +288,12 @@ const QuestionViewXyzOrg = () => {
             variant="h6"
             style={{
               fontSize: "0.75rem",
-              textTransform: "uppercase",
+              textTransform: "intialize",
               marginRight: "0.5rem",
               color: "#FFFFFF",
             }}
           >
-            Nästa
+            Svara
           </Typography>
         </Box>
       ) : (
@@ -305,7 +305,7 @@ const QuestionViewXyzOrg = () => {
             width: 600,
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "grey",
+            backgroundColor: "#e1e1e1",
             borderRadius: ".3rem",
             cursor: "pointer",
           }}
@@ -314,12 +314,12 @@ const QuestionViewXyzOrg = () => {
             variant="h6"
             style={{
               fontSize: "0.75rem",
-              textTransform: "uppercase",
+              textTransform: "intialize",
               marginRight: "0.5rem",
-              color: "#FFFFFF",
+              color: "#b4b4b4",
             }}
           >
-            Nästa
+            Svara
           </Typography>
         </Box>
       );

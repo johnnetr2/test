@@ -45,23 +45,23 @@ const StandardViewXyz = () => {
   const [backPressPopup, setBackPressPopup] = useState(false);
   const [timeLeft, setTimeLeft] = useState();
   const [shouldNavigate, setShouldNavigate] = useState(false);
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
-      console.log(params.state.quiz.simuleraQuiz)
+      console.log(params.state.quiz.simuleraQuiz);
       setTime(params?.state?.timeLeft);
       setQuiz(params?.state?.quiz.simuleraQuiz);
       setCurrentIndex(params?.state?.questionIndex);
       setStatus(true);
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
-      console.log(URL)
+      console.log(URL);
       instance2.get(URL).then((response) => {
-        console.log(response.data, 'this is response')
+        console.log(response.data, "this is response");
         setQuiz(response.data.simuleraQuiz);
         setTime(3300);
-        setOpen(false)
+        setOpen(false);
         response.data.simuleraQuiz && setStatus(true);
       });
     }
@@ -187,7 +187,10 @@ const StandardViewXyz = () => {
   }
 
   const Options = (question, option, optionIndex) => {
-    if (question.questionAnswer && question.questionAnswer.option == option._id) {
+    if (
+      question.questionAnswer &&
+      question.questionAnswer.option == option._id
+    ) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
     } else if (question.questionAnswer && option._id === question?.optionId) {
       return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
@@ -243,7 +246,7 @@ const StandardViewXyz = () => {
       questions.push(data);
       setSubmitedQuestions(questions);
       console.log("question submited");
-      setTime(timeLeft)
+      setTime(timeLeft);
     }
   };
 
@@ -264,7 +267,9 @@ const StandardViewXyz = () => {
     (item) => item.optionId
   ).length;
 
-  const ifAnswerExist = quiz?.question.some((question) => question.questionAnswer);
+  const ifAnswerExist = quiz?.question.some(
+    (question) => question.questionAnswer
+  );
 
   return (
     <div>
@@ -311,14 +316,18 @@ const StandardViewXyz = () => {
         </Toolbar>
       </AppBar>
       <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, width: '100%' }}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          width: "100%",
+        }}
         open={open}
       >
         <CircularProgress color="inherit" size="5rem" />
       </Backdrop>
       <Container
         disableGutters
-        maxWidth="xl"
+        maxWidth="false"
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       >
         <Container
@@ -597,7 +606,9 @@ const StandardViewXyz = () => {
                                   }}
                                 >
                                   {/* {question.answer.answer} */}
-                                  <MarkLatex content={question.questionAnswer.answer} />
+                                  <MarkLatex
+                                    content={question.questionAnswer.answer}
+                                  />
                                 </Typography>
                               </Box>
                               <Box
@@ -662,6 +673,7 @@ const StandardViewXyz = () => {
             <Box
               padding={1}
               mt={2}
+              mb={2}
               sx={{
                 width: 615,
                 display: "flex",

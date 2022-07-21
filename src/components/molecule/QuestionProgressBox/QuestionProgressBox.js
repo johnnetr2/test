@@ -29,31 +29,26 @@ const QuestionProgressBox = (props) => {
             width: "80%",
           }}
         >
-          Gör minst 30 frågor för att få prognos
+          {props.totalPrognos ? null : "Gör minst 30 frågor för att få prognos"}
         </Typography>
       </Box>
       <Box
         sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-end",
           padding: ".25rem 1rem",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-end",
-          }}
+        <Typography
+          variant="h3"
+          style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
         >
-          <Typography
-            variant="h3"
-            style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
-          >
-            {props.totalPrognos ? props.totalPrognos : "0:00"}
-          </Typography>
-          <Typography variant="body2" style={{ marginBottom: ".5rem" }}>
-            Prognos
-          </Typography>
-        </Box>
+          {props.totalPrognos ? props.totalPrognos : "0:00"}
+        </Typography>
+        <Typography variant="body2" style={{ marginBottom: ".5rem" }}>
+          Prognos
+        </Typography>
       </Box>
     </Container>
   );

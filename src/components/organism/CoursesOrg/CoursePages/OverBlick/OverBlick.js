@@ -49,15 +49,15 @@ const OverBlick = () => {
 
     const URL = EndPoints.submitSimuleraTest;
     instance2.post(URL, data).then((response) => {
-      console.log(response.data, ';this is api response')
+      console.log(response.data, ";this is api response");
       if (response.status == 200) {
         const updatePreviosExam = EndPoints.updatePreviousExam;
         const examData = {
           simuleraSeason: params.state.simuleraSeason,
-          user: localStorage.getItem('userId'),
+          user: localStorage.getItem("userId"),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
-        console.log(examData, 'exam data')
+        console.log(examData, "exam data");
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
         });
@@ -156,7 +156,7 @@ const OverBlick = () => {
         color="#fff"
         className={classes.appbar}
         style={{ boxShadow: "none" }}
-        // position="absolute"
+        position="absolute"
       >
         <Toolbar
           style={{
@@ -192,11 +192,13 @@ const OverBlick = () => {
         </Backdrop>
       </Box>
       <Container
-        maxWidth="xl"
+        maxWidth="false"
         disableGutters
         style={{
           backgroundColor: "#fff",
-          // marginBottom: "2rem",
+          marginTop: 65,
+          border: "1px solid #fff",
+          // minHeight: "100vh",
         }}
       >
         <Container
@@ -204,7 +206,7 @@ const OverBlick = () => {
           style={{
             marginTop: 65,
             backgroundColor: "#f9f9f9",
-            height: "fit-content",
+            border: "1px solid #fff",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -373,7 +375,7 @@ const OverBlick = () => {
         </Box> */}
 
         <Box
-          maxWidth="xl"
+          maxWidth="false"
           disableGutters
           padding={2}
           sx={{
@@ -382,6 +384,10 @@ const OverBlick = () => {
             justifyContent: "center",
             alignItems: "center",
             boxShadow: "1px 1px 5px #999",
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
             // marginTop: '2.9rem'
           }}
         >
