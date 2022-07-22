@@ -31,6 +31,8 @@ const QuestionBody = (props) => {
     setFeedbackPopup(true);
   };
 
+  console.log(props.question, 'infooooooooooooooooo')
+
   const questionId = props.question._id;
 
   if (props.question.type == "multiple") {
@@ -125,17 +127,17 @@ const QuestionBody = (props) => {
             </Typography>
           )}
 
-          {question?.question?.information1 && (
+          {question?.information1 && (
             <Typography
               variant="h6"
               component="h6"
               style={{ fontSize: "0.75rem", fontWeight: "600" }}
             >
-              <MarkLatex content={question?.question?.information1} />
+              <MarkLatex content={question?.information1} />
             </Typography>
           )}
 
-          {question?.information1 && (
+          {question?.information2 && (
             <Typography
               variant="h6"
               component="h6"

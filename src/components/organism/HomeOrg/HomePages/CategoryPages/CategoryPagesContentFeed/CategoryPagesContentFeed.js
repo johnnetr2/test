@@ -4,22 +4,13 @@ import {
   makeStyles,
   Typography,
   Box,
-  Button,
-  Tab,
-  Tabs,
 } from "@material-ui/core";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import PropTypes from "prop-types";
-import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import SearchIcon from "../../../../../../assets/Icons/SearchIcon.svg";
+import { useNavigate, useLocation } from "react-router-dom";
 import Heading from "../../../../../atom/Heading/Heading";
 import BodyText from "../../../../../atom/BodyText/BodyText";
 import FilledBtn from "../../../../../atom/FilledBtn/FilledBtn";
-import HomeCard from "../../../../../molecule/HomeCard/HomeCard";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
-import CoursesCard from "../../../../../molecule/CoursesCard/CoursesCard";
 import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import swal from "sweetalert";
@@ -64,9 +55,9 @@ const CategoryPagesFeedContent = (props) => {
   const [historyText, setHistoryText] = useState(false);
   const [resultText, setResultText] = useState(false);
   const { height, width } = useWindowDimensions();
+  const [alla, setAlla] = useState(true)
 
   useEffect(() => {
-    // console.log(localS)
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       setQuestionCategories(response.data);
@@ -145,10 +136,9 @@ const CategoryPagesFeedContent = (props) => {
     }
   };
 
-  const selectAllCategories = (e) => {
-    console.log(e.target.checked, 'this is checked')
+  useEffect(() => {
     setAllChecked(!allChecked);
-    if (e.target.checked) {
+    if (alla) {
       SetCategoryError(false);
 
       let newArray = [...selectAll];
@@ -159,7 +149,8 @@ const CategoryPagesFeedContent = (props) => {
     } else {
       setCheckData([]);
     }
-  };
+  }, [alla])
+  
 
   const realQuestionFunc = () => {
     setTitle(true);
@@ -198,21 +189,13 @@ const CategoryPagesFeedContent = (props) => {
           user: localStorage.getItem("userId"),
           multipartQuestion: null,
         };
-        console.log(data, "this is api data");
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
-          console.log(response.data, ";this is response");
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
             setOpen(false);
-            // const state = {
-            //   data: response.data,
-            //   sectionCategory: props.item,
-            //   quizId: response.data._id,
-            // }
-            // localStorage.setItem('quizState', state)
              navigate("/question", {
               state: {
                 data: response.data,
@@ -404,7 +387,7 @@ const CategoryPagesFeedContent = (props) => {
           >
             <OutlineField
               title="Alla"
-              onClickCheck={(e) => selectAllCategories(e)}
+              onClickCheck={() => setAlla(!alla)}
               checked={
                 questionCategories?.length === checkedData.length ? true : false
               }

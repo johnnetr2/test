@@ -71,7 +71,6 @@ const HomeFeedContent = (props) => {
       instance2.get(previousRecordURL).then((response) => {
         if (response.data.success == true) {
           setPreviousRecordProgress(response.data.Data);
-          console.log(response.data, "previousRecord");
         }
       });
     } else {
@@ -92,6 +91,15 @@ const HomeFeedContent = (props) => {
   useEffect(() => {
     let count = 0;
     let prognos;
+    let show = true
+    console.log(previousRecordProgress, 'this is progress')
+    previousRecordProgress && previousRecordProgress.map(item => {
+      if(item.AttemptedQuestion <= 20) {
+        show = false
+      }
+    })
+    props.show(show)
+
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
         prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
@@ -102,7 +110,6 @@ const HomeFeedContent = (props) => {
     // avgPrognos=  count /previousRecordProgress.length;
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
-    console.log(count.toFixed(2), "total prognos");
   }, [previousRecordProgress]);
 
   return (
@@ -216,10 +223,6 @@ const HomeFeedContent = (props) => {
                       (previousRecordProgress[index].CorrectQuestion /
                         previousRecordProgress[index].TotalQuestion) *
                       2;
-                    console.log(
-                      progressResult.toFixed(),
-                      "Progress percentage"
-                    );
                   }
                   return (
                     <HomeCard
@@ -256,10 +259,6 @@ const HomeFeedContent = (props) => {
                       (previousRecordProgress[index].CorrectQuestion /
                         previousRecordProgress[index].TotalQuestion) *
                       2;
-                    console.log(
-                      progressResult.toFixed(),
-                      "Progress percentage"
-                    );
                   }
                   return (
                     <HomeCard
@@ -294,10 +293,6 @@ const HomeFeedContent = (props) => {
                       (previousRecordProgress[index].CorrectQuestion /
                         previousRecordProgress[index].TotalQuestion) *
                       2;
-                    console.log(
-                      progressResult.toFixed(),
-                      "Progress percentage"
-                    );
                   }
                   return (
                     <HomeCard

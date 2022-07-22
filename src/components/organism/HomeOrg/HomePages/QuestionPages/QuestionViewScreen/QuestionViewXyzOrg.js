@@ -59,10 +59,8 @@ const QuestionViewXyzOrg = () => {
       setLoading(false)
     } else {
       const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId
-      console.log(URL)
       instance2.get(URL).then(response => {
         setStatus(true)
-        console.log(response.data.question, 'this is api responssee data')
         response.data &&
           response.data.question.map((item) => {
             setLoading(false)
@@ -123,9 +121,6 @@ const QuestionViewXyzOrg = () => {
 
   useEffect(() => {
     if (nextPress && quiz?.length > 0) {
-      // console.log(nextPress, 'next pressss button')
-      // console.log(quiz, 'this is quiz')
-      // console.log(status, 'this is status')
       setTime(timeLeft);
       const questions = [...quiz];
       let question = questions[selectedIndex];

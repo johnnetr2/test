@@ -63,7 +63,7 @@ const HomeRightBar = (props) => {
             }}
           >
             <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
-              <QuestionProgressBox totalPrognos={props?.totalPrognos} />
+              <QuestionProgressBox totalPrognos={props?.totalPrognos} showPrognos={props.show} />
             </Box>
             <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
               <GoalBox
