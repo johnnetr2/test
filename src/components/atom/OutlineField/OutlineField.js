@@ -81,7 +81,7 @@ const Outline_Field = (props) => {
           borderRadius: ".25rem",
           marginLeft: ".25rem",
           marginRight: ".25rem",
-          border: props.checked ? "1px solid #000DAB" : "1px solid #e1e1e1",
+          border: props.checked ? "0.5px solid #000DAB" : "1px solid #e1e1e1",
           display: "flex",
           flexWrap: "wrap",
           marginBottom: ".75rem",

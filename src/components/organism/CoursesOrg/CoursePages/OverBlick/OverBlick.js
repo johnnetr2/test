@@ -24,6 +24,7 @@ import { EndPoints, instance2 } from "../../../../service/Route";
 import TestOverPopup from "../../../../molecule/TestOverPopup/TestOverPopup";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -32,6 +33,7 @@ const OverBlick = () => {
   const params = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [helpPopup, setHelpPopup] = useState(false);
 
   useEffect(() => {
     setQuiz(params.state.quiz);
@@ -180,9 +182,13 @@ const OverBlick = () => {
           <Typography variant="body1" className={classes.center_align}>
             Överblick
           </Typography>
-          <HelpOutlineIcon sx={{ width: 100 }} />
+          <Box onClick={() => setHelpPopup(!helpPopup)}>
+            <HelpOutlineIcon sx={{ width: 100 }} />
+          </Box>
         </Toolbar>
       </AppBar>
+      {helpPopup && <HelpPopup />}
+
       <Box>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

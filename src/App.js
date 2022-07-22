@@ -25,6 +25,7 @@ import CategoryPagesRightBar from "./components/organism/HomeOrg/HomePages/Categ
 import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresultat/Provresultat";
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
+import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="resultfooter" element={<ResultFooter />} />
         <Route path="/categoryrtbar" element={<CategoryPagesRightBar />} />
         <Route path="/" element={<Signup />} />
+        <Route path="/helppopup" element={<HelpPopup />} />
         <Route path="login" element={<Login />} />
         <Route path="home" element={<Home />} />
         <Route path="courses" element={<Courses />} />

@@ -19,6 +19,7 @@ import {
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PanoramaSharp } from "@mui/icons-material";
+import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 
 const ProvPassInformation = () => {
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ const ProvPassInformation = () => {
   }));
 
   const classes = useStyles(10);
+  const [helpPopup, setHelpPopup] = useState(false);
 
   useEffect(() => {
     console.log(params?.provpass, "this is");
@@ -78,6 +80,7 @@ const ProvPassInformation = () => {
   return (
     <div>
       <CssBaseline />
+      {helpPopup && <HelpPopup />}
       <AppBar
         color="#fff"
         className={classes.appbar}
@@ -107,7 +110,9 @@ const ProvPassInformation = () => {
             Högskoleprov {params.state.session.title}{" "}
             {params.state.session.month}
           </Typography>
-          <HelpOutlineIcon sx={{ width: 100 }} />
+          <Box onClick={() => setHelpPopup(!helpPopup)}>
+            <HelpOutlineIcon sx={{ width: 100 }} />
+          </Box>
         </Toolbar>
       </AppBar>
       <Container
@@ -168,15 +173,32 @@ const ProvPassInformation = () => {
               top: 0,
             }}
           >
-            <Typography variant="h6" component="h6" style={{ marginTop: '1rem', fontSize: '1.8rem', fontWeight: "400" }}>
+            <Typography
+              variant="h6"
+              component="h6"
+              style={{
+                marginTop: "1rem",
+                fontSize: "1.8rem",
+                fontWeight: "400",
+              }}
+            >
               Kvantitativ provpass
             </Typography>
             <br></br>
-            <Typography style={{ fontSize: '1.3rem', fontWeight: '400' }} >
+            <Typography style={{ fontSize: "1.3rem", fontWeight: "400" }}>
               Förberedande information
             </Typography>
-            <Typography variant="subtitle1" style={{ marginTop: '1rem', fontSize: ".7rem", fontWeight: "500" }} >
-              Här följer anvisningar till de kvantitativa delproven XYZ, KVA, NOG och DTK. Provpasset innehåller 40 uppgifter och den totala provtiden är 55 minuter.
+            <Typography
+              variant="subtitle1"
+              style={{
+                marginTop: "1rem",
+                fontSize: ".7rem",
+                fontWeight: "500",
+              }}
+            >
+              Här följer anvisningar till de kvantitativa delproven XYZ, KVA,
+              NOG och DTK. Provpasset innehåller 40 uppgifter och den totala
+              provtiden är 55 minuter.
             </Typography>
             <br></br>
             <Typography
@@ -247,12 +269,14 @@ const ProvPassInformation = () => {
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Delprovet NOG består av uppgifter med en fråga följd av två påståenden,
-              (1) och (2), som innehåller information. Frågan kan ibland föregås av viss inledande information.
-              Din uppgift är att avgöra om frågan entydigt kan besvaras med hjälp av informationen i påståendena,
-              och i så fall hur mycket av denna information som är tillräcklig. Till varje uppgift finns fem svarsalternativ,
-              varav endast ett är rätt. I NOG har alla uppgifter samma svarsalternativ.
-
+              Delprovet NOG består av uppgifter med en fråga följd av två
+              påståenden, (1) och (2), som innehåller information. Frågan kan
+              ibland föregås av viss inledande information. Din uppgift är att
+              avgöra om frågan entydigt kan besvaras med hjälp av informationen
+              i påståendena, och i så fall hur mycket av denna information som
+              är tillräcklig. Till varje uppgift finns fem svarsalternativ,
+              varav endast ett är rätt. I NOG har alla uppgifter samma
+              svarsalternativ.
             </Typography>
             <br></br>
             <Typography
@@ -273,9 +297,10 @@ const ProvPassInformation = () => {
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Delprovet DTK innehåller diagram, tabeller, kartor och andra grafiska framställningar.
-              Uppgifterna ska lösas med hjälp av den information som finns på respektive uppslag.
-              Till varje uppgift finns det fyra svarsförslag. Välj det som bäst besvarar frågan.
+              Delprovet DTK innehåller diagram, tabeller, kartor och andra
+              grafiska framställningar. Uppgifterna ska lösas med hjälp av den
+              information som finns på respektive uppslag. Till varje uppgift
+              finns det fyra svarsförslag. Välj det som bäst besvarar frågan.
             </Typography>
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>

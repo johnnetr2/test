@@ -27,6 +27,7 @@ import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
 import Header from "../../../../../atom/Header/header";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import HelpPopup from "../../../../../atom/HelpPopup/HelpPopup";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -41,6 +42,7 @@ const QuestionViewXyzOrg = () => {
   const [nextPress, setNextPress] = useState(undefined);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [loading, setLoading] = useState(true)
+  const [helpPopup, setHelpPopup] = useState(false);
   // let totalQuestions = 0
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -368,6 +370,9 @@ const QuestionViewXyzOrg = () => {
   return (
     <>
       <CssBaseline />
+      {helpPopup && <HelpPopup />}
+      {/* {helpPopup && <BackDrop />} */}
+
       <AppBar
         color="#fff"
         className={classes.appbar}
@@ -403,16 +408,19 @@ const QuestionViewXyzOrg = () => {
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
 
-          <Typography variant="body1" className={classes.center_align}>
+          <Typography
+            variant="body1"
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+            className={classes.center_align}
+          >
             {params.state.sectionCategory.title}
           </Typography>
 
-          <Box>
+          <Box onClick={() => setHelpPopup(!helpPopup)}>
             <HelpOutlineIcon sx={{ cursor: "pointer" }} />
           </Box>
         </Toolbar>
       </AppBar>
-
       <Container
         maxWidth="false"
         style={{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../../../assets/Icons/Logo.svg";
 import Home from "../../../../assets/Icons/Home.svg";
@@ -78,10 +78,20 @@ const useStyles = makeStyles((theme) => ({
 const HomeLeftBar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [toggleIcon, setToggleIcon] = useState({
+    dashboard: false,
+    course: false,
+    feedback: false,
+    profile: false,
+  });
   const [dashboardIcon, setDashboardIcon] = useState(false);
-  const [courseIcon, setCourseIcon] = useState(false);
-  const [feedbackIcon, setFeedbackIcon] = useState(false);
-  const [profileIcon, setProfileIcon] = useState(false);
+  // const [courseIcon, setCourseIcon] = useState(false);
+  // const [feedbackIcon, setFeedbackIcon] = useState(false);
+  // const [profileIcon, setProfileIcon] = useState(false);
+
+  useEffect(() => {
+    console.log("here is console of dashboard ", dashboardIcon);
+  }, [dashboardIcon]);
 
   return (
     <Container
@@ -101,7 +111,9 @@ const HomeLeftBar = () => {
       </TableContainer>
       <NavLink
         to="/home"
-        onClick={() => setDashboardIcon(true)}
+        onClick={() => {
+          setDashboardIcon(true);
+        }}
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
@@ -126,7 +138,7 @@ const HomeLeftBar = () => {
         >
           {/* <img src={HomeC} alt="" srcset="" /> */}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {console.log(dashboardIcon, "dashboard console")}
+            {/* {console.log(toggleIcon.dashboard, "dashboard console")} */}
             {dashboardIcon ? (
               <img src={HomeC} className={classes.icon} />
             ) : (
@@ -145,7 +157,7 @@ const HomeLeftBar = () => {
       <NavLink
         to="/courses"
         className={classes.navStyle}
-        onClick={() => setCourseIcon(true)}
+        onClick={() => setToggleIcon({ course: true })}
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
@@ -161,8 +173,8 @@ const HomeLeftBar = () => {
           }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {console.log(courseIcon, "course console")}
-            {courseIcon ? (
+            {console.log(toggleIcon.course, "course console")}
+            {toggleIcon.course ? (
               <img src={CourseC} className={classes.icon} />
             ) : (
               <img src={Course} className={classes.icon} />
@@ -180,7 +192,7 @@ const HomeLeftBar = () => {
       <NavLink
         to="/message"
         className={classes.navStyle}
-        onClick={() => setFeedbackIcon(true)}
+        onClick={() => setToggleIcon({ feedback: true })}
         style={({ isActive }) => {
           return {
             backgroundColor: isActive ? "#0A1596" : "none",
@@ -193,8 +205,8 @@ const HomeLeftBar = () => {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {console.log(feedbackIcon, "feedback console")}
-            {feedbackIcon ? (
+            {console.log(toggleIcon.feedback, "feedback console")}
+            {toggleIcon.feedback ? (
               <img src={FeedbackC} className={classes.icon} />
             ) : (
               <img src={Feedback} className={classes.icon} />
@@ -220,13 +232,13 @@ const HomeLeftBar = () => {
         }}
       >
         <Box
-          onClick={() => setProfileIcon(true)}
+          onClick={() => setToggleIcon({ profile: true })}
           className={classes.item}
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {console.log(profileIcon, "profile console")}
-            {profileIcon ? (
+            {console.log(toggleIcon.profile, "profile console")}
+            {toggleIcon.profile ? (
               <img src={ProfileC} className={classes.icon} />
             ) : (
               <img src={Profile} className={classes.icon} />
