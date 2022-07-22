@@ -8,23 +8,28 @@ const HelpPopup = () => {
       //   sx={{ width: "50%" }}
       sx={{
         backgroundColor: "#252525",
-        padding: "4rem 2rem",
+        padding: "2rem 3rem",
         color: "#fff",
-        width: "40%",
+        width: "35%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "10px",
         position: "absolute",
-        top: 80,
+        top: 70,
         right: 0,
       }}
     >
-      <Typography variant="h4">Välkommen till provpassvyn!</Typography>
+      <Typography variant="h5">Välkommen till provpassvyn!</Typography>
       <Typography
         variant="body1"
-        style={{ textAlign: "center", lineHeight: "1.5rem", marginTop: "1rem" }}
+        style={{
+          textAlign: "center",
+          lineHeight: "1.5rem",
+          marginTop: "1rem",
+          fontSize: "0.75rem",
+        }}
       >
         Du kan fritt gå emellan uppgifter genom att trycka på nästa och
         föregående längst ner. Facit visas efter att hela provet är inlämnat.

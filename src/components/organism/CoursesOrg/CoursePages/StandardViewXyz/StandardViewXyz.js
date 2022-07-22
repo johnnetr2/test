@@ -33,6 +33,7 @@ import Increment from "../../../../../assets/Icons/Increment.svg";
 import Decrement from "../../../../../assets/Icons/Decrement.svg";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,6 +47,7 @@ const StandardViewXyz = () => {
   const [timeLeft, setTimeLeft] = useState();
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const [open, setOpen] = useState(true);
+  const [helpPopup, setHelpPopup] = useState(false);
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
@@ -312,9 +314,12 @@ const StandardViewXyz = () => {
             {/* {quiz?.question[currentIndex].sectionCategories.title} */}
             {quiz?.question[currentIndex].sectionCategories.title}
           </Typography>
-          <HelpOutlineIcon sx={{ width: 100 }} />
+          <Box onClick={() => setHelpPopup(!helpPopup)}>
+            <HelpOutlineIcon sx={{ width: 100 }} />
+          </Box>
         </Toolbar>
       </AppBar>
+      {helpPopup && <HelpPopup />}
       <Backdrop
         sx={{
           color: "#fff",

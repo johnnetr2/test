@@ -26,6 +26,7 @@ import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttempt
 import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
 import Header from "../../../../../atom/Header/header";
 import HelpPopup from "../../../../../atom/HelpPopup/HelpPopup";
+import BackDrop from "../../../../../atom/BackDrop/BackDrop";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -344,6 +345,9 @@ const QuestionViewXyzOrg = () => {
   return (
     <>
       <CssBaseline />
+      {helpPopup && <HelpPopup />}
+      {/* {helpPopup && <BackDrop />} */}
+
       <AppBar
         color="#fff"
         className={classes.appbar}
@@ -373,7 +377,11 @@ const QuestionViewXyzOrg = () => {
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
 
-          <Typography variant="body1" className={classes.center_align}>
+          <Typography
+            variant="body1"
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+            className={classes.center_align}
+          >
             {params.state.sectionCategory.title}
           </Typography>
 
@@ -382,7 +390,6 @@ const QuestionViewXyzOrg = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      {helpPopup ? <HelpPopup /> : null}
       <Container
         maxWidth="false"
         style={{

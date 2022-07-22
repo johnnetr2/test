@@ -73,7 +73,7 @@ const QuestionBody = (props) => {
       <Container
         maxWidth="md"
         style={{
-          minHeight: "100vh",
+          height: "fit-content",
           backgroundColor: "#f9f9f9",
           display: "flex",
           justifyContent: "flex-start",
@@ -87,15 +87,12 @@ const QuestionBody = (props) => {
           onClose={() => setFeedbackPopup(false)}
           questionId={questionId}
         />
-
-        <Box
-          mt={5}
-          paddingX={6}
-          paddingY={2}
-          sx={{
-            height: 280,
-            // maxWidth: "100rem",
-            width: 600,
+        {/* question container for single question */}
+        <Container
+          maxWidth="sm"
+          style={{
+            padding: "4rem 4rem",
+            marginTop: "1rem",
             border: "1px solid #e1e1e1",
             display: "flex",
             flexDirection: "column",
@@ -106,7 +103,7 @@ const QuestionBody = (props) => {
           <Typography
             variant="h6"
             component="h6"
-            style={{ fontSize: "0.75rem", fontWeight: "600", display: "flex" }}
+            style={{ fontSize: "1rem", fontWeight: "600", display: "flex" }}
           >
             <MarkLatex content={question?.questionStatement} />
           </Typography>
@@ -129,7 +126,10 @@ const QuestionBody = (props) => {
             <Typography
               variant="h6"
               component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600" }}
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: "600",
+              }}
             >
               <MarkLatex content={question?.question?.information1} />
             </Typography>
@@ -144,14 +144,16 @@ const QuestionBody = (props) => {
               <MarkLatex content={question?.information2} />
             </Typography>
           )}
-        </Box>
-        <Box
-          mt={5}
-          sx={{
+        </Container>
+        <Container
+          disableGutters
+          maxWidth="sm"
+          style={{
+            marginTop: "1rem",
+            // border: "1px solid #e1e1e1",
+            display: "flex",
+            flexWrap: "wrap",
             backgroundColor: "#fff",
-            height: 240,
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
           }}
         >
           {question?.options[0].options.map((item, optionIndex) => {
@@ -159,57 +161,68 @@ const QuestionBody = (props) => {
               return (
                 <Box
                   sx={{
-                    //   height: 120,
+                    height: 120,
                     border: "1px solid #e1e1e1",
                     width: 300,
+                    display: "flex",
                   }}
                 >
-                  <Box sx={{ display: "flex" }}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
+                  {/* <Box
+                    sx={{
+                      display: "flex",
+                      height: 120,
+                      border: "2px solid #f00",
+                    }}
+                  > */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <FormControlLabel
+                      onClick={(e) => {
+                        !question?.answer && props.SelectOption(e, optionIndex);
                       }}
-                    >
-                      <FormControlLabel
-                        onClick={(e) => {
-                          !question?.answer &&
-                            props.SelectOption(e, optionIndex);
-                        }}
-                        style={{ marginLeft: ".5rem" }}
-                        value={item?._id}
-                        control={props.showOptions(question, item, optionIndex)}
-                        label={props.OptionValue(optionIndex)}
-                      />
-                    </Box>
-
-                    <Box mt={2} ml={5}>
-                      {item.image ? (
-                        <img src={item.image} />
-                      ) : (
-                        <Typography>
-                          <MarkLatex
-                            content={item.value.replace("\f", "\\f")}
-                          />{" "}
-                        </Typography>
-                      )}
-                    </Box>
+                      style={{ marginLeft: ".5rem" }}
+                      value={item?._id}
+                      control={props.showOptions(question, item, optionIndex)}
+                      label={props.OptionValue(optionIndex)}
+                    />
                   </Box>
+
+                  <Box
+                    sx={{
+                      width: "14rem",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {item.image ? (
+                      <img src={item.image} />
+                    ) : (
+                      <Typography>
+                        <MarkLatex content={item.value.replace("\f", "\\f")} />{" "}
+                      </Typography>
+                    )}
+                  </Box>
+                  {/* </Box> */}
                 </Box>
               );
             }
           })}
-        </Box>
+        </Container>
 
         {question.answer && (
           <Box
             paddingX={4}
-            mt={3}
+            mt={2}
             sx={{
               backgroundColor: "#fff",
               width: 600,
-              height: 220,
+              height: 320,
               border: "1px solid #e1e1e1",
               overflow: "auto",
               "&::-webkit-scrollbar": { display: "none" },
@@ -217,13 +230,12 @@ const QuestionBody = (props) => {
             }}
           >
             <Box sx={{ width: 500, display: "flex" }}>
-              <Box>
+              <Box sx={{ padding: "2rem 2rem" }}>
                 <Typography
                   variant="h5"
                   component="h5"
                   style={{
-                    fontSize: ".75rem",
-                    fontWeight: "600",
+                    fontSize: "1.25rem",
                     marginTop: 20,
                   }}
                 >
@@ -263,7 +275,7 @@ const QuestionBody = (props) => {
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
-                alignItems: "flex-end",
+                alignItems: "center",
                 height: 60,
               }}
             >
@@ -280,10 +292,20 @@ const QuestionBody = (props) => {
                 Berätta för oss om du var nöjd med lösningen
               </Typography>
               <Box ml={1} mr={0.5}>
-                <img src={Increment} onClick={PlusPoint} alt="" />
+                <img
+                  src={Increment}
+                  style={{ cursor: "pointer" }}
+                  onClick={PlusPoint}
+                  alt=""
+                />
               </Box>
               <Box mr={1}>
-                <img src={Decrement} onClick={MinusPoint} alt="" />
+                <img
+                  src={Decrement}
+                  style={{ cursor: "pointer" }}
+                  onClick={MinusPoint}
+                  alt=""
+                />
               </Box>
             </Box>
           </Box>
