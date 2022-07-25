@@ -113,6 +113,7 @@ const HomeLeftBar = () => {
         to="/home"
         onClick={() => {
           setDashboardIcon(true);
+          console.log('Click action called')
         }}
         className={classes.navStyle}
         style={({ isActive }) => {
@@ -128,17 +129,16 @@ const HomeLeftBar = () => {
             display: "flex",
             justifyContent: "center",
           }}
-          onClick={() =>
-            navigate("/home", {
-              state: {
-                popUpStatus: true,
-              },
-            })
-          }
+          // onClick={() =>
+          //   navigate("/home", {
+          //     state: {
+          //       popUpStatus: true,
+          //     },
+          //   })
+          // }
         >
           {/* <img src={HomeC} alt="" srcset="" /> */}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {/* {console.log(toggleIcon.dashboard, "dashboard console")} */}
             {dashboardIcon ? (
               <img src={HomeC} className={classes.icon} />
             ) : (
@@ -173,7 +173,6 @@ const HomeLeftBar = () => {
           }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {console.log(toggleIcon.course, "course console")}
             {toggleIcon.course ? (
               <img src={CourseC} className={classes.icon} />
             ) : (
@@ -205,7 +204,6 @@ const HomeLeftBar = () => {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {console.log(toggleIcon.feedback, "feedback console")}
             {toggleIcon.feedback ? (
               <img src={FeedbackC} className={classes.icon} />
             ) : (
@@ -237,7 +235,6 @@ const HomeLeftBar = () => {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {console.log(toggleIcon.profile, "profile console")}
             {toggleIcon.profile ? (
               <img src={ProfileC} className={classes.icon} />
             ) : (

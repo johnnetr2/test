@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Typography, Box } from "@mui/material";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 import { useNavigate } from "react-router-dom";
+import image70 from '../../../assets/Imgs/image70.png'
 
 const HomeCard = (props) => {
   const data = props?.item;
@@ -51,17 +52,28 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props.prognos}
+          {props.attemptedQuestion >= 20 ? props.prognos : '-'}
         </Typography>
-        <Typography
-          variant="body1"
-          style={{
-            fontSize: ".75rem",
-            marginTop: ".75rem",
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            // justifyContent: 'center',
+            width: '3.5rem'
           }}
         >
-          Prognos
-        </Typography>
+          {props.attemptedQuestion < 20 && <img src={image70} style={{ display: 'flex', height: '0.5rem', width: '0.5rem', alignSelf: 'flex-end' }} />}
+          <Typography
+            variant="body1"
+            style={{
+              fontSize: ".75rem",
+              marginTop: ".75rem",
+            }}
+          >
+            Prognos
+          </Typography>
+        </Box>
+
       </Box>
     </Box>
   );

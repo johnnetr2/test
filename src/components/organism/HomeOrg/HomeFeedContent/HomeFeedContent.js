@@ -92,7 +92,6 @@ const HomeFeedContent = (props) => {
     let count = 0;
     let prognos;
     let show = true
-    console.log(previousRecordProgress, 'this is progress')
     previousRecordProgress && previousRecordProgress.map(item => {
       if(item.AttemptedQuestion <= 20) {
         show = false
@@ -192,6 +191,7 @@ const HomeFeedContent = (props) => {
                     <HomeCard
                       item={item}
                       previousRecord={progressResult}
+                      attemptedQuestion={previousRecordProgress[index].AttemptedQuestion}
                       prognos={prognos.toFixed(1)}
                     />
                   );
@@ -228,6 +228,7 @@ const HomeFeedContent = (props) => {
                     <HomeCard
                       item={item}
                       previousRecord={progressResult}
+                      attemptedQuestion={previousRecordProgress[index].AttemptedQuestion}
                       prognos={prognos.toFixed(1)}
                     />
                   );

@@ -30,7 +30,7 @@ const LinesChart = (props) => {
           const correctAnswerMonday = response.data.lastWeek[0].correctAnswer;
           const totalCgpaMonday =
             (correctAnswerMonday / totalQuestionMonday) * 2;
-          setMondayData(totalCgpaMonday);
+          setMondayData(totalCgpaMonday.toFixed(1).replace(/\.0+$/, ""));
           if (response.data.lastWeek[1]) {
             const totalQuestionTuesday =
               response.data.lastWeek[1].totalQuestion;
@@ -38,7 +38,7 @@ const LinesChart = (props) => {
               response.data.lastWeek[1].correctAnswer;
             const totalCgpaTuesday =
               (correctAnswerTuesday / totalQuestionTuesday) * 2;
-            setTuesdayData(totalCgpaTuesday);
+            setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));
           }
           if (response.data.lastWeek[2]) {
             const totalQuestionWednesday =
@@ -47,7 +47,7 @@ const LinesChart = (props) => {
               response.data.lastWeek[2].correctAnswer;
             const totalCgpaWednesday =
               (correctAnswerWednesday / totalQuestionWednesday) * 2;
-            setWednesdayData(totalCgpaWednesday);
+            setWednesdayData(totalCgpaWednesday.toFixed(1).replace(/\.0+$/, ""));
           }
           if (response.data.lastWeek[3]) {
             const totalQuestionThursday =
@@ -56,14 +56,14 @@ const LinesChart = (props) => {
               response.data.lastWeek[3].correctAnswer;
             const totalCgpaThursday =
               (correctAnswerThursday / totalQuestionThursday) * 2;
-            setThursdayData(totalCgpaThursday);
+            setThursdayData(totalCgpaThursday.toFixed(1).replace(/\.0+$/, ""));
           }
           if (response.data.lastWeek[4]) {
             const totalQuestionFriday = response.data.lastWeek[4].totalQuestion;
             const correctAnswerFriday = response.data.lastWeek[4].correctAnswer;
             const totalCgpaFriday =
               (correctAnswerFriday / totalQuestionFriday) * 2;
-            setFridayData(totalCgpaFriday);
+            setFridayData(totalCgpaFriday.toFixed(1).replace(/\.0+$/, ""));
           }
           if (response.data.lastWeek[5]) {
             const totalQuestionSaturday =
@@ -72,14 +72,14 @@ const LinesChart = (props) => {
               response.data.lastWeek[5].correctAnswer;
             const totalCgpaSaturday =
               (correctAnswerSaturday / totalQuestionSaturday) * 2;
-            setSaturdayData(totalCgpaSaturday);
+            setSaturdayData(totalCgpaSaturday.toFixed(1).replace(/\.0+$/, ""));
           }
           if (response.data.lastWeek[6]) {
             const totalQuestionSunday = response.data.lastWeek[6].totalQuestion;
             const correctAnswerSunday = response.data.lastWeek[6].correctAnswer;
             const totalCgpaSunday =
               (correctAnswerSunday / totalQuestionSunday) * 2;
-            setSundayData(totalCgpaSunday);
+            setSundayData(totalCgpaSunday.toFixed(1).replace(/\.0+$/, ""));
           }
         }
       });

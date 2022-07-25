@@ -5,17 +5,6 @@ import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import { EndPoints, instance2 } from "../../../service/Route";
-import { set } from "date-fns";
-import {
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Brush,
-  AreaChart,
-  Area,
-} from "recharts";
 // import { synchronizedLineChartData } from "../data/Data";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +16,23 @@ const useStyles = makeStyles((theme) => ({
 const HomeRightBar = (props) => {
   const classes = useStyles();
   const [studentPreference, setStudentPreference] = useState();
+  let [showPrognos, seTShowPrognos] = useState(true)
+
+  useEffect(() => {
+    const URL = EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+    instance2.get(URL).then(response => {
+      console.log(response.data, 'student previos result')
+      response.data.Data.map(item => {
+        console.log(item)
+        if (item.CorrectQuestion < 1) {
+          seTShowPrognos(false)
+          return
+        }
+      })
+    })
+  }, [])
+  
+
   useEffect(() => {
     const studentPrefenenceURL =
       EndPoints.getStudentPreference + localStorage.getItem("userId");
@@ -63,7 +69,7 @@ const HomeRightBar = (props) => {
             }}
           >
             <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
-              <QuestionProgressBox totalPrognos={props?.totalPrognos} showPrognos={props.show} />
+              <QuestionProgressBox totalPrognos={props?.totalPrognos} showPrognos={showPrognos} />
             </Box>
             <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
               <GoalBox
