@@ -223,9 +223,13 @@ const QuestionViewXyzOrg = () => {
 
   const Options = (question, curentOption, optionIndex) => {
     if (question.answer && question.answer.option == curentOption._id) {
-      return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img src={Correct} style={{ width: "1.25rem", marginLeft: ".5rem" }} />
+      );
     } else if (question.answer && curentOption._id === question?.optionId) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img src={Wrong} style={{ width: "1.25rem", marginLeft: ".5rem" }} />
+      );
     }
     // else {
     //   return <Radio color="primary" checked={false} />;
