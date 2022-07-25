@@ -112,7 +112,11 @@ const QuestionBody = (props) => {
           <Typography
             variant="h6"
             component="h6"
-            style={{ fontSize: "1rem", fontWeight: "600", display: "flex" }}
+            style={{
+              fontSize: "1rem",
+              fontWeight: "600",
+              display: "flex",
+            }}
           >
             <MarkLatex content={question?.questionStatement} />
           </Typography>
@@ -170,9 +174,9 @@ const QuestionBody = (props) => {
               return (
                 <Box
                   sx={{
-                    height: 120,
+                    height: question?.options[0].options.length > 4 ? 60 : 120,
                     border: "1px solid #e1e1e1",
-                    width: 300,
+                    width: question?.options[0].options.length > 4 ? 600 : 300,
                     display: "flex",
                     "&:hover": {
                       cursor: "pointer",
@@ -182,13 +186,6 @@ const QuestionBody = (props) => {
                     !question?.answer && props.SelectOption(e, optionIndex);
                   }}
                 >
-                  {/* <Box
-                    sx={{
-                      display: "flex",
-                      height: 120,
-                      border: "2px solid #f00",
-                    }}
-                  > */}
                   <Box
                     sx={{
                       display: "flex",
@@ -227,9 +224,17 @@ const QuestionBody = (props) => {
 
                   <Box
                     sx={{
-                      width: "14rem",
+                      width:
+                        question?.options[0].options.length > 4
+                          ? "20rem"
+                          : "14rem",
                       display: "flex",
-                      justifyContent: "center",
+                      marginLeft:
+                        question?.options[0].options.length > 4 ? "1rem" : "0",
+                      justifyContent:
+                        question?.options[0].options.length > 4
+                          ? "flex-start"
+                          : "center",
                       alignItems: "center",
                     }}
                   >
@@ -241,7 +246,6 @@ const QuestionBody = (props) => {
                       </Typography>
                     )}
                   </Box>
-                  {/* </Box> */}
                 </Box>
               );
             }

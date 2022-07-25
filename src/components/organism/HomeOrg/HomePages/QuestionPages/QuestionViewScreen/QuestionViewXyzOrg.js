@@ -216,6 +216,8 @@ const QuestionViewXyzOrg = () => {
         return "C";
       case 3:
         return "D";
+      case 4:
+        return "E";
       default:
         return "";
     }

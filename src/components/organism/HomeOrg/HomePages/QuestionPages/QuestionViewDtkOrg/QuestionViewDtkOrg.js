@@ -46,6 +46,22 @@ const QuestionViewDTKOrg = (props) => {
       padding: 0,
       boxSizing: "border-box",
     },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
+    },
     header: {
       minHeight: "10vh",
       backgroundColor: "#fff",
@@ -187,7 +203,10 @@ const QuestionViewDTKOrg = (props) => {
 
       <Container
         maxWidth="lg"
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        style={{
+          backgroundColor: "#fff",
+          height: "fit-content",
+        }}
       >
         <Container
           maxWidth="md"
@@ -209,12 +228,10 @@ const QuestionViewDTKOrg = (props) => {
               backgroundColor: "#fff",
               width: 600,
               height: 373,
-              // border: '1px solid #e1e1e1',
+              border: "1px solid #e1e1e1",
               overflow: "auto",
-              "&::-webkit-scrollbar": {
-                width: 10,
-              },
             }}
+            className={classes.scrollbar}
           >
             <Typography
               variant="subtitle1"
