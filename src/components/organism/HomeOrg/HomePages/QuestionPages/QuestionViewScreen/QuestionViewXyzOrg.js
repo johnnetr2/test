@@ -41,7 +41,7 @@ const QuestionViewXyzOrg = () => {
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
   const [totalQuestions, setTotalQuestions] = useState(0);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
   // let totalQuestions = 0
 
@@ -51,21 +51,20 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setQuiz(params?.state?.quiz.question);
       setTotalQuestions(params?.state?.quiz?.question.length);
-      setLoading(false)
+      setLoading(false);
     } else {
-      const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId
-      instance2.get(URL).then(response => {
-        setStatus(true)
+      const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
+      instance2.get(URL).then((response) => {
+        setStatus(true);
         response.data &&
           response.data.question.map((item) => {
-            setLoading(false)
+            setLoading(false);
             if (item.description) {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
             } else {
@@ -73,7 +72,7 @@ const QuestionViewXyzOrg = () => {
             }
           });
         setQuiz(response.data.question);
-      })
+      });
 
       // instance2.get(URL).then(response => {
       //   console.log(response.data.question, 'this is api responssee data')
@@ -245,9 +244,9 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
-    console.log(question, 'this is question')
-    console.log(curentOption, 'this is current option')
-    console.log(optionIndex, 'this is option Index')
+    console.log(question, "this is question");
+    console.log(curentOption, "this is current option");
+    console.log(optionIndex, "this is option Index");
     if (question.answer && question.answer.option == curentOption._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
     } else if (question.answer && curentOption._id == question?.optionId) {

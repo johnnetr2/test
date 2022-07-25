@@ -15,8 +15,17 @@ import BarChart from "../../../assets/Icons/BarChart.svg";
 import Clock from "../../../assets/Icons/Clock.svg";
 import Timer from "../Timer/timer";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    width: 30,
+    padding: 0,
+  },
+});
 
 const QuestionBody = (props) => {
+  const classes = useStyles();
   const [question, setQuestion] = useState(props?.question);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
@@ -167,6 +176,12 @@ const QuestionBody = (props) => {
                     border: "1px solid #e1e1e1",
                     width: 300,
                     display: "flex",
+                    "&:hover": {
+                      cursor: "pointer",
+                    },
+                  }}
+                  onClick={(e) => {
+                    !question?.answer && props.SelectOption(e, optionIndex);
                   }}
                 >
                   {/* <Box
@@ -183,15 +198,33 @@ const QuestionBody = (props) => {
                       alignItems: "flex-start",
                     }}
                   >
-                    <FormControlLabel
-                      onClick={(e) => {
-                        !question?.answer && props.SelectOption(e, optionIndex);
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
                       }}
-                      style={{ marginLeft: ".5rem" }}
-                      value={item?._id}
-                      control={props.showOptions(question, item, optionIndex)}
-                      label={props.OptionValue(optionIndex)}
-                    />
+                    >
+                      <FormControlLabel
+                        style={{
+                          margin: 0,
+                          size: "0.5rem",
+                          color: "#e1e1e1",
+                        }}
+                        value={item?._id}
+                        control={props.showOptions(question, item, optionIndex)}
+                        // label=""
+                        className={classes.root}
+                      />
+                      <Typography
+                        style={{
+                          marginTop: "1.25rem",
+                          color: "#717274",
+                        }}
+                        variant="body2"
+                      >
+                        {props.OptionValue(optionIndex)}
+                      </Typography>
+                    </Box>
                   </Box>
 
                   <Box
