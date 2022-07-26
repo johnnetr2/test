@@ -4,7 +4,7 @@ import StartPopup from "../../components/molecule/StartPopup/StartPopup";
 import EndPopup from "../../components/molecule/EndPopup/EndPopup";
 import { EndPoints, instance2 } from "../../components/service/Route";
 
-const Home = () => {
+const Home = (props) => {
   const [firstPopup, setFirstPopup] = useState("");
   const [secondPopup, setSecondPopup] = useState("");
   const [collection, setCollection] = useState({
@@ -70,6 +70,8 @@ const Home = () => {
         StudentPreference={
           collection.StudentPreference && collection.StudentPreference
         }
+        // toggleIcon={props.toggleIcon}
+        // setToggleIcon={props.setToggleIcon}
       />
     </div>
   );

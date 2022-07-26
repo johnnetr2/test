@@ -9,8 +9,13 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   colorUpdate: {
+    animationDuration: "8s",
     "& .MuiLinearProgress-barColorPrimary": {
       backgroundColor: "#6FCF97",
+    },
+    "& .MuiLinearProgress-bar": {
+      // apply a new animation-duration to the `.bar` class
+      animationDuration: "8s",
     },
   },
 }));
@@ -34,11 +39,12 @@ function Header(props) {
               backgroundColor: "#b4b4b4",
               // color: "#6Fcf97",fsetPro
               height: ".5rem",
+              animationDuration: "8s",
               "& .MuiLinearProgress-barColorPrimary": {
                 backgroundColor: "#6FCF97",
               },
             }}
-            // className={classes.colorUpdate}
+            className={classes.colorUpdate}
             // color="#222"
             variant="determinate"
             {...props}

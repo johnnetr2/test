@@ -372,6 +372,7 @@ const QuestionViewDTKOrg = (props) => {
                             value={option._id}
                             style={{
                               marginLeft: ".5rem",
+                              display: "flex",
                               alignItems: "center",
                             }}
                             control={

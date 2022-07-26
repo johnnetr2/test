@@ -1,8 +1,8 @@
-import React from "react";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
+// import React from "react";
+// import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
-const CoursesLeftBar = () => {
-  return <HomeLeftBar />;
-};
+// const CoursesLeftBar = () => {
+//   return <HomeLeftBar />;
+// };
 
-export default CoursesLeftBar;
+// export default CoursesLeftBar;
