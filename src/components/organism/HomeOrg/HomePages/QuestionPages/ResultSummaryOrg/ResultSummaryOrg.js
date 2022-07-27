@@ -79,6 +79,7 @@ const ResultSummaryOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
+    console.log(params.state)
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
 

@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import BarChart from "../../../../../../assets/Icons/BarChart.svg";
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
-import DtkImg from "../../../../../../assets/Imgs/DtkImg.png";
-import Clock from "../../../../../../assets/Icons/Clock.svg";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -12,20 +8,15 @@ import {
   Paper,
   Box,
   CssBaseline,
-  Grid,
   Radio,
   FormControlLabel,
   Container,
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
-import Correct from "../../../../../../assets/Imgs/correct.png";
-import Wrong from "../../../../../../assets/Imgs/wrong.png";
-import { useNavigate } from "react-router-dom";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
-import Timer from "../../../../../atom/Timer/timer";
 
 const QuestionViewDTKOrg = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -107,7 +98,7 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       return (
         <Box sx={{ width: 600, marginLeft: ".5rem" }}>
-          <ExerciseBtn title="Nästa" onClick={() => submitAnswer(question)} />
+          <ExerciseBtn title="svara" onClick={() => submitAnswer(question)} />
         </Box>
       );
     }
@@ -407,7 +398,7 @@ const QuestionViewDTKOrg = (props) => {
                             width: "3rem",
                           }}
                         >
-                          Nästa
+                          svara
                         </Typography>
                       </Box>
                     )}

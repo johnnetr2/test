@@ -10,10 +10,6 @@ import {
 } from "@material-ui/core";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
-import { style } from "@mui/system";
-import BarChart from "../../../assets/Icons/BarChart.svg";
-import Clock from "../../../assets/Icons/Clock.svg";
-import Timer from "../Timer/timer";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -39,8 +35,6 @@ const QuestionBody = (props) => {
     setCount(0);
     setFeedbackPopup(true);
   };
-
-  console.log(props.question, 'infooooooooooooooooo')
 
   const questionId = props.question._id;
 
@@ -176,21 +170,18 @@ const QuestionBody = (props) => {
                     border: "1px solid #e1e1e1",
                     width: 300,
                     display: "flex",
+                    color: optionIndex == question.selectedIndex && '#0A1596',
                     "&:hover": {
-                      cursor: "pointer",
+                      cursor: !item.answer && "pointer",
+                      color: !item.answer && '#0A1596',
                     },
                   }}
+                  onMouseOver={() => props.onhover(item._id)}
+                  onMouseLeave={() => props.onHoverLeave()}
                   onClick={(e) => {
                     !question?.answer && props.SelectOption(e, optionIndex);
                   }}
                 >
-                  {/* <Box
-                    sx={{
-                      display: "flex",
-                      height: 120,
-                      border: "2px solid #f00",
-                    }}
-                  > */}
                   <Box
                     sx={{
                       display: "flex",
@@ -208,7 +199,7 @@ const QuestionBody = (props) => {
                         style={{
                           margin: 0,
                           size: "0.5rem",
-                          color: "#e1e1e1",
+                          // color: "#e1e1e1",
                         }}
                         value={item?._id}
                         control={props.showOptions(question, item, optionIndex)}
@@ -218,7 +209,7 @@ const QuestionBody = (props) => {
                       <Typography
                         style={{
                           marginTop: "1.25rem",
-                          color: "#717274",
+                          // color: "blue",
                         }}
                         variant="body2"
                       >

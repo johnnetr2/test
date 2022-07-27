@@ -35,7 +35,7 @@ const QuestionViewXyzOrg = () => {
   const params = useLocation();
   const [status, setStatus] = useState();
   const [timeLeft, setTimeLeft] = useState();
-  const [time, setTime] = useState(120);
+  const [time, setTime] = useState(3300);
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
@@ -43,6 +43,7 @@ const QuestionViewXyzOrg = () => {
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [loading, setLoading] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
+  const [onHover, setOnhover] = useState()
   // let totalQuestions = 0
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -75,8 +76,6 @@ const QuestionViewXyzOrg = () => {
       });
 
       // instance2.get(URL).then(response => {
-      //   console.log(response.data.question, 'this is api responssee data')
-      //   console.log(params?.state?.data?.quiz, 'quiz from previos screen')
       // })
       // params?.state &&
       //   params?.state?.data?.quiz.map((item) => {
@@ -122,7 +121,6 @@ const QuestionViewXyzOrg = () => {
 
   useEffect(() => {
     if (nextPress && quiz?.length > 0) {
-      setTime(timeLeft);
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
@@ -136,8 +134,10 @@ const QuestionViewXyzOrg = () => {
         spendtime: timeLeft ? time - timeLeft : 0,
         MultipartQuestion: null,
       };
+      console.log(data, 'this is api data')
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
+        setTime(timeLeft);
         setNextPress(undefined);
         console.log("Answer submited");
       });
@@ -145,6 +145,58 @@ const QuestionViewXyzOrg = () => {
       return;
     }
   }, [nextPress]);
+
+  // useEffect(() => {
+  //   if (timeLeft != time && quiz?.length > 0) {
+  //     console.log(timeLeft)
+  //     console.log(nextPress, 'nect pressss')
+  //     console.log('in if')
+  //     const questions = [...quiz];
+  //     let question = questions[selectedIndex];
+  //     const data = {
+  //       quiz: params?.state?.data?._id,
+  //       user: localStorage.getItem("userId"),
+  //       optionId: question.optionId,
+  //       questionId: question._id,
+  //       sectionCategory: params?.state?.sectionCategory._id,
+  //       timeleft: timeLeft ? timeLeft : 0,
+  //       totaltime: time ? time : 0,
+  //       spendtime: timeLeft ? time - timeLeft : 0,
+  //       MultipartQuestion: null,
+  //     };
+  //     const Submit = EndPoints.submitAnswer;
+  //     instance2.post(Submit, data).then((response) => {
+  //       setTime(timeLeft);
+  //       setNextPress(undefined);
+  //       console.log('Answer submitted')
+  //     });
+  //   } else {
+  //     if (nextPress && quiz?.length > 0) {
+  //       console.log('in else')
+  //       const questions = [...quiz];
+  //       let question = questions[selectedIndex];
+  //       const data = {
+  //         quiz: params?.state?.data?._id,
+  //         user: localStorage.getItem("userId"),
+  //         optionId: question.optionId,
+  //         questionId: question._id,
+  //         sectionCategory: params?.state?.sectionCategory._id,
+  //         timeleft: timeLeft ? timeLeft : 0,
+  //         totaltime: time ? time : 0,
+  //         spendtime: timeLeft ? time - timeLeft : 0,
+  //         MultipartQuestion: null,
+  //       };
+  //       const Submit = EndPoints.submitAnswer;
+  //       instance2.post(Submit, data).then((response) => {
+  //         setTime(timeLeft);
+  //         setNextPress(undefined);
+  //         console.log('Answer submitted')
+
+  //       });
+  //     }
+     
+  //   } 
+  // }, [nextPress]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -187,6 +239,13 @@ const QuestionViewXyzOrg = () => {
       justifyContent: "center",
       width: "90vw",
     },
+    radio: {
+      color: onHover && '#0A1596',
+    // '&$checked': {
+    //   color: '#0A1596',
+    //   marginRight: "0.5rem"
+    // }
+  },
   }));
 
   const classes = useStyles();
@@ -244,9 +303,6 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
-    console.log(question, "this is question");
-    console.log(curentOption, "this is current option");
-    console.log(optionIndex, "this is option Index");
     if (question.answer && question.answer.option == curentOption._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
     } else if (question.answer && curentOption._id == question?.optionId) {
@@ -258,9 +314,10 @@ const QuestionViewXyzOrg = () => {
     if (optionIndex == question.selectedIndex) {
       return (
         <Radio
-          color="primary"
+          color="blue"
           checked={true}
-          style={{ marginRight: "0.5rem" }}
+          // className={classes.radio}
+          style={{ marginRight: "0.5rem", color: '#0A1596' }}
         />
       );
     } else {
@@ -268,7 +325,8 @@ const QuestionViewXyzOrg = () => {
         <Radio
           color="primary"
           checked={false}
-          style={{ marginRight: "0.5rem" }}
+          // className={classes.radio}
+          style={{ marginRight: "0.5rem", color: curentOption._id == onHover && '#0A1596' }}
         />
       );
     }
@@ -438,7 +496,10 @@ const QuestionViewXyzOrg = () => {
           nextPress={() => setNextPress(!nextPress)}
           onCloseTimer={() => CloseTimerFunc()}
           quiz={quiz}
-          timeLeft={(timer) => setTimeLeft(timer)}
+          timeLeft={(timer) => {
+            console.log(timer, 'this is time left for each api')
+            setTimeLeft(timer)
+          }}
         />
         {/* } */}
 
@@ -505,7 +566,7 @@ const QuestionViewXyzOrg = () => {
           handleClose={() => setOpen(false)}
           redirect={() => {
             const filteredQuiz = quiz.filter((item) => {
-              if (item.answerSubmited) {
+              if (item.answer) {
                 return item;
               }
             });
@@ -577,6 +638,8 @@ const QuestionViewXyzOrg = () => {
                   SelectOption={(e, index) => SelectFunc(e, index)}
                   totalTime={time}
                   quiz={quiz}
+                  onhover={(optionId) => setOnhover(optionId)}
+                  onHoverLeave={() => setOnhover(null)}
                   sectionCategory={params?.state?.sectionCategory}
                   onResultHandler={() => {
                     navigate("/resultsummary", {

@@ -11,6 +11,7 @@ const QuestionProgressBox = (props) => {
         boxShadow: "0px 5px 10px #f2f2f2",
         borderRadius: 1,
         padding: ".5rem",
+        height: '6.2rem'
       }}
     >
       <Box

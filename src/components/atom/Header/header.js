@@ -106,7 +106,9 @@ function Header(props) {
               timeleft={(timer) => {
                 if (!props.status) {
                   props.timeLeft(timer);
-                  props.nextPress();
+                  setTimeout(() => {
+                    props.nextPress();
+                  }, 1000);
                 }
               }}
               onCloseTimer={() => props.onCloseTimer()}
