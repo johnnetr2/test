@@ -91,6 +91,9 @@ const LinesChart = (props) => {
       <LineChart
         width={400}
         height={200}
+        style={{
+          fontSize: "0.75rem",
+        }}
         data={[
           {
             name: "v35",
@@ -140,6 +143,15 @@ const LinesChart = (props) => {
           strokeWidth="3"
           fill="#0A1596"
           dot={{ stroke: "#0A1596", strokeWidth: 3, r: 4, strokeDasharray: "" }}
+          options={{
+            scales: {
+              x: {
+                grid: {
+                  display: "false",
+                },
+              },
+            },
+          }}
           // options={{
           //   scales: {
           //     xAxes: [
@@ -151,9 +163,6 @@ const LinesChart = (props) => {
           //     ],
           //   },
           // }}
-          options={{
-            scaleShowVerticalLines: false,
-          }}
 
           // data={{
           //   labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
