@@ -1,7 +1,7 @@
 import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
-// import Chart from "chart.js";
-import Chart from "chart.js/auto";
+import Chart from "chart.js";
+// import Chart from "chart.js/auto";
 import { Card } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../service/Route";
 import { Box } from "@material-ui/core";
@@ -20,6 +20,7 @@ const LineDemo = (props) => {
   useEffect(() => {
     const URL = EndPoints.oneDayExercise + localStorage.getItem("userId");
     instance2.get(URL).then((response) => {
+      console.log(response.data, 'this is graph data')
       setMondayExercise(response.data.days_of_exam.Monday);
       setTuesdayExercise(response.data.days_of_exam.Tuesday);
       setWednesdayExercise(response.data.days_of_exam.Wednesday);
@@ -84,13 +85,13 @@ const LineDemo = (props) => {
               barPercentage: 0.1,
               categorySpacing: 2,
               data: [
-                mondayExercise,
-                tuesdayExercise,
-                wednesdayExercise,
-                thursdayExercise,
-                fridayExercise,
-                saturdayExercise,
                 sundayExercise,
+                saturdayExercise,
+                fridayExercise,
+                thursdayExercise,
+                wednesdayExercise,
+                tuesdayExercise,
+                mondayExercise,
               ],
             },
           ],

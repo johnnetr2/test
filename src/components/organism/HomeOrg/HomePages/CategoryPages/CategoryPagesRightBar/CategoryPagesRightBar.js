@@ -26,7 +26,6 @@ const CategoryPagesRightBar = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.testHistory + props.item._id;
-    console.log(URL);
     instance2.get(URL).then((response) => {
       setProgressData(response.data, "token response");
     });

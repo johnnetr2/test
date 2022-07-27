@@ -131,7 +131,7 @@ const CoursesCard = (props) => {
     return (
       <div className='result_popup'
         onClick={() => props.onClick()}
-        style={{ marginRight: width > 900 ? '42.8%' : '2.3%', marginTop: width > 900 ? '2%' : '4%', cursor: 'pointer', color: '#505050' }}
+        style={{ marginRight: width > 900 ? '43.8%' : '2.3%', marginTop: width > 900 ? '2%' : '4%', cursor: 'pointer', color: '#505050' }}
       >STARTA OM
         <div className='popup' ></div>
       </div>

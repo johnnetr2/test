@@ -55,7 +55,11 @@ const Timer = (props) => {
         marginLeft: ".4rem",
       }}
     >
-      <Typography>
+      <Typography
+      style={{
+        color: props.continueStatus ? '' : 'red'
+      }}
+      >
         {timer != 0 ? dispSecondsAsMins(timer) : "00:00"} min
       </Typography>
       <Box className="startDiv"></Box>
