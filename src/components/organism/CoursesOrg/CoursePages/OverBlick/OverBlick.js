@@ -179,7 +179,11 @@ const OverBlick = () => {
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
-          <Typography variant="body1" className={classes.center_align}>
+          <Typography
+            variant="body1"
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+            className={classes.center_align}
+          >
             Överblick
           </Typography>
           <Box onClick={() => setHelpPopup(!helpPopup)}>

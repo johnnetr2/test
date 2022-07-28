@@ -339,6 +339,8 @@ const Provresultat = () => {
               justifyContent: "center",
               alignItems: "center",
               color: "#222",
+              // fontSize: "1.5rem",
+              // fontWeight: 400,
             }}
             variant="h6"
             component="div"
