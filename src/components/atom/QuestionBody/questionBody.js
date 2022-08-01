@@ -130,14 +130,15 @@ const QuestionBody = (props) => {
               <img style={{ height: "100%" }} src={question?.images[0]} />
             </Typography>
           )}
+          {console.log(question, "check question")}
 
           {question?.information1 && (
             <Typography
-              variant="h6"
-              component="h6"
+              variant="body2"
+              // component="body1"
               style={{
                 fontSize: "0.75rem",
-                fontWeight: "600",
+                margin: "-1rem !important",
               }}
             >
               <MarkLatex content={question?.information1} />
@@ -146,9 +147,12 @@ const QuestionBody = (props) => {
 
           {question?.information2 && (
             <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600" }}
+              variant="body1"
+              // component="body1"
+              style={{
+                fontSize: "0.75rem",
+                marginBottom: "0rem !important",
+              }}
             >
               <MarkLatex content={question?.information2} />
             </Typography>
@@ -167,17 +171,28 @@ const QuestionBody = (props) => {
         >
           {question?.options[0].options.map((item, optionIndex) => {
             if (item.value) {
+              {
+                console.log(item, "$$$$$");
+              }
               return (
                 <Box
                   sx={{
-                    height: question?.options[0].options.length > 4 ? 60 : 120,
+                    height:
+                      question?.options[0].options.length > 4 ||
+                      item.image === ""
+                        ? 60
+                        : 120,
                     border: "1px solid #e1e1e1",
-                    width: question?.options[0].options.length > 4 ? 600 : 300,
+                    width:
+                      question?.options[0].options.length > 4 ||
+                      item.image === ""
+                        ? 600
+                        : 300,
                     display: "flex",
-                    color: optionIndex == question.selectedIndex && '#0A1596',
+                    color: optionIndex == question.selectedIndex && "#0A1596",
                     "&:hover": {
                       cursor: !item.answer && "pointer",
-                      color: !item.answer && '#0A1596',
+                      color: !item.answer && "#0A1596",
                     },
                   }}
                   onMouseOver={() => props.onhover(item._id)}
@@ -230,9 +245,13 @@ const QuestionBody = (props) => {
                           : "14rem",
                       display: "flex",
                       marginLeft:
-                        question?.options[0].options.length > 4 ? "1rem" : "0",
+                        question?.options[0].options.length > 4 ||
+                        item.image === ""
+                          ? "1rem"
+                          : "0",
                       justifyContent:
-                        question?.options[0].options.length > 4
+                        question?.options[0].options.length > 4 ||
+                        item.image === ""
                           ? "flex-start"
                           : "center",
                       alignItems: "center",

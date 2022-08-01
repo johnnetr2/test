@@ -43,8 +43,10 @@ const QuestionViewXyzOrg = () => {
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [loading, setLoading] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
-  const [onHover, setOnhover] = useState()
+  const [onHover, setOnhover] = useState();
   // let totalQuestions = 0
+
+  console.log(params, "check params console");
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -60,20 +62,20 @@ const QuestionViewXyzOrg = () => {
       setTotalQuestions(params?.state?.quiz?.question.length);
       setLoading(false);
     } else {
-      const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
-      instance2.get(URL).then((response) => {
-        setStatus(true);
-        response.data &&
-          response.data.question.map((item) => {
-            setLoading(false);
-            if (item.description) {
-              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-            } else {
-              setTotalQuestions((totalQ) => totalQ + 1);
-            }
-          });
-        setQuiz(response.data.question);
-      });
+      // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
+      // instance2.get(URL).then((response) => {
+      //   setStatus(true);
+      params.state.data.quiz &&
+        params.state.data.quiz.map((item) => {
+          setLoading(false);
+          if (item.description) {
+            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+          } else {
+            setTotalQuestions((totalQ) => totalQ + 1);
+          }
+        });
+      setQuiz(params.state.data.quiz);
+      // });
 
       // instance2.get(URL).then(response => {
       // })
@@ -134,7 +136,7 @@ const QuestionViewXyzOrg = () => {
         spendtime: timeLeft ? time - timeLeft : 0,
         MultipartQuestion: null,
       };
-      console.log(data, 'this is api data')
+      console.log(data, "this is api data");
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
         setTime(timeLeft);
@@ -194,8 +196,8 @@ const QuestionViewXyzOrg = () => {
 
   //       });
   //     }
-     
-  //   } 
+
+  //   }
   // }, [nextPress]);
 
   const useStyles = makeStyles((theme) => ({
@@ -240,12 +242,12 @@ const QuestionViewXyzOrg = () => {
       width: "90vw",
     },
     radio: {
-      color: onHover && '#0A1596',
-    // '&$checked': {
-    //   color: '#0A1596',
-    //   marginRight: "0.5rem"
-    // }
-  },
+      color: onHover && "#0A1596",
+      // '&$checked': {
+      //   color: '#0A1596',
+      //   marginRight: "0.5rem"
+      // }
+    },
   }));
 
   const classes = useStyles();
@@ -319,7 +321,7 @@ const QuestionViewXyzOrg = () => {
           color="blue"
           checked={true}
           // className={classes.radio}
-          style={{ marginRight: "0.5rem", color: '#0A1596' }}
+          style={{ marginRight: "0.5rem", color: "#0A1596" }}
         />
       );
     } else {
@@ -328,7 +330,10 @@ const QuestionViewXyzOrg = () => {
           color="primary"
           checked={false}
           // className={classes.radio}
-          style={{ marginRight: "0.5rem", color: curentOption._id == onHover && '#0A1596' }}
+          style={{
+            marginRight: "0.5rem",
+            color: curentOption._id == onHover && "#0A1596",
+          }}
         />
       );
     }
@@ -499,8 +504,8 @@ const QuestionViewXyzOrg = () => {
           onCloseTimer={() => CloseTimerFunc()}
           quiz={quiz}
           timeLeft={(timer) => {
-            console.log(timer, 'this is time left for each api')
-            setTimeLeft(timer)
+            console.log(timer, "this is time left for each api");
+            setTimeLeft(timer);
           }}
         />
         {/* } */}

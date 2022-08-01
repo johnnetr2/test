@@ -80,7 +80,6 @@ export const CategoryTable = (props) => {
           display: "flex",
           textTransform: "uppercase",
           justifyContent: "space-around",
-          // border: "1px solid #f00",
         }}
       >
         <Typography
@@ -157,45 +156,47 @@ export const CategoryTable = (props) => {
       >
         <Table>
           <TableBody>
-            {categoryTable.map((row, index) => {
-              return (
-                <TableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
-                  </TableCell>
-                  <TableCell align="left">
-                    {row.correctAnswer} av {row.answer.length}
-                  </TableCell>
-
-                  <TableCell align="right">
-                    {((row.correctAnswer / row.totalQuestion) * 2)
-                      .toFixed(1)
-                      .replace(/\.0+$/, "")}
-                  </TableCell>
-
-                  <TableCell
-                    style={{
-                      display: "flex",
-                      flexDirection: "row-reverse",
-                      color: "grey",
-                      height: "5rem",
-                      alignItems: "center",
-                    }}
+            {categoryTable
+              .map((row, index) => {
+                return (
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <MoreVertIcon
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => showPopup(index)}
-                    />
+                    <TableCell component="th" scope="row">
+                      {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.correctAnswer} av {row.answer.length}
+                    </TableCell>
 
-                    {row.result && (
-                      <Dropdown onClick={() => ResultHandler(row)} />
-                    )}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                    <TableCell align="right">
+                      {((row.correctAnswer / row.totalQuestion) * 2)
+                        .toFixed(1)
+                        .replace(/\.0+$/, "")}
+                    </TableCell>
+
+                    <TableCell
+                      style={{
+                        display: "flex",
+                        flexDirection: "row-reverse",
+                        color: "grey",
+                        height: "5rem",
+                        alignItems: "center",
+                      }}
+                    >
+                      <MoreVertIcon
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => showPopup(index)}
+                      />
+
+                      {row.result && (
+                        <Dropdown onClick={() => ResultHandler(row)} />
+                      )}
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+              .reverse()}
           </TableBody>
         </Table>
       </Box>

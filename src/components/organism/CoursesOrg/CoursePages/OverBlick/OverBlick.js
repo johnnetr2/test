@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import BarChart from "../../../../../assets/Icons/BarChart.svg";
+import Timer from "../../../../atom/Timer/timer";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
@@ -30,10 +32,14 @@ const OverBlick = () => {
   const [quiz, setQuiz] = useState();
   const [testSubmitPopUp, setTestSubmitPopUp] = useState(false);
   const [timeOverPopUp, setTimeOverPopUp] = useState(false);
+  const [time, setTime] = useState();
+
   const params = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [helpPopup, setHelpPopup] = useState(false);
+
+  console.log(params, "Overblick data");
 
   useEffect(() => {
     setQuiz(params.state.quiz);
@@ -123,6 +129,22 @@ const OverBlick = () => {
       justifyContent: "center",
       width: "90vw",
     },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
+    },
   }));
 
   const classes = useStyles(10);
@@ -211,10 +233,81 @@ const OverBlick = () => {
         }}
       >
         <Container
+          disableGutters
+          maxWidth="md"
+          style={{ backgroundColor: "#fff" }}
+        >
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            {/* <Box mt={2} width={100} sx={{ color: "#222" }}>
+              <img src={BarChart} alt="" />
+              {currentIndex + 1} av {quiz?.question.length}
+            </Box> */}
+            {/* <Box mt={2} sx={{ color: "#222", display: "flex" }}>
+              <img src={Clock} alt="" />
+              {params.state.quiz &&
+              params.state.quiz.question[currentIndex].questionAnswer
+                ? "Slutfört"
+                : time && (
+                    <Timer
+                      continueStatus={status}
+                      time={time}
+                      timeleft={(timer) => {
+                        setTimeLeft(timer);
+                      }}
+                      onCloseTimer={() => {
+                        setTimeLeft(0);
+                        setShouldNavigate(true);
+                      }}
+                    />
+                  )}
+              <BackButtonPopup
+                status={backPressPopup}
+                closePopup={() => setBackPressPopup(false)}
+              />
+            </Box> */}
+          </Box>
+          {/* <Box
+            mt={2}
+            sx={{
+              backgroundColor: "#b4b4b4",
+              height: "8px",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {quiz &&
+              quiz?.question.map((item, index) => {
+                return (
+                  <Box
+                    key={index}
+                    style={{
+                      backgroundColor:
+                        numberOfAttemptedQuestions > index
+                          ? "#6fcf97"
+                          : "#B4B4B4",
+                      marginLeft: "2px",
+                      flex: "1",
+                    }}
+                  ></Box>
+                );
+              })}
+            <Box
+              mt={2}
+              sx={{
+                backgroundColor: "#6fcf97",
+                height: "8px",
+                display: "flex",
+                flexDirection: "row",
+              }}
+            ></Box>
+          </Box> */}
+        </Container>
+        <Container
           maxWidth="md"
           style={{
             marginTop: 65,
             backgroundColor: "#f9f9f9",
+            // backgroundColor: "#999",
             border: "1px solid #fff",
             display: "flex",
             justifyContent: "center",
@@ -233,7 +326,12 @@ const OverBlick = () => {
               Innan du lämnar in se över vilka frågor du har missat, sparat samt
               gjort klart
             </Typography>
-            <Box sx={{ display: "flex", marginTop: "1rem" }}>
+            <Box
+              sx={{
+                display: "flex",
+                marginTop: "1rem",
+              }}
+            >
               <Box
                 mt={1}
                 sx={{
@@ -288,24 +386,26 @@ const OverBlick = () => {
           </Box>
           <Box
             mt={3}
-            padding={6}
             sx={{
               backgroundColor: "#fff",
               width: 600,
+              padding: "2rem",
               height: 450,
               overflow: "auto",
               display: "flex",
               justifyContent: "center",
-              border: "1px solid #e1e1e1",
+              // border: "1px solid #e1e1e1",
             }}
+            className={classes.scrollbar}
           >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  width: "30rem",
-                  marginBottom: "1rem",
+                  width: "29rem",
+                  // backgroundColor: "#f0f",
+                  marginBottom: "2rem",
                   flexWrap: "wrap",
                   gridGap: "1rem",
                 }}
@@ -393,11 +493,10 @@ const OverBlick = () => {
             justifyContent: "center",
             alignItems: "center",
             boxShadow: "1px 1px 5px #999",
-            position: "absolute",
+            position: "static",
             bottom: 0,
             left: 0,
             right: 0,
-            // marginTop: '2.9rem'
           }}
         >
           <Button

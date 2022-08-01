@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  makeStyles,
-  Typography,
-  Box,
-} from "@material-ui/core";
+import { Container, makeStyles, Typography, Box } from "@material-ui/core";
 import { useNavigate, useLocation } from "react-router-dom";
 import Heading from "../../../../../atom/Heading/Heading";
 import BodyText from "../../../../../atom/BodyText/BodyText";
@@ -55,7 +50,7 @@ const CategoryPagesFeedContent = (props) => {
   const [historyText, setHistoryText] = useState(false);
   const [resultText, setResultText] = useState(false);
   const { height, width } = useWindowDimensions();
-  const [alla, setAlla] = useState(true)
+  const [alla, setAlla] = useState(true);
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -149,8 +144,7 @@ const CategoryPagesFeedContent = (props) => {
     } else {
       setCheckData([]);
     }
-  }, [alla])
-  
+  }, [alla]);
 
   const realQuestionFunc = () => {
     setTitle(true);
@@ -196,15 +190,14 @@ const CategoryPagesFeedContent = (props) => {
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
             setOpen(false);
-             navigate("/question", {
+            navigate("/question", {
               state: {
                 data: response.data,
                 sectionCategory: props.item,
                 quizId: response.data._id,
               },
             });
-           
-           }
+          }
         });
       } else {
         SetCategoryError(true);
