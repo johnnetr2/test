@@ -43,6 +43,8 @@ const HomeFeedContent = (props) => {
   const classes = useStyles();
 
   const [tabValue, setTabValue] = useState(0);
+  const [progress, setProgress] = useState(0)
+  const [prognos, setPrognos] = useState(0)
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -172,27 +174,13 @@ const HomeFeedContent = (props) => {
         <Box>
           <Box sx={{ marginBottom: "1rem" }}>
             {sections &&
-              previousRecordProgress &&
+              // previousRecordProgress &&
               sections.map((item, index) => {
                 if (item.section.title === "Kvantitativ del") {
-                  let progressResult;
-                  let prognos;
-                  if (item._id === previousRecordProgress[index]._id) {
-                    progressResult =
-                      (previousRecordProgress[index].AttemptedQuestion /
-                        previousRecordProgress[index].TotalQuestion) *
-                      100;
-                    prognos =
-                      (previousRecordProgress[index].CorrectQuestion /
-                        previousRecordProgress[index].TotalQuestion) *
-                      2;
-                  }
                   return (
                     <HomeCard
                       item={item}
-                      previousRecord={progressResult}
-                      attemptedQuestion={previousRecordProgress[index].AttemptedQuestion}
-                      prognos={prognos.toFixed(1)}
+                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id && previousRecordProgress[index]}
                     />
                   );
                 }
@@ -212,24 +200,10 @@ const HomeFeedContent = (props) => {
               previousRecordProgress &&
               sections.map((item, index) => {
                 if (item.section.title === "Verbal del") {
-                  let progressResult;
-                  let prognos;
-                  if (item._id === previousRecordProgress[index]._id) {
-                    progressResult =
-                      (previousRecordProgress[index].AttemptedQuestion /
-                        previousRecordProgress[index].TotalQuestion) *
-                      100;
-                    prognos =
-                      (previousRecordProgress[index].CorrectQuestion /
-                        previousRecordProgress[index].TotalQuestion) *
-                      2;
-                  }
                   return (
                     <HomeCard
                       item={item}
-                      previousRecord={progressResult}
-                      attemptedQuestion={previousRecordProgress[index].AttemptedQuestion}
-                      prognos={prognos.toFixed(1)}
+                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id && previousRecordProgress[index]}
                     />
                   );
                 }

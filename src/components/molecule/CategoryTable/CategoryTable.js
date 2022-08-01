@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Dropdown from "../../atom/ArrowDropDown/dropdown";
 import useWindowDimensions from "../WindowDimensions/dimension";
+import Tooltip from "@mui/material/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
@@ -47,7 +48,6 @@ export const CategoryTable = (props) => {
 
   useEffect(() => {
     setSectionCategory(props?.sectionCategory);
-    console.log(props);
   }, []);
 
   const ResultHandler = (row) => {
@@ -70,7 +70,6 @@ export const CategoryTable = (props) => {
       singlerow.result = true;
       setCategoryTable(history);
     }
-    console.log(singlerow);
   };
 
   return (
@@ -152,14 +151,19 @@ export const CategoryTable = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    <MoreVertIcon
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => showPopup(index)}
-                    />
+                    <Box
+                    style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-end' }}
+                    >
+                      <MoreVertIcon
+                        sx={{ cursor: "pointer", position: 'initial' }}
+                        onClick={() => showPopup(index)}
+                      />
 
-                    {row.result && (
-                      <Dropdown onClick={() => ResultHandler(row)} />
-                    )}
+                      {row.result && (
+                        <Dropdown onClick={() => ResultHandler(row)} />
+                      )}
+                    </Box>
+                    
                   </TableCell>
                 </TableRow>
               );

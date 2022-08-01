@@ -24,7 +24,6 @@ const ImpDatesCard = (props) => {
       attemptDate: collection.date,
     };
     instance2.put(pointURL, body).then((response) => {
-      console.log(response, "success");
       setCollection({ ...collection, popup: false });
     });
   };

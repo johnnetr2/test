@@ -60,11 +60,11 @@ const QuestionViewXyzOrg = () => {
       setTotalQuestions(params?.state?.quiz?.question.length);
       setLoading(false);
     } else {
-      const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
-      instance2.get(URL).then((response) => {
-        setStatus(true);
-        response.data &&
-          response.data.question.map((item) => {
+      // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
+      // instance2.get(URL).then((response) => {
+      //   setStatus(true);
+        params.state.data.quiz &&
+          params.state.data.quiz.map((item) => {
             setLoading(false);
             if (item.description) {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
@@ -72,8 +72,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setQuiz(response.data.question);
-      });
+        setQuiz(params.state.data.quiz);
+      // });
 
       // instance2.get(URL).then(response => {
       // })
