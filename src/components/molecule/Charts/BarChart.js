@@ -2,7 +2,7 @@ import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
 import Chart from "chart.js";
 // import Chart from "chart.js/auto";
-import { Card } from "@material-ui/core";
+// import { Card } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../service/Route";
 import { Box } from "@material-ui/core";
 
