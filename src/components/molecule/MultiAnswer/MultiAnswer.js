@@ -10,37 +10,12 @@ const MultiAnswer = (props) => {
   console.log(props, "question porps true false");
 
   const options = (item, index) => {
-    if (
-      props?.question?.answer &&
-      props?.question?.answer?.option === item._id
-    ) {
-      return (
-        <img
-          src={Correct}
-          style={{
-            height: "1.4rem",
-            marginRight: ".5rem",
-            marginLeft: ".8rem",
-            marginTop: ".5rem",
-            marginBottom: ".5rem",
-          }}
-        />
-      );
-    } else if (props?.question.selectedOptionIndex === index) {
-      return (
-        <img
-          src={Wrong}
-          style={{
-            height: "1.4rem",
-            marginRight: ".5rem",
-            marginLeft: ".8rem",
-            marginTop: ".5rem",
-            marginBottom: ".5rem",
-          }}
-        />
-      );
+    if (props?.question?.answer && props?.question?.answer?.option === item._id) {
+      return <img src={Correct} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem', marginTop: '.5rem', marginBottom: '.5rem', }} />
+    } else if (props?.question.optionId === item._id) {
+      return <img src={Wrong} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem', marginTop: '.5rem', marginBottom: '.5rem', }} />
     } else {
-      return <Radio checked={false} />;
+      return <Radio checked={false} />
     }
   };
 
@@ -54,24 +29,20 @@ const MultiAnswer = (props) => {
             flexDirection: "column",
           }}
         >
-          {props?.question.options[0]?.options.map((item, index) => {
-            return (
-              <Box
-                style={{
-                  border: "1px solid #e1e1e1",
-                  padding: "1rem",
-                  width: 580,
-                }}
-              >
-                <FormControlLabel
-                  style={{ marginLeft: ".5rem" }}
-                  control={options(item, index)}
-                  //  {<Radio />}
-                  // {OptionsFunc(item, index)}
-                  label={item.value}
-                />
-              </Box>
-            );
+          {props?.question.option[0]?.options.map((item, index) => {
+            return <Box
+              style={{
+                border: "1px solid #e1e1e1",
+                padding: "1rem",
+                width: 580
+              }}
+            >
+              <FormControlLabel
+                style={{ marginLeft: ".5rem" }}
+                control={options(item, index)}
+                label={item.value}
+              />
+            </Box>
           })}
         </Box>
 
@@ -103,7 +74,6 @@ const MultiAnswer = (props) => {
                 width: props?.question?.answer.image ? "auto" : 500,
               }}
             >
-              {/* {props?.question?.answer?.answer} */}
               <MarkLatex content={props?.question?.answer?.answer} />
             </Typography>
           </Box>

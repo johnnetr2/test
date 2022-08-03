@@ -28,17 +28,6 @@ const QuestionProgressBox = (props) => {
           fontSize: "0.5rem",
         }}
         >{!props.showPrognos && 'Gör minst 20 frågor per kategori'}</Typography>
-        <Typography
-          variant="body2"
-          style={{
-            textTransform: "Uppercase",
-            textAlign: "center",
-            fontSize: "0.5rem",
-            width: "80%",
-          }}
-        >
-          {props.totalPrognos ? null : "Gör minst 30 frågor för att få prognos"}
-        </Typography>
       </Box>
       <Box
         sx={{

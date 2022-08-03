@@ -6,9 +6,6 @@ import {
   TableRow,
   Paper,
   Box,
-  IconButton,
-  Menu,
-  MenuItem,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
@@ -41,13 +38,11 @@ export const CategoryTable = (props) => {
   const classes = useStyles();
   const [categoryTable, setCategoryTable] = useState(props.tableHistory);
   const [sectionCategory, setSectionCategory] = useState("");
-  const { height, width } = useWindowDimensions();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     setSectionCategory(props?.sectionCategory);
-    console.log(props);
   }, []);
 
   const ResultHandler = (row) => {
@@ -70,7 +65,6 @@ export const CategoryTable = (props) => {
       singlerow.result = true;
       setCategoryTable(history);
     }
-    console.log(singlerow);
   };
 
   return (
@@ -93,26 +87,6 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            marginRight: "40px",
-
-            // marginLeft: width > 600 ? width * 0.17 : width * 0.32,
-            // marginLeft:
-            //   width >= 600
-            //     ? width * 0.27
-            //     : width >= 900
-            //     ? width * 0
-            //     : width >= 1200
-            //     ? width * 0.15
-            //     : width >= 1536
-            //     ? width * 0.15
-            //     : null,
-            // marginLeft: {
-            //   sm: "10rem",
-            //   md: "24rem",
-            //   lg: "30rem",
-            //   xl: "24rem",
-            // },
-            // border: "1px solid #00f",
           }}
         >
           Resultat
@@ -120,20 +94,6 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            marginRight: "20px",
-
-            // marginLeft:
-            //   width >= 600
-            //     ? width * 0.13
-            //     : width >= 900
-            //     ? width * 0.1
-            //     : width >= 1200
-            //     ? width * 0.13
-            //     : width >= 1536
-            //     ? width * 0.13
-            //     : null,
-            // marginLeft: width > 900 ? width * 0.11 : width * 0.13,
-            // border: "1px solid #f0f",
           }}
         >
           Normering
@@ -147,8 +107,7 @@ export const CategoryTable = (props) => {
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
-          maxHeight: "fit-content 40rem",
-          // width: "40rem",
+          height: "40rem",
           overflow: "auto",
           marginBottom: "2rem",
         }}

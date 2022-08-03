@@ -21,6 +21,7 @@ function MultiQuestionSummary(props) {
 
   useEffect(() => {
     setQuestion(props.question);
+    console.log(props.question, 'this is question')
   }, []);
 
   const Options = (question, curentOption, optionIndex) => {

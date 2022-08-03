@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LinearProgress, Box, Typography, Stack, Chip } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
 
@@ -104,7 +104,7 @@ const ProgressBar = (props) => {
       </Box>
       <Box>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.average
+          props.average ? props.average : 0
         )}%`}</Typography>
       </Box>
     </Box>

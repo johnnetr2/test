@@ -55,6 +55,7 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
+    console.log(params.state, 'params from category page')
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -65,16 +66,16 @@ const QuestionViewXyzOrg = () => {
       // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       // instance2.get(URL).then((response) => {
       //   setStatus(true);
-      params.state.data.quiz &&
-        params.state.data.quiz.map((item) => {
-          setLoading(false);
-          if (item.description) {
-            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-          } else {
-            setTotalQuestions((totalQ) => totalQ + 1);
-          }
-        });
-      setQuiz(params.state.data.quiz);
+        params.state.data.quiz &&
+          params.state.data.quiz.map((item) => {
+            setLoading(false);
+            if (item.description) {
+              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+            } else {
+              setTotalQuestions((totalQ) => totalQ + 1);
+            }
+          });
+        setQuiz(params.state.data.quiz);
       // });
 
       // instance2.get(URL).then(response => {
@@ -148,58 +149,6 @@ const QuestionViewXyzOrg = () => {
     }
   }, [nextPress]);
 
-  // useEffect(() => {
-  //   if (timeLeft != time && quiz?.length > 0) {
-  //     console.log(timeLeft)
-  //     console.log(nextPress, 'nect pressss')
-  //     console.log('in if')
-  //     const questions = [...quiz];
-  //     let question = questions[selectedIndex];
-  //     const data = {
-  //       quiz: params?.state?.data?._id,
-  //       user: localStorage.getItem("userId"),
-  //       optionId: question.optionId,
-  //       questionId: question._id,
-  //       sectionCategory: params?.state?.sectionCategory._id,
-  //       timeleft: timeLeft ? timeLeft : 0,
-  //       totaltime: time ? time : 0,
-  //       spendtime: timeLeft ? time - timeLeft : 0,
-  //       MultipartQuestion: null,
-  //     };
-  //     const Submit = EndPoints.submitAnswer;
-  //     instance2.post(Submit, data).then((response) => {
-  //       setTime(timeLeft);
-  //       setNextPress(undefined);
-  //       console.log('Answer submitted')
-  //     });
-  //   } else {
-  //     if (nextPress && quiz?.length > 0) {
-  //       console.log('in else')
-  //       const questions = [...quiz];
-  //       let question = questions[selectedIndex];
-  //       const data = {
-  //         quiz: params?.state?.data?._id,
-  //         user: localStorage.getItem("userId"),
-  //         optionId: question.optionId,
-  //         questionId: question._id,
-  //         sectionCategory: params?.state?.sectionCategory._id,
-  //         timeleft: timeLeft ? timeLeft : 0,
-  //         totaltime: time ? time : 0,
-  //         spendtime: timeLeft ? time - timeLeft : 0,
-  //         MultipartQuestion: null,
-  //       };
-  //       const Submit = EndPoints.submitAnswer;
-  //       instance2.post(Submit, data).then((response) => {
-  //         setTime(timeLeft);
-  //         setNextPress(undefined);
-  //         console.log('Answer submitted')
-
-  //       });
-  //     }
-
-  //   }
-  // }, [nextPress]);
-
   const useStyles = makeStyles((theme) => ({
     root: {
       minHeight: "100vh",
@@ -255,7 +204,6 @@ const QuestionViewXyzOrg = () => {
 
   const CloseTimerFunc = async () => {
     setTimeEnd(true);
-
     try {
       return await Promise.all(
         quiz.map(async (item) => {
@@ -281,11 +229,11 @@ const QuestionViewXyzOrg = () => {
     }
   };
 
-  const SelectFunc = (e, optionIndex) => {
+  const SelectFunc = (item, optionIndex) => {
     const questions = [...quiz];
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
-    question.optionId = e.target.value;
+    question.optionId = item._id;
     setQuiz(questions);
   };
 
