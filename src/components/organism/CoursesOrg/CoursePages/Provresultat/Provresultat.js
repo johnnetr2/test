@@ -26,6 +26,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import useWindowDimensions from "../../../../molecule/WindowDimensions/dimension";
+import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Provresultat = () => {
   const [correctAnswersOfVerbal, setCorrectAnswersOfVerbal] = useState();
   const [open, setOpen] = useState(true);
   const { height, width } = useWindowDimensions();
+  const [helpPopup, setHelpPopup] = useState(false);
 
   useEffect(() => {
     if (params.state.seasonId) {
@@ -344,9 +346,12 @@ const Provresultat = () => {
           >
             Provresultat
           </Typography>
-          <HelpOutlineIcon style={{ color: "#222" }} />
+          <Box onClick={() => setHelpPopup(!helpPopup)}>
+            <HelpOutlineIcon style={{ color: "#222" }} />
+          </Box>
         </Toolbar>
       </AppBar>
+      {helpPopup && <HelpPopup />}
       <Box
         sx={{
           marginTop: "3%",

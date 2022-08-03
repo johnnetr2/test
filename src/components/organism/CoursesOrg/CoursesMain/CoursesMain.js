@@ -4,6 +4,7 @@ import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import CoursesLeftBar from "../CoursesLeftBar/CoursesLeftBar";
 import { EndPoints, instance2 } from "../../../service/Route";
+import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -139,7 +140,8 @@ const CoursesMain = () => {
           lg={1}
           xl={1}
         >
-          <CoursesLeftBar />
+          {/* <CoursesLeftBar /> */}
+          <HomeLeftBar currentPage="course" />
         </Grid>
         <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
           <CoursesFeedContent

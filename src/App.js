@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
@@ -26,11 +26,20 @@ import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresul
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
+import HomeLeftBar from "./components/organism/HomeOrg/HomeLeftBar/HomeLeftBar";
 
 function App() {
+  const [toggleIcon, setToggleIcon] = useState({
+    dasboard: true,
+    course: false,
+    feedback: false,
+    profile: false,
+  });
+
   return (
     <div className="App">
       <Routes>
+        {/* <HomeLeftBar /> */}
         <Route
           path="/resultquesviewdtkorg"
           element={<ResultQuestionViewDtkOrg />}
@@ -42,8 +51,18 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/helppopup" element={<HelpPopup />} />
         <Route path="login" element={<Login />} />
-        <Route path="home" element={<Home />} />
-        <Route path="courses" element={<Courses />} />
+        <Route
+          path="home"
+          element={
+            <Home toggleIcon={toggleIcon} setToggleIcon={setToggleIcon} />
+          }
+        />
+        <Route
+          path="courses"
+          toggleIcon={toggleIcon}
+          setToggleIcon={setToggleIcon}
+          element={<Courses />}
+        />
         <Route path="profile" element={<Profile />} />
         <Route path="message" element={<Message />} />
         <Route path="logout" element={<Logout />} />

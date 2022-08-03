@@ -3,6 +3,7 @@ import { Grid, Container, makeStyles } from "@material-ui/core";
 import ProfileFeedContent from "../ProfileFeedContent/ProfileFeedContent";
 import ProfileRightBar from "../ProfileRightBar/ProfileRightBar";
 import ProfileLeftBar from "../ProfileLeftBar/ProfileLeftBar";
+import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -49,7 +50,7 @@ const ProfileMain = () => {
           lg={1}
           xl={1}
         >
-          <ProfileLeftBar />
+          <HomeLeftBar currentPage="profile" />
         </Grid>
         <Grid
           item

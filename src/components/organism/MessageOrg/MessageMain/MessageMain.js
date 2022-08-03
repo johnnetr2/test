@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, makeStyles, Container } from "@material-ui/core";
 import MessageFeedContent from "../MessageFeedContent/MessageFeedContent";
 import MessageLeftBar from "../MessageLeftBar/MessageLeftBar";
+import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -38,7 +39,7 @@ const MessageMain = () => {
           lg={1}
           xl={1}
         >
-          <MessageLeftBar />
+          <HomeLeftBar currentPage="feedback" />
         </Grid>
         <Grid item sm={12} xs={11} md={11} lg={11} xl={11}>
           <MessageFeedContent />

@@ -22,19 +22,36 @@ import Increment from "../../../../../assets/Icons/Increment.svg";
 import Decrement from "../../../../../assets/Icons/Decrement.svg";
 
 const ProvPassDtk = (props) => {
-
-  const [question, setQuestion] = useState()
-  const navigate = useNavigate()
+  const [question, setQuestion] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setQuestion(props.question)
-  }, [])
+    setQuestion(props.question);
+  }, []);
 
   const Options = (question, option, optionIndex) => {
     if (question.answer && question.answer.option == option._id) {
-      return <img src={Correct} style={{ marginRight: "0.5rem", marginLeft: '0.5rem', height: '1.5rem' }} />;
+      return (
+        <img
+          src={Correct}
+          style={{
+            marginRight: "0.5rem",
+            marginLeft: "0.5rem",
+            height: "1.5rem",
+          }}
+        />
+      );
     } else if (question.answer && option._id === question?.optionId) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: '0.5rem', height: '1.5rem' }} />;
+      return (
+        <img
+          src={Wrong}
+          style={{
+            marginRight: "0.5rem",
+            marginLeft: "0.5rem",
+            height: "1.5rem",
+          }}
+        />
+      );
     }
     if (optionIndex == question.selectedOptionIndex) {
       return <Radio color="primary" checked={true} />;
@@ -117,12 +134,10 @@ const ProvPassDtk = (props) => {
               cursor: "pointer",
             }}
             onClick={() => {
-              question && question.answer ?
-                navigate('/provresultat')
-                :
-                !question.answer && props.backPressPopup()
+              question && question.answer
+                ? navigate("/provresultat")
+                : !question.answer && props.backPressPopup();
             }}
-
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
@@ -137,191 +152,197 @@ const ProvPassDtk = (props) => {
         maxWidth={false}
         style={{ backgroundColor: "#fff", height: "fit-content" }}
       > */}
-        <Container
-          maxWidth="md"
-          style={{
-            marginTop: 0,
-            backgroundColor: "#f9f9f9",
-            height: "fit-content",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
+      <Container
+        maxWidth="md"
+        style={{
+          marginTop: 0,
+          backgroundColor: "#f9f9f9",
+          height: "fit-content",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Box
+          mt={5}
+          paddingX={6}
+          paddingY={2}
+          sx={{
+            backgroundColor: "#fff",
+            width: 600,
+            height: 373,
+            border: "1px solid #e1e1e1",
           }}
         >
-          <Box
-            mt={5}
-            paddingX={6}
-            paddingY={2}
-            sx={{
-              backgroundColor: "#fff",
-              width: 600,
-              height: 373,
-              border: "1px solid #e1e1e1",
+          <Typography
+            variant="subtitle1"
+            style={{
+              textTransform: "uppercase",
+              fontSize: ".7rem",
+              fontWeight: "500",
             }}
           >
-            <Typography
-              variant="subtitle1"
-              style={{
-                textTransform: "uppercase",
-                fontSize: ".7rem",
-                fontWeight: "500",
-              }}
-            >
-              {props.index + 1} uppgifter:
-            </Typography>
-            <Typography variant="h6" component="h6">
-              {question?.title}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
-            >
-              {question?.pargraphDescription}
-            </Typography>
-            {question && <Box style={{ display: 'flex', justifyContent: 'center' }} >
-              <img style={{ height: '15rem' }} src={question?.images[0]} alt="" />
+            {props.index + 1} uppgifter:
+          </Typography>
+          <Typography variant="h6" component="h6">
+            {question?.title}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            style={{ fontSize: ".7rem", fontWeight: "500" }}
+          >
+            {question?.pargraphDescription}
+          </Typography>
+          {question && (
+            <Box style={{ display: "flex", justifyContent: "center" }}>
+              <img
+                style={{ height: "15rem" }}
+                src={question?.images[0]}
+                alt=""
+              />
             </Box>
-            }
-          </Box>
-          <Box
-            paddingX={4}
-            mt={5}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              width: 600,
-              height: 90,
-              border: "1px solid #e1e1e1",
-            }}
+          )}
+        </Box>
+        <Box
+          paddingX={4}
+          mt={5}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: "#fff",
+            width: 600,
+            height: 90,
+            border: "1px solid #e1e1e1",
+          }}
+        >
+          <Typography
+            variant="h6"
+            component="h6"
+            style={{ fontSize: ".75rem", fontWeight: "600" }}
           >
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: ".75rem", fontWeight: "600" }}
-            >
-              <MarkLatex content={question?.questionStatment} />
-            </Typography>
-          </Box>
-          {
-            question && question.options.map((option, optionIndex) => {
-              return (
-                <Box
-                  padding={1}
-                  sx={{
-                    backgroundColor: "#fff",
-                    width: 600,
-                    border: "1px solid #e1e1e1",
-                  }}
-                >
-                  <FormControlLabel value={option._id}
-                    onClick={(e) => !question?.answer && props.SelectOption(e, optionIndex)}
-                    control={Options(question, option, optionIndex)}
-                    label={option.value}
-                  />
-                </Box>
-              )
-            })
-          }
-
-        </Container>
-        
-        {question?.answer && (
-          <Box
-            paddingX={4}
-            mt={3}
-            sx={{
-              backgroundColor: "#fff",
-              marginLeft: '1.6rem',
-              width: 600,
-              height: 220,
-              border: "1px solid #e1e1e1",
-              overflow: "auto",
-              "&::-webkit-scrollbar": { display: "none" },
-              //   '&::-webkit-scrollbar': { width : 0 },
-            }}
-          >
-            <Box sx={{ width: 500, display: "flex" }}>
-              <Box>
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: "600",
-                    marginTop: 20,
-                  }}
-                >
-                  Förklaring:
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="div"
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: "500",
-                    marginTop: 10,
-                    width: question?.answer.image ? "auto" : 500,
-                  }}
-                >
-                  {/* {question.answer.answer} */}
-                  <MarkLatex content={question.answer.answer} />
-                </Typography>
-              </Box>
+            <MarkLatex content={question?.questionStatment} />
+          </Typography>
+        </Box>
+        {question &&
+          question.options.map((option, optionIndex) => {
+            return (
               <Box
-                mt={2}
-                style={{
-                  // marginLeft: "15rem",
-                  marginTop: "2rem",
+                padding={1}
+                sx={{
+                  backgroundColor: "#fff",
+                  width: 600,
+                  border: "1px solid #e1e1e1",
                 }}
               >
-                {question?.answer && (
-                  <img
-                    style={{ height: 110 }}
-                    src={question?.answer.image}
-                    alt=""
-                  />
-                )}
+                <FormControlLabel
+                  value={option._id}
+                  onClick={(e) =>
+                    !question?.answer && props.SelectOption(e, optionIndex)
+                  }
+                  control={Options(question, option, optionIndex)}
+                  label={option.value}
+                />
               </Box>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "flex-end",
-                height: 60,
-              }}
-            >
+            );
+          })}
+      </Container>
+
+      {question?.answer && (
+        <Box
+          paddingX={4}
+          mt={3}
+          sx={{
+            backgroundColor: "#fff",
+            marginLeft: "1.6rem",
+            width: 600,
+            height: 220,
+            border: "1px solid #e1e1e1",
+            overflow: "auto",
+            "&::-webkit-scrollbar": { display: "none" },
+            //   '&::-webkit-scrollbar': { width : 0 },
+          }}
+        >
+          <Box sx={{ width: 500, display: "flex" }}>
+            <Box>
+              <Typography
+                variant="h5"
+                component="h5"
+                style={{
+                  fontSize: ".75rem",
+                  fontWeight: "600",
+                  marginTop: 20,
+                }}
+              >
+                Förklaring:
+              </Typography>
               <Typography
                 variant="body1"
-                component="body1"
+                component="div"
                 style={{
                   fontSize: ".75rem",
                   fontWeight: "500",
                   marginTop: 10,
-                  // width: "32rem",
+                  width: question?.answer.image ? "auto" : 500,
                 }}
               >
-                Berätta för oss om du var nöjd med lösningen
+                {/* {question.answer.answer} */}
+                <MarkLatex content={question.answer.answer} />
               </Typography>
-              <Box ml={1} mr={0.5}>
+            </Box>
+            <Box
+              mt={2}
+              style={{
+                // marginLeft: "15rem",
+                marginTop: "2rem",
+              }}
+            >
+              {question?.answer && (
                 <img
-                  src={Increment}
-                  // onClick={() => setFeedbackPopup(true)}
+                  style={{ height: 110 }}
+                  src={question?.answer.image}
                   alt=""
                 />
-              </Box>
-              <Box mr={1}>
-                <img
-                  src={Decrement}
-                  // onClick={() => setFeedbackPopup(true)}
-                  alt=""
-                />
-              </Box>
+              )}
             </Box>
           </Box>
-        )}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+              height: 60,
+            }}
+          >
+            <Typography
+              variant="body1"
+              component="body1"
+              style={{
+                fontSize: ".75rem",
+                fontWeight: "500",
+                marginTop: 10,
+                // width: "32rem",
+              }}
+            >
+              Berätta för oss om du var nöjd med lösningen
+            </Typography>
+            <Box ml={1} mr={0.5}>
+              <img
+                src={Increment}
+                // onClick={() => setFeedbackPopup(true)}
+                alt=""
+              />
+            </Box>
+            <Box mr={1}>
+              <img
+                src={Decrement}
+                // onClick={() => setFeedbackPopup(true)}
+                alt=""
+              />
+            </Box>
+          </Box>
+        </Box>
+      )}
       {/* </Container> */}
     </div>
   );

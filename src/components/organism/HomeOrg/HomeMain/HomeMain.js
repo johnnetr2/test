@@ -44,7 +44,11 @@ const HomeMainOrg = (props) => {
           lg={1}
           xl={1}
         >
-          <HomeLeftBar />
+          <HomeLeftBar
+            currentPage="home"
+            toggleIcon={props.toggleIcon}
+            setToggleIcon={props.setToggleIcon}
+          />
         </Grid>
         <Grid item xs={12} sm={11} md={7} lg={7} xl={7}>
           <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)} show={(value) => seTShowPrognos(value)} />

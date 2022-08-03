@@ -111,7 +111,7 @@ const ProvPassInformation = () => {
             {params.state.session.month}
           </Typography>
           <Box onClick={() => setHelpPopup(!helpPopup)}>
-            <HelpOutlineIcon sx={{ width: 100 }} />
+            <HelpOutlineIcon />
           </Box>
         </Toolbar>
       </AppBar>

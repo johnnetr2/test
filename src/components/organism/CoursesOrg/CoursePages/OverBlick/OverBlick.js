@@ -158,7 +158,7 @@ const OverBlick = () => {
         color="#fff"
         className={classes.appbar}
         style={{ boxShadow: "none" }}
-        position="absolute"
+        position="static"
       >
         <Toolbar
           style={{
@@ -183,7 +183,7 @@ const OverBlick = () => {
             Överblick
           </Typography>
           <Box onClick={() => setHelpPopup(!helpPopup)}>
-            <HelpOutlineIcon sx={{ width: 100 }} />
+            <HelpOutlineIcon />
           </Box>
         </Toolbar>
       </AppBar>
@@ -202,7 +202,6 @@ const OverBlick = () => {
         disableGutters
         style={{
           backgroundColor: "#fff",
-          marginTop: 65,
           border: "1px solid #fff",
           // minHeight: "100vh",
         }}

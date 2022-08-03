@@ -97,6 +97,10 @@ const StandardViewXyz = () => {
       padding: 0,
       boxSizing: "border-box",
     },
+    optionStyle: {
+      width: 30,
+      padding: 0,
+    },
     header: {
       minHeight: "10vh",
       backgroundColor: "#fff",
@@ -280,7 +284,7 @@ const StandardViewXyz = () => {
         color="#fff"
         className={classes.appbar}
         style={{ boxShadow: "none" }}
-        position="absolute"
+        position="static"
       >
         <Toolbar
           style={{
@@ -315,7 +319,7 @@ const StandardViewXyz = () => {
             {quiz?.question[currentIndex].sectionCategories.title}
           </Typography>
           <Box onClick={() => setHelpPopup(!helpPopup)}>
-            <HelpOutlineIcon sx={{ width: 100 }} />
+            <HelpOutlineIcon />
           </Box>
         </Toolbar>
       </AppBar>
@@ -340,7 +344,7 @@ const StandardViewXyz = () => {
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
         >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {currentIndex + 1} av {quiz?.question.length}
@@ -455,7 +459,7 @@ const StandardViewXyz = () => {
                             backgroundColor: "#fff",
                             width: 600,
                             height: question.images[0] ? 380 : 330,
-                            border: "1px solid #e1e1e1",
+                            // border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "center",
@@ -515,8 +519,9 @@ const StandardViewXyz = () => {
                             backgroundColor: "#fff",
                             width: 600,
                             height: 240,
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
+                            display: "flex",
+                            flexWrap: "wrap",
+                            // gridTemplateColumns: "1fr 1fr",
                           }}
                         >
                           {question.options.options.map(
@@ -529,20 +534,28 @@ const StandardViewXyz = () => {
                                     width: 300,
                                   }}
                                 >
-                                  <Box sx={{ display: "flex" }}>
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      height: 120,
+                                      "&:hover": {
+                                        cursor: "pointer",
+                                      },
+                                    }}
+                                    onClick={(e) => {
+                                      !question?.questionAnswer &&
+                                        SelectFunc(e, optionIndex);
+                                    }}
+                                  >
                                     <Box
                                       sx={{
                                         display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
+                                        justifyContent: "flex-start",
+                                        alignItems: "flex-start",
                                       }}
                                     >
                                       <FormControlLabel
-                                        onClick={(e) => {
-                                          !question?.questionAnswer &&
-                                            SelectFunc(e, optionIndex);
-                                        }}
-                                        style={{ marginLeft: ".5rem" }}
+                                        style={{ margin: 0, size: "0.5rem" }}
                                         value={option?._id}
                                         // control={<Radio color="primary" />}
                                         control={Options(
@@ -550,11 +563,28 @@ const StandardViewXyz = () => {
                                           option,
                                           optionIndex
                                         )}
-                                        label={OptionIndex(optionIndex)}
-                                        // label='A'
+                                        className={classes.optionStyle}
                                       />
+                                      <Typography
+                                        style={{
+                                          marginTop: "1.25rem",
+                                          color: "#717274",
+                                        }}
+                                        variant="body2"
+                                      >
+                                        {OptionIndex(optionIndex)}
+                                      </Typography>
                                     </Box>
-                                    <Box mt={2} ml={5}>
+                                    <Box
+                                      // mt={2}
+                                      // ml={5}
+                                      sx={{
+                                        width: "16rem",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                      }}
+                                    >
                                       {option.image ? (
                                         <img
                                           className={classes.piechart_size}

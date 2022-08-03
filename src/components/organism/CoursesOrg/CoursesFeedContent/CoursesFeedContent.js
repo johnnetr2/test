@@ -54,8 +54,8 @@ const CoursesFeedContent = (props) => {
   };
 
   const getSeasonQuizzzes = (seasons, item) => {
-    return seasons.find(elem => item._id === elem.simuleraSeason._id)
-  }
+    return seasons.find((elem) => item._id === elem.simuleraSeason._id);
+  };
 
   const TabPanel = (props) => {
     const { children, value, index } = props;
@@ -84,7 +84,12 @@ const CoursesFeedContent = (props) => {
               variant="scrollable"
               scrollButtons={false}
               aria-label="scrollable prevent tabs example"
-              TabIndicatorProps={{ style: { background: "#0A1596" } }}
+              TabIndicatorProps={{
+                style: {
+                  background: "#0A1596",
+                  border: "4px solid #0A1596",
+                },
+              }}
             >
               <Tab style={{ textTransform: "initial" }} label="Alla" />
               <Tab
@@ -121,7 +126,7 @@ const CoursesFeedContent = (props) => {
             <Box>
               <img style={{ marginLeft: ".5rem" }} src={SearchIcon} alt="" />
             </Box>
-            {console.log(props?.seasons, 'seasons')}
+            {console.log(props?.seasons, "seasons")}
           </Box>
         </Box>
       </Box>
@@ -150,8 +155,10 @@ const CoursesFeedContent = (props) => {
                   <CoursesCard
                     id={item?._id}
                     item={item}
-                    progress={'1.5'}
-                    quizzes={props.seasons && getSeasonQuizzzes(props.seasons, item)}
+                    progress={"1.5"}
+                    quizzes={
+                      props.seasons && getSeasonQuizzzes(props.seasons, item)
+                    }
                   />
                 );
               })}
@@ -240,7 +247,7 @@ const CoursesFeedContent = (props) => {
       </TabPanel>
       <TabPanel value={tabValue} index={3}>
         <Box sx={{ marginTop: "-9.5rem" }}>
-          <CoursesRightBar 
+          <CoursesRightBar
             data={props.data}
             previousExams={props.previousExams}
           />
