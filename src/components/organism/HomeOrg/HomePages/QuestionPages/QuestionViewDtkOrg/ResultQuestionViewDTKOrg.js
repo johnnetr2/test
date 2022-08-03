@@ -7,15 +7,14 @@ import {
   Paper,
   Box,
   CssBaseline,
-  Checkbox,
-  FormControlLabel,
   Container,
 } from "@material-ui/core";
 import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 import TopArrow from '../../../../../../assets/Icons/TopArrow.svg'
 import Correct from '../../../../../../assets/Imgs/correct.png'
 import Wrong from '../../../../../../assets/Imgs/wrong.png'
-import { set } from "date-fns";
+import { EndPoints, instance2 } from "../../../../../service/Route";
+import axios from "axios";
 
 const ResultQuestionViewDtkOrg = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
@@ -66,27 +65,43 @@ const ResultQuestionViewDtkOrg = (props) => {
 
   const classes = useStyles(10);
   const [explanation, setExplanation] = useState()
-  const [paragraph, setPAragraph] = useState(props?.quiz?.question)
-
-  const [progress, setProgress] = useState(0);
+  const [paragraph, setParagraph] = useState()
 
   const changeQuestion = () => {
     props.startTimer()
     props.nextQuestion()
   }
 
+  useEffect(() => {
+
+    const data = {
+      quiz: props?.quizId
+    }
+
+    const URL = EndPoints.getParagraphResult + props?.paragraph?._id
+    console.log(URL, 'urlllllll', data, 'dataaaaaaaaa')
+    instance2.post(URL, data).then((response) => {
+      setParagraph(response.data.question)
+      console.log(response, 'this is the console of response of api')
+    })
+    // instance2.get(URL, data).then(response => {
+    //   console.log(response.data, 'responsessssssss')
+    //   setParagraph(response.data.question)
+    // })
+  }, [])
+  
   const showResult = (item, index) => {
     const quiz = [...paragraph]
     const question = quiz[index]
     question.showResult = true
-    setPAragraph(quiz)
+    setParagraph(quiz)
   }
 
   const hideResult = (item, index) => {
     const quiz = [...paragraph]
     const question = quiz[index]
     question.showResult = false
-    setPAragraph(quiz)
+    setParagraph(quiz)
   }
 
   return (
@@ -145,8 +160,6 @@ const ResultQuestionViewDtkOrg = (props) => {
                   marginBottom: 10,
                 }}
               >
-                {/* <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} 
-              <img src={DownArrow} style={{ cursor: 'pointer' }} onClick={() => setExplanation(true)} */}
                 {
                   item.showResult ? (<img src={TopArrow} style={{ cursor: 'pointer' }} onClick={() => hideResult(item, index)} className={classes.size} alt="" />)
                     : (
@@ -158,7 +171,7 @@ const ResultQuestionViewDtkOrg = (props) => {
             </Box>
           </Box>
 
-          {item.showResult && <MultiAnswer question={item} selectOption={item.selectedOptionID} />}
+          {item.showResult && <MultiAnswer question={item} selectOption={item.optionId} />}
 
         </Container>
       })}
@@ -182,7 +195,7 @@ const ResultQuestionViewDtkOrg = (props) => {
               width: '3rem',
             }}
           >
-            Nästa
+          Svara
           </Typography>
         </Box>
       

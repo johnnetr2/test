@@ -51,5 +51,7 @@ export const EndPoints = {
   studentPerviousProgress: "/api/tableHistory/getProgress/",
   createNewResultForSeason: "/api/simuleraSeasonResult",
   testSummaryByHistoryPage: '/api/simuleraQuizResult/resultSummary/',
-  getQuizOnRefreshPage: '/api/quizResult/refreshBySecOruser/'
+  getQuizOnRefreshPage: '/api/quizResult/refreshBySecOruser/',
+  submitMultiquestionParagragh: '/api/quizResult/multipleQuizResult',
+  getParagraphResult: '/api/quizResult/paragraphQuestionResult/'
 };

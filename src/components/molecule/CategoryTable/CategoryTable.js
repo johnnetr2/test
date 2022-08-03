@@ -6,9 +6,6 @@ import {
   TableRow,
   Paper,
   Box,
-  IconButton,
-  Menu,
-  MenuItem,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
@@ -17,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Dropdown from "../../atom/ArrowDropDown/dropdown";
 import useWindowDimensions from "../WindowDimensions/dimension";
-import Tooltip from "@mui/material/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
@@ -42,7 +38,6 @@ export const CategoryTable = (props) => {
   const classes = useStyles();
   const [categoryTable, setCategoryTable] = useState(props.tableHistory);
   const [sectionCategory, setSectionCategory] = useState("");
-  const { height, width } = useWindowDimensions();
 
   const navigate = useNavigate();
 
@@ -91,8 +86,6 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            // marginLeft: width > 900 ? width * 0.21 : width * 0.32,
-            // border: "1px solid #00f",
           }}
         >
           Resultat
@@ -100,8 +93,6 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            // marginLeft: width > 900 ? width * 0.11 : width * 0.13,
-            // border: "1px solid #f0f",
           }}
         >
           Normering
@@ -116,7 +107,6 @@ export const CategoryTable = (props) => {
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
           height: "40rem",
-          // width: "40rem",
           overflow: "auto",
           marginBottom: "2rem",
         }}

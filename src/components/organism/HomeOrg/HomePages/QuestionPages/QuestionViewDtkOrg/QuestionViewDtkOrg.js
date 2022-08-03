@@ -17,11 +17,16 @@ import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
+import Righticon from '../../../../../../assets/Imgs/Righticon.png'
+
+let dataSubmit = []
 
 const QuestionViewDTKOrg = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const [showResult, setShowResult] = useState(false);
+  const [answerExistance, setAnswerExistance] = useState()
+  const [onHover, setOnHover] = useState()
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -104,73 +109,83 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-  const SelectFunc = (e, optionIndex) => {
+  const SelectFunc = (item, optionIndex) => {
+    console.log(item._id, 'valueeeeeeeee')
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
     let question = qz[selectedIndex];
     question.selectedOptionIndex = optionIndex;
-    question.optionId = e.target.value;
+    question.optionId = item._id;
     allQuiz.question = qz;
     setQuiz(allQuiz);
+
+    const data = {
+      questionId: quiz.question[selectedIndex]._id,
+      optionId: quiz.question[selectedIndex].optionId,
+      sectionCategory: quiz.sectionCategory,
+      MultipartQuestion: quiz._id,
+      timeleft: props.timeLeft ? props.timeLeft : null,
+      totaltime: props.totalTime ? props.totalTime : null,
+      spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
+    }
+
+    const ifExists = dataSubmit.some(obj => obj.questionId == quiz.question[selectedIndex]._id)
+    if (ifExists) {
+      const index = dataSubmit.findIndex(obj => obj.questionId == quiz.question[selectedIndex]._id)
+      dataSubmit.splice(index, 1, data)
+    } else {
+      dataSubmit.push(data)
+    }
+
+    quiz && quiz?.question.map(item => {
+      if (item.optionId) {
+        setAnswerExistance(true)
+      } else {
+        setAnswerExistance(false)
+      }
+    })
   };
 
   const Options = (question, option, optionIndex) => {
-    // if (props.paragraphIndex != undefined && question.answer.option == option._id) {
-    //   return <img src={Correct} style={{ marginLeft: ".5rem", marginRight: '.5rem' }} />;
-    // } else if (props.paragraphIndex != undefined && option._id == question.selectedOptionID) {
-    //   return <img src={Wrong} style={{ marginRight: "0.5rem", marginLeft: ".4rem", }} />;
-    // }
-    if (optionIndex == question.selectedIndex) {
-      return <Radio color="primary" checked={true} />;
+    if (optionIndex == question.selectedOptionIndex) {
+      return <Radio color="primary" checked={true} style={{ color: '#0A1596' }} />;
     } else {
-      return <Radio color="primary" checked={false} />;
+      return <Radio color="primary" checked={false} style={{ color: option._id == onHover && '#0A1596' }} />;
     }
   };
 
-  const submitAnswer = (question) => {
-    if (!question.answerSubmited) {
-      const allQuiz = { ...quiz };
-      const qz = allQuiz.question;
-      let selectedquestion = qz[selectedIndex];
-
-      const getAnswer = EndPoints.getAnswerByQuestionId + selectedquestion._id;
-      instance2.get(getAnswer).then((response) => {
-        selectedquestion.answer = response.data;
-        selectedquestion.answerSubmited = true;
-
-        const selectedAnswers = qz.filter((item) => item.answerSubmited);
-        if (selectedAnswers.length === qz.length) {
-          setShowResult(true);
-          props.stopTimer();
-        }
-
-        setQuiz(allQuiz);
-      });
-
-      selectedIndex + 1 < quiz.question.length &&
-        setSelectedIndex(selectedIndex + 1);
-
-      const data = {
+  const submitAnswer = async () => {
+    try {
+      const obj = {
         quiz: props.quizId,
-        user: localStorage.getItem("userId"),
-        optionId: selectedquestion?.optionId,
-        questionId: selectedquestion?._id,
-        sectionCategory: props?.sectionCategory._id,
-        timeleft: props.timeLeft ? props.timeLeft : null,
-        totaltime: props.totalTime ? props.totalTime : null,
-        spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
-        MultipartQuestion: props.question._id,
-      };
-      const URL = EndPoints.submitAnswer;
-      instance2.post(URL, data).then((response) => {
-        console.log("Answer submitted");
-      });
-    } else {
-      selectedIndex + 1 < quiz.question.length &&
-        setSelectedIndex(selectedIndex + 1);
+        user: localStorage.getItem('userId'),
+        answer: dataSubmit
+      }
+      const URL = EndPoints.submitMultiquestionParagragh
+      instance2.post(URL, obj).then(response => {
+        console.log(response.data, 'this is api response for paragraph')
+        setShowResult(true)
+        props.stopTimer()
+      })
+    } catch (error) {
+      console.log("in catch block: ", error);
     }
-    // setForce(!forceupdate)
   };
+
+  function OptionIndex(index) {
+    switch (index) {
+      case 0:
+        return "A";
+      case 1:
+        return "B";
+      case 2:
+        return "C";
+      case 3:
+        return "D";
+      default:
+        return "";
+    }
+  }
 
   return (
     <div>
@@ -200,7 +215,6 @@ const QuestionViewDTKOrg = (props) => {
               backgroundColor: "#fff",
               width: 600,
               height: 373,
-              // border: '1px solid #e1e1e1',
               overflow: "auto",
               "&::-webkit-scrollbar": {
                 width: 10,
@@ -238,7 +252,8 @@ const QuestionViewDTKOrg = (props) => {
               onLeftClick={() => props.onLeftClick()}
               onResultHandler={() => props.onResultHandler()}
               questionIndex={props.questionIndex}
-              quiz={quiz}
+              paragraph={quiz}
+              quizId={props.quizId}
               stopTimer={() => props.stopTimer()}
               startTimer={() => props.startTimer()}
               selectedIndex={props.selectedIndex}
@@ -294,16 +309,23 @@ const QuestionViewDTKOrg = (props) => {
                           >
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
-                          <img
-                            onClick={() =>
-                              selectedIndex + 1 < quiz.question.length &&
-                              setSelectedIndex(selectedIndex + 1)
-                            }
-                            src={BlueRightIcon}
-                            style={{ cursor: "pointer" }}
-                            className={classes.size}
-                            alt=""
-                          />
+                          {
+                            quiz && quiz?.question[0].selectedOptionIndex != undefined ? (
+                              <img
+                                onClick={() => selectedIndex + 1 < quiz.question.length &&
+                                  setSelectedIndex(selectedIndex + 1)}
+                                src={BlueRightIcon}
+                                style={{ cursor: "pointer" }}
+                                className={classes.size}
+                                alt=""
+                              />
+                            ) : (
+                              <img src={Righticon} alt=''
+                                style={{ height: 15 }}
+                              />
+                            )
+                          }
+
                         </Box>
                       </Box>
                       <Typography
@@ -336,41 +358,74 @@ const QuestionViewDTKOrg = (props) => {
                             width: 600,
                             border: "1px solid #e1e1e1",
                             marginLeft: ".5rem",
+                            color: optionIndex == question.selectedOptionIndex && '#0A1596',
+                            "&:hover": {
+                              cursor: !option.answer && "pointer",
+                              color: !option.answer && '#0A1596',
+                            },
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center'
                           }}
+                          onClick={(e) => {
+                            !question.answerSubmited &&
+                              SelectFunc(option, optionIndex);
+                          }}
+                          onMouseOver={() => setOnHover(option._id)}
+                          onMouseLeave={() => setOnHover()}
                         >
-                          <FormControlLabel
-                            onClick={(e) => {
-                              !question.answerSubmited &&
-                                SelectFunc(e, optionIndex);
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "flex-start",
                             }}
-                            value={option._id}
-                            style={{
-                              marginLeft: ".5rem",
-                              alignItems: "center",
-                            }}
-                            control={
-                              props.paragraphIndex != undefined ? (
-                                Options(question, option, optionIndex)
-                              ) : (
-                                <Radio
-                                  color="primary"
-                                  checked={
-                                    optionIndex == question.selectedOptionIndex
-                                  }
-                                />
-                              )
-                            }
-                            label={
-                              <MarkLatex
-                                content={option.value.replace("\f", "\\f")}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: 'row'
+                              }}
+                            >
+                              <FormControlLabel
+                                
+                                value={option._id}
+                                style={{
+                                  marginLeft: ".5rem",
+                                }}
+                                control={Options(question, option, optionIndex)}
                               />
-                            }
-                          />
+                              <Typography
+                                style={{
+                                  marginTop: "1.25rem",
+                                  marginLeft: '-1.7rem',
+                                  fontSize: '0.6rem',
+                                  // color: "blue",
+                                }}
+                                variant="body2"
+                              >
+                                {OptionIndex(optionIndex)}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              marginLeft: '1rem',
+                            }}
+                          >
+                            <Typography style={{ fontSize: '0.9rem', height: '1.2rem' }} >
+                              <MarkLatex content={option.value.replace("\f", "\\f")} />{" "}
+                            </Typography>
+                          </Box>
                         </Box>
                       );
                     })}
 
-                    {question.selectedOptionIndex + 1 ? (
+                    {answerExistance ? (
                       Button(question)
                     ) : (
                       <Box

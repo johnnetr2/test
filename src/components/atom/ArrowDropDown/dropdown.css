@@ -1,7 +1,7 @@
 .result_popup {
     flex-flow: column nowrap;
     background-color: #fff;
-    position: absolute;
+    /* position: relative; */
     z-index: 3;
     right: 0;
     height: 35px;
@@ -18,13 +18,14 @@
 
 .popup {
     content: "";
-    position: absolute;
-    left: 80%;
+    /* position: relative; */
+    /* left: 100%; */
+    margin-left: 60%;
     background: #fff;
     width: 12px;
     height: 12px;
     transform: translateY(-50%) rotate(45deg);
-    margin-top: -23px;
+    margin-top: -3px;
     border-left: 1px solid #E1E1E1;
     border-top: 1px solid #E1E1E1;
 }

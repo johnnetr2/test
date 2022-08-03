@@ -179,7 +179,7 @@ const QuestionBody = (props) => {
                   onMouseOver={() => props.onhover(item._id)}
                   onMouseLeave={() => props.onHoverLeave()}
                   onClick={(e) => {
-                    !question?.answer && props.SelectOption(e, optionIndex);
+                    !question?.answer && props.SelectOption(item, optionIndex);
                   }}
                 >
                   <Box
