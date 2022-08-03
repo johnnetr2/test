@@ -130,33 +130,49 @@ const QuestionBody = (props) => {
               <img style={{ height: "100%" }} src={question?.images[0]} />
             </Typography>
           )}
-          {console.log(question, "check question")}
 
-          {question?.information1 && (
-            <Typography
-              variant="body2"
-              // component="body1"
-              style={{
-                fontSize: "0.75rem",
-                margin: "-1rem !important",
-              }}
-            >
-              <MarkLatex content={question?.information1} />
-            </Typography>
-          )}
-
-          {question?.information2 && (
-            <Typography
-              variant="body1"
-              // component="body1"
-              style={{
-                fontSize: "0.75rem",
-                marginBottom: "0rem !important",
-              }}
-            >
-              <MarkLatex content={question?.information2} />
-            </Typography>
-          )}
+          <Box
+            sx={{
+              marginTop: question?.images[0] == "" ? 0 : "2rem",
+            }}
+          >
+            {question?.information1 && (
+              <Box sx={{ display: "flex" }}>
+                <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
+                  (1)
+                </Box>
+                <Typography
+                  variant="body1"
+                  component="body1"
+                  style={{
+                    fontSize: "0.75rem",
+                    display: "flex",
+                    maxHeight: "1.25rem",
+                  }}
+                >
+                  <MarkLatex content={question?.information1} />
+                </Typography>
+              </Box>
+            )}
+            {question?.information2 && (
+              <Box sx={{ display: "flex" }}>
+                <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
+                  (2)
+                </Box>
+                <Typography
+                  variant="body1"
+                  component="body1"
+                  style={{
+                    fontSize: "0.75rem",
+                    maxHeight: "1.25rem",
+                    display: "flex",
+                  }}
+                >
+                  <MarkLatex content={question?.information2} />
+                </Typography>
+              </Box>
+            )}
+          </Box>
         </Container>
         <Container
           disableGutters
@@ -171,9 +187,6 @@ const QuestionBody = (props) => {
         >
           {question?.options[0].options.map((item, optionIndex) => {
             if (item.value) {
-              {
-                console.log(item, "$$$$$");
-              }
               return (
                 <Box
                   sx={{

@@ -307,6 +307,9 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
+    console.log(question, "### question console");
+    console.log(curentOption, "### current option");
+    console.log(optionIndex, "### option Index");
     if (question.answer && question.answer.option == curentOption._id) {
       return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
     } else if (question.answer && curentOption._id == question?.optionId) {

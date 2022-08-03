@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CategoryPagesRightBar = (props) => {
+  console.log(props, "^^^^check props here");
   const classes = useStyles();
   const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");
@@ -194,7 +195,7 @@ const CategoryPagesRightBar = (props) => {
               POANG
             </Typography>
 
-            <LinesChart />
+            <LinesChart sectionId={props.item.section._id} />
           </Box>
         </Box>
       </Box>
