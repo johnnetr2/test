@@ -25,17 +25,17 @@ const LinesChart = (props) => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
-        if (response.data.lastWeek[0]) {
-          const totalQuestionMonday = response.data.lastWeek[0].totalQuestion;
-          const correctAnswerMonday = response.data.lastWeek[0].correctAnswer;
+        if (response?.data?.lastWeek) {
+          const totalQuestionMonday = response.data.lastWeek[0]?.totalQuestion;
+          const correctAnswerMonday = response.data.lastWeek[0]?.correctAnswer;
           const totalCgpaMonday =
             (correctAnswerMonday / totalQuestionMonday) * 2;
           setMondayData(totalCgpaMonday.toFixed(1).replace(/\.0+$/, ""));
-          if (response.data.lastWeek[1]) {
+          if (response?.data?.lastWeek[1]) {
             const totalQuestionTuesday =
-              response.data.lastWeek[1].totalQuestion;
+              response?.data?.lastWeek[1]?.totalQuestion;
             const correctAnswerTuesday =
-              response.data.lastWeek[1].correctAnswer;
+              response?.data?.lastWeek[1]?.correctAnswer;
             const totalCgpaTuesday =
               (correctAnswerTuesday / totalQuestionTuesday) * 2;
             setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));

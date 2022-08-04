@@ -35,7 +35,7 @@ const QuestionViewXyzOrg = () => {
   const params = useLocation();
   const [status, setStatus] = useState();
   const [timeLeft, setTimeLeft] = useState();
-  const [time, setTime] = useState(3300);
+  const [time, setTime] = useState(0);
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
@@ -44,7 +44,6 @@ const QuestionViewXyzOrg = () => {
   const [loading, setLoading] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
-  // let totalQuestions = 0
 
   console.log(params, "check params console");
 
@@ -55,7 +54,7 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
-    console.log(params.state, 'params from category page')
+    console.log(params?.state);
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -65,30 +64,21 @@ const QuestionViewXyzOrg = () => {
     } else {
       // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       // instance2.get(URL).then((response) => {
-      //   setStatus(true);
-        params.state.data.quiz &&
-          params.state.data.quiz.map((item) => {
-            setLoading(false);
-            if (item.description) {
-              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-            } else {
-              setTotalQuestions((totalQ) => totalQ + 1);
-            }
-          });
-        setQuiz(params.state.data.quiz);
-      // });
-
-      // instance2.get(URL).then(response => {
-      // })
-      // params?.state &&
-      //   params?.state?.data?.quiz.map((item) => {
-      //     if (item.description) {
-      //       setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-      //     } else {
-      //       setTotalQuestions((totalQ) => totalQ + 1);
-      //     }
-      //   });
-      // setQuiz(params?.state?.data?.quiz);
+      let totalQ = 0;
+      params.state.data.quiz &&
+        params.state.data.quiz.map((item) => {
+          setLoading(false);
+          if (item.description) {
+            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+            totalQ = totalQ + item?.question?.length;
+          } else {
+            totalQ = totalQ + 1;
+            setTotalQuestions((totalQ) => totalQ + 1);
+          }
+        });
+      setTime(params.state.sectionCategory.time * totalQ * 60);
+      setStatus(true);
+      setQuiz(params.state.data.quiz);
     }
   }, []);
 
@@ -123,7 +113,11 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-    if (nextPress && quiz?.length > 0) {
+    if (
+      nextPress &&
+      quiz?.length > 0 &&
+      (timeLeft || (!params?.state?.data.value && !timeLeft))
+    ) {
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
@@ -147,7 +141,7 @@ const QuestionViewXyzOrg = () => {
     } else {
       return;
     }
-  }, [nextPress]);
+  }, [nextPress, timeLeft]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -443,22 +437,21 @@ const QuestionViewXyzOrg = () => {
           minHeight: "100vh",
         }}
       >
-        {/* {params?.state?.data?.quiz[selectedIndex]?.multipartQuestion === null &&  */}
-
-        <Header
-          selectedIndex={selectedIndex}
-          totalQuestions={totalQuestions}
-          params={params?.state?.data}
-          status={status}
-          time={time}
-          nextPress={() => setNextPress(!nextPress)}
-          onCloseTimer={() => CloseTimerFunc()}
-          quiz={quiz}
-          timeLeft={(timer) => {
-            console.log(timer, "this is time left for each api");
-            setTimeLeft(timer);
-          }}
-        />
+        {time && (
+          <Header
+            selectedIndex={selectedIndex}
+            totalQuestions={totalQuestions}
+            params={params?.state?.data}
+            status={status}
+            time={time && time}
+            nextPress={() => setNextPress(!nextPress)}
+            onCloseTimer={() => CloseTimerFunc()}
+            quiz={quiz}
+            timeLeft={(timer) => {
+              setTimeLeft(timer);
+            }}
+          />
+        )}
         {/* } */}
 
         {/* <Container
