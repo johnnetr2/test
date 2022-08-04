@@ -254,7 +254,7 @@ const CategoryPagesFeedContent = (props) => {
               title="Tidspress"
               type="checkbox"
               checked={timer}
-              onClickCheck={(e) => setTimer(e.target.checked)}
+              onClickCheck={(e) => setTimer(!timer)}
             />
           </Box>
         </Box>

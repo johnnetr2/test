@@ -32,7 +32,7 @@ const Timer = (props) => {
 
     if (start) {
       tick.current = setInterval(() => {
-        setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1));
+        setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1 ));
       }, 1000);
     }
     return () => clearInterval(tick.current);
