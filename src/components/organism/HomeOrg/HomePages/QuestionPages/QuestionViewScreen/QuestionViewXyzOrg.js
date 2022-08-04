@@ -112,7 +112,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-    if (nextPress && quiz?.length > 0 && (timeLeft !== 0 || (!params?.state?.value && timeLeft == 0))) {
+    if (nextPress && quiz?.length > 0 && (timeLeft || (!params?.state?.data.value && !timeLeft))) {
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
@@ -437,7 +437,6 @@ const QuestionViewXyzOrg = () => {
           quiz={quiz}
           timeLeft={(timer) => {
             setTimeLeft(timer);
-            console.log(timer)
           }}
         />
         }
