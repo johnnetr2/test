@@ -128,31 +128,40 @@ export const CategoryTable = (props) => {
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <Box
-                      style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-end' }}
-                    >
-                      <Box
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          alignItems: 'flex-end',
-                          width: '1.1rem'
-                        }}
-                      >
-                        <MoreVertIcon
-                          sx={{ cursor: "pointer" }}
-                          onClick={() => showPopup(index)}
-                        />
+                    <TableCell component="th" scope="row">
+                      {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.correctAnswer} av {row.answer.length}
+                    </TableCell>
 
-                        {row.result && (
-                          <Dropdown onClick={() => ResultHandler(row)} />
-                        )}
-                      </Box>
-                    </Box>
-                </TableRow>
-              );
-            })
+                    <TableCell align="right">
+                      {((row.correctAnswer / row.totalQuestion) * 2)
+                        .toFixed(1)
+                        .replace(/\.0+$/, "")}
+                    </TableCell>
+
+                    <TableCell
+                      style={{
+                        display: "flex",
+                        flexDirection: "row-reverse",
+                        color: "grey",
+                        height: "5rem",
+                        alignItems: "center",
+                      }}
+                    >
+                      <MoreVertIcon
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => showPopup(index)}
+                      />
+
+                      {row.result && (
+                        <Dropdown onClick={() => ResultHandler(row)} />
+                      )}
+                    </TableCell>
+                  </TableRow>
+                );
+              })
               .reverse()}
           </TableBody>
         </Table>
