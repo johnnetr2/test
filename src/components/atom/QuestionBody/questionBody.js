@@ -19,9 +19,15 @@ const useStyles = makeStyles({
 const QuestionBody = (props) => {
   const classes = useStyles();
   const [question, setQuestion] = useState(props?.question);
+  const [randomOptions, setRandomOptions] = useState([]);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
 
+  // const testRandom = props?.question?.options[0]?.options?.sort(
+  //   () => 0.5 - Math.random()
+  // );
+
+  // setRandomOptions(testRandom);
   const PlusPoint = () => {
     setCount(1);
     setFeedbackPopup(true);
@@ -33,6 +39,7 @@ const QuestionBody = (props) => {
   };
 
   const questionId = props.question._id;
+  // const optionArray = ;
 
   if (props.question.type == "multiple") {
     return (
@@ -181,7 +188,7 @@ const QuestionBody = (props) => {
             backgroundColor: "#fff",
           }}
         >
-          {question?.options[0].options.map((item, optionIndex) => {
+          {question.options[0].options.map((item, optionIndex) => {
             if (item.value) {
               return (
                 <Box

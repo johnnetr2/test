@@ -79,7 +79,7 @@ const ResultSummaryOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    console.log(params.state)
+    console.log(params.state);
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
 
@@ -136,7 +136,7 @@ const ResultSummaryOrg = (props) => {
           {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
           <Typography
             variant="body1"
-            style={{ width: 1200 }}
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
             Sammanfattning - {params?.state?.sectionCategory?.title}

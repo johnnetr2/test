@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CategoryPagesRightBar = (props) => {
-  console.log(props, "category right bar");
   const [mondayData, setMondayData] = useState("");
   const [tuesdayData, setTuesdayData] = useState("");
   const [wednesdayData, setWednesdayData] = useState("");

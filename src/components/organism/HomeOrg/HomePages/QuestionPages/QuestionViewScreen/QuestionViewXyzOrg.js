@@ -52,7 +52,6 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
-    console.log(params?.state);
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -129,7 +128,6 @@ const QuestionViewXyzOrg = () => {
         spendtime: timeLeft ? time - timeLeft : 0,
         MultipartQuestion: null,
       };
-      console.log(data, "this is api data");
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
         setTime(timeLeft);
@@ -210,9 +208,7 @@ const QuestionViewXyzOrg = () => {
               spendtime: timeLeft ? time - timeLeft : 0,
             };
             const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => {
-              console.log(response.data);
-            });
+            await instance2.post(URL, data).then((response) => {});
           }
         })
       );

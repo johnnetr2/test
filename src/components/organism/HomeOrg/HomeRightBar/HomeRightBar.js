@@ -14,8 +14,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomeRightBar = (props) => {
-  console.log(props, "home right bar props");
-
   const classes = useStyles();
   const [studentPreference, setStudentPreference] = useState();
   const [mondayData, setMondayData] = useState("");
@@ -98,7 +96,6 @@ const HomeRightBar = (props) => {
     const URL =
       EndPoints.studentPerviousProgress + localStorage.getItem("userId");
     instance2.get(URL).then((response) => {
-      console.log(response.data, "student previos result");
       response.data.Data.map((item) => {
         console.log(item);
         if (item.CorrectQuestion < 1) {

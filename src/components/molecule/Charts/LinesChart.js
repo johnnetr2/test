@@ -13,7 +13,6 @@ import {
 } from "recharts";
 import { EndPoints, instance2 } from "../../service/Route";
 const LinesChart = (props) => {
-  console.log(props, "line chart props");
   // useEffect(() => {
   //   if (localStorage.getItem("userId")) {
   //   const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
@@ -159,56 +158,6 @@ const LinesChart = (props) => {
               },
             },
           }}
-          // options={{
-          //   scales: {
-          //     xAxes: [
-          //       {
-          //         gridLines: {
-          //           display: false,
-          //         },
-          //       },
-          //     ],
-          //   },
-          // }}
-
-          // data={{
-          //   labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
-          //   datasets: [
-          //     {
-          //       label: "# of votes",
-          //       data: [
-          //         mondayData,
-          //         tuesdayData,
-          //         wednesdayData,
-          //         thursdayData,
-          //         fridayData,
-          //         saturdayData,
-          //         sundayData,
-          //       ],
-          //       backgroundColor: ["#0A1596"],
-          //       borderWidth: 2,
-          //     },
-          //   ],
-          // }}
-          // // width="100%"
-          // // height="100%"
-          // options={{
-          //   maintainAspectRatio: false,
-          //   scales: {
-          //     yAxes: [
-          //       {
-          //         ticks: {
-          //           beginAtZero: true,
-          //         },
-          //       },
-          //     ],
-          //   },
-          //   legend: {
-          //     labels: {
-          //       fontSize: 25,
-          //     },
-          //   },
-          // }}
         />
       </LineChart>
     </Box>

@@ -73,13 +73,15 @@ export const CategoryTable = (props) => {
         style={{
           display: "flex",
           textTransform: "uppercase",
-          justifyContent: "space-around",
+          justifyContent: "space-evenly",
+          width: "77rem",
         }}
       >
         <Typography
           style={{
             display: "flex",
-            marginRight: "100px",
+            marginRight: "30rem",
+            fontWeight: 500,
           }}
         >
           Datum
@@ -87,6 +89,8 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
+            marginRight: "20rem",
+            fontWeight: 500,
           }}
         >
           Resultat
@@ -94,6 +98,8 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
+            marginRight: "10rem",
+            fontWeight: 500,
           }}
         >
           Normering
@@ -114,7 +120,6 @@ export const CategoryTable = (props) => {
         }}
         className={classes.scrollbar}
       >
-        {console.log(categoryTable, "category table console")}
         <Table>
           <TableBody>
             {categoryTable
