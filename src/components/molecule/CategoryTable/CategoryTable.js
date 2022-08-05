@@ -147,13 +147,14 @@ export const CategoryTable = (props) => {
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
-          maxHeight: "fit-content 40rem",
+          maxHeight: categoryTable.length > 8 ? "40rem" : "fit-content",
           // width: "40rem",
           overflow: "auto",
           marginBottom: "2rem",
         }}
         className={classes.scrollbar}
       >
+        {console.log(categoryTable, "category table console")}
         <Table>
           <TableBody>
             {categoryTable

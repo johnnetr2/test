@@ -46,8 +46,6 @@ const QuestionViewXyzOrg = () => {
   const [onHover, setOnhover] = useState();
   // let totalQuestions = 0
 
-  console.log(params, "check params console");
-
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -307,13 +305,14 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
-    console.log(question, "### question console");
-    console.log(curentOption, "### current option");
-    console.log(optionIndex, "### option Index");
     if (question.answer && question.answer.option == curentOption._id) {
-      return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img src={Correct} style={{ marginLeft: ".45rem", width: "1.5rem" }} />
+      );
     } else if (question.answer && curentOption._id == question?.optionId) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img src={Wrong} style={{ marginLeft: "0.45rem", width: "1.5rem" }} />
+      );
     }
     // else {
     //   return <Radio color="primary" checked={false} />;

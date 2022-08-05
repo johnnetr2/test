@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import Increment from "../../../assets/Icons/Increment.svg";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
-import {
-  Typography,
-  Box,
-  FormControlLabel,
-  Container,
-} from "@material-ui/core";
+import { Box, FormControlLabel, Container } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
@@ -147,7 +143,7 @@ const QuestionBody = (props) => {
                   style={{
                     fontSize: "0.75rem",
                     display: "flex",
-                    maxHeight: "1.25rem",
+                    // maxHeight: "1.25rem",
                   }}
                 >
                   <MarkLatex content={question?.information1} />
@@ -164,7 +160,7 @@ const QuestionBody = (props) => {
                   component="body1"
                   style={{
                     fontSize: "0.75rem",
-                    maxHeight: "1.25rem",
+                    // maxHeight: "1.25rem",
                     display: "flex",
                   }}
                 >

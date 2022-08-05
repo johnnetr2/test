@@ -7,6 +7,7 @@ import { EndPoints, instance2 } from "../../service/Route";
 import { Box } from "@material-ui/core";
 
 const LineDemo = (props) => {
+  console.log(props, "check props bar chart");
   const LALA = useRef();
 
   const [mondayExercise, setMondayExercise] = useState("");
@@ -18,7 +19,7 @@ const LineDemo = (props) => {
   const [sundayExercise, setSundayExercise] = useState("");
 
   useEffect(() => {
-    const URL = EndPoints.oneDayExercise + localStorage.getItem("userId");
+    const URL = EndPoints.oneDayExercise + props.sectionId;
     instance2.get(URL).then((response) => {
       console.log(response.data, "this is graph data");
       setMondayExercise(response.data.days_of_exam.Monday);
@@ -88,10 +89,10 @@ const LineDemo = (props) => {
                 sundayExercise,
                 saturdayExercise,
                 fridayExercise,
-                thursdayExercise,
-                wednesdayExercise,
-                tuesdayExercise,
                 mondayExercise,
+                thursdayExercise,
+                tuesdayExercise,
+                wednesdayExercise,
               ],
             },
           ],
