@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { Typography, Box, FormControlLabel, Radio } from "@material-ui/core";
 import Increment from "../../../assets/Icons/Increment.svg";
 import Decrement from "../../../assets/Icons/Decrement.svg";
-import Correct from '../../../assets/Imgs/correct.png'
-import Wrong from '../../../assets/Imgs/wrong.png'
+import Correct from "../../../assets/Imgs/correct.png";
+import Wrong from "../../../assets/Imgs/wrong.png";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 
 const MultiAnswer = (props) => {
+  console.log(props, "question porps true false");
 
   const options = (item, index) => {
     if (props?.question?.answer && props?.question?.answer?.option === item._id) {
@@ -16,7 +17,7 @@ const MultiAnswer = (props) => {
     } else {
       return <Radio checked={false} />
     }
-  }
+  };
 
   return (
     <>
@@ -43,13 +44,14 @@ const MultiAnswer = (props) => {
               />
             </Box>
           })}
-
         </Box>
 
         <Box mt={2} ml={5}></Box>
       </Box>
       <Box style={{ border: "1px solid #e1e1e1", padding: "2rem", width: 580 }}>
-        <Box sx={{ width: 500, display: "flex", justifyContent: 'space-between' }}>
+        <Box
+          sx={{ width: 500, display: "flex", justifyContent: "space-between" }}
+        >
           <Box>
             <Typography
               variant="h5"
@@ -69,7 +71,7 @@ const MultiAnswer = (props) => {
                 fontSize: ".75rem",
                 fontWeight: "500",
                 marginTop: 10,
-                width: props?.question?.answer.image ? 'auto' : 500,
+                width: props?.question?.answer.image ? "auto" : 500,
               }}
             >
               <MarkLatex content={props?.question?.answer?.answer} />
@@ -81,7 +83,11 @@ const MultiAnswer = (props) => {
               marginTop: "2rem",
             }}
           >
-            <img style={{ height: 110 }} src={props?.question?.answer.image} alt="" />
+            <img
+              style={{ height: 110 }}
+              src={props?.question?.answer.image}
+              alt=""
+            />
           </Box>
         </Box>
         <Box
@@ -110,7 +116,6 @@ const MultiAnswer = (props) => {
             <img src={Decrement} alt="" />
           </Box>
         </Box>
-
       </Box>
     </>
   );

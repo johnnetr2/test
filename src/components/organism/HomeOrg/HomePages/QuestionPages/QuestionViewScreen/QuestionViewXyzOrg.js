@@ -45,7 +45,6 @@ const QuestionViewXyzOrg = () => {
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
 
-
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -53,7 +52,6 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
-    console.log(params?.state)
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -63,19 +61,19 @@ const QuestionViewXyzOrg = () => {
     } else {
       // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       // instance2.get(URL).then((response) => {
-      let totalQ = 0
+      let totalQ = 0;
       params.state.data.quiz &&
         params.state.data.quiz.map((item) => {
           setLoading(false);
           if (item.description) {
             setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-            totalQ = totalQ + item?.question?.length
+            totalQ = totalQ + item?.question?.length;
           } else {
-            totalQ = totalQ + 1
+            totalQ = totalQ + 1;
             setTotalQuestions((totalQ) => totalQ + 1);
           }
         });
-      setTime(params.state.sectionCategory.time * totalQ * 60)
+      setTime(params.state.sectionCategory.time * totalQ * 60);
       setStatus(true);
       setQuiz(params.state.data.quiz);
     }
@@ -112,7 +110,11 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-    if (nextPress && quiz?.length > 0 && (timeLeft || (!params?.state?.data.value && !timeLeft))) {
+    if (
+      nextPress &&
+      quiz?.length > 0 &&
+      (timeLeft || (!params?.state?.data.value && !timeLeft))
+    ) {
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
@@ -126,7 +128,6 @@ const QuestionViewXyzOrg = () => {
         spendtime: timeLeft ? time - timeLeft : 0,
         MultipartQuestion: null,
       };
-      console.log(data, 'this is api data')
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
         setTime(timeLeft);
@@ -180,12 +181,12 @@ const QuestionViewXyzOrg = () => {
       width: "90vw",
     },
     radio: {
-      color: onHover && '#0A1596',
-    // '&$checked': {
-    //   color: '#0A1596',
-    //   marginRight: "0.5rem"
-    // }
-  },
+      color: onHover && "#0A1596",
+      // '&$checked': {
+      //   color: '#0A1596',
+      //   marginRight: "0.5rem"
+      // }
+    },
   }));
 
   const classes = useStyles();
@@ -207,9 +208,7 @@ const QuestionViewXyzOrg = () => {
               spendtime: timeLeft ? time - timeLeft : 0,
             };
             const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => {
-              console.log(response.data);
-            });
+            await instance2.post(URL, data).then((response) => {});
           }
         })
       );
@@ -245,9 +244,13 @@ const QuestionViewXyzOrg = () => {
 
   const Options = (question, curentOption, optionIndex) => {
     if (question.answer && question.answer.option == curentOption._id) {
-      return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img src={Correct} style={{ marginLeft: ".45rem", width: "1.5rem" }} />
+      );
     } else if (question.answer && curentOption._id == question?.optionId) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img src={Wrong} style={{ marginLeft: "0.45rem", width: "1.5rem" }} />
+      );
     }
     // else {
     //   return <Radio color="primary" checked={false} />;
@@ -258,7 +261,7 @@ const QuestionViewXyzOrg = () => {
           color="blue"
           checked={true}
           // className={classes.radio}
-          style={{ marginRight: "0.5rem", color: '#0A1596' }}
+          style={{ marginRight: "0.5rem", color: "#0A1596" }}
         />
       );
     } else {
@@ -267,7 +270,10 @@ const QuestionViewXyzOrg = () => {
           color="primary"
           checked={false}
           // className={classes.radio}
-          style={{ marginRight: "0.5rem", color: curentOption._id == onHover && '#0A1596' }}
+          style={{
+            marginRight: "0.5rem",
+            color: curentOption._id == onHover && "#0A1596",
+          }}
         />
       );
     }
@@ -426,20 +432,21 @@ const QuestionViewXyzOrg = () => {
           minHeight: "100vh",
         }}
       >
-        {time && <Header
-          selectedIndex={selectedIndex}
-          totalQuestions={totalQuestions}
-          params={params?.state?.data}
-          status={status}
-          time={time && time}
-          nextPress={() => setNextPress(!nextPress)}
-          onCloseTimer={() => CloseTimerFunc()}
-          quiz={quiz}
-          timeLeft={(timer) => {
-            setTimeLeft(timer);
-          }}
-        />
-        }
+        {time && (
+          <Header
+            selectedIndex={selectedIndex}
+            totalQuestions={totalQuestions}
+            params={params?.state?.data}
+            status={status}
+            time={time && time}
+            nextPress={() => setNextPress(!nextPress)}
+            onCloseTimer={() => CloseTimerFunc()}
+            quiz={quiz}
+            timeLeft={(timer) => {
+              setTimeLeft(timer);
+            }}
+          />
+        )}
         {/* } */}
 
         {/* <Container

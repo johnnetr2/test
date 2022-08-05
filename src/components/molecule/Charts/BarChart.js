@@ -1,14 +1,13 @@
 import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
-import Chart from "chart.js";
-// import Chart from "chart.js/auto";
+// import Chart from "chart.js";
+import Chart from "chart.js/auto";
 // import { Card } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../service/Route";
 import { Box } from "@material-ui/core";
 
 const LineDemo = (props) => {
   const LALA = useRef();
-
   const [mondayExercise, setMondayExercise] = useState("");
   const [tuesdayExercise, setTuesdayExercise] = useState("");
   const [wednesdayExercise, setWednesdayExercise] = useState("");
@@ -18,7 +17,7 @@ const LineDemo = (props) => {
   const [sundayExercise, setSundayExercise] = useState("");
 
   useEffect(() => {
-    const URL = EndPoints.oneDayExercise + localStorage.getItem("userId");
+    const URL = EndPoints.oneDayExercise + props.sectionId;
     instance2.get(URL).then((response) => {
       setMondayExercise(response.data.days_of_exam.Monday);
       setTuesdayExercise(response.data.days_of_exam.Tuesday);
@@ -57,8 +56,8 @@ const LineDemo = (props) => {
                   stepSize: 2,
                   beginAtZero: true,
                   gridLines: {
-                    display: false
-                  }
+                    display: false,
+                  },
                 },
                 barPercentage: 1.0,
                 categoryPercentage: 1.0,
@@ -87,13 +86,13 @@ const LineDemo = (props) => {
               barPercentage: 0.1,
               categorySpacing: 2,
               data: [
-                sundayExercise,
-                saturdayExercise,
-                fridayExercise,
-                thursdayExercise,
+                mondayExercise,
                 wednesdayExercise,
                 tuesdayExercise,
-                mondayExercise,
+                thursdayExercise,
+                fridayExercise,
+                saturdayExercise,
+                sundayExercise,
               ],
             },
           ],

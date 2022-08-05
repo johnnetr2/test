@@ -4,6 +4,7 @@ import CategoryPagesFeedContent from "../../CategoryPages/CategoryPagesContentFe
 import CategoryPagesRightBar from "../../CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
 import CategoryPagesLeftBar from "../../../HomeLeftBar/HomeLeftBar";
 import { useLocation } from "react-router-dom";
+import { EndPoints, instance2 } from "../../../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   right: {

@@ -73,12 +73,15 @@ export const CategoryTable = (props) => {
         style={{
           display: "flex",
           textTransform: "uppercase",
-          justifyContent: "space-around",
+          justifyContent: "space-evenly",
+          width: "77rem",
         }}
       >
         <Typography
           style={{
             display: "flex",
+            marginRight: "30rem",
+            fontWeight: 500,
           }}
         >
           Datum
@@ -86,6 +89,8 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
+            marginRight: "20rem",
+            fontWeight: 500,
           }}
         >
           Resultat
@@ -93,6 +98,8 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
+            marginRight: "10rem",
+            fontWeight: 500,
           }}
         >
           Normering
@@ -106,7 +113,8 @@ export const CategoryTable = (props) => {
           border: "1px solid #e1e1e1",
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
-          height: "40rem",
+          maxHeight: categoryTable.length > 8 ? "40rem" : "fit-content",
+          // width: "40rem",
           overflow: "auto",
           marginBottom: "2rem",
         }}
@@ -114,32 +122,11 @@ export const CategoryTable = (props) => {
       >
         <Table>
           <TableBody>
-            {categoryTable.map((row, index) => {
-              return (
-                <TableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
-                  </TableCell>
-                  <TableCell align="left">
-                    {row.correctAnswer} av {row.answer.length}
-                  </TableCell>
-
-                  <TableCell align="right">
-                    {((row.correctAnswer / row.totalQuestion) * 2)
-                      .toFixed(1)
-                      .replace(/\.0+$/, "")}
-                  </TableCell>
-
-                  <TableCell
-                    style={{
-                      display: "flex",
-                      flexDirection: "row-reverse",
-                      color: "grey",
-                      height: "5rem",
-                      alignItems: "center",
-                    }}
+            {categoryTable
+              .map((row, index) => {
+                return (
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <Box
                       style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-end' }}
@@ -163,7 +150,6 @@ export const CategoryTable = (props) => {
                         )}
                       </Box>
                     </Box>
-                  </TableCell>
                 </TableRow>
               );
             })

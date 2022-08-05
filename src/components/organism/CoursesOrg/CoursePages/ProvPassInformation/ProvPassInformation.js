@@ -106,7 +106,11 @@ const ProvPassInformation = () => {
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
-          <Typography variant="body1" className={classes.center_align}>
+          <Typography
+            variant="body1"
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+            className={classes.center_align}
+          >
             Högskoleprov {params.state.session.title}{" "}
             {params.state.session.month}
           </Typography>

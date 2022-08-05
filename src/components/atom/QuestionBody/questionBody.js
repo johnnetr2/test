@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import Increment from "../../../assets/Icons/Increment.svg";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
-import {
-  Typography,
-  Box,
-  FormControlLabel,
-  Container,
-} from "@material-ui/core";
+import { Box, FormControlLabel, Container } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
@@ -23,9 +19,15 @@ const useStyles = makeStyles({
 const QuestionBody = (props) => {
   const classes = useStyles();
   const [question, setQuestion] = useState(props?.question);
+  const [randomOptions, setRandomOptions] = useState([]);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
 
+  // const testRandom = props?.question?.options[0]?.options?.sort(
+  //   () => 0.5 - Math.random()
+  // );
+
+  // setRandomOptions(testRandom);
   const PlusPoint = () => {
     setCount(1);
     setFeedbackPopup(true);
@@ -37,6 +39,7 @@ const QuestionBody = (props) => {
   };
 
   const questionId = props.question._id;
+  // const optionArray = ;
 
   if (props.question.type == "multiple") {
     return (
@@ -131,28 +134,48 @@ const QuestionBody = (props) => {
             </Typography>
           )}
 
-          {question?.information1 && (
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{
-                fontSize: "0.75rem",
-                fontWeight: "600",
-              }}
-            >
-              <MarkLatex content={question?.information1} />
-            </Typography>
-          )}
-
-          {question?.information2 && (
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ fontSize: "0.75rem", fontWeight: "600" }}
-            >
-              <MarkLatex content={question?.information2} />
-            </Typography>
-          )}
+          <Box
+            sx={{
+              marginTop: question?.images[0] == "" ? 0 : "2rem",
+            }}
+          >
+            {question?.information1 && (
+              <Box sx={{ display: "flex" }}>
+                <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
+                  (1)
+                </Box>
+                <Typography
+                  variant="body1"
+                  component="body1"
+                  style={{
+                    fontSize: "0.75rem",
+                    display: "flex",
+                    // maxHeight: "1.25rem",
+                  }}
+                >
+                  <MarkLatex content={question?.information1} />
+                </Typography>
+              </Box>
+            )}
+            {question?.information2 && (
+              <Box sx={{ display: "flex" }}>
+                <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
+                  (2)
+                </Box>
+                <Typography
+                  variant="body1"
+                  component="body1"
+                  style={{
+                    fontSize: "0.75rem",
+                    // maxHeight: "1.25rem",
+                    display: "flex",
+                  }}
+                >
+                  <MarkLatex content={question?.information2} />
+                </Typography>
+              </Box>
+            )}
+          </Box>
         </Container>
         <Container
           disableGutters
@@ -165,19 +188,27 @@ const QuestionBody = (props) => {
             backgroundColor: "#fff",
           }}
         >
-          {question?.options[0].options.map((item, optionIndex) => {
+          {question.options[0].options.map((item, optionIndex) => {
             if (item.value) {
               return (
                 <Box
                   sx={{
-                    height: question?.options[0].options.length > 4 ? 60 : 120,
+                    height:
+                      question?.options[0].options.length > 4 ||
+                      item.image === ""
+                        ? 60
+                        : 120,
                     border: "1px solid #e1e1e1",
-                    width: question?.options[0].options.length > 4 ? 600 : 300,
+                    width:
+                      question?.options[0].options.length > 4 ||
+                      item.image === ""
+                        ? 600
+                        : 300,
                     display: "flex",
-                    color: optionIndex == question.selectedIndex && '#0A1596',
+                    color: optionIndex == question.selectedIndex && "#0A1596",
                     "&:hover": {
                       cursor: !item.answer && "pointer",
-                      color: !item.answer && '#0A1596',
+                      color: !item.answer && "#0A1596",
                     },
                   }}
                   onMouseOver={() => props.onhover(item._id)}
@@ -230,9 +261,13 @@ const QuestionBody = (props) => {
                           : "14rem",
                       display: "flex",
                       marginLeft:
-                        question?.options[0].options.length > 4 ? "1rem" : "0",
+                        question?.options[0].options.length > 4 ||
+                        item.image === ""
+                          ? "1rem"
+                          : "0",
                       justifyContent:
-                        question?.options[0].options.length > 4
+                        question?.options[0].options.length > 4 ||
+                        item.image === ""
                           ? "flex-start"
                           : "center",
                       alignItems: "center",

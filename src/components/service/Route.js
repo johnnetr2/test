@@ -29,8 +29,8 @@ export const EndPoints = {
   lastWeekTasks: "/api/task/resultByUser/",
   submitAnswer: "/api/quizResult",
   oneDayResult: "/api/task/resultOfDayByUser/",
-  // oneDayResult: "/api/task/resultByUser/",
-  oneDayExercise: "/api/task/taskByUser/",
+  resultBySectionCategory: "/api/task/resultOfDayBySecOrUser/",
+  oneDayExercise: "/api/task/taskBySecOrUser/",
   getAllSections: "/admin/sectionCategories",
   deleteAccount: "/admin/student/",
   getStudentScore: "/api/quizResult/getStudentScore",
@@ -51,8 +51,8 @@ export const EndPoints = {
   simuleraQuizHistory: "/api/simuleraQuizResult/HistoryOfUser/",
   studentPerviousProgress: "/api/tableHistory/getProgress/",
   createNewResultForSeason: "/api/simuleraSeasonResult",
-  testSummaryByHistoryPage: '/api/simuleraQuizResult/resultSummary/',
-  getQuizOnRefreshPage: '/api/quizResult/refreshBySecOruser/',
-  submitMultiquestionParagragh: '/api/quizResult/multipleQuizResult',
-  getParagraphResult: '/api/quizResult/paragraphQuestionResult/'
+  testSummaryByHistoryPage: "/api/simuleraQuizResult/resultSummary/",
+  getQuizOnRefreshPage: "/api/quizResult/refreshBySecOruser/",
+  submitMultiquestionParagragh: "/api/quizResult/multipleQuizResult",
+  getParagraphResult: "/api/quizResult/paragraphQuestionResult/",
 };

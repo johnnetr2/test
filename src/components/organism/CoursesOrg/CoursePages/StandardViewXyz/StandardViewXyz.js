@@ -48,6 +48,7 @@ const StandardViewXyz = () => {
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const [open, setOpen] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
+  const [onHover, setOnhover] = useState();
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
@@ -187,6 +188,8 @@ const StandardViewXyz = () => {
         return "C";
       case 3:
         return "D";
+      case 4:
+        return "E";
       default:
         return "";
     }
@@ -205,11 +208,14 @@ const StandardViewXyz = () => {
     //   return <Radio color="primary" checked={false} />;
     // }
     if (optionIndex === question.selectedOptionIndex) {
+      console.log(question, "check option index");
       return (
         <Radio
           color="primary"
           checked={true}
-          style={{ marginRight: "0.5rem" }}
+          style={{
+            marginRight: "0.5rem",
+          }}
         />
       );
     } else {
@@ -217,7 +223,10 @@ const StandardViewXyz = () => {
         <Radio
           color="primary"
           checked={false}
-          style={{ marginRight: "0.5rem" }}
+          style={{
+            marginRight: "0.5rem",
+            color: option._id == onHover && "#0A1596",
+          }}
         />
       );
     }
@@ -314,7 +323,11 @@ const StandardViewXyz = () => {
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
-          <Typography variant="body1" className={classes.center_align}>
+          <Typography
+            variant="body1"
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+            className={classes.center_align}
+          >
             {/* {quiz?.question[currentIndex].sectionCategories.title} */}
             {quiz?.question[currentIndex].sectionCategories.title}
           </Typography>
@@ -518,20 +531,34 @@ const StandardViewXyz = () => {
                           sx={{
                             backgroundColor: "#fff",
                             width: 600,
-                            height: 240,
+                            // height: 240,
                             display: "flex",
                             flexWrap: "wrap",
                             // gridTemplateColumns: "1fr 1fr",
                           }}
                         >
+                          {console.log(
+                            question.options.options.length,
+                            "question option console"
+                          )}
                           {question.options.options.map(
                             (option, optionIndex) => {
                               return (
                                 <Box
                                   sx={{
-                                    height: 120,
+                                    height:
+                                      question.options.options.length > 4
+                                        ? 60
+                                        : 120,
                                     border: "1px solid #e1e1e1",
-                                    width: 300,
+                                    width:
+                                      question.options.options.length > 4
+                                        ? 600
+                                        : 300,
+                                    "&:hover": {
+                                      cursor: !option.answer && "pointer",
+                                      color: !option.answer && "#0A1596",
+                                    },
                                   }}
                                 >
                                   <Box
@@ -546,6 +573,8 @@ const StandardViewXyz = () => {
                                       !question?.questionAnswer &&
                                         SelectFunc(e, optionIndex);
                                     }}
+                                    onMouseOver={() => setOnhover(option._id)}
+                                    onMouseLeave={() => setOnhover(null)}
                                   >
                                     <Box
                                       sx={{
@@ -575,14 +604,28 @@ const StandardViewXyz = () => {
                                         {OptionIndex(optionIndex)}
                                       </Typography>
                                     </Box>
+
                                     <Box
                                       // mt={2}
                                       // ml={5}
                                       sx={{
-                                        width: "16rem",
+                                        width:
+                                          question?.options.options.length > 4
+                                            ? "20rem"
+                                            : "16rem",
                                         display: "flex",
-                                        justifyContent: "center",
+                                        marginLeft:
+                                          question?.options.options.length > 4
+                                            ? "1rem"
+                                            : "0",
+                                        justifyContent:
+                                          question?.options.options.length > 4
+                                            ? "flex-start"
+                                            : "center",
                                         alignItems: "center",
+                                        height:
+                                          question?.options.options.length >
+                                            4 && "5rem",
                                       }}
                                     >
                                       {option.image ? (
