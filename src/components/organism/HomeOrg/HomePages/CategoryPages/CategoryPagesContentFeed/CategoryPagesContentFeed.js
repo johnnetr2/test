@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const CategoryPagesFeedContent = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [questionCategories, setQuestionCategories] = useState();
+  const [questionCategories, setQuestionCategories] = useState([]);
   const [timer, setTimer] = useState(true);
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -60,13 +60,15 @@ const CategoryPagesFeedContent = (props) => {
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
-      setQuestionCategories(response.data);
-      setAllChecked(true);
-      setCheckData([]);
-      SetCategoryError(false);
+      if (!response.data.message) {
+        setQuestionCategories(response.data);
+        setAllChecked(true);
+        setCheckData([]);
+        SetCategoryError(false);
+      }
 
       let newArray = [...checkedData];
-      response.data?.map((item) => {
+      response.data.length > 0 && response.data?.map((item) => {
         newArray.push(item._id);
       });
       setCheckData(newArray);
@@ -386,16 +388,16 @@ const CategoryPagesFeedContent = (props) => {
               // justifyContent: 'space-between'
             }}
           >
-            <OutlineField
+            {questionCategories.length > 0 && <OutlineField
               title="Alla"
               onClickCheck={() => setAlla(!alla)}
               checked={
-                questionCategories?.length === checkedData.length ? true : false
+                questionCategories && questionCategories?.length === checkedData.length ? true : false
               }
-            />
+            />}
 
             {questionCategories &&
-              questionCategories.map((item, index) => {
+              questionCategories?.map((item, index) => {
                 return (
                   <OutlineField
                     title={item.title}
