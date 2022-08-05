@@ -142,22 +142,32 @@ export const CategoryTable = (props) => {
                     }}
                   >
                     <Box
-                    style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-end' }}
+                      style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'flex-end' }}
                     >
-                      <MoreVertIcon
-                        sx={{ cursor: "pointer", position: 'initial' }}
-                        onClick={() => showPopup(index)}
-                      />
+                      <Box
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'flex-end',
+                          width: '1.1rem'
+                        }}
+                      >
+                        <MoreVertIcon
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => showPopup(index)}
+                        />
 
-                      {row.result && (
-                        <Dropdown onClick={() => ResultHandler(row)} />
-                      )}
+                        {row.result && (
+                          <Dropdown onClick={() => ResultHandler(row)} />
+                        )}
+                      </Box>
                     </Box>
-                    
                   </TableCell>
                 </TableRow>
               );
-            })}
+            })
+              .reverse()}
           </TableBody>
         </Table>
       </Box>

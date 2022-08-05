@@ -70,6 +70,9 @@ const LineDemo = (props) => {
           labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
           datasets: [
             {
+              marginTop: [
+                '2rem'
+              ],
               backgroundColor: [
                 "#0A1596",
                 "#0A1596",

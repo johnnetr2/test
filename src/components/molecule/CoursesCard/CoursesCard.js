@@ -153,14 +153,26 @@ const CoursesCard = (props) => {
           sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
         >
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            {/* <MenuIcon onClick={() => restartQuiz()} /> */}
-            <MoreVertIcon
+            <Box
               style={{
-                color: 'grey'
-              }} onClick={() => setShowPopup(!showPopup)}
-            />
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'flex-end',
+                width: '1.1rem'
+              }}
+            >
+              <MoreVertIcon
+                style={{
+                  color: 'grey'
+                }} onClick={() => setShowPopup(!showPopup)}
+              />
 
-            {showPopup && <Dropdown onClick={() => restartQuiz()} />}
+              {showPopup && <Dropdown style={{
+                backgroundColor: 'blue'
+              }} onClick={() => restartQuiz()} />}
+            </Box>
+
           </Box>
           <Box
             sx={{
