@@ -53,4 +53,6 @@ export const EndPoints = {
   createNewResultForSeason: "/api/simuleraSeasonResult",
   testSummaryByHistoryPage: "/api/simuleraQuizResult/resultSummary/",
   getQuizOnRefreshPage: "/api/quizResult/refreshBySecOruser/",
+  submitMultiquestionParagragh: "/api/quizResult/multipleQuizResult",
+  getParagraphResult: "/api/quizResult/paragraphQuestionResult/",
 };

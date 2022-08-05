@@ -50,25 +50,9 @@ function Header(props) {
             {...props}
           />
         </Box>
-        {/* <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2" color="text.secondary">{`${Math.round(
-            props.value
-          )}%`}</Typography>
-        </Box> */}
       </Box>
     );
   }
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setProgress((prevProgress) =>
-  //       prevProgress >= 100 ? 10 : prevProgress + 10
-  //     );
-  //   }, 800);
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, []);
 
   return (
     <Container disableGutters maxWidth="md" style={{ backgroundColor: "#fff" }}>

@@ -40,7 +40,7 @@ const HomeCard = (props) => {
           {data?.information}
         </Typography>
         <Box>
-          <ProgressBar average={previousRecord && previousRecord} />
+          <ProgressBar average={previousRecord ? ((previousRecord.CorrectQuestion / previousRecord.TotalQuestion)*100) : 0} />
         </Box>
       </Box>
       <Box
@@ -52,17 +52,16 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props.attemptedQuestion >= 20 ? props.prognos : '-'}
+          {previousRecord?.AttemptedQuestion >= 20 ? ((previousRecord?.CorrectQuestion / previousRecord?.TotalQuestion)*2).toFixed(1) : '-'}
         </Typography>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            // justifyContent: 'center',
             width: '3.5rem'
           }}
         >
-          {props.attemptedQuestion < 20 && <img src={image70} style={{ display: 'flex', height: '0.5rem', width: '0.5rem', alignSelf: 'flex-end' }} />}
+          {previousRecord?.AttemptedQuestion < 20 && <img src={image70} style={{ display: 'flex', height: '0.5rem', width: '0.5rem', alignSelf: 'flex-end' }} />}
           <Typography
             variant="body1"
             style={{

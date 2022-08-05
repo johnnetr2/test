@@ -112,9 +112,7 @@ const CoursesCard = (props) => {
       simuleraSeason: props.item._id,
       user: localStorage.getItem("userId"),
     };
-    console.log(data);
     instance2.post(URL, data).then((response) => {
-      console.log(response.data);
       navigate("/provpassinfo", {
         state: {
           id: props.id,
