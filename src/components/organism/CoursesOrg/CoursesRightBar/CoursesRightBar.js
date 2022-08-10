@@ -65,8 +65,8 @@ const RightBar = (props) => {
         className="result_popup"
         onClick={() => props.onClick()}
         style={{
-          marginRight: width > 900 ? "3.6%" : "16.95%",
-          marginTop: width > 900 ? "4.4%" : "9%",
+          // marginRight: width > 900 ? "3.6%" : "16.95%",
+          // marginTop: width > 900 ? "4.4%" : "9%",
           cursor: "pointer",
         }}
       >
@@ -79,10 +79,10 @@ const RightBar = (props) => {
   return (
     <Container
       maxWidth={false}
-      // disableGutters
       style={{
-        marginLeft: width < 900 && "2.5rem",
-        padding: "0 3rem",
+        paddingLeft: "3rem",
+        paddingRight: "3rem",
+        // marginLeft: width < 900 && "2.5rem",
       }}
     >
       <Box
@@ -96,6 +96,7 @@ const RightBar = (props) => {
           className={classes.topspace}
           style={{
             marginBottom: "2rem",
+
             marginTop: "1.3rem",
           }}
         >
@@ -109,13 +110,13 @@ const RightBar = (props) => {
             flexDirection: "row",
             textTransform: "uppercase",
             marginBottom: "1.1rem",
-            width: "100%",
+            // width: "100%",
             alignItems: "flex-end",
           }}
         >
           <Typography
             style={{
-              marginLeft: width > 900 ? "7.2%" : "6.3%",
+              // marginLeft: width > 900 ? "7.2%" : "6.3%",
               fontSize: "14px",
             }}
           >
@@ -124,7 +125,7 @@ const RightBar = (props) => {
 
           <Typography
             style={{
-              marginLeft: width > 900 ? "19.5%" : "15.5%",
+              // marginLeft: width > 900 ? "19.5%" : "15.5%",
               fontSize: "14px",
             }}
           >
@@ -135,7 +136,7 @@ const RightBar = (props) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              marginLeft: width > 900 ? "16.5%" : "14%",
+              // marginLeft: width > 900 ? "16.5%" : "14%",
             }}
           >
             <Typography style={{ fontSize: "14px" }}>Antal</Typography>
@@ -146,7 +147,7 @@ const RightBar = (props) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              marginLeft: width > 900 ? "8%" : "7.5%",
+              // marginLeft: width > 900 ? "8%" : "7.5%",
             }}
           >
             <Typography style={{ fontSize: "14px" }}>normerad</Typography>

@@ -33,66 +33,68 @@ const CategoryPagesRightBar = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.resultBySectionCategory + props.item._id;
+    console.log(URL, "check console");
     instance2.get(URL).then((response) => {
+      console.log(response, "category right bar response");
       if (response.data.message == "success") {
-        if (response.data.lastWeek[0]) {
-          const totalQuestionMonday = response.data.lastWeek[0].totalQuestion;
-          const correctAnswerMonday = response.data.lastWeek[0].correctAnswer;
+        if (response.data) {
+          const totalQuestionMonday = response.data.totalQuestion;
+          const correctAnswerMonday = response.data.correctAnswer;
           const totalCgpaMonday =
             (correctAnswerMonday / totalQuestionMonday) * 2;
           setMondayData(totalCgpaMonday.toFixed(1).replace(/\.0+$/, ""));
-          if (response.data.lastWeek[1]) {
-            const totalQuestionTuesday =
-              response.data.lastWeek[1].totalQuestion;
-            const correctAnswerTuesday =
-              response.data.lastWeek[1].correctAnswer;
-            const totalCgpaTuesday =
-              (correctAnswerTuesday / totalQuestionTuesday) * 2;
-            setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[2]) {
-            const totalQuestionWednesday =
-              response.data.lastWeek[2].totalQuestion;
-            const correctAnswerWednesday =
-              response.data.lastWeek[2].correctAnswer;
-            const totalCgpaWednesday =
-              (correctAnswerWednesday / totalQuestionWednesday) * 2;
-            setWednesdayData(
-              totalCgpaWednesday.toFixed(1).replace(/\.0+$/, "")
-            );
-          }
-          if (response.data.lastWeek[3]) {
-            const totalQuestionThursday =
-              response.data.lastWeek[3].totalQuestion;
-            const correctAnswerThursday =
-              response.data.lastWeek[3].correctAnswer;
-            const totalCgpaThursday =
-              (correctAnswerThursday / totalQuestionThursday) * 2;
-            setThursdayData(totalCgpaThursday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[4]) {
-            const totalQuestionFriday = response.data.lastWeek[4].totalQuestion;
-            const correctAnswerFriday = response.data.lastWeek[4].correctAnswer;
-            const totalCgpaFriday =
-              (correctAnswerFriday / totalQuestionFriday) * 2;
-            setFridayData(totalCgpaFriday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[5]) {
-            const totalQuestionSaturday =
-              response.data.lastWeek[5].totalQuestion;
-            const correctAnswerSaturday =
-              response.data.lastWeek[5].correctAnswer;
-            const totalCgpaSaturday =
-              (correctAnswerSaturday / totalQuestionSaturday) * 2;
-            setSaturdayData(totalCgpaSaturday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[6]) {
-            const totalQuestionSunday = response.data.lastWeek[6].totalQuestion;
-            const correctAnswerSunday = response.data.lastWeek[6].correctAnswer;
-            const totalCgpaSunday =
-              (correctAnswerSunday / totalQuestionSunday) * 2;
-            setSundayData(totalCgpaSunday.toFixed(1).replace(/\.0+$/, ""));
-          }
+          // if (response.data.lastWeek[1]) {
+          //   const totalQuestionTuesday =
+          //     response.data.lastWeek[1].totalQuestion;
+          //   const correctAnswerTuesday =
+          //     response.data.lastWeek[1].correctAnswer;
+          //   const totalCgpaTuesday =
+          //     (correctAnswerTuesday / totalQuestionTuesday) * 2;
+          //   setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));
+          // }
+          // if (response.data.lastWeek[2]) {
+          //   const totalQuestionWednesday =
+          //     response.data.lastWeek[2].totalQuestion;
+          //   const correctAnswerWednesday =
+          //     response.data.lastWeek[2].correctAnswer;
+          //   const totalCgpaWednesday =
+          //     (correctAnswerWednesday / totalQuestionWednesday) * 2;
+          //   setWednesdayData(
+          //     totalCgpaWednesday.toFixed(1).replace(/\.0+$/, "")
+          //   );
+          // }
+          // if (response.data.lastWeek[3]) {
+          //   const totalQuestionThursday =
+          //     response.data.lastWeek[3].totalQuestion;
+          //   const correctAnswerThursday =
+          //     response.data.lastWeek[3].correctAnswer;
+          //   const totalCgpaThursday =
+          //     (correctAnswerThursday / totalQuestionThursday) * 2;
+          //   setThursdayData(totalCgpaThursday.toFixed(1).replace(/\.0+$/, ""));
+          // }
+          // if (response.data.lastWeek[4]) {
+          //   const totalQuestionFriday = response.data.lastWeek[4].totalQuestion;
+          //   const correctAnswerFriday = response.data.lastWeek[4].correctAnswer;
+          //   const totalCgpaFriday =
+          //     (correctAnswerFriday / totalQuestionFriday) * 2;
+          //   setFridayData(totalCgpaFriday.toFixed(1).replace(/\.0+$/, ""));
+          // }
+          // if (response.data.lastWeek[5]) {
+          //   const totalQuestionSaturday =
+          //     response.data.lastWeek[5].totalQuestion;
+          //   const correctAnswerSaturday =
+          //     response.data.lastWeek[5].correctAnswer;
+          //   const totalCgpaSaturday =
+          //     (correctAnswerSaturday / totalQuestionSaturday) * 2;
+          //   setSaturdayData(totalCgpaSaturday.toFixed(1).replace(/\.0+$/, ""));
+          // }
+          // if (response.data.lastWeek[6]) {
+          //   const totalQuestionSunday = response.data.lastWeek[6].totalQuestion;
+          //   const correctAnswerSunday = response.data.lastWeek[6].correctAnswer;
+          //   const totalCgpaSunday =
+          //     (correctAnswerSunday / totalQuestionSunday) * 2;
+          //   setSundayData(totalCgpaSunday.toFixed(1).replace(/\.0+$/, ""));
+          // }
         }
       }
     });
@@ -113,7 +115,6 @@ const CategoryPagesRightBar = (props) => {
     <Container
       maxWidth={false}
       style={{
-        backgrounColor: "#fafafa",
         padding: "0 3rem",
       }}
     >

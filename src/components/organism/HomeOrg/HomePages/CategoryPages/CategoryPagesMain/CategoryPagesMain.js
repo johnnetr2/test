@@ -8,7 +8,7 @@ import { EndPoints, instance2 } from "../../../../../service/Route";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1000")]: {
+    [theme.breakpoints.down("1200")]: {
       display: "none",
     },
   },
@@ -50,15 +50,7 @@ const CategoryPagesMain = () => {
         >
           <CategoryPagesLeftBar />
         </Grid>
-        <Grid
-          item
-          style={{ maxWidth: "100rem" }}
-          sm={12}
-          xs={11}
-          md={7}
-          lg={7}
-          xl={7}
-        >
+        <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
           <CategoryPagesFeedContent item={params?.state?.item} />
         </Grid>
         <Grid
