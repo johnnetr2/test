@@ -73,7 +73,7 @@ const QuestionViewXyzOrg = () => {
             setTotalQuestions((totalQ) => totalQ + 1);
           }
         });
-      setTime(params.state.sectionCategory.time * totalQ * 60);
+      setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
       setStatus(true);
       setQuiz(params.state.data.quiz);
     }
@@ -432,12 +432,12 @@ const QuestionViewXyzOrg = () => {
           minHeight: "100vh",
         }}
       >
-        {time && (
+        { time &&
           <Header
             selectedIndex={selectedIndex}
             totalQuestions={totalQuestions}
             params={params?.state?.data}
-            status={status}
+            status={time && status}
             time={time && time}
             nextPress={() => setNextPress(!nextPress)}
             onCloseTimer={() => CloseTimerFunc()}
@@ -445,10 +445,7 @@ const QuestionViewXyzOrg = () => {
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
-          />
-        )}
-        {/* } */}
-
+          />}
         {/* <Container
           disableGutters
           maxWidth="Xl"
