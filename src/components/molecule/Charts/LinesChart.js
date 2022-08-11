@@ -24,7 +24,7 @@ const LinesChart = (props) => {
   return (
     <Box>
       <LineChart
-        width={400}
+        width={396}
         height={200}
         style={{
           fontSize: "0.75rem",

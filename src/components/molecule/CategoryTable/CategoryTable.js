@@ -74,13 +74,12 @@ export const CategoryTable = (props) => {
           display: "flex",
           textTransform: "uppercase",
           justifyContent: "space-evenly",
-          width: "77rem",
         }}
       >
         <Typography
           style={{
             display: "flex",
-            marginRight: "30rem",
+            marginRight: "3rem",
             fontWeight: 500,
           }}
         >
@@ -89,7 +88,7 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            marginRight: "20rem",
+            margin: "0 10rem 0 7rem",
             fontWeight: 500,
           }}
         >
@@ -98,7 +97,7 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            marginRight: "10rem",
+            // marginLeft: "10rem",
             fontWeight: 500,
           }}
         >

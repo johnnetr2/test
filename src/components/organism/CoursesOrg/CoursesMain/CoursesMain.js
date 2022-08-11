@@ -8,7 +8,7 @@ import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1000")]: {
+    [theme.breakpoints.down("1200")]: {
       display: "none",
     },
   },
