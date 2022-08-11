@@ -65,8 +65,8 @@ const RightBar = (props) => {
         className="result_popup"
         onClick={() => props.onClick()}
         style={{
-          // marginRight: width > 900 ? "3.6%" : "16.95%",
-          // marginTop: width > 900 ? "4.4%" : "9%",
+          marginRight: width > 900 ? "3.6%" : "16.95%",
+          marginTop: width > 900 ? "4.4%" : "9%",
           cursor: "pointer",
         }}
       >
@@ -82,7 +82,7 @@ const RightBar = (props) => {
       style={{
         paddingLeft: "3rem",
         paddingRight: "3rem",
-        // marginLeft: width < 900 && "2.5rem",
+        marginLeft: width < 900 && "2.5rem",
       }}
     >
       <Box
@@ -116,7 +116,7 @@ const RightBar = (props) => {
         >
           <Typography
             style={{
-              // marginLeft: width > 900 ? "7.2%" : "6.3%",
+              marginLeft: width > 900 ? "7.2%" : "6.3%",
               fontSize: "14px",
             }}
           >
@@ -125,7 +125,7 @@ const RightBar = (props) => {
 
           <Typography
             style={{
-              // marginLeft: width > 900 ? "19.5%" : "15.5%",
+              marginLeft: width > 900 ? "19.5%" : "15.5%",
               fontSize: "14px",
             }}
           >
@@ -136,7 +136,7 @@ const RightBar = (props) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              // marginLeft: width > 900 ? "16.5%" : "14%",
+              marginLeft: width > 900 ? "16.5%" : "14%",
             }}
           >
             <Typography style={{ fontSize: "14px" }}>Antal</Typography>
@@ -147,7 +147,7 @@ const RightBar = (props) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              // marginLeft: width > 900 ? "8%" : "7.5%",
+              marginLeft: width > 900 ? "8%" : "7.5%",
             }}
           >
             <Typography style={{ fontSize: "14px" }}>normerad</Typography>
@@ -173,7 +173,7 @@ const RightBar = (props) => {
                       return (
                         <TableRow
                           key={row.createdAt}
-                        // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                          // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                         >
                           <TableCell component="th" scope="row">
                             {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
@@ -196,8 +196,8 @@ const RightBar = (props) => {
                           <TableCell align="left">
                             {row?.totalAnswer
                               ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                .toFixed(1)
-                                .replace(/\.0+$/, "")
+                                  .toFixed(1)
+                                  .replace(/\.0+$/, "")
                               : 0}
                           </TableCell>
                           <TableCell
@@ -212,11 +212,11 @@ const RightBar = (props) => {
                           >
                             <Box
                               style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'flex-end',
-                                width: '1.1rem'
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "flex-end",
+                                width: "1.1rem",
                               }}
                             >
                               <MoreVertIcon
