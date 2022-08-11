@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Container, makeStyles } from "@material-ui/core";
 import ProfileFeedContent from "../ProfileFeedContent/ProfileFeedContent";
 import ProfileRightBar from "../ProfileRightBar/ProfileRightBar";
-import ProfileLeftBar from "../ProfileLeftBar/ProfileLeftBar";
 import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({

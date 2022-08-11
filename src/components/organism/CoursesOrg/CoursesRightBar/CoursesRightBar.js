@@ -164,27 +164,16 @@ const RightBar = (props) => {
                 boxShadow: "0px 5px 10px #f2f2f2",
                 backgroundColor: "#fff",
                 display: "flex",
-                //removed width
-                // width: "33rem",
               }}
             >
               <Table aria-label="simple table">
-                {/* <TableHead>
-                  <TableRow>
-                    <TableCell>Datum </TableCell>
-                    <TableCell align="left">Prov</TableCell>
-                    <TableCell align="left">Antal </TableCell>
-                    <TableCell align="left">Normerad</TableCell>
-                    <TableCell align="left"></TableCell>
-                  </TableRow>
-                </TableHead> */}
                 <TableBody>
                   {resultHistory &&
                     resultHistory?.map((row, index) => {
                       return (
                         <TableRow
                           key={row.createdAt}
-                          // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                        // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                         >
                           <TableCell component="th" scope="row">
                             {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
@@ -207,8 +196,8 @@ const RightBar = (props) => {
                           <TableCell align="left">
                             {row?.totalAnswer
                               ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
+                                .toFixed(1)
+                                .replace(/\.0+$/, "")
                               : 0}
                           </TableCell>
                           <TableCell
@@ -221,15 +210,24 @@ const RightBar = (props) => {
                               width: ".5rem",
                             }}
                           >
-                            <MoreVertIcon
-                              onClick={() =>
-                                row?.totalQuestions && showPopup(index)
-                              }
-                            />
-
-                            {row.result && (
-                              <Dropdown onClick={() => ResultHandler(row)} />
-                            )}
+                            <Box
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'flex-end',
+                                width: '1.1rem'
+                              }}
+                            >
+                              <MoreVertIcon
+                                onClick={() =>
+                                  row?.totalQuestions && showPopup(index)
+                                }
+                              />
+                              {row.result && (
+                                <Dropdown onClick={() => ResultHandler(row)} />
+                              )}
+                            </Box>
                           </TableCell>
                         </TableRow>
                       );
