@@ -147,27 +147,27 @@ export const CategoryTable = (props) => {
                         color: "grey",
                         height: "5rem",
                         alignItems: "center",
+                        alignSelf: 'flex-end',
                       }}
                     >
-                      <Box 
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        display: 'flex', 
-                        alignItems: 'flex-end',
-                        // position: 'absolute'
-                      }}
+                      <Box
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          display: 'flex',
+                          alignItems: 'flex-end',
+                          position: 'relative',
+                        }}
                       >
                         <MoreVertIcon
                           sx={{ cursor: "pointer" }}
                           onClick={() => showPopup(index)}
                         />
-
                         {row.result && (
                           <Dropdown onClick={() => ResultHandler(row)} />
                         )}
                       </Box>
-                      
+
                     </TableCell>
                   </TableRow>
                 );

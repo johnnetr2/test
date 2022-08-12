@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
 const Timer = (props) => {
-  const sec = props.time;
+  const sec = props.time ? props.time : 0;
   const [timer, setTimer] = useState(sec); // 25 minutes
   const [start, setStart] = useState();
   const firstStart = useRef(true);

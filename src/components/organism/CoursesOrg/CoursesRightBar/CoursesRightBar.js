@@ -64,11 +64,6 @@ const RightBar = (props) => {
       <div
         className="result_popup"
         onClick={() => props.onClick()}
-        style={{
-          marginRight: width > 900 ? "3.6%" : "16.95%",
-          marginTop: width > 900 ? "4.4%" : "9%",
-          cursor: "pointer",
-        }}
       >
         SE resultat
         <div className="popup"></div>
@@ -155,12 +150,12 @@ const RightBar = (props) => {
           </Box>
         </Box>
         <Box className={classes.tablespace} style={{ marginBottom: "2rem" }}>
-          <Box style={{ marginBottom: "2rem", width: "" }}>
+          <Box style={{ marginBottom: "2rem", }}>
             <TableContainer
               style={{
                 border: "1px solid #e1e1e1",
                 borderRadius: ".25rem",
-                padding: "1.5rem",
+                // padding: "1rem",
                 boxShadow: "0px 5px 10px #f2f2f2",
                 backgroundColor: "#fff",
                 display: "flex",
@@ -180,7 +175,7 @@ const RightBar = (props) => {
                           </TableCell>
                           {/* <Box style={{ display: 'flex' }}> */}
                           <TableCell align="left">
-                            <Typography style={{ fontSize: "14px" }}>
+                            <Typography style={{ fontSize: "14px",  }}>
                               {row?.simuleraSeason.title},
                             </Typography>
                             <Typography style={{ fontSize: "14px" }}>
@@ -212,11 +207,16 @@ const RightBar = (props) => {
                           >
                             <Box
                               style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "flex-end",
-                                width: "1.1rem",
+                                // display: "flex",
+                                // flexDirection: "column",
+                                // justifyContent: "center",
+                                // alignItems: "flex-end",
+                                // width: "1.1rem",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                display: 'flex',
+                                alignItems: 'flex-end',
+                                position: 'relative',
                               }}
                             >
                               <MoreVertIcon

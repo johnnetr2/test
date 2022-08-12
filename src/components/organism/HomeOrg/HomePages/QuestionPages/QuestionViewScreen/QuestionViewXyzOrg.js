@@ -73,8 +73,8 @@ const QuestionViewXyzOrg = () => {
             setTotalQuestions((totalQ) => totalQ + 1);
           }
         });
-      setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-      setStatus(true);
+      setTime(params.state.sectionCategory.time * totalQ *60);
+      setStatus(false);
       setQuiz(params.state.data.quiz);
     }
   }, []);
@@ -432,77 +432,21 @@ const QuestionViewXyzOrg = () => {
           minHeight: "100vh",
         }}
       >
-        { time &&
+        {(time || (!time && !params?.state?.data.value)) &&
           <Header
             selectedIndex={selectedIndex}
             totalQuestions={totalQuestions}
             params={params?.state?.data}
             status={time && status}
-            time={time && time}
+            time={time}
             nextPress={() => setNextPress(!nextPress)}
             onCloseTimer={() => CloseTimerFunc()}
             quiz={quiz}
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
-          />}
-        {/* <Container
-          disableGutters
-          maxWidth="Xl"
-          style={{ backgroundColor: "#fff" }}
-        >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} width={100} sx={{ color: "#222" }}>
-              <img src={BarChart} alt="" />
-              {selectedIndex + 1} av {totalQuestions}
-            </Box>
-            {params.state.data && params.state.data.value == true && (
-              <Box
-                mt={2}
-                sx={{ color: "#222", display: "flex", flexDirection: "row" }}
-              >
-                <img src={Clock} alt="" />
-                <Timer
-                  continueStatus={status}
-                  time={time}
-                  timeleft={(timer) => {
-                    // timeLeft = timer
-                    if(!status) {
-                      setTimeLeft(timer)
-                      setNextPress(!nextPress)
-                    } 
-                  }}
-                  onCloseTimer={() => CloseTimerFunc()}
-                />
-              </Box>
-            )}
-          </Box>
-
-          <Box
-            mt={2}
-            sx={{
-              backgroundColor: "#b4b4b4",
-              height: "8px",
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            {quiz &&
-              quiz?.map((item, index) => {
-                return <Box
-                  key={index}
-                  style={{
-                    backgroundColor: item.answer
-                      ? "#6fcf97"
-                      : "#B4B4B4",
-                    marginLeft: "2px",
-                    flex: "1",
-                  }}
-                ></Box>
-
-              })}
-          </Box>
-        </Container> */}
+          />
+        }
 
         <AlertDialogSlide
           popUpstatus={open}

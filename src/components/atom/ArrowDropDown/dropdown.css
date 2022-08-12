@@ -1,19 +1,20 @@
 .result_popup {
   flex-flow: column nowrap;
   background-color: #fff;
-  position: relative;
+  position: absolute;
   z-index: 3;
-  right: 0;
   height: 35px;
   width: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 4.6%; */
+  margin-top: 30px;
   border: 1px solid #e1e1e1;
   color: #3c3a3a;
   text-transform: uppercase;
   font-weight: 500;
+  cursor: pointer;
+  margin-right: -3.5px;
 }
 
 .popup {
