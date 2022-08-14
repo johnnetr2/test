@@ -514,6 +514,7 @@ const QuestionViewXyzOrg = () => {
                   selectedOption={params.state.selectedOption}
                   paragraphIndex={params?.state?.paragraphIndex}
                   questionIndex={params?.state?.questionIndex}
+                  questionTypeTitle={params?.state.sectionCategory.title}
                   selectedIndex={selectedIndex}
                   onLeftClick={() => {
                     setSelectedIndex((previousIndex) => previousIndex - 1);
