@@ -2,7 +2,7 @@ import { Bar } from "react-chartjs-2";
 import React, { useRef, useEffect, useState } from "react";
 // import Chart from "chart.js";
 // import Chart from "chart.js/auto";
-// import { Card } from "@material-ui/core";
+import { Card } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../service/Route";
 import { Box } from "@material-ui/core";
 
@@ -72,9 +72,7 @@ const LineDemo = (props) => {
           labels: ["V.35", "V.39", "V.37", "V.38", "V.39", "V.40", "V.41"],
           datasets: [
             {
-              marginTop: [
-                '2rem'
-              ],
+              marginTop: ["2rem"],
               backgroundColor: [
                 "#0A1596",
                 "#0A1596",

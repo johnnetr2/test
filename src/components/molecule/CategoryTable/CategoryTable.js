@@ -88,7 +88,7 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            margin: "0 10rem 0 7rem",
+            margin: "0 10rem 0 14rem",
             fontWeight: 500,
           }}
         >
@@ -97,7 +97,7 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            // marginLeft: "10rem",
+            marginRight: "4rem",
             fontWeight: 500,
           }}
         >
@@ -147,16 +147,16 @@ export const CategoryTable = (props) => {
                         color: "grey",
                         height: "5rem",
                         alignItems: "center",
-                        alignSelf: 'flex-end',
+                        alignSelf: "flex-end",
                       }}
                     >
                       <Box
                         style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          display: 'flex',
-                          alignItems: 'flex-end',
-                          position: 'relative',
+                          display: "flex",
+                          flexDirection: "column",
+                          display: "flex",
+                          alignItems: "flex-end",
+                          position: "relative",
                         }}
                       >
                         <MoreVertIcon
@@ -167,7 +167,6 @@ export const CategoryTable = (props) => {
                           <Dropdown onClick={() => ResultHandler(row)} />
                         )}
                       </Box>
-
                     </TableCell>
                   </TableRow>
                 );

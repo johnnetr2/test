@@ -547,12 +547,12 @@ const StandardViewXyz = () => {
                                 <Box
                                   sx={{
                                     height:
-                                      question.options.options.length > 4
+                                      question.options.options.length >= 4
                                         ? 60
                                         : 120,
                                     border: "1px solid #e1e1e1",
                                     width:
-                                      question.options.options.length > 4
+                                      question.options.options.length >= 4
                                         ? 600
                                         : 300,
                                     "&:hover": {
@@ -610,21 +610,21 @@ const StandardViewXyz = () => {
                                       // ml={5}
                                       sx={{
                                         width:
-                                          question?.options.options.length > 4
+                                          question?.options.options.length >= 4
                                             ? "20rem"
                                             : "16rem",
                                         display: "flex",
                                         marginLeft:
-                                          question?.options.options.length > 4
+                                          question?.options.options.length >= 4
                                             ? "1rem"
                                             : "0",
                                         justifyContent:
-                                          question?.options.options.length > 4
+                                          question?.options.options.length >= 4
                                             ? "flex-start"
                                             : "center",
                                         alignItems: "center",
                                         height:
-                                          question?.options.options.length >
+                                          question?.options.options.length >=
                                             4 && "5rem",
                                       }}
                                     >
