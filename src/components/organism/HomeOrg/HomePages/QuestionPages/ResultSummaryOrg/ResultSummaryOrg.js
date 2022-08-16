@@ -282,7 +282,6 @@ const ResultSummaryOrg = (props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                backgroundColor: 'blue'
               }}
             >
               <Box

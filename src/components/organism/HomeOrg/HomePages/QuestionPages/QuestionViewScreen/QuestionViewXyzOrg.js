@@ -62,21 +62,24 @@ const QuestionViewXyzOrg = () => {
       let totalQ = 0;
       const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       instance2.get(URL).then((response) => {
-      response.data.quiz &&
-        response.data.quiz.map((item) => {
-          setLoading(false);
-          if (item.description) {
-            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-            totalQ = totalQ + item?.question?.length;
-          } else {
-            totalQ = totalQ + 1;
-            setTotalQuestions((totalQ) => totalQ + 1);
-          }
-        });
-        setTime((75).toFixed(0));
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-      setStatus(true);
-      setQuiz(params.state.data.quiz);
+        console.log(response.data.quiz, 'responses')
+        response.data.quiz &&
+          response.data.quiz.map((item) => {
+            setLoading(false);
+            if (item?.answer) {
+              setSelectedIndex((selectedIndex) => selectedIndex + 1)
+            } 
+            if (item.description) {
+              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+              totalQ = totalQ + item?.question?.length;
+            } else {
+              totalQ = totalQ + 1;
+              setTotalQuestions((totalQ) => totalQ + 1);
+            }
+          });
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setStatus(true);
+        setQuiz(response.data.quiz);
       })
     }
   }, []);
@@ -103,7 +106,7 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
-          setNextPress(!nextPress);
+          !params?.state?.data.value && setNextPress(!nextPress);
           setQuiz(questions);
           setStatus(false);
         });
@@ -210,7 +213,7 @@ const QuestionViewXyzOrg = () => {
               spendtime: timeLeft ? time - timeLeft : 0,
             };
             const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => {});
+            await instance2.post(URL, data).then((response) => { });
           }
         })
       );
@@ -254,7 +257,7 @@ const QuestionViewXyzOrg = () => {
         <img src={Wrong} style={{ marginLeft: "0.45rem", width: "1.5rem" }} />
       );
     }
-    
+
     if (optionIndex == question.selectedIndex) {
       return (
         <Radio
@@ -437,80 +440,18 @@ const QuestionViewXyzOrg = () => {
             params={params?.state?.data}
             status={time && status}
             time={time && time}
-            nextPress={() => setNextPress(!nextPress)}
+            nextPress={() => setNextPress(true)}
             onCloseTimer={() => CloseTimerFunc()}
             quiz={quiz && quiz}
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
           />}
-        {/* <Container
-          disableGutters
-          maxWidth="Xl"
-          style={{ backgroundColor: "#fff" }}
-        >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} width={100} sx={{ color: "#222" }}>
-              <img src={BarChart} alt="" />
-              {selectedIndex + 1} av {totalQuestions}
-            </Box>
-            {params.state.data && params.state.data.value == true && (
-              <Box
-                mt={2}
-                sx={{ color: "#222", display: "flex", flexDirection: "row" }}
-              >
-                <img src={Clock} alt="" />
-                <Timer
-                  continueStatus={status}
-                  time={time}
-                  timeleft={(timer) => {
-                    // timeLeft = timer
-                    if(!status) {
-                      setTimeLeft(timer)
-                      setNextPress(!nextPress)
-                    } 
-                  }}
-                  onCloseTimer={() => CloseTimerFunc()}
-                />
-              </Box>
-            )}
-          </Box>
-
-          <Box
-            mt={2}
-            sx={{
-              backgroundColor: "#b4b4b4",
-              height: "8px",
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            {quiz &&
-              quiz?.map((item, index) => {
-                return <Box
-                  key={index}
-                  style={{
-                    backgroundColor: item.answer
-                      ? "#6fcf97"
-                      : "#B4B4B4",
-                    marginLeft: "2px",
-                    flex: "1",
-                  }}
-                ></Box>
-
-              })}
-          </Box>
-        </Container> */}
 
         <AlertDialogSlide
           popUpstatus={open}
           handleClose={() => setOpen(false)}
           redirect={() => {
-            // const filteredQuiz = quiz.filter((item) => {
-            //   if (item.answer) {
-            //     return item;
-            //   }
-            // });
             navigate("/resultsummary", {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
@@ -560,7 +501,6 @@ const QuestionViewXyzOrg = () => {
         {quiz &&
           quiz.map((item, index) => {
             if (index === selectedIndex) {
-              // if (index !== item.answer) {
               return (
                 <QuestionBody
                   question={quiz[selectedIndex]}
@@ -612,7 +552,7 @@ const QuestionViewXyzOrg = () => {
                   }}
                 />
               );
-              // }
+        
             }
           })}
       </Container>

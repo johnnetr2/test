@@ -30,30 +30,6 @@ function Header(props) {
     setQuiz(props?.quiz);
   }, [props?.quiz]);
 
-  function LinearProgressWithLabel(props) {
-    return (
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Box sx={{ width: "100%" }}>
-          <LinearProgress
-            sx={{
-              backgroundColor: "#b4b4b4",
-              // color: "#6Fcf97",fsetPro
-              height: ".5rem",
-              animationDuration: "8s",
-              "& .MuiLinearProgress-barColorPrimary": {
-                backgroundColor: "#6FCF97",
-              },
-            }}
-            className={classes.colorUpdate}
-            // color="#222"
-            variant="determinate"
-            {...props}
-          />
-        </Box>
-      </Box>
-    );
-  }
-
   return (
     <Container disableGutters maxWidth="md" style={{ backgroundColor: "#fff" }}>
       <Box
@@ -96,9 +72,9 @@ function Header(props) {
               timeleft={(timer) => {
                 if (!props.status) {
                   props.timeLeft(timer);
-                  setTimeout(() => {
+                  // setTimeout(() => {
                     props.nextPress();
-                  }, 1000);
+                  // }, 1000);
                 }
               }}
               onCloseTimer={() => props.onCloseTimer()}

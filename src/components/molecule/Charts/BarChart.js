@@ -19,7 +19,6 @@ const LineDemo = (props) => {
   useEffect(() => {
     const URL = EndPoints.oneDayExercise + props.sectionId;
     instance2.get(URL).then((response) => {
-      console.log(response, "bar chart data");
       setMondayExercise(response.data.days_of_exam.Monday);
       setTuesdayExercise(response.data.days_of_exam.Tuesday);
       setWednesdayExercise(response.data.days_of_exam.Wednesday);

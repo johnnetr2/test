@@ -40,9 +40,9 @@ const Timer = (props) => {
 
   const dispSecondsAsMins = (seconds) => {
     // 25:00
+    // const minute = 
     const mins = Math.floor(seconds / 60);
     const seconds_ = seconds % 60;
-    console.log(mins.length)
     return (mins == 0? '00' : mins.toString()) + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
   };
 

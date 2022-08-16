@@ -7,9 +7,7 @@ import image70 from '../../../assets/Imgs/image70.png'
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
-  console.log('proviuos dataaaaaaaaaaa', props.previousRecord)
-  let previosData = props?.data?.find(obj => obj._id == props?.item._id)
-  console.log(previosData, 'one object')
+  // let previosData = props?.data?.find(obj => obj._id == props?.item._id)
   return (
     <Box
       sx={{

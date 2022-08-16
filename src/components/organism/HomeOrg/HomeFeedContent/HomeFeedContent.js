@@ -64,7 +64,6 @@ const HomeFeedContent = (props) => {
 
       const previousRecordURL =
         EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-      console.log(previousRecordURL, 'turl')
       instance2.get(previousRecordURL).then((response) => {
         if (response.data.success == true) {
           setPreviousRecordProgress(response.data.Data);
@@ -211,7 +210,6 @@ const HomeFeedContent = (props) => {
             {sections &&
               sections.map((item, index) => {
                 if (item.section.title === "Kvantitativ del") {
-                  { console.log(previousRecordProgress && previousRecordProgress[index]?._id == item._id && previousRecordProgress[index], 'this is section data') }
                   return (
                     <HomeCard
                       item={item}

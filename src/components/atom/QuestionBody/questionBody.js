@@ -19,15 +19,9 @@ const useStyles = makeStyles({
 const QuestionBody = (props) => {
   const classes = useStyles();
   const [question, setQuestion] = useState(props?.question);
-  const [randomOptions, setRandomOptions] = useState([]);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
 
-  // const testRandom = props?.question?.options[0]?.options?.sort(
-  //   () => 0.5 - Math.random()
-  // );
-
-  // setRandomOptions(testRandom);
   const PlusPoint = () => {
     setCount(1);
     setFeedbackPopup(true);
@@ -192,7 +186,6 @@ const QuestionBody = (props) => {
           maxWidth="sm"
           style={{
             marginTop: "1rem",
-            // border: "1px solid #e1e1e1",
             display: "flex",
             flexWrap: "wrap",
             backgroundColor: "#fff",
