@@ -68,17 +68,6 @@ const CategoryPagesFeedContent = (props) => {
       });
       setCheckData(newArray);
 
-      // const already = checkedData.some((obj) => obj === item._id);
-      // if (already) {
-      //   const index = checkedData.findIndex((obj) => obj === item._id);
-      //   let newArray = [...checkedData];
-      //   newArray.splice(index, 1);
-      //   setCheckData(newArray);
-      // } else {
-      //   setCheckData([...checkedData, item._id]);
-      // }
-      // });
-
       const URLHistory = EndPoints.testHistory + props.item._id;
       instance2.get(URLHistory).then((response) => {
         setTableHistory(response?.data);

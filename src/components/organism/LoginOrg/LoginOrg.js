@@ -175,6 +175,7 @@ const LoginOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
+              outline: 'none'
             }}
           />
           <Label for="password">Password</Label>
@@ -208,6 +209,7 @@ const LoginOrg = () => {
                 padding: "1rem",
                 width: "100%",
                 backgroundColor: "transparent",
+                outline: 'none'
               }}
               className={classes.autoFillColor}
             />

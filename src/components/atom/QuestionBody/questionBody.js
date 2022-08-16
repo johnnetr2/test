@@ -38,6 +38,16 @@ const QuestionBody = (props) => {
     setFeedbackPopup(true);
   };
 
+  const changeOptionsColor = (item) => {
+    if(question.answer && question.answer.option == item._id) {
+      return '#27AE60'
+    } else if(question.answer && item._id == question?.optionId) {
+      return '#EB5757'
+    } else {
+      return ''
+    }
+  }
+
   const questionId = props.question._id;
   // const optionArray = ;
 
@@ -205,10 +215,10 @@ const QuestionBody = (props) => {
                         ? 600
                         : 300,
                     display: "flex",
-                    color: optionIndex == question.selectedIndex && "#0A1596",
+                    color: !question.answer && optionIndex == question.selectedIndex ? "#0A1596" : '',
                     "&:hover": {
-                      cursor: !item.answer && "pointer",
-                      color: !item.answer && "#0A1596",
+                      cursor: !question.answer && "pointer",
+                      color: !question.answer && "#0A1596",
                     },
                   }}
                   onMouseOver={() => props.onhover(item._id)}
@@ -234,17 +244,15 @@ const QuestionBody = (props) => {
                         style={{
                           margin: 0,
                           size: "0.5rem",
-                          // color: "#e1e1e1",
                         }}
                         value={item?._id}
                         control={props.showOptions(question, item, optionIndex)}
-                        // label=""
                         className={classes.root}
                       />
                       <Typography
                         style={{
                           marginTop: "1.25rem",
-                          // color: "blue",
+                          color: changeOptionsColor(item)
                         }}
                         variant="body2"
                       >
@@ -255,10 +263,10 @@ const QuestionBody = (props) => {
 
                   <Box
                     sx={{
-                      width:
-                        question?.options[0].options.length > 4
-                          ? "20rem"
-                          : "14rem",
+                      // width:
+                      //   question?.options[0].options.length > 4
+                      //     ? "20rem"
+                      //     : "14rem",
                       display: "flex",
                       marginLeft:
                         question?.options[0].options.length > 4 ||

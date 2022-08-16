@@ -79,7 +79,6 @@ const ResultSummaryOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    console.log(params.state);
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
 
@@ -89,8 +88,6 @@ const ResultSummaryOrg = (props) => {
       });
 
       let lengthOfQuestions = response.data.question.length;
-      // let totalTime = response.data.questions[0].totaltime;
-      // let remainingTime = response.data.questions[lengthOfQuestions - 1].timeleft;
       let timePerQuestion;
       timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
 
@@ -157,19 +154,21 @@ const ResultSummaryOrg = (props) => {
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
-              {responseCollection?.correctAnswer} av{" "}
+              {" "}
+              {responseCollection?.question.length} av{" "}
               {responseCollection?.question.length}
             </Box>
-            <Box mt={2} sx={{ color: "#222" }}>
+            {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
               {responseCollection
                 ? dispSecondsAsMins(
-                    responseCollection?.question[
-                      responseCollection.question.length - 1
-                    ].timeleft
-                  )
+                  responseCollection?.question[
+                    responseCollection.question.length - 1
+                  ].timeleft
+                )
                 : "00:00"}
             </Box>
+            }
           </Box>
           <Box mt={2}>
             <LinearProgress
@@ -194,7 +193,7 @@ const ResultSummaryOrg = (props) => {
           <Box
             mt={5}
             paddingY={2}
-            sx={{ backgroundColor: "#f9f9f9", width: 600, height: 300 }}
+            sx={{ backgroundColor: "#f9f9f9", width: 600 }}
           >
             <Typography variant="h5" component="h5">
               Resultat
@@ -219,12 +218,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection?.totalQuestion &&
-                responseCollection?.correctAnswer != null ? (
+                  responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                        " /" +
-                        responseCollection.question.length}
+                      " /" +
+                      responseCollection.question.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -254,13 +253,12 @@ const ResultSummaryOrg = (props) => {
                   borderRadius: "5px",
                 }}
               >
-                {responseCollection?.totalQuestion &&
-                responseCollection?.correctAnswer != null ? (
+                {responseCollection ? (
                   <Typography variant="h4">
-                    {Math.round(
+                    {((
                       responseCollection.correctAnswer /
-                        responseCollection.totalQuestion
-                    ) * 2}
+                      responseCollection.question.length
+                    ) * 2).toFixed(1)}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -279,11 +277,12 @@ const ResultSummaryOrg = (props) => {
                 </Typography>
               </Box>
             </Box>
-            <Box
+            {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                backgroundColor: 'blue'
               }}
             >
               <Box
@@ -329,8 +328,8 @@ const ResultSummaryOrg = (props) => {
                 <Typography variant="h4">
                   {responseCollection
                     ? dispSecondsAsMins(
-                        responseCollection?.question.at(-1).timeleft
-                      )
+                      responseCollection?.question.at(-1).timeleft
+                    )
                     : "00:00"}
                 </Typography>
                 <Typography
@@ -345,6 +344,7 @@ const ResultSummaryOrg = (props) => {
                 </Typography>
               </Box>
             </Box>
+            }
           </Box>
 
           <Box mt={2} sx={{ width: 600, display: "flex" }}>
@@ -378,8 +378,12 @@ const ResultSummaryOrg = (props) => {
                         state: {
                           questionIndex,
                           quiz: responseCollection,
-                          sectionCategory: params?.state?.sectionCategory,
                           quizId: params?.state?.quizId,
+                          sectionCategory: params?.state?.sectionCategory,
+                          data: {
+                            value: false,
+                            sectionCategory: params?.state?.sectionCategory,
+                          }
                           // quiz: responseCollection.question
                         },
                       });
@@ -433,8 +437,9 @@ const ResultSummaryOrg = (props) => {
                       style={{ fontSize: ".75rem", fontWeight: "600" }}
                     >
                       {/* Tid: 04:51 */}
-                      {item?.spendTime &&
-                        "Tid: " + dispSecondsAsMins(item?.spendTime)}
+                      {item?.spendTime ?
+                        "Tid: " + dispSecondsAsMins(item?.spendTime) : ''
+                        }
                     </Typography>
                     <Box
                       style={{
@@ -459,7 +464,7 @@ const ResultSummaryOrg = (props) => {
                   },
                 })
               }
-              style={{ width: 600 }}
+              style={{ width: 600, color: '#000DAB', borderColor: '#000DAB', borderRadius: '8px' }}
             >
               Klar
             </Button>

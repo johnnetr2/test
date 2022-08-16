@@ -42,7 +42,8 @@ const Timer = (props) => {
     // 25:00
     const mins = Math.floor(seconds / 60);
     const seconds_ = seconds % 60;
-    return mins.toString() + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
+    console.log(mins.length)
+    return (mins == 0? '00' : mins.toString()) + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
   };
 
   return (

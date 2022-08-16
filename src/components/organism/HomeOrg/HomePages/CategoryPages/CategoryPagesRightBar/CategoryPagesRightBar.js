@@ -148,9 +148,9 @@ const CategoryPagesRightBar = (props) => {
               }}
               variant="determinate"
               value={
-                (lastWeekTasks.totalCorrectQuestions /
+                lastWeekTasks ? ((lastWeekTasks.totalCorrectQuestions /
                   lastWeekTasks.totalQuestions) *
-                100
+                100) : 0
               }
             />
             <Typography
