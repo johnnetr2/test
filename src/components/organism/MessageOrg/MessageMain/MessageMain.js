@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, makeStyles, Container } from "@material-ui/core";
 import MessageFeedContent from "../MessageFeedContent/MessageFeedContent";
-import MessageLeftBar from "../MessageLeftBar/MessageLeftBar";
 import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({

@@ -22,12 +22,15 @@ const QuestionBody = (props) => {
   const [randomOptions, setRandomOptions] = useState([]);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
+  // const [shuffle, setShuffle] = useState(false)
 
-  // const testRandom = props?.question?.options[0]?.options?.sort(
-  //   () => 0.5 - Math.random()
-  // );
+  useEffect(() => {
+    const testRandom = props?.question?.options[0]?.options?.sort(
+      () => 0.5 - Math.random()
+    );
+    setRandomOptions(testRandom);
+  }, [randomOptions]);
 
-  // setRandomOptions(testRandom);
   const PlusPoint = () => {
     setCount(1);
     setFeedbackPopup(true);
@@ -188,7 +191,7 @@ const QuestionBody = (props) => {
             backgroundColor: "#fff",
           }}
         >
-          {question.options[0].options.map((item, optionIndex) => {
+          {randomOptions.map((item, optionIndex) => {
             if (item.value) {
               return (
                 <Box
@@ -234,6 +237,7 @@ const QuestionBody = (props) => {
                         style={{
                           margin: 0,
                           size: "0.5rem",
+
                           // color: "#e1e1e1",
                         }}
                         value={item?._id}
@@ -294,11 +298,7 @@ const QuestionBody = (props) => {
             sx={{
               backgroundColor: "#fff",
               width: 600,
-              height: 320,
               border: "1px solid #e1e1e1",
-              overflow: "auto",
-              "&::-webkit-scrollbar": { display: "none" },
-              //   '&::-webkit-scrollbar': { width : 0 },
             }}
           >
             <Box sx={{ width: 500, display: "flex" }}>
@@ -357,8 +357,6 @@ const QuestionBody = (props) => {
                 style={{
                   fontSize: ".75rem",
                   fontWeight: "500",
-                  marginTop: 10,
-                  // width: "32rem",
                 }}
               >
                 Berätta för oss om du var nöjd med lösningen

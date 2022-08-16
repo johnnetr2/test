@@ -7,6 +7,7 @@ import {
   Paper,
   Box,
   Typography,
+  Container,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -68,19 +69,33 @@ export const CategoryTable = (props) => {
   };
 
   return (
-    <Box>
+    <Container maxWidth="lg" disableGutters>
       <Box
-        style={{
+        sx={{
           display: "flex",
           textTransform: "uppercase",
-          justifyContent: "space-evenly",
+          justifyContent: "space-between",
+          width: {
+            xl: "50rem",
+            lg: "50rem",
+            md: "25rem",
+            sm: "15rem",
+            xs: "15rem",
+          },
         }}
       >
         <Typography
           style={{
             display: "flex",
-            marginRight: "3rem",
             fontWeight: 500,
+            paddingLeft: "2rem",
+            paddingRight: {
+              xl: "8rem",
+              lg: "8rem",
+              md: "4rem",
+              sm: "0rem",
+              xs: "0rem",
+            },
           }}
         >
           Datum
@@ -88,7 +103,6 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            margin: "0 10rem 0 14rem",
             fontWeight: 500,
           }}
         >
@@ -97,7 +111,7 @@ export const CategoryTable = (props) => {
         <Typography
           style={{
             display: "flex",
-            marginRight: "4rem",
+            // marginRight: "4rem",
             fontWeight: 500,
           }}
         >
@@ -175,6 +189,6 @@ export const CategoryTable = (props) => {
           </TableBody>
         </Table>
       </Box>
-    </Box>
+    </Container>
   );
 };

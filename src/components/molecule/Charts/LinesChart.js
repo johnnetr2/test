@@ -9,18 +9,6 @@ import {
   Tooltip,
 } from "recharts";
 const LinesChart = (props) => {
-
-  useEffect(() => {
-    console.log(props.mondayData, 'this is first week data')
-    console.log(props.tuesdayData, 'this is second week data')
-    console.log(props.wednesdayData, 'this is third week data')
-    console.log(props.thursdayData, 'this is forth week data')
-    console.log(props.fridayData, 'this is fifth week data')
-    console.log(props.saturdayData, 'this is sixth week data')
-    console.log(props.sundayData, 'this is seven week data')
-  }, [])
-  
-
   return (
     <Box>
       <LineChart

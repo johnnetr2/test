@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("1300")]: {
       display: "flex",
       flexWrap: "nowrap",
-      justifyContent: "space-between",
+      // justifyContent: "space-between",
     },
     [theme.breakpoints.down("1280")]: {
       display: "flex",
@@ -50,17 +50,26 @@ const CategoryPagesMain = () => {
         >
           <CategoryPagesLeftBar />
         </Grid>
-        <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
-          <CategoryPagesFeedContent item={params?.state?.item} />
-        </Grid>
-        <Grid
+        <Container
+          maxWidth="xl"
           style={{
-            width: "35rem",
+            display: "flex",
+            justifyContent: "space-around",
           }}
-          className={classes.right}
         >
-          <CategoryPagesRightBar item={params?.state?.item} />
-        </Grid>
+          <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
+            <CategoryPagesFeedContent item={params?.state?.item} />
+          </Grid>
+          <Grid
+            item
+            style={{
+              width: "35rem",
+            }}
+            className={classes.right}
+          >
+            <CategoryPagesRightBar item={params?.state?.item} />
+          </Grid>
+        </Container>
       </Grid>
     </Container>
   );

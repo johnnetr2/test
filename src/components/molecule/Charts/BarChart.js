@@ -19,7 +19,6 @@ const LineDemo = (props) => {
   useEffect(() => {
     const URL = EndPoints.oneDayExercise + props.sectionId;
     instance2.get(URL).then((response) => {
-      console.log(response, "bar chart data");
       setMondayExercise(response.data.days_of_exam.Monday);
       setTuesdayExercise(response.data.days_of_exam.Tuesday);
       setWednesdayExercise(response.data.days_of_exam.Wednesday);
@@ -33,7 +32,7 @@ const LineDemo = (props) => {
   return (
     <Box>
       <Bar
-        width={415}
+        width={400}
         height={200}
         options={{
           legend: {
@@ -88,8 +87,8 @@ const LineDemo = (props) => {
               categorySpacing: 2,
               data: [
                 mondayExercise,
-                wednesdayExercise,
                 tuesdayExercise,
+                wednesdayExercise,
                 thursdayExercise,
                 fridayExercise,
                 saturdayExercise,

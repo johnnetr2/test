@@ -63,9 +63,10 @@ const CategoryPagesFeedContent = (props) => {
       }
 
       let newArray = [...checkedData];
-      response.data.length > 0 && response.data?.map((item) => {
-        newArray.push(item._id);
-      });
+      response.data.length > 0 &&
+        response.data?.map((item) => {
+          newArray.push(item._id);
+        });
       setCheckData(newArray);
 
       // const already = checkedData.some((obj) => obj === item._id);
@@ -187,7 +188,7 @@ const CategoryPagesFeedContent = (props) => {
         };
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
-          console.log(response.data, 'create quiz api response')
+          console.log(response.data, "create quiz api response");
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
@@ -209,7 +210,7 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   return (
-    <Container className={classes.root}>
+    <Container maxWidth="md" className={classes.root}>
       <Box>
         <Heading title={"Kvantitativa jämförelser - " + props.item.title} />
         <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
@@ -381,13 +382,18 @@ const CategoryPagesFeedContent = (props) => {
               // justifyContent: 'space-between'
             }}
           >
-            {questionCategories.length > 0 && <OutlineField
-              title="Alla"
-              onClickCheck={() => setAlla(!alla)}
-              checked={
-                questionCategories && questionCategories?.length === checkedData.length ? true : false
-              }
-            />}
+            {questionCategories.length > 0 && (
+              <OutlineField
+                title="Alla"
+                onClickCheck={() => setAlla(!alla)}
+                checked={
+                  questionCategories &&
+                  questionCategories?.length === checkedData.length
+                    ? true
+                    : false
+                }
+              />
+            )}
 
             {questionCategories &&
               questionCategories?.map((item, index) => {

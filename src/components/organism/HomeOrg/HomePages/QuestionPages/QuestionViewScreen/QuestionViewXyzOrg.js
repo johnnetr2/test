@@ -73,7 +73,7 @@ const QuestionViewXyzOrg = () => {
             setTotalQuestions((totalQ) => totalQ + 1);
           }
         });
-      setTime(params.state.sectionCategory.time * totalQ *60);
+      setTime(params.state.sectionCategory.time * totalQ * 60);
       setStatus(false);
       setQuiz(params.state.data.quiz);
     }
@@ -432,7 +432,7 @@ const QuestionViewXyzOrg = () => {
           minHeight: "100vh",
         }}
       >
-        {(time || (!time && !params?.state?.data.value)) &&
+        {(time || (!time && !params?.state?.data.value)) && (
           <Header
             selectedIndex={selectedIndex}
             totalQuestions={totalQuestions}
@@ -446,7 +446,7 @@ const QuestionViewXyzOrg = () => {
               setTimeLeft(timer);
             }}
           />
-        }
+        )}
 
         <AlertDialogSlide
           popUpstatus={open}
