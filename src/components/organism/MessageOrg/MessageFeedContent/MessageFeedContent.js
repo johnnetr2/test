@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "regular",
     padding: ".55rem 2rem",
     marginBottom: "2rem",
-    "& .hover": {
+    "&:hover": {
       cursor: "pointer",
       backgroundColor: "#0A1596",
     },
@@ -77,12 +77,17 @@ const MessageFeedContent = () => {
     instance2.post(URL, payLoad).then((response) => {
       if (response.status === 200) {
         setFeedbackPopup(true);
-        setValue(0);
         setFeedback("");
         setWordCount(0);
       }
     });
   };
+
+  const handleClose = () => {
+    setFeedbackPopup(false)
+    setValue(0);
+
+  }
 
   return (
     <Container className={classes.root} disableGutters>
@@ -97,12 +102,21 @@ const MessageFeedContent = () => {
       >
         <FeedbackPopup
           show={feedbackPopup}
-          onClose={() => setFeedbackPopup(false)}
+          onClose={() => handleClose()}
         />
         <Typography variant="h5" component="h5" style={{ textAlign: "center" }}>
           Berätta för oss vad du tycker! Prov
         </Typography>
-        <Box sx={{ marginTop: "3rem", marginBottom: "1rem" }}>
+        <Box
+          sx={{
+            marginTop: "3rem",
+            marginBottom: "1rem",
+            // maxWidth: "20vw",
+            // backgroundColor: "coral",
+            // display: "flex",
+            // justifyContent: "center",
+          }}
+        >
           <BodyText title="Hur nöjd är du med HP-Appen just nu?" />
         </Box>
         <Box sx={{ display: "flex" }}>
@@ -112,6 +126,12 @@ const MessageFeedContent = () => {
             name="simple-controlled"
             value={value}
             color="primary"
+            precision={1}
+            style={{
+              fontSize: '3rem',
+              display: "flex",
+              WebkitInitialLetter: '2rem'
+            }}
             onChange={(e) => {
               setValue(e.target.value);
             }}
@@ -124,7 +144,7 @@ const MessageFeedContent = () => {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          padding: "1rem",
+          // padding: "1rem",
         }}
       >
         <Box
@@ -132,9 +152,11 @@ const MessageFeedContent = () => {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "flex-start",
+            // backgroundColor: 'coral',
             marginTop: "1rem",
-            marginBottom: "1rem",
+            marginBottom: "1.3rem",
             flexWrap: "wrap",
+            width: "40vw",
           }}
         >
           <Typography variant="body1">Din feedback</Typography>
@@ -152,10 +174,13 @@ const MessageFeedContent = () => {
             backgroundColor: "#f2f2f2",
             border: "none",
             padding: "2rem 2rem",
-            borderRadius: "5px",
+            borderRadius: "10px",
             display: "flex",
             flexWrap: "wrap",
-            minWidth: "50ch",
+            minHeight: "45vh",
+            minWidth: "40vw",
+            resize: "none",
+            outline: 'none'
           }}
           onChange={changeHandler}
           value={feedback}
