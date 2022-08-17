@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("1300")]: {
       display: "flex",
       flexWrap: "nowrap",
-      // justifyContent: "space-between",
+      justifyContent: "space-between",
     },
     [theme.breakpoints.down("1280")]: {
       display: "flex",
@@ -51,7 +51,8 @@ const CategoryPagesMain = () => {
           <CategoryPagesLeftBar />
         </Grid>
         <Container
-          maxWidth="xl"
+          maxWidth="false"
+          disableGutters
           style={{
             display: "flex",
             justifyContent: "space-around",

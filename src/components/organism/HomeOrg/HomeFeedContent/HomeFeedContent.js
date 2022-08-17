@@ -43,8 +43,8 @@ const HomeFeedContent = (props) => {
   const classes = useStyles();
 
   const [tabValue, setTabValue] = useState(0);
-  const [progress, setProgress] = useState(0)
-  const [prognos, setPrognos] = useState(0)
+  const [progress, setProgress] = useState(0);
+  const [prognos, setPrognos] = useState(0);
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -61,7 +61,6 @@ const HomeFeedContent = (props) => {
   const [totalPrognos, setTotalPrognos] = useState();
   useEffect(() => {
     if (localStorage.getItem("token")) {
-
       const previousRecordURL =
         EndPoints.studentPerviousProgress + localStorage.getItem("userId");
       instance2.get(previousRecordURL).then((response) => {
@@ -72,44 +71,43 @@ const HomeFeedContent = (props) => {
 
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
-        let newArr = []
-        response.data.data.map(item => {
+        let newArr = [];
+        response.data.data.map((item) => {
           if (item.title == "XYZ") {
-            item.time = 1
-            newArr.push(item)
+            item.time = 1;
+            newArr.push(item);
           }
           if (item.title == "KVA") {
-            item.time = 1
-            newArr.push(item)
+            item.time = 1;
+            newArr.push(item);
           }
           if (item.title == "NOG") {
-            item.time = 1.6
-            newArr.push(item)
+            item.time = 1.6;
+            newArr.push(item);
           }
           if (item.title == "DTK") {
-            item.time = 1.9
-            newArr.push(item)
+            item.time = 1.9;
+            newArr.push(item);
           }
           if (item.title == "ELF") {
-            item.time = 0.3
-            newArr.push(item)
+            item.time = 0.3;
+            newArr.push(item);
           }
           if (item.title === "LÄS") {
-            item.time = 2.2
-            newArr.push(item)
+            item.time = 2.2;
+            newArr.push(item);
           }
           if (item.title == "MEK") {
-            item.time = 0.8
-            newArr.push(item)
+            item.time = 0.8;
+            newArr.push(item);
           }
           if (item.title == "ORD") {
-            item.time = 2.2
-            newArr.push(item)
+            item.time = 2.2;
+            newArr.push(item);
           }
-        })
+        });
         setSections(newArr);
       });
-
     } else {
       swal({
         title: "Please login to continue",
@@ -128,13 +126,14 @@ const HomeFeedContent = (props) => {
   useEffect(() => {
     let count = 0;
     let prognos;
-    let show = true
-    previousRecordProgress && previousRecordProgress.map(item => {
-      if (item.AttemptedQuestion <= 20) {
-        show = false
-      }
-    })
-    props.show(show)
+    let show = true;
+    previousRecordProgress &&
+      previousRecordProgress.map((item) => {
+        if (item.AttemptedQuestion <= 20) {
+          show = false;
+        }
+      });
+    props.show(show);
 
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
@@ -213,7 +212,12 @@ const HomeFeedContent = (props) => {
                   return (
                     <HomeCard
                       item={item}
-                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id ? previousRecordProgress[index] : ''}
+                      previousRecord={
+                        previousRecordProgress &&
+                        previousRecordProgress[index]?._id == item._id
+                          ? previousRecordProgress[index]
+                          : ""
+                      }
                       data={previousRecordProgress}
                     />
                   );
@@ -236,7 +240,11 @@ const HomeFeedContent = (props) => {
                   return (
                     <HomeCard
                       item={item}
-                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id && previousRecordProgress[index]}
+                      previousRecord={
+                        previousRecordProgress &&
+                        previousRecordProgress[index]?._id == item._id &&
+                        previousRecordProgress[index]
+                      }
                     />
                   );
                 }
@@ -258,7 +266,11 @@ const HomeFeedContent = (props) => {
                   return (
                     <HomeCard
                       item={item}
-                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id && previousRecordProgress[index]}
+                      previousRecord={
+                        previousRecordProgress &&
+                        previousRecordProgress[index]?._id == item._id &&
+                        previousRecordProgress[index]
+                      }
                     />
                   );
                 }
@@ -278,7 +290,11 @@ const HomeFeedContent = (props) => {
                   return (
                     <HomeCard
                       item={item}
-                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id && previousRecordProgress[index]}
+                      previousRecord={
+                        previousRecordProgress &&
+                        previousRecordProgress[index]?._id == item._id &&
+                        previousRecordProgress[index]
+                      }
                     />
                   );
                 }

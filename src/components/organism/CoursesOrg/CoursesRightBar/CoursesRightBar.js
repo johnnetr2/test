@@ -61,10 +61,7 @@ const RightBar = (props) => {
 
   function Dropdown(props) {
     return (
-      <div
-        className="result_popup"
-        onClick={() => props.onClick()}
-      >
+      <div className="result_popup" onClick={() => props.onClick()}>
         SE resultat
         <div className="popup"></div>
       </div>
@@ -105,7 +102,7 @@ const RightBar = (props) => {
             flexDirection: "row",
             textTransform: "uppercase",
             marginBottom: "1.1rem",
-            // width: "100%",
+            width: "100%",
             alignItems: "flex-end",
           }}
         >
@@ -150,7 +147,7 @@ const RightBar = (props) => {
           </Box>
         </Box>
         <Box className={classes.tablespace} style={{ marginBottom: "2rem" }}>
-          <Box style={{ marginBottom: "2rem", }}>
+          <Box style={{ marginBottom: "2rem" }}>
             <TableContainer
               style={{
                 border: "1px solid #e1e1e1",
@@ -175,7 +172,7 @@ const RightBar = (props) => {
                           </TableCell>
                           {/* <Box style={{ display: 'flex' }}> */}
                           <TableCell align="left">
-                            <Typography style={{ fontSize: "14px",  }}>
+                            <Typography style={{ fontSize: "14px" }}>
                               {row?.simuleraSeason.title},
                             </Typography>
                             <Typography style={{ fontSize: "14px" }}>
@@ -212,11 +209,11 @@ const RightBar = (props) => {
                                 // justifyContent: "center",
                                 // alignItems: "flex-end",
                                 // width: "1.1rem",
-                                display: 'flex',
-                                flexDirection: 'column',
-                                display: 'flex',
-                                alignItems: 'flex-end',
-                                position: 'relative',
+                                display: "flex",
+                                flexDirection: "column",
+                                display: "flex",
+                                alignItems: "flex-end",
+                                position: "relative",
                               }}
                             >
                               <MoreVertIcon

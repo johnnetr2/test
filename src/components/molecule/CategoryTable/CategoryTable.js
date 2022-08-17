@@ -70,54 +70,46 @@ export const CategoryTable = (props) => {
 
   return (
     <Container maxWidth="lg" disableGutters>
-      <Box
-        sx={{
-          display: "flex",
-          textTransform: "uppercase",
-          justifyContent: "space-between",
-          width: {
-            xl: "50rem",
-            lg: "50rem",
-            md: "25rem",
-            sm: "15rem",
-            xs: "15rem",
-          },
-        }}
-      >
-        <Typography
-          style={{
+      <Container maxWidth="md">
+        <Box
+          sx={{
             display: "flex",
-            fontWeight: 500,
-            paddingLeft: "2rem",
-            paddingRight: {
-              xl: "8rem",
-              lg: "8rem",
-              md: "4rem",
-              sm: "0rem",
-              xs: "0rem",
-            },
+            textTransform: "uppercase",
+            justifyContent: "space-between",
           }}
         >
-          Datum
-        </Typography>
-        <Typography
-          style={{
-            display: "flex",
-            fontWeight: 500,
-          }}
-        >
-          Resultat
-        </Typography>
-        <Typography
-          style={{
-            display: "flex",
-            // marginRight: "4rem",
-            fontWeight: 500,
-          }}
-        >
-          Normering
-        </Typography>
-      </Box>
+          <Typography
+            style={{
+              display: "flex",
+              fontWeight: 500,
+              width: "45%",
+              justifyContent: "flex-start",
+            }}
+          >
+            Datum
+          </Typography>
+          <Typography
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: 500,
+              width: "40%",
+            }}
+          >
+            Resultat
+          </Typography>
+          <Typography
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: 500,
+              width: "40%",
+            }}
+          >
+            Normering
+          </Typography>
+        </Box>
+      </Container>
 
       <Box
         component={Paper}
@@ -127,7 +119,6 @@ export const CategoryTable = (props) => {
           boxShadow: "0px 1px 3px #d3d3d3",
           marginTop: "2rem",
           maxHeight: categoryTable.length > 8 ? "40rem" : "fit-content",
-          // width: "40rem",
           overflow: "auto",
           marginBottom: "2rem",
         }}
@@ -174,7 +165,7 @@ export const CategoryTable = (props) => {
                         }}
                       >
                         <MoreVertIcon
-                          sx={{ cursor: "pointer" }}
+                          sx={{ cursor: "pointer", color: "#b4b4b4" }}
                           onClick={() => showPopup(index)}
                         />
                         {row.result && (

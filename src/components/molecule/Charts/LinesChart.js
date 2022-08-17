@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 const LinesChart = (props) => {
+  console.log(props, "line chart curves");
   return (
     <Box>
       <LineChart
@@ -20,43 +21,44 @@ const LinesChart = (props) => {
         data={[
           {
             name: "v35",
-            point:
-              (props.homeRightBar || props.mondayData) &&
-              (props.categoryRightBar || props.mondayData),
+            Prognos: 2,
+            // point:
+            //   (props.homeRightBar || props.mondayData) &&
+            //   (props.categoryRightBar || props.mondayData),
           },
           {
             name: "v39",
-            point:
+            Prognos:
               (props.homeRightBar || props.tuesdayData) &&
               (props.categoryRightBar || props.tuesdayData),
           },
           {
             name: "v37",
-            point:
+            Prognos:
               (props.homeRightBar || props.wednesdayData) &&
               (props.categoryRightBar || props.wednesdayData),
           },
           {
             name: "v38",
-            point:
+            Prognos:
               (props.homeRightBar || props.thursdayData) &&
               (props.categoryRightBar || props.thursdayData),
           },
           {
             name: "v39",
-            point:
+            Prognos:
               (props.homeRightBar || props.fridayData) &&
               (props.categoryRightBar || props.fridayData),
           },
           {
             name: "v40",
-            point:
+            Prognos:
               (props.homeRightBar || props.saturdayData) &&
               (props.categoryRightBar || props.saturdayData),
           },
           {
             name: "v41",
-            point:
+            Prognos:
               (props.homeRightBar || props.sundayData) &&
               (props.categoryRightBar || props.sundayData),
           },
@@ -69,17 +71,30 @@ const LinesChart = (props) => {
           bottom: 0,
         }}
       >
-        <CartesianGrid />
+        <CartesianGrid vertical="" horizontal="true" />
         <XAxis dataKey="name" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "#fff",
+            border: "1px solid #e1e1e1",
+            borderRadius: "10px",
+          }}
+          itemStyle={{ color: "#000" }}
+          cursor={false}
+        />
         <Line
           type="monotone"
-          dataKey="point"
+          dataKey="Prognos"
           stroke="#0A1596"
           strokeWidth="3"
-          fill="#0A1596"
-          dot={{ stroke: "#0A1596", strokeWidth: 3, r: 4, strokeDasharray: "" }}
+          activeDot={{
+            fill: "#0A1596",
+            stroke: "#0A1596",
+            strokeWidth: 2,
+            r: 6,
+          }}
+          dot={{ fill: "#0A1596", stroke: "#0A1596", strokeWidth: 2, r: 6 }}
           options={{
             scales: {
               x: {

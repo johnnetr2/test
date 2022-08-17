@@ -115,6 +115,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
+    console.log(params.state, "here is the quiz");
     if (
       nextPress &&
       quiz?.length > 0 &&
