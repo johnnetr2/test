@@ -157,15 +157,15 @@ const CategoryPagesRightBar = (props) => {
                 position: "absolute",
                 fontSize: "12px",
                 alignSelf: "center",
-                display: 'flex',
-                flexDirection: 'row',
-                width: '3rem',
+                display: "flex",
+                flexDirection: "row",
+                width: "3rem",
                 marginLeft: width > 900 ? width * 0.125 : width * 0.34,
-                color: '#fff',
-                  // lastWeekTasks.totalCorrectQuestions >
-                  //   lastWeekTasks.totalQuestions / 2
-                  //   ? "#F9F9F9"
-                  //   : "",
+                color: "#fff",
+                // lastWeekTasks.totalCorrectQuestions >
+                //   lastWeekTasks.totalQuestions / 2
+                //   ? "#F9F9F9"
+                //   : "",
               }}
             >
               {lastWeekTasks.totalCorrectQuestions} av{" "}

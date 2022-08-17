@@ -6,6 +6,7 @@ import Clock from "../../../assets/Icons/Clock.svg";
 import Timer from "../Timer/timer";
 import { Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const useStyles = makeStyles((theme) => ({
   colorUpdate: {
@@ -24,10 +25,33 @@ function Header(props) {
   const classes = useStyles();
 
   const [quiz, setQuiz] = useState();
+  const [barPerccentage, setBarPercentage] = useState();
   const [progress, setProgress] = useState(10);
 
   useEffect(() => {
+    let correctAnswers = 0;
+    let totalQuestions = 0;
     setQuiz(props?.quiz);
+
+    props.quiz &&
+      props?.quiz.map((item, index) => {
+        if (item.type === "multiple") {
+          totalQuestions = totalQuestions + item.question.length;
+          item.question.map((question) => {
+            if (question.answer) {
+              correctAnswers = correctAnswers + 1;
+            }
+          });
+        } else {
+          totalQuestions = totalQuestions + 1;
+          if (item.answer) {
+            correctAnswers = correctAnswers + 1;
+          }
+        }
+      });
+    setBarPercentage((correctAnswers / totalQuestions) * 100);
+    console.log((correctAnswers / totalQuestions) * 100, "correct qnaswerer");
+    console.log(totalQuestions, "totalQuestions");
   }, [props?.quiz]);
 
   return (
@@ -73,7 +97,7 @@ function Header(props) {
                 if (!props.status) {
                   props.timeLeft(timer);
                   // setTimeout(() => {
-                    props.nextPress();
+                  props.nextPress();
                   // }, 1000);
                 }
               }}
@@ -86,16 +110,30 @@ function Header(props) {
         <LinearProgressWithLabel value={progress} />
         <button onClick={() => setProgress(progress + 10)}>Click here</button>
       </Box> */}
-      <Box
+
+      {/* <ProgressBar completed={40} bgColor='#6FCF97' borderRadius='0' height='0.6rem' 
+        isLabelVisible='false' labelColor="#6FCF97" />; */}
+
+      <ProgressBar
+        completed={barPerccentage}
+        bgColor="#6FCF97"
+        borderRadius="0"
+        height="0.6rem"
+        isLabelVisible="false"
+        labelColor="transparent"
+      />
+
+      {/* <Box
         mt={2}
         sx={{
           backgroundColor: "#b4b4b4",
           height: "8px",
-          display: "flex",
-          flexDirection: "row",
+          // display: "flex",
+          // flexDirection: "row",
         }}
-      >
-        {quiz &&
+      > */}
+
+      {/* {quiz &&
           quiz?.map((item, index) => {
             if (item.type === "multiple") {
               return item.question.map((question) => (
@@ -122,8 +160,8 @@ function Header(props) {
               );
               // })
             }
-          })}
-      </Box>
+          })} */}
+      {/* </Box> */}
     </Container>
   );
 }

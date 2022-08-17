@@ -129,7 +129,7 @@ const CoursesCard = (props) => {
     return (
       <div className='result_popup'
         onClick={() => props.onClick()}
-        style={{ marginRight: width > 900 ? '43.8%' : '2.3%', marginTop: width > 900 ? '2%' : '4%', cursor: 'pointer', color: '#505050' }}
+        style={{ marginTop: '70px'}}
       >STARTA OM
         <div className='popup' ></div>
       </div>
@@ -159,12 +159,13 @@ const CoursesCard = (props) => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'flex-end',
-                width: '1.1rem'
+                width: '1.1rem',
               }}
             >
               <MoreVertIcon
                 style={{
-                  color: 'grey'
+                  color: 'grey',
+                  marginRight: '0.5px'
                 }} onClick={() => setShowPopup(!showPopup)}
               />
 

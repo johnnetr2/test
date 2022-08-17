@@ -62,13 +62,13 @@ const QuestionViewXyzOrg = () => {
       let totalQ = 0;
       const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       instance2.get(URL).then((response) => {
-        console.log(response.data.quiz, 'responses')
+        console.log(response.data.quiz, "responses");
         response.data.quiz &&
           response.data.quiz.map((item) => {
             setLoading(false);
             if (item?.answer) {
-              setSelectedIndex((selectedIndex) => selectedIndex + 1)
-            } 
+              setSelectedIndex((selectedIndex) => selectedIndex + 1);
+            }
             if (item.description) {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
               totalQ = totalQ + item?.question?.length;
@@ -80,7 +80,7 @@ const QuestionViewXyzOrg = () => {
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         setQuiz(response.data.quiz);
-      })
+      });
     }
   }, []);
 
@@ -213,7 +213,7 @@ const QuestionViewXyzOrg = () => {
               spendtime: timeLeft ? time - timeLeft : 0,
             };
             const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => { });
+            await instance2.post(URL, data).then((response) => {});
           }
         })
       );
@@ -433,7 +433,7 @@ const QuestionViewXyzOrg = () => {
           minHeight: "100vh",
         }}
       >
-        {(time || (!time && !params?.state?.data.value)) &&
+        {(time || (!time && !params?.state?.data.value)) && (
           <Header
             selectedIndex={selectedIndex}
             totalQuestions={totalQuestions}
@@ -446,7 +446,8 @@ const QuestionViewXyzOrg = () => {
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
-          />}
+          />
+        )}
 
         <AlertDialogSlide
           popUpstatus={open}
@@ -508,6 +509,7 @@ const QuestionViewXyzOrg = () => {
                   selectedOption={params.state.selectedOption}
                   paragraphIndex={params?.state?.paragraphIndex}
                   questionIndex={params?.state?.questionIndex}
+                  questionTypeTitle={params?.state.sectionCategory.title}
                   selectedIndex={selectedIndex}
                   onLeftClick={() => {
                     setSelectedIndex((previousIndex) => previousIndex - 1);
@@ -552,7 +554,6 @@ const QuestionViewXyzOrg = () => {
                   }}
                 />
               );
-        
             }
           })}
       </Container>

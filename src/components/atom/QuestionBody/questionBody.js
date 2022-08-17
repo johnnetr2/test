@@ -146,7 +146,7 @@ const QuestionBody = (props) => {
             {question?.information1 && (
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
-                  (1)
+                  {props.questionTypeTitle === "KVA" ? <Typography variant="p" sx={{ fontStyle: "italic", fontSize: "0.75rem" }}>Kvantitet I: </Typography> : "(1)"}
                 </Box>
                 <Typography
                   variant="body1"
@@ -164,7 +164,7 @@ const QuestionBody = (props) => {
             {question?.information2 && (
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
-                  (2)
+                  {props.questionTypeTitle === "KVA" ? <Typography variant="p" sx={{ fontStyle: "italic", fontSize: "0.75rem" }}>Kvantitet II: </Typography> : "(2)"}
                 </Box>
                 <Typography
                   variant="body1"
@@ -181,6 +181,7 @@ const QuestionBody = (props) => {
             )}
           </Box>
         </Container>
+
         <Container
           disableGutters
           maxWidth="sm"
@@ -190,7 +191,24 @@ const QuestionBody = (props) => {
             flexWrap: "wrap",
             backgroundColor: "#fff",
           }}
+
         >
+          {props.questionTypeTitle === "NOG" ?
+            <Box
+              sx={{
+                width: 600,
+                height: 100,
+                border: "1px solid #e1e1e1",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="p" style={{ fontWeight: "bold", marginLeft: "50px" }}>Tillräckligt  information för lösningen erhålls</Typography>
+            </Box>
+            :
+            null
+          }
           {question.options[0].options.map((item, optionIndex) => {
             if (item.value) {
               return (
@@ -198,13 +216,13 @@ const QuestionBody = (props) => {
                   sx={{
                     height:
                       question?.options[0].options.length > 4 ||
-                      item.image === ""
+                        item.image === ""
                         ? 60
                         : 120,
                     border: "1px solid #e1e1e1",
                     width:
                       question?.options[0].options.length > 4 ||
-                      item.image === ""
+                        item.image === ""
                         ? 600
                         : 300,
                     display: "flex",
@@ -263,12 +281,12 @@ const QuestionBody = (props) => {
                       display: "flex",
                       marginLeft:
                         question?.options[0].options.length > 4 ||
-                        item.image === ""
+                          item.image === ""
                           ? "1rem"
                           : "0",
                       justifyContent:
                         question?.options[0].options.length > 4 ||
-                        item.image === ""
+                          item.image === ""
                           ? "flex-start"
                           : "center",
                       alignItems: "center",
