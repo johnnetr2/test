@@ -191,7 +191,7 @@ const CategoryPagesRightBar = (props) => {
                 alignSelf: "center",
                 display: "flex",
                 flexDirection: "row",
-                width: "3rem",
+                // width: "3rem",
                 marginLeft: width > 900 ? width * 0.125 : width * 0.34,
                 color: "#fff",
                 // lastWeekTasks.totalCorrectQuestions >
