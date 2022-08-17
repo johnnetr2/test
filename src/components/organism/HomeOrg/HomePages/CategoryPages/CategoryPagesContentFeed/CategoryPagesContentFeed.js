@@ -69,17 +69,6 @@ const CategoryPagesFeedContent = (props) => {
         });
       setCheckData(newArray);
 
-      // const already = checkedData.some((obj) => obj === item._id);
-      // if (already) {
-      //   const index = checkedData.findIndex((obj) => obj === item._id);
-      //   let newArray = [...checkedData];
-      //   newArray.splice(index, 1);
-      //   setCheckData(newArray);
-      // } else {
-      //   setCheckData([...checkedData, item._id]);
-      // }
-      // });
-
       const URLHistory = EndPoints.testHistory + props.item._id;
       instance2.get(URLHistory).then((response) => {
         setTableHistory(response?.data);
@@ -188,7 +177,6 @@ const CategoryPagesFeedContent = (props) => {
         };
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
-          console.log(response.data, "create quiz api response");
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
@@ -441,7 +429,7 @@ const CategoryPagesFeedContent = (props) => {
           cursor: "pointer",
           width: "99.35%",
         }}
-        onClick={onSubmit}
+        onClick={checkedData.length > 0 && onSubmit}
       >
         <FilledBtn title="Starta övningar" />
       </Box>

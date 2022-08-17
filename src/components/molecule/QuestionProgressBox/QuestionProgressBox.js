@@ -41,7 +41,7 @@ const QuestionProgressBox = (props) => {
           variant="h3"
           style={{ marginRight: "0.5rem", fontSize: "2.5rem", }}
         >
-          {props.showPrognos ? props.totalPrognos : '-'}
+          {!props.showPrognos ?  '-' : props.totalPrognos}
         </Typography>
         <Typography variant="body2" style={{ fontSize: '0.7rem', color: '#505050', marginTop: '0.2rem' }}>
           Prognos

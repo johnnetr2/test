@@ -59,23 +59,28 @@ const QuestionViewXyzOrg = () => {
       setTotalQuestions(params?.state?.quiz?.question.length);
       setLoading(false);
     } else {
-      // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
-      // instance2.get(URL).then((response) => {
       let totalQ = 0;
-      params.state.data.quiz &&
-        params.state.data.quiz.map((item) => {
-          setLoading(false);
-          if (item.description) {
-            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-            totalQ = totalQ + item?.question?.length;
-          } else {
-            totalQ = totalQ + 1;
-            setTotalQuestions((totalQ) => totalQ + 1);
-          }
-        });
-      setTime(params.state.sectionCategory.time * totalQ * 60);
-      setStatus(false);
-      setQuiz(params.state.data.quiz);
+      const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
+      instance2.get(URL).then((response) => {
+        console.log(response.data.quiz, "responses");
+        response.data.quiz &&
+          response.data.quiz.map((item) => {
+            setLoading(false);
+            if (item?.answer) {
+              setSelectedIndex((selectedIndex) => selectedIndex + 1);
+            }
+            if (item.description) {
+              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+              totalQ = totalQ + item?.question?.length;
+            } else {
+              totalQ = totalQ + 1;
+              setTotalQuestions((totalQ) => totalQ + 1);
+            }
+          });
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setStatus(true);
+        setQuiz(response.data.quiz);
+      });
     }
   }, []);
 
@@ -101,7 +106,7 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
-          setNextPress(!nextPress);
+          !params?.state?.data.value && setNextPress(!nextPress);
           setQuiz(questions);
           setStatus(false);
         });
@@ -118,7 +123,7 @@ const QuestionViewXyzOrg = () => {
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
-        quiz: params?.state?.data?._id,
+        quiz: params?.state?.quizId,
         user: localStorage.getItem("userId"),
         optionId: question.optionId,
         questionId: question._id,
@@ -199,7 +204,7 @@ const QuestionViewXyzOrg = () => {
         quiz.map(async (item) => {
           if (!item.answer) {
             const data = {
-              quiz: params?.state?.data?._id,
+              quiz: params?.state?.quizId,
               user: localStorage.getItem("userId"),
               questionId: item._id,
               sectionCategory: params?.state?.sectionCategory._id,
@@ -252,15 +257,12 @@ const QuestionViewXyzOrg = () => {
         <img src={Wrong} style={{ marginLeft: "0.45rem", width: "1.5rem" }} />
       );
     }
-    // else {
-    //   return <Radio color="primary" checked={false} />;
-    // }
+
     if (optionIndex == question.selectedIndex) {
       return (
         <Radio
           color="blue"
           checked={true}
-          // className={classes.radio}
           style={{ marginRight: "0.5rem", color: "#0A1596" }}
         />
       );
@@ -269,10 +271,9 @@ const QuestionViewXyzOrg = () => {
         <Radio
           color="primary"
           checked={false}
-          // className={classes.radio}
           style={{
             marginRight: "0.5rem",
-            color: curentOption._id == onHover && "#0A1596",
+            color: !question.answer && curentOption._id == onHover && "#0A1596",
           }}
         />
       );
@@ -438,10 +439,10 @@ const QuestionViewXyzOrg = () => {
             totalQuestions={totalQuestions}
             params={params?.state?.data}
             status={time && status}
-            time={time}
-            nextPress={() => setNextPress(!nextPress)}
+            time={time && time}
+            nextPress={() => setNextPress(true)}
             onCloseTimer={() => CloseTimerFunc()}
-            quiz={quiz}
+            quiz={quiz && quiz}
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
@@ -452,11 +453,6 @@ const QuestionViewXyzOrg = () => {
           popUpstatus={open}
           handleClose={() => setOpen(false)}
           redirect={() => {
-            const filteredQuiz = quiz.filter((item) => {
-              if (item.answer) {
-                return item;
-              }
-            });
             navigate("/resultsummary", {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
@@ -466,7 +462,7 @@ const QuestionViewXyzOrg = () => {
           }}
         />
 
-        {params?.state?.data?.quiz[0]?.answer ? (
+        {quiz && quiz[0]?.answer ? (
           <DropPenPopup
             popUpstatus={timeEnd}
             redirect={() => {
@@ -506,7 +502,6 @@ const QuestionViewXyzOrg = () => {
         {quiz &&
           quiz.map((item, index) => {
             if (index === selectedIndex) {
-              // if (index !== item.answer) {
               return (
                 <QuestionBody
                   question={quiz[selectedIndex]}
@@ -514,6 +509,7 @@ const QuestionViewXyzOrg = () => {
                   selectedOption={params.state.selectedOption}
                   paragraphIndex={params?.state?.paragraphIndex}
                   questionIndex={params?.state?.questionIndex}
+                  questionTypeTitle={params?.state.sectionCategory.title}
                   selectedIndex={selectedIndex}
                   onLeftClick={() => {
                     setSelectedIndex((previousIndex) => previousIndex - 1);
@@ -542,7 +538,7 @@ const QuestionViewXyzOrg = () => {
                   }
                   OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
-                  quizId={params?.state?.data?._id}
+                  quizId={params?.state?.quizId}
                   timeLeft={timeLeft}
                   nextQuestion={() => {
                     if (selectedIndex + 1 < quiz.length) {
@@ -558,7 +554,6 @@ const QuestionViewXyzOrg = () => {
                   }}
                 />
               );
-              // }
             }
           })}
       </Container>

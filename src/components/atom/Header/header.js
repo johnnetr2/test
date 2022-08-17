@@ -25,57 +25,34 @@ function Header(props) {
   const classes = useStyles();
 
   const [quiz, setQuiz] = useState();
-  const [barPerccentage, setBarPercentage] = useState()
+  const [barPerccentage, setBarPercentage] = useState();
   const [progress, setProgress] = useState(10);
 
   useEffect(() => {
-    let correctAnswers = 0
-    let totalQuestions = 0
+    let correctAnswers = 0;
+    let totalQuestions = 0;
     setQuiz(props?.quiz);
 
-   props.quiz && props?.quiz.map((item, index) => {
-      if (item.type === "multiple") {
-        totalQuestions = totalQuestions + item.question.length
-        item.question.map(question => {
-          if(question.answer) {
-            correctAnswers = correctAnswers + 1
+    props.quiz &&
+      props?.quiz.map((item, index) => {
+        if (item.type === "multiple") {
+          totalQuestions = totalQuestions + item.question.length;
+          item.question.map((question) => {
+            if (question.answer) {
+              correctAnswers = correctAnswers + 1;
+            }
+          });
+        } else {
+          totalQuestions = totalQuestions + 1;
+          if (item.answer) {
+            correctAnswers = correctAnswers + 1;
           }
-        })
-      } else {
-        totalQuestions = totalQuestions + 1
-        if (item.answer) {
-          correctAnswers = correctAnswers + 1
-        } 
-      }
-    })
-    setBarPercentage((correctAnswers / totalQuestions) * 100)
-    console.log((correctAnswers / totalQuestions)*100, 'correct qnaswerer')
-    console.log(totalQuestions, 'totalQuestions')
+        }
+      });
+    setBarPercentage((correctAnswers / totalQuestions) * 100);
+    console.log((correctAnswers / totalQuestions) * 100, "correct qnaswerer");
+    console.log(totalQuestions, "totalQuestions");
   }, [props?.quiz]);
-
-  // function LinearProgressWithLabel(props) {
-  //   return (
-  //     <Box sx={{ display: "flex", alignItems: "center" }}>
-  //       <Box sx={{ width: "100%" }}>
-  //         <LinearProgress
-  //           sx={{
-  //             backgroundColor: "#b4b4b4",
-  //             // color: "#6Fcf97",fsetPro
-  //             height: ".5rem",
-  //             animationDuration: "8s",
-  //             "& .MuiLinearProgress-barColorPrimary": {
-  //               backgroundColor: "#6FCF97",
-  //             },
-  //           }}
-  //           className={classes.colorUpdate}
-  //           // color="#222"
-  //           variant="determinate"
-  //           {...props}
-  //         />
-  //       </Box>
-  //     </Box>
-  //   );
-  // }
 
   return (
     <Container disableGutters maxWidth="md" style={{ backgroundColor: "#fff" }}>
@@ -119,9 +96,9 @@ function Header(props) {
               timeleft={(timer) => {
                 if (!props.status) {
                   props.timeLeft(timer);
-                  setTimeout(() => {
-                    props.nextPress();
-                  }, 1000);
+                  // setTimeout(() => {
+                  props.nextPress();
+                  // }, 1000);
                 }
               }}
               onCloseTimer={() => props.onCloseTimer()}
@@ -137,9 +114,14 @@ function Header(props) {
       {/* <ProgressBar completed={40} bgColor='#6FCF97' borderRadius='0' height='0.6rem' 
         isLabelVisible='false' labelColor="#6FCF97" />; */}
 
-      <ProgressBar completed={barPerccentage} bgColor='#6FCF97' borderRadius='0' height='0.6rem' 
-        isLabelVisible='false' labelColor="transparent"
-         />
+      <ProgressBar
+        completed={barPerccentage}
+        bgColor="#6FCF97"
+        borderRadius="0"
+        height="0.6rem"
+        isLabelVisible="false"
+        labelColor="transparent"
+      />
 
       {/* <Box
         mt={2}
@@ -151,7 +133,7 @@ function Header(props) {
         }}
       > */}
 
-        {/* {quiz &&
+      {/* {quiz &&
           quiz?.map((item, index) => {
             if (item.type === "multiple") {
               return item.question.map((question) => (

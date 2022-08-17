@@ -23,88 +23,100 @@ const HomeRightBar = (props) => {
   const [fridayData, setFridayData] = useState("");
   const [saturdayData, setSaturdayData] = useState("");
   const [sundayData, setSundayData] = useState("");
-  let [showPrognos, seTShowPrognos] = useState(true);
+  let [showPrognos, seTShowPrognos] = useState();
+  let obj = {};
 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
+      let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
-        if (response.data.lastWeek[0]) {
-          const totalQuestionMonday = response.data.lastWeek[0].totalQuestion;
-          const correctAnswerMonday = response.data.lastWeek[0].correctAnswer;
-          const totalCgpaMonday =
-            (correctAnswerMonday / totalQuestionMonday) * 2;
-          setMondayData(totalCgpaMonday.toFixed(1).replace(/\.0+$/, ""));
-          if (response.data.lastWeek[1]) {
-            const totalQuestionTuesday =
-              response.data.lastWeek[1].totalQuestion;
-            const correctAnswerTuesday =
-              response.data.lastWeek[1].correctAnswer;
-            const totalCgpaTuesday =
-              (correctAnswerTuesday / totalQuestionTuesday) * 2;
-            setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[2]) {
-            const totalQuestionWednesday =
-              response.data.lastWeek[2].totalQuestion;
-            const correctAnswerWednesday =
-              response.data.lastWeek[2].correctAnswer;
-            const totalCgpaWednesday =
-              (correctAnswerWednesday / totalQuestionWednesday) * 2;
-            setWednesdayData(
-              totalCgpaWednesday.toFixed(1).replace(/\.0+$/, "")
-            );
-          }
-          if (response.data.lastWeek[3]) {
-            const totalQuestionThursday =
-              response.data.lastWeek[3].totalQuestion;
-            const correctAnswerThursday =
-              response.data.lastWeek[3].correctAnswer;
-            const totalCgpaThursday =
-              (correctAnswerThursday / totalQuestionThursday) * 2;
-            setThursdayData(totalCgpaThursday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[4]) {
-            const totalQuestionFriday = response.data.lastWeek[4].totalQuestion;
-            const correctAnswerFriday = response.data.lastWeek[4].correctAnswer;
-            const totalCgpaFriday =
-              (correctAnswerFriday / totalQuestionFriday) * 2;
-            setFridayData(totalCgpaFriday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[5]) {
-            const totalQuestionSaturday =
-              response.data.lastWeek[5].totalQuestion;
-            const correctAnswerSaturday =
-              response.data.lastWeek[5].correctAnswer;
-            const totalCgpaSaturday =
-              (correctAnswerSaturday / totalQuestionSaturday) * 2;
-            setSaturdayData(totalCgpaSaturday.toFixed(1).replace(/\.0+$/, ""));
-          }
-          if (response.data.lastWeek[6]) {
-            const totalQuestionSunday = response.data.lastWeek[6].totalQuestion;
-            const correctAnswerSunday = response.data.lastWeek[6].correctAnswer;
-            const totalCgpaSunday =
-              (correctAnswerSunday / totalQuestionSunday) * 2;
-            setSundayData(totalCgpaSunday.toFixed(1).replace(/\.0+$/, ""));
-          }
+        if (response.data.message == "success") {
+          response.data.lastWeek.map(item => {
+            const data = new Date(item?.createdAt)
+            obj[weekDays[data.getDay()]] = {
+              totalQuestions: obj[weekDays[data.getDay()]]?.totalQuestions ? obj[weekDays[data.getDay()]]?.totalQuestions + item.totalQuestion : item.totalQuestion,
+              correctAnswer: obj[weekDays[data.getDay()]]?.correctAnswer ? obj[weekDays[data.getDay()]]?.correctAnswer + item.correctAnswer : item.correctAnswer,
+              date: item.createdAt
+            }
+          })
         }
+        console.log(obj, 'this is api respponse for graph')
+        // if (response.data.lastWeek[0]) {
+        //   const totalQuestionMonday = response.data.lastWeek[0].totalQuestion;
+        //   const correctAnswerMonday = response.data.lastWeek[0].correctAnswer;
+        //   const totalCgpaMonday =
+        //     (correctAnswerMonday / totalQuestionMonday) * 2;
+        //   setMondayData(totalCgpaMonday.toFixed(1).replace(/\.0+$/, ""));
+        //   if (response.data.lastWeek[1]) {
+        //     const totalQuestionTuesday =
+        //       response.data.lastWeek[1].totalQuestion;
+        //     const correctAnswerTuesday =
+        //       response.data.lastWeek[1].correctAnswer;
+        //     const totalCgpaTuesday =
+        //       (correctAnswerTuesday / totalQuestionTuesday) * 2;
+        //     setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));
+        //   }
+        //   if (response.data.lastWeek[2]) {
+        //     const totalQuestionWednesday =
+        //       response.data.lastWeek[2].totalQuestion;
+        //     const correctAnswerWednesday =
+        //       response.data.lastWeek[2].correctAnswer;
+        //     const totalCgpaWednesday =
+        //       (correctAnswerWednesday / totalQuestionWednesday) * 2;
+        //     setWednesdayData(
+        //       totalCgpaWednesday.toFixed(1).replace(/\.0+$/, "")
+        //     );
+        //   }
+        //   if (response.data.lastWeek[3]) {
+        //     const totalQuestionThursday =
+        //       response.data.lastWeek[3].totalQuestion;
+        //     const correctAnswerThursday =
+        //       response.data.lastWeek[3].correctAnswer;
+        //     const totalCgpaThursday =
+        //       (correctAnswerThursday / totalQuestionThursday) * 2;
+        //     setThursdayData(totalCgpaThursday.toFixed(1).replace(/\.0+$/, ""));
+        //   }
+        //   if (response.data.lastWeek[4]) {
+        //     const totalQuestionFriday = response.data.lastWeek[4].totalQuestion;
+        //     const correctAnswerFriday = response.data.lastWeek[4].correctAnswer;
+        //     const totalCgpaFriday =
+        //       (correctAnswerFriday / totalQuestionFriday) * 2;
+        //     setFridayData(totalCgpaFriday.toFixed(1).replace(/\.0+$/, ""));
+        //   }
+        //   if (response.data.lastWeek[5]) {
+        //     const totalQuestionSaturday =
+        //       response.data.lastWeek[5].totalQuestion;
+        //     const correctAnswerSaturday =
+        //       response.data.lastWeek[5].correctAnswer;
+        //     const totalCgpaSaturday =
+        //       (correctAnswerSaturday / totalQuestionSaturday) * 2;
+        //     setSaturdayData(totalCgpaSaturday.toFixed(1).replace(/\.0+$/, ""));
+        //   }
+        //   if (response.data.lastWeek[6]) {
+        //     const totalQuestionSunday = response.data.lastWeek[6].totalQuestion;
+        //     const correctAnswerSunday = response.data.lastWeek[6].correctAnswer;
+        //     const totalCgpaSunday =
+        //       (correctAnswerSunday / totalQuestionSunday) * 2;
+        //     setSundayData(totalCgpaSunday.toFixed(1).replace(/\.0+$/, ""));
+        //   }
+        // }
+      });
+
+      const getPreviosRecord =
+        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+      instance2.get(getPreviosRecord).then((response) => {
+        response.data.Data.map((item) => {
+          if (item.CorrectQuestion < 1) {
+            seTShowPrognos(false);
+            return;
+          }
+        });
       });
     }
   }, []);
 
-  useEffect(() => {
-    const URL =
-      EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-    instance2.get(URL).then((response) => {
-      response.data.Data.map((item) => {
-        console.log(item);
-        if (item.CorrectQuestion < 1) {
-          seTShowPrognos(false);
-          return;
-        }
-      });
-    });
-  }, []);
 
   useEffect(() => {
     const studentPrefenenceURL =

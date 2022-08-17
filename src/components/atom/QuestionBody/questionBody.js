@@ -19,7 +19,6 @@ const useStyles = makeStyles({
 const QuestionBody = (props) => {
   const classes = useStyles();
   const [question, setQuestion] = useState(props?.question);
-  const [randomOptions, setRandomOptions] = useState([]);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
   // const [shuffle, setShuffle] = useState(false)
@@ -39,6 +38,16 @@ const QuestionBody = (props) => {
   const MinusPoint = () => {
     setCount(0);
     setFeedbackPopup(true);
+  };
+
+  const changeOptionsColor = (item) => {
+    if (question.answer && question.answer.option == item._id) {
+      return "#27AE60";
+    } else if (question.answer && item._id == question?.optionId) {
+      return "#EB5757";
+    } else {
+      return "";
+    }
   };
 
   const questionId = props.question._id;
@@ -145,7 +154,16 @@ const QuestionBody = (props) => {
             {question?.information1 && (
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
-                  (1)
+                  {props.questionTypeTitle === "KVA" ? (
+                    <Typography
+                      variant="p"
+                      sx={{ fontStyle: "italic", fontSize: "0.75rem" }}
+                    >
+                      Kvantitet I:{" "}
+                    </Typography>
+                  ) : (
+                    "(1)"
+                  )}
                 </Box>
                 <Typography
                   variant="body1"
@@ -163,7 +181,16 @@ const QuestionBody = (props) => {
             {question?.information2 && (
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
-                  (2)
+                  {props.questionTypeTitle === "KVA" ? (
+                    <Typography
+                      variant="p"
+                      sx={{ fontStyle: "italic", fontSize: "0.75rem" }}
+                    >
+                      Kvantitet II:{" "}
+                    </Typography>
+                  ) : (
+                    "(2)"
+                  )}
                 </Box>
                 <Typography
                   variant="body1"
@@ -180,18 +207,39 @@ const QuestionBody = (props) => {
             )}
           </Box>
         </Container>
+
         <Container
           disableGutters
           maxWidth="sm"
           style={{
             marginTop: "1rem",
-            // border: "1px solid #e1e1e1",
             display: "flex",
             flexWrap: "wrap",
             backgroundColor: "#fff",
           }}
         >
           {randomOptions.map((item, optionIndex) => {
+            {
+              props.questionTypeTitle === "NOG" ? (
+                <Box
+                  sx={{
+                    width: 600,
+                    height: 100,
+                    border: "1px solid #e1e1e1",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="p"
+                    style={{ fontWeight: "bold", marginLeft: "50px" }}
+                  >
+                    Tillräckligt information för lösningen erhålls
+                  </Typography>
+                </Box>
+              ) : null;
+            }
             if (item.value) {
               return (
                 <Box
@@ -208,10 +256,13 @@ const QuestionBody = (props) => {
                         ? 600
                         : 300,
                     display: "flex",
-                    color: optionIndex == question.selectedIndex && "#0A1596",
+                    color:
+                      !question.answer && optionIndex == question.selectedIndex
+                        ? "#0A1596"
+                        : "",
                     "&:hover": {
-                      cursor: !item.answer && "pointer",
-                      color: !item.answer && "#0A1596",
+                      cursor: !question.answer && "pointer",
+                      color: !question.answer && "#0A1596",
                     },
                   }}
                   onMouseOver={() => props.onhover(item._id)}
@@ -237,18 +288,15 @@ const QuestionBody = (props) => {
                         style={{
                           margin: 0,
                           size: "0.5rem",
-
-                          // color: "#e1e1e1",
                         }}
                         value={item?._id}
                         control={props.showOptions(question, item, optionIndex)}
-                        // label=""
                         className={classes.root}
                       />
                       <Typography
                         style={{
                           marginTop: "1.25rem",
-                          // color: "blue",
+                          color: changeOptionsColor(item),
                         }}
                         variant="body2"
                       >
@@ -259,10 +307,10 @@ const QuestionBody = (props) => {
 
                   <Box
                     sx={{
-                      width:
-                        question?.options[0].options.length > 4
-                          ? "20rem"
-                          : "14rem",
+                      // width:
+                      //   question?.options[0].options.length > 4
+                      //     ? "20rem"
+                      //     : "14rem",
                       display: "flex",
                       marginLeft:
                         question?.options[0].options.length > 4 ||

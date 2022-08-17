@@ -6,8 +6,8 @@ import image70 from '../../../assets/Imgs/image70.png'
 
 const HomeCard = (props) => {
   const data = props?.item;
-  const previousRecord = props?.previousRecord;
   const navigate = useNavigate();
+  // let previosData = props?.data?.find(obj => obj._id == props?.item._id)
   return (
     <Box
       sx={{
@@ -40,7 +40,7 @@ const HomeCard = (props) => {
           {data?.information}
         </Typography>
         <Box>
-          <ProgressBar average={previousRecord ? ((previousRecord.CorrectQuestion / previousRecord.TotalQuestion)*100) : 0} />
+          <ProgressBar average={props?.previousRecord ? ((props?.previousRecord.CorrectQuestion / props?.previousRecord.TotalQuestion)*100) : 0} />
         </Box>
       </Box>
       <Box
@@ -52,7 +52,7 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {previousRecord?.AttemptedQuestion >= 20 ? ((previousRecord?.CorrectQuestion / previousRecord?.TotalQuestion)*2).toFixed(1) : '-'}
+          {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'}
         </Typography>
         <Box
           sx={{
@@ -61,7 +61,7 @@ const HomeCard = (props) => {
             width: '3.5rem'
           }}
         >
-          {previousRecord?.AttemptedQuestion < 20 && <img src={image70} style={{ display: 'flex', height: '0.5rem', width: '0.5rem', alignSelf: 'flex-end' }} />}
+          {props?.previousRecord?.AttemptedQuestion < 20 && <img src={image70} style={{ display: 'flex', height: '0.5rem', width: '0.5rem', alignSelf: 'flex-end' }} />}
           <Typography
             variant="body1"
             style={{

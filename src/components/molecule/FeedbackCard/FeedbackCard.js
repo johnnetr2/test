@@ -97,7 +97,7 @@ export default function CustomizedDialogs(props) {
           >
             <TextareaAutosize
               aria-label="empty textarea"
-              style={{ width: "35.5rem", padding: "1rem", height: "10rem" }}
+              style={{ width: "35.5rem", padding: "1rem", height: "10rem", resize: 'none' }}
               onChange={(e) => setQuestionFeedback(e.target.value)}
               value={questionFeedback}
             />

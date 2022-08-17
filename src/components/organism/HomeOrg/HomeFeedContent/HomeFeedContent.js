@@ -56,12 +56,20 @@ const HomeFeedContent = (props) => {
   };
 
   const navigate = useNavigate();
-  // const [categories, setCategories] = useState();
   const [sections, setSections] = useState();
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState();
   useEffect(() => {
     if (localStorage.getItem("token")) {
+
+      const previousRecordURL =
+        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+      instance2.get(previousRecordURL).then((response) => {
+        if (response.data.success == true) {
+          setPreviousRecordProgress(response.data.Data);
+        }
+      });
+
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
         let newArr = []
@@ -102,13 +110,6 @@ const HomeFeedContent = (props) => {
         setSections(newArr);
       });
 
-      const previousRecordURL =
-        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-      instance2.get(previousRecordURL).then((response) => {
-        if (response.data.success == true) {
-          setPreviousRecordProgress(response.data.Data);
-        }
-      });
     } else {
       swal({
         title: "Please login to continue",
@@ -212,7 +213,8 @@ const HomeFeedContent = (props) => {
                   return (
                     <HomeCard
                       item={item}
-                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id && previousRecordProgress[index]}
+                      previousRecord={previousRecordProgress && previousRecordProgress[index]?._id == item._id ? previousRecordProgress[index] : ''}
+                      data={previousRecordProgress}
                     />
                   );
                 }

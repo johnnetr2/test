@@ -38,10 +38,8 @@ const CategoryPagesRightBar = (props) => {
     const URL = EndPoints.resultBySectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       if (response.data.message == "success") {
-        console.log(response.data, 'response')
         response.data.lastWeek.map(item => {
           const data = new Date(item?.createdAt)
-          console.log(weekDays[data.getDay()], ';this is item')
           obj[weekDays[data.getDay()]] = {
             totalQuestions : obj[weekDays[data.getDay()]]?.totalQuestions ? obj[weekDays[data.getDay()]]?.totalQuestions + item.totalQuestion : item.totalQuestion,
             correctAnswer: obj[weekDays[data.getDay()]]?.correctAnswer ? obj[weekDays[data.getDay()]]?.correctAnswer + item.correctAnswer : item.correctAnswer,
@@ -148,9 +146,9 @@ const CategoryPagesRightBar = (props) => {
               }}
               variant="determinate"
               value={
-                (lastWeekTasks.totalCorrectQuestions /
+                lastWeekTasks ? ((lastWeekTasks.totalCorrectQuestions /
                   lastWeekTasks.totalQuestions) *
-                100
+                100) : 0
               }
             />
             <Typography
