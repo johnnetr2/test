@@ -204,7 +204,7 @@ const HomeRightBar = (props) => {
                 marginBottom: ".5rem",
               }}
             >
-              POANG
+              POÄNG
             </Typography>
             <LinesChart
               syncId="anyId"
@@ -228,7 +228,7 @@ const HomeRightBar = (props) => {
                 marginBottom: "1rem",
               }}
             >
-              Viktiga datum
+              Nästa prov
             </Typography>
             <Box sx={{ display: "flex", marginBottom: "1rem" }}>
               <Box sx={{ width: "100%", backgroundColor: "#fff" }}>

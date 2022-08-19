@@ -238,7 +238,7 @@ const ResultSummaryOrg = (props) => {
                     marginTop: ".8rem",
                   }}
                 >
-                  Antal poäng
+                  Dina poäng
                 </Typography>
               </Box>
               <Box
@@ -273,7 +273,7 @@ const ResultSummaryOrg = (props) => {
                     marginTop: ".8rem",
                   }}
                 >
-                  Normerad poäng
+                  Din normerade poäng
                 </Typography>
               </Box>
             </Box>
