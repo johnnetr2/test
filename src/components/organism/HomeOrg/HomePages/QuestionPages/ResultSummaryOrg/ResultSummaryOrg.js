@@ -22,6 +22,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation, useNavigate } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import KantitativePercentageCalculator from '../../../../../atom/percentageCalculator/kvantitative'
 
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
@@ -35,6 +36,8 @@ const ResultSummaryOrg = (props) => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+
+
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -256,10 +259,7 @@ const ResultSummaryOrg = (props) => {
               >
                 {responseCollection ? (
                   <Typography variant="h4">
-                    {((
-                      responseCollection.correctAnswer /
-                      responseCollection.question.length
-                    ) * 2).toFixed(1)}
+                    <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} />
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -384,7 +384,6 @@ const ResultSummaryOrg = (props) => {
                             value: false,
                             sectionCategory: params?.state?.sectionCategory,
                           }
-                          // quiz: responseCollection.question
                         },
                       });
                     }}
@@ -431,7 +430,6 @@ const ResultSummaryOrg = (props) => {
                         " av " +
                         responseCollection.question.length}
                     </Typography>
-                    {console.log(item, 'item')}
                     <Typography
                       variant="h6"
                       component="h6"
@@ -440,7 +438,7 @@ const ResultSummaryOrg = (props) => {
                       {/* Tid: 04:51 */}
                       {item?.spendTime ?
                         "Tid: " + dispSecondsAsMins(item?.spendTime) : ''
-                        }
+                      }
                     </Typography>
                     <Box
                       style={{
