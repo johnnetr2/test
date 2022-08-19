@@ -16,22 +16,28 @@ const useStyles = makeStyles((theme) => ({
 const HomeRightBar = (props) => {
   const classes = useStyles();
   const [studentPreference, setStudentPreference] = useState();
-  const [mondayData, setMondayData] = useState("");
-  const [tuesdayData, setTuesdayData] = useState("");
-  const [wednesdayData, setWednesdayData] = useState("");
-  const [thursdayData, setThursdayData] = useState("");
-  const [fridayData, setFridayData] = useState("");
-  const [saturdayData, setSaturdayData] = useState("");
-  const [sundayData, setSundayData] = useState("");
+  const [mondayData, setMondayData] = useState(0);
+  const [tuesdayData, setTuesdayData] = useState(0);
+  const [wednesdayData, setWednesdayData] = useState(0);
+  const [thursdayData, setThursdayData] = useState(0);
+  const [fridayData, setFridayData] = useState(0);
+  const [saturdayData, setSaturdayData] = useState(0);
+  const [sundayData, setSundayData] = useState(0);
   let [showPrognos, seTShowPrognos] = useState();
   let obj = {};
+  const [weeklyProgress, setWeeklyProgress] = useState()
+  const [weeks, setWeeks] = useState()
+  let weeklyProgressArr = []
+  let weeksArr = []
 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
       let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
+      
       instance2.get(URL).then((response) => {
+        console.log(response.data, 'api dataaaaaaaaaaaa')
         if (response.data.message == "success") {
           response.data.lastWeek.map(item => {
             const data = new Date(item?.createdAt)
@@ -56,7 +62,7 @@ const HomeRightBar = (props) => {
         //       response.data.lastWeek[1].correctAnswer;
         //     const totalCgpaTuesday =
         //       (correctAnswerTuesday / totalQuestionTuesday) * 2;
-        //     setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));
+        //     setTuesdayData(totalCgpaTuesday.toFixed([1).replace(/\.0+$/, ""));
         //   }
         //   if (response.data.lastWeek[2]) {
         //     const totalQuestionWednesday =
@@ -208,13 +214,14 @@ const HomeRightBar = (props) => {
             </Typography>
             <LinesChart
               syncId="anyId"
-              mondayData={mondayData}
-              tuesdayData={tuesdayData}
-              wednesdayData={wednesdayData}
-              thursdayData={thursdayData}
-              fridayData={fridayData}
-              saturdayData={saturdayData}
-              sundayData={sundayData}
+              mondayData={1}
+              tuesdayData={2}
+              wednesdayData={4}
+              thursdayData={6}
+              fridayData={2}
+              saturdayData={3}
+              sundayData={1}
+              weeks={[1, 2, 3]}
               HomeRightBar="homeRightBar"
             />
           </Box>

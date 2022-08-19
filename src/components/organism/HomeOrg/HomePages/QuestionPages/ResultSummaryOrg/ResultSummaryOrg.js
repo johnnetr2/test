@@ -160,6 +160,7 @@ const ResultSummaryOrg = (props) => {
             </Box>
             {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" />
+              {" "}
               {responseCollection
                 ? dispSecondsAsMins(
                   responseCollection?.question[
@@ -430,6 +431,7 @@ const ResultSummaryOrg = (props) => {
                         " av " +
                         responseCollection.question.length}
                     </Typography>
+                    {console.log(item, 'item')}
                     <Typography
                       variant="h6"
                       component="h6"

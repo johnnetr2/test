@@ -61,8 +61,9 @@ const QuestionViewXyzOrg = () => {
     } else {
       let totalQ = 0;
       const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
+      console.log(URL, 'url')
       instance2.get(URL).then((response) => {
-        console.log(response.data.quiz, "responses");
+        console.log(response.data, "responses");
         response.data.quiz &&
           response.data.quiz.map((item) => {
             setLoading(false);
@@ -115,7 +116,6 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-    console.log(params.state, "here is the quiz");
     if (
       nextPress &&
       quiz?.length > 0 &&

@@ -9,7 +9,6 @@ import {
   Tooltip,
 } from "recharts";
 const LinesChart = (props) => {
-  console.log(props, "line chart curves");
   return (
     <Box>
       <LineChart
@@ -18,51 +17,53 @@ const LinesChart = (props) => {
         style={{
           fontSize: "0.75rem",
         }}
-        data={[
+        data=
+        { [
           {
-            name: "v35",
-            Prognos: 2,
-            // point:
-            //   (props.homeRightBar || props.mondayData) &&
-            //   (props.categoryRightBar || props.mondayData),
+            name: props.weeks[0] ? props.weeks[0] : '',
+            Prognos: props.mondayData,
+            // point:props.mondayData
+              // (props.homeRightBar && props.mondayData) ||
+              // (props.categoryRightBar && props.mondayData),
           },
           {
-            name: "v39",
+            name: props.weeks[1] ? props.weeks[1] : '',
+            Prognos: props.tuesdayData
+              // (props.homeRightBar && props.tuesdayData) ||
+              // (props.categoryRightBar && props.tuesdayData),
+          },
+          {
+            name: props.weeks[2] ? props.weeks[2] : '',
             Prognos:
-              (props.homeRightBar || props.tuesdayData) &&
-              (props.categoryRightBar || props.tuesdayData),
+              (props.homeRightBar && props.wednesdayData) ||
+              (props.categoryRightBar && props.wednesdayData),
           },
           {
-            name: "v37",
+            name: props.weeks[3] ? props.weeks[3] : '',
             Prognos:
-              (props.homeRightBar || props.wednesdayData) &&
-              (props.categoryRightBar || props.wednesdayData),
+              (props.homeRightBar && props.thursdayData) ||
+              (props.categoryRightBar && props.thursdayData),
           },
           {
-            name: "v38",
+            name: props.weeks[4] ? props.weeks[4] : '',
             Prognos:
-              (props.homeRightBar || props.thursdayData) &&
-              (props.categoryRightBar || props.thursdayData),
+              (props.homeRightBar && props.fridayData) ||
+              (props.categoryRightBar && props.fridayData),
           },
           {
-            name: "v39",
+            name: props.weeks[5] ? props.weeks[5] : '',
             Prognos:
-              (props.homeRightBar || props.fridayData) &&
-              (props.categoryRightBar || props.fridayData),
+              (props.homeRightBar && props.saturdayData) ||
+              (props.categoryRightBar && props.saturdayData),
           },
           {
-            name: "v40",
+            name: props.weeks[6] ? props.weeks[6] : '',
             Prognos:
-              (props.homeRightBar || props.saturdayData) &&
-              (props.categoryRightBar || props.saturdayData),
+              (props.homeRightBar && props.sundayData) ||
+              (props.categoryRightBar && props.sundayData),
           },
-          {
-            name: "v41",
-            Prognos:
-              (props.homeRightBar || props.sundayData) &&
-              (props.categoryRightBar || props.sundayData),
-          },
-        ]}
+        ]
+      }
         syncId="anyId"
         margin={{
           top: 10,
