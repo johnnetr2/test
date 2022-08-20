@@ -23,12 +23,9 @@ export default function StartPopup({
   showPopup,
   hidePopup,
   submit,
-  onDateChange,
+  onTestSelection,
   defualtValue,
 }) {
-  const [description, setDescription] = useState("");
-  const [file, setFile] = useState();
-
   const [value, setValue] = useState(null);
   useEffect(() => {
     setValue(defualtValue);
@@ -62,7 +59,28 @@ export default function StartPopup({
               <Typography variant="body2" sx={{ color: "#252525" }}>
                 Om du inte har bestämt dig än, kan du alltid ställa in senare.
               </Typography>
-              <Box sx={{ marginTop: "1rem" }}>
+              <Input
+                type="select"
+                onChange={(e) => onTestSelection(e.target.value)}
+                style={{
+                  marginTop: "1rem",
+                  height: "3rem",
+                  border: "1px solid #b4b4b4",
+                }}
+              >
+                <option hidden selected>
+                  Välj prov...
+                </option>
+                {["Hösten 2022", "Våren 2023"].map((item) => {
+                  return (
+                    <>
+                      <option>{item}</option>
+                    </>
+                  );
+                })}
+              </Input>
+
+              {/* <Box sx={{ marginTop: "1rem" }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     value={value}
@@ -82,8 +100,8 @@ export default function StartPopup({
                       />
                     )}
                   />
-                </LocalizationProvider>
-              </Box>
+                </LocalizationProvider> */}
+              {/* </Box> */}
               <DialogActions>
                 <Box
                   onClick={() => submit("hello")}

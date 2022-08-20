@@ -28,21 +28,34 @@ const HomeRightBar = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
-      let weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      let weekDays = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
 
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
         if (response.data.message == "success") {
-          response.data.lastWeek.map(item => {
-            const data = new Date(item?.createdAt)
+          response.data.lastWeek.map((item) => {
+            const data = new Date(item?.createdAt);
             obj[weekDays[data.getDay()]] = {
-              totalQuestions: obj[weekDays[data.getDay()]]?.totalQuestions ? obj[weekDays[data.getDay()]]?.totalQuestions + item.totalQuestion : item.totalQuestion,
-              correctAnswer: obj[weekDays[data.getDay()]]?.correctAnswer ? obj[weekDays[data.getDay()]]?.correctAnswer + item.correctAnswer : item.correctAnswer,
-              date: item.createdAt
-            }
-          })
+              totalQuestions: obj[weekDays[data.getDay()]]?.totalQuestions
+                ? obj[weekDays[data.getDay()]]?.totalQuestions +
+                  item.totalQuestion
+                : item.totalQuestion,
+              correctAnswer: obj[weekDays[data.getDay()]]?.correctAnswer
+                ? obj[weekDays[data.getDay()]]?.correctAnswer +
+                  item.correctAnswer
+                : item.correctAnswer,
+              date: item.createdAt,
+            };
+          });
         }
-        console.log(obj, 'this is api respponse for graph')
         // if (response.data.lastWeek[0]) {
         //   const totalQuestionMonday = response.data.lastWeek[0].totalQuestion;
         //   const correctAnswerMonday = response.data.lastWeek[0].correctAnswer;
@@ -116,7 +129,6 @@ const HomeRightBar = (props) => {
       });
     }
   }, []);
-
 
   useEffect(() => {
     const studentPrefenenceURL =
@@ -204,7 +216,7 @@ const HomeRightBar = (props) => {
                 marginBottom: ".5rem",
               }}
             >
-              POANG
+              POÄNG
             </Typography>
             <LinesChart
               syncId="anyId"
@@ -228,12 +240,15 @@ const HomeRightBar = (props) => {
                 marginBottom: "1rem",
               }}
             >
-              {/* Viktiga datum */}
               Nästa prov
             </Typography>
             <Box sx={{ display: "flex", marginBottom: "1rem" }}>
               <Box sx={{ width: "100%", backgroundColor: "#fff" }}>
-                <ImpDatesCard />
+                <ImpDatesCard
+                  season={
+                    studentPreference?.season && studentPreference?.season
+                  }
+                />
               </Box>
             </Box>
           </Box>

@@ -152,8 +152,8 @@ const SignupOrg = () => {
           </Box>
           <LabelField
             type="text"
-            title="Full Name"
-            placeholder="Full Name"
+            title="Namn"
+            placeholder="Namn"
             onChange={changeHandler}
             value={register.fullName}
             name="fullName"
@@ -169,7 +169,7 @@ const SignupOrg = () => {
           />
           <LabelField
             type="email"
-            title="Email"
+            title="E-mail"
             placeholder="Email"
             onChange={changeHandler}
             value={register.email}
@@ -184,7 +184,7 @@ const SignupOrg = () => {
               marginBottom: "1rem",
             }}
           />
-          <Label for="password">Password</Label>
+          <Label for="password">Lösenord</Label>
           <Box
             sx={{
               display: "flex",
@@ -232,7 +232,7 @@ const SignupOrg = () => {
               )}
             </Label>
           </Box>
-          <Typography variant="body1">Glomt losenord?</Typography>
+          <Typography variant="body1">Glömt lösenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <FilledBtn onClick={clickHandler} title="Skapa konto" />

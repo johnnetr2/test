@@ -108,11 +108,14 @@ const ResultSummaryOrg = (props) => {
     // 25:00
     const mins = Math.floor(seconds / 60);
     const seconds_ = seconds % 60;
+    /*
     return (
       Math.floor(mins?.toString()) +
       ":" +
       (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
-    );
+    ); 
+    */
+    return ((mins < 10 ? "0" + mins : mins) + ":" + (seconds_<10? "0" + seconds_ : seconds_))
   };
 
   return (
@@ -238,7 +241,7 @@ const ResultSummaryOrg = (props) => {
                     marginTop: ".8rem",
                   }}
                 >
-                  Antal poäng
+                  Dina poäng
                 </Typography>
               </Box>
               <Box
@@ -273,7 +276,7 @@ const ResultSummaryOrg = (props) => {
                     marginTop: ".8rem",
                   }}
                 >
-                  Normerad poäng
+                  Din normerade poäng
                 </Typography>
               </Box>
             </Box>

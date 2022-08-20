@@ -9,7 +9,6 @@ import {
   Tooltip,
 } from "recharts";
 const LinesChart = (props) => {
-  console.log(props, "line chart curves");
   return (
     <Box>
       <LineChart
