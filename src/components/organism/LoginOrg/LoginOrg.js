@@ -175,7 +175,8 @@ const LoginOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
-              outline: 'none'
+              outline: 'none',
+              WebkitBoxShadow: '0 0 0 1000px white inset'
             }}
           />
           <Label for="password">Lösenord</Label>
@@ -209,7 +210,8 @@ const LoginOrg = () => {
                 padding: "1rem",
                 width: "100%",
                 backgroundColor: "transparent",
-                outline: 'none'
+                outline: 'none',
+                WebkitBoxShadow: '0 0 0 1000px white inset'
               }}
               className={classes.autoFillColor}
             />
