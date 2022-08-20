@@ -205,11 +205,11 @@ const LoginOrg = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 height: "3rem",
-                border: "none",
                 padding: "1rem",
                 width: "100%",
                 backgroundColor: "transparent",
-                outline: 'none'
+                outline: 'none',
+                border: 'none',
               }}
               className={classes.autoFillColor}
             />
@@ -236,16 +236,20 @@ const LoginOrg = () => {
               <Filled_btn title="Logga in" onClick={loginFunc} />
             </Link>
           </Box>
+          <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="body1">eller</Typography>
+          </Box>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Outline_btn
               onClick={signInWithGoogle}
               title="Logga in Med Google"
             />
           </Box>
+          <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="body1">
             Har du ingte konto? <Link to="/">Skapa konto här</Link>
           </Typography>
+          </Box>
         </Box>
       </Container>
     </Container>
