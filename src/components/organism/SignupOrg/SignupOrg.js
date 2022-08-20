@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignupOrg = () => {
   const classes = useStyles();
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
@@ -67,15 +67,12 @@ const SignupOrg = () => {
     instance
       .post(URL, data)
       .then((response) => {
-        console.log(response)
+        console.log(response) 
         if (response.data) {
-          localStorage.setItem("userId", response.data.user._id);
-          localStorage.setItem("token", response.data.user.token);
-          swal("Success!", "user registered successfully", "success");
-          navegate("home");
-        } else {
-          swal("Warning!", response.data.message, "warning");
-        }
+          localStorage.setItem("userId", response?.data?.user?._id);
+          localStorage.setItem("token", response?.data?.token);
+          navigate("/home");
+        } 
       })
       .catch((error) => {
         console.log(error);
@@ -245,7 +242,7 @@ const SignupOrg = () => {
           <Typography variant="body1">eller</Typography>
           </Box>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <OutlineBtn title="Konto med Google" />
+            {/* <OutlineBtn title="Konto med Google" /> */}
           </Box>
           <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography

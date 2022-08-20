@@ -15,6 +15,9 @@ import { useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../service/Route";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
 import swal from "sweetalert";
+import styled from "@emotion/styled";
+import PropTypes from "prop-types";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -148,6 +151,19 @@ const HomeFeedContent = (props) => {
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);
 
+
+  function TabContainer(props) {
+    return (
+      <Typography component="div" style={{ padding: 8 * 3 }}>
+        {props.children}
+      </Typography>
+    );
+  }
+
+  TabContainer.propTypes = {
+    children: PropTypes.node.isRequired
+  };
+
   return (
     <Container className={classes.root} maxWidth="false">
       <Box>
@@ -167,6 +183,7 @@ const HomeFeedContent = (props) => {
           >
             <Box>
               <Tabs
+              className={classes.indicator}
                 value={tabValue}
                 onChange={handleTabs}
                 variant="scrollable"
@@ -174,11 +191,11 @@ const HomeFeedContent = (props) => {
                 // textColor="#252525"
                 // indicatorColor="primary"
                 aria-label="scrollable prevent tabs example"
-                TabIndicatorProps={{
-                  style: {
-                    background: "#0A1596",
-                    border: "4px solid #0A1596",
-                  }
+                TabIndicatorProps={{ children: <span />
+                  // style: {
+                  //   background: "#0A1596",
+                  //   border: "4px solid #0A1596",
+                  // }
                 }}
               >
                 <Tab
