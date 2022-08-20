@@ -19,27 +19,27 @@ const HomeCard = (props) => {
 
   const percentageCalculation = () => {
     if (props?.item.title == "XYZ") {
-      return <XYZPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <XYZPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     } else if (props?.item.title == "KVA") {
-      return <KVAPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <KVAPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     }
     else if (props?.item.title == "NOG") {
-      return <NOGPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <NOGPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     }
     else if (props?.item.title == "DTK") {
-      return <DTKPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <DTKPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     }
     else if (props?.item.title == "ELF") {
-      return <ELFPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <ELFPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     }
     else if (props?.item.title == "LÄS") {
-      return <LASPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <LASPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     }
     else if (props?.item.title == "ORD") {
-      return <ORDPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <ORDPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     }
     else if (props?.item.title == "MEK") {
-      return <MEKPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
+      return <MEKPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
     }
   }
 
@@ -76,7 +76,7 @@ const HomeCard = (props) => {
           {data?.information}
         </Typography>
         <Box>
-          <ProgressBar average={props?.previousRecord ? ((props?.previousRecord.CorrectQuestion / props?.previousRecord.TotalQuestion) * 100) : 0} />
+          <ProgressBar average={props?.previousRecord ? ((props?.previousRecord.CorrectQuestion / props?.previousRecord.AttemptedQuestion) * 100) : 0} />
         </Box>
       </Box>
       <Box

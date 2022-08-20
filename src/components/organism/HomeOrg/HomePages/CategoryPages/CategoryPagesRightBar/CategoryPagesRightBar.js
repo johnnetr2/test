@@ -62,88 +62,9 @@ const CategoryPagesRightBar = (props) => {
         })
         weeklyProgressArr.push(obj)
       })
-      console.log(weeklyProgressArr, 'arryaaaa')
-      console.log(weeksArr, 'weeeek')
       setWeeklyProgress(weeklyProgressArr)
       setWeeks(weeksArr)
     });
-
-    // const URL = EndPoints.resultBySectionCategory + props.item._id;
-    // instance2.get(URL).then((response) => {
-    //   if (response.data.message == "success") {
-    //     response.data.lastWeek.map((item) => {
-    //       const data = new Date(item?.createdAt);
-    //       obj[weekDays[data.getDay()]] = {
-    //         totalQuestions: obj[weekDays[data.getDay()]]?.totalQuestions
-    //           ? obj[weekDays[data.getDay()]]?.totalQuestions +
-    //             item.totalQuestion
-    //           : item.totalQuestion,
-    //         correctAnswer: obj[weekDays[data.getDay()]]?.correctAnswer
-    //           ? obj[weekDays[data.getDay()]]?.correctAnswer + item.correctAnswer
-    //           : item.correctAnswer,
-    //         date: item.createdAt,
-    //       };
-    //     });
-
-    //     if (Object.values(obj)[0]) {
-    //       const totalCgpaMonday =
-    //         (Object.values(obj)[0].correctAnswer /
-    //           Object.values(obj)[0].totalQuestions) *
-    //         2;
-    //       setMondayData(totalCgpaMonday.toFixed(1).replace(/\.0+$/, ""));
-
-    //       if (Object.values(obj)[1]) {
-    //         const totalCgpaTuesday =
-    //           (Object.values(obj)[1].correctAnswer /
-    //             Object.values(obj)[1].totalQuestions) *
-    //           2;
-    //         setTuesdayData(totalCgpaTuesday.toFixed(1).replace(/\.0+$/, ""));
-    //       }
-
-    //       if (Object.values(obj)[2]) {
-    //         const totalCgpaWednesday =
-    //           (Object.values(obj)[2].correctAnswer /
-    //             Object.values(obj)[2].totalQuestions) *
-    //           2;
-    //         setWednesdayData(
-    //           totalCgpaWednesday.toFixed(1).replace(/\.0+$/, "")
-    //         );
-    //       }
-
-    //       if (Object.values(obj)[3]) {
-    //         const totalCgpaThursday =
-    //           (Object.values(obj)[3].correctAnswer /
-    //             Object.values(obj)[3].totalQuestions) *
-    //           2;
-    //         setThursdayData(totalCgpaThursday.toFixed(1).replace(/\.0+$/, ""));
-    //       }
-
-    //       if (Object.values(obj)[4]) {
-    //         const totalCgpaFriday =
-    //           (Object.values(obj)[4].correctAnswer /
-    //             Object.values(obj)[4].totalQuestions) *
-    //           2;
-    //         setFridayData(totalCgpaFriday.toFixed(1).replace(/\.0+$/, ""));
-    //       }
-
-    //       if (Object.values(obj)[5]) {
-    //         const totalCgpaSaturday =
-    //           (Object.values(obj)[5].correctAnswer /
-    //             Object.values(obj)[5].totalQuestions) *
-    //           2;
-    //         setSaturdayData(totalCgpaSaturday.toFixed(1).replace(/\.0+$/, ""));
-    //       }
-
-    //       if (Object.values(obj)[6]) {
-    //         const totalCgpaSunday =
-    //           (Object.values(obj)[6].correctAnswer /
-    //             Object.values(obj)[6].totalQuestions) *
-    //           2;
-    //         setSundayData(totalCgpaSunday.toFixed(1).replace(/\.0+$/, ""));
-    //       }
-    //     }
-    //   }
-    // });
   }, []);
 
   useEffect(() => {
