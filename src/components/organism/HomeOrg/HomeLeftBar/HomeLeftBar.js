@@ -81,9 +81,9 @@ const useStyles = makeStyles((theme) => ({
   text: {
     fontSize: "0.65rem",
     textAlign: "center",
-    "&:active": {
-      color: "#fff",
-    },
+    // "&:active": {
+    //   color: "#fff",
+    // },
     textTransform: "uppercase",
     [theme.breakpoints.down("sm")]: {
       display: "none",
