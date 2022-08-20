@@ -22,6 +22,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation, useNavigate } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import XYZPercentageCalculator from '../../../../../atom/percentageCalculator/xyz'
+import ORDPercentageCalculator from '../../../../../atom/percentageCalculator/ord'
+import KVAPercentageCalculator from '../../../../../atom/percentageCalculator/kva'
+import NOGPercentageCalculator from '../../../../../atom/percentageCalculator/nog'
+import ELFPercentageCalculator from '../../../../../atom/percentageCalculator/elf'
+import MEKPercentageCalculator from '../../../../../atom/percentageCalculator/mek'
+import LASPercentageCalculator from '../../../../../atom/percentageCalculator/las'
+import DTKPercentageCalculator from '../../../../../atom/percentageCalculator/dtk'
 
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
@@ -35,6 +43,8 @@ const ResultSummaryOrg = (props) => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+
+
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -115,8 +125,34 @@ const ResultSummaryOrg = (props) => {
       (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
     ); 
     */
-    return ((mins < 10 ? "0" + mins : mins) + ":" + (seconds_<10? "0" + seconds_ : seconds_))
+    return ((mins < 10 ? "0" + mins : mins) + ":" + (seconds_ < 10 ? "0" + seconds_ : seconds_))
   };
+
+  const percentageCalculation = (value) => {
+    if (params?.state?.sectionCategory?.title == "XYZ") {
+      return <XYZPercentageCalculator percentage={value} />
+    } else if (params?.state?.sectionCategory?.title == "KVA") {
+      return <KVAPercentageCalculator percentage={value} />
+    }
+    else if (params?.state?.sectionCategory?.title == "NOG") {
+      return <NOGPercentageCalculator percentage={value} />
+    }
+    else if (params?.state?.sectionCategory?.title == "DTK") {
+      return <DTKPercentageCalculator percentage={value} />
+    }
+    else if (params?.state?.sectionCategory?.title == "ELF") {
+      return <ELFPercentageCalculator percentage={value} />
+    }
+    else if (params?.state?.sectionCategory?.title == "LÄS") {
+      return <LASPercentageCalculator percentage={value} />
+    }
+    else if (params?.state?.sectionCategory?.title == "ORD") {
+      return <ORDPercentageCalculator percentage={value} />
+    }
+    else if (params?.state?.sectionCategory?.title == "MEK") {
+      return <MEKPercentageCalculator percentage={value} />
+    }
+  }
 
   return (
     <div>
@@ -162,7 +198,8 @@ const ResultSummaryOrg = (props) => {
               {responseCollection?.question.length}
             </Box>
             {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" style={{ paddingRight: '4px' }}/>
+              <img src={Clock} alt="" style={{ paddingRight: '4px' }} />
+              {" "}
               {responseCollection
                 ? dispSecondsAsMins(
                   responseCollection?.question[
@@ -258,10 +295,8 @@ const ResultSummaryOrg = (props) => {
               >
                 {responseCollection ? (
                   <Typography variant="h4">
-                    {((
-                      responseCollection.correctAnswer /
-                      responseCollection.question.length
-                    ) * 2).toFixed(1)}
+                    {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
+                    {percentageCalculation((responseCollection.correctAnswer / responseCollection.question.length) * 100)}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -386,7 +421,6 @@ const ResultSummaryOrg = (props) => {
                             value: false,
                             sectionCategory: params?.state?.sectionCategory,
                           }
-                          // quiz: responseCollection.question
                         },
                       });
                     }}
@@ -440,8 +474,8 @@ const ResultSummaryOrg = (props) => {
                     >
                       {/* Tid: 04:51 */}
                       {item?.spendTime ?
-                        "Tid: " + dispSecondsAsMins(item?.spendTime) : ''
-                        }
+                        "Tid: " + dispSecondsAsMins(item?.spendTime) : 'Tid 0:0'
+                      }
                     </Typography>
                     <Box
                       style={{

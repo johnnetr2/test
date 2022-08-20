@@ -3,11 +3,46 @@ import { Typography, Box } from "@mui/material";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 import { useNavigate } from "react-router-dom";
 import image70 from '../../../assets/Imgs/image70.png'
+import XYZPercentageCalculator from '../../atom/percentageCalculator/xyz'
+import ORDPercentageCalculator from '../../atom/percentageCalculator/ord'
+import KVAPercentageCalculator from '../../atom/percentageCalculator/kva'
+import NOGPercentageCalculator from '../../atom/percentageCalculator/nog'
+import ELFPercentageCalculator from '../../atom/percentageCalculator/elf'
+import MEKPercentageCalculator from '../../atom/percentageCalculator/mek'
+import LASPercentageCalculator from '../../atom/percentageCalculator/las'
+import DTKPercentageCalculator from '../../atom/percentageCalculator/dtk'
+
 
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
-  // let previosData = props?.data?.find(obj => obj._id == props?.item._id)
+
+  const percentageCalculation = () => {
+    if (props?.item.title == "XYZ") {
+      return <XYZPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    } else if (props?.item.title == "KVA") {
+      return <KVAPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    }
+    else if (props?.item.title == "NOG") {
+      return <NOGPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    }
+    else if (props?.item.title == "DTK") {
+      return <DTKPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    }
+    else if (props?.item.title == "ELF") {
+      return <ELFPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    }
+    else if (props?.item.title == "LÄS") {
+      return <LASPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    }
+    else if (props?.item.title == "ORD") {
+      return <ORDPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    }
+    else if (props?.item.title == "MEK") {
+      return <MEKPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.AttemptedQuestion) * 100} />
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -30,6 +65,7 @@ const HomeCard = (props) => {
         navigate("/category", {
           state: {
             item: data,
+            progress: percentageCalculation().props.percentage
           },
         })
       }
@@ -40,7 +76,7 @@ const HomeCard = (props) => {
           {data?.information}
         </Typography>
         <Box>
-          <ProgressBar average={props?.previousRecord ? ((props?.previousRecord.CorrectQuestion / props?.previousRecord.TotalQuestion)*100) : 0} />
+          <ProgressBar average={props?.previousRecord ? ((props?.previousRecord.CorrectQuestion / props?.previousRecord.AttemptedQuestion) * 100) : 0} />
         </Box>
       </Box>
       <Box
@@ -52,7 +88,7 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'}
+          {percentageCalculation()}
         </Typography>
         <Box
           sx={{

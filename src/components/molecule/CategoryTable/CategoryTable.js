@@ -14,7 +14,14 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Dropdown from "../../atom/ArrowDropDown/dropdown";
-import useWindowDimensions from "../WindowDimensions/dimension";
+import XYZPercentageCalculator from '../../atom/percentageCalculator/xyz'
+import ORDPercentageCalculator from '../../atom/percentageCalculator/ord'
+import KVAPercentageCalculator from '../../atom/percentageCalculator/kva'
+import NOGPercentageCalculator from '../../atom/percentageCalculator/nog'
+import ELFPercentageCalculator from '../../atom/percentageCalculator/elf'
+import MEKPercentageCalculator from '../../atom/percentageCalculator/mek'
+import LASPercentageCalculator from '../../atom/percentageCalculator/las'
+import DTKPercentageCalculator from '../../atom/percentageCalculator/dtk'
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
@@ -44,6 +51,7 @@ export const CategoryTable = (props) => {
 
   useEffect(() => {
     setSectionCategory(props?.sectionCategory);
+    console.log(props?.tableHistory[42], 'indexxxxxxxxx')
   }, []);
 
   const ResultHandler = (row) => {
@@ -67,6 +75,32 @@ export const CategoryTable = (props) => {
       setCategoryTable(history);
     }
   };
+
+  const percentageCalculation = (value) => {
+    if (props?.sectionCategory.title == "XYZ") {
+      return <XYZPercentageCalculator percentage={value} />
+    } else if (props?.sectionCategory.title == "KVA") {
+      return <KVAPercentageCalculator percentage={value} />
+    }
+    else if (props?.sectionCategory.title == "NOG") {
+      return <NOGPercentageCalculator percentage={value} />
+    }
+    else if (props?.sectionCategory.title == "DTK") {
+      return <DTKPercentageCalculator percentage={value} />
+    }
+    else if (props?.sectionCategory.title == "ELF") {
+      return <ELFPercentageCalculator percentage={value} />
+    }
+    else if (props?.sectionCategory.title == "LÄS") {
+      return <LASPercentageCalculator percentage={value} />
+    }
+    else if (props?.sectionCategory.title == "ORD") {
+      return <ORDPercentageCalculator percentage={value} />
+    }
+    else if (props?.sectionCategory.title == "MEK") {
+      return <MEKPercentageCalculator percentage={value} />
+    }
+  }
 
   return (
     <Container maxWidth="lg" disableGutters>
@@ -140,9 +174,7 @@ export const CategoryTable = (props) => {
                     </TableCell>
 
                     <TableCell align="right">
-                      {((row.correctAnswer / row.totalQuestion) * 2)
-                        .toFixed(1)
-                        .replace(/\.0+$/, "")}
+                      {percentageCalculation((row.correctAnswer / row.answer.length) * 100)}
                     </TableCell>
 
                     <TableCell
@@ -176,7 +208,7 @@ export const CategoryTable = (props) => {
                   </TableRow>
                 );
               })
-              .reverse()}
+            }
           </TableBody>
         </Table>
       </Box>
