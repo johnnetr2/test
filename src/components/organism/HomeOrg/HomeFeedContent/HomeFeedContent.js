@@ -4,9 +4,11 @@ import {
   makeStyles,
   Typography,
   Box,
-  Tab,
   Tabs,
+  Tab
+
 } from "@material-ui/core";
+// import { Tabs, Tab } from '@mui/material';
 import Heading from "../../../atom/Heading/Heading";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import { useNavigate } from "react-router-dom";
@@ -176,20 +178,28 @@ const HomeFeedContent = (props) => {
                   style: {
                     background: "#0A1596",
                     border: "4px solid #0A1596",
-                  },
+                  }
                 }}
               >
                 <Tab
-                  style={{ textTransform: "initial" }}
+                  style={{ textTransform: "initial",
+                  color: tabValue == 0 ? 'black' : '#B5B5B5'
+                }}
                   label="Alla delprov"
                 />
                 <Tab
-                  style={{ textTransform: "initial" }}
+                  style={{ textTransform: "initial", 
+                  color: tabValue == 1 ? 'black' : '#B5B5B5'
+                 }}
                   label="Kvantitativ del"
                 />
-                <Tab style={{ textTransform: "initial" }} label="Verbal del" />
+                <Tab style={{ textTransform: "initial", 
+              color: tabValue == 2 ? 'black' : '#B5B5B5'
+              }} label="Verbal del" />
                 <Tab
-                  style={{ textTransform: "initial" }}
+                  style={{ textTransform: "initial", 
+                  color: tabValue == 3 ? 'black' : '#B5B5B5'
+                }}
                   label="My Peformance"
                   className={classes.newItem}
                 />

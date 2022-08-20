@@ -163,7 +163,7 @@ const LoginOrg = () => {
           <Label_field
             type="text"
             placeholder="Email"
-            title="Email"
+            title="E-mail"
             name="email"
             onChange={getVal}
             value={user.email}
@@ -179,7 +179,7 @@ const LoginOrg = () => {
               WebkitBoxShadow: '0 0 0 1000px white inset'
             }}
           />
-          <Label for="password">Password</Label>
+          <Label for="password">Lösenord</Label>
           <Box
             sx={{
               display: "flex",
@@ -231,7 +231,7 @@ const LoginOrg = () => {
             </Label>
           </Box>
           <Link to="#" onClick={forgotPassword}>
-            Glomt losenord?
+            Glömt lösenord?
           </Link>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link style={{ textDecoration: "none" }} to="/home">
@@ -246,7 +246,7 @@ const LoginOrg = () => {
             />
           </Box>
           <Typography variant="body1">
-            Har du ingte konto? <Link to="/">Skapa konto har</Link>
+            Har du ingte konto? <Link to="/">Skapa konto här</Link>
           </Typography>
         </Box>
       </Container>
