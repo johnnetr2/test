@@ -125,7 +125,7 @@ const ResultSummaryOrg = (props) => {
       (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
     ); 
     */
-    return ((mins < 10 ? "0" + mins : mins) + ":" + (seconds_<10? "0" + seconds_ : seconds_))
+    return ((mins < 10 ? "0" + mins : mins) + ":" + (seconds_ < 10 ? "0" + seconds_ : seconds_))
   };
 
   const percentageCalculation = (value) => {
@@ -198,7 +198,7 @@ const ResultSummaryOrg = (props) => {
               {responseCollection?.question.length}
             </Box>
             {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" />
+              <img src={Clock} alt="" style={{ paddingRight: '4px' }} />
               {" "}
               {responseCollection
                 ? dispSecondsAsMins(

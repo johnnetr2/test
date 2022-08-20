@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
 const Timer = (props) => {
+
   const sec = props.time ? props.time : 0;
   const [timer, setTimer] = useState(sec); // 25 minutes
   const [start, setStart] = useState();
   const firstStart = useRef(true);
   const tick = useRef();
+
 
   const clearAll = () => {
     props.onCloseTimer();
@@ -29,14 +31,33 @@ const Timer = (props) => {
       firstStart.current = !firstStart.current;
       return;
     }
-
+    
     if (start) {
       tick.current = setInterval(() => {
         setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1));
+       
       }, 1000);
     }
     return () => clearInterval(tick.current);
+  
   }, [start]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      localStorage.setItem('time', timer)
+      console.log(timer, 'this is the timer of local storafe')
+    }, 2000)
+  }, [timer])
+
+
+  useEffect(() => {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD){
+      if(localStorage.getItem('time')){
+        console.log('hello', localStorage.getItem('time'))
+        setTimer(localStorage.getItem('time'))
+      }
+    }
+  }, [])
 
   const dispSecondsAsMins = (seconds) => {
     // 25:00
@@ -69,3 +90,16 @@ const Timer = (props) => {
 };
 
 export default Timer;
+
+
+
+
+
+
+
+
+
+
+
+
+

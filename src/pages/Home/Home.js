@@ -41,7 +41,7 @@ const Home = (props) => {
         });
         setSecondPopup(false);
 
-        window.location.reload();
+        // window.location.reload();
       }
     });
   }
