@@ -75,7 +75,6 @@ const HomeCard = (props) => {
         <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
           {data?.information}
         </Typography>
-        {console.log((props?.previousRecord.CorrectQuestion / props?.previousRecord.AttemptedQuestion) * 100, 'consoleeee',)}
         <Box>
           <ProgressBar average={props?.previousRecord ? ((props?.previousRecord.CorrectQuestion / props?.previousRecord.AttemptedQuestion) * 100 ?
 
