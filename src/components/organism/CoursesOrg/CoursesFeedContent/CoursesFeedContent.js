@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
       // display: 'block'
     },
   },
+  indicator: {
+    
+  }
 }));
 
 const CoursesFeedContent = (props) => {
@@ -79,6 +82,7 @@ const CoursesFeedContent = (props) => {
             }}
           >
             <Tabs
+              className={classes.indicator}
               value={tabValue}
               onChange={handleTabs}
               variant="scrollable"
@@ -91,17 +95,32 @@ const CoursesFeedContent = (props) => {
                 },
               }}
             >
-              <Tab style={{ textTransform: "initial" }} label="Alla" />
               <Tab
-                style={{ textTransform: "initial" }}
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 0 ? "black" : "#B5B5B5",
+                }}
+                label="Alla"
+              />
+              <Tab
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 1 ? "black" : "#B5B5B5",
+                }}
                 label="Tidigare högskoleprov"
               />
               <Tab
-                style={{ textTransform: "initial" }}
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 2 ? "black" : "#B5B5B5",
+                }}
                 label="Slumpmässigt prov"
               />
               <Tab
-                style={{ textTransform: "initial" }}
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 3 ? "black" : "#B5B5B5",
+                }}
                 label="Slutförda prov"
                 className={classes.tabToggle}
               />
