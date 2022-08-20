@@ -376,7 +376,7 @@ const CategoryPagesFeedContent = (props) => {
                 onClickCheck={() => setAlla(!alla)}
                 checked={
                   questionCategories &&
-                  questionCategories?.length === checkedData.length
+                    questionCategories?.length === checkedData.length
                     ? true
                     : false
                 }

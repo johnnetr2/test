@@ -41,7 +41,6 @@ const HomeCard = (props) => {
     else if (props?.item.title == "MEK") {
       return <MEKPercentageCalculator percentage={(props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion) * 100} />
     }
-
   }
 
   return (
@@ -66,6 +65,7 @@ const HomeCard = (props) => {
         navigate("/category", {
           state: {
             item: data,
+            progress: percentageCalculation().props.percentage
           },
         })
       }
@@ -88,7 +88,6 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {/* {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'} */}
           {percentageCalculation()}
         </Typography>
         <Box

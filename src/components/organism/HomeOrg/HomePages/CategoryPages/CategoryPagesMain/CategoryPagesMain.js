@@ -68,7 +68,7 @@ const CategoryPagesMain = () => {
             }}
             className={classes.right}
           >
-            <CategoryPagesRightBar item={params?.state?.item} />
+            <CategoryPagesRightBar item={params?.state?.item} progress={params?.state.progress} />
           </Grid>
         </Container>
       </Grid>

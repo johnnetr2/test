@@ -10,6 +10,14 @@ import {
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 import LineDemo from "../../../../../molecule/Charts/BarChart";
 import moment, { weekdays } from "moment";
+import XYZPercentageCalculator from '../../../../../atom/percentageCalculator/xyz'
+import ORDPercentageCalculator from '../../../../../atom/percentageCalculator/ord'
+import KVAPercentageCalculator from '../../../../../atom/percentageCalculator/kva'
+import NOGPercentageCalculator from '../../../../../atom/percentageCalculator/nog'
+import ELFPercentageCalculator from '../../../../../atom/percentageCalculator/elf'
+import MEKPercentageCalculator from '../../../../../atom/percentageCalculator/mek'
+import LASPercentageCalculator from '../../../../../atom/percentageCalculator/las'
+import DTKPercentageCalculator from '../../../../../atom/percentageCalculator/dtk'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -149,6 +157,32 @@ const CategoryPagesRightBar = (props) => {
     });
   }, []);
 
+  const percentageCalculation = () => {
+    if (props?.item.title == "XYZ") {
+      return <XYZPercentageCalculator percentage={props.progress} />
+    } else if (props?.item.title == "KVA") {
+      return <KVAPercentageCalculator percentage={props.progress} />
+    }
+    else if (props?.item.title == "NOG") {
+      return <NOGPercentageCalculator percentage={props.progress} />
+    }
+    else if (props?.item.title == "DTK") {
+      return <DTKPercentageCalculator percentage={props.progress} />
+    }
+    else if (props?.item.title == "ELF") {
+      return <ELFPercentageCalculator percentage={props.progress} />
+    }
+    else if (props?.item.title == "LÄS") {
+      return <LASPercentageCalculator percentage={props.progress} />
+    }
+    else if (props?.item.title == "ORD") {
+      return <ORDPercentageCalculator percentage={props.progress} />
+    }
+    else if (props?.item.title == "MEK") {
+      return <MEKPercentageCalculator percentage={props.progress} />
+    }
+  }
+
   return (
     <Container
       maxWidth={false}
@@ -274,7 +308,7 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {lastWeekTasks
+            {/* {lastWeekTasks
               ? (
                 (lastWeekTasks.totalCorrectQuestions /
                   lastWeekTasks.totalQuestions) *
@@ -282,7 +316,9 @@ const CategoryPagesRightBar = (props) => {
               )
                 .toFixed(1)
                 .replace(/\.0+$/, "")
-              : ""}
+              : ""} */}
+            {/* {props.progress.toFixed(1)} */}
+            {percentageCalculation()}
           </Typography>
           <Typography variant="body2">
             Prognostiserad normerad poäng {props?.item.title}
@@ -314,13 +350,13 @@ const CategoryPagesRightBar = (props) => {
             </Typography>
 
             {weeks && weeklyProgress && <LinesChart
-              mondayData={weeklyProgress[0]? weeklyProgress[0].correctAnswers : ''}
-              tuesdayData={weeklyProgress[1]? weeklyProgress[1].correctAnswers : ''}
-              wednesdayData={weeklyProgress[2]? weeklyProgress[2].correctAnswers : ''}
-              thursdayData={weeklyProgress[3]? weeklyProgress[3].correctAnswers : ''}
-              fridayData={weeklyProgress[4]? weeklyProgress[4].correctAnswers : ''}
-              saturdayData={weeklyProgress[5]? weeklyProgress[5].correctAnswers : ''}
-              sundayData={weeklyProgress[6]? weeklyProgress[6].correctAnswers : ''}
+              mondayData={weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ''}
+              tuesdayData={weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ''}
+              wednesdayData={weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ''}
+              thursdayData={weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ''}
+              fridayData={weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ''}
+              saturdayData={weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ''}
+              sundayData={weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ''}
               weeklyProgress={weeklyProgress} weeks={weeks}
               CategoryPagesRightBar="categoryPagesRightBar"
             />
