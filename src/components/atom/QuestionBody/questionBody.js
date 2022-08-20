@@ -21,14 +21,14 @@ const QuestionBody = (props) => {
   const [question, setQuestion] = useState(props?.question);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
-  const [randomOptions, setRandomOptions] = useState([]);
+  // const [randomOptions, setRandomOptions] = useState([]);
 
-  useEffect(() => {
-    const testRandom = props?.question?.options[0]?.options?.sort(
-      () => 0.5 - Math.random()
-    );
-    setRandomOptions(testRandom);
-  }, [randomOptions]);
+  // useEffect(() => {
+  //   const testRandom = props?.question?.options[0]?.options?.sort(
+  //     () => 0.5 - Math.random()
+  //   );
+  //   setRandomOptions(testRandom);
+  // }, [randomOptions]);
 
   const PlusPoint = () => {
     setCount(1);
@@ -218,134 +218,125 @@ const QuestionBody = (props) => {
             backgroundColor: "#fff",
           }}
         >
-          {randomOptions &&
-            randomOptions.map((item, optionIndex) => {
-              // // {
-              // props?.questionTypeTitle == "NOG" ? (
-              //   <Box
-              //     sx={{
-              //       width: 600,
-              //       height: 100,
-              //       border: "1px solid #e1e1e1",
-              //       display: "flex",
-              //       justifyContent: "flex-start",
-              //       alignItems: "center",
-              //     }}
-              //   >
-              //     <Typography
-              //       variant="p"
-              //       style={{ fontWeight: "bold", marginLeft: "50px" }}
-              //     >
-              //       Tillräckligt information för lösningen erhålls
-              //     </Typography>
-              //   </Box>
-              // ) : null;
-              // // }
-              if (item.value) {
-                return (
+          {question?.options[0]?.options?.map((item, optionIndex) => {
+            // // {
+            // props?.questionTypeTitle == "NOG" ? (
+            //   <Box
+            //     sx={{
+            //       width: 600,
+            //       height: 100,
+            //       border: "1px solid #e1e1e1",
+            //       display: "flex",
+            //       justifyContent: "flex-start",
+            //       alignItems: "center",
+            //     }}
+            //   >
+            //     <Typography
+            //       variant="p"
+            //       style={{ fontWeight: "bold", marginLeft: "50px" }}
+            //     >
+            //       Tillräckligt information för lösningen erhålls
+            //     </Typography>
+            //   </Box>
+            // ) : null;
+            // // }
+            if (item.value) {
+              return (
+                <Box
+                  sx={{
+                    height:
+                      question?.options[0].options.length > 4 ||
+                      item.image === ""
+                        ? 60
+                        : 120,
+                    border: "1px solid #e1e1e1",
+                    width:
+                      question?.options[0].options.length > 4 ||
+                      item.image === ""
+                        ? 600
+                        : 300,
+                    display: "flex",
+                    color:
+                      !question.answer && optionIndex == question.selectedIndex
+                        ? "#0A1596"
+                        : "",
+                    "&:hover": {
+                      cursor: !question.answer && "pointer",
+                      color: !question.answer && "#0A1596",
+                    },
+                  }}
+                  onMouseOver={() => props.onhover(item._id)}
+                  onMouseLeave={() => props.onHoverLeave()}
+                  onClick={(e) => {
+                    !question?.answer && props.SelectOption(item, optionIndex);
+                  }}
+                >
                   <Box
                     sx={{
-                      height:
-                        question?.options[0].options.length > 4 ||
-                        item.image === ""
-                          ? 60
-                          : 120,
-                      border: "1px solid #e1e1e1",
-                      width:
-                        question?.options[0].options.length > 4 ||
-                        item.image === ""
-                          ? 600
-                          : 300,
                       display: "flex",
-                      color:
-                        !question.answer &&
-                        optionIndex == question.selectedIndex
-                          ? "#0A1596"
-                          : "",
-                      "&:hover": {
-                        cursor: !question.answer && "pointer",
-                        color: !question.answer && "#0A1596",
-                      },
-                    }}
-                    onMouseOver={() => props.onhover(item._id)}
-                    onMouseLeave={() => props.onHoverLeave()}
-                    onClick={(e) => {
-                      !question?.answer &&
-                        props.SelectOption(item, optionIndex);
+                      justifyContent: "center",
+                      alignItems: "flex-start",
                     }}
                   >
                     <Box
                       sx={{
                         display: "flex",
-                        justifyContent: "center",
-                        alignItems: "flex-start",
+                        justifyContent: "flex-end",
                       }}
                     >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "flex-end",
+                      <FormControlLabel
+                        style={{
+                          margin: 0,
+                          size: "0.5rem",
                         }}
+                        value={item?._id}
+                        control={props.showOptions(question, item, optionIndex)}
+                        className={classes.root}
+                      />
+                      <Typography
+                        style={{
+                          marginTop: "1.25rem",
+                          color: changeOptionsColor(item),
+                        }}
+                        variant="body2"
                       >
-                        <FormControlLabel
-                          style={{
-                            margin: 0,
-                            size: "0.5rem",
-                          }}
-                          value={item?._id}
-                          control={props.showOptions(
-                            question,
-                            item,
-                            optionIndex
-                          )}
-                          className={classes.root}
-                        />
-                        <Typography
-                          style={{
-                            marginTop: "1.25rem",
-                            color: changeOptionsColor(item),
-                          }}
-                          variant="body2"
-                        >
-                          {props.OptionValue(optionIndex)}
-                        </Typography>
-                      </Box>
-                    </Box>
-
-                    <Box
-                      sx={{
-                        // width:
-                        //   question?.options[0].options.length > 4
-                        //     ? "20rem"
-                        //     : "14rem",
-                        display: "flex",
-                        marginLeft:
-                          question?.options[0].options.length > 4 ||
-                          item.image === ""
-                            ? "1rem"
-                            : "0",
-                        justifyContent:
-                          question?.options[0].options.length > 4 ||
-                          item.image === ""
-                            ? "flex-start"
-                            : "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      {item.image ? (
-                        <img src={item.image} />
-                      ) : (
-                        <Typography>
-                          <MarkLatex
-                            content={item.value.replace("\f", "\\f")}
-                          />{" "}
-                        </Typography>
-                      )}
+                        {props.OptionValue(optionIndex)}
+                      </Typography>
                     </Box>
                   </Box>
-                );
-              }
-            })}
+
+                  <Box
+                    sx={{
+                      // width:
+                      //   question?.options[0].options.length > 4
+                      //     ? "20rem"
+                      //     : "14rem",
+                      display: "flex",
+                      marginLeft:
+                        question?.options[0].options.length > 4 ||
+                        item.image === ""
+                          ? "1rem"
+                          : "0",
+                      justifyContent:
+                        question?.options[0].options.length > 4 ||
+                        item.image === ""
+                          ? "flex-start"
+                          : "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {item.image ? (
+                      <img src={item.image} />
+                    ) : (
+                      <Typography>
+                        <MarkLatex content={item.value.replace("\f", "\\f")} />{" "}
+                      </Typography>
+                    )}
+                  </Box>
+                </Box>
+              );
+            }
+          })}
         </Container>
 
         {question.answer && (

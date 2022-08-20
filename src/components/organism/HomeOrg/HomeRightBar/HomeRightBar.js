@@ -69,7 +69,6 @@ const HomeRightBar = (props) => {
     }
   }, []);
 
-
   useEffect(() => {
     const studentPrefenenceURL =
       EndPoints.getStudentPreference + localStorage.getItem("userId");
@@ -185,7 +184,11 @@ const HomeRightBar = (props) => {
             </Typography>
             <Box sx={{ display: "flex", marginBottom: "1rem" }}>
               <Box sx={{ width: "100%", backgroundColor: "#fff" }}>
-                <ImpDatesCard />
+                <ImpDatesCard
+                  season={
+                    studentPreference?.season && studentPreference?.season
+                  }
+                />
               </Box>
             </Box>
           </Box>

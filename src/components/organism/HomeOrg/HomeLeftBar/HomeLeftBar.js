@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+  Disableitem: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "5rem",
+  },
   icon: {
     height: "2rem",
     marginBottom: theme.spacing(1),
@@ -61,6 +66,18 @@ const useStyles = makeStyles((theme) => ({
     color: "#b4b4b4",
     textDecoration: "none",
   },
+  disabledNavStyle: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    color: "#b4b4b4",
+    "&:hover": {
+      color: "#b4b4b4",
+      cursor: "unset",
+    },
+    backgroundColor: "#e1e1e1",
+    textDecoration: "none",
+  },
   text: {
     fontSize: "0.65rem",
     textAlign: "center",
@@ -68,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
       color: "#fff",
     },
     textTransform: "uppercase",
-    // color: "#b4b4b4",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -143,17 +159,18 @@ const HomeLeftBar = (props) => {
         </Box>
       </NavLink>
       <NavLink
-        to="/courses"
-        className={classes.navStyle}
-        style={({ isActive }) => {
-          return {
-            backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? "#fff" : "none",
-          };
-        }}
+        // to="/courses"
+        to="#"
+        className={classes.disabledNavStyle}
+        // style={({ isActive }) => {
+        //   return {
+        //     backgroundColor: isActive ? "#0A1596" : "none",
+        //     color: isActive ? "#fff" : "none",
+        //   };
+        // }}
       >
         <Box
-          className={classes.item}
+          className={classes.Disableitem}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -175,17 +192,18 @@ const HomeLeftBar = (props) => {
         </Box>
       </NavLink>
       <NavLink
-        to="/message"
-        className={classes.navStyle}
-        style={({ isActive }) => {
-          return {
-            backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? "#fff" : "none",
-          };
-        }}
+        // to="/message"
+        to="#"
+        className={classes.disabledNavStyle}
+        // style={({ isActive }) => {
+        //   return {
+        //     backgroundColor: isActive ? "#0A1596" : "none",
+        //     color: isActive ? "#fff" : "none",
+        //   };
+        // }}
       >
         <Box
-          className={classes.item}
+          className={classes.Disableitem}
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -204,17 +222,17 @@ const HomeLeftBar = (props) => {
         </Box>
       </NavLink>
       <NavLink
-        to="/profile"
-        className={classes.navStyle}
-        style={({ isActive }) => {
-          return {
-            backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? "#fff" : "none",
-          };
-        }}
+        to="#"
+        className={classes.disabledNavStyle}
+        // style={({ isActive }) => {
+        //   return {
+        //     backgroundColor: isActive ? "#0A1596" : "none",
+        //     color: isActive ? "#fff" : "none",
+        //   };
+        // }}
       >
         <Box
-          className={classes.item}
+          className={classes.Disableitem}
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
