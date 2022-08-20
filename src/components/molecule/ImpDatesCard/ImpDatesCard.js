@@ -60,7 +60,7 @@ const ImpDatesCard = (props) => {
     } else if (collection.season == "Våren 2023") {
       return moment(varenDate).diff(moment(notSure), "days");
     } else {
-      return formatNotSure;
+      return "-";
     }
   };
 
