@@ -159,7 +159,7 @@ const ResultSummaryOrg = (props) => {
               {responseCollection?.question.length}
             </Box>
             {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" />
+              <img src={Clock} alt="" style={{ paddingRight: '4px' }}/>
               {responseCollection
                 ? dispSecondsAsMins(
                   responseCollection?.question[

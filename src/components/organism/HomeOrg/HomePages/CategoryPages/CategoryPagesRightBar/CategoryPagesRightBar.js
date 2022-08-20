@@ -214,7 +214,7 @@ const CategoryPagesRightBar = (props) => {
         >
           <Box sx={{ marginRight: "3rem" }}>
             <Typography variant="h5">
-              {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
+              {!lastWeekTasks ? "0" : lastWeekTasks?.weeklyCorrectQuestions}
             </Typography>
             <Typography variant="body2">
               Gjorda uppgifter förra veckan
@@ -222,7 +222,7 @@ const CategoryPagesRightBar = (props) => {
           </Box>
           <Box sx={{ marginLeft: "1rem" }}>
             <Typography variant="h5">
-              {lastWeekTasks.totalCorrectQuestions}
+              {!lastWeekTasks ? '0' : lastWeekTasks?.totalCorrectQuestions}
             </Typography>
             <Typography variant="body2">Gjorda uppgifter totalt</Typography>
           </Box>
