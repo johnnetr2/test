@@ -175,6 +175,7 @@ const HomeLeftBar = (props) => {
         </Box>
       </NavLink>
       <NavLink
+        disabled
         to="/message"
         className={classes.navStyle}
         style={({ isActive }) => {

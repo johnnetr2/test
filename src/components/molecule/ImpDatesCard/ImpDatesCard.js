@@ -14,26 +14,66 @@ import { EndPoints, instance2 } from "../../service/Route";
 
 const ImpDatesCard = (props) => {
   const [collection, setCollection] = useState({
-    date: "",
+    season: "",
     popup: false,
+    appliedDate: "",
   });
   const updateDate = () => {
     const pointURL =
       EndPoints.testDate + "/User/" + localStorage.getItem("userId");
     const body = {
-      attemptDate: collection.date,
+      season: collection.season,
     };
     instance2.put(pointURL, body).then((response) => {
       setCollection({ ...collection, popup: false });
     });
   };
   useEffect(() => {
-    setCollection({ ...collection, date: props.date });
-  }, [props.date]);
+    setCollection({ ...collection, season: props.season });
+  }, [props.season]);
+
+  // const dateShow = () => {
+  //     const convertedDate = collection.season === "Hösten 2022" && date;
+  //   setCollection({ ...collection, appliedDate: convertedDate });
+  // }
+
+  const hostenDate = new Date("10/23/2022");
+  const varenDate = new Date("3/25/2023");
+  const notSure = new Date();
+  const formatHostenDate = moment(hostenDate).format("DD.MM.YYYY");
+  const formatVarenDate = moment(varenDate).format("DD.MM.YYYY");
+  const formatNotSure = moment(notSure).format("DD.MM.YYYY");
+
+  const showHostenDate = () => {
+    if (collection && collection.season == "Hösten 2022") {
+      return formatHostenDate;
+    } else if (collection.season == "Våren 2023") {
+      return formatVarenDate;
+    } else {
+      return formatNotSure;
+    }
+  };
+
+  const remainingDays = () => {
+    if (collection && collection.season == "Hösten 2022") {
+      return moment(hostenDate).diff(moment(notSure), "days");
+    } else if (collection.season == "Våren 2023") {
+      return moment(varenDate).diff(moment(notSure), "days");
+    } else {
+      return formatNotSure;
+    }
+  };
+
+  // const showvarenDate = collection.season === "Våren 2023" && formatVarenDate;
+  // setCollection({ ...collection, appliedDate: convertedDate });
+
+  // useEffect(() => {
+  // }, [collection.season]);
+
   const menuBtnClick = () => {
     setCollection({ ...collection, popup: true });
   };
-  const convertedDate = moment(collection.date).format("DD.MM.YYYY");
+
   const MenuIcon = () => {
     const options = "ÄNDRA";
     const ITEM_HEIGHT = 48;
@@ -116,13 +156,13 @@ const ImpDatesCard = (props) => {
               }}
             >
               <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
-                {convertedDate}
+                {showHostenDate()}
               </Typography>
               <Typography
                 variant="body2"
                 style={{ fontSize: ".65rem", marginBottom: "0.35rem" }}
               >
-                100 dagar till anmälan öppnar
+                {remainingDays()} dagar till anmälan öppnar
               </Typography>
             </Box>
           </Box>
@@ -132,10 +172,12 @@ const ImpDatesCard = (props) => {
         </Box>
       </Container>
       <StartPopup
-        onDateChange={(value) => setCollection({ ...collection, date: value })}
+        onTestSelection={(value) =>
+          setCollection({ ...collection, season: value })
+        }
         showPopup={collection.popup}
         hidePopup={() => setCollection({ ...collection, popup: false })}
-        defualtValue={collection.date}
+        defualtValue={collection.season}
         submit={updateDate}
       />
     </>

@@ -235,7 +235,7 @@ const CategoryPagesFeedContent = (props) => {
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
             <OutlineField
-              title="Tidspress"
+              title="Tid & poäng"
               type="checkbox"
               checked={timer}
               onClickCheck={(e) => setTimer(!timer)}

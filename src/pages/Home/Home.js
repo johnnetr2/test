@@ -8,7 +8,7 @@ const Home = (props) => {
   const [firstPopup, setFirstPopup] = useState("");
   const [secondPopup, setSecondPopup] = useState("");
   const [collection, setCollection] = useState({
-    date: "",
+    season: "",
     gpa: "",
     StudentPreference: "",
     userId: localStorage.getItem("userId"),
@@ -26,7 +26,7 @@ const Home = (props) => {
   }, []);
 
   const data = {
-    attemptDate: collection.date,
+    season: collection.season,
     point: collection.gpa ? collection.gpa : 1,
     user: collection.userId,
   };
@@ -53,7 +53,9 @@ const Home = (props) => {
   return (
     <div>
       <StartPopup
-        onDateChange={(value) => setCollection({ ...collection, date: value })}
+        onTestSelection={(value) =>
+          setCollection({ ...collection, season: value })
+        }
         showPopup={firstPopup}
         hidePopup={() => setFirstPopup(false)}
         submit={submitFunc}
@@ -70,8 +72,6 @@ const Home = (props) => {
         StudentPreference={
           collection.StudentPreference && collection.StudentPreference
         }
-        // toggleIcon={props.toggleIcon}
-        // setToggleIcon={props.setToggleIcon}
       />
     </div>
   );
