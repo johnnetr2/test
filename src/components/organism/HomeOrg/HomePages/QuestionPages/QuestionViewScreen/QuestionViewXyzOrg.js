@@ -51,6 +51,20 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
+
+    // useEffect(() => {
+    //   if (window.performance) {
+    //     console.info("window.performance works fine on this browser");
+    //   }
+    //   console.info(performance.navigation.type);
+    //   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    //     console.info( "This page is reloaded" );
+    //   } else {
+    //     console.info( "This page is not reloaded");
+    //   }
+    // }, [])
+
+
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
@@ -62,7 +76,7 @@ const QuestionViewXyzOrg = () => {
       let totalQ = 0;
       const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       instance2.get(URL).then((response) => {
-        console.log(response.data.quiz, "responses");
+        // console.log(response.data.quiz, "responses");
         response.data.quiz &&
           response.data.quiz.map((item) => {
             setLoading(false);
@@ -81,7 +95,7 @@ const QuestionViewXyzOrg = () => {
         setStatus(true);
         setQuiz(response.data.quiz);
       });
-    }
+    } 
   }, []);
 
   const Next = (question) => {
@@ -94,6 +108,7 @@ const QuestionViewXyzOrg = () => {
             quizId: params?.state?.quizId,
           },
         });
+        localStorage.removeItem('time');
       } else {
         setStatus(true);
         selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
@@ -115,7 +130,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-    console.log(params.state, "here is the quiz");
+    // console.log(params.state, "here is the quiz");
     if (
       nextPress &&
       quiz?.length > 0 &&
@@ -138,7 +153,7 @@ const QuestionViewXyzOrg = () => {
       instance2.post(Submit, data).then((response) => {
         setTime(timeLeft);
         setNextPress(undefined);
-        console.log("Answer submited");
+        // console.log("Answer submited");
       });
     } else {
       return;
@@ -219,7 +234,7 @@ const QuestionViewXyzOrg = () => {
         })
       );
     } catch (error) {
-      console.log("in catch block: ", error);
+      // console.log("in catch block: ", error);
     }
   };
 
@@ -434,7 +449,7 @@ const QuestionViewXyzOrg = () => {
           minHeight: "100vh",
         }}
       >
-        {(time || (!time && !params?.state?.data.value)) && (
+        {(time || (!time && !params?.state?.data?.value)) && (
           <Header
             selectedIndex={selectedIndex}
             totalQuestions={totalQuestions}

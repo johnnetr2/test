@@ -243,7 +243,7 @@ const LoginOrg = () => {
               title="Logga in Med Google"
             />
           </Box>
-          <Typography variant="body1">
+          <Typography variant="body1" style={{ textTransform: 'uppercase' }}>
             Har du ingte konto? <Link to="/">Skapa konto har</Link>
           </Typography>
         </Box>

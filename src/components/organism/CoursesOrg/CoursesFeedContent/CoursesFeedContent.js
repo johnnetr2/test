@@ -92,7 +92,6 @@ const CoursesFeedContent = (props) => {
                 style: {
                   background: "#0A1596",
                   border: "4px solid #0A1596",
-
                 },
               }}
             >

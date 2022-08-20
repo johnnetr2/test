@@ -67,11 +67,12 @@ const SignupOrg = () => {
     instance
       .post(URL, data)
       .then((response) => {
-        if (!response.data.message) {
+        console.log(response)
+        if (response.data) {
           localStorage.setItem("userId", response.data.user._id);
           localStorage.setItem("token", response.data.user.token);
           swal("Success!", "user registered successfully", "success");
-          navegate("/login");
+          navegate("home");
         } else {
           swal("Warning!", response.data.message, "warning");
         }
@@ -240,16 +241,21 @@ const SignupOrg = () => {
               <FilledBtn onClick={clickHandler} title="Skapa konto" />
             </Link>
           </Box>
+          <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="body1">eller</Typography>
+          </Box>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <OutlineBtn title="Konto med Google" />
           </Box>
+          <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography
             variant="body1"
+            style={{ textTransform: 'uppercase  ' }}
             // sx={{ textAlign: "center", width: "100%" }}
           >
-            Har du redan ett konto?<Link to="/login">Logga in</Link>
+            Har du redan ett konto?<Link to="/login"> Logga in</Link>
           </Typography>
+          </Box>
           <Box
             sx={{
               display: "flex",
