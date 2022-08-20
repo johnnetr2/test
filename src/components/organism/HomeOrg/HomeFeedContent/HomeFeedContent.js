@@ -191,11 +191,11 @@ const HomeFeedContent = (props) => {
                 // textColor="#252525"
                 // indicatorColor="primary"
                 aria-label="scrollable prevent tabs example"
-                TabIndicatorProps={{ children: <span />
-                  // style: {
-                  //   background: "#0A1596",
-                  //   border: "4px solid #0A1596",
-                  // }
+                TabIndicatorProps={{ 
+                  style: {
+                    background: "#0A1596",
+                    border: "4px solid #0A1596",
+                  }
                 }}
               >
                 <Tab

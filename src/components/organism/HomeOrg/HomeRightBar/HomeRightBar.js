@@ -228,7 +228,8 @@ const HomeRightBar = (props) => {
                 marginBottom: "1rem",
               }}
             >
-              Viktiga datum
+              {/* Viktiga datum */}
+              Nästa prov
             </Typography>
             <Box sx={{ display: "flex", marginBottom: "1rem" }}>
               <Box sx={{ width: "100%", backgroundColor: "#fff" }}>
