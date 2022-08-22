@@ -17,9 +17,9 @@ const HomeCard = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("17: ", KVANormeringValueFor(16.83));
+    // console.log("17: ", KVANormeringValueFor(16.83));
 
-    console.log(props?.previousRecord?.AttemptedQuestion, 'first one ')
+    // console.log(props?.previousRecord?.AttemptedQuestion, 'first one ')
 
 
   }, []);
