@@ -10,14 +10,14 @@ import {
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 import LineDemo from "../../../../../molecule/Charts/BarChart";
 import moment, { weekdays } from "moment";
-import XYZPercentageCalculator from '../../../../../atom/percentageCalculator/xyz'
-import ORDPercentageCalculator from '../../../../../atom/percentageCalculator/ord'
-import KVAPercentageCalculator from '../../../../../atom/percentageCalculator/kva'
-import NOGPercentageCalculator from '../../../../../atom/percentageCalculator/nog'
-import ELFPercentageCalculator from '../../../../../atom/percentageCalculator/elf'
-import MEKPercentageCalculator from '../../../../../atom/percentageCalculator/mek'
-import LASPercentageCalculator from '../../../../../atom/percentageCalculator/las'
-import DTKPercentageCalculator from '../../../../../atom/percentageCalculator/dtk'
+import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,41 +29,44 @@ const useStyles = makeStyles((theme) => ({
 
 function datesGroupByComponent(dates, token) {
   return dates.reduce(function (val, obj) {
-    let comp = moment(obj['createdAt'], 'YYYY/MM/DD').format(token);
+    let comp = moment(obj["createdAt"], "YYYY/MM/DD").format(token);
     (val[comp] = val[comp] || []).push(obj);
     return val;
   }, {});
 }
-
 
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
   const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");
   const { height, width } = useWindowDimensions();
-  const [weeklyProgress, setWeeklyProgress] = useState()
-  const [weeks, setWeeks] = useState()
-  let weeklyProgressArr = []
-  let weeksArr = []
+  const [weeklyProgress, setWeeklyProgress] = useState();
+  const [weeks, setWeeks] = useState();
+  let weeklyProgressArr = [];
+  let weeksArr = [];
 
   useEffect(() => {
-
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
     instance2.get(lastWeeksData).then((response) => {
-
-      const data = datesGroupByComponent(response.data.sevenWeekData, 'W')
-      data && Object.values(data).map((key, index) => {
-        const week = Object.keys(data)[index] = "V." + Object.keys(data)[index]
-        weeksArr.push(week)
-        let obj = {}
-        key.map(item => {
-          obj.correctAnswers = obj?.correctAnswers ? obj?.correctAnswers + item.correctAnswer : item.correctAnswer
-          obj.totalQuestion = obj?.totalQuestion ? obj?.totalQuestion + item.totalQuestion : item.totalQuestion
-        })
-        weeklyProgressArr.push(obj)
-      })
-      setWeeklyProgress(weeklyProgressArr)
-      setWeeks(weeksArr)
+      const data = datesGroupByComponent(response.data.sevenWeekData, "W");
+      data &&
+        Object.values(data).map((key, index) => {
+          const week = (Object.keys(data)[index] =
+            "V." + Object.keys(data)[index]);
+          weeksArr.push(week);
+          let obj = {};
+          key.map((item) => {
+            obj.correctAnswers = obj?.correctAnswers
+              ? obj?.correctAnswers + item.correctAnswer
+              : item.correctAnswer;
+            obj.totalQuestion = obj?.totalQuestion
+              ? obj?.totalQuestion + item.totalQuestion
+              : item.totalQuestion;
+          });
+          weeklyProgressArr.push(obj);
+        });
+      setWeeklyProgress(weeklyProgressArr);
+      setWeeks(weeksArr);
     });
   }, []);
 
@@ -80,29 +83,23 @@ const CategoryPagesRightBar = (props) => {
 
   const percentageCalculation = () => {
     if (props?.item.title == "XYZ") {
-      return <XYZPercentageCalculator percentage={props.progress} />
+      return XYZNormeringValueFor(props.progress);
     } else if (props?.item.title == "KVA") {
-      return <KVAPercentageCalculator percentage={props.progress} />
+      return KVANormeringValueFor(props.progress);
+    } else if (props?.item.title == "NOG") {
+      return NOGNormeringValueFor(props.progress);
+    } else if (props?.item.title == "DTK") {
+      return DTKNormeringValueFor(props.progress);
+    } else if (props?.item.title == "ELF") {
+      return ELFNormeringValueFor(props.progress);
+    } else if (props?.item.title == "LÄS") {
+      return LASNormeringValueFor(props.progress);
+    } else if (props?.item.title == "ORD") {
+      return ORDNormeringValueFor(props.progress);
+    } else if (props?.item.title == "MEK") {
+      return MEKNormeringValueFor(props.progress);
     }
-    else if (props?.item.title == "NOG") {
-      return <NOGPercentageCalculator percentage={props.progress} />
-    }
-    else if (props?.item.title == "DTK") {
-      return <DTKPercentageCalculator percentage={props.progress} />
-    }
-    else if (props?.item.title == "ELF") {
-      return <ELFPercentageCalculator percentage={props.progress} />
-    }
-    else if (props?.item.title == "LÄS") {
-      return <LASPercentageCalculator percentage={props.progress} />
-    }
-    else if (props?.item.title == "ORD") {
-      return <ORDPercentageCalculator percentage={props.progress} />
-    }
-    else if (props?.item.title == "MEK") {
-      return <MEKPercentageCalculator percentage={props.progress} />
-    }
-  }
+  };
 
   return (
     <Container
@@ -147,8 +144,8 @@ const CategoryPagesRightBar = (props) => {
               value={
                 lastWeekTasks
                   ? (lastWeekTasks.totalCorrectQuestions /
-                    lastWeekTasks.totalQuestions) *
-                  100
+                      lastWeekTasks.totalQuestions) *
+                    100
                   : 0
               }
             />
@@ -219,7 +216,9 @@ const CategoryPagesRightBar = (props) => {
           >
             UPPGIFTER
           </Typography>
-          {weeks && weeklyProgress && <LineDemo weeklyProgress={weeklyProgress} weeks={weeks} />}
+          {weeks && weeklyProgress && (
+            <LineDemo weeklyProgress={weeklyProgress} weeks={weeks} />
+          )}
         </Box>
 
         <Box
@@ -270,18 +269,34 @@ const CategoryPagesRightBar = (props) => {
               POANG
             </Typography>
 
-            {weeks && weeklyProgress && <LinesChart
-              mondayData={weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ''}
-              tuesdayData={weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ''}
-              wednesdayData={weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ''}
-              thursdayData={weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ''}
-              fridayData={weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ''}
-              saturdayData={weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ''}
-              sundayData={weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ''}
-              weeklyProgress={weeklyProgress} weeks={weeks}
-              CategoryPagesRightBar="categoryPagesRightBar"
-            />
-            }
+            {weeks && weeklyProgress && (
+              <LinesChart
+                mondayData={
+                  weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ""
+                }
+                tuesdayData={
+                  weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ""
+                }
+                wednesdayData={
+                  weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ""
+                }
+                thursdayData={
+                  weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ""
+                }
+                fridayData={
+                  weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ""
+                }
+                saturdayData={
+                  weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ""
+                }
+                sundayData={
+                  weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ""
+                }
+                weeklyProgress={weeklyProgress}
+                weeks={weeks}
+                CategoryPagesRightBar="categoryPagesRightBar"
+              />
+            )}
           </Box>
         </Box>
       </Box>
