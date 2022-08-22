@@ -107,6 +107,7 @@ const ResultSummaryOrg = (props) => {
         setTimePerQues(false);
       }
       setresponseCollection(response.data);
+      console.log(response.data);
     });
 
     return () => {
@@ -117,7 +118,7 @@ const ResultSummaryOrg = (props) => {
   const dispSecondsAsMins = (seconds) => {
     // 25:00
     const mins = Math.floor(seconds / 60);
-    const seconds_ = seconds % 60;
+    const seconds_ = Math.floor(seconds % 60);
     /*
     return (
       Math.floor(mins?.toString()) +
@@ -153,7 +154,7 @@ const ResultSummaryOrg = (props) => {
       return <MEKPercentageCalculator percentage={value} />
     }
   }
-
+  
   return (
     <div>
       <CssBaseline />

@@ -218,28 +218,26 @@ const QuestionBody = (props) => {
             backgroundColor: "#fff",
           }}
         >
+          {props?.questionTypeTitle == "NOG" ? (
+            <Box
+              sx={{
+                width: 600,
+                height: 100,
+                border: "1px solid #e1e1e1",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="p"
+                style={{ fontWeight: "bold", marginLeft: "50px" }}
+              >
+                Tillräckligt information för lösningen erhålls
+              </Typography>
+            </Box>
+          ) : null}
           {question?.options[0]?.options?.map((item, optionIndex) => {
-            // // {
-            // props?.questionTypeTitle == "NOG" ? (
-            //   <Box
-            //     sx={{
-            //       width: 600,
-            //       height: 100,
-            //       border: "1px solid #e1e1e1",
-            //       display: "flex",
-            //       justifyContent: "flex-start",
-            //       alignItems: "center",
-            //     }}
-            //   >
-            //     <Typography
-            //       variant="p"
-            //       style={{ fontWeight: "bold", marginLeft: "50px" }}
-            //     >
-            //       Tillräckligt information för lösningen erhålls
-            //     </Typography>
-            //   </Box>
-            // ) : null;
-            // // }
             if (item.value) {
               return (
                 <Box
@@ -265,6 +263,7 @@ const QuestionBody = (props) => {
                       color: !question.answer && "#0A1596",
                     },
                   }}
+                 
                   onMouseOver={() => props.onhover(item._id)}
                   onMouseLeave={() => props.onHoverLeave()}
                   onClick={(e) => {
