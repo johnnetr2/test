@@ -91,7 +91,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        //setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0)); SectionCategory.time is wrong for some question formats which leads to the wrong times
+        setTime((1 * totalQ * 60).toFixed(0));
         setStatus(true);
         setQuiz(response.data.quiz);
       });
