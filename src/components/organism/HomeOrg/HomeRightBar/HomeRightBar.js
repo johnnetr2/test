@@ -7,10 +7,9 @@ import LinesChart from "../../../molecule/Charts/LinesChart";
 import { EndPoints, instance2 } from "../../../service/Route";
 import moment from "moment";
 
-
 function datesGroupByComponent(dates, token) {
   return dates.reduce(function (val, obj) {
-    let comp = moment(obj['createdAt'], 'YYYY/MM/DD').format(token);
+    let comp = moment(obj["createdAt"], "YYYY/MM/DD").format(token);
     (val[comp] = val[comp] || []).push(obj);
     return val;
   }, {});
@@ -24,36 +23,38 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeRightBar = (props) => {
   const classes = useStyles();
-  const [studentPreference, setStudentPreference] = useState();
+  // const [studentPreference, setStudentPreference] = useState();
   let [showPrognos, seTShowPrognos] = useState();
   let obj = {};
-  const [weeklyProgress, setWeeklyProgress] = useState(0)
-  const [weeks, setWeeks] = useState()
-  let weeklyProgressArr = []
-  let weeksArr = []
+  const [weeklyProgress, setWeeklyProgress] = useState(0);
+  const [weeks, setWeeks] = useState();
+  let weeklyProgressArr = [];
+  let weeksArr = [];
 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
-
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
 
       instance2.get(URL).then((response) => {
-
-        const data = datesGroupByComponent(response.data.lastWeek, 'W')
-        data && Object.values(data).map((key, index) => {
-          const week = Object.keys(data)[index] = "V." + Object.keys(data)[index]
-          weeksArr.push(week)
-          let obj = {}
-          key.map(item => {
-            obj.correctAnswers = obj?.correctAnswers ? obj?.correctAnswers + item.correctAnswer : item.correctAnswer
-            obj.totalQuestion = obj?.totalQuestion ? obj?.totalQuestion + item.answer.length : item.length
-          })
-          weeklyProgressArr.push(obj)
-        })
-        console.log(weeklyProgressArr, 'weeklyProgressArr')
-        console.log(weeksArr, 'weeksArr')
-        setWeeklyProgress(weeklyProgressArr)
-        setWeeks(weeksArr)
+        const data = datesGroupByComponent(response.data.lastWeek, "W");
+        data &&
+          Object.values(data).map((key, index) => {
+            const week = (Object.keys(data)[index] =
+              "V." + Object.keys(data)[index]);
+            weeksArr.push(week);
+            let obj = {};
+            key.map((item) => {
+              obj.correctAnswers = obj?.correctAnswers
+                ? obj?.correctAnswers + item.correctAnswer
+                : item.correctAnswer;
+              obj.totalQuestion = obj?.totalQuestion
+                ? obj?.totalQuestion + item.answer.length
+                : item.length;
+            });
+            weeklyProgressArr.push(obj);
+          });
+        setWeeklyProgress(weeklyProgressArr);
+        setWeeks(weeksArr);
       });
 
       const getPreviosRecord =
@@ -69,15 +70,16 @@ const HomeRightBar = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    const studentPrefenenceURL =
-      EndPoints.getStudentPreference + localStorage.getItem("userId");
-    instance2.get(studentPrefenenceURL).then((response) => {
-      if (response?.data?.StudentPreference) {
-        setStudentPreference(response.data.StudentPreference);
-      }
-    });
-  }, [props.StudentPreference]);
+  // useEffect(() => {
+  //   const studentPrefenenceURL =
+  //     EndPoints.getStudentPreference + localStorage.getItem("userId");
+  //   instance2.get(studentPrefenenceURL).then((response) => {
+  //     console.log(response, "home right bar get api response");
+  //     if (response?.data?.StudentPreference) {
+  //       setStudentPreference(response.data.StudentPreference);
+  //     }
+  //   });
+  // }, [props.StudentPreference]);
 
   return (
     <Container maxWidth={false} style={{ padding: "0 3rem" }}>
@@ -112,10 +114,14 @@ const HomeRightBar = (props) => {
             </Box>
             <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
               <GoalBox
+                // goalPoint={
+                //   props.studentPreference && props.studentPreference
+                //     ? props.studentPreference.point
+                //     : studentPreference?.point
+                // }
                 goalPoint={
-                  props.studentPreference && props.studentPreference
-                    ? props.studentPreference.point
-                    : studentPreference?.point
+                  props?.studentPreference?.point &&
+                  props?.studentPreference?.point
                 }
               />
             </Box>
@@ -157,18 +163,35 @@ const HomeRightBar = (props) => {
             >
               POÄNG
             </Typography>
-            {weeks && weeklyProgress && <LinesChart
-              syncId="anyId"
-              mondayData={weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ''}
-              tuesdayData={weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ''}
-              wednesdayData={weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ''}
-              thursdayData={weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ''}
-              fridayData={weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ''}
-              saturdayData={weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ''}
-              sundayData={weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ''}
-              weeklyProgress={weeklyProgress} weeks={weeks}
-              HomeRightBar="homeRightBar"
-            />}
+            {weeks && weeklyProgress && (
+              <LinesChart
+                syncId="anyId"
+                mondayData={
+                  weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ""
+                }
+                tuesdayData={
+                  weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ""
+                }
+                wednesdayData={
+                  weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ""
+                }
+                thursdayData={
+                  weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ""
+                }
+                fridayData={
+                  weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ""
+                }
+                saturdayData={
+                  weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ""
+                }
+                sundayData={
+                  weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ""
+                }
+                weeklyProgress={weeklyProgress}
+                weeks={weeks}
+                HomeRightBar="homeRightBar"
+              />
+            )}
           </Box>
 
           <Box style={{ marginTop: "2rem" }}>
@@ -186,7 +209,8 @@ const HomeRightBar = (props) => {
               <Box sx={{ width: "100%", backgroundColor: "#fff" }}>
                 <ImpDatesCard
                   season={
-                    studentPreference?.season && studentPreference?.season
+                    props?.studentPreference?.season &&
+                    props?.studentPreference?.season
                   }
                 />
               </Box>

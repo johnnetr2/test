@@ -5,8 +5,7 @@ import {
   Typography,
   Box,
   Tabs,
-  Tab
-
+  Tab,
 } from "@material-ui/core";
 // import { Tabs, Tab } from '@mui/material';
 import Heading from "../../../atom/Heading/Heading";
@@ -17,7 +16,6 @@ import HomeRightBar from "../HomeRightBar/HomeRightBar";
 import swal from "sweetalert";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
   navBelowBarColor: {
     "& .PrivateTabIndicator-colorSecondary-19": {
       backgroundColor: "#0A1596",
+    },
+  },
+  tabIndicatorWidth: {
+    "& .PrivateTabIndicator-root-28": {
+      width: "75%",
     },
   },
 }));
@@ -151,7 +154,6 @@ const HomeFeedContent = (props) => {
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);
 
-
   function TabContainer(props) {
     return (
       <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -161,7 +163,7 @@ const HomeFeedContent = (props) => {
   }
 
   TabContainer.propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
   };
 
   return (
@@ -183,7 +185,7 @@ const HomeFeedContent = (props) => {
           >
             <Box>
               <Tabs
-              className={classes.indicator}
+                className={classes.indicator}
                 value={tabValue}
                 onChange={handleTabs}
                 variant="scrollable"
@@ -191,32 +193,40 @@ const HomeFeedContent = (props) => {
                 // textColor="#252525"
                 // indicatorColor="primary"
                 aria-label="scrollable prevent tabs example"
-                TabIndicatorProps={{ 
+                TabIndicatorProps={{
                   style: {
                     background: "#0A1596",
                     border: "4px solid #0A1596",
-                  }
+                  },
                 }}
               >
                 <Tab
-                  style={{ textTransform: "initial",
-                  color: tabValue == 0 ? 'black' : '#B5B5B5'
-                }}
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 0 ? "black" : "#B5B5B5",
+                  }}
+                  className={classes.tabIndicatorWidth}
                   label="Alla delprov"
                 />
                 <Tab
-                  style={{ textTransform: "initial", 
-                  color: tabValue == 1 ? 'black' : '#B5B5B5'
-                 }}
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 1 ? "black" : "#B5B5B5",
+                  }}
                   label="Kvantitativ del"
                 />
-                <Tab style={{ textTransform: "initial", 
-              color: tabValue == 2 ? 'black' : '#B5B5B5'
-              }} label="Verbal del" />
                 <Tab
-                  style={{ textTransform: "initial", 
-                  color: tabValue == 3 ? 'black' : '#B5B5B5'
-                }}
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 2 ? "black" : "#B5B5B5",
+                  }}
+                  label="Verbal del"
+                />
+                <Tab
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 3 ? "black" : "#B5B5B5",
+                  }}
                   label="My Peformance"
                   className={classes.newItem}
                 />

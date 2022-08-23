@@ -70,7 +70,7 @@ const HomeMainOrg = (props) => {
           <HomeRightBar
             totalPrognos={totalPrognos && totalPrognos}
             studentPreference={
-              props.studentPreference && props.studentPreference
+              props?.StudentPreference && props?.StudentPreference
             }
             show={showprognos}
           />

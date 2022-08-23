@@ -4,6 +4,9 @@ import Logo from "../../../../assets/Icons/Logo.svg";
 import Home from "../../../../assets/Icons/Home.svg";
 import HomeC from "../../../../assets/Icons/HomeC.svg";
 import Course from "../../../../assets/Icons/Courses.svg";
+import CoursesGrey from "../../../../assets/Icons/CoursesGrey.svg";
+import MsgGrey from "../../../../assets/Icons/MsgGrey.svg";
+import ProfileGrey from "../../../../assets/Icons/ProfileGrey.svg";
 import CourseC from "../../../../assets/Icons/CoursesC.svg";
 import Feedback from "../../../../assets/Icons/Msg.svg";
 import FeedbackC from "../../../../assets/Icons/FeedbackC.svg";
@@ -70,12 +73,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
-    color: "#b4b4b4",
+    color: "#e1e1e1",
     "&:hover": {
-      color: "#b4b4b4",
+      color: "#e1e1e1",
       cursor: "unset",
     },
-    backgroundColor: "#e1e1e1",
+    // backgroundColor: "#e1e1e1",
     textDecoration: "none",
   },
   text: {
@@ -178,7 +181,8 @@ const HomeLeftBar = (props) => {
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <img
-              src={props.currentPage === "course" ? CourseC : Course}
+              // src={props.currentPage === "course" ? CourseC : Course}
+              src={CoursesGrey}
               className={classes.icon}
             />
           </Box>
@@ -207,10 +211,11 @@ const HomeLeftBar = (props) => {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <img
+            {/* <img
               src={props.currentPage === "feedback" ? FeedbackC : Feedback}
               className={classes.icon}
-            />
+            /> */}
+            <img src={MsgGrey} alt="" className={classes.icon} />
           </Box>
           <Typography
             variant="body1"
@@ -236,10 +241,11 @@ const HomeLeftBar = (props) => {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <img
+            {/* <img
               src={props.currentPage === "profile" ? ProfileC : Profile}
               className={classes.icon}
-            />
+            /> */}
+            <img src={ProfileGrey} className={classes.icon} alt="" />
           </Box>
           <Typography
             variant="body1"
