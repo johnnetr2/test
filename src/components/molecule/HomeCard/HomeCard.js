@@ -17,9 +17,9 @@ const HomeCard = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // console.log("17: ", KVANormeringValueFor(16.83));
+    // console.log("17: ", DTKNormeringValueFor(28));
 
-    // console.log(props?.previousRecord?.AttemptedQuestion, 'first one ')
+    // console.log(props?.previousRecord?.TotalQuestion, 'first one ')
 
 
   }, []);
@@ -28,20 +28,20 @@ const HomeCard = (props) => {
     if (props?.item.title == "XYZ") {
       return XYZNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.AttemptedQuestion) *
+          props?.previousRecord?.TotalQuestion) *
           100
       );
     } else if (props?.item.title == "KVA") {
       return KVANormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.AttemptedQuestion) *
+          props?.previousRecord?.TotalQuestion) *
           100
       );
     } else if (props?.item.title == "NOG") {
       return (
         NOGNormeringValueFor(
             (props?.previousRecord?.CorrectQuestion /
-              props?.previousRecord?.AttemptedQuestion) *
+              props?.previousRecord?.TotalQuestion) *
             100)
           
       );
@@ -49,35 +49,35 @@ const HomeCard = (props) => {
       return (
         DTKNormeringValueFor(
             (props?.previousRecord?.CorrectQuestion /
-              props?.previousRecord?.AttemptedQuestion) *
+              props?.previousRecord?.TotalQuestion) *
             100)
       );
     } else if (props?.item.title == "ELF") {
       return (
         ELFNormeringValueFor(
             (props?.previousRecord?.CorrectQuestion /
-              props?.previousRecord?.AttemptedQuestion) *
+              props?.previousRecord?.TotalQuestion) *
             100)
       );
     } else if (props?.item.title == "LÄS") {
       return (
         LASNormeringValueFor(
             (props?.previousRecord?.CorrectQuestion /
-              props?.previousRecord?.AttemptedQuestion) *
+              props?.previousRecord?.TotalQuestion) *
             100)
       );
     } else if (props?.item.title == "ORD") {
       return (
         ORDNormeringValueFor(
             (props?.previousRecord?.CorrectQuestion /
-              props?.previousRecord?.AttemptedQuestion) *
+              props?.previousRecord?.TotalQuestion) *
             100)
       );
     } else if (props?.item.title == "MEK") {
       return (
         MEKNormeringValueFor(
             (props?.previousRecord?.CorrectQuestion /
-              props?.previousRecord?.AttemptedQuestion) *
+              props?.previousRecord?.TotalQuestion) *
           100)
       );
     }
@@ -120,10 +120,10 @@ const HomeCard = (props) => {
             average={
               props?.previousRecord
                 ? (props?.previousRecord.CorrectQuestion /
-                    props?.previousRecord.AttemptedQuestion) *
+                    props?.previousRecord.TotalQuestion) *
                   100
                   ? (props?.previousRecord.CorrectQuestion /
-                      props?.previousRecord.AttemptedQuestion) *
+                      props?.previousRecord.TotalQuestion) *
                     100
                   : 0
                 : 0
@@ -149,7 +149,7 @@ const HomeCard = (props) => {
             width: "3.5rem",
           }}
         >
-          {props?.previousRecord?.AttemptedQuestion < 20 && (
+          {props?.previousRecord?.TotalQuestion < 20 && (
             <img
               src={image70}
               style={{

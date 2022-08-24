@@ -295,6 +295,7 @@ const QuestionBody = (props) => {
                       <Typography
                         style={{
                           marginTop: "1.25rem",
+                          paddingLeft: '1px',
                           color: changeOptionsColor(item),
                         }}
                         variant="body2"

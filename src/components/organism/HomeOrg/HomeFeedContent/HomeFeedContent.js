@@ -66,13 +66,22 @@ const HomeFeedContent = (props) => {
   const [totalPrognos, setTotalPrognos] = useState();
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      const previousRecordURL =
-        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-      instance2.get(previousRecordURL).then((response) => {
-        if (response.data.success == true) {
-          setPreviousRecordProgress(response.data.Data);
+      // const previousRecordURL =
+      //   EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+      // instance2.get(previousRecordURL).then((response) => {
+      //   console.log(response, 'this is the console of response of overall prognosis values')
+      //   if (response.data.success == true) {
+      //     setPreviousRecordProgress(response.data.Data);
+      //   }
+      // });
+      const loginUserID = localStorage.getItem("userId");
+      const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
+      instance2.get(NormeringValueOfBothMainCategories).then((response) => {
+        console.log(response, 'this is the console of response of overAll Normering Values')
+        if (response?.data?.success){
+          setPreviousRecordProgress(response.data.Data)
         }
-      });
+      })
 
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
@@ -130,11 +139,11 @@ const HomeFeedContent = (props) => {
 
   useEffect(() => {
     let count = 0;
-    let prognos;
+    let totalQuestion = 0;
     let show = true;
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        if (item.AttemptedQuestion <= 20) {
+        if (item.TotalQuestion <= 20) {
           show = false;
         }
       });
@@ -142,11 +151,15 @@ const HomeFeedContent = (props) => {
 
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
-        count = count + prognos;
+        // prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
+        count = count + item.CorrectQuestion;
+        totalQuestion = totalQuestion + item.TotalQuestion
       });
+      console.log(totalQuestion, 'totalQuestion')
+      console.log(count, 'count')
     let avgPrognos =
-      previousRecordProgress && count / previousRecordProgress.length;
+      previousRecordProgress && (count / totalQuestion)*2;
+      console.log(avgPrognos, 'total avaerageee')
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);

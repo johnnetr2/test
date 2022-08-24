@@ -18,6 +18,8 @@ import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Righticon from '../../../../../../assets/Imgs/Righticon.png'
+import CircularProgress from "@mui/material/CircularProgress";
+
 
 let dataSubmit = []
 

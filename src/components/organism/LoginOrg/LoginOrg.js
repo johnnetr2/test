@@ -14,6 +14,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import firebase from "../../service/firebase";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import InputField from "../../atom/InputField/InputField";
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginOrg = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     email: "",
@@ -46,29 +48,38 @@ const LoginOrg = () => {
 
   const loginFunc = (e) => {
     e.preventDefault();
-    const data = {
-      email: user.email,
-      password: user.password,
-    };
-
-    const URL = EndPoints.Login;
-    instance
-      .post(URL, data)
-      .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("userId", response.data.user._id);
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("role", response.data.user.role);
-          localStorage.setItem("fullName", response.data.user.fullName);
-          localStorage.setItem("email", response.data.user.email);
-          window.location.href = "/home";
-        } else {
-          swal("Warning!", "Invalid Credentials", "error");
-        }
+    if (user.email == '' || user.password == ''){
+      swal({
+        icon: 'warning',
+        title: 'Alert!',
+        text: 'Please Fill the required Fields'
       })
-      .catch((error) => {
-        swal("Warning!", "Invalid Credentials", "error");
-      });
+    } else {
+      const data = {
+        email: user.email,
+        password: user.password,
+      };
+  
+      const URL = EndPoints.Login;
+      instance
+        .post(URL, data)
+        .then((response) => {
+          if (response.data.token) {
+            localStorage.setItem("userId", response.data.user._id);
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("role", response.data.user.role);
+            localStorage.setItem("fullName", response.data.user.fullName);
+            localStorage.setItem("email", response.data.user.email);
+            navigate("/home")
+            // window.location.href = "/home";
+          } else {
+            swal("Warning!", "Invalid Credentials", "error");
+          }
+        })
+        .catch((error) => {
+          swal("Warning!", "Invalid Credentials", "error");
+        });
+    }
   };
 
   const forgotPassword = () => {
@@ -205,7 +216,7 @@ const LoginOrg = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "3rem",
+                height: "2rem",
                 padding: "1rem",
                 width: "100%",
                 backgroundColor: "transparent",
@@ -238,14 +249,14 @@ const LoginOrg = () => {
               <Filled_btn title="Logga in" onClick={loginFunc} />
             </Link>
           </Box>
-          <Box style={{ display: 'flex', justifyContent: 'center' }}>
+          {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="body1">eller</Typography>
-          </Box>
+          </Box> */}
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Outline_btn
+            {/* <Outline_btn
               onClick={signInWithGoogle}
               title="Logga in Med Google"
-            />
+            /> */}
           </Box>
           <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="body1">

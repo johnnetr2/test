@@ -45,7 +45,7 @@ const Timer = (props) => {
   useEffect(() => {
     setTimeout(() => {
       localStorage.setItem('time', timer)
-      console.log(timer, 'this is the timer of local storafe')
+      // console.log(timer, 'this is the timer of local storafe')
     }, 2000)
   }, [timer])
 
@@ -53,7 +53,7 @@ const Timer = (props) => {
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD){
       if(localStorage.getItem('time')){
-        console.log('hello', localStorage.getItem('time'))
+        // console.log('hello', localStorage.getItem('time'))
         setTimer(localStorage.getItem('time'))
       }
     }

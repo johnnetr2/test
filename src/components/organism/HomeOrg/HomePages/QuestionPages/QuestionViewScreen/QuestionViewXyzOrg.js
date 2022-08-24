@@ -77,6 +77,7 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       console.log(URL, 'url')
       instance2.get(URL).then((response) => {
+        console.log(response, 'this is the console of response of on page refresh')
         response.data.quiz &&
           response.data.quiz.map((item) => {
             setLoading(false);
@@ -143,7 +144,7 @@ const QuestionViewXyzOrg = () => {
         user: localStorage.getItem("userId"),
         optionId: question.optionId,
         questionId: question._id,
-        sectionCategory: params?.state?.sectionCategory._id,
+        sectionCategory: params?.state?.sectionCategory?._id,
         timeleft: timeLeft ? timeLeft : 0,
         totaltime: time ? time : 0,
         spendtime: timeLeft ? time - timeLeft : 0,
@@ -223,7 +224,7 @@ const QuestionViewXyzOrg = () => {
               quiz: params?.state?.quizId,
               user: localStorage.getItem("userId"),
               questionId: item._id,
-              sectionCategory: params?.state?.sectionCategory._id,
+              sectionCategory: params?.state?.sectionCategory?._id,
               timeleft: 0,
               totaltime: time ? time : 0,
               spendtime: timeLeft ? time - timeLeft : 0,
@@ -270,7 +271,7 @@ const QuestionViewXyzOrg = () => {
       );
     } else if (question.answer && curentOption._id == question?.optionId) {
       return (
-        <img src={Wrong} style={{ marginLeft: "0.45rem", width: "1.5rem" }} />
+        <img src={Wrong} style={{ marginLeft: "0.45rem", width: "1.5rem", color: 'grey' }} />
       );
     }
 

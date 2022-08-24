@@ -38,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
       width: "100% !important",
     },
   },
+  placeholder: {
+    "&::placeholder": {
+      color: '#E1E1E1'
+    }
+  }
 }));
 
 const SignupOrg = () => {
@@ -62,21 +67,37 @@ const SignupOrg = () => {
       email: register.email,
       password: register.password,
     };
-
+    if (register.fullName == '' || register.email == '' || register.password == ''){
+      swal({
+        icon: 'warning',
+        title: 'Alert!',
+        text: 'Please Fill the Required Fields'
+      })
+    } else {
     const URL = EndPoints.SignUp;
     instance
       .post(URL, data)
       .then((response) => {
         console.log(response) 
-        if (response.data) {
+        if (response?.data?.token) {
+          localStorage.setItem("role", response?.data?.user?.role);
+          localStorage.setItem("fullName", response?.data?.user?.fullName);
+          localStorage.setItem("email", response?.data?.user?.email);
           localStorage.setItem("userId", response?.data?.user?._id);
           localStorage.setItem("token", response?.data?.token);
           navigate("/home");
-        } 
+        } else if (response?.data?.result == 'fail'){
+          swal({
+            icon: 'warning',
+            title: 'Warning',
+            text: response?.data?.message
+          })
+        }
       })
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   return (
@@ -165,6 +186,7 @@ const SignupOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
+              outline: 'none'
             }}
           />
           <LabelField
@@ -182,6 +204,7 @@ const SignupOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
+              outline: 'none'
             }}
           />
           <Label for="password">Lösenord</Label>
@@ -199,15 +222,19 @@ const SignupOrg = () => {
             }}
           >
             <InputField
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
               type={showPassword ? "password" : "text"}
-              title="Password"
+              // title="6+ bokstäver, 1 stor bokstav, 1 siffra"
               placeholder="Password"
               onChange={changeHandler}
               value={register.password}
+              // placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
+              className={classes.placeholder}
               name="password"
               id="password"
-              style={{
-                width: "100%",
+              style  ={{
+                width: "20vw",
+                backgroundColor: 'coral',
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -215,6 +242,7 @@ const SignupOrg = () => {
                 border: "none",
                 padding: "1rem",
                 backgroundColor: "transparent",
+                outline: 'none',
               }}
             />
             <Label

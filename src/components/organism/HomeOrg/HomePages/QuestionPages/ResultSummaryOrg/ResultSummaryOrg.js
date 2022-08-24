@@ -338,7 +338,7 @@ const ResultSummaryOrg = (props) => {
                     }}
                   >
                     <Typography variant="h4">
-                      {timePerQues ? dispSecondsAsMins(timePerQues) : "00:00"}
+                      {timePerQues ? dispSecondsAsMins(timePerQues.toFixed(0)) : "00:00"}
                     </Typography>
                     <Typography
                       variant="body1"
