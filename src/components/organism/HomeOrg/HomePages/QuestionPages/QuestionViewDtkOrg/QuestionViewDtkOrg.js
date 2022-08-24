@@ -181,7 +181,6 @@ const QuestionViewDTKOrg = (props) => {
       }
       const URL = EndPoints.submitMultiquestionParagragh
       instance2.post(URL, obj).then(response => {
-        console.log(response.data, 'this is api response for paragraph')
         setShowResult(true)
         props.stopTimer()
       })

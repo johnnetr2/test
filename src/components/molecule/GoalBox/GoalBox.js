@@ -40,18 +40,17 @@ const GoalBox = (props) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const open = Boolean(anchorEl);
-
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
       setAnchorEl(null);
     };
-    const handleClickMenuItem = () => {};
 
     return (
       <div>
         <IconButton
+          style={{ height: "1rem", width: "1.5rem" }}
           aria-label="more"
           id="long-button"
           aria-controls={open ? "long-menu" : undefined}
@@ -71,7 +70,7 @@ const GoalBox = (props) => {
           onClose={handleClose}
           PaperProps={{
             style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
+              // height: ITEM_HEIGHT * 4.5,
               width: "12ch",
               display: "flex",
               justifyContent: "center",
@@ -94,6 +93,9 @@ const GoalBox = (props) => {
           boxShadow: "0px 5px 10px #f2f2f2",
           borderRadius: 1,
           padding: ".5rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
         <Box
@@ -116,7 +118,7 @@ const GoalBox = (props) => {
             variant="h3"
             style={{ marginRight: "0.5rem", fontSize: "2.5rem" }}
           >
-            {pointCollection.point ? pointCollection.point : "0.0"}
+            {pointCollection?.point ? pointCollection?.point : "0.0"}
           </Typography>
 
           <Typography variant="body2" style={{ marginBottom: "0.25rem" }}>

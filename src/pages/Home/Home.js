@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import HomeMainOrg from "../../components/organism/HomeOrg/HomeMain/HomeMain";
 import StartPopup from "../../components/molecule/StartPopup/StartPopup";
 import EndPopup from "../../components/molecule/EndPopup/EndPopup";
-import { EndPoints, instance2 } from "../../components/service/Route";
+import {
+  EndPoints,
+  instance2,
+  instance3,
+} from "../../components/service/Route";
+import { useLocation } from "react-router-dom";
 
-const Home = (props) => {
+const Home = () => {
   const [firstPopup, setFirstPopup] = useState("");
   const [secondPopup, setSecondPopup] = useState("");
   const [collection, setCollection] = useState({
@@ -14,10 +19,17 @@ const Home = (props) => {
     userId: localStorage.getItem("userId"),
   });
 
-  useEffect(() => {
-    const URL = EndPoints.getStudentPreference + localStorage.getItem("userId");
+  const location = useLocation();
+
+  useEffect(async () => {
+    const id = await localStorage.getItem("userId");
+    const URL = EndPoints.getStudentPreference + id;
     instance2.get(URL).then((response) => {
-      if (response.data.StudentPreference) {
+      if (response?.data?.StudentPreference) {
+        setCollection({
+          ...collection,
+          StudentPreference: response.data.StudentPreference,
+        });
         setFirstPopup(false);
       } else {
         setFirstPopup(true);
@@ -25,26 +37,20 @@ const Home = (props) => {
     });
   }, []);
 
-  const data = {
-    season: collection.season,
-    point: collection.gpa ? collection.gpa : 1,
-    user: collection.userId,
-  };
-
-  const URL = EndPoints.testDate;
-  function sendData() {
-    instance2.post(URL, data, {}).then((response) => {
+  const sendData = async () => {
+    const payLoad = {
+      season: collection.season,
+      point: collection.gpa ? collection.gpa : 1,
+      user: localStorage.getItem("userId"),
+    };
+    const URL = EndPoints.testDate;
+    await instance3.post(URL, payLoad).then((response) => {
       if (response?.data?.StudentPreference) {
-        setCollection({
-          ...collection,
-          StudentPreference: response.data.StudentPreference,
-        });
+        setCollection({ StudentPreference: response.data.StudentPreference });
         setSecondPopup(false);
-
-        // window.location.reload();
       }
     });
-  }
+  };
   const submitFunc = () => {
     setFirstPopup(false);
     setSecondPopup(true);
@@ -70,7 +76,7 @@ const Home = (props) => {
       />
       <HomeMainOrg
         StudentPreference={
-          collection.StudentPreference && collection.StudentPreference
+          collection?.StudentPreference && collection?.StudentPreference
         }
       />
     </div>

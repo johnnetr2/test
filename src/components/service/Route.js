@@ -14,6 +14,21 @@ export const instance2 = axios.create({
   },
 });
 
+export const instance3 = axios.create({
+  baseURL: "http://localhost:2000",
+  // baseURL: 'http://13.53.194.168:2000',
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    "Content-Type": "application/json",
+  },
+});
+
+instance3.interceptors.request.use(function (config) {
+  let token = localStorage.getItem("token");
+  config.headers["Authorization"] = "Bearer " + token;
+  return config;
+});
+
 export const EndPoints = {
   SignUp: "/auth/signup",
   Login: "/auth/login",
@@ -21,7 +36,7 @@ export const EndPoints = {
   questionCategoryBysectionCategory:
     "/admin/QuestionCategory/questionCategoryBysectionCategory/",
   ResultByUser: "/quizResult/resultByUser/",
-  testDate: "/api/studentPrefenence",
+  testDate: "/api/studentPrefenence/",
   getResult: "/api/quizResult/resultByUserAndQuizid/",
   testHistory: "/api/quizResult/getQuizBySecOruser/",
   storeQuiz: "/api/quiz",
@@ -57,4 +72,5 @@ export const EndPoints = {
   getParagraphResult: "/api/quizResult/paragraphQuestionResult/",
   getLastSevenWeeksData: '/api/task/sectionGraph/',
   OverAllNormeringValue: "/api/tableHistory/ProgressOfHundred/",
+  getLastSevenWeeksData: "/api/task/sectionGraph/",
 };
