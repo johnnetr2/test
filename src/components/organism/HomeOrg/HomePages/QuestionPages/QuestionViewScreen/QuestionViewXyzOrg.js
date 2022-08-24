@@ -44,7 +44,7 @@ const QuestionViewXyzOrg = () => {
   const [loading, setLoading] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
-  const [currentQuestion, setCurrentQuestion] = useState(1)
+  const [currentQuestion, setCurrentQuestion] = useState(1);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -52,24 +52,27 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
+ 
+
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
-      setCurrentQuestion(questionToShow)
+      setCurrentQuestion(questionToShow);
       setQuiz(params?.state?.quiz.question);
-      setTotalQuestions(params?.state?.quiz?.question.length);
+      setTotalQuestions(params?.state?.quiz?.question?.length);
       setLoading(false);
     } else {
       let totalQ = 0;
       // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
       // instance2.get(URL).then((response) => {
-      params.state.data.quiz &&
-        params.state.data.quiz.map((item) => {
+      params?.state?.data?.quiz &&
+        params?.state?.data?.quiz?.map((item) => {
+          localStorage.setItem('quiz', item)
           setLoading(false);
           if (item?.answer) {
             setSelectedIndex((selectedIndex) => selectedIndex + 1);
-            setCurrentQuestion(currentQuestion => currentQuestion + 1)
+            setCurrentQuestion((currentQuestion) => currentQuestion + 1);
           }
           if (item.description) {
             setTotalQuestions((totalQ) => totalQ + item?.question?.length);
@@ -79,7 +82,7 @@ const QuestionViewXyzOrg = () => {
             setTotalQuestions((totalQ) => totalQ + 1);
           }
         });
-      setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0))
+      setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
       // setTime((1 * totalQ * 60).toFixed(0));
       setStatus(true);
       setQuiz(params.state.data.quiz);
@@ -87,21 +90,30 @@ const QuestionViewXyzOrg = () => {
     }
   }, []);
 
+
+  useEffect(() => {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      console.log("page got refresh", localStorage.getItem("quiz"));
+      setQuiz(localStorage.getItem('quiz'))
+    }
+  }, []);
+
   const Next = (question) => {
     if (question.answer) {
       if (selectedIndex + 1 == quiz.length) {
-        localStorage.setItem("quizId", params?.state?.quizId);
+        // localStorage.setItem("quizId", params?.state?.quizId);
         navigate("/resultsummary", {
           state: {
             sectionCategory: params?.state?.sectionCategory,
             quizId: params?.state?.quizId,
           },
         });
-        localStorage.removeItem('time');
+        localStorage.removeItem("time");
+        localStorage.removeItem("quiz");
       } else {
         setStatus(true);
         selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
-        setCurrentQuestion(currentQuestion + 1)
+        setCurrentQuestion(currentQuestion + 1);
       }
     } else {
       if (question.selectedIndex + 1) {
@@ -142,7 +154,7 @@ const QuestionViewXyzOrg = () => {
       instance2.post(Submit, data).then((response) => {
         setTime(timeLeft);
         setNextPress(undefined);
-        localStorage.setItem('quiz', quiz)
+        localStorage.setItem("quiz", quiz);
         console.log("Answer submited");
       });
     } else {
@@ -219,7 +231,7 @@ const QuestionViewXyzOrg = () => {
               spendtime: timeLeft ? time - timeLeft : 0,
             };
             const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => { });
+            await instance2.post(URL, data).then((response) => {});
           }
         })
       );
@@ -260,7 +272,10 @@ const QuestionViewXyzOrg = () => {
       );
     } else if (question.answer && curentOption._id == question?.optionId) {
       return (
-        <img src={Wrong} style={{ marginLeft: "0.45rem", width: "1.5rem", color: 'grey' }} />
+        <img
+          src={Wrong}
+          style={{ marginLeft: "0.45rem", width: "1.5rem", color: "grey" }}
+        />
       );
     }
 

@@ -37,8 +37,7 @@ export const EndPoints = {
   SignUp: "/auth/signup",
   Login: "/auth/login",
   getAllCategories: "admin/sectionCategories",
-  questionCategoryBysectionCategory:
-    "/admin/QuestionCategory/questionCategoryBysectionCategory/",
+  questionCategoryBysectionCategory: "/admin/QuestionCategory/questionCategoryBysectionCategory/",
   ResultByUser: "/quizResult/resultByUser/",
   testDate: "/api/studentPrefenence/",
   getResult: "/api/quizResult/resultByUserAndQuizid/",
