@@ -21,14 +21,14 @@ const QuestionBody = (props) => {
   const [question, setQuestion] = useState(props?.question);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
-  // const [randomOptions, setRandomOptions] = useState([]);
 
-  // useEffect(() => {
-  //   const testRandom = props?.question?.options[0]?.options?.sort(
-  //     () => 0.5 - Math.random()
-  //   );
-  //   setRandomOptions(testRandom);
-  // }, [randomOptions]);
+  const updateQuiz = (value) => {
+    let quiz = [...props.quiz]
+    setQuestion(value)
+    const index = quiz.findIndex(obj => obj._id == value._id)
+    quiz.splice(index, 1, value)
+    props.updateQuiz(quiz)
+  }
 
   const PlusPoint = () => {
     setCount(1);
@@ -51,7 +51,6 @@ const QuestionBody = (props) => {
   };
 
   const questionId = props.question._id;
-  // const optionArray = ;
 
   if (props.question.type == "multiple") {
     return (
@@ -69,6 +68,8 @@ const QuestionBody = (props) => {
         quizId={props.quizId}
         totalTime={props.totalTime}
         quiz={props.quiz}
+        updateQuiz={(value) => updateQuiz(value)}
+        changeIndex={() => props.changeIndex()}
         sectionCategory={props?.sectionCategory}
         nextQuestion={() => props.nextQuestion()}
         stopTimer={() => props.stopTime()}
@@ -244,13 +245,13 @@ const QuestionBody = (props) => {
                   sx={{
                     height:
                       question?.options[0].options.length > 4 ||
-                      item.image === ""
+                        item.image === ""
                         ? 60
                         : 120,
                     border: "1px solid #e1e1e1",
                     width:
                       question?.options[0].options.length > 4 ||
-                      item.image === ""
+                        item.image === ""
                         ? 600
                         : 300,
                     display: "flex",
@@ -263,7 +264,7 @@ const QuestionBody = (props) => {
                       color: !question.answer && "#0A1596",
                     },
                   }}
-                 
+
                   onMouseOver={() => props.onhover(item._id)}
                   onMouseLeave={() => props.onHoverLeave()}
                   onClick={(e) => {
@@ -314,12 +315,12 @@ const QuestionBody = (props) => {
                       display: "flex",
                       marginLeft:
                         question?.options[0].options.length > 4 ||
-                        item.image === ""
+                          item.image === ""
                           ? "1rem"
                           : "0",
                       justifyContent:
                         question?.options[0].options.length > 4 ||
-                        item.image === ""
+                          item.image === ""
                           ? "flex-start"
                           : "center",
                       alignItems: "center",
