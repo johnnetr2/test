@@ -51,7 +51,7 @@ const CategoryPagesMain = () => {
           <CategoryPagesLeftBar />
         </Grid>
         <Container
-          maxWidth="false"
+          maxWidth="xl"
           disableGutters
           style={{
             display: "flex",
@@ -68,7 +68,10 @@ const CategoryPagesMain = () => {
             }}
             className={classes.right}
           >
-            <CategoryPagesRightBar item={params?.state?.item} progress={params?.state.progress} />
+            <CategoryPagesRightBar
+              item={params?.state?.item}
+              progress={params?.state.progress}
+            />
           </Grid>
         </Container>
       </Grid>

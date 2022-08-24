@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
   placeholder: {
     "&::placeholder": {
-      color: '#E1E1E1'
-    }
-  }
+      color: "#E1E1E1",
+    },
+  },
 }));
 
 const SignupOrg = () => {
@@ -53,7 +53,10 @@ const SignupOrg = () => {
     email: "",
     password: "",
   });
+
   const [showPassword, setShowPassword] = useState(true);
+
+  let isValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{7,}$/;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -67,36 +70,46 @@ const SignupOrg = () => {
       email: register.email,
       password: register.password,
     };
-    if (register.fullName == '' || register.email == '' || register.password == ''){
+    if (
+      register.fullName == "" ||
+      register.email == "" ||
+      register.password == ""
+    ) {
       swal({
-        icon: 'warning',
-        title: 'Alert!',
-        text: 'Please Fill the Required Fields'
-      })
-    } else {
-    const URL = EndPoints.SignUp;
-    instance
-      .post(URL, data)
-      .then((response) => {
-        console.log(response) 
-        if (response?.data?.token) {
-          localStorage.setItem("role", response?.data?.user?.role);
-          localStorage.setItem("fullName", response?.data?.user?.fullName);
-          localStorage.setItem("email", response?.data?.user?.email);
-          localStorage.setItem("userId", response?.data?.user?._id);
-          localStorage.setItem("token", response?.data?.token);
-          navigate("/home");
-        } else if (response?.data?.result == 'fail'){
-          swal({
-            icon: 'warning',
-            title: 'Warning',
-            text: response?.data?.message
-          })
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+        icon: "warning",
+        title: "Alert!",
+        text: "Please Fill the Required Fields",
       });
+    } else if (!isValid.test(register.password)) {
+      swal({
+        icon: "warning",
+        title: "Alert!",
+        text: "6+ bokstäver, 1 stor bokstav, 1 siffra",
+      });
+    } else {
+      const URL = EndPoints.SignUp;
+      instance
+        .post(URL, data)
+        .then((response) => {
+          console.log(response);
+          if (response?.data?.token) {
+            localStorage.setItem("role", response?.data?.user?.role);
+            localStorage.setItem("fullName", response?.data?.user?.fullName);
+            localStorage.setItem("email", response?.data?.user?.email);
+            localStorage.setItem("userId", response?.data?.user?._id);
+            localStorage.setItem("token", response?.data?.token);
+            navigate("/home");
+          } else if (response?.data?.result == "fail") {
+            swal({
+              icon: "warning",
+              title: "Warning",
+              text: response?.data?.message,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -186,7 +199,7 @@ const SignupOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
-              outline: 'none'
+              outline: "none",
             }}
           />
           <LabelField
@@ -204,7 +217,7 @@ const SignupOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
-              outline: 'none'
+              outline: "none",
             }}
           />
           <Label for="password">Lösenord</Label>
@@ -224,17 +237,17 @@ const SignupOrg = () => {
             <InputField
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
               type={showPassword ? "password" : "text"}
-              // title="6+ bokstäver, 1 stor bokstav, 1 siffra"
-              placeholder="Password"
+              title="6+ bokstäver, 1 stor bokstav, 1 siffra"
+              placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
               onChange={changeHandler}
               value={register.password}
               // placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
               className={classes.placeholder}
               name="password"
               id="password"
-              style  ={{
+              style={{
                 width: "20vw",
-                backgroundColor: 'coral',
+                backgroundColor: "coral",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -242,7 +255,7 @@ const SignupOrg = () => {
                 border: "none",
                 padding: "1rem",
                 backgroundColor: "transparent",
-                outline: 'none',
+                outline: "none",
               }}
             />
             <Label
@@ -260,26 +273,27 @@ const SignupOrg = () => {
               )}
             </Label>
           </Box>
+          {/* <Box>Enter valid password</Box> */}
           <Typography variant="body1">Glömt lösenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <FilledBtn onClick={clickHandler} title="Skapa konto" />
             </Link>
           </Box>
-          <Box style={{ display: 'flex', justifyContent: 'center' }}>
-          <Typography variant="body1">eller</Typography>
+          <Box style={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant="body1">eller</Typography>
           </Box>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             {/* <OutlineBtn title="Konto med Google" /> */}
           </Box>
-          <Box style={{ display: 'flex', justifyContent: 'center' }}>
-          <Typography
-            variant="body1"
-            style={{ textTransform: 'uppercase  ' }}
-            // sx={{ textAlign: "center", width: "100%" }}
-          >
-            Har du redan ett konto?<Link to="/login"> Logga in</Link>
-          </Typography>
+          <Box style={{ display: "flex", justifyContent: "center" }}>
+            <Typography
+              variant="body1"
+              style={{ textTransform: "uppercase  " }}
+              // sx={{ textAlign: "center", width: "100%" }}
+            >
+              Har du redan ett konto?<Link to="/login"> Logga in</Link>
+            </Typography>
           </Box>
           <Box
             sx={{

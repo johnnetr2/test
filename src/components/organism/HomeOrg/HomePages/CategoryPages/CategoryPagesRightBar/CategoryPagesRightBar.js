@@ -77,7 +77,7 @@ const CategoryPagesRightBar = (props) => {
     // });
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
-      console.log(response, 'this is the console of last week tasks data')
+      console.log(response, "this is the console of last week tasks data");
       setLastWeekTasks(response.data);
     });
   }, []);
@@ -150,7 +150,7 @@ const CategoryPagesRightBar = (props) => {
                   : 0
               }
             />
-            <Typography
+            {/* <Typography
               style={{
                 marginTop: "-0.95rem",
                 position: "absolute",
@@ -169,7 +169,7 @@ const CategoryPagesRightBar = (props) => {
             >
               {lastWeekTasks.totalCorrectQuestions} av{" "}
               {lastWeekTasks.totalQuestions}
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
         <Box

@@ -14,7 +14,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import firebase from "../../service/firebase";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import InputField from "../../atom/InputField/InputField";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -48,18 +48,18 @@ const LoginOrg = () => {
 
   const loginFunc = (e) => {
     e.preventDefault();
-    if (user.email == '' || user.password == ''){
+    if (user.email == "" || user.password == "") {
       swal({
-        icon: 'warning',
-        title: 'Alert!',
-        text: 'Please Fill the required Fields'
-      })
+        icon: "warning",
+        title: "Alert!",
+        text: "Please Fill the required Fields",
+      });
     } else {
       const data = {
         email: user.email,
         password: user.password,
       };
-  
+
       const URL = EndPoints.Login;
       instance
         .post(URL, data)
@@ -70,7 +70,7 @@ const LoginOrg = () => {
             localStorage.setItem("role", response.data.user.role);
             localStorage.setItem("fullName", response.data.user.fullName);
             localStorage.setItem("email", response.data.user.email);
-            navigate("/home")
+            navigate("/home");
             // window.location.href = "/home";
           } else {
             swal("Warning!", "Invalid Credentials", "error");
@@ -186,8 +186,8 @@ const LoginOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
-              outline: 'none',
-              WebkitBoxShadow: '0 0 0 1000px white inset'
+              outline: "none",
+              WebkitBoxShadow: "0 0 0 1000px white inset",
             }}
           />
           <Label for="password">Lösenord</Label>
@@ -207,7 +207,7 @@ const LoginOrg = () => {
             <InputField
               type={showPassword ? "password" : "text"}
               title="Password"
-              placeholder="Password"
+              placeholder="Lösenord"
               onChange={getVal}
               value={user.password}
               name="password"
@@ -220,9 +220,9 @@ const LoginOrg = () => {
                 padding: "1rem",
                 width: "100%",
                 backgroundColor: "transparent",
-                outline: 'none',
-                border: 'none',
-                WebkitBoxShadow: '0 0 0 1000px white inset'
+                outline: "none",
+                border: "none",
+                WebkitBoxShadow: "0 0 0 1000px white inset",
               }}
               className={classes.autoFillColor}
             />
@@ -258,10 +258,10 @@ const LoginOrg = () => {
               title="Logga in Med Google"
             /> */}
           </Box>
-          <Box style={{ display: 'flex', justifyContent: 'center' }}>
-          <Typography variant="body1">
-            Har du ingte konto? <Link to="/">Skapa konto här</Link>
-          </Typography>
+          <Box style={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant="body1">
+              Har du ingte konto? <Link to="/">Skapa konto här</Link>
+            </Typography>
           </Box>
         </Box>
       </Container>
