@@ -14,14 +14,14 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Dropdown from "../../atom/ArrowDropDown/dropdown";
-import XYZPercentageCalculator from '../../atom/percentageCalculator/xyz'
-import ORDPercentageCalculator from '../../atom/percentageCalculator/ord'
-import KVAPercentageCalculator from '../../atom/percentageCalculator/kva'
-import NOGPercentageCalculator from '../../atom/percentageCalculator/nog'
-import ELFPercentageCalculator from '../../atom/percentageCalculator/elf'
-import MEKPercentageCalculator from '../../atom/percentageCalculator/mek'
-import LASPercentageCalculator from '../../atom/percentageCalculator/las'
-import DTKPercentageCalculator from '../../atom/percentageCalculator/dtk'
+import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
@@ -78,27 +78,21 @@ export const CategoryTable = (props) => {
 
   const percentageCalculation = (value) => {
     if (props?.sectionCategory.title == "XYZ") {
-      return <XYZPercentageCalculator percentage={value} />
+      return XYZNormeringValueFor(value);
     } else if (props?.sectionCategory.title == "KVA") {
-      return <KVAPercentageCalculator percentage={value} />
-    }
-    else if (props?.sectionCategory.title == "NOG") {
-      return <NOGPercentageCalculator percentage={value} />
-    }
-    else if (props?.sectionCategory.title == "DTK") {
-      return <DTKPercentageCalculator percentage={value} />
-    }
-    else if (props?.sectionCategory.title == "ELF") {
-      return <ELFPercentageCalculator percentage={value} />
-    }
-    else if (props?.sectionCategory.title == "LÄS") {
-      return <LASPercentageCalculator percentage={value} />
-    }
-    else if (props?.sectionCategory.title == "ORD") {
-      return <ORDPercentageCalculator percentage={value} />
-    }
-    else if (props?.sectionCategory.title == "MEK") {
-      return <MEKPercentageCalculator percentage={value} />
+      return KVANormeringValueFor(value);
+    } else if (props?.sectionCategory.title == "NOG") {
+      return NOGNormeringValueFor(value);
+    } else if (props?.sectionCategory.title == "DTK") {
+      return DTKNormeringValueFor(value);
+    } else if (props?.sectionCategory.title == "ELF") {
+      return ELFNormeringValueFor(value);
+    } else if (props?.sectionCategory.title == "LÄS") {
+      return LASNormeringValueFor(value);
+    } else if (props?.sectionCategory.title == "ORD") {
+      return ORDNormeringValueFor(value);
+    } else if (props?.sectionCategory.title == "MEK") {
+      return MEKNormeringValueFor(value);
     }
   }
 
@@ -165,6 +159,7 @@ export const CategoryTable = (props) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    key={index}
                   >
                     <TableCell component="th" scope="row">
                       {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
