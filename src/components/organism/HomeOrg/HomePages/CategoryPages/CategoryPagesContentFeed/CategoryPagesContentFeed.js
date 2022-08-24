@@ -166,7 +166,7 @@ const CategoryPagesFeedContent = (props) => {
       setError(true);
     } else {
       if (checkedData.length > 0) {
-        localStorage.removeItem('time')
+        localStorage.removeItem("time");
         setOpen(true);
         const data = {
           questionCategory: checkedData,
@@ -377,7 +377,7 @@ const CategoryPagesFeedContent = (props) => {
                 onClickCheck={() => setAlla(!alla)}
                 checked={
                   questionCategories &&
-                    questionCategories?.length === checkedData.length
+                  questionCategories?.length === checkedData.length
                     ? true
                     : false
                 }
@@ -386,14 +386,29 @@ const CategoryPagesFeedContent = (props) => {
 
             {questionCategories &&
               questionCategories?.map((item, index) => {
+                // console.log(item, "this is the console of categories");
                 return (
-                  <OutlineField
-                    title={item.title}
-                    onClickCheck={(e) => {
-                      selectedItem(e, item);
-                    }}
-                    checked={isChecked(item._id)}
-                  />
+                  <>
+                    {item?.sectionCategory?.title === "MEK" &&
+                    item?.title === "others" ? (
+                      ""
+                    ) : (
+                      <OutlineField
+                        title={item.title}
+                        onClickCheck={(e) => {
+                          selectedItem(e, item);
+                        }}
+                        checked={isChecked(item._id)}
+                      />
+                    )}
+                  </>
+                  // <OutlineField
+                  //   title={item.title !== 'others'}
+                  //   onClickCheck={(e) => {
+                  //     selectedItem(e, item);
+                  //   }}
+                  //   checked={isChecked(item._id)}
+                  // />
                 );
               })}
           </Box>
