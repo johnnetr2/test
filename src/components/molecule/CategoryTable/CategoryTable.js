@@ -51,7 +51,7 @@ export const CategoryTable = (props) => {
 
   useEffect(() => {
     setSectionCategory(props?.sectionCategory);
-    console.log(props?.tableHistory[42], 'indexxxxxxxxx')
+    // console.log(props?.tableHistory[42], 'indexxxxxxxxx')
   }, []);
 
   const ResultHandler = (row) => {

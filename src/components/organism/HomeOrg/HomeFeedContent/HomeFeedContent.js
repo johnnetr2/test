@@ -80,7 +80,7 @@ const HomeFeedContent = (props) => {
       const loginUserID = localStorage.getItem("userId");
       const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
-        console.log(response, 'this is the console of response of overAll Normering Values')
+        // console.log(response, 'this is the console of response of overAll Normering Values')
         if (response?.data?.success){
           setPreviousRecordProgress(response.data.Data)
         }
@@ -158,11 +158,11 @@ const HomeFeedContent = (props) => {
         count = count + item.CorrectQuestion;
         totalQuestion = totalQuestion + item.TotalQuestion
       });
-      console.log(totalQuestion, 'totalQuestion')
-      console.log(count, 'count')
+      // console.log(totalQuestion, 'totalQuestion')
+      // console.log(count, 'count')
     let avgPrognos =
       previousRecordProgress && (count / totalQuestion)*2;
-      console.log(avgPrognos, 'total avaerageee')
+      // console.log(avgPrognos, 'total avaerageee')
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);

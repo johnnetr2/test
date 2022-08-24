@@ -128,7 +128,7 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const SelectFunc = (item, optionIndex) => {
-    console.log(item._id, 'valueeeeeeeee')
+    // console.log(item._id, 'valueeeeeeeee')
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
     let question = qz[selectedIndex];
@@ -185,7 +185,7 @@ const QuestionViewDTKOrg = (props) => {
         props.stopTimer()
       })
     } catch (error) {
-      console.log("in catch block: ", error);
+      // console.log("in catch block: ", error);
     }
   };
 

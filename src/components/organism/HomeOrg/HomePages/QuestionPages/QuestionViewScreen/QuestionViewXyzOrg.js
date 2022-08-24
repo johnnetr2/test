@@ -75,9 +75,9 @@ const QuestionViewXyzOrg = () => {
     } else {
       let totalQ = 0;
       const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
-      console.log(URL, 'url')
+      // console.log(URL, 'url')
       instance2.get(URL).then((response) => {
-        console.log(response, 'this is the console of response of on page refresh')
+        // console.log(response, 'this is the console of response of on page refresh')
         response.data.quiz &&
           response.data.quiz.map((item) => {
             setLoading(false);

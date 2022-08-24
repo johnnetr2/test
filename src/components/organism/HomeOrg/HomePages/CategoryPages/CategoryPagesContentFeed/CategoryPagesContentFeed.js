@@ -386,14 +386,27 @@ const CategoryPagesFeedContent = (props) => {
 
             {questionCategories &&
               questionCategories?.map((item, index) => {
+                console.log(item, 'this is the console of categories')
                 return (
-                  <OutlineField
-                    title={item.title}
+                  <>
+                  {
+                    item.title == 'others' ? '' : 
+                    <OutlineField
+                    title={item.title !== 'others'}
                     onClickCheck={(e) => {
                       selectedItem(e, item);
                     }}
                     checked={isChecked(item._id)}
-                  />
+                  /> 
+                  }
+                  </>
+                  // <OutlineField
+                  //   title={item.title !== 'others'}
+                  //   onClickCheck={(e) => {
+                  //     selectedItem(e, item);
+                  //   }}
+                  //   checked={isChecked(item._id)}
+                  // />
                 );
               })}
           </Box>
