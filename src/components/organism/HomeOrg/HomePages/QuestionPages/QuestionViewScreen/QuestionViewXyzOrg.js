@@ -80,7 +80,6 @@ const QuestionViewXyzOrg = () => {
           }
         });
       setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0))
-      // setTime((1 * totalQ * 60).toFixed(0));
       setStatus(true);
       setQuiz(params.state.data.quiz);
       // });

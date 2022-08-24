@@ -99,11 +99,11 @@ const HomeFeedContent = (props) => {
             newArr.push(item);
           }
           if (item.title == "NOG") {
-            item.time = 1.6;
+            item.time = 10/6;
             newArr.push(item);
           }
           if (item.title == "DTK") {
-            item.time = 1.9;
+            item.time = 23/12;
             newArr.push(item);
           }
           if (item.title == "ELF") {
