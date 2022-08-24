@@ -128,7 +128,6 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const SelectFunc = (item, optionIndex) => {
-    // console.log(item._id, 'valueeeeeeeee')
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
     let question = qz[selectedIndex];
@@ -173,6 +172,8 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const submitAnswer = async () => {
+    props.updateQuiz(quiz)
+    console.log(dataSubmit, 'dataSubmitdataSubmitdataSubmit')
     try {
       const obj = {
         quiz: props.quizId,
@@ -181,6 +182,7 @@ const QuestionViewDTKOrg = (props) => {
       }
       const URL = EndPoints.submitMultiquestionParagragh
       instance2.post(URL, obj).then(response => {
+        dataSubmit = []
         setShowResult(true)
         props.stopTimer()
       })
@@ -330,8 +332,12 @@ const QuestionViewDTKOrg = (props) => {
                           {
                             quiz && quiz?.question[0].selectedOptionIndex != undefined ? (
                               <img
-                                onClick={() => selectedIndex + 1 < quiz.question.length &&
-                                  setSelectedIndex(selectedIndex + 1)}
+                                onClick={() => {
+                                  selectedIndex + 1 < quiz.question.length &&
+                                    setSelectedIndex(selectedIndex + 1)
+                                  props.updateQuiz(quiz)
+                                  props.changeIndex()
+                                }}
                                 src={BlueRightIcon}
                                 style={{ cursor: "pointer" }}
                                 className={classes.size}
@@ -406,7 +412,6 @@ const QuestionViewDTKOrg = (props) => {
                               }}
                             >
                               <FormControlLabel
-                                
                                 value={option._id}
                                 style={{
                                   marginLeft: ".5rem",

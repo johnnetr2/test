@@ -7,7 +7,6 @@ import Wrong from "../../../assets/Imgs/wrong.png";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 
 const MultiAnswer = (props) => {
-  console.log(props, "question porps true false");
 
   const options = (item, index) => {
     if (props?.question?.answer && props?.question?.answer?.option === item._id) {

@@ -44,6 +44,7 @@ const QuestionViewXyzOrg = () => {
   const [loading, setLoading] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
+  const [currentQuestion, setCurrentQuestion] = useState(1)
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -51,52 +52,38 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-
-  // useEffect(() => {
-  //   if (window.performance) {
-  //     console.info("window.performance works fine on this browser");
-  //   }
-  //   console.info(performance.navigation.type);
-  //   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-  //     console.info( "This page is reloaded" );
-  //   } else {
-  //     console.info( "This page is not reloaded");
-  //   }
-  // }, [])
-
-
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
+      setCurrentQuestion(questionToShow)
       setQuiz(params?.state?.quiz.question);
       setTotalQuestions(params?.state?.quiz?.question.length);
       setLoading(false);
     } else {
       let totalQ = 0;
-      const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
-      // console.log(URL, 'url')
-      instance2.get(URL).then((response) => {
-        // console.log(response, 'this is the console of response of on page refresh')
-        response.data.quiz &&
-          response.data.quiz.map((item) => {
-            setLoading(false);
-            if (item?.answer) {
-              setSelectedIndex((selectedIndex) => selectedIndex + 1);
-            }
-            if (item.description) {
-              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-              totalQ = totalQ + item?.question?.length;
-            } else {
-              totalQ = totalQ + 1;
-              setTotalQuestions((totalQ) => totalQ + 1);
-            }
-          });
-        //setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0)); SectionCategory.time is wrong for some question formats which leads to the wrong times
-        setTime((1 * totalQ * 60).toFixed(0));
-        setStatus(true);
-        setQuiz(response.data.quiz);
-      });
+      // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
+      // instance2.get(URL).then((response) => {
+      params.state.data.quiz &&
+        params.state.data.quiz.map((item) => {
+          setLoading(false);
+          if (item?.answer) {
+            setSelectedIndex((selectedIndex) => selectedIndex + 1);
+            setCurrentQuestion(currentQuestion => currentQuestion + 1)
+          }
+          if (item.description) {
+            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+            totalQ = totalQ + item?.question?.length;
+          } else {
+            totalQ = totalQ + 1;
+            setTotalQuestions((totalQ) => totalQ + 1);
+          }
+        });
+      setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0))
+      // setTime((1 * totalQ * 60).toFixed(0));
+      setStatus(true);
+      setQuiz(params.state.data.quiz);
+      // });
     }
   }, []);
 
@@ -114,6 +101,7 @@ const QuestionViewXyzOrg = () => {
       } else {
         setStatus(true);
         selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
+        setCurrentQuestion(currentQuestion + 1)
       }
     } else {
       if (question.selectedIndex + 1) {
@@ -154,7 +142,8 @@ const QuestionViewXyzOrg = () => {
       instance2.post(Submit, data).then((response) => {
         setTime(timeLeft);
         setNextPress(undefined);
-        // console.log("Answer submited");
+        localStorage.setItem('quiz', quiz)
+        console.log("Answer submited");
       });
     } else {
       return;
@@ -235,7 +224,7 @@ const QuestionViewXyzOrg = () => {
         })
       );
     } catch (error) {
-      // console.log("in catch block: ", error);
+      console.log("in catch block: ", error);
     }
   };
 
@@ -313,9 +302,11 @@ const QuestionViewXyzOrg = () => {
           }}
           onLeftClick={() => {
             setSelectedIndex((previousIndex) => previousIndex - 1);
+            setCurrentQuestion((previousIndex) => previousIndex - 1);
           }}
           onRightClick={() => {
             setSelectedIndex((previousIndex) => previousIndex + 1);
+            setCurrentQuestion((previousIndex) => previousIndex + 1);
           }}
         />
       );
@@ -393,7 +384,6 @@ const QuestionViewXyzOrg = () => {
     <>
       <CssBaseline />
       {helpPopup && <HelpPopup />}
-      {/* {helpPopup && <BackDrop />} */}
 
       <AppBar
         color="#fff"
@@ -452,14 +442,14 @@ const QuestionViewXyzOrg = () => {
       >
         {(time || (!time && !params?.state?.data?.value)) && (
           <Header
-            selectedIndex={selectedIndex}
+            selectedIndex={currentQuestion}
             totalQuestions={totalQuestions}
             params={params?.state?.data}
             status={time && status}
             time={time && time}
             nextPress={() => setNextPress(true)}
             onCloseTimer={() => CloseTimerFunc()}
-            quiz={quiz && quiz}
+            quiz={quiz}
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
@@ -529,9 +519,11 @@ const QuestionViewXyzOrg = () => {
                   questionTypeTitle={params?.state.sectionCategory.title}
                   selectedIndex={selectedIndex}
                   onLeftClick={() => {
+                    setCurrentQuestion((previousIndex) => previousIndex - 1);
                     setSelectedIndex((previousIndex) => previousIndex - 1);
                   }}
                   onRightClick={() => {
+                    setCurrentQuestion((previousIndex) => previousIndex + 1);
                     setSelectedIndex((previousIndex) => previousIndex + 1);
                   }}
                   stopTime={() => setStatus(false)}
@@ -553,6 +545,8 @@ const QuestionViewXyzOrg = () => {
                   showOptions={(question, item, optionIndex) =>
                     Options(question, item, optionIndex)
                   }
+                  updateQuiz={(value) => setQuiz(value)}
+                  changeIndex={() => setCurrentQuestion(currentQuestion + 1)}
                   OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
                   quizId={params?.state?.quizId}
@@ -560,6 +554,7 @@ const QuestionViewXyzOrg = () => {
                   nextQuestion={() => {
                     if (selectedIndex + 1 < quiz.length) {
                       setSelectedIndex(selectedIndex + 1);
+                      setCurrentQuestion(currentQuestion + 1);
                     } else {
                       navigate("/resultsummary", {
                         state: {
