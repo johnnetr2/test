@@ -74,6 +74,7 @@ const QuestionBody = (props) => {
         nextQuestion={() => props.nextQuestion()}
         stopTimer={() => props.stopTime()}
         startTimer={() => props.startTime()}
+        previosQuestion={() => props.previosQuestion()}
       />
     );
   } else if (props.question.multipartQuestion) {
