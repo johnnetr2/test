@@ -55,7 +55,6 @@ const QuestionViewXyzOrg = () => {
  
 
   useEffect(() => {
-    // localStorage.setItem('quiz', JSON.stringify(params?.state?.data?.quiz))
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -117,12 +116,11 @@ const QuestionViewXyzOrg = () => {
         let ques = questions[selectedIndex];
         const URL = EndPoints.getAnswerByQuestionId + ques._id;
         instance2.get(URL).then((response) => {
-          console.log(questions, 'this is ayaz')
           ques.answer = response.data;
           ques.answerSubmited = true;
           !params?.state?.data.value && setNextPress(!nextPress); 
           localStorage.setItem('quiz', JSON.stringify(questions))
-        console.log('clieckeddddddd', questions)
+        // console.log('clieckeddddddd', questions)
           setQuiz(questions);
           setStatus(false);
         });
@@ -151,7 +149,7 @@ const QuestionViewXyzOrg = () => {
       };
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
-        console.log(quiz, 'this iis the console of answer qyuz')
+        // console.log(quiz, 'this iis the console of answer qyuz')
         setTime(timeLeft);
         setNextPress(undefined);
         // localStorage.setItem('quiz', JSON.stringify(quiz))
@@ -247,7 +245,7 @@ const QuestionViewXyzOrg = () => {
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
     question.optionId = item._id;
-    console.log(questions, 'this is the console of questions of select function')
+    // console.log(questions, 'this is the console of questions of select function')
     // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
@@ -255,7 +253,6 @@ const QuestionViewXyzOrg = () => {
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       if (JSON.parse(localStorage.getItem('quiz'))){
-        console.log("page got refresh", JSON.parse(localStorage.getItem('quiz')));
         setQuiz(JSON.parse(localStorage.getItem('quiz')))
       }
     }
