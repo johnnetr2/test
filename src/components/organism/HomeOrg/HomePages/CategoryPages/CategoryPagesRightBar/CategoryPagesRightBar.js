@@ -77,7 +77,6 @@ const CategoryPagesRightBar = (props) => {
     // });
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
-      console.log(response, "this is the console of last week tasks data");
       setLastWeekTasks(response.data);
     });
   }, []);

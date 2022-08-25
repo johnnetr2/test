@@ -52,9 +52,8 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
- 
-
   useEffect(() => {
+    // window.localStorage.clear();
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -68,7 +67,7 @@ const QuestionViewXyzOrg = () => {
       // instance2.get(URL).then((response) => {
       params?.state?.data?.quiz &&
         params?.state?.data?.quiz?.map((item) => {
-          localStorage.setItem('quiz', item)
+          localStorage.setItem("quiz", item);
           setLoading(false);
           if (item?.answer) {
             setSelectedIndex((selectedIndex) => selectedIndex + 1);
@@ -90,11 +89,10 @@ const QuestionViewXyzOrg = () => {
     }
   }, []);
 
-
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       console.log("page got refresh", localStorage.getItem("quiz"));
-      setQuiz(localStorage.getItem('quiz'))
+      setQuiz(localStorage.getItem("quiz"));
     }
   }, []);
 

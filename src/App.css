@@ -4,8 +4,11 @@
 p {
   margin: 0;
 }
-input::placeholder{
-  color: '#E1E1E1'
+input::placeholder {
+  color: "#E1E1E1";
+}
+p > img {
+  width: 400px !important;
 }
 
 /* .input-style:focus {
