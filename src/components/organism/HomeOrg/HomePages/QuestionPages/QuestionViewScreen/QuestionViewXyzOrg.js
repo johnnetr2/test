@@ -449,7 +449,7 @@ const QuestionViewXyzOrg = () => {
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
-            {params.state.sectionCategory.title}
+            {params?.state?.sectionCategory?.title}
           </Typography>
 
           <Box onClick={() => setHelpPopup(!helpPopup)}>
