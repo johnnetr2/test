@@ -34,7 +34,7 @@ function Header(props) {
     totalPAragraphQuestions = totalPAragraphQuestions + 1
 
     props.quiz &&
-      props?.quiz.map((item) => {
+      props?.quiz?.map((item) => {
         if (item.type == "multiple") {
           totalQuestions = totalQuestions + item.question.length;
           item.question.map((question) => {
