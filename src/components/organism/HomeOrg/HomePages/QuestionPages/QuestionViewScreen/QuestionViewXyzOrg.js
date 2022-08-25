@@ -52,7 +52,7 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
- 
+
 
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
@@ -84,7 +84,7 @@ const QuestionViewXyzOrg = () => {
       setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
       // setTime((1 * totalQ * 60).toFixed(0));
       setStatus(true);
-      if(JSON.parse(localStorage.getItem('quiz'))){
+      if (localStorage.getItem('quiz')) {
         setQuiz(JSON.parse(localStorage.getItem('quiz')))
       } else {
         setQuiz(params?.state?.data?.quiz);
@@ -118,9 +118,8 @@ const QuestionViewXyzOrg = () => {
         instance2.get(URL).then((response) => {
           ques.answer = response.data;
           ques.answerSubmited = true;
-          !params?.state?.data.value && setNextPress(!nextPress); 
+          !params?.state?.data.value && setNextPress(!nextPress);
           localStorage.setItem('quiz', JSON.stringify(questions))
-        // console.log('clieckeddddddd', questions)
           setQuiz(questions);
           setStatus(false);
         });
@@ -149,11 +148,10 @@ const QuestionViewXyzOrg = () => {
       };
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
-        // console.log(quiz, 'this iis the console of answer qyuz')
         setTime(timeLeft);
         setNextPress(undefined);
         // localStorage.setItem('quiz', JSON.stringify(quiz))
-        
+
         // localStorage.setItem("quiz", quiz);
         console.log("Answer submited");
       });
@@ -231,7 +229,7 @@ const QuestionViewXyzOrg = () => {
               spendtime: timeLeft ? time - timeLeft : 0,
             };
             const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => {});
+            await instance2.post(URL, data).then((response) => { });
           }
         })
       );
@@ -245,7 +243,6 @@ const QuestionViewXyzOrg = () => {
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
     question.optionId = item._id;
-    // console.log(questions, 'this is the console of questions of select function')
     // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
@@ -573,6 +570,7 @@ const QuestionViewXyzOrg = () => {
                   }
                   updateQuiz={(value) => setQuiz(value)}
                   changeIndex={() => setCurrentQuestion(currentQuestion + 1)}
+                  previosQuestion={() => setCurrentQuestion(currentQuestion - 1)}
                   OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
                   quizId={params?.state?.quizId}

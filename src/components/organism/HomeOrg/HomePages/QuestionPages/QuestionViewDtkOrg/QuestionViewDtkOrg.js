@@ -173,7 +173,6 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     props.updateQuiz(quiz)
-    console.log(dataSubmit, 'dataSubmitdataSubmitdataSubmit')
     try {
       const obj = {
         quiz: props.quizId,
@@ -313,8 +312,10 @@ const QuestionViewDTKOrg = (props) => {
                         >
                           {selectedIndex > 0 && (
                             <img
-                              onClick={() =>
+                              onClick={() => {
                                 setSelectedIndex(selectedIndex - 1)
+                                props.previosQuestion()
+                              }
                               }
                               src={BlueLeftIcon}
                               style={{ cursor: "pointer" }}
@@ -330,13 +331,13 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {
-                            quiz && quiz?.question[0].selectedOptionIndex != undefined ? (
+                            quiz && quiz?.question.length > 1 && quiz?.question[0].selectedOptionIndex != undefined ? (
                               <img
                                 onClick={() => {
                                   selectedIndex + 1 < quiz.question.length &&
                                     setSelectedIndex(selectedIndex + 1)
-                                  props.updateQuiz(quiz)
-                                  props.changeIndex()
+                                  selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz)
+                                  selectedIndex + 1 < quiz?.question.length && props.changeIndex()
                                 }}
                                 src={BlueRightIcon}
                                 style={{ cursor: "pointer" }}
