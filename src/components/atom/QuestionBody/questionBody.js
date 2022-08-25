@@ -22,35 +22,6 @@ const QuestionBody = (props) => {
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
 
-  // useEffect(() => {
-  //   if (
-  //     question.answer.answer.includes(
-  //       "https://hp-appen.s3.eu-north-1.amazonaws.com/"
-  //     )
-  //   ) {
-  //     console.log("hell");
-  //     // final Array
-  //     let splitCustom = [];
-  //     let arr1;
-  //     let arr = item.split("![](");
-  //     if (arr[0].includes("https://hp-appen.s3.eu-north-1.amazonaws.com/")) {
-  //       arr1 = arr[0].toString();
-  //     } else {
-  //       arr1 = arr[1].toString();
-  //     }
-  //     var arr2 = arr1.split(")\r\n\r\n");
-  //     splitCustom.push(arr[0]);
-
-  //     arr2.map((a) => {
-  //       splitCustom.push(a);
-  //     });
-
-  //     console.log(splitCustom.length);
-
-  //     console.log(splitCustom);
-  //   }
-  // }, []);
-
   const updateQuiz = (value) => {
     let quiz = [...props.quiz];
     setQuestion(value);

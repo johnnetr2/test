@@ -4,14 +4,14 @@ export const instance = axios.create({
   baseURL: "http://localhost:2000",
   // baseURL: 'http://13.53.194.168:2000',
   // baseURL: 'http://13.48.132.192', //Production URL
-  // baseURL: 'http://13.51.198.134', //Beta URL
+  baseURL: "http://13.51.198.134", //Beta URL
 });
 
 export const instance2 = axios.create({
-  baseURL: "http://localhost:2000",
+  // baseURL: "http://localhost:2000",
   // baseURL: 'http://13.53.194.168:2000',
   // baseURL: 'http://13.48.132.192', //Production URL
-  // baseURL: 'http://13.51.198.134', //Beta URL
+  baseURL: "http://13.51.198.134", //Beta URL
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
@@ -19,8 +19,9 @@ export const instance2 = axios.create({
 });
 
 export const instance3 = axios.create({
-  baseURL: "http://localhost:2000",
+  // baseURL: "http://localhost:2000",
   // baseURL: 'http://13.53.194.168:2000',
+  baseURL: "http://13.51.198.134", //Beta URL
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
@@ -37,7 +38,8 @@ export const EndPoints = {
   SignUp: "/auth/signup",
   Login: "/auth/login",
   getAllCategories: "admin/sectionCategories",
-  questionCategoryBysectionCategory: "/admin/QuestionCategory/questionCategoryBysectionCategory/",
+  questionCategoryBysectionCategory:
+    "/admin/QuestionCategory/questionCategoryBysectionCategory/",
   ResultByUser: "/quizResult/resultByUser/",
   testDate: "/api/studentPrefenence/",
   getResult: "/api/quizResult/resultByUserAndQuizid/",
@@ -73,7 +75,7 @@ export const EndPoints = {
   getQuizOnRefreshPage: "/api/quizResult/refreshBySecOruser/",
   submitMultiquestionParagragh: "/api/quizResult/multipleQuizResult",
   getParagraphResult: "/api/quizResult/paragraphQuestionResult/",
-  getLastSevenWeeksData: '/api/task/sectionGraph/',
+  getLastSevenWeeksData: "/api/task/sectionGraph/",
   OverAllNormeringValue: "/api/tableHistory/ProgressOfHundred/",
   getLastSevenWeeksData: "/api/task/sectionGraph/",
 };
