@@ -289,6 +289,8 @@ const QuestionBody = (props) => {
                         style={{
                           margin: 0,
                           size: "0.5rem",
+                          
+                          
                         }}
                         value={item?._id}
                         control={props.showOptions(question, item, optionIndex)}
