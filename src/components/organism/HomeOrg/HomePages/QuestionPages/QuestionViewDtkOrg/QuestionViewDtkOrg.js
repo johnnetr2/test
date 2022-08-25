@@ -139,7 +139,6 @@ const QuestionViewDTKOrg = (props) => {
     const data = {
       questionId: quiz.question[selectedIndex]._id,
       optionId: quiz.question[selectedIndex].optionId,
-      sectionCategory: quiz.sectionCategory,
       MultipartQuestion: quiz._id,
       timeleft: props.timeLeft ? props.timeLeft : null,
       totaltime: props.totalTime ? props.totalTime : null,
@@ -177,6 +176,7 @@ const QuestionViewDTKOrg = (props) => {
       const obj = {
         quiz: props.quizId,
         user: localStorage.getItem('userId'),
+        sectionCategory: quiz.sectionCategory,
         answer: dataSubmit
       }
       const URL = EndPoints.submitMultiquestionParagragh

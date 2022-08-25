@@ -123,6 +123,7 @@ const QuestionViewXyzOrg = () => {
           localStorage.setItem('quiz', JSON.stringify(questions))
           setQuiz(questions);
           setStatus(false);
+          console.log(quiz)
         });
       }
     }

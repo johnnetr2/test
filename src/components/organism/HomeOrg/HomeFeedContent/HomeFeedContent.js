@@ -51,8 +51,8 @@ const HomeFeedContent = (props) => {
   const classes = useStyles();
 
   const [tabValue, setTabValue] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [prognos, setPrognos] = useState(0);
+  // const [progress, setProgress] = useState(0);
+  // const [prognos, setPrognos] = useState(0);
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -80,8 +80,8 @@ const HomeFeedContent = (props) => {
       const loginUserID = localStorage.getItem("userId");
       const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
-        // console.log(response, 'this is the console of response of overAll Normering Values')
-        if (response?.data?.success){
+        console.log(response, 'this is the console of response of overAll Normering Values')
+        if (response?.data?.success) {
           setPreviousRecordProgress(response.data.Data)
         }
       })
@@ -99,11 +99,11 @@ const HomeFeedContent = (props) => {
             newArr.push(item);
           }
           if (item.title == "NOG") {
-            item.time = 10/6;
+            item.time = 10 / 6;
             newArr.push(item);
           }
           if (item.title == "DTK") {
-            item.time = 23/12;
+            item.time = 23 / 12;
             newArr.push(item);
           }
           if (item.title == "ELF") {
@@ -158,11 +158,11 @@ const HomeFeedContent = (props) => {
         count = count + item.CorrectQuestion;
         totalQuestion = totalQuestion + item.TotalQuestion
       });
-      // console.log(totalQuestion, 'totalQuestion')
-      // console.log(count, 'count')
+    // console.log(totalQuestion, 'totalQuestion')
+    // console.log(count, 'count')
     let avgPrognos =
-      previousRecordProgress && (count / totalQuestion)*2;
-      // console.log(avgPrognos, 'total avaerageee')
+      previousRecordProgress && (count / totalQuestion) * 2;
+    // console.log(avgPrognos, 'total avaerageee')
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);
@@ -264,7 +264,7 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                        previousRecordProgress[index]?._id == item._id
+                          previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }
