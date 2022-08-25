@@ -104,6 +104,7 @@ const ResultSummaryOrg = (props) => {
       } else {
         setTimePerQues(false);
       }
+      console.log(response, 'this is the console of response of collection of data for result summary')
       setresponseCollection(response.data);
     });
 
@@ -200,7 +201,7 @@ const ResultSummaryOrg = (props) => {
                 ? dispSecondsAsMins(
                   (responseCollection?.question[
                     responseCollection.question.length - 1
-                  ].timeleft).toFixed(0)
+                  ].timeleft)?.toFixed(0)
                 )
                 : "00:00"}
             </Box>
@@ -338,7 +339,7 @@ const ResultSummaryOrg = (props) => {
                     }}
                   >
                     <Typography variant="h4">
-                      {timePerQues ? dispSecondsAsMins(timePerQues.toFixed(0)) : "00:00"}
+                      {timePerQues ? dispSecondsAsMins(timePerQues?.toFixed(0)) : "00:00"}
                     </Typography>
                     <Typography
                       variant="body1"

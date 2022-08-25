@@ -55,7 +55,6 @@ const QuestionViewXyzOrg = () => {
 
 
   useEffect(() => {
-    // localStorage.setItem('quiz', JSON.stringify(params?.state?.data?.quiz))
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -251,7 +250,7 @@ const QuestionViewXyzOrg = () => {
 
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      if (JSON.parse(localStorage.getItem('quiz'))) {
+      if (JSON.parse(localStorage.getItem('quiz'))){
         setQuiz(JSON.parse(localStorage.getItem('quiz')))
       }
     }
