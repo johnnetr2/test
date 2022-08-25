@@ -74,6 +74,7 @@ const QuestionBody = (props) => {
         nextQuestion={() => props.nextQuestion()}
         stopTimer={() => props.stopTime()}
         startTimer={() => props.startTime()}
+        previosQuestion={() => props.previosQuestion()}
       />
     );
   } else if (props.question.multipartQuestion) {
@@ -286,6 +287,8 @@ const QuestionBody = (props) => {
                         style={{
                           margin: 0,
                           size: "0.5rem",
+                          
+                          
                         }}
                         value={item?._id}
                         control={props.showOptions(question, item, optionIndex)}

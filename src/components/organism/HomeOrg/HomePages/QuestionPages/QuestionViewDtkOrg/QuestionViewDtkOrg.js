@@ -138,7 +138,6 @@ const QuestionViewDTKOrg = (props) => {
     const data = {
       questionId: quiz.question[selectedIndex]._id,
       optionId: quiz.question[selectedIndex].optionId,
-      sectionCategory: quiz.sectionCategory,
       MultipartQuestion: quiz._id,
       timeleft: props.timeLeft ? props.timeLeft : null,
       totaltime: props.totalTime ? props.totalTime : null,
@@ -185,11 +184,11 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     props.updateQuiz(quiz);
-    console.log(dataSubmit, "dataSubmitdataSubmitdataSubmit");
     try {
       const obj = {
         quiz: props.quizId,
         user: localStorage.getItem("userId"),
+        sectionCategory: quiz.sectionCategory,
         answer: dataSubmit,
       };
       const URL = EndPoints.submitMultiquestionParagragh;
@@ -325,9 +324,10 @@ const QuestionViewDTKOrg = (props) => {
                         >
                           {selectedIndex > 0 && (
                             <img
-                              onClick={() =>
-                                setSelectedIndex(selectedIndex - 1)
-                              }
+                              onClick={() => {
+                                setSelectedIndex(selectedIndex - 1);
+                                props.previosQuestion();
+                              }}
                               src={BlueLeftIcon}
                               style={{ cursor: "pointer" }}
                               className={classes.size}
@@ -342,6 +342,7 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {quiz &&
+                          quiz?.question.length > 1 &&
                           quiz?.question[0].selectedOptionIndex != undefined ? (
                             <img
                               onClick={() => {
@@ -349,6 +350,10 @@ const QuestionViewDTKOrg = (props) => {
                                   setSelectedIndex(selectedIndex + 1);
                                 props.updateQuiz(quiz);
                                 props.changeIndex();
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.updateQuiz(quiz);
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.changeIndex();
                               }}
                               src={BlueRightIcon}
                               style={{ cursor: "pointer" }}

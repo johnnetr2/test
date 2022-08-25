@@ -67,7 +67,6 @@ const QuestionViewXyzOrg = () => {
       // instance2.get(URL).then((response) => {
       params?.state?.data?.quiz &&
         params?.state?.data?.quiz?.map((item) => {
-          localStorage.setItem("quiz", item);
           setLoading(false);
           if (item?.answer) {
             setSelectedIndex((selectedIndex) => selectedIndex + 1);
@@ -84,7 +83,11 @@ const QuestionViewXyzOrg = () => {
       setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
       // setTime((1 * totalQ * 60).toFixed(0));
       setStatus(true);
-      setQuiz(params.state.data.quiz);
+      if (localStorage.getItem("quiz")) {
+        setQuiz(JSON.parse(localStorage.getItem("quiz")));
+      } else {
+        setQuiz(params?.state?.data?.quiz);
+      }
       // });
     }
   }, []);
@@ -99,7 +102,6 @@ const QuestionViewXyzOrg = () => {
   const Next = (question) => {
     if (question.answer) {
       if (selectedIndex + 1 == quiz.length) {
-        // localStorage.setItem("quizId", params?.state?.quizId);
         navigate("/resultsummary", {
           state: {
             sectionCategory: params?.state?.sectionCategory,
@@ -122,8 +124,10 @@ const QuestionViewXyzOrg = () => {
           ques.answer = response.data;
           ques.answerSubmited = true;
           !params?.state?.data.value && setNextPress(!nextPress);
+          localStorage.setItem("quiz", JSON.stringify(questions));
           setQuiz(questions);
           setStatus(false);
+          console.log(quiz);
         });
       }
     }
@@ -152,7 +156,9 @@ const QuestionViewXyzOrg = () => {
       instance2.post(Submit, data).then((response) => {
         setTime(timeLeft);
         setNextPress(undefined);
-        localStorage.setItem("quiz", quiz);
+        // localStorage.setItem('quiz', JSON.stringify(quiz))
+
+        // localStorage.setItem("quiz", quiz);
         console.log("Answer submited");
       });
     } else {
@@ -217,7 +223,7 @@ const QuestionViewXyzOrg = () => {
     setTimeEnd(true);
     try {
       return await Promise.all(
-        quiz.map(async (item) => {
+        quiz?.map(async (item) => {
           if (!item.answer) {
             const data = {
               quiz: params?.state?.quizId,
@@ -243,8 +249,17 @@ const QuestionViewXyzOrg = () => {
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
     question.optionId = item._id;
+    // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
+
+  useEffect(() => {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      if (JSON.parse(localStorage.getItem("quiz"))) {
+        setQuiz(JSON.parse(localStorage.getItem("quiz")));
+      }
+    }
+  }, []);
 
   function OptionIndex(index) {
     switch (index) {
@@ -438,7 +453,7 @@ const QuestionViewXyzOrg = () => {
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
-            {params.state.sectionCategory.title}
+            {params?.state?.sectionCategory?.title}
           </Typography>
 
           <Box onClick={() => setHelpPopup(!helpPopup)}>
@@ -520,7 +535,7 @@ const QuestionViewXyzOrg = () => {
         />
 
         {quiz &&
-          quiz.map((item, index) => {
+          quiz?.map((item, index) => {
             if (index === selectedIndex) {
               return (
                 <QuestionBody
@@ -560,6 +575,9 @@ const QuestionViewXyzOrg = () => {
                   }
                   updateQuiz={(value) => setQuiz(value)}
                   changeIndex={() => setCurrentQuestion(currentQuestion + 1)}
+                  previosQuestion={() =>
+                    setCurrentQuestion(currentQuestion - 1)
+                  }
                   OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
                   quizId={params?.state?.quizId}
