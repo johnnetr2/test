@@ -52,47 +52,77 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-
-
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setCurrentQuestion(questionToShow);
+      setCurrentQuestion(questionToShow + 1)
       setQuiz(params?.state?.quiz.question);
       setTotalQuestions(params?.state?.quiz?.question?.length);
       setLoading(false);
     } else {
-      let totalQ = 0;
-      // const URL = EndPoints.getQuizOnRefreshPage + params?.state.quizId;
-      // instance2.get(URL).then((response) => {
-      params?.state?.data?.quiz &&
-        params?.state?.data?.quiz?.map((item) => {
-          setLoading(false);
-          if (item?.answer) {
-            setSelectedIndex((selectedIndex) => selectedIndex + 1);
-            setCurrentQuestion((currentQuestion) => currentQuestion + 1);
-          }
-          if (item.description) {
-            setTotalQuestions((totalQ) => totalQ + item?.question?.length);
-            totalQ = totalQ + item?.question?.length;
-          } else {
-            totalQ = totalQ + 1;
-            setTotalQuestions((totalQ) => totalQ + 1);
-          }
-        });
-      setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-      // setTime((1 * totalQ * 60).toFixed(0));
-      setStatus(true);
       if (localStorage.getItem('quiz')) {
-        setQuiz(JSON.parse(localStorage.getItem('quiz')))
+        let refreshQuiz = JSON.parse(localStorage.getItem('quiz'))
+        let totalQ = 0;
+        setLoading(false);
+        refreshQuiz &&
+          refreshQuiz.map((item) => {
+            if (item?.answer) {
+              setSelectedIndex((selectedIndex) => selectedIndex + 1);
+              setCurrentQuestion((currentQuestion) => currentQuestion + 1);
+            }
+            if (item.description) {
+              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+              totalQ = totalQ + item?.question?.length;
+            } else {
+              totalQ = totalQ + 1;
+              setTotalQuestions((totalQ) => totalQ + 1);
+            }
+          });
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setStatus(true);
+        if (localStorage.getItem('quiz')) {
+          setQuiz(JSON.parse(localStorage.getItem('quiz')))
+        } else {
+          setQuiz(params?.state?.data?.quiz);
+        }
+        // }
       } else {
-        setQuiz(params?.state?.data?.quiz);
+        let totalQ = 0;
+        setLoading(false);
+        params?.state?.data?.quiz &&
+          params?.state?.data?.quiz?.map((item) => {
+            if (item?.answer) {
+              setSelectedIndex((selectedIndex) => selectedIndex + 1);
+              setCurrentQuestion((currentQuestion) => currentQuestion + 1);
+            }
+            if (item.description) {
+              setTotalQuestions((totalQ) => totalQ + item?.question?.length);
+              totalQ = totalQ + item?.question?.length;
+            } else {
+              totalQ = totalQ + 1;
+              setTotalQuestions((totalQ) => totalQ + 1);
+            }
+          });
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setStatus(true);
+        if (localStorage.getItem('quiz')) {
+          setQuiz(JSON.parse(localStorage.getItem('quiz')))
+        } else {
+          setQuiz(params?.state?.data?.quiz);
+        }
       }
-      // });
     }
   }, []);
 
+  useEffect(() => {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      if (JSON.parse(localStorage.getItem('quiz'))) {
+        setQuiz(JSON.parse(localStorage.getItem('quiz')))
+      }
+    }
+  }, []);
 
   const Next = (question) => {
     if (question.answer) {
@@ -247,14 +277,6 @@ const QuestionViewXyzOrg = () => {
     // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
-
-  useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      if (JSON.parse(localStorage.getItem('quiz'))){
-        setQuiz(JSON.parse(localStorage.getItem('quiz')))
-      }
-    }
-  }, []);
 
 
   function OptionIndex(index) {
@@ -490,6 +512,8 @@ const QuestionViewXyzOrg = () => {
                 quizId: params?.state?.quizId,
               },
             });
+            localStorage.removeItem('quiz')
+            localStorage.removeItem("time");
           }}
         />
 
@@ -503,17 +527,21 @@ const QuestionViewXyzOrg = () => {
                   quizId: params?.state?.quizId,
                 },
               });
+              localStorage.removeItem('quiz')
+              localStorage.removeItem("time");
             }}
           />
         ) : (
           <UnAttemptedTimer
             popUpstatus={timeEnd}
-            redirect={() =>
+            redirect={() => {
               navigate("/category", {
                 state: {
                   item: params?.state?.sectionCategory,
                 },
               })
+              localStorage.removeItem('quiz')
+            }
             }
           />
         )}
@@ -564,6 +592,8 @@ const QuestionViewXyzOrg = () => {
                         quizId: params?.state?.quizId,
                       },
                     });
+                    localStorage.removeItem('quiz')
+                    localStorage.removeItem("time");
                   }}
                   startTime={() => setStatus(true)}
                   showOptions={(question, item, optionIndex) =>
@@ -587,6 +617,8 @@ const QuestionViewXyzOrg = () => {
                           quizId: params?.state?.quizId,
                         },
                       });
+                      localStorage.removeItem('quiz')
+                      localStorage.removeItem("time");
                     }
                   }}
                 />
