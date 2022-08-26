@@ -161,7 +161,7 @@ const HomeLeftBar = (props) => {
           </Typography>
         </Box>
       </NavLink>
-      <NavLink
+      <Box
         // to="/courses"
         to="#"
         className={classes.disabledNavStyle}
@@ -194,8 +194,8 @@ const HomeLeftBar = (props) => {
             prov
           </Typography>
         </Box>
-      </NavLink>
-      <NavLink
+      </Box>
+      <Box
         // to="/message"
         to="#"
         className={classes.disabledNavStyle}
@@ -225,8 +225,8 @@ const HomeLeftBar = (props) => {
             Feedback
           </Typography>
         </Box>
-      </NavLink>
-      <NavLink
+      </Box>
+      <Box
         to="#"
         className={classes.disabledNavStyle}
         // style={({ isActive }) => {
@@ -255,7 +255,7 @@ const HomeLeftBar = (props) => {
             Profile
           </Typography>
         </Box>
-      </NavLink>
+      </Box>
     </Container>
   );
 };

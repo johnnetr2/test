@@ -243,11 +243,12 @@ const QuestionViewDTKOrg = (props) => {
           <Box
             mt={5}
             paddingX={6}
-            paddingY={2}
+            paddingY={5}
             sx={{
               backgroundColor: "#fff",
               width: 600,
-              height: 373,
+              border: "1px solid #e1e1e1",
+              maxHeight: 400,
               overflow: "auto",
             }}
             className={classes.scrollbar}
@@ -342,8 +343,8 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {quiz &&
-                            quiz?.question.length > 1 &&
-                            quiz?.question[0].selectedOptionIndex != undefined ? (
+                          quiz?.question.length > 1 &&
+                          quiz?.question[0].selectedOptionIndex != undefined ? (
                             <img
                               onClick={() => {
                                 selectedIndex + 1 < quiz.question.length &&
@@ -460,10 +461,10 @@ const QuestionViewDTKOrg = (props) => {
                               marginLeft: "1rem",
                             }}
                           >
-                            <Typography
-                              style={{ fontSize: "0.9rem", height: "1.2rem" }}
-                            >
-                              {option?.value && <MarkLatex content={option?.value.replace("\f", "\\f")} />}{" "}
+                            <Typography style={{ fontSize: "0.9rem" }}>
+                              <MarkLatex
+                                content={option.value.replace("\f", "\\f")}
+                              />{" "}
                             </Typography>
                           </Box>
                         </Box>

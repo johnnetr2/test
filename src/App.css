@@ -8,7 +8,15 @@ input::placeholder {
   color: "#E1E1E1";
 }
 p > img {
-  width: 400px !important;
+  width: 130px !important;
+}
+
+.MuiTypography-h6 > p > img {
+  width: 300px !important;
+}
+
+.MuiTypography-body1 p:nth-child(2) img {
+  width: 300px !important;
 }
 
 /* .input-style:focus {

@@ -7,14 +7,38 @@ import Wrong from "../../../assets/Imgs/wrong.png";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 
 const MultiAnswer = (props) => {
-
   const options = (item, index) => {
-    if (props?.question?.answer && props?.question?.answer?.option === item._id) {
-      return <img src={Correct} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem', marginTop: '.5rem', marginBottom: '.5rem', }} />
+    if (
+      props?.question?.answer &&
+      props?.question?.answer?.option === item._id
+    ) {
+      return (
+        <img
+          src={Correct}
+          style={{
+            height: "1.4rem",
+            marginRight: ".5rem",
+            marginLeft: ".8rem",
+            marginTop: ".5rem",
+            marginBottom: ".5rem",
+          }}
+        />
+      );
     } else if (props?.question.optionId === item._id) {
-      return <img src={Wrong} style={{ height: '1.4rem', marginRight: '.5rem', marginLeft: '.8rem', marginTop: '.5rem', marginBottom: '.5rem', }} />
+      return (
+        <img
+          src={Wrong}
+          style={{
+            height: "1.4rem",
+            marginRight: ".5rem",
+            marginLeft: ".8rem",
+            marginTop: ".5rem",
+            marginBottom: ".5rem",
+          }}
+        />
+      );
     } else {
-      return <Radio checked={false} />
+      return <Radio checked={false} />;
     }
   };
 
@@ -29,25 +53,27 @@ const MultiAnswer = (props) => {
           }}
         >
           {props?.question.option[0]?.options.map((item, index) => {
-            return <Box
-              style={{
-                border: "1px solid #e1e1e1",
-                padding: "1rem",
-                width: 580
-              }}
-            >
-              <FormControlLabel
-                style={{ marginLeft: ".5rem" }}
-                control={options(item, index)}
-                label={item.value}
-              />
-            </Box>
+            return (
+              <Box
+                style={{
+                  border: "1px solid #e1e1e1",
+                  padding: "1rem",
+                  width: 565,
+                }}
+              >
+                <FormControlLabel
+                  style={{ marginLeft: ".5rem" }}
+                  control={options(item, index)}
+                  label={item.value}
+                />
+              </Box>
+            );
           })}
         </Box>
 
         <Box mt={2} ml={5}></Box>
       </Box>
-      <Box style={{ border: "1px solid #e1e1e1", padding: "2rem", width: 580 }}>
+      <Box style={{ border: "1px solid #e1e1e1", padding: "2rem" }}>
         <Box
           sx={{ width: 500, display: "flex", justifyContent: "space-between" }}
         >

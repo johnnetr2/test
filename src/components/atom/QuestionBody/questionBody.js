@@ -117,6 +117,7 @@ const QuestionBody = (props) => {
             marginTop: "1rem",
             border: "1px solid #e1e1e1",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "flex-start",
             backgroundColor: "#fff",
           }}
@@ -241,99 +242,121 @@ const QuestionBody = (props) => {
           {question?.options[0]?.options?.map((item, optionIndex) => {
             if (item.value) {
               return (
-                <Box
-                  sx={{
-                    height:
-                      question?.options[0].options.length > 4 ||
-                      item.image === ""
-                        ? 60
-                        : 120,
-                    border: "1px solid #e1e1e1",
-                    width:
-                      question?.options[0].options.length > 4 ||
-                      item.image === ""
-                        ? 600
-                        : 300,
-                    display: "flex",
-                    color:
-                      !question.answer && optionIndex == question.selectedIndex
-                        ? "#0A1596"
-                        : "",
-                    "&:hover": {
-                      cursor: !question.answer && "pointer",
-                      color: !question.answer && "#0A1596",
-                    },
-                  }}
-                  onMouseOver={() => props.onhover(item._id)}
-                  onMouseLeave={() => props.onHoverLeave()}
-                  onClick={(e) => {
-                    !question?.answer && props.SelectOption(item, optionIndex);
-                  }}
-                >
+                <Box sx={{ display: "flex" }}>
                   <Box
                     sx={{
+                      height:
+                        question?.options[0].options.length > 4 ||
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
+                          ? 60
+                          : 150,
+                      padding:
+                        question?.options[0].options.length > 4 ||
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
+                          ? 0
+                          : 10,
+                      border: "1px solid #e1e1e1",
+                      width:
+                        question?.options[0].options.length > 4 ||
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
+                          ? 600
+                          : 300,
                       display: "flex",
-                      justifyContent: "center",
-                      alignItems: "flex-start",
+                      color:
+                        !question.answer &&
+                        optionIndex == question.selectedIndex
+                          ? "#0A1596"
+                          : "",
+                      "&:hover": {
+                        cursor: !question.answer && "pointer",
+                        color: !question.answer && "#0A1596",
+                      },
+                    }}
+                    onMouseOver={() => props.onhover(item._id)}
+                    onMouseLeave={() => props.onHoverLeave()}
+                    onClick={(e) => {
+                      !question?.answer &&
+                        props.SelectOption(item, optionIndex);
                     }}
                   >
                     <Box
                       sx={{
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: "center",
+                        alignItems: "flex-start",
                       }}
                     >
-                      <FormControlLabel
-                        style={{
-                          margin: 0,
-                          size: "0.5rem",
-                          
-                          
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
                         }}
-                        value={item?._id}
-                        control={props.showOptions(question, item, optionIndex)}
-                        className={classes.root}
-                      />
-                      <Typography
-                        style={{
-                          marginTop: "1.25rem",
-                          paddingLeft: "1px",
-                          color: changeOptionsColor(item),
-                        }}
-                        variant="body2"
                       >
-                        {props.OptionValue(optionIndex)}
-                      </Typography>
+                        <FormControlLabel
+                          style={{
+                            margin: 0,
+                            size: "0.5rem",
+                          }}
+                          value={item?._id}
+                          control={props.showOptions(
+                            question,
+                            item,
+                            optionIndex
+                          )}
+                          className={classes.root}
+                        />
+                        <Typography
+                          style={{
+                            marginTop: "1.25rem",
+                            paddingLeft: "1px",
+                            color: changeOptionsColor(item),
+                            fontSize: "0.6rem",
+                          }}
+                          variant="body2"
+                        >
+                          {props.OptionValue(optionIndex)}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
 
-                  <Box
-                    sx={{
-                      // width:
-                      //   question?.options[0].options.length > 4
-                      //     ? "20rem"
-                      //     : "14rem",
-                      display: "flex",
-                      marginLeft:
-                        question?.options[0].options.length > 4 ||
-                        item.image === ""
-                          ? "1rem"
-                          : "0",
-                      justifyContent:
-                        question?.options[0].options.length > 4 ||
-                        item.image === ""
-                          ? "flex-start"
-                          : "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    {item.image ? (
-                      <img src={item.image} />
-                    ) : (
-                      <Typography>
-                        <MarkLatex content={item.value.replace("\f", "\\f")} />{" "}
-                      </Typography>
-                    )}
+                    <Box
+                      sx={{
+                        // width:
+                        //   question?.options[0].options.length > 4
+                        //     ? "20rem"
+                        //     : "14rem",
+                        display: "flex",
+                        marginLeft:
+                          question?.options[0].options.length > 4 ||
+                          item.image === ""
+                            ? "1rem"
+                            : "0",
+                        justifyContent:
+                          question?.options[0].options.length > 4 ||
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
+                            ? "flex-start"
+                            : "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {item.image ? (
+                        <img src={item.image} />
+                      ) : (
+                        <Typography>
+                          <MarkLatex
+                            content={item.value.replace("\f", "\\f")}
+                          />{" "}
+                        </Typography>
+                      )}
+                    </Box>
                   </Box>
                 </Box>
               );

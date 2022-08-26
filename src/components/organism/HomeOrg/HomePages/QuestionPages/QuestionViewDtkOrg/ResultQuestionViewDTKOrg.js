@@ -88,7 +88,7 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => { });
+      .catch(() => {});
     // instance2.get(URL, data).then(response => {
     //   console.log(response.data, 'responsessssssss')
     //   setParagraph(response.data.question)
@@ -126,19 +126,19 @@ const ResultQuestionViewDtkOrg = (props) => {
                   maxWidth="lg"
                   style={{
                     backgroundColor: "#fff",
+                    border: "1px solid #e1e1e1",
                     height: "fit-content",
-                    padding: ".5rem",
+                    padding: "1rem",
                     marginTop: "5%",
                     width: 600,
                   }}
                 >
                   <Box
                     paddingX={4}
-                    mt={5}
+                    mt={2}
+                    mb={2}
                     sx={{
                       backgroundColor: "#fff",
-                      width: 580,
-                      height: 120,
                       border: "1px solid #e1e1e1",
                       display: "flex",
                     }}
