@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
 import {
-  Container,
-  makeStyles,
-  Typography,
   Box,
   Button,
+  Container,
   Tab,
   Tabs,
+  Typography,
+  makeStyles,
 } from "@material-ui/core";
+import { EndPoints, instance, instance2 } from "../../../service/Route";
 import { Link, useNavigate } from "react-router-dom";
-import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
-import Heading from "../../../atom/Heading/Heading";
+import React, { useEffect, useState } from "react";
+
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
+import Heading from "../../../atom/Heading/Heading";
 import { Input } from "reactstrap";
-import { EndPoints, instance, instance2 } from "../../../service/Route";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +80,7 @@ const CoursesFeedContent = (props) => {
               marginTop: "3rem",
               marginBottom: "3rem",
               marginRight: "2rem",
+              overflow: "hidden",
             }}
           >
             <Tabs
