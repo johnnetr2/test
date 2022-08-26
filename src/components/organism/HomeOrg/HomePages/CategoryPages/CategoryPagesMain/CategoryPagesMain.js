@@ -5,6 +5,7 @@ import CategoryPagesRightBar from "../../CategoryPages/CategoryPagesRightBar/Cat
 import CategoryPagesLeftBar from "../../../HomeLeftBar/HomeLeftBar";
 import { useLocation } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../../service/Route";
+import HomeLeftBar from "../../../HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -48,7 +49,7 @@ const CategoryPagesMain = () => {
           lg={1}
           xl={1}
         >
-          <CategoryPagesLeftBar />
+          <HomeLeftBar />
         </Grid>
         <Container
           maxWidth="xl"

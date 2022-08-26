@@ -243,11 +243,12 @@ const QuestionViewDTKOrg = (props) => {
           <Box
             mt={5}
             paddingX={6}
-            paddingY={2}
+            paddingY={5}
             sx={{
               backgroundColor: "#fff",
               width: 600,
-              height: 373,
+              border: "1px solid #e1e1e1",
+              maxHeight: 400,
               overflow: "auto",
             }}
             className={classes.scrollbar}
@@ -460,9 +461,7 @@ const QuestionViewDTKOrg = (props) => {
                               marginLeft: "1rem",
                             }}
                           >
-                            <Typography
-                              style={{ fontSize: "0.9rem", height: "1.2rem" }}
-                            >
+                            <Typography style={{ fontSize: "0.9rem" }}>
                               <MarkLatex
                                 content={option.value.replace("\f", "\\f")}
                               />{" "}
