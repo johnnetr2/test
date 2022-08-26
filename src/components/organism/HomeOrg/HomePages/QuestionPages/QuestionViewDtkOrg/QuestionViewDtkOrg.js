@@ -342,8 +342,8 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {quiz &&
-                          quiz?.question.length > 1 &&
-                          quiz?.question[0].selectedOptionIndex != undefined ? (
+                            quiz?.question.length > 1 &&
+                            quiz?.question[0].selectedOptionIndex != undefined ? (
                             <img
                               onClick={() => {
                                 selectedIndex + 1 < quiz.question.length &&
@@ -463,9 +463,7 @@ const QuestionViewDTKOrg = (props) => {
                             <Typography
                               style={{ fontSize: "0.9rem", height: "1.2rem" }}
                             >
-                              <MarkLatex
-                                content={option.value.replace("\f", "\\f")}
-                              />{" "}
+                              {option?.value && <MarkLatex content={option?.value.replace("\f", "\\f")} />}{" "}
                             </Typography>
                           </Box>
                         </Box>

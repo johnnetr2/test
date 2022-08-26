@@ -53,6 +53,7 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
+    console.log(params?.state)
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
@@ -72,7 +73,7 @@ const QuestionViewXyzOrg = () => {
               setSelectedIndex((selectedIndex) => selectedIndex + 1);
               setCurrentQuestion((currentQuestion) => currentQuestion + 1);
             }
-            if (item.description) {
+            if (item.type == 'multiple') {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
               totalQ = totalQ + item?.question?.length;
             } else {
@@ -97,7 +98,7 @@ const QuestionViewXyzOrg = () => {
               setSelectedIndex((selectedIndex) => selectedIndex + 1);
               setCurrentQuestion((currentQuestion) => currentQuestion + 1);
             }
-            if (item.description) {
+            if (item.type == 'multiple') {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
               totalQ = totalQ + item?.question?.length;
             } else {
