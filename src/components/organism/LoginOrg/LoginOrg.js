@@ -70,8 +70,8 @@ const LoginOrg = () => {
             localStorage.setItem("role", response.data.user.role);
             localStorage.setItem("fullName", response.data.user.fullName);
             localStorage.setItem("email", response.data.user.email);
-            navigate("/home");
-            // window.location.href = "/home";
+            // navigate("/home");
+            window.location.href = "/home";
           } else {
             swal("Warning!", "Invalid Credentials", "error");
           }
