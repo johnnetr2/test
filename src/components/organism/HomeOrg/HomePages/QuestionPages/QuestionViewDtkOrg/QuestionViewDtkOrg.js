@@ -100,9 +100,7 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       setQuiz(props.question);
     }
-
   }, []);
-
 
   const Button = (question) => {
     if (props.paragraphIndex != undefined) {
@@ -135,11 +133,7 @@ const QuestionViewDTKOrg = (props) => {
     question.selectedOptionIndex = optionIndex;
     question.optionId = item._id;
     allQuiz.question = qz;
-    if (JSON.parse(localStorage.getItem('quiz'))){
-      setQuiz(JSON.parse(localStorage.getItem('quiz')))
-    } else {
-      setQuiz(allQuiz);
-    }
+    setQuiz(allQuiz);
 
     const data = {
       questionId: quiz.question[selectedIndex]._id,
@@ -199,9 +193,7 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2.post(URL, obj).then((response) => {
-        console.log(response, 'this is response')
         dataSubmit = [];
-        localStorage.removeItem('quiz')
         setShowResult(true);
         props.stopTimer();
       });

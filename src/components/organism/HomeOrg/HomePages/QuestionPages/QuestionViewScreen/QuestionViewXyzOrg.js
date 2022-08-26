@@ -53,12 +53,12 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
-    console.log(params?.state, 'this is params')
+    console.log(params?.state)
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setCurrentQuestion(questionToShow);
-      setCurrentQuestion(questionToShow + 1);
+      setCurrentQuestion(questionToShow + 1)
       setQuiz(params?.state?.quiz.question);
       setTotalQuestions(params?.state?.quiz?.question?.length);
       setLoading(false);
@@ -68,7 +68,7 @@ const QuestionViewXyzOrg = () => {
         let totalQ = 0;
         setLoading(false);
         refreshQuiz &&
-          refreshQuiz?.map((item) => {
+          refreshQuiz.map((item) => {
             if (item?.answer) {
               setSelectedIndex((selectedIndex) => selectedIndex + 1);
               setCurrentQuestion((currentQuestion) => currentQuestion + 1);
@@ -140,10 +140,8 @@ const QuestionViewXyzOrg = () => {
         setStatus(true);
         selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
         setCurrentQuestion(currentQuestion + 1);
-        localStorage.setItem('quiz', JSON.stringify(currentQuestion))
       }
     } else {
-      console.log('clickccced')
       if (question.selectedIndex + 1) {
         const questions = [...quiz];
         let ques = questions[selectedIndex];
@@ -613,7 +611,6 @@ const QuestionViewXyzOrg = () => {
                     if (selectedIndex + 1 < quiz.length) {
                       setSelectedIndex(selectedIndex + 1);
                       setCurrentQuestion(currentQuestion + 1);
-                      localStorage.setItem('quiz', JSON.stringify(quiz[selectedIndex + 1]))
                     } else {
                       navigate("/resultsummary", {
                         state: {
