@@ -25,13 +25,13 @@ function Header(props) {
 
   const [quiz, setQuiz] = useState();
   const [barPerccentage, setBarPercentage] = useState(0);
-  let totalPAragraphQuestions = 0
+  let totalPAragraphQuestions = 0;
 
   useEffect(() => {
     let correctAnswers = 0;
     let totalQuestions = 0;
     setQuiz(props?.quiz);
-    totalPAragraphQuestions = totalPAragraphQuestions + 1
+    totalPAragraphQuestions = totalPAragraphQuestions + 1;
 
     props.quiz &&
       props?.quiz?.map((item) => {
@@ -60,6 +60,7 @@ function Header(props) {
           flexDirection: "row",
           justifyContent: "space-between",
         }}
+        mb={1}
       >
         <Box
           mt={2}

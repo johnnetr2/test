@@ -23,12 +23,12 @@ const QuestionBody = (props) => {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
 
   const updateQuiz = (value) => {
-    let quiz = [...props.quiz]
-    setQuestion(value)
-    const index = quiz.findIndex(obj => obj._id == value._id)
-    quiz.splice(index, 1, value)
-    props.updateQuiz(quiz)
-  }
+    let quiz = [...props.quiz];
+    setQuestion(value);
+    const index = quiz.findIndex((obj) => obj._id == value._id);
+    quiz.splice(index, 1, value);
+    props.updateQuiz(quiz);
+  };
 
   const PlusPoint = () => {
     setCount(1);
@@ -117,8 +117,7 @@ const QuestionBody = (props) => {
             marginTop: "1rem",
             border: "1px solid #e1e1e1",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             backgroundColor: "#fff",
           }}
         >
@@ -129,24 +128,24 @@ const QuestionBody = (props) => {
               fontSize: "1rem",
               fontWeight: "600",
               display: "flex",
+              flexDirection: "column",
             }}
           >
             <MarkLatex content={question?.questionStatement} />
           </Typography>
 
-          {question?.images[0] && (
+          {/* {question?.images[0] && (
             <Typography
               variant="h6"
               component="h6"
               style={{
                 height: "12rem",
                 display: "flex",
-                justifyContent: "center",
               }}
             >
-              <img style={{ height: "100%" }} src={question?.images[0]} />
+              <img style={{ height: "80%" }} src={question?.images[0]} />
             </Typography>
-          )}
+          )} */}
 
           <Box
             sx={{
@@ -246,13 +245,13 @@ const QuestionBody = (props) => {
                   sx={{
                     height:
                       question?.options[0].options.length > 4 ||
-                        item.image === ""
+                      item.image === ""
                         ? 60
                         : 120,
                     border: "1px solid #e1e1e1",
                     width:
                       question?.options[0].options.length > 4 ||
-                        item.image === ""
+                      item.image === ""
                         ? 600
                         : 300,
                     display: "flex",
@@ -265,7 +264,6 @@ const QuestionBody = (props) => {
                       color: !question.answer && "#0A1596",
                     },
                   }}
-
                   onMouseOver={() => props.onhover(item._id)}
                   onMouseLeave={() => props.onHoverLeave()}
                   onClick={(e) => {
@@ -289,6 +287,8 @@ const QuestionBody = (props) => {
                         style={{
                           margin: 0,
                           size: "0.5rem",
+                          
+                          
                         }}
                         value={item?._id}
                         control={props.showOptions(question, item, optionIndex)}
@@ -297,7 +297,7 @@ const QuestionBody = (props) => {
                       <Typography
                         style={{
                           marginTop: "1.25rem",
-                          paddingLeft: '1px',
+                          paddingLeft: "1px",
                           color: changeOptionsColor(item),
                         }}
                         variant="body2"
@@ -316,12 +316,12 @@ const QuestionBody = (props) => {
                       display: "flex",
                       marginLeft:
                         question?.options[0].options.length > 4 ||
-                          item.image === ""
+                        item.image === ""
                           ? "1rem"
                           : "0",
                       justifyContent:
                         question?.options[0].options.length > 4 ||
-                          item.image === ""
+                        item.image === ""
                           ? "flex-start"
                           : "center",
                       alignItems: "center",
@@ -342,63 +342,84 @@ const QuestionBody = (props) => {
         </Container>
 
         {question.answer && (
-          <Box
-            paddingX={4}
-            mt={2}
-            sx={{
+          // <Box
+          //   paddingX={4}
+          //   mt={2}
+          //   sx={{
+          //     backgroundColor: "#fff",
+          //     width: 600,
+          //     border: "1px solid #e1e1e1",
+          //   }}
+          // >
+          <Container
+            maxWidth="sm"
+            style={{
+              marginTop: "1.5rem",
               backgroundColor: "#fff",
-              width: 600,
               border: "1px solid #e1e1e1",
+              padding: "1rem 3rem",
             }}
           >
-            <Box sx={{ width: 500, display: "flex" }}>
-              <Box sx={{ padding: "2rem 2rem" }}>
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  style={{
-                    fontSize: "1.25rem",
-                    marginTop: 20,
-                  }}
-                >
-                  Förklaring:
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="div"
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: "500",
-                    marginTop: 10,
-                    width: question?.answer.image ? "auto" : 500,
-                  }}
-                >
-                  {/* {question.answer.answer} */}
-                  <MarkLatex content={question.answer.answer} />
-                </Typography>
-              </Box>
-              <Box
-                mt={2}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                variant="h5"
+                component="h5"
                 style={{
-                  // marginLeft: "15rem",
-                  marginTop: "2rem",
+                  fontSize: "1.25rem",
+                  marginTop: 20,
                 }}
               >
-                {question?.answer && (
-                  <img
-                    style={{ height: 110 }}
-                    src={question?.answer.image}
-                    alt=""
-                  />
-                )}
-              </Box>
+                Förklaring:
+              </Typography>
+              <Typography
+                variant="body1"
+                component="div"
+                style={{
+                  fontSize: ".75rem",
+                  fontWeight: "500",
+                  marginTop: 10,
+                }}
+              >
+                {/* {question.answer.answer} */}
+                <MarkLatex content={question.answer.answer} />
+              </Typography>
+              {/* </Box>
+            <Box
+              mt={2}
+              style={{
+                // marginLeft: "15rem",
+                marginTop: "2rem",
+              }}
+            > */}
+
+              {/* {(question?.answer?.answer.includes(
+                "https://hp-appen.s3.eu-north-1.amazonaws.com/"
+              )) {
+                splitItem()
+              }: ""
+                } */}
+
+              {question?.answer?.image ? (
+                <img
+                  style={{ width: 100 }}
+                  src={question?.answer?.image}
+                  alt="Explanation Image"
+                />
+              ) : (
+                <div></div>
+              )}
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
                 alignItems: "center",
-                height: 60,
+                height: 30,
               }}
             >
               <Typography
@@ -428,7 +449,7 @@ const QuestionBody = (props) => {
                 />
               </Box>
             </Box>
-          </Box>
+          </Container>
         )}
 
         {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
