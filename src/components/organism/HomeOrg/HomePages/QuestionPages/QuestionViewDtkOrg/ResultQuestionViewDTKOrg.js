@@ -73,7 +73,13 @@ const ResultQuestionViewDtkOrg = (props) => {
   const changeQuestion = () => {
     props.startTimer();
     props.nextQuestion();
+    if(performance.navigation.type === performance.navigation.TYPE_RELOAD){
+      if (JSON.parse(localStorage.getItem('quiz'))){
+        setParagraph(JSON.parse(localStorage.getItem('quiz')))
+      }
+    }
   };
+
 
   useEffect(() => {
     setShowLoader(true);
@@ -99,6 +105,7 @@ const ResultQuestionViewDtkOrg = (props) => {
     const quiz = [...paragraph];
     const question = quiz[index];
     question.showResult = true;
+    console.log('show result', quiz)
     setParagraph(quiz);
   };
 
