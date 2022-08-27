@@ -156,14 +156,19 @@ const QuestionViewDTKOrg = (props) => {
       dataSubmit.push(data);
     }
 
-    quiz &&
-      quiz?.question.map((item) => {
-        if (item.optionId) {
-          setAnswerExistance(true);
-        } else {
-          setAnswerExistance(false);
-        }
-      });
+    const answerLenght = quiz.question.filter(item => item.optionId).length
+    if (answerLenght == quiz.question.length) {
+      setAnswerExistance(true);
+    }
+
+    // quiz &&
+    //   quiz?.question.map((item) => {
+    //     if (item.optionId) {
+    //       setAnswerExistance(true);
+    //     } else {
+    //       setAnswerExistance(false);
+    //     }
+    //   });
   };
 
   const Options = (question, option, optionIndex) => {
