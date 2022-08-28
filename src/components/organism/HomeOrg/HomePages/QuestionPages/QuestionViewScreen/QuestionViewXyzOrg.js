@@ -1,33 +1,34 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { styled } from "@mui/material/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Typography,
   AppBar,
-  Paper,
   Box,
+  Container,
   CssBaseline,
+  Paper,
   Radio,
   Toolbar,
-  Container,
+  Typography,
 } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
-import Correct from "../../../../../../assets/Imgs/correct.png";
-import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { EndPoints, instance2 } from "../../../../../service/Route";
-import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import Correct from "../../../../../../assets/Imgs/correct.png";
 import DropPenPopup from "../../../../../molecule/DropPenPopup/DropPenPopup";
+import Header from "../../../../../atom/Header/header";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import HelpPopup from "../../../../../atom/HelpPopup/HelpPopup";
+import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
+import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
-import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
-import Header from "../../../../../atom/Header/header";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
-import HelpPopup from "../../../../../atom/HelpPopup/HelpPopup";
+import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
+import { useLocation } from "react-router-dom";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -307,6 +308,14 @@ const QuestionViewXyzOrg = () => {
         <img
           src={Wrong}
           style={{ marginLeft: "0.45rem", width: "1.5rem", color: "grey" }}
+        />
+      );
+    } else if (question.answer && curentOption._id != question?.optionId){
+      return (
+        <Radio
+          disabled
+          checked={false}
+          style={{ marginRight: "0.5rem", color: "#E1E1E1" }}
         />
       );
     }
