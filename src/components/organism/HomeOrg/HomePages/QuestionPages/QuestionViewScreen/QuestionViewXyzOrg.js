@@ -45,6 +45,7 @@ const QuestionViewXyzOrg = () => {
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [answerSubmittedState, setAnsSubmittedState] = useState()
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -132,6 +133,8 @@ const QuestionViewXyzOrg = () => {
           state: {
             sectionCategory: params?.state?.sectionCategory,
             quizId: params?.state?.quizId,
+            spendtime: answerSubmittedState,
+            time: params?.state?.time
           },
         });
         localStorage.removeItem("time");
@@ -180,12 +183,14 @@ const QuestionViewXyzOrg = () => {
       };
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
+        console.log(response, 'this is answer submiited')
+        setAnsSubmittedState(response.data.answer)
         setTime(timeLeft);
         setNextPress(undefined);
         // localStorage.setItem('quiz', JSON.stringify(quiz))
 
         // localStorage.setItem("quiz", quiz);
-        console.log("Answer submited");
+        // console.log("Answer submited");
       });
     } else {
       return;
@@ -344,6 +349,7 @@ const QuestionViewXyzOrg = () => {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
                 quizId: params?.state?.quizId,
+                time: params?.state?.time
               },
             });
           }}
@@ -511,6 +517,7 @@ const QuestionViewXyzOrg = () => {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
                 quizId: params?.state?.quizId,
+                time: params?.state?.time
               },
             });
             localStorage.removeItem('quiz')
@@ -526,6 +533,7 @@ const QuestionViewXyzOrg = () => {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
                   quizId: params?.state?.quizId,
+                  time: params?.state?.time
                 },
               });
               localStorage.removeItem('quiz')
@@ -591,6 +599,7 @@ const QuestionViewXyzOrg = () => {
                       state: {
                         sectionCategory: params?.state?.sectionCategory,
                         quizId: params?.state?.quizId,
+                        time: params?.state?.time
                       },
                     });
                     localStorage.removeItem('quiz')
@@ -611,11 +620,13 @@ const QuestionViewXyzOrg = () => {
                     if (selectedIndex + 1 < quiz.length) {
                       setSelectedIndex(selectedIndex + 1);
                       setCurrentQuestion(currentQuestion + 1);
+                      localStorage.setItem('quiz', JSON.stringify(quiz))
                     } else {
                       navigate("/resultsummary", {
                         state: {
                           sectionCategory: params?.state?.sectionCategory,
                           quizId: params?.state?.quizId,
+                          time: params?.state?.time
                         },
                       });
                       localStorage.removeItem('quiz')

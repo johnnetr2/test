@@ -183,12 +183,14 @@ const CategoryPagesFeedContent = (props) => {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
+            console.log('response', response)
             setOpen(false);
             navigate("/question", {
               state: {
                 data: response.data,
                 sectionCategory: props.item,
                 quizId: response.data._id,
+                time: timer,
               },
             });
           }

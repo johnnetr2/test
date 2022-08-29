@@ -194,16 +194,12 @@ const ResultSummaryOrg = (props) => {
               {responseCollection?.question.length} av{" "}
               {responseCollection?.question.length}
             </Box>
-            {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
+            {
+            // responseCollection && responseCollection?.question[0].timeleft != 0 
+            params?.state?.time && 
+            <Box mt={2} sx={{ color: "#222" }}>
               <img src={Clock} alt="" style={{ paddingRight: '4px' }} />
-              {" "}
-              {responseCollection
-                ? dispSecondsAsMins(
-                  (responseCollection?.question[
-                    responseCollection.question.length - 1
-                  ].timeleft)?.toFixed(0)
-                )
-                : "00:00"}
+              {responseCollection ? dispSecondsAsMins((responseCollection?.question[responseCollection.question.length - 1 ].timeleft)?.toFixed(0)) : "00:00"}
             </Box>
             }
           </Box>
@@ -316,8 +312,9 @@ const ResultSummaryOrg = (props) => {
                 </Typography>
               </Box>
             </Box>
-            {responseCollection &&
-              responseCollection?.question[0].timeleft != 0 && (
+            {
+            // responseCollection && responseCollection?.question[0].timeleft != 0 
+            params?.state?.time && (
                 <Box
                   sx={{
                     display: "flex",
@@ -404,6 +401,7 @@ const ResultSummaryOrg = (props) => {
           >
             {responseCollection &&
               responseCollection?.question?.map((item, index) => {
+                console.log(params?.state?.time)
                 return (
                   <Box
                     key={index}
@@ -475,10 +473,7 @@ const ResultSummaryOrg = (props) => {
                       component="h6"
                       style={{ fontSize: ".75rem", fontWeight: "600" }}
                     >
-                      {/* Tid: 04:51 */}
-                      {item?.spendTime
-                        ? "Tid: " + dispSecondsAsMins(item?.spendTime)
-                        : "Tid 0:0"}
+                      {item?.spendTime ? "Tid: " + dispSecondsAsMins(item?.spendTime) :  (params?.state?.time ? "Tid: 00:00" : "")}
                     </Typography>
                     <Box
                       style={{

@@ -189,6 +189,7 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     props.updateQuiz(quiz);
+    console.log(dataSubmit, 'this is the data submit consoel')
     try {
       const obj = {
         quiz: props.quizId,
@@ -198,6 +199,7 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2.post(URL, obj).then((response) => {
+        console.log(response, 'this is the response of multipart answer submit')
         dataSubmit = [];
         setShowResult(true);
         props.stopTimer();
