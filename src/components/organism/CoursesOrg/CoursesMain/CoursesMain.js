@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Grid, makeStyles, Container } from "@material-ui/core";
-import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
-import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
-import CoursesLeftBar from "../CoursesLeftBar/CoursesLeftBar";
+import { Container, Grid, makeStyles } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../service/Route";
+import React, { useEffect, useState } from "react";
+
+import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
+import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
+import CoursesLeftBar from "../CoursesLeftBar/CoursesLeftBar";
+import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   main: {
+    minHeight: "100vh",
     [theme.breakpoints.up("1300")]: {
       display: "flex",
       justifyContent: "space-between",
@@ -129,7 +132,7 @@ const CoursesMain = () => {
 
   return (
     <Container maxWidth="false" disableGutters>
-      <Grid container wrap="nowrap" className={classes.main}>
+      <Grid container wrap="nowrap" className={classes.main} >
         <Grid
           item
           className={classes.leftBarHide}
@@ -143,7 +146,7 @@ const CoursesMain = () => {
           {/* <CoursesLeftBar /> */}
           <HomeLeftBar currentPage="course" />
         </Grid>
-        <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
+        <Grid item xs={12} sm={12}  md={7} lg={7} xl={7}>
           <CoursesFeedContent
             previousExams={previousExams}
             data={provHistoryData}
@@ -163,8 +166,10 @@ const CoursesMain = () => {
             data={provHistoryData}
             previousExams={previousExams}
           />
+          
         </Grid>
       </Grid>
+      <BottomNavBar currentPage="course" />
     </Container>
   );
 };
