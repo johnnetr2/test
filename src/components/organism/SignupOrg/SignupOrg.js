@@ -56,7 +56,8 @@ const SignupOrg = () => {
 
   const [showPassword, setShowPassword] = useState(true);
 
-  let isValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{7,}$/;
+  let isValidPassword =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -80,7 +81,7 @@ const SignupOrg = () => {
         title: "Alert!",
         text: "Please Fill the Required Fields",
       });
-    } else if (!isValid.test(register.password)) {
+    } else if (!isValidPassword.test(register.password)) {
       swal({
         icon: "warning",
         title: "Alert!",
@@ -98,7 +99,7 @@ const SignupOrg = () => {
             localStorage.setItem("email", response?.data?.user?.email);
             localStorage.setItem("userId", response?.data?.user?._id);
             localStorage.setItem("token", response?.data?.token);
-            navigate("/home");
+            window.location.href = "/home";
           } else if (response?.data?.result == "fail") {
             swal({
               icon: "warning",
