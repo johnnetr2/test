@@ -172,6 +172,7 @@ const CoursesCard = (props) => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              flexWrap: "wrap",
             }}
           >
             <Box

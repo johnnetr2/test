@@ -1,8 +1,10 @@
+import { Box, Container, Grid, makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
-import { Grid, makeStyles, Container, Box } from "@material-ui/core";
+
+import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
 import HomeFeedContent from "../HomeFeedContent/HomeFeedContent";
-import HomeRightBar from "../HomeRightBar/HomeRightBar";
 import HomeLeftBar from "../HomeLeftBar/HomeLeftBar";
+import HomeRightBar from "../HomeRightBar/HomeRightBar";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -11,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   main: {
+    minHeight: "100vh",
     [theme.breakpoints.up("1300")]: {
       display: "flex",
       justifyContent: "space-between",
@@ -76,6 +79,7 @@ const HomeMainOrg = (props) => {
           />
         </Grid>
       </Grid>
+      <BottomNavBar currentPage="home" />
     </Container>
   );
 };

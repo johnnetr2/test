@@ -1,8 +1,10 @@
-import React from "react";
-import { Grid, Container, makeStyles } from "@material-ui/core";
+import { Container, Grid, makeStyles } from "@material-ui/core";
+
+import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
+import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 import ProfileFeedContent from "../ProfileFeedContent/ProfileFeedContent";
 import ProfileRightBar from "../ProfileRightBar/ProfileRightBar";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -11,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   main: {
+    minHeight: "100vh",
     [theme.breakpoints.up("sm")]: {
       display: "flex",
       justifyContent: "space-between",
@@ -73,6 +76,7 @@ const ProfileMain = () => {
           <ProfileRightBar />
         </Grid>
       </Grid>
+      <BottomNavBar currentPage="profile" />
     </Container>
   );
 };
