@@ -1,16 +1,18 @@
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { Typography, Box } from "@mui/material";
-import ProgressBar from "../../atom/ProgressBar/ProgressBar";
-import { useNavigate } from "react-router-dom";
-import image70 from "../../../assets/Imgs/image70.png";
-import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+
+import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import ProgressBar from "../../atom/ProgressBar/ProgressBar";
+import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import informationIcon from "../../../assets/Imgs/informationIcon.png";
+import { useNavigate } from "react-router-dom";
 
 const HomeCard = (props) => {
   const data = props?.item;
@@ -143,21 +145,22 @@ const HomeCard = (props) => {
           }}
         >
           {props?.previousRecord?.TotalQuestion < 20 && (
-            <img
-              src={image70}
-              style={{
-                display: "flex",
-                height: "0.5rem",
-                width: "0.5rem",
-                alignSelf: "flex-end",
-              }}
-            />
+            <CustomizedTooltip title="Gör minst 20 frågor på tid för att få poängprognos" placement="top">
+              <img
+                src={informationIcon}
+                style={{
+                  display: "flex",
+                  height: "0.625rem",
+                  width: "0.625rem",
+                  alignSelf: "flex-end",
+                }}
+              />
+            </CustomizedTooltip>
           )}
           <Typography
             variant="body1"
             style={{
               fontSize: ".75rem",
-              marginTop: ".75rem",
             }}
           >
             Prognos

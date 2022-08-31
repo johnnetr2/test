@@ -107,7 +107,7 @@ const HomeFeedContent = (props) => {
             newArr.push(item);
           }
           if (item.title == "ELF") {
-            item.time = 0.3;
+            item.time = 2.2;
             newArr.push(item);
           }
           if (item.title === "LÄS") {
@@ -119,7 +119,7 @@ const HomeFeedContent = (props) => {
             newArr.push(item);
           }
           if (item.title == "ORD") {
-            item.time = 2.2;
+            item.time = 0.3;
             newArr.push(item);
           }
         });

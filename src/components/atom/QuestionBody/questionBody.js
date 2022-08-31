@@ -1,12 +1,13 @@
+import { Box, Container, FormControlLabel } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import Increment from "../../../assets/Icons/Increment.svg";
+
 import Decrement from "../../../assets/Icons/Decrement.svg";
-import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
-import { Box, FormControlLabel, Container } from "@material-ui/core";
-import { Typography } from "@mui/material";
+import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
+import Increment from "../../../assets/Icons/Increment.svg";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
-import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
+import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
+import { Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -45,6 +46,8 @@ const QuestionBody = (props) => {
       return "#27AE60";
     } else if (question.answer && item._id == question?.optionId) {
       return "#EB5757";
+    } else if (question.answer && item._id != question?.optionId) {
+      return "#E1E1E1";
     } else {
       return "";
     }

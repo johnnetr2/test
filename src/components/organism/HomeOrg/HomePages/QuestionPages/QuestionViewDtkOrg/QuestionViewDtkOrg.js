@@ -156,14 +156,19 @@ const QuestionViewDTKOrg = (props) => {
       dataSubmit.push(data);
     }
 
-    quiz &&
-      quiz?.question.map((item) => {
-        if (item.optionId) {
-          setAnswerExistance(true);
-        } else {
-          setAnswerExistance(false);
-        }
-      });
+    const answerLenght = quiz.question.filter(item => item.optionId).length
+    if (answerLenght == quiz.question.length) {
+      setAnswerExistance(true);
+    }
+
+    // quiz &&
+    //   quiz?.question.map((item) => {
+    //     if (item.optionId) {
+    //       setAnswerExistance(true);
+    //     } else {
+    //       setAnswerExistance(false);
+    //     }
+    //   });
   };
 
   const Options = (question, option, optionIndex) => {
@@ -243,12 +248,11 @@ const QuestionViewDTKOrg = (props) => {
           <Box
             mt={5}
             paddingX={6}
-            paddingY={5}
+            paddingY={2}
             sx={{
               backgroundColor: "#fff",
               width: 600,
-              border: "1px solid #e1e1e1",
-              maxHeight: 400,
+              height: 373,
               overflow: "auto",
             }}
             className={classes.scrollbar}
@@ -343,14 +347,12 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {quiz &&
-                          quiz?.question.length > 1 &&
-                          quiz?.question[0].selectedOptionIndex != undefined ? (
+                            quiz?.question.length > 1 &&
+                            quiz?.question[0].selectedOptionIndex != undefined ? (
                             <img
                               onClick={() => {
                                 selectedIndex + 1 < quiz.question.length &&
                                   setSelectedIndex(selectedIndex + 1);
-                                props.updateQuiz(quiz);
-                                props.changeIndex();
                                 selectedIndex + 1 < quiz?.question.length &&
                                   props.updateQuiz(quiz);
                                 selectedIndex + 1 < quiz?.question.length &&
@@ -461,10 +463,10 @@ const QuestionViewDTKOrg = (props) => {
                               marginLeft: "1rem",
                             }}
                           >
-                            <Typography style={{ fontSize: "0.9rem" }}>
-                              <MarkLatex
-                                content={option.value.replace("\f", "\\f")}
-                              />{" "}
+                            <Typography
+                              style={{ fontSize: "0.9rem", height: "1.2rem" }}
+                            >
+                              {option?.value && <MarkLatex content={option?.value.replace("\f", "\\f")} />}{" "}
                             </Typography>
                           </Box>
                         </Box>
