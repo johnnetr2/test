@@ -126,6 +126,31 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
+  const handleParagraphQuestionsFunc = () => {
+    const tempQuestions = [...dataSubmit]
+    tempQuestions[selectedIndex].totaltime = props.totalTime ? props.totalTime : null
+    tempQuestions[selectedIndex].timeleft = props.timeLeft ? props.timeLeft : null
+    tempQuestions[selectedIndex].spendtime = getSpendTime(props.timeLeft, props.totalTime, selectedIndex)
+    dataSubmit = tempQuestions
+    selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1);
+    selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
+    selectedIndex + 1 < quiz?.question.length && props.changeIndex();
+  };
+
+  const getSpendTime = (timeLeft, totalTime, index) => {
+    if (index) {
+      console.log(
+        dataSubmit[index - 1].spendtime,
+        "this is the console of logic time"
+      );
+      return totalTime - (timeLeft + dataSubmit[index - 1].spendtime);
+    } else if (index == 0) {
+      return totalTime - timeLeft;
+    } else {
+      return null;
+    }
+  };
+
   const SelectFunc = (item, optionIndex) => {
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
@@ -139,9 +164,9 @@ const QuestionViewDTKOrg = (props) => {
       questionId: quiz.question[selectedIndex]._id,
       optionId: quiz.question[selectedIndex].optionId,
       MultipartQuestion: quiz._id,
-      timeleft: props.timeLeft ? props.timeLeft : null,
-      totaltime: props.totalTime ? props.totalTime : null,
-      spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
+      // timeleft: props.timeLeft ? props.timeLeft : null,
+      // totaltime: props.totalTime ? props.totalTime : null,
+      // spendtime: getSpendTime(props.timeLeft, props.totalTime, selectedIndex),
     };
 
     const ifExists = dataSubmit.some(
@@ -153,10 +178,12 @@ const QuestionViewDTKOrg = (props) => {
       );
       dataSubmit.splice(index, 1, data);
     } else {
+      console.log(data, "this is the console of data");
+
       dataSubmit.push(data);
     }
 
-    const answerLenght = quiz.question.filter(item => item.optionId).length
+    const answerLenght = quiz.question.filter((item) => item.optionId).length;
     if (answerLenght == quiz.question.length) {
       setAnswerExistance(true);
     }
@@ -189,7 +216,6 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     props.updateQuiz(quiz);
-    console.log(dataSubmit, 'this is the data submit consoel')
     try {
       const obj = {
         quiz: props.quizId,
@@ -199,7 +225,10 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2.post(URL, obj).then((response) => {
-        console.log(response, 'this is the response of multipart answer submit')
+        console.log(
+          response,
+          "this is the response of multipart answer submit"
+        );
         dataSubmit = [];
         setShowResult(true);
         props.stopTimer();
@@ -349,17 +378,10 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {quiz &&
-                            quiz?.question.length > 1 &&
-                            quiz?.question[0].selectedOptionIndex != undefined ? (
+                          quiz?.question.length > 1 &&
+                          quiz?.question[0].selectedOptionIndex != undefined ? (
                             <img
-                              onClick={() => {
-                                selectedIndex + 1 < quiz.question.length &&
-                                  setSelectedIndex(selectedIndex + 1);
-                                selectedIndex + 1 < quiz?.question.length &&
-                                  props.updateQuiz(quiz);
-                                selectedIndex + 1 < quiz?.question.length &&
-                                  props.changeIndex();
-                              }}
+                              onClick={handleParagraphQuestionsFunc}
                               src={BlueRightIcon}
                               style={{ cursor: "pointer" }}
                               className={classes.size}
@@ -468,7 +490,11 @@ const QuestionViewDTKOrg = (props) => {
                             <Typography
                               style={{ fontSize: "0.9rem", height: "1.2rem" }}
                             >
-                              {option?.value && <MarkLatex content={option?.value.replace("\f", "\\f")} />}{" "}
+                              {option?.value && (
+                                <MarkLatex
+                                  content={option?.value.replace("\f", "\\f")}
+                                />
+                              )}{" "}
                             </Typography>
                           </Box>
                         </Box>

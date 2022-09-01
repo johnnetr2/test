@@ -8,7 +8,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { EndPoints, instance2 } from "../../../../../service/Route";
+import { EndPoints, instance2, instance3 } from "../../../../../service/Route";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -29,6 +29,7 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
+
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -83,7 +84,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+           setTime(30) 
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem('quiz')) {
           setQuiz(JSON.parse(localStorage.getItem('quiz')))
@@ -108,7 +110,9 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+          setTime(30) 
+
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem('quiz')) {
           setQuiz(JSON.parse(localStorage.getItem('quiz')))
@@ -182,6 +186,7 @@ const QuestionViewXyzOrg = () => {
         spendtime: timeLeft ? time - timeLeft : 0,
         MultipartQuestion: null,
       };
+      console.log(data, 'this is the console of data to check the timing of the quiz')
       const Submit = EndPoints.submitAnswer;
       instance2.post(Submit, data).then((response) => {
         console.log(response, 'this is answer submiited')
@@ -251,26 +256,57 @@ const QuestionViewXyzOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  const AnswerArrayPayloadForCloseTimerFunc = () => {
+    let AnswerArray = [];
+       quiz.map((item) => {
+        if(!item.answer){
+          AnswerArray.push({
+            questionId: item._id, 
+            timeleft: 0,
+            totaltime: time ? time : 0,
+            spendtime: timeLeft ? time - timeLeft : 0,
+          })
+        }
+    })
+    return AnswerArray;
+  }
+
   const CloseTimerFunc = async () => {
     setTimeEnd(true);
     try {
-      return await Promise.all(
-        quiz?.map(async (item) => {
-          if (!item.answer) {
-            const data = {
-              quiz: params?.state?.quizId,
-              user: localStorage.getItem("userId"),
-              questionId: item._id,
-              sectionCategory: params?.state?.sectionCategory?._id,
-              timeleft: 0,
-              totaltime: time ? time : 0,
-              spendtime: timeLeft ? time - timeLeft : 0,
-            };
-            const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => { });
-          }
-        })
-      );
+        const payload = {
+          quiz: params?.state?.quizId,
+          user: localStorage.getItem('userId'),
+          sectionCategory: params?.state?.sectionCategory?._id,
+          answer: AnswerArrayPayloadForCloseTimerFunc(),
+        }
+      const URL = EndPoints.submitMultiquestionParagragh;
+      instance2.post(URL, payload).then((response) => {
+        console.log(response, 'this is the console of response of closer time function')
+      })
+      // console.log(quiz, 'this is the console of whole quiz inside closer timer function')
+      // return await Promise.all(
+      //   quiz?.map(async (item) => {
+      //     if (!item.answer) {
+      //       const data = {
+      //         quiz: params?.state?.quizId,
+      //         user: localStorage.getItem("userId"),
+      //         questionId: item._id,
+      //         sectionCategory: params?.state?.sectionCategory?._id,
+      //         timeleft: 0,
+      //         totaltime: time ? time : 0,
+      //         spendtime: timeLeft ? time - timeLeft : 0,
+      //       };
+      //       console.log(data, 'this is the console of payload')
+      //       const URL = EndPoints.submitAnswer;
+      //       await instance2.post(URL, data).then((response) => {
+      //         console.log(response, 'this is the console of response of close timer function')
+      //       }).catch((error) => {
+      //         console.log(error, 'this is the console of api catch error')
+      //       })
+      //     }
+      //   })
+      // );
     } catch (error) {
       console.log("in catch block: ", error);
     }
@@ -515,6 +551,7 @@ const QuestionViewXyzOrg = () => {
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
+            callBackForTimer={(value)=> setTimeLeft(value)}
           />
         )}
 
@@ -553,15 +590,29 @@ const QuestionViewXyzOrg = () => {
           <UnAttemptedTimer
             popUpstatus={timeEnd}
             redirect={() => {
-              navigate("/category", {
+              navigate("/resultsummary", {
                 state: {
-                  item: params?.state?.sectionCategory,
+                  sectionCategory: params?.state?.sectionCategory,
+                  quizId: params?.state?.quizId,
+                  time: timeLeft
                 },
               })
               localStorage.removeItem('quiz')
             }
             }
           />
+          // <UnAttemptedTimer
+          //   popUpstatus={timeEnd}
+          //   redirect={() => {
+          //     navigate("/category", {
+          //       state: {
+          //         item: params?.state?.sectionCategory,
+          //       },
+          //     })
+          //     localStorage.removeItem('quiz')
+          //   }
+          //   }
+          // />
         )}
 
         <UnAttemptedPopup

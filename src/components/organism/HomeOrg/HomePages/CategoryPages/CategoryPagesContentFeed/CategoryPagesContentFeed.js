@@ -176,6 +176,7 @@ const CategoryPagesFeedContent = (props) => {
           value: timer,
           user: localStorage.getItem("userId"),
           multipartQuestion: null,
+          isTimeRestricted: timer ? true : false,
         };
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {

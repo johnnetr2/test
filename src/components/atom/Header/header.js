@@ -95,11 +95,10 @@ function Header(props) {
               timeleft={(timer) => {
                 if (!props.status) {
                   props.timeLeft(timer);
-                  // setTimeout(() => {
                   props.nextPress();
-                  // }, 1000);
                 }
               }}
+              callBackForTimer={(value) => props.callBackForTimer(value)}
               onCloseTimer={() => props.onCloseTimer()}
             />
           </Box>

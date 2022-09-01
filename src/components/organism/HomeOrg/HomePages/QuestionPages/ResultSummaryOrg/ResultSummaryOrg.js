@@ -87,6 +87,7 @@ const ResultSummaryOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
+    console.log(params?.state?.quizId, 'this is the console of quiz id in result summary')
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
 
@@ -104,7 +105,7 @@ const ResultSummaryOrg = (props) => {
       } else {
         setTimePerQues(false);
       }
-      console.log(response, 'this is the console of response of collection of data for result summary')
+      console.log(response, "this is the console of response of data collection for result summary");
       setresponseCollection(response.data);
     });
 
@@ -151,7 +152,6 @@ const ResultSummaryOrg = (props) => {
     }
   };
 
-
   return (
     <div>
       <CssBaseline />
@@ -195,13 +195,20 @@ const ResultSummaryOrg = (props) => {
               {responseCollection?.question.length}
             </Box>
             {
-            // responseCollection && responseCollection?.question[0].timeleft != 0 
-            params?.state?.time && 
-            <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" style={{ paddingRight: '4px' }} />
-              {responseCollection ? dispSecondsAsMins((responseCollection?.question[responseCollection.question.length - 1 ].timeleft)?.toFixed(0)) : "00:00"}
-            </Box>
-            }
+              // responseCollection && responseCollection?.question[0].timeleft != 0
+              params?.state?.time && (
+                <Box mt={2} sx={{ color: "#222" }}>
+                  <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
+                  {responseCollection
+                    ? dispSecondsAsMins(
+                        responseCollection?.question[
+                          responseCollection.question.length - 1
+                        ].timeleft?.toFixed(0)
+                      )
+                    : "00:00"}
+                </Box>
+              )
+            } 
           </Box>
           <Box mt={2}>
             <LinearProgress
@@ -251,12 +258,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
+                responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                      " /" +
-                      responseCollection.question.length}
+                        " /" +
+                        responseCollection.question.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -292,7 +299,7 @@ const ResultSummaryOrg = (props) => {
                     {percentageCalculation(
                       (responseCollection.correctAnswer /
                         responseCollection.question.length) *
-                      100
+                        100
                     )}
                   </Typography>
                 ) : (
@@ -313,8 +320,8 @@ const ResultSummaryOrg = (props) => {
               </Box>
             </Box>
             {
-            // responseCollection && responseCollection?.question[0].timeleft != 0 
-            params?.state?.time && (
+              // responseCollection && responseCollection?.question[0].timeleft != 0
+              params?.state?.time && (
                 <Box
                   sx={{
                     display: "flex",
@@ -336,7 +343,9 @@ const ResultSummaryOrg = (props) => {
                     }}
                   >
                     <Typography variant="h4">
-                      {timePerQues ? dispSecondsAsMins(timePerQues?.toFixed(0)) : "00:00"}
+                      {timePerQues
+                        ? dispSecondsAsMins(timePerQues?.toFixed(0))
+                        : "00:00"}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -365,8 +374,8 @@ const ResultSummaryOrg = (props) => {
                     <Typography variant="h4">
                       {responseCollection
                         ? dispSecondsAsMins(
-                          responseCollection?.question.at(-1).timeleft
-                        )
+                            responseCollection?.question.at(-1).timeleft
+                          )
                         : "00:00"}
                     </Typography>
                     <Typography
@@ -381,7 +390,8 @@ const ResultSummaryOrg = (props) => {
                     </Typography>
                   </Box>
                 </Box>
-              )}
+              )
+            }
           </Box>
 
           <Box mt={2} sx={{ width: 600, display: "flex" }}>
@@ -401,7 +411,7 @@ const ResultSummaryOrg = (props) => {
           >
             {responseCollection &&
               responseCollection?.question?.map((item, index) => {
-                console.log(params?.state?.time)
+                console.log(params?.state?.time);
                 return (
                   <Box
                     key={index}
@@ -473,7 +483,11 @@ const ResultSummaryOrg = (props) => {
                       component="h6"
                       style={{ fontSize: ".75rem", fontWeight: "600" }}
                     >
-                      {item?.spendTime ? "Tid: " + dispSecondsAsMins(item?.spendTime) :  (params?.state?.time ? "Tid: 00:00" : "")}
+                      {item?.spendTime
+                        ? "Tid: " + dispSecondsAsMins(item?.spendTime)
+                        : params?.state?.time
+                        ? "Tid: 00:00"
+                        : ""}
                     </Typography>
                     <Box
                       style={{

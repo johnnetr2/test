@@ -122,7 +122,7 @@ const BottomNavBar = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const {scrollDirection}  = useScroll();
-  console.log(scrollDirection)
+  // console.log(scrollDirection)
   
   return (
     <Container
