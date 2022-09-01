@@ -38,17 +38,25 @@ const ImpDatesCard = (props) => {
   // }
 
   const hostenDate = new Date("10/23/2022");
-  const varenDate = new Date("3/25/2023");
+  // const varenDate = new Date("3/25/2023");
   const notSure = new Date();
   const formatHostenDate = moment(hostenDate).format("DD.MM.YYYY");
-  const formatVarenDate = moment(varenDate).format("DD.MM.YYYY");
+  // const formatVarenDate = moment(varenDate).format("DD.MM.YYYY");
   const formatNotSure = moment(notSure).format("DD.MM.YYYY");
 
   const showHostenDate = () => {
     if (collection && collection.season == "Hösten 2022") {
-      return formatHostenDate;
+      return (
+        <Typography variant="h3" style={{ fontSize: "2rem" }}>
+          {formatHostenDate}
+        </Typography>
+      );
     } else if (collection.season == "Våren 2023") {
-      return formatVarenDate;
+      return (
+        <Typography variant="h3" style={{ fontSize: "2rem" }}>
+          Våren 2023
+        </Typography>
+      );
     } else {
       return formatNotSure;
     }
@@ -56,9 +64,39 @@ const ImpDatesCard = (props) => {
 
   const remainingDays = () => {
     if (collection && collection.season == "Hösten 2022") {
-      return moment(hostenDate).diff(moment(notSure), "days");
+      return (
+        <>
+          <Box sx={{ display: "flex" }}>
+            {moment(hostenDate).diff(moment(notSure), "days")}
+            <Typography
+              variant="body2"
+              style={{
+                fontSize: ".65rem",
+                // marginBottom: "0.35rem",
+                marginLeft: ".15rem",
+              }}
+            >
+              {" "}
+              dagar till provdagen
+            </Typography>
+          </Box>
+        </>
+      );
     } else if (collection.season == "Våren 2023") {
-      return moment(varenDate).diff(moment(notSure), "days");
+      // return moment(varenDate).diff(moment(notSure), "days");
+      return (
+        <Typography
+          variant="body2"
+          style={{
+            fontSize: ".65rem",
+            color: "#656565",
+
+            //  marginBottom: "0.35rem"
+          }}
+        >
+          inget officiellt datum finns ännus
+        </Typography>
+      );
     } else {
       return "-";
     }
@@ -98,7 +136,7 @@ const ImpDatesCard = (props) => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon sx={{ color: "#e1e1e1" }} />
+          <MoreVertIcon sx={{ color: "#b4b4b4" }} />
         </IconButton>
         <Menu
           id="long-menu"
@@ -111,7 +149,7 @@ const ImpDatesCard = (props) => {
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
-              width: "12ch",
+              width: "10ch",
               display: "flex",
               justifyContent: "center",
             },
@@ -132,21 +170,21 @@ const ImpDatesCard = (props) => {
           border: "1px solid #e1e1e1",
           boxShadow: "0px 5px 10px #f2f2f2",
           borderRadius: 1,
-          padding: "0.5rem 0 0 0",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
+            position: "relative",
           }}
         >
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
               alignItems: "center",
-              padding: "2rem  0 2rem 2rem",
+              padding: "2rem 2rem 2rem 2rem",
             }}
           >
             <Box
@@ -155,19 +193,33 @@ const ImpDatesCard = (props) => {
                 alignItems: "flex-end",
               }}
             >
-              <Typography variant="h4" style={{ marginRight: "0.5rem" }}>
+              <Typography
+                variant="h3"
+                style={{ marginRight: ".5rem", fontSize: "2rem" }}
+              >
                 {showHostenDate()}
               </Typography>
               <Typography
                 variant="body2"
-                style={{ fontSize: ".65rem", marginBottom: "0.35rem" }}
+                style={{
+                  fontSize: ".65rem",
+                  marginBottom: "0.35rem",
+                  marginRight: "0.5rem",
+                  color: "#656565",
+                }}
               >
-                {remainingDays()} dagar till anmälan öppnar
+                {remainingDays()}
               </Typography>
+              <Box
+                sx={{
+                  position: "absolute",
+                  right: 0,
+                  top: 5,
+                }}
+              >
+                <MenuIcon />
+              </Box>
             </Box>
-          </Box>
-          <Box>
-            <MenuIcon />
           </Box>
         </Box>
       </Container>

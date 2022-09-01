@@ -71,7 +71,7 @@ const GoalBox = (props) => {
           PaperProps={{
             style: {
               // height: ITEM_HEIGHT * 4.5,
-              width: "12ch",
+              width: "8ch",
               display: "flex",
               justifyContent: "center",
             },
@@ -92,14 +92,17 @@ const GoalBox = (props) => {
           border: "1px solid #dddddd",
           boxShadow: "0px 5px 10px #f2f2f2",
           borderRadius: 1,
-          padding: ".5rem",
           display: "flex",
           flexDirection: "column",
+          position: "relative",
           justifyContent: "space-between",
         }}
       >
         <Box
           sx={{
+            position: "absolute",
+            right: 0,
+            top: 5,
             display: "flex",
             justifyContent: "flex-end",
           }}
@@ -111,7 +114,7 @@ const GoalBox = (props) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "flex-end",
-            padding: ".25rem 1rem",
+            padding: "1.6rem 1rem",
           }}
         >
           <Typography
@@ -121,7 +124,10 @@ const GoalBox = (props) => {
             {pointCollection?.point ? pointCollection?.point : "0.0"}
           </Typography>
 
-          <Typography variant="body2" style={{ marginBottom: "0.25rem" }}>
+          <Typography
+            variant="body2"
+            style={{ marginBottom: "0.25rem", color: "#505050" }}
+          >
             Mål
           </Typography>
         </Box>
