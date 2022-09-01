@@ -15,7 +15,7 @@ import {
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
-import { EndPoints, instance2 } from "../../../../../service/Route";
+import { EndPoints, instance, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -94,6 +94,9 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
+    // console.log(props.quiz, 'this is the console of complete props.quiz')
+    // console.log(props.selectedIndex, 'this is the console of props dot selected index')
+
     if (props.paragraphIndex != undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
@@ -101,6 +104,8 @@ const QuestionViewDTKOrg = (props) => {
       setQuiz(props.question);
     }
   }, []);
+
+
 
   const Button = (question) => {
     if (props.paragraphIndex != undefined) {
@@ -139,10 +144,10 @@ const QuestionViewDTKOrg = (props) => {
 
   const getSpendTime = (timeLeft, totalTime, index) => {
     if (index) {
-      console.log(
-        dataSubmit[index - 1].spendtime,
-        "this is the console of logic time"
-      );
+      // console.log(
+      //   dataSubmit[index - 1].spendtime,
+      //   "this is the console of logic time"
+      // );
       return totalTime - (timeLeft + dataSubmit[index - 1].spendtime);
     } else if (index == 0) {
       return totalTime - timeLeft;
@@ -164,9 +169,9 @@ const QuestionViewDTKOrg = (props) => {
       questionId: quiz.question[selectedIndex]._id,
       optionId: quiz.question[selectedIndex].optionId,
       MultipartQuestion: quiz._id,
-      // timeleft: props.timeLeft ? props.timeLeft : null,
-      // totaltime: props.totalTime ? props.totalTime : null,
-      // spendtime: getSpendTime(props.timeLeft, props.totalTime, selectedIndex),
+      timeleft: props.timeLeft ? props.timeLeft : null,
+      totaltime: props.totalTime ? props.totalTime : null,
+      spendtime: getSpendTime(props.timeLeft, props.totalTime, selectedIndex),
     };
 
     const ifExists = dataSubmit.some(
@@ -224,15 +229,29 @@ const QuestionViewDTKOrg = (props) => {
         answer: dataSubmit,
       };
       const URL = EndPoints.submitMultiquestionParagragh;
-      instance2.post(URL, obj).then((response) => {
-        console.log(
-          response,
-          "this is the response of multipart answer submit"
-        );
+      await instance2.post(URL, obj).then((response) => {
+        // console.log(response, "this is the response of multipart answer submit");
         dataSubmit = [];
         setShowResult(true);
         props.stopTimer();
       });
+      
+      const Quiz = [...props?.quiz]
+      let paragraphID = Quiz[props?.selectedIndex]?._id
+      const payload = {
+        quiz: props?.quizId
+      }
+      // console.log(Quiz, 'this is the console of before updation inside DTK')
+      // console.log('this is the console of payload', payload)
+      const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID
+      instance2.post(URL1, payload).then((response) => {
+        // console.log(response, 'this is the console of response of next press')
+        Quiz[props?.selectedIndex].question = response?.data?.question
+        props.updateCompleteQuiz(Quiz)
+      // console.log(Quiz, 'this is the console of after updation inside DTK')
+
+      })
+      
     } catch (error) {
       // console.log("in catch block: ", error);
     }
@@ -501,9 +520,7 @@ const QuestionViewDTKOrg = (props) => {
                       );
                     })}
 
-                    {answerExistance ? (
-                      Button(question)
-                    ) : (
+                    {answerExistance ? (Button(question)) : (
                       <Box
                         padding={1}
                         mt={2}

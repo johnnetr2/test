@@ -87,7 +87,7 @@ const ResultSummaryOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    console.log(params?.state?.quizId, 'this is the console of quiz id in result summary')
+    console.log(params?.state, 'this is the console of time in result summary')
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
 
@@ -184,7 +184,7 @@ const ResultSummaryOrg = (props) => {
       >
         <Container
           disableGutters
-          padding={0}
+          padding={'0'}
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
         >

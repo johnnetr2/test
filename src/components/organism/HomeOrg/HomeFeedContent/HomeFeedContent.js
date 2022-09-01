@@ -80,7 +80,7 @@ const HomeFeedContent = (props) => {
       const loginUserID = localStorage.getItem("userId");
       const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
-        console.log(response, 'this is the console of response of overAll Normering Values')
+        // console.log(response, 'this is the console of response of overAll Normering Values')
         if (response?.data?.success) {
           setPreviousRecordProgress(response.data.Data)
         }

@@ -78,6 +78,7 @@ const QuestionBody = (props) => {
         stopTimer={() => props.stopTime()}
         startTimer={() => props.startTime()}
         previosQuestion={() => props.previosQuestion()}
+        updateCompleteQuiz ={(quiz) => props.updateCompleteQuiz(quiz) }
       />
     );
   } else if (props.question.multipartQuestion) {
@@ -153,7 +154,7 @@ const QuestionBody = (props) => {
 
           <Box
             sx={{
-              marginTop: question?.images[0] == "" ? 0 : "2rem",
+              marginTop: question?.images[0] == "" ? '0' : "2rem",
             }}
           >
             {question?.information1 && (

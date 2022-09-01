@@ -30,7 +30,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
 
-
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
@@ -47,7 +46,7 @@ const QuestionViewXyzOrg = () => {
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(1);
-  const [answerSubmittedState, setAnsSubmittedState] = useState()
+  const [answerSubmittedState, setAnsSubmittedState] = useState();
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -56,18 +55,18 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
-    console.log(params?.state)
+    console.log(params?.state, "params.state on the question view xyz");
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setCurrentQuestion(questionToShow);
-      setCurrentQuestion(questionToShow + 1)
+      setCurrentQuestion(questionToShow + 1);
       setQuiz(params?.state?.quiz.question);
       setTotalQuestions(params?.state?.quiz?.question?.length);
       setLoading(false);
     } else {
-      if (localStorage.getItem('quiz')) {
-        let refreshQuiz = JSON.parse(localStorage.getItem('quiz'))
+      if (localStorage.getItem("quiz")) {
+        let refreshQuiz = JSON.parse(localStorage.getItem("quiz"));
         let totalQ = 0;
         setLoading(false);
         refreshQuiz &&
@@ -76,7 +75,7 @@ const QuestionViewXyzOrg = () => {
               setSelectedIndex((selectedIndex) => selectedIndex + 1);
               setCurrentQuestion((currentQuestion) => currentQuestion + 1);
             }
-            if (item.type == 'multiple') {
+            if (item.type == "multiple") {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
               totalQ = totalQ + item?.question?.length;
             } else {
@@ -84,11 +83,11 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-           setTime(30) 
+        setTime(15);
         // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
-        if (localStorage.getItem('quiz')) {
-          setQuiz(JSON.parse(localStorage.getItem('quiz')))
+        if (localStorage.getItem("quiz")) {
+          setQuiz(JSON.parse(localStorage.getItem("quiz")));
         } else {
           setQuiz(params?.state?.data?.quiz);
         }
@@ -102,7 +101,7 @@ const QuestionViewXyzOrg = () => {
               setSelectedIndex((selectedIndex) => selectedIndex + 1);
               setCurrentQuestion((currentQuestion) => currentQuestion + 1);
             }
-            if (item.type == 'multiple') {
+            if (item.type == "multiple") {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
               totalQ = totalQ + item?.question?.length;
             } else {
@@ -110,12 +109,12 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-          setTime(30) 
+        setTime(15);
 
         // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
-        if (localStorage.getItem('quiz')) {
-          setQuiz(JSON.parse(localStorage.getItem('quiz')))
+        if (localStorage.getItem("quiz")) {
+          setQuiz(JSON.parse(localStorage.getItem("quiz")));
         } else {
           setQuiz(params?.state?.data?.quiz);
         }
@@ -125,8 +124,8 @@ const QuestionViewXyzOrg = () => {
 
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      if (JSON.parse(localStorage.getItem('quiz'))) {
-        setQuiz(JSON.parse(localStorage.getItem('quiz')))
+      if (JSON.parse(localStorage.getItem("quiz"))) {
+        setQuiz(JSON.parse(localStorage.getItem("quiz")));
       }
     }
   }, []);
@@ -139,7 +138,7 @@ const QuestionViewXyzOrg = () => {
             sectionCategory: params?.state?.sectionCategory,
             quizId: params?.state?.quizId,
             spendtime: answerSubmittedState,
-            time: params?.state?.time
+            time: params?.state?.time,
           },
         });
         localStorage.removeItem("time");
@@ -155,13 +154,14 @@ const QuestionViewXyzOrg = () => {
         let ques = questions[selectedIndex];
         const URL = EndPoints.getAnswerByQuestionId + ques._id;
         instance2.get(URL).then((response) => {
+          console.log(response, 'this is the console of response')
           ques.answer = response.data;
           ques.answerSubmited = true;
           !params?.state?.data.value && setNextPress(!nextPress);
-          localStorage.setItem('quiz', JSON.stringify(questions))
+          localStorage.setItem("quiz", JSON.stringify(questions));
           setQuiz(questions);
           setStatus(false);
-          console.log(quiz)
+          console.log(quiz);
         });
       }
     }
@@ -186,11 +186,11 @@ const QuestionViewXyzOrg = () => {
         spendtime: timeLeft ? time - timeLeft : 0,
         MultipartQuestion: null,
       };
-      console.log(data, 'this is the console of data to check the timing of the quiz')
-      const Submit = EndPoints.submitAnswer;
-      instance2.post(Submit, data).then((response) => {
-        console.log(response, 'this is answer submiited')
-        setAnsSubmittedState(response.data.answer)
+      // console.log(data, 'this is the console of data to check the timing of the quiz')
+      const URL = EndPoints.submitAnswer;
+      instance2.post(URL, data).then((response) => {
+        console.log(response, "this is answer submiited");
+        setAnsSubmittedState(response.data.answer);
         setTime(timeLeft);
         setNextPress(undefined);
         // localStorage.setItem('quiz', JSON.stringify(quiz))
@@ -257,33 +257,57 @@ const QuestionViewXyzOrg = () => {
   const navigate = useNavigate();
 
   const AnswerArrayPayloadForCloseTimerFunc = () => {
-    let AnswerArray = [];
-       quiz.map((item) => {
-        if(!item.answer){
-          AnswerArray.push({
-            questionId: item._id, 
+    let singleQuestionArray = [];
+    console.log(quiz, "this is the console of quiz");
+    quiz?.map((item) => {
+      if (item.hasOwnProperty("multipartQuestion") && item?.multipartQuestion === null) {
+        if (!item.answer) {
+          // console.log(item, 'hasdhasdhakssada')
+          // console.log('inside single question')
+          singleQuestionArray.push({
+            questionId: item._id,
             timeleft: 0,
             totaltime: time ? time : 0,
             spendtime: timeLeft ? time - timeLeft : 0,
-          })
+          });
         }
-    })
-    return AnswerArray;
-  }
+      } else {
+        item?.question?.map((value) => {
+          // console.log(value, 'asdjlkasjdlksajdkl')
+          if ((value?.multipartQuestion) && (!value?.answer)) {
+            console.log('inside multipart questions')
+              singleQuestionArray.push({
+                questionId: value?._id,
+                timeleft: 0,
+                totaltime: time ? time : 0,
+                spendtime: timeLeft ? time - timeLeft : 0,
+              });
+          }
+        });
+      }
+    });
+    return singleQuestionArray;
+  };
 
   const CloseTimerFunc = async () => {
     setTimeEnd(true);
     try {
-        const payload = {
-          quiz: params?.state?.quizId,
-          user: localStorage.getItem('userId'),
-          sectionCategory: params?.state?.sectionCategory?._id,
-          answer: AnswerArrayPayloadForCloseTimerFunc(),
-        }
+      const payload = {
+        quiz: params?.state?.quizId,
+        user: localStorage.getItem("userId"),
+        sectionCategory: params?.state?.sectionCategory?._id,
+        answer: AnswerArrayPayloadForCloseTimerFunc(),
+      };
+      console.log(payload, "this is the console of payload");
       const URL = EndPoints.submitMultiquestionParagragh;
-      instance2.post(URL, payload).then((response) => {
-        console.log(response, 'this is the console of response of closer time function')
-      })
+      instance2
+        .post(URL, payload)
+        .then((response) => {
+          console.log(response, "this is the console of response of closer time function");
+        })
+        .catch((error) => {
+          console.log("this is the consnole of error", error);
+        });
       // console.log(quiz, 'this is the console of whole quiz inside closer timer function')
       // return await Promise.all(
       //   quiz?.map(async (item) => {
@@ -321,7 +345,6 @@ const QuestionViewXyzOrg = () => {
     setQuiz(questions);
   };
 
-
   function OptionIndex(index) {
     switch (index) {
       case 0:
@@ -351,7 +374,7 @@ const QuestionViewXyzOrg = () => {
           style={{ marginLeft: "0.45rem", width: "1.5rem", color: "grey" }}
         />
       );
-    } else if (question.answer && curentOption._id != question?.optionId){
+    } else if (question.answer && curentOption._id != question?.optionId) {
       return (
         <Radio
           disabled
@@ -394,7 +417,7 @@ const QuestionViewXyzOrg = () => {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
                 quizId: params?.state?.quizId,
-                time: params?.state?.time
+                time: params?.state?.time,
               },
             });
           }}
@@ -551,7 +574,7 @@ const QuestionViewXyzOrg = () => {
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
-            callBackForTimer={(value)=> setTimeLeft(value)}
+            callBackForTimer={(value) => setTimeLeft(value)}
           />
         )}
 
@@ -563,10 +586,10 @@ const QuestionViewXyzOrg = () => {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
                 quizId: params?.state?.quizId,
-                time: params?.state?.time
+                time: params?.state?.time,
               },
             });
-            localStorage.removeItem('quiz')
+            localStorage.removeItem("quiz");
             localStorage.removeItem("time");
           }}
         />
@@ -579,10 +602,10 @@ const QuestionViewXyzOrg = () => {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
                   quizId: params?.state?.quizId,
-                  time: params?.state?.time
+                  time: params?.state?.time,
                 },
               });
-              localStorage.removeItem('quiz')
+              localStorage.removeItem("quiz");
               localStorage.removeItem("time");
             }}
           />
@@ -594,12 +617,11 @@ const QuestionViewXyzOrg = () => {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
                   quizId: params?.state?.quizId,
-                  time: timeLeft
+                  time: timeLeft,
                 },
-              })
-              localStorage.removeItem('quiz')
-            }
-            }
+              });
+              localStorage.removeItem("quiz");
+            }}
           />
           // <UnAttemptedTimer
           //   popUpstatus={timeEnd}
@@ -659,10 +681,10 @@ const QuestionViewXyzOrg = () => {
                       state: {
                         sectionCategory: params?.state?.sectionCategory,
                         quizId: params?.state?.quizId,
-                        time: params?.state?.time
+                        time: params?.state?.time,
                       },
                     });
-                    localStorage.removeItem('quiz')
+                    localStorage.removeItem("quiz");
                     localStorage.removeItem("time");
                   }}
                   startTime={() => setStatus(true)}
@@ -671,25 +693,28 @@ const QuestionViewXyzOrg = () => {
                   }
                   updateQuiz={(value) => setQuiz(value)}
                   changeIndex={() => setCurrentQuestion(currentQuestion + 1)}
-                  previosQuestion={() => setCurrentQuestion(currentQuestion - 1)}
+                  previosQuestion={() =>
+                    setCurrentQuestion(currentQuestion - 1)
+                  }
                   OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
                   quizId={params?.state?.quizId}
                   timeLeft={timeLeft}
+                  updateCompleteQuiz = {(quiz) => setQuiz(quiz)}
                   nextQuestion={() => {
                     if (selectedIndex + 1 < quiz.length) {
                       setSelectedIndex(selectedIndex + 1);
                       setCurrentQuestion(currentQuestion + 1);
-                      localStorage.setItem('quiz', JSON.stringify(quiz))
+                      localStorage.setItem("quiz", JSON.stringify(quiz));
                     } else {
                       navigate("/resultsummary", {
                         state: {
                           sectionCategory: params?.state?.sectionCategory,
                           quizId: params?.state?.quizId,
-                          time: params?.state?.time
+                          time: params?.state?.time,
                         },
                       });
-                      localStorage.removeItem('quiz')
+                      localStorage.removeItem("quiz");
                       localStorage.removeItem("time");
                     }
                   }}
