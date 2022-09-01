@@ -214,7 +214,7 @@ const CategoryPagesRightBar = (props) => {
               marginBottom: ".5rem",
             }}
           >
-            UPPGIFTER
+            Uppgifter
           </Typography>
           {weeks && weeklyProgress && (
             <LineDemo weeklyProgress={weeklyProgress} weeks={weeks} />
@@ -266,7 +266,7 @@ const CategoryPagesRightBar = (props) => {
                 marginBottom: ".5rem",
               }}
             >
-              POANG
+              Poäng
             </Typography>
 
             {weeks && weeklyProgress && (
