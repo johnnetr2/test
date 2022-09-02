@@ -74,7 +74,8 @@ export default function EndPopup({
             Sätt ditt mål
           </Typography>
           <Typography variant="body2" sx={{ color: "#252525" }}>
-            Ditt målpoäng beror ofta på vilken utbilding du vill söka till. Är du osäker kan du alltid ändra senare.
+            Ditt målpoäng beror ofta på vilken utbilding du vill söka till. Är
+            du osäker kan du alltid ändra senare.
           </Typography>
 
           <Box sx={{ width: 495, marginTop: "1rem" }}>

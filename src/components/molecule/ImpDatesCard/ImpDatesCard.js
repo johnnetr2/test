@@ -94,7 +94,7 @@ const ImpDatesCard = (props) => {
             //  marginBottom: "0.35rem"
           }}
         >
-          inget officiellt datum finns ännus
+          inget officiellt datum finns ännu
         </Typography>
       );
     } else {

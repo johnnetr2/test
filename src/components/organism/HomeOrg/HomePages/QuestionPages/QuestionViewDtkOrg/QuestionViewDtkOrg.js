@@ -156,7 +156,7 @@ const QuestionViewDTKOrg = (props) => {
       dataSubmit.push(data);
     }
 
-    const answerLenght = quiz.question.filter(item => item.optionId).length
+    const answerLenght = quiz.question.filter((item) => item.optionId).length;
     if (answerLenght == quiz.question.length) {
       setAnswerExistance(true);
     }
@@ -347,8 +347,8 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {quiz &&
-                            quiz?.question.length > 1 &&
-                            quiz?.question[0].selectedOptionIndex != undefined ? (
+                          quiz?.question.length > 1 &&
+                          quiz?.question[0].selectedOptionIndex != undefined ? (
                             <img
                               onClick={() => {
                                 selectedIndex + 1 < quiz.question.length &&
@@ -446,7 +446,6 @@ const QuestionViewDTKOrg = (props) => {
                                   marginTop: "1.25rem",
                                   marginLeft: "-1.7rem",
                                   fontSize: "0.6rem",
-                                  // color: "blue",
                                 }}
                                 variant="body2"
                               >
@@ -463,10 +462,12 @@ const QuestionViewDTKOrg = (props) => {
                               marginLeft: "1rem",
                             }}
                           >
-                            <Typography
-                              style={{ fontSize: "0.9rem", height: "1.2rem" }}
-                            >
-                              {option?.value && <MarkLatex content={option?.value.replace("\f", "\\f")} />}{" "}
+                            <Typography style={{ fontSize: "0.9rem" }}>
+                              {option?.value && (
+                                <MarkLatex
+                                  content={option?.value.replace("\f", "\\f")}
+                                />
+                              )}{" "}
                             </Typography>
                           </Box>
                         </Box>
