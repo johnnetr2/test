@@ -62,7 +62,7 @@ const LinesChart = (props) => {
         margin={{
           top: 10,
           right: 10,
-          left: -30,
+          left: -20,
           bottom: 0,
         }}
       >

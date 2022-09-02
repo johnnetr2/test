@@ -78,13 +78,13 @@ const HomeFeedContent = (props) => {
       //   }
       // });
       const loginUserID = localStorage.getItem("userId");
-      const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
+      const NormeringValueOfBothMainCategories =
+        EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
-        console.log(response, 'this is the console of response of overAll Normering Values')
         if (response?.data?.success) {
-          setPreviousRecordProgress(response.data.Data)
+          setPreviousRecordProgress(response.data.Data);
         }
-      })
+      });
 
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
@@ -156,12 +156,11 @@ const HomeFeedContent = (props) => {
       previousRecordProgress.map((item) => {
         // prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
         count = count + item.CorrectQuestion;
-        totalQuestion = totalQuestion + item.TotalQuestion
+        totalQuestion = totalQuestion + item.TotalQuestion;
       });
     // console.log(totalQuestion, 'totalQuestion')
     // console.log(count, 'count')
-    let avgPrognos =
-      previousRecordProgress && (count / totalQuestion) * 2;
+    let avgPrognos = previousRecordProgress && (count / totalQuestion) * 2;
     // console.log(avgPrognos, 'total avaerageee')
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
@@ -264,7 +263,7 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                          previousRecordProgress[index]?._id == item._id
+                        previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }

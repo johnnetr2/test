@@ -35,7 +35,6 @@ const HomeRightBar = (props) => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
-        console.log(response.data, "response");
         const data = datesGroupByComponent(response.data.lastWeek, "W");
         data &&
           Object.values(data).map((key, index) => {
@@ -44,14 +43,15 @@ const HomeRightBar = (props) => {
             weeksArr.push(week);
             let obj = {};
             key.map((item) => {
+              // console.log(item, "request key");
               obj.correctAnswers = obj?.correctAnswers
                 ? obj?.correctAnswers + item.correctAnswer
                 : item.correctAnswer;
-              obj.totalQuestion = obj?.totalQuestion
-                ? obj?.totalQuestion + item.answer.length
-                : item.answer.length;
+              obj.attemptedQuestion = obj?.attemptedQuestion
+                ? obj?.attemptedQuestion + item.attemptedQuestion
+                : item.attemptedQuestion;
             });
-            var overAllprognos = obj?.correctAnswers / obj?.totalQuestion;
+            var overAllprognos = obj?.correctAnswers / obj?.attemptedQuestion;
             var a = overAllprognos * 2;
             obj.overAllprognos = a.toFixed(1);
             weeklyProgressArr.push(obj);

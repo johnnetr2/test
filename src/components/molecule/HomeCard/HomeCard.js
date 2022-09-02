@@ -23,56 +23,49 @@ const HomeCard = (props) => {
       return XYZNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "KVA") {
       return KVANormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "NOG") {
-      return (
-        NOGNormeringValueFor(
-          (props?.previousRecord?.CorrectQuestion /
-            props?.previousRecord?.TotalQuestion) *
-          100)
-
+      return NOGNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
       );
     } else if (props?.item.title == "DTK") {
-      return (
-        DTKNormeringValueFor(
-          (props?.previousRecord?.CorrectQuestion /
-            props?.previousRecord?.TotalQuestion) *
-          100)
+      return DTKNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
       );
     } else if (props?.item.title == "ELF") {
-      return (
-        ELFNormeringValueFor(
-          (props?.previousRecord?.CorrectQuestion /
-            props?.previousRecord?.TotalQuestion) *
-          100)
+      return ELFNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
       );
     } else if (props?.item.title == "LÄS") {
-      return (
-        LASNormeringValueFor(
-          (props?.previousRecord?.CorrectQuestion /
-            props?.previousRecord?.TotalQuestion) *
-          100)
+      return LASNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
       );
     } else if (props?.item.title == "ORD") {
-      return (
-        ORDNormeringValueFor(
-          (props?.previousRecord?.CorrectQuestion /
-            props?.previousRecord?.TotalQuestion) *
-          100)
+      return ORDNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
       );
     } else if (props?.item.title == "MEK") {
-      return (
-        MEKNormeringValueFor(
-          (props?.previousRecord?.CorrectQuestion /
-            props?.previousRecord?.TotalQuestion) *
-          100)
+      return MEKNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
       );
     }
   };
@@ -114,11 +107,11 @@ const HomeCard = (props) => {
             average={
               props?.previousRecord
                 ? (props?.previousRecord.CorrectQuestion /
-                  props?.previousRecord.TotalQuestion) *
-                  100
-                  ? (props?.previousRecord.CorrectQuestion /
                     props?.previousRecord.TotalQuestion) *
                   100
+                  ? (props?.previousRecord.CorrectQuestion /
+                      props?.previousRecord.TotalQuestion) *
+                    100
                   : 0
                 : 0
             }
@@ -134,7 +127,9 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.TotalQuestion >= 20 ? percentageCalculation() : '-'}
+          {props?.previousRecord?.TotalQuestion >= 20
+            ? percentageCalculation()
+            : "-"}
           {/* {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'} */}
         </Typography>
         <Box
@@ -145,7 +140,10 @@ const HomeCard = (props) => {
           }}
         >
           {props?.previousRecord?.TotalQuestion < 20 && (
-            <CustomizedTooltip title="Gör minst 20 frågor på tid för att få poängprognos" placement="top">
+            <CustomizedTooltip
+              title="Gör minst 20 frågor på tid för att få poängprognos"
+              placement="top"
+            >
               <img
                 src={informationIcon}
                 style={{
