@@ -34,8 +34,8 @@ const HomeRightBar = (props) => {
   useEffect(() => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
-
       instance2.get(URL).then((response) => {
+        console.log(response.data, "response");
         const data = datesGroupByComponent(response.data.lastWeek, "W");
         data &&
           Object.values(data).map((key, index) => {
@@ -49,10 +49,14 @@ const HomeRightBar = (props) => {
                 : item.correctAnswer;
               obj.totalQuestion = obj?.totalQuestion
                 ? obj?.totalQuestion + item.answer.length
-                : item.length;
+                : item.answer.length;
             });
+            var overAllprognos = obj?.correctAnswers / obj?.totalQuestion;
+            var a = overAllprognos * 2;
+            obj.overAllprognos = a.toFixed(1);
             weeklyProgressArr.push(obj);
           });
+
         setWeeklyProgress(weeklyProgressArr);
         setWeeks(weeksArr);
       });
@@ -167,25 +171,25 @@ const HomeRightBar = (props) => {
               <LinesChart
                 syncId="anyId"
                 mondayData={
-                  weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ""
+                  weeklyProgress[0] ? weeklyProgress[0].overAllprognos : ""
                 }
                 tuesdayData={
-                  weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ""
+                  weeklyProgress[1] ? weeklyProgress[1].overAllprognos : ""
                 }
                 wednesdayData={
-                  weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ""
+                  weeklyProgress[2] ? weeklyProgress[2].overAllprognos : ""
                 }
                 thursdayData={
-                  weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ""
+                  weeklyProgress[3] ? weeklyProgress[3].overAllprognos : ""
                 }
                 fridayData={
-                  weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ""
+                  weeklyProgress[4] ? weeklyProgress[4].overAllprognos : ""
                 }
                 saturdayData={
-                  weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ""
+                  weeklyProgress[5] ? weeklyProgress[5].overAllprognos : ""
                 }
                 sundayData={
-                  weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ""
+                  weeklyProgress[6] ? weeklyProgress[6].overAllprognos : ""
                 }
                 weeklyProgress={weeklyProgress}
                 weeks={weeks}

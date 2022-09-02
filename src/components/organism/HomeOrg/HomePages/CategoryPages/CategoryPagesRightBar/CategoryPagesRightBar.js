@@ -62,7 +62,13 @@ const CategoryPagesRightBar = (props) => {
             obj.totalQuestion = obj?.totalQuestion
               ? obj?.totalQuestion + item.totalQuestion
               : item.totalQuestion;
+            obj.attemptQuestions = obj?.attemptQuestions
+              ? obj?.attemptQuestions + item.answer.length
+              : item.answer.length;
           });
+          var overAllprognos = obj?.correctAnswers / obj.attemptQuestions;
+          var a = overAllprognos * 2;
+          obj.eachCategoryPrognos = a.toFixed(1);
           weeklyProgressArr.push(obj);
         });
       setWeeklyProgress(weeklyProgressArr);
@@ -272,25 +278,25 @@ const CategoryPagesRightBar = (props) => {
             {weeks && weeklyProgress && (
               <LinesChart
                 mondayData={
-                  weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ""
+                  weeklyProgress[0] ? weeklyProgress[0].eachCategoryPrognos : ""
                 }
                 tuesdayData={
-                  weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ""
+                  weeklyProgress[1] ? weeklyProgress[1].eachCategoryPrognos : ""
                 }
                 wednesdayData={
-                  weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ""
+                  weeklyProgress[2] ? weeklyProgress[2].eachCategoryPrognos : ""
                 }
                 thursdayData={
-                  weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ""
+                  weeklyProgress[3] ? weeklyProgress[3].eachCategoryPrognos : ""
                 }
                 fridayData={
-                  weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ""
+                  weeklyProgress[4] ? weeklyProgress[4].eachCategoryPrognos : ""
                 }
                 saturdayData={
-                  weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ""
+                  weeklyProgress[5] ? weeklyProgress[5].eachCategoryPrognos : ""
                 }
                 sundayData={
-                  weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ""
+                  weeklyProgress[6] ? weeklyProgress[6].eachCategoryPrognos : ""
                 }
                 weeklyProgress={weeklyProgress}
                 weeks={weeks}
