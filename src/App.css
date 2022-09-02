@@ -1,6 +1,9 @@
 * {
   font-family: "Roboto";
 }
+label img {
+  width: 20px;
+}
 p {
   margin: 0;
 }
