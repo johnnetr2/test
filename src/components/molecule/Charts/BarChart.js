@@ -36,9 +36,6 @@ import moment from "moment";
 // ];
 
 const LineDemo = (props) => {
-  // console.log(props, "props line demo");
-  // console.log(props, "weeklyProgress console");
-  console.log(props, "console");
   // console.log(props.weeks[0].slice(0, 4), "weeks console");
   // const LALA = useRef();
   // const [mondayExercise, setMondayExercise] = useState(1);
