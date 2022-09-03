@@ -43,7 +43,7 @@ export default function UnAttemptedPopup(props) {
               marginTop: "2rem",
             }}
           >
-            Tiden tog slut.
+            Vill du avsluta?
           </DialogTitle>
           <DialogContent style={{ height: "3rem" }}>
             <DialogContentText
@@ -54,7 +54,7 @@ export default function UnAttemptedPopup(props) {
               }}
               id="alert-dialog-slide-description"
             >
-              Inget resultat sparas eftersom ingen fråga är besvarad.
+              Ingen fråga är besvarad.
             </DialogContentText>
           </DialogContent>
           <DialogActions
