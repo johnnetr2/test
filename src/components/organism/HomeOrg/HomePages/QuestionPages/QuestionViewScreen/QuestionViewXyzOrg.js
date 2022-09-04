@@ -154,10 +154,10 @@ const QuestionViewXyzOrg = () => {
         let ques = questions[selectedIndex];
         const URL = EndPoints.getAnswerByQuestionId + ques._id;
         instance2.get(URL).then((response) => {
-          console.log(response, 'this is the console of response')
-          ques.answer = response.data;
+          console.log(response, "this is the console of response");
+          ques.answer = response?.data;
           ques.answerSubmited = true;
-          !params?.state?.data.value && setNextPress(!nextPress);
+          !params?.state?.data?.value && setNextPress(!nextPress);
           localStorage.setItem("quiz", JSON.stringify(questions));
           setQuiz(questions);
           setStatus(false);
@@ -260,7 +260,10 @@ const QuestionViewXyzOrg = () => {
     let singleQuestionArray = [];
     console.log(quiz, "this is the console of quiz");
     quiz?.map((item) => {
-      if (item.hasOwnProperty("multipartQuestion") && item?.multipartQuestion === null) {
+      if (
+        item.hasOwnProperty("multipartQuestion") &&
+        item?.multipartQuestion === null
+      ) {
         if (!item.answer) {
           // console.log(item, 'hasdhasdhakssada')
           // console.log('inside single question')
@@ -274,14 +277,14 @@ const QuestionViewXyzOrg = () => {
       } else {
         item?.question?.map((value) => {
           // console.log(value, 'asdjlkasjdlksajdkl')
-          if ((value?.multipartQuestion) && (!value?.answer)) {
-            console.log('inside multipart questions')
-              singleQuestionArray.push({
-                questionId: value?._id,
-                timeleft: 0,
-                totaltime: time ? time : 0,
-                spendtime: timeLeft ? time - timeLeft : 0,
-              });
+          if (value?.multipartQuestion && !value?.answer) {
+            console.log("inside multipart questions");
+            singleQuestionArray.push({
+              questionId: value?._id,
+              timeleft: 0,
+              totaltime: time ? time : 0,
+              spendtime: timeLeft ? time - timeLeft : 0,
+            });
           }
         });
       }
@@ -303,7 +306,10 @@ const QuestionViewXyzOrg = () => {
       instance2
         .post(URL, payload)
         .then((response) => {
-          console.log(response, "this is the console of response of closer time function");
+          console.log(
+            response,
+            "this is the console of response of closer time function"
+          );
         })
         .catch((error) => {
           console.log("this is the consnole of error", error);
@@ -492,7 +498,12 @@ const QuestionViewXyzOrg = () => {
   const PopupHandler = () => {
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
-    } else if (quiz[0].answer) {
+    } else if (
+      (quiz[0].answer && quiz[0].multipartQuestion === null) ||
+      (quiz &&
+        quiz?.[0]?.question[0]?.answer &&
+        quiz?.[0]?.question[0].multipartQuestion !== null)
+    ) {
       setOpen(true);
       setIsOpen(false);
     } else {
@@ -500,6 +511,11 @@ const QuestionViewXyzOrg = () => {
       setOpen(false);
     }
   };
+
+  useEffect(() => {
+    quiz &&
+      console.log(quiz, "this is the console of quiz inside question view xyz");
+  }, [quiz]);
 
   return (
     <>
@@ -594,8 +610,14 @@ const QuestionViewXyzOrg = () => {
           }}
         />
 
-        {quiz && quiz[0]?.answer ? (
+        {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
+            title={"Tiden är över."}
+            description={"Bra kämpat! Gå vidare och checka ditt resultat. "}
+            btnName={"Se resultat"}
             popUpstatus={timeEnd}
             redirect={() => {
               navigate("/resultsummary", {
@@ -609,37 +631,58 @@ const QuestionViewXyzOrg = () => {
               localStorage.removeItem("time");
             }}
           />
-        ) : (
+        ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
           <UnAttemptedTimer
+            title={"Tiden är över."}
+            description={"Bra kämpat! Gå vidare och checka ditt resultat."}
+            btnName={"Se resultat"}
             popUpstatus={timeEnd}
             redirect={() => {
-              navigate("/resultsummary", {
+              navigate("/category", {
                 state: {
-                  sectionCategory: params?.state?.sectionCategory,
-                  quizId: params?.state?.quizId,
-                  time: timeLeft,
+                  item: params?.state?.sectionCategory,
                 },
               });
               localStorage.removeItem("quiz");
             }}
           />
-          // <UnAttemptedTimer
-          //   popUpstatus={timeEnd}
-          //   redirect={() => {
-          //     navigate("/category", {
-          //       state: {
-          //         item: params?.state?.sectionCategory,
-          //       },
-          //     })
-          //     localStorage.removeItem('quiz')
-          //   }
-          //   }
-          // />
-        )}
+        ) : // <UnAttemptedTimer
+        //   popUpstatus={timeEnd}
+        //   redirect={() => {
+        //     navigate("/category", {
+        //       state: {
+        //         item: params?.state?.sectionCategory,
+        //       },
+        //     })
+        //     localStorage.removeItem('quiz')
+        //   }
+        //   }
+        // />
 
-        <UnAttemptedPopup
-          currentStatus={isOpen}
-          handleOptionClose={() => setIsOpen(false)}
+        //   <UnAttemptedTimer
+        //   title={"Tiden är över."}
+        //   description={"Bra kämpat! Gå vidare och checka ditt resultat."}
+        //   btnName={"Se resultat"}
+        //   popUpstatus={timeEnd}
+        //   redirect={() => {
+        //     navigate("/resultsummary", {
+        //       state: {
+        //         sectionCategory: params?.state?.sectionCategory,
+        //         quizId: params?.state?.quizId,
+        //         time: timeLeft,
+        //       },
+        //     });
+        //     localStorage.removeItem("quiz");
+        //   }}
+        // />
+        null}
+
+        {/* <UnAttemptedPopup
+          title={"Tiden är över."}
+          description={"Inget resultat sparas eftersom ingen fråga är besvarad."}
+          btnName={"Avsluta"}
+           currentStatus={isOpen}
+            handleOptionClose={() => setIsOpen(false)}
           redirect={() =>
             navigate("/category", {
               state: {
@@ -647,7 +690,7 @@ const QuestionViewXyzOrg = () => {
               },
             })
           }
-        />
+        /> */}
 
         {quiz &&
           quiz?.map((item, index) => {
@@ -671,6 +714,8 @@ const QuestionViewXyzOrg = () => {
                   }}
                   stopTime={() => setStatus(false)}
                   SelectOption={(e, index) => SelectFunc(e, index)}
+                  onCloseTimer={() => CloseTimerFunc()}
+                  callBackForTimer={(value) => setTimeLeft(value)}
                   totalTime={time}
                   quiz={quiz}
                   onhover={(optionId) => setOnhover(optionId)}
@@ -700,7 +745,7 @@ const QuestionViewXyzOrg = () => {
                   submitButton={(question) => getSubmitButton(question)}
                   quizId={params?.state?.quizId}
                   timeLeft={timeLeft}
-                  updateCompleteQuiz = {(quiz) => setQuiz(quiz)}
+                  updateCompleteQuiz={(quiz) => setQuiz(quiz)}
                   nextQuestion={() => {
                     if (selectedIndex + 1 < quiz.length) {
                       setSelectedIndex(selectedIndex + 1);

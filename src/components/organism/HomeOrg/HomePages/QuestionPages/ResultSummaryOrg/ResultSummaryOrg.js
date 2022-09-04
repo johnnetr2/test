@@ -184,7 +184,7 @@ const ResultSummaryOrg = (props) => {
       >
         <Container
           disableGutters
-          padding={'0'}
+          padding={0}
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
         >

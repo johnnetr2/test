@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
 import { styled } from "@mui/material/styles";
@@ -28,6 +28,11 @@ const QuestionViewDTKOrg = (props) => {
   const [showResult, setShowResult] = useState(false);
   const [answerExistance, setAnswerExistance] = useState();
   const [onHover, setOnHover] = useState();
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+
+  // let minutes = 0;
+  // let seconds = 0;
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -105,8 +110,6 @@ const QuestionViewDTKOrg = (props) => {
     }
   }, []);
 
-
-
   const Button = (question) => {
     if (props.paragraphIndex != undefined) {
       return (
@@ -131,15 +134,68 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-  const handleParagraphQuestionsFunc = () => {
-    const tempQuestions = [...dataSubmit]
-    tempQuestions[selectedIndex].totaltime = props.totalTime ? props.totalTime : null
-    tempQuestions[selectedIndex].timeleft = props.timeLeft ? props.timeLeft : null
-    tempQuestions[selectedIndex].spendtime = getSpendTime(props.timeLeft, props.totalTime, selectedIndex)
-    dataSubmit = tempQuestions
-    selectedIndex + 1 < quiz.question.length && setSelectedIndex(selectedIndex + 1);
+  const spendTimeCalculator = () => {};
+
+  var tymer;
+  useEffect(() => {
+    tymer = setInterval(() => {
+      setSeconds((seconds) => seconds + 1);
+    }, 1000);
+
+    return () => clearInterval(tymer);
+  }, []);
+
+  const handleRightArrowFunction = () => {
+    // if(selectedIndex != quiz?.question.length - 1) {
+    const Quiz = { ...quiz };
+    const index = dataSubmit.findIndex(
+      (item) => item?.questionId == Quiz.question[selectedIndex]._id
+    );
+    const data = {
+      questionId: Quiz.question[selectedIndex]._id,
+      optionId: Quiz.question[selectedIndex].optionId,
+      MultipartQuestion: Quiz._id,
+      timeleft: props?.timeLeft ? props?.timeLeft : null,
+      totaltime: props?.totalTime ? props?.totalTime : null,
+      spendtime: dataSubmit[index]?.spendtime
+        ? dataSubmit[index]?.spendtime + seconds
+        : seconds,
+    };
+    dataSubmit.splice(index, 1, data);
+    // }
+
+    selectedIndex + 1 < quiz.question.length &&
+      setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
     selectedIndex + 1 < quiz?.question.length && props.changeIndex();
+    setSeconds(0);
+    setMinutes(0);
+  };
+
+  const handleLeftArrowFunction = () => {
+    const Quiz = { ...quiz };
+
+    const index = dataSubmit.findIndex(
+      (item) => item?.questionId == Quiz.question[selectedIndex]._id
+    );
+
+    const data = {
+      questionId: Quiz.question[selectedIndex]._id,
+      optionId: Quiz.question[selectedIndex].optionId,
+      MultipartQuestion: Quiz._id,
+      timeleft: props?.timeLeft ? props?.timeLeft : null,
+      totaltime: props?.totalTime ? props?.totalTime : null,
+      spendtime: dataSubmit[index]?.spendtime
+        ? dataSubmit[index]?.spendtime + seconds
+        : seconds,
+    };
+
+    dataSubmit.splice(index, 1, data);
+
+    setSelectedIndex(selectedIndex - 1);
+    props.previosQuestion();
+    setSeconds(0);
+    setMinutes(0);
   };
 
   const getSpendTime = (timeLeft, totalTime, index) => {
@@ -160,6 +216,7 @@ const QuestionViewDTKOrg = (props) => {
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
     let question = qz[selectedIndex];
+    // console.log(question, 'this is the console of questions')
     question.selectedOptionIndex = optionIndex;
     question.optionId = item._id;
     allQuiz.question = qz;
@@ -169,9 +226,9 @@ const QuestionViewDTKOrg = (props) => {
       questionId: quiz.question[selectedIndex]._id,
       optionId: quiz.question[selectedIndex].optionId,
       MultipartQuestion: quiz._id,
-      timeleft: props.timeLeft ? props.timeLeft : null,
-      totaltime: props.totalTime ? props.totalTime : null,
-      spendtime: getSpendTime(props.timeLeft, props.totalTime, selectedIndex),
+      // timeleft: props?.timeLeft ? props?.timeLeft : null,
+      // totaltime: props?.totalTime ? props?.totalTime : null,
+      // spendtime: getSpendTime(props?.timeLeft, props?.totalTime, selectedIndex),
     };
 
     const ifExists = dataSubmit.some(
@@ -183,7 +240,7 @@ const QuestionViewDTKOrg = (props) => {
       );
       dataSubmit.splice(index, 1, data);
     } else {
-      console.log(data, "this is the console of data");
+      // console.log(data, "this is the console of data");
 
       dataSubmit.push(data);
     }
@@ -203,6 +260,12 @@ const QuestionViewDTKOrg = (props) => {
     //   });
   };
 
+  // const tempQuestions = [...dataSubmit]
+  // tempQuestions[selectedIndex].totaltime = props.totalTime ? props.totalTime : null
+  // tempQuestions[selectedIndex].timeleft = props.timeLeft ? props.timeLeft : null
+  // tempQuestions[selectedIndex].spendtime = getSpendTime(props.timeLeft, props.totalTime, selectedIndex)
+  // dataSubmit = tempQuestions
+
   const Options = (question, option, optionIndex) => {
     if (optionIndex == question.selectedOptionIndex) {
       return (
@@ -220,8 +283,26 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const submitAnswer = async () => {
+    const Quiz = { ...quiz };
+
+    const data = {
+      questionId: Quiz.question[selectedIndex]._id,
+      optionId: Quiz.question[selectedIndex].optionId,
+      MultipartQuestion: Quiz._id,
+      timeleft: props?.timeLeft ? props?.timeLeft : null,
+      totaltime: props?.totalTime ? props?.totalTime : null,
+      spendtime: seconds,
+    };
+
+    const index = dataSubmit.findIndex(
+      (item) => item?.questionId == data?.questionId
+    );
+    dataSubmit.splice(index, 1, data);
+
     props.updateQuiz(quiz);
+    console.log(quiz, 'this is the console of submit answer quiz before try body')
     try {
+      props.stopTimer();
       const obj = {
         quiz: props.quizId,
         user: localStorage.getItem("userId"),
@@ -230,30 +311,24 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
-        // console.log(response, "this is the response of multipart answer submit");
         dataSubmit = [];
         setShowResult(true);
-        props.stopTimer();
       });
-      
-      const Quiz = [...props?.quiz]
-      let paragraphID = Quiz[props?.selectedIndex]?._id
-      const payload = {
-        quiz: props?.quizId
-      }
-      // console.log(Quiz, 'this is the console of before updation inside DTK')
-      // console.log('this is the console of payload', payload)
-      const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID
-      instance2.post(URL1, payload).then((response) => {
-        // console.log(response, 'this is the console of response of next press')
-        Quiz[props?.selectedIndex].question = response?.data?.question
-        props.updateCompleteQuiz(Quiz)
-      // console.log(Quiz, 'this is the console of after updation inside DTK')
 
-      })
-      
+      const Quiz = [...props?.quiz];
+      let paragraphID = Quiz[props?.selectedIndex]?._id;
+      const payload = {
+        quiz: props?.quizId,
+      };
+
+      const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
+      instance2.post(URL1, payload).then((response) => {
+        Quiz[props?.selectedIndex].question = response?.data?.question;
+        props.updateCompleteQuiz(Quiz);
+        console.log(Quiz, 'this is the console of after updation inside DTK')
+      });
     } catch (error) {
-      // console.log("in catch block: ", error);
+      console.log("in catch block: ", error);
     }
   };
 
@@ -379,10 +454,7 @@ const QuestionViewDTKOrg = (props) => {
                         >
                           {selectedIndex > 0 && (
                             <img
-                              onClick={() => {
-                                setSelectedIndex(selectedIndex - 1);
-                                props.previosQuestion();
-                              }}
+                              onClick={handleLeftArrowFunction}
                               src={BlueLeftIcon}
                               style={{ cursor: "pointer" }}
                               className={classes.size}
@@ -397,22 +469,24 @@ const QuestionViewDTKOrg = (props) => {
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
                           {quiz &&
+                          selectedIndex < quiz?.question?.length - 1 &&
                           quiz?.question.length > 1 &&
-                          quiz?.question[0].selectedOptionIndex != undefined ? (
+                          quiz?.question[0].selectedOptionIndex != undefined && (
                             <img
-                              onClick={handleParagraphQuestionsFunc}
+                              onClick={handleRightArrowFunction}
                               src={BlueRightIcon}
                               style={{ cursor: "pointer" }}
                               className={classes.size}
                               alt=""
                             />
-                          ) : (
-                            <img
-                              src={Righticon}
-                              alt=""
-                              style={{ height: 15 }}
-                            />
-                          )}
+                          ) 
+                          // : (
+                          //   <img
+                          //     src={Righticon}
+                          //     alt=""
+                          //     style={{ height: 15 }}
+                          //   />
+                          }
                         </Box>
                       </Box>
                       <Typography
@@ -520,7 +594,9 @@ const QuestionViewDTKOrg = (props) => {
                       );
                     })}
 
-                    {answerExistance ? (Button(question)) : (
+                    {answerExistance ? (
+                      Button(question)
+                    ) : (
                       <Box
                         padding={1}
                         mt={2}

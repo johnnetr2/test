@@ -65,6 +65,8 @@ const QuestionBody = (props) => {
         onRightClick={() => props.onRightClick()}
         onLeftClick={() => props.onLeftClick()}
         onResultHandler={() => props.onResultHandler()}
+        onCloseTimer={() => props.CloseTimerFunc()}
+        callBackForTimer={(value) => props.setTimeLeft(value)}
         paragraphIndex={props.paragraphIndex}
         questionIndex={props.questionIndex}
         timeLeft={props.timeLeft}
@@ -154,7 +156,7 @@ const QuestionBody = (props) => {
 
           <Box
             sx={{
-              marginTop: question?.images[0] == "" ? '0' : "2rem",
+              marginTop: question?.images[0] == "" ? 0 : "2rem",
             }}
           >
             {question?.information1 && (
