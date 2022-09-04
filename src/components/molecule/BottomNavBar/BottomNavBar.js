@@ -1,9 +1,4 @@
-import {
-  Box,
-  Container,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, Container, Typography, makeStyles } from "@material-ui/core";
 import { NavLink, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
@@ -20,29 +15,29 @@ import ProfileC from "../../../assets/Icons/ProfileC.svg";
 import ProfileGrey from "../../../assets/Icons/ProfileGrey.svg";
 
 function useScroll() {
-    const [lastScrollTop, setLastScrollTop] = useState(0);
-    const [bodyOffset, setBodyOffset] = useState(
-        document.body.getBoundingClientRect()
-    );
-    const [scrollDirection, setScrollDirection] = useState();
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [bodyOffset, setBodyOffset] = useState(
+    document.body.getBoundingClientRect()
+  );
+  const [scrollDirection, setScrollDirection] = useState();
 
-    const listener = e => {
-        setBodyOffset(document.body.getBoundingClientRect());
-        setScrollDirection(lastScrollTop > -bodyOffset.top ? "up" : "down");
-        setLastScrollTop(-bodyOffset.top);
+  const listener = (e) => {
+    setBodyOffset(document.body.getBoundingClientRect());
+    setScrollDirection(lastScrollTop > -bodyOffset.top ? "up" : "down");
+    setLastScrollTop(-bodyOffset.top);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", listener);
+    return () => {
+      window.removeEventListener("scroll", listener);
     };
+  });
 
-    useEffect(() => {
-        window.addEventListener("scroll", listener);
-        return () => {
-        window.removeEventListener("scroll", listener);
-        };
-    });
-
-    return {
-        scrollDirection
-    };
-};
+  return {
+    scrollDirection,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -53,18 +48,17 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     bottom: 0,
     [theme.breakpoints.down("600")]: {
-        display: "flex",
-        justifyContent: "space-evenly",
+      display: "flex",
+      justifyContent: "space-evenly",
     },
     [theme.breakpoints.up("600")]: {
-        display: "none",
+      display: "none",
     },
-    
   },
   item: {
     display: "flex",
     flexDirection: "column",
-    padding: theme.spacing(1,2),
+    padding: theme.spacing(1, 2),
     borderRadius: "4px",
 
     "&:hover": {
@@ -75,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   DisableItem: {
     display: "flex",
     flexDirection: "column",
-    padding: theme.spacing(1,2),
+    padding: theme.spacing(1, 2),
   },
   icon: {
     height: "1.5rem",
@@ -109,26 +103,28 @@ const useStyles = makeStyles((theme) => ({
   },
   active: {
     visibility: "visible",
-    transition: "all 0.5s"
+    transition: "all 0.5s",
   },
   hidden: {
     visibility: "hidden",
     transition: "all 0.5s",
-    transform: "translateY(100%)"
-  }
+    transform: "translateY(100%)",
+  },
 }));
 
 const BottomNavBar = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const {scrollDirection}  = useScroll();
-  // console.log(scrollDirection)
-  
+  const { scrollDirection } = useScroll();
+
   return (
     <Container
       maxWidth="false"
       style={{ width: "auto", height: "56px" }}
-      className={[classes.container, scrollDirection === "down" ? classes.hidden: classes.active]}
+      className={[
+        classes.container,
+        scrollDirection === "down" ? classes.hidden : classes.active,
+      ]}
     >
       <NavLink
         to="/home"

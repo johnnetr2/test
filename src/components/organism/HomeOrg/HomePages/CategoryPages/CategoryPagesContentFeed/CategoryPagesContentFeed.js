@@ -167,7 +167,7 @@ const CategoryPagesFeedContent = (props) => {
     } else {
       if (checkedData.length > 0) {
         localStorage.removeItem("time");
-        localStorage.removeItem("quiz")
+        localStorage.removeItem("quiz");
         setOpen(true);
         const data = {
           questionCategory: checkedData,

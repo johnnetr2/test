@@ -34,7 +34,6 @@ const HomeRightBar = (props) => {
   useEffect(() => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
-
       instance2.get(URL).then((response) => {
         const data = datesGroupByComponent(response.data.lastWeek, "W");
         data &&
@@ -44,15 +43,20 @@ const HomeRightBar = (props) => {
             weeksArr.push(week);
             let obj = {};
             key.map((item) => {
+              // console.log(item, "request key");
               obj.correctAnswers = obj?.correctAnswers
                 ? obj?.correctAnswers + item.correctAnswer
                 : item.correctAnswer;
-              obj.totalQuestion = obj?.totalQuestion
-                ? obj?.totalQuestion + item.answer.length
-                : item.length;
+              obj.attemptedQuestion = obj?.attemptedQuestion
+                ? obj?.attemptedQuestion + item.attemptedQuestion
+                : item.attemptedQuestion;
             });
+            var overAllprognos = obj?.correctAnswers / obj?.attemptedQuestion;
+            var a = overAllprognos * 2;
+            obj.overAllprognos = a.toFixed(1);
             weeklyProgressArr.push(obj);
           });
+
         setWeeklyProgress(weeklyProgressArr);
         setWeeks(weeksArr);
       });
@@ -107,10 +111,10 @@ const HomeRightBar = (props) => {
             }}
           >
             <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
-                <QuestionProgressBox
-                  totalPrognos={props?.totalPrognos}
-                  showPrognos={showPrognos}
-                />
+              <QuestionProgressBox
+                totalPrognos={props?.totalPrognos}
+                showPrognos={showPrognos}
+              />
             </Box>
             <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
               <GoalBox
@@ -161,31 +165,31 @@ const HomeRightBar = (props) => {
                 marginBottom: ".5rem",
               }}
             >
-              POÄNG
+              Poäng
             </Typography>
             {weeks && weeklyProgress && (
               <LinesChart
                 syncId="anyId"
                 mondayData={
-                  weeklyProgress[0] ? weeklyProgress[0].correctAnswers : ""
+                  weeklyProgress[0] ? weeklyProgress[0].overAllprognos : ""
                 }
                 tuesdayData={
-                  weeklyProgress[1] ? weeklyProgress[1].correctAnswers : ""
+                  weeklyProgress[1] ? weeklyProgress[1].overAllprognos : ""
                 }
                 wednesdayData={
-                  weeklyProgress[2] ? weeklyProgress[2].correctAnswers : ""
+                  weeklyProgress[2] ? weeklyProgress[2].overAllprognos : ""
                 }
                 thursdayData={
-                  weeklyProgress[3] ? weeklyProgress[3].correctAnswers : ""
+                  weeklyProgress[3] ? weeklyProgress[3].overAllprognos : ""
                 }
                 fridayData={
-                  weeklyProgress[4] ? weeklyProgress[4].correctAnswers : ""
+                  weeklyProgress[4] ? weeklyProgress[4].overAllprognos : ""
                 }
                 saturdayData={
-                  weeklyProgress[5] ? weeklyProgress[5].correctAnswers : ""
+                  weeklyProgress[5] ? weeklyProgress[5].overAllprognos : ""
                 }
                 sundayData={
-                  weeklyProgress[6] ? weeklyProgress[6].correctAnswers : ""
+                  weeklyProgress[6] ? weeklyProgress[6].overAllprognos : ""
                 }
                 weeklyProgress={weeklyProgress}
                 weeks={weeks}

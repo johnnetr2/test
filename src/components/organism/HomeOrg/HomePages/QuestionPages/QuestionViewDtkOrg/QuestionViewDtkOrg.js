@@ -563,7 +563,6 @@ const QuestionViewDTKOrg = (props) => {
                                   marginTop: "1.25rem",
                                   marginLeft: "-1.7rem",
                                   fontSize: "0.6rem",
-                                  // color: "blue",
                                 }}
                                 variant="body2"
                               >
@@ -580,9 +579,7 @@ const QuestionViewDTKOrg = (props) => {
                               marginLeft: "1rem",
                             }}
                           >
-                            <Typography
-                              style={{ fontSize: "0.9rem", height: "1.2rem" }}
-                            >
+                            <Typography style={{ fontSize: "0.9rem" }}>
                               {option?.value && (
                                 <MarkLatex
                                   content={option?.value.replace("\f", "\\f")}
