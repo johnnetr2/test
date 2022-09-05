@@ -83,8 +83,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime(15);
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(15);
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -109,9 +109,9 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime(15);
+        // setTime(15);
 
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -498,17 +498,46 @@ const QuestionViewXyzOrg = () => {
   const PopupHandler = () => {
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup != undefined) {
-    } else if (
-      (quiz[0].answer && quiz[0].multipartQuestion === null) ||
+    }
+    // else if (
+    //   (quiz[0].answer && quiz[0].multipartQuestion === null) ||
+    //   (quiz &&
+    //     quiz?.[0]?.question[0]?.answer &&
+    //     quiz?.[0]?.question[0].multipartQuestion !== null)
+    // ) {
+    setOpen(true);
+    // setIsOpen(false);
+    // } else {
+    //   setIsOpen(true);
+    //   setOpen(false);
+    // }
+  };
+
+  const handleAlertDialogPopup = () => {
+    console.log("clciccckced");
+    if (
+      (quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
       (quiz &&
-        quiz?.[0]?.question[0]?.answer &&
-        quiz?.[0]?.question[0].multipartQuestion !== null)
+        quiz?.[0]?.question?.[0]?.answer &&
+        quiz?.[0]?.question?.[0]?.multipartQuestion !== null)
     ) {
-      setOpen(true);
-      setIsOpen(false);
+      navigate("/resultsummary", {
+        state: {
+          sectionCategory: params?.state?.sectionCategory,
+          quizId: params?.state?.quizId,
+          time: params?.state?.time,
+        },
+      });
+      localStorage.removeItem("quiz");
+      localStorage.removeItem("time");
     } else {
-      setIsOpen(true);
-      setOpen(false);
+      console.log("tyess");
+      navigate("/category", {
+        state: {
+          item: params?.state?.sectionCategory,
+        },
+      });
+      localStorage.removeItem("quiz");
     }
   };
 
@@ -597,17 +626,18 @@ const QuestionViewXyzOrg = () => {
         <AlertDialogSlide
           popUpstatus={open}
           handleClose={() => setOpen(false)}
-          redirect={() => {
-            navigate("/resultsummary", {
-              state: {
-                sectionCategory: params?.state?.sectionCategory,
-                quizId: params?.state?.quizId,
-                time: params?.state?.time,
-              },
-            });
-            localStorage.removeItem("quiz");
-            localStorage.removeItem("time");
-          }}
+          redirect={() => handleAlertDialogPopup()}
+          // redirect={() => {
+          //   navigate("/resultsummary", {
+          //     state: {
+          //       sectionCategory: params?.state?.sectionCategory,
+          //       quizId: params?.state?.quizId,
+          //       time: params?.state?.time,
+          //     },
+          //   });
+          //   localStorage.removeItem("quiz");
+          //   localStorage.removeItem("time");
+          // }}
         />
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
@@ -631,10 +661,12 @@ const QuestionViewXyzOrg = () => {
               localStorage.removeItem("time");
             }}
           />
-        ) : (!quiz?.[0]?.answer) || (!quiz?.[0]?.question?.[0]?.answer) ? (
+        ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
           <UnAttemptedTimer
             title={"Tiden är över."}
-            description={"Ingen fråga är besvarad så du tas direkt tillbaka till övningssidan."}
+            description={
+              "Ingen fråga är besvarad så du tas direkt tillbaka till övningssidan."
+            }
             btnName={"Avsluta"}
             popUpstatus={timeEnd}
             redirect={() => {
