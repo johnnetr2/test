@@ -80,6 +80,7 @@ const QuestionBody = (props) => {
         stopTimer={() => props.stopTime()}
         startTimer={() => props.startTime()}
         previosQuestion={() => props.previosQuestion()}
+        PopupTimeEnd={props.PopupTimeEnd}
         updateCompleteQuiz ={(quiz) => props.updateCompleteQuiz(quiz) }
       />
     );

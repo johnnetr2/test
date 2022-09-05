@@ -616,7 +616,7 @@ const QuestionViewXyzOrg = () => {
           quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
-            description={"Bra kämpat! Gå vidare och checka ditt resultat. "}
+            description={"Bra kämpat! Gå vidare och checka ditt resultat."}
             btnName={"Se resultat"}
             popUpstatus={timeEnd}
             redirect={() => {
@@ -631,11 +631,11 @@ const QuestionViewXyzOrg = () => {
               localStorage.removeItem("time");
             }}
           />
-        ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
+        ) : (!quiz?.[0]?.answer) || (!quiz?.[0]?.question?.[0]?.answer) ? (
           <UnAttemptedTimer
             title={"Tiden är över."}
-            description={"Bra kämpat! Gå vidare och checka ditt resultat."}
-            btnName={"Se resultat"}
+            description={"Ingen fråga är besvarad så du tas direkt tillbaka till övningssidan."}
+            btnName={"Avsluta"}
             popUpstatus={timeEnd}
             redirect={() => {
               navigate("/category", {
@@ -745,6 +745,7 @@ const QuestionViewXyzOrg = () => {
                   submitButton={(question) => getSubmitButton(question)}
                   quizId={params?.state?.quizId}
                   timeLeft={timeLeft}
+                  PopupTimeEnd={timeEnd}
                   updateCompleteQuiz={(quiz) => setQuiz(quiz)}
                   nextQuestion={() => {
                     if (selectedIndex + 1 < quiz.length) {

@@ -300,7 +300,7 @@ const QuestionViewDTKOrg = (props) => {
     dataSubmit.splice(index, 1, data);
 
     props.updateQuiz(quiz);
-    console.log(quiz, 'this is the console of submit answer quiz before try body')
+
     try {
       props.stopTimer();
       const obj = {
@@ -311,6 +311,7 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
+        console.log(response, 'this is the console of response of multi part question')
         dataSubmit = [];
         setShowResult(true);
       });
@@ -323,9 +324,10 @@ const QuestionViewDTKOrg = (props) => {
 
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
       instance2.post(URL1, payload).then((response) => {
+        console.log(response, 'aaaaaaaaaaaaaaaaaaaaaaaaa')
+        console.log(Quiz[props?.selectedIndex].question, 'bbbbbbbbbbbbbbbbbbbbbbbbbb')
         Quiz[props?.selectedIndex].question = response?.data?.question;
-        props.updateCompleteQuiz(Quiz);
-        console.log(Quiz, 'this is the console of after updation inside DTK')
+          props.updateCompleteQuiz(Quiz);
       });
     } catch (error) {
       console.log("in catch block: ", error);
