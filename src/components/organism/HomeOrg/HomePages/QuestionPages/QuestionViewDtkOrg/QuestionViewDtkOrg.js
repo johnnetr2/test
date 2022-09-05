@@ -157,9 +157,7 @@ const QuestionViewDTKOrg = (props) => {
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : null,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[index]?.spendtime
-        ? dataSubmit[index]?.spendtime + seconds
-        : seconds,
+      spendtime: dataSubmit[index]?.spendtime ? dataSubmit[index]?.spendtime + seconds : seconds,
     };
     dataSubmit.splice(index, 1, data);
     // }
@@ -185,9 +183,7 @@ const QuestionViewDTKOrg = (props) => {
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : null,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[index]?.spendtime
-        ? dataSubmit[index]?.spendtime + seconds
-        : seconds,
+      spendtime: dataSubmit[index]?.spendtime ? dataSubmit[index]?.spendtime + seconds : seconds,
     };
 
     dataSubmit.splice(index, 1, data);
@@ -200,10 +196,6 @@ const QuestionViewDTKOrg = (props) => {
 
   const getSpendTime = (timeLeft, totalTime, index) => {
     if (index) {
-      // console.log(
-      //   dataSubmit[index - 1].spendtime,
-      //   "this is the console of logic time"
-      // );
       return totalTime - (timeLeft + dataSubmit[index - 1].spendtime);
     } else if (index == 0) {
       return totalTime - timeLeft;
@@ -324,8 +316,6 @@ const QuestionViewDTKOrg = (props) => {
 
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
       instance2.post(URL1, payload).then((response) => {
-        console.log(response, 'aaaaaaaaaaaaaaaaaaaaaaaaa')
-        console.log(Quiz[props?.selectedIndex].question, 'bbbbbbbbbbbbbbbbbbbbbbbbbb')
         Quiz[props?.selectedIndex].question = response?.data?.question;
           props.updateCompleteQuiz(Quiz);
       });

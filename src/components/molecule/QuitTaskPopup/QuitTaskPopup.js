@@ -52,14 +52,14 @@ export default function AlertDialogSlide(props) {
               marginTop: "2rem",
             }}
           >
-            Vill du avsluta?
+            {props.title}
           </DialogTitle>
           <DialogContent style={{ height: "3rem" }}>
             <DialogContentText
               style={{ display: "flex", justifyContent: "center" }}
               id="alert-dialog-slide-description"
             >
-              Ingen fara, vi sparar dina svar.
+              {props.description}
             </DialogContentText>
           </DialogContent>
           <DialogActions
@@ -79,7 +79,7 @@ export default function AlertDialogSlide(props) {
                 border: "1px solid #0A1596",
               }}
             >
-              Fortsätt öva
+              {props.cancelBtnName}
             </Button>
             <Button
               onClick={props.redirect}
@@ -91,7 +91,7 @@ export default function AlertDialogSlide(props) {
                 color: "#fff",
               }}
             >
-              Avsluta
+              {props.agreeBtnName}
             </Button>
           </DialogActions>
         </Dialog>

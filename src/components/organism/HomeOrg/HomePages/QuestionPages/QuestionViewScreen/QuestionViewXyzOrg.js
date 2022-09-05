@@ -622,23 +622,30 @@ const QuestionViewXyzOrg = () => {
             callBackForTimer={(value) => setTimeLeft(value)}
           />
         )}
-
-        <AlertDialogSlide
-          popUpstatus={open}
-          handleClose={() => setOpen(false)}
-          redirect={() => handleAlertDialogPopup()}
-          // redirect={() => {
-          //   navigate("/resultsummary", {
-          //     state: {
-          //       sectionCategory: params?.state?.sectionCategory,
-          //       quizId: params?.state?.quizId,
-          //       time: params?.state?.time,
-          //     },
-          //   });
-          //   localStorage.removeItem("quiz");
-          //   localStorage.removeItem("time");
-          // }}
-        />
+        {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          <AlertDialogSlide
+            title={"Vill du avsluta?"}
+            description={"Du tas nu till summeringssidan."}
+            cancelBtnName={"Fortsätt öva"}
+            agreeBtnName={"Avsluta"}
+            popUpstatus={open}
+            handleClose={() => setOpen(false)}
+            redirect={() => handleAlertDialogPopup()}
+          />
+        ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
+          <AlertDialogSlide
+            title={"Vill du avsluta?"}
+            description={"Ingen fråga är besvarad."}
+            cancelBtnName={"Fortsätt öva"}
+            agreeBtnName={"Avsluta"}
+            popUpstatus={open}
+            handleClose={() => setOpen(false)}
+            redirect={() => handleAlertDialogPopup()}
+          />
+        ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
         (quiz &&
