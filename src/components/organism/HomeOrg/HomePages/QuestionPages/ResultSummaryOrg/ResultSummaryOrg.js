@@ -89,7 +89,6 @@ const ResultSummaryOrg = (props) => {
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
-
     instance2.get(URL).then((response) => {
       response.data.question.map((item) => {
         return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
@@ -104,7 +103,6 @@ const ResultSummaryOrg = (props) => {
       } else {
         setTimePerQues(false);
       }
-      console.log(response, 'this is the console of response of collection of data for result summary')
       setresponseCollection(response.data);
     });
 
@@ -151,7 +149,6 @@ const ResultSummaryOrg = (props) => {
     }
   };
 
-
   return (
     <div>
       <CssBaseline />
@@ -194,18 +191,19 @@ const ResultSummaryOrg = (props) => {
               {responseCollection?.question.length} av{" "}
               {responseCollection?.question.length}
             </Box>
-            {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" style={{ paddingRight: '4px' }} />
-              {" "}
-              {responseCollection
-                ? dispSecondsAsMins(
-                  (responseCollection?.question[
-                    responseCollection.question.length - 1
-                  ].timeleft)?.toFixed(0)
-                )
-                : "00:00"}
-            </Box>
-            }
+            {responseCollection &&
+              responseCollection?.question[0].timeleft != 0 && (
+                <Box mt={2} sx={{ color: "#222" }}>
+                  <img src={Clock} alt="" style={{ paddingRight: "4px" }} />{" "}
+                  {responseCollection
+                    ? dispSecondsAsMins(
+                        responseCollection?.question[
+                          responseCollection.question.length - 1
+                        ].timeleft?.toFixed(0)
+                      )
+                    : "00:00"}
+                </Box>
+              )}
           </Box>
           <Box mt={2}>
             <LinearProgress
@@ -255,12 +253,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
+                responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                      " /" +
-                      responseCollection.question.length}
+                        " /" +
+                        responseCollection.question.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -296,7 +294,7 @@ const ResultSummaryOrg = (props) => {
                     {percentageCalculation(
                       (responseCollection.correctAnswer /
                         responseCollection.question.length) *
-                      100
+                        100
                     )}
                   </Typography>
                 ) : (
@@ -339,7 +337,9 @@ const ResultSummaryOrg = (props) => {
                     }}
                   >
                     <Typography variant="h4">
-                      {timePerQues ? dispSecondsAsMins(timePerQues?.toFixed(0)) : "00:00"}
+                      {timePerQues
+                        ? dispSecondsAsMins(timePerQues?.toFixed(0))
+                        : "00:00"}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -368,8 +368,8 @@ const ResultSummaryOrg = (props) => {
                     <Typography variant="h4">
                       {responseCollection
                         ? dispSecondsAsMins(
-                          responseCollection?.question.at(-1).timeleft
-                        )
+                            responseCollection?.question.at(-1).timeleft
+                          )
                         : "00:00"}
                     </Typography>
                     <Typography
