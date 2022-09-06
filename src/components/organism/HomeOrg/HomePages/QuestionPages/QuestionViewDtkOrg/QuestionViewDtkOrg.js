@@ -145,6 +145,19 @@ const QuestionViewDTKOrg = (props) => {
     return () => clearInterval(tymer);
   }, []);
 
+  // quiz?.[0]?.question?.[0]?.answer &&
+
+  const getTimeForUnattemptedQuestions = (quiz, index) => {
+    const ans = quiz[index].question.map((item) => {
+      if (item.answer) {
+        return true;
+      } else if (!item.answer) {
+        return false;
+      }
+    });
+    return ans;
+  };
+
   const handleRightArrowFunction = () => {
     // if(selectedIndex != quiz?.question.length - 1) {
     const Quiz = { ...quiz };
@@ -157,7 +170,13 @@ const QuestionViewDTKOrg = (props) => {
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : null,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[index]?.spendtime ? dataSubmit[index]?.spendtime + seconds : seconds,
+      spendtime: dataSubmit[index]?.spendtime
+        ? dataSubmit[index]?.spendtime + seconds
+        : Boolean(
+            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+          )
+        ? seconds
+        : 0,
     };
     dataSubmit.splice(index, 1, data);
     // }
@@ -183,7 +202,13 @@ const QuestionViewDTKOrg = (props) => {
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : null,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[index]?.spendtime ? dataSubmit[index]?.spendtime + seconds : seconds,
+      spendtime: dataSubmit[index]?.spendtime
+        ? dataSubmit[index]?.spendtime + seconds
+        : Boolean(
+            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+          )
+        ? seconds
+        : 0,
     };
 
     dataSubmit.splice(index, 1, data);
@@ -232,8 +257,6 @@ const QuestionViewDTKOrg = (props) => {
       );
       dataSubmit.splice(index, 1, data);
     } else {
-      // console.log(data, "this is the console of data");
-
       dataSubmit.push(data);
     }
 
@@ -303,7 +326,7 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
-        console.log(response, 'this is the console of response of multi part question')
+        // console.log(response, 'this is the console of response of multi part question')
         dataSubmit = [];
         setShowResult(true);
       });
@@ -316,8 +339,10 @@ const QuestionViewDTKOrg = (props) => {
 
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
       instance2.post(URL1, payload).then((response) => {
-        Quiz[props?.selectedIndex].question = response?.data?.question;
-          props.updateCompleteQuiz(Quiz);
+        response?.data?.question?.map((item, index) => {
+          Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
+        });
+        props.updateCompleteQuiz(Quiz);
       });
     } catch (error) {
       console.log("in catch block: ", error);
@@ -460,24 +485,26 @@ const QuestionViewDTKOrg = (props) => {
                           >
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
-                          {quiz &&
-                          selectedIndex < quiz?.question?.length - 1 &&
-                          quiz?.question.length > 1 &&
-                          quiz?.question[0].selectedOptionIndex != undefined && (
-                            <img
-                              onClick={handleRightArrowFunction}
-                              src={BlueRightIcon}
-                              style={{ cursor: "pointer" }}
-                              className={classes.size}
-                              alt=""
-                            />
-                          ) 
-                          // : (
-                          //   <img
-                          //     src={Righticon}
-                          //     alt=""
-                          //     style={{ height: 15 }}
-                          //   />
+                          {
+                            quiz &&
+                              selectedIndex < quiz?.question?.length - 1 &&
+                              quiz?.question.length > 1 &&
+                              quiz?.question[0].selectedOptionIndex !=
+                                undefined && (
+                                <img
+                                  onClick={handleRightArrowFunction}
+                                  src={BlueRightIcon}
+                                  style={{ cursor: "pointer" }}
+                                  className={classes.size}
+                                  alt=""
+                                />
+                              )
+                            // : (
+                            //   <img
+                            //     src={Righticon}
+                            //     alt=""
+                            //     style={{ height: 15 }}
+                            //   />
                           }
                         </Box>
                       </Box>
