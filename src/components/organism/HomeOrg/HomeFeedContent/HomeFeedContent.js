@@ -78,9 +78,10 @@ const HomeFeedContent = (props) => {
       //   }
       // });
       const loginUserID = localStorage.getItem("userId");
-      const NormeringValueOfBothMainCategories =
-        EndPoints.OverAllNormeringValue + loginUserID;
+      const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
+        console.log(response, 'this is the console of response of overall normering value if time restricted is false')
+        console.log(EndPoints.OverAllNormeringValue + loginUserID, 'URLLLLLLLLLLLLLLLLLLLLLL')
         if (response?.data?.success) {
           setPreviousRecordProgress(response.data.Data);
         }
