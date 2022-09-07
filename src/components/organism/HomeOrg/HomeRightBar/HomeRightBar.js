@@ -41,14 +41,11 @@ const HomeRightBar = (props) => {
           let keys = Object.keys(data); //35,36
           let first = keys[0]; //35
           a = 7 - Object.keys(data).length; //5
-          let b = first - a; //30
-          console.log(b, "last index");
-          console.log(a, "left");
+          let b = first - a; //30 //first = 35
           for (let index = b; index < first; index++) {
             previousweeks.push("V." + index);
           }
           let obj = {};
-          // console.log(previousweeks, "previousweeks");
           for (let index = 0; index < a; index++) {
             obj.correctAnswers = 0;
             obj.attemptedQuestion = 0;
@@ -56,30 +53,28 @@ const HomeRightBar = (props) => {
             weeklyProgressArr.push(obj);
           }
         }
-        Object.values(data).map((key, index) => {
-          const week = (Object.keys(data)[index] =
-            "V." + Object.keys(data)[index]);
-          // console.log(Object.keys(data)[index], "daaaaaaaaaaaa");
-          weeksArr.push(week);
-          newArray = previousweeks.concat(weeksArr);
-          let obj = {};
-          key.map((item) => {
-            // console.log(item, "request key");
-            obj.correctAnswers = obj?.correctAnswers
-              ? obj?.correctAnswers + item.correctAnswer
-              : item.correctAnswer;
-            obj.attemptedQuestion = obj?.attemptedQuestion
-              ? obj?.attemptedQuestion + item.attemptedQuestion
-              : item.attemptedQuestion;
+        data &&
+          Object.values(data).map((key, index) => {
+            const week = (Object.keys(data)[index] =
+              "V." + Object.keys(data)[index]);
+            weeksArr.push(week);
+            newArray = previousweeks.concat(weeksArr);
+            let obj = {};
+            key.map((item) => {
+              obj.correctAnswers = obj?.correctAnswers
+                ? obj?.correctAnswers + item.correctAnswer
+                : item.correctAnswer;
+              obj.attemptedQuestion = obj?.attemptedQuestion
+                ? obj?.attemptedQuestion + item.attemptedQuestion
+                : item.attemptedQuestion;
+            });
+            var overAllprognos = obj?.correctAnswers / obj?.attemptedQuestion;
+            var a = overAllprognos * 2;
+            obj.overAllprognos = a.toFixed(1);
+            weeklyProgressArr.push(obj);
           });
-          var overAllprognos = obj?.correctAnswers / obj?.attemptedQuestion;
-          var a = overAllprognos * 2;
-          obj.overAllprognos = a.toFixed(1);
-          weeklyProgressArr.push(obj);
-        });
 
         setWeeklyProgress(weeklyProgressArr);
-        console.log(weeklyProgressArr, "weeklyProgressArr");
         setWeeks(newArray);
       });
 
