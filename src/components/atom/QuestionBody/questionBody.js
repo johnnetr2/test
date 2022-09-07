@@ -82,7 +82,7 @@ const QuestionBody = (props) => {
         previosQuestion={() => props.previosQuestion()}
         PopupTimeEnd={props.PopupTimeEnd}
         updateCompleteQuiz={(quiz) => props.updateCompleteQuiz(quiz)}
-        changeTime={(time) => props.changeTime(time)}
+        // changeTime={(time) => props.changeTime(time)}
       />
     );
   } else if (props.question.multipartQuestion) {

@@ -185,14 +185,14 @@ const QuestionViewDTKOrg = (props) => {
       setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
     selectedIndex + 1 < quiz?.question.length && props.changeIndex();
-    props.changeTime(props.totalTime - seconds)
+    // props.changeTime(props.totalTime - seconds)
     setSeconds(0);
     setMinutes(0);
   };
 
   const handleLeftArrowFunction = () => {
     const Quiz = { ...quiz };
-
+    console.log(Quiz, 'this is Quiz')
     const index = dataSubmit.findIndex(
       (item) => item?.questionId == Quiz.question[selectedIndex]._id
     );
@@ -204,20 +204,14 @@ const QuestionViewDTKOrg = (props) => {
       timeleft: props?.timeLeft ? props?.timeLeft : 0,
       // timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - (dataSubmit[index]?.spendtime + seconds) : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[index]?.spendtime
-        ? dataSubmit[index]?.spendtime + seconds
-        : Boolean(
-          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-        )
-          ? seconds
-          : 0,
+      spendtime: dataSubmit[index]?.spendtime ? dataSubmit[index]?.spendtime + seconds : Boolean( getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds: 0,
     };
 
     dataSubmit.splice(index, 1, data);
 
     setSelectedIndex(selectedIndex - 1);
     props.previosQuestion();
-    props.changeTime(props.totalTime - seconds)
+    // props.changeTime(props.totalTime - seconds)
     setSeconds(0);
     setMinutes(0);
   };
@@ -315,7 +309,7 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
-        props.changeTime(props.totalTime - seconds)
+        // props.changeTime(props.totalTime - seconds)
         console.log(response.data, 'this is the console of response of multi part question')
         dataSubmit = [];
         setShowResult(true);

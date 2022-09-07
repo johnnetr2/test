@@ -82,8 +82,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime(15);
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(60);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -108,9 +108,9 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime(15);
+        setTime(60);
 
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -719,7 +719,7 @@ const QuestionViewXyzOrg = () => {
                   }
                   OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
-                  changeTime={(time) => setTime(time)}
+                  // changeTime={(time) => setTime(time)}
                   quizId={params?.state?.quizId}
                   timeLeft={timeLeft}
                   PopupTimeEnd={timeEnd}
