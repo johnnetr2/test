@@ -1,13 +1,75 @@
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { Typography, Box } from "@mui/material";
+
+import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
+import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
+import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
-import image70 from '../../../assets/Imgs/image70.png'
 
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
-  // let previosData = props?.data?.find(obj => obj._id == props?.item._id)
+
+  const percentageCalculation = () => {
+    if (props?.item.title == "XYZ") {
+      return XYZNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    } else if (props?.item.title == "KVA") {
+      return KVANormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    } else if (props?.item.title == "NOG") {
+      return NOGNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    } else if (props?.item.title == "DTK") {
+      return DTKNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    } else if (props?.item.title == "ELF") {
+      return ELFNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    } else if (props?.item.title == "LÄS") {
+      return LASNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    } else if (props?.item.title == "ORD") {
+      return ORDNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    } else if (props?.item.title == "MEK") {
+      return MEKNormeringValueFor(
+        (props?.previousRecord?.CorrectQuestion /
+          props?.previousRecord?.TotalQuestion) *
+          100
+      );
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -30,6 +92,7 @@ const HomeCard = (props) => {
         navigate("/category", {
           state: {
             item: data,
+            progress: percentageCalculation(),
           },
         })
       }
@@ -39,8 +102,21 @@ const HomeCard = (props) => {
         <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
           {data?.information}
         </Typography>
+        {/* {console.log(props.data, "previousRecord")} */}
         <Box>
-          <ProgressBar average={props?.previousRecord ? ((props?.previousRecord.CorrectQuestion / props?.previousRecord.TotalQuestion)*100) : 0} />
+          <ProgressBar
+            average={
+              props?.previousRecord
+                ? (props?.previousRecord.CorrectQuestion /
+                    props?.previousRecord.TotalQuestion) *
+                  100
+                  ? (props?.previousRecord.CorrectQuestion /
+                      props?.previousRecord.TotalQuestion) *
+                    100
+                  : 0
+                : 0
+            }
+          />
         </Box>
       </Box>
       <Box
@@ -52,27 +128,43 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'}
+          {props?.previousRecord?.TotalQuestion >= 20
+            ? percentageCalculation()
+            : "-"}
+          {/* {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'} */}
         </Typography>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '3.5rem'
+            display: "flex",
+            flexDirection: "column",
+            width: "3.5rem",
           }}
         >
-          {props?.previousRecord?.AttemptedQuestion < 20 && <img src={image70} style={{ display: 'flex', height: '0.5rem', width: '0.5rem', alignSelf: 'flex-end' }} />}
+          {props?.previousRecord?.TotalQuestion < 20 && (
+            <CustomizedTooltip
+              title="Gör minst 20 frågor på tid för att få poängprognos"
+              placement="top"
+            >
+              <img
+                src={informationIcon}
+                style={{
+                  display: "flex",
+                  height: "0.625rem",
+                  width: "0.625rem",
+                  alignSelf: "flex-end",
+                }}
+              />
+            </CustomizedTooltip>
+          )}
           <Typography
             variant="body1"
             style={{
               fontSize: ".75rem",
-              marginTop: ".75rem",
             }}
           >
             Prognos
           </Typography>
         </Box>
-
       </Box>
     </Box>
   );

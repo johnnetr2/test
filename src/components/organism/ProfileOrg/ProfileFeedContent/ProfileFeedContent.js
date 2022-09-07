@@ -1,12 +1,13 @@
+import { Box, Button, Container, makeStyles } from "@material-ui/core";
+import { EndPoints, instance2 } from "../../../service/Route";
 import React, { useEffect, useState } from "react";
-import { Container, makeStyles, Box, Button } from "@material-ui/core";
-import Heading from "../../../atom/Heading/Heading";
+
 import BodyText from "../../../atom/BodyText/BodyText";
+import Heading from "../../../atom/Heading/Heading";
 import InputField from "../../../atom/InputField/InputField";
-import swal from "sweetalert";
-import { instance2, EndPoints } from "../../../service/Route";
 import PasswordUpdationDialog from "../../../molecule/PasswordUpdationDialog/PasswordUpdationDialog";
 import Snackbar from "../../../molecule/Snackbar/Snackbar";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,10 +101,10 @@ const ProfileFeedContent = () => {
             alignItems: "flex-start",
           }}
         >
-          <Box sx={{ padding: "1rem 0" }}>
+          <Box sx={{ padding: "1rem 0" }} flexBasis={"20%"}>
             <BodyText title="E-MAIL :" />
           </Box>
-          <Box>
+          <Box flexBasis={"80%"}>
             <InputField
               type="email"
               placeholder="magnusbest@hotmail.com"
@@ -119,7 +120,6 @@ const ProfileFeedContent = () => {
               onChange={(e) => setData(e.target.value)}
             />
             <Box sx={{
-              width: "24rem", 
               display: 'flex', 
               justifyContent: 'center',
               backgroundColor: data.length > 0 ? '#0A1596' : '#E1E1E1', 
@@ -150,8 +150,10 @@ const ProfileFeedContent = () => {
           alignItems: "center",
         }}
       >
-        <BodyText title="lösenord" />
-        <Box sx={{ marginLeft: "4rem", width: "80%" }}>
+        <Box flexBasis={"20%"} >
+          <BodyText title="lösenord" />
+        </Box>
+        <Box flexBasis={"80%"}>
           <Button
             variant="outlined"
             style={{

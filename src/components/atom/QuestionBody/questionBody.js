@@ -1,12 +1,13 @@
+import { Box, Container, FormControlLabel } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import Increment from "../../../assets/Icons/Increment.svg";
+
 import Decrement from "../../../assets/Icons/Decrement.svg";
-import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
-import { Box, FormControlLabel, Container } from "@material-ui/core";
-import { Typography } from "@mui/material";
+import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
+import Increment from "../../../assets/Icons/Increment.svg";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
-import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
+import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
+import { Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -21,14 +22,14 @@ const QuestionBody = (props) => {
   const [question, setQuestion] = useState(props?.question);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
-  const [randomOptions, setRandomOptions] = useState([]);
 
-  useEffect(() => {
-    const testRandom = props?.question?.options[0]?.options?.sort(
-      () => 0.5 - Math.random()
-    );
-    setRandomOptions(testRandom);
-  }, [randomOptions]);
+  const updateQuiz = (value) => {
+    let quiz = [...props.quiz];
+    setQuestion(value);
+    const index = quiz.findIndex((obj) => obj._id == value._id);
+    quiz.splice(index, 1, value);
+    props.updateQuiz(quiz);
+  };
 
   const PlusPoint = () => {
     setCount(1);
@@ -45,13 +46,14 @@ const QuestionBody = (props) => {
       return "#27AE60";
     } else if (question.answer && item._id == question?.optionId) {
       return "#EB5757";
+    } else if (question.answer && item._id != question?.optionId) {
+      return "#E1E1E1";
     } else {
       return "";
     }
   };
 
   const questionId = props.question._id;
-  // const optionArray = ;
 
   if (props.question.type == "multiple") {
     return (
@@ -69,10 +71,13 @@ const QuestionBody = (props) => {
         quizId={props.quizId}
         totalTime={props.totalTime}
         quiz={props.quiz}
+        updateQuiz={(value) => updateQuiz(value)}
+        changeIndex={() => props.changeIndex()}
         sectionCategory={props?.sectionCategory}
         nextQuestion={() => props.nextQuestion()}
         stopTimer={() => props.stopTime()}
         startTimer={() => props.startTime()}
+        previosQuestion={() => props.previosQuestion()}
       />
     );
   } else if (props.question.multipartQuestion) {
@@ -101,12 +106,14 @@ const QuestionBody = (props) => {
           flexDirection: "column",
         }}
       >
-        <FeedbackCard
-          count={count}
-          show={feedbackPopup}
-          onClose={() => setFeedbackPopup(false)}
-          questionId={questionId}
-        />
+        <Box sx={{ position: "absolute", right: 0, bottom: 0 }}>
+          <FeedbackCard
+            count={count}
+            show={feedbackPopup}
+            onClose={() => setFeedbackPopup(false)}
+            questionId={questionId}
+          />
+        </Box>
         {/* question container for single question */}
         <Container
           maxWidth="sm"
@@ -116,7 +123,7 @@ const QuestionBody = (props) => {
             border: "1px solid #e1e1e1",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             backgroundColor: "#fff",
           }}
         >
@@ -127,24 +134,24 @@ const QuestionBody = (props) => {
               fontSize: "1rem",
               fontWeight: "600",
               display: "flex",
+              flexDirection: "column",
             }}
           >
             <MarkLatex content={question?.questionStatement} />
           </Typography>
 
-          {question?.images[0] && (
+          {/* {question?.images[0] && (
             <Typography
               variant="h6"
               component="h6"
               style={{
                 height: "12rem",
                 display: "flex",
-                justifyContent: "center",
               }}
             >
-              <img style={{ height: "100%" }} src={question?.images[0]} />
+              <img style={{ height: "80%" }} src={question?.images[0]} />
             </Typography>
-          )}
+          )} */}
 
           <Box
             sx={{
@@ -218,42 +225,51 @@ const QuestionBody = (props) => {
             backgroundColor: "#fff",
           }}
         >
-          {randomOptions &&
-            randomOptions.map((item, optionIndex) => {
-              // // {
-              // props?.questionTypeTitle == "NOG" ? (
-              //   <Box
-              //     sx={{
-              //       width: 600,
-              //       height: 100,
-              //       border: "1px solid #e1e1e1",
-              //       display: "flex",
-              //       justifyContent: "flex-start",
-              //       alignItems: "center",
-              //     }}
-              //   >
-              //     <Typography
-              //       variant="p"
-              //       style={{ fontWeight: "bold", marginLeft: "50px" }}
-              //     >
-              //       Tillräckligt information för lösningen erhålls
-              //     </Typography>
-              //   </Box>
-              // ) : null;
-              // // }
-              if (item.value) {
-                return (
+          {props?.questionTypeTitle == "NOG" ? (
+            <Box
+              sx={{
+                width: 600,
+                height: 100,
+                border: "1px solid #e1e1e1",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="p"
+                style={{ fontWeight: "bold", marginLeft: "50px" }}
+              >
+                Tillräckligt information för lösningen erhålls
+              </Typography>
+            </Box>
+          ) : null}
+          {question?.options[0]?.options?.map((item, optionIndex) => {
+            if (item.value) {
+              return (
+                <Box sx={{ display: "flex" }}>
                   <Box
                     sx={{
                       height:
                         question?.options[0].options.length > 4 ||
-                        item.image === ""
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
                           ? 60
-                          : 120,
+                          : 150,
+                      padding:
+                        question?.options[0].options.length > 4 ||
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
+                          ? 0
+                          : 10,
                       border: "1px solid #e1e1e1",
                       width:
                         question?.options[0].options.length > 4 ||
-                        item.image === ""
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
                           ? 600
                           : 300,
                       display: "flex",
@@ -303,7 +319,9 @@ const QuestionBody = (props) => {
                         <Typography
                           style={{
                             marginTop: "1.25rem",
+                            paddingLeft: "1px",
                             color: changeOptionsColor(item),
+                            fontSize: "0.6rem",
                           }}
                           variant="body2"
                         >
@@ -326,7 +344,9 @@ const QuestionBody = (props) => {
                             : "0",
                         justifyContent:
                           question?.options[0].options.length > 4 ||
-                          item.image === ""
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                             ? "flex-start"
                             : "center",
                         alignItems: "center",
@@ -343,69 +363,91 @@ const QuestionBody = (props) => {
                       )}
                     </Box>
                   </Box>
-                );
-              }
-            })}
+                </Box>
+              );
+            }
+          })}
         </Container>
 
         {question.answer && (
-          <Box
-            paddingX={4}
-            mt={2}
-            sx={{
+          // <Box
+          //   paddingX={4}
+          //   mt={2}
+          //   sx={{
+          //     backgroundColor: "#fff",
+          //     width: 600,
+          //     border: "1px solid #e1e1e1",
+          //   }}
+          // >
+          <Container
+            maxWidth="sm"
+            style={{
+              marginTop: "1.5rem",
               backgroundColor: "#fff",
-              width: 600,
               border: "1px solid #e1e1e1",
+              padding: "1rem 3rem",
             }}
           >
-            <Box sx={{ width: 500, display: "flex" }}>
-              <Box sx={{ padding: "2rem 2rem" }}>
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  style={{
-                    fontSize: "1.25rem",
-                    marginTop: 20,
-                  }}
-                >
-                  Förklaring:
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="div"
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: "500",
-                    marginTop: 10,
-                    width: question?.answer.image ? "auto" : 500,
-                  }}
-                >
-                  {/* {question.answer.answer} */}
-                  <MarkLatex content={question.answer.answer} />
-                </Typography>
-              </Box>
-              <Box
-                mt={2}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                variant="h5"
+                component="h5"
                 style={{
-                  // marginLeft: "15rem",
-                  marginTop: "2rem",
+                  fontSize: "1.25rem",
+                  marginTop: 20,
                 }}
               >
-                {question?.answer && (
-                  <img
-                    style={{ height: 110 }}
-                    src={question?.answer.image}
-                    alt=""
-                  />
-                )}
-              </Box>
+                Förklaring:
+              </Typography>
+              <Typography
+                variant="body1"
+                component="div"
+                style={{
+                  fontSize: ".75rem",
+                  fontWeight: "500",
+                  marginTop: 10,
+                }}
+              >
+                {/* {question.answer.answer} */}
+                <MarkLatex content={question.answer.answer} />
+              </Typography>
+              {/* </Box>
+            <Box
+              mt={2}
+              style={{
+                // marginLeft: "15rem",
+                marginTop: "2rem",
+              }}
+            > */}
+
+              {/* {(question?.answer?.answer.includes(
+                "https://hp-appen.s3.eu-north-1.amazonaws.com/"
+              )) {
+                splitItem()
+              }: ""
+                } */}
+
+              {question?.answer?.image ? (
+                <img
+                  style={{ width: 100 }}
+                  src={question?.answer?.image}
+                  alt="Explanation Image"
+                />
+              ) : (
+                <div></div>
+              )}
             </Box>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "flex-end",
                 alignItems: "center",
-                height: 60,
+                height: 30,
               }}
             >
               <Typography
@@ -435,7 +477,7 @@ const QuestionBody = (props) => {
                 />
               </Box>
             </Box>
-          </Box>
+          </Container>
         )}
 
         {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}

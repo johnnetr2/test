@@ -22,6 +22,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation, useNavigate } from "react-router-dom";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
@@ -81,7 +89,6 @@ const ResultSummaryOrg = (props) => {
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
-
     instance2.get(URL).then((response) => {
       response.data.question.map((item) => {
         return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
@@ -115,7 +122,31 @@ const ResultSummaryOrg = (props) => {
       (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
     ); 
     */
-    return ((mins < 10 ? "0" + mins : mins) + ":" + (seconds_<10? "0" + seconds_ : seconds_))
+    return (
+      (mins < 10 ? "0" + mins : mins) +
+      ":" +
+      (seconds_ < 10 ? "0" + seconds_ : seconds_)
+    );
+  };
+
+  const percentageCalculation = (value) => {
+    if (params?.state?.sectionCategory?.title == "XYZ") {
+      return XYZNormeringValueFor(value);
+    } else if (params?.state?.sectionCategory?.title == "KVA") {
+      return KVANormeringValueFor(value);
+    } else if (params?.state?.sectionCategory?.title == "NOG") {
+      return NOGNormeringValueFor(value);
+    } else if (params?.state?.sectionCategory?.title == "DTK") {
+      return DTKNormeringValueFor(value);
+    } else if (params?.state?.sectionCategory?.title == "ELF") {
+      return ELFNormeringValueFor(value);
+    } else if (params?.state?.sectionCategory?.title == "LÄS") {
+      return LASNormeringValueFor(value);
+    } else if (params?.state?.sectionCategory?.title == "ORD") {
+      return ORDNormeringValueFor(value);
+    } else if (params?.state?.sectionCategory?.title == "MEK") {
+      return MEKNormeringValueFor(value);
+    }
   };
 
   return (
@@ -156,22 +187,23 @@ const ResultSummaryOrg = (props) => {
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} width={100} sx={{ color: "#222" }}>
-              <img src={BarChart} alt="" />
-              {" "}
+              <img src={BarChart} alt="" />{" "}
               {responseCollection?.question.length} av{" "}
               {responseCollection?.question.length}
             </Box>
-            {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box mt={2} sx={{ color: "#222" }}>
-              <img src={Clock} alt="" />
-              {responseCollection
-                ? dispSecondsAsMins(
-                  responseCollection?.question[
-                    responseCollection.question.length - 1
-                  ].timeleft
-                )
-                : "00:00"}
-            </Box>
-            }
+            {responseCollection &&
+              responseCollection?.question[0].timeleft != 0 && (
+                <Box mt={2} sx={{ color: "#222" }}>
+                  <img src={Clock} alt="" style={{ paddingRight: "4px" }} />{" "}
+                  {responseCollection
+                    ? dispSecondsAsMins(
+                        responseCollection?.question[
+                          responseCollection.question.length - 1
+                        ].timeleft?.toFixed(0)
+                      )
+                    : "00:00"}
+                </Box>
+              )}
           </Box>
           <Box mt={2}>
             <LinearProgress
@@ -221,12 +253,12 @@ const ResultSummaryOrg = (props) => {
                 }}
               >
                 {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
+                responseCollection?.correctAnswer != null ? (
                   <Typography variant="h4">
                     {responseCollection &&
                       responseCollection.correctAnswer +
-                      " /" +
-                      responseCollection.question.length}
+                        " /" +
+                        responseCollection.question.length}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -258,10 +290,12 @@ const ResultSummaryOrg = (props) => {
               >
                 {responseCollection ? (
                   <Typography variant="h4">
-                    {((
-                      responseCollection.correctAnswer /
-                      responseCollection.question.length
-                    ) * 2).toFixed(1)}
+                    {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
+                    {percentageCalculation(
+                      (responseCollection.correctAnswer /
+                        responseCollection.question.length) *
+                        100
+                    )}
                   </Typography>
                 ) : (
                   <Box sx={{ display: "flex" }}>
@@ -280,73 +314,77 @@ const ResultSummaryOrg = (props) => {
                 </Typography>
               </Box>
             </Box>
-            {responseCollection && responseCollection?.question[0].timeleft != 0 && <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Box
-                mt={2}
-                width={290}
-                height={100}
-                sx={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e1e1e1",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "5px",
-                }}
-              >
-                <Typography variant="h4">
-                  {timePerQues ? dispSecondsAsMins(timePerQues) : "00:00"}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  style={{
-                    fontSize: "0.75rem",
-                    marginLeft: ".7rem",
-                    marginTop: ".8rem",
+            {responseCollection &&
+              responseCollection?.question[0].timeleft != 0 && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                 >
-                  Tid per fråga
-                </Typography>
-              </Box>
-              <Box
-                mt={2}
-                width={290}
-                height={100}
-                sx={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e1e1e1",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "5px",
-                }}
-              >
-                <Typography variant="h4">
-                  {responseCollection
-                    ? dispSecondsAsMins(
-                      responseCollection?.question.at(-1).timeleft
-                    )
-                    : "00:00"}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  style={{
-                    fontSize: "0.75rem",
-                    marginLeft: ".7rem",
-                    marginTop: ".8rem",
-                  }}
-                >
-                  Tid kvar
-                </Typography>
-              </Box>
-            </Box>
-            }
+                  <Box
+                    mt={2}
+                    width={290}
+                    height={100}
+                    sx={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #e1e1e1",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <Typography variant="h4">
+                      {timePerQues
+                        ? dispSecondsAsMins(timePerQues?.toFixed(0))
+                        : "00:00"}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      style={{
+                        fontSize: "0.75rem",
+                        marginLeft: ".7rem",
+                        marginTop: ".8rem",
+                      }}
+                    >
+                      Tid per fråga
+                    </Typography>
+                  </Box>
+                  <Box
+                    mt={2}
+                    width={290}
+                    height={100}
+                    sx={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #e1e1e1",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <Typography variant="h4">
+                      {responseCollection
+                        ? dispSecondsAsMins(
+                            responseCollection?.question.at(-1).timeleft
+                          )
+                        : "00:00"}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      style={{
+                        fontSize: "0.75rem",
+                        marginLeft: ".7rem",
+                        marginTop: ".8rem",
+                      }}
+                    >
+                      Tid kvar
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
           </Box>
 
           <Box mt={2} sx={{ width: 600, display: "flex" }}>
@@ -385,8 +423,7 @@ const ResultSummaryOrg = (props) => {
                           data: {
                             value: false,
                             sectionCategory: params?.state?.sectionCategory,
-                          }
-                          // quiz: responseCollection.question
+                          },
                         },
                       });
                     }}
@@ -439,9 +476,9 @@ const ResultSummaryOrg = (props) => {
                       style={{ fontSize: ".75rem", fontWeight: "600" }}
                     >
                       {/* Tid: 04:51 */}
-                      {item?.spendTime ?
-                        "Tid: " + dispSecondsAsMins(item?.spendTime) : ''
-                        }
+                      {item?.spendTime
+                        ? "Tid: " + dispSecondsAsMins(item?.spendTime)
+                        : "Tid 0:0"}
                     </Typography>
                     <Box
                       style={{
@@ -466,7 +503,12 @@ const ResultSummaryOrg = (props) => {
                   },
                 })
               }
-              style={{ width: 600, color: '#000DAB', borderColor: '#000DAB', borderRadius: '8px' }}
+              style={{
+                width: 600,
+                color: "#000DAB",
+                borderColor: "#000DAB",
+                borderRadius: "8px",
+              }}
             >
               Klar
             </Button>

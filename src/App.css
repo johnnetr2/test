@@ -1,6 +1,9 @@
 * {
   font-family: "Roboto";
 }
+label > img {
+  width: 25px;
+}
 p {
   margin: 0;
 }
@@ -9,6 +12,20 @@ blockquote {
   color: rgba(0,0,0,.5);
   padding-left: 1.5em;
   border-left: 5px solid rgba(0,0,0,.1);
+}
+input::placeholder {
+  color: "#E1E1E1";
+}
+p > img {
+  width: 130px !important;
+}
+
+.MuiTypography-h6 > p > img {
+  width: 300px !important;
+}
+
+.MuiTypography-body1 p:nth-child(2) img {
+  width: 300px !important;
 }
 
 /* .input-style:focus {

@@ -5,8 +5,7 @@ import {
   Typography,
   Box,
   Tabs,
-  Tab
-
+  Tab,
 } from "@material-ui/core";
 // import { Tabs, Tab } from '@mui/material';
 import Heading from "../../../atom/Heading/Heading";
@@ -15,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../service/Route";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
 import swal from "sweetalert";
+import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,14 +40,19 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#0A1596",
     },
   },
+  tabIndicatorWidth: {
+    "& .PrivateTabIndicator-root-28": {
+      width: "75%",
+    },
+  },
 }));
 
 const HomeFeedContent = (props) => {
   const classes = useStyles();
 
   const [tabValue, setTabValue] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [prognos, setPrognos] = useState(0);
+  // const [progress, setProgress] = useState(0);
+  // const [prognos, setPrognos] = useState(0);
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -63,10 +69,19 @@ const HomeFeedContent = (props) => {
   const [totalPrognos, setTotalPrognos] = useState();
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      const previousRecordURL =
-        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-      instance2.get(previousRecordURL).then((response) => {
-        if (response.data.success == true) {
+      // const previousRecordURL =
+      //   EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+      // instance2.get(previousRecordURL).then((response) => {
+      //   console.log(response, 'this is the console of response of overall prognosis values')
+      //   if (response.data.success == true) {
+      //     setPreviousRecordProgress(response.data.Data);
+      //   }
+      // });
+      const loginUserID = localStorage.getItem("userId");
+      const NormeringValueOfBothMainCategories =
+        EndPoints.OverAllNormeringValue + loginUserID;
+      instance2.get(NormeringValueOfBothMainCategories).then((response) => {
+        if (response?.data?.success) {
           setPreviousRecordProgress(response.data.Data);
         }
       });
@@ -84,15 +99,15 @@ const HomeFeedContent = (props) => {
             newArr.push(item);
           }
           if (item.title == "NOG") {
-            item.time = 1.6;
+            item.time = 10 / 6;
             newArr.push(item);
           }
           if (item.title == "DTK") {
-            item.time = 1.9;
+            item.time = 23 / 12;
             newArr.push(item);
           }
           if (item.title == "ELF") {
-            item.time = 0.3;
+            item.time = 2.2;
             newArr.push(item);
           }
           if (item.title === "LÄS") {
@@ -104,7 +119,7 @@ const HomeFeedContent = (props) => {
             newArr.push(item);
           }
           if (item.title == "ORD") {
-            item.time = 2.2;
+            item.time = 0.3;
             newArr.push(item);
           }
         });
@@ -127,11 +142,11 @@ const HomeFeedContent = (props) => {
 
   useEffect(() => {
     let count = 0;
-    let prognos;
+    let totalQuestion = 0;
     let show = true;
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        if (item.AttemptedQuestion <= 20) {
+        if (item.TotalQuestion <= 20) {
           show = false;
         }
       });
@@ -139,14 +154,29 @@ const HomeFeedContent = (props) => {
 
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
-        count = count + prognos;
+        // prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
+        count = count + item.CorrectQuestion;
+        totalQuestion = totalQuestion + item.TotalQuestion;
       });
-    let avgPrognos =
-      previousRecordProgress && count / previousRecordProgress.length;
+    // console.log(totalQuestion, 'totalQuestion')
+    // console.log(count, 'count')
+    let avgPrognos = previousRecordProgress && (count / totalQuestion) * 2;
+    // console.log(avgPrognos, 'total avaerageee')
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);
+
+  function TabContainer(props) {
+    return (
+      <Typography component="div" style={{ padding: 8 * 3 }}>
+        {props.children}
+      </Typography>
+    );
+  }
+
+  TabContainer.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
 
   return (
     <Container className={classes.root} maxWidth="false">
@@ -167,6 +197,7 @@ const HomeFeedContent = (props) => {
           >
             <Box>
               <Tabs
+                className={classes.indicator}
                 value={tabValue}
                 onChange={handleTabs}
                 variant="scrollable"
@@ -178,28 +209,36 @@ const HomeFeedContent = (props) => {
                   style: {
                     background: "#0A1596",
                     border: "4px solid #0A1596",
-                  }
+                  },
                 }}
               >
                 <Tab
-                  style={{ textTransform: "initial",
-                  color: tabValue == 0 ? 'black' : '#B5B5B5'
-                }}
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 0 ? "black" : "#B5B5B5",
+                  }}
+                  className={classes.tabIndicatorWidth}
                   label="Alla delprov"
                 />
                 <Tab
-                  style={{ textTransform: "initial", 
-                  color: tabValue == 1 ? 'black' : '#B5B5B5'
-                 }}
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 1 ? "black" : "#B5B5B5",
+                  }}
                   label="Kvantitativ del"
                 />
-                <Tab style={{ textTransform: "initial", 
-              color: tabValue == 2 ? 'black' : '#B5B5B5'
-              }} label="Verbal del" />
                 <Tab
-                  style={{ textTransform: "initial", 
-                  color: tabValue == 3 ? 'black' : '#B5B5B5'
-                }}
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 2 ? "black" : "#B5B5B5",
+                  }}
+                  label="Verbal del"
+                />
+                <Tab
+                  style={{
+                    textTransform: "initial",
+                    color: tabValue == 3 ? "black" : "#B5B5B5",
+                  }}
                   label="My Peformance"
                   className={classes.newItem}
                 />

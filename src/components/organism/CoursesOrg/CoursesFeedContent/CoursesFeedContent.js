@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
 import {
-  Container,
-  makeStyles,
-  Typography,
   Box,
   Button,
+  Container,
   Tab,
   Tabs,
+  Typography,
+  makeStyles,
 } from "@material-ui/core";
+import { EndPoints, instance, instance2 } from "../../../service/Route";
 import { Link, useNavigate } from "react-router-dom";
-import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
-import Heading from "../../../atom/Heading/Heading";
+import React, { useEffect, useState } from "react";
+
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
+import Heading from "../../../atom/Heading/Heading";
 import { Input } from "reactstrap";
-import { EndPoints, instance, instance2 } from "../../../service/Route";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
       // display: 'block'
     },
   },
+  indicator: {
+    
+  }
 }));
 
 const CoursesFeedContent = (props) => {
@@ -76,9 +80,11 @@ const CoursesFeedContent = (props) => {
               marginTop: "3rem",
               marginBottom: "3rem",
               marginRight: "2rem",
+              overflow: "hidden",
             }}
           >
             <Tabs
+              className={classes.indicator}
               value={tabValue}
               onChange={handleTabs}
               variant="scrollable"
@@ -91,17 +97,32 @@ const CoursesFeedContent = (props) => {
                 },
               }}
             >
-              <Tab style={{ textTransform: "initial" }} label="Alla" />
               <Tab
-                style={{ textTransform: "initial" }}
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 0 ? "black" : "#B5B5B5",
+                }}
+                label="Alla"
+              />
+              <Tab
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 1 ? "black" : "#B5B5B5",
+                }}
                 label="Tidigare högskoleprov"
               />
               <Tab
-                style={{ textTransform: "initial" }}
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 2 ? "black" : "#B5B5B5",
+                }}
                 label="Slumpmässigt prov"
               />
               <Tab
-                style={{ textTransform: "initial" }}
+                style={{
+                  textTransform: "initial",
+                  color: tabValue === 3 ? "black" : "#B5B5B5",
+                }}
                 label="Slutförda prov"
                 className={classes.tabToggle}
               />

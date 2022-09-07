@@ -17,16 +17,17 @@ import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
-import Righticon from '../../../../../../assets/Imgs/Righticon.png'
+import Righticon from "../../../../../../assets/Imgs/Righticon.png";
+import CircularProgress from "@mui/material/CircularProgress";
 
-let dataSubmit = []
+let dataSubmit = [];
 
 const QuestionViewDTKOrg = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const [showResult, setShowResult] = useState(false);
-  const [answerExistance, setAnswerExistance] = useState()
-  const [onHover, setOnHover] = useState()
+  const [answerExistance, setAnswerExistance] = useState();
+  const [onHover, setOnHover] = useState();
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -126,7 +127,6 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const SelectFunc = (item, optionIndex) => {
-    console.log(item._id, 'valueeeeeeeee')
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
     let question = qz[selectedIndex];
@@ -138,53 +138,72 @@ const QuestionViewDTKOrg = (props) => {
     const data = {
       questionId: quiz.question[selectedIndex]._id,
       optionId: quiz.question[selectedIndex].optionId,
-      sectionCategory: quiz.sectionCategory,
       MultipartQuestion: quiz._id,
       timeleft: props.timeLeft ? props.timeLeft : null,
       totaltime: props.totalTime ? props.totalTime : null,
       spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
-    }
+    };
 
-    const ifExists = dataSubmit.some(obj => obj.questionId == quiz.question[selectedIndex]._id)
+    const ifExists = dataSubmit.some(
+      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+    );
     if (ifExists) {
-      const index = dataSubmit.findIndex(obj => obj.questionId == quiz.question[selectedIndex]._id)
-      dataSubmit.splice(index, 1, data)
+      const index = dataSubmit.findIndex(
+        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      );
+      dataSubmit.splice(index, 1, data);
     } else {
-      dataSubmit.push(data)
+      dataSubmit.push(data);
     }
 
-    quiz && quiz?.question.map(item => {
-      if (item.optionId) {
-        setAnswerExistance(true)
-      } else {
-        setAnswerExistance(false)
-      }
-    })
+    const answerLenght = quiz.question.filter((item) => item.optionId).length;
+    if (answerLenght == quiz.question.length) {
+      setAnswerExistance(true);
+    }
+
+    // quiz &&
+    //   quiz?.question.map((item) => {
+    //     if (item.optionId) {
+    //       setAnswerExistance(true);
+    //     } else {
+    //       setAnswerExistance(false);
+    //     }
+    //   });
   };
 
   const Options = (question, option, optionIndex) => {
     if (optionIndex == question.selectedOptionIndex) {
-      return <Radio color="primary" checked={true} style={{ color: '#0A1596' }} />;
+      return (
+        <Radio color="primary" checked={true} style={{ color: "#0A1596" }} />
+      );
     } else {
-      return <Radio color="primary" checked={false} style={{ color: option._id == onHover && '#0A1596' }} />;
+      return (
+        <Radio
+          color="primary"
+          checked={false}
+          style={{ color: option._id == onHover && "#0A1596" }}
+        />
+      );
     }
   };
 
   const submitAnswer = async () => {
+    props.updateQuiz(quiz);
     try {
       const obj = {
         quiz: props.quizId,
-        user: localStorage.getItem('userId'),
-        answer: dataSubmit
-      }
-      const URL = EndPoints.submitMultiquestionParagragh
-      instance2.post(URL, obj).then(response => {
-        console.log(response.data, 'this is api response for paragraph')
-        setShowResult(true)
-        props.stopTimer()
-      })
+        user: localStorage.getItem("userId"),
+        sectionCategory: quiz.sectionCategory,
+        answer: dataSubmit,
+      };
+      const URL = EndPoints.submitMultiquestionParagragh;
+      instance2.post(URL, obj).then((response) => {
+        dataSubmit = [];
+        setShowResult(true);
+        props.stopTimer();
+      });
     } catch (error) {
-      console.log("in catch block: ", error);
+      // console.log("in catch block: ", error);
     }
   };
 
@@ -310,9 +329,10 @@ const QuestionViewDTKOrg = (props) => {
                         >
                           {selectedIndex > 0 && (
                             <img
-                              onClick={() =>
-                                setSelectedIndex(selectedIndex - 1)
-                              }
+                              onClick={() => {
+                                setSelectedIndex(selectedIndex - 1);
+                                props.previosQuestion();
+                              }}
                               src={BlueLeftIcon}
                               style={{ cursor: "pointer" }}
                               className={classes.size}
@@ -326,23 +346,30 @@ const QuestionViewDTKOrg = (props) => {
                           >
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
-                          {
-                            quiz && quiz?.question[0].selectedOptionIndex != undefined ? (
-                              <img
-                                onClick={() => selectedIndex + 1 < quiz.question.length &&
-                                  setSelectedIndex(selectedIndex + 1)}
-                                src={BlueRightIcon}
-                                style={{ cursor: "pointer" }}
-                                className={classes.size}
-                                alt=""
-                              />
-                            ) : (
-                              <img src={Righticon} alt=''
-                                style={{ height: 15 }}
-                              />
-                            )
-                          }
-
+                          {quiz &&
+                          quiz?.question.length > 1 &&
+                          quiz?.question[0].selectedOptionIndex != undefined ? (
+                            <img
+                              onClick={() => {
+                                selectedIndex + 1 < quiz.question.length &&
+                                  setSelectedIndex(selectedIndex + 1);
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.updateQuiz(quiz);
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.changeIndex();
+                              }}
+                              src={BlueRightIcon}
+                              style={{ cursor: "pointer" }}
+                              className={classes.size}
+                              alt=""
+                            />
+                          ) : (
+                            <img
+                              src={Righticon}
+                              alt=""
+                              style={{ height: 15 }}
+                            />
+                          )}
                         </Box>
                       </Box>
                       <Typography
@@ -352,6 +379,7 @@ const QuestionViewDTKOrg = (props) => {
                           fontSize: ".75rem",
                           fontWeight: "600",
                           marginTop: 20,
+                          paddingBottom: "2rem",
                           display: "flex",
                           flexDirection: "column",
                         }}
@@ -375,14 +403,16 @@ const QuestionViewDTKOrg = (props) => {
                             width: 600,
                             border: "1px solid #e1e1e1",
                             marginLeft: ".5rem",
-                            color: optionIndex == question.selectedOptionIndex && '#0A1596',
+                            color:
+                              optionIndex == question.selectedOptionIndex &&
+                              "#0A1596",
                             "&:hover": {
                               cursor: !option.answer && "pointer",
-                              color: !option.answer && '#0A1596',
+                              color: !option.answer && "#0A1596",
                             },
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center'
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
                           }}
                           onClick={(e) => {
                             !question.answerSubmited &&
@@ -401,11 +431,10 @@ const QuestionViewDTKOrg = (props) => {
                             <Box
                               sx={{
                                 display: "flex",
-                                flexDirection: 'row'
+                                flexDirection: "row",
                               }}
                             >
                               <FormControlLabel
-                                
                                 value={option._id}
                                 style={{
                                   marginLeft: ".5rem",
@@ -415,9 +444,8 @@ const QuestionViewDTKOrg = (props) => {
                               <Typography
                                 style={{
                                   marginTop: "1.25rem",
-                                  marginLeft: '-1.7rem',
-                                  fontSize: '0.6rem',
-                                  // color: "blue",
+                                  marginLeft: "-1.7rem",
+                                  fontSize: "0.6rem",
                                 }}
                                 variant="body2"
                               >
@@ -427,15 +455,19 @@ const QuestionViewDTKOrg = (props) => {
                           </Box>
                           <Box
                             sx={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              marginLeft: '1rem',
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginLeft: "1rem",
                             }}
                           >
-                            <Typography style={{ fontSize: '0.9rem', height: '1.2rem' }} >
-                              <MarkLatex content={option.value.replace("\f", "\\f")} />{" "}
+                            <Typography style={{ fontSize: "0.9rem" }}>
+                              {option?.value && (
+                                <MarkLatex
+                                  content={option?.value.replace("\f", "\\f")}
+                                />
+                              )}{" "}
                             </Typography>
                           </Box>
                         </Box>

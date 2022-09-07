@@ -1,7 +1,9 @@
-import React from "react";
-import { Grid, makeStyles, Container } from "@material-ui/core";
-import MessageFeedContent from "../MessageFeedContent/MessageFeedContent";
+import { Container, Grid, makeStyles } from "@material-ui/core";
+
+import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
 import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
+import MessageFeedContent from "../MessageFeedContent/MessageFeedContent";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -27,7 +29,7 @@ const MessageMain = () => {
         boxSizing: "border-box",
       }}
     >
-      <Grid container wrap="nowrap">
+      <Grid container wrap="nowrap" sx={{ minHeight: "100vh" }}>
         <Grid
           item
           className={classes.leftBarHide}
@@ -44,6 +46,7 @@ const MessageMain = () => {
           <MessageFeedContent />
         </Grid>
       </Grid>
+      <BottomNavBar currentPage="feedback" />
     </Container>
   );
 };

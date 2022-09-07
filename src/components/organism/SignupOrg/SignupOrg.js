@@ -38,17 +38,26 @@ const useStyles = makeStyles((theme) => ({
       width: "100% !important",
     },
   },
+  placeholder: {
+    "&::placeholder": {
+      color: "#E1E1E1",
+    },
+  },
 }));
 
 const SignupOrg = () => {
   const classes = useStyles();
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
     password: "",
   });
+
   const [showPassword, setShowPassword] = useState(true);
+
+  let isValidPassword =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -62,23 +71,47 @@ const SignupOrg = () => {
       email: register.email,
       password: register.password,
     };
-
-    const URL = EndPoints.SignUp;
-    instance
-      .post(URL, data)
-      .then((response) => {
-        if (!response.data.message) {
-          localStorage.setItem("userId", response.data.user._id);
-          localStorage.setItem("token", response.data.user.token);
-          swal("Success!", "user registered successfully", "success");
-          navegate("/login");
-        } else {
-          swal("Warning!", response.data.message, "warning");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+    if (
+      register.fullName == "" ||
+      register.email == "" ||
+      register.password == ""
+    ) {
+      swal({
+        icon: "warning",
+        title: "Alert!",
+        text: "Please Fill the Required Fields",
       });
+    } else if (!isValidPassword.test(register.password)) {
+      swal({
+        icon: "warning",
+        title: "Alert!",
+        text: "6+ bokstäver, 1 stor bokstav, 1 siffra",
+      });
+    } else {
+      const URL = EndPoints.SignUp;
+      instance
+        .post(URL, data)
+        .then((response) => {
+          console.log(response);
+          if (response?.data?.token) {
+            localStorage.setItem("role", response?.data?.user?.role);
+            localStorage.setItem("fullName", response?.data?.user?.fullName);
+            localStorage.setItem("email", response?.data?.user?.email);
+            localStorage.setItem("userId", response?.data?.user?._id);
+            localStorage.setItem("token", response?.data?.token);
+            window.location.href = "/home";
+          } else if (response?.data?.result == "fail") {
+            swal({
+              icon: "warning",
+              title: "Warning",
+              text: response?.data?.message,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -167,6 +200,7 @@ const SignupOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
+              outline: "none",
             }}
           />
           <LabelField
@@ -184,6 +218,7 @@ const SignupOrg = () => {
               marginTop: ".5rem",
               borderRadius: "5px",
               marginBottom: "1rem",
+              outline: "none",
             }}
           />
           <Label for="password">Lösenord</Label>
@@ -201,15 +236,19 @@ const SignupOrg = () => {
             }}
           >
             <InputField
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
               type={showPassword ? "password" : "text"}
-              title="Password"
-              placeholder="Password"
+              title="6+ bokstäver, 1 stor bokstav, 1 siffra"
+              placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
               onChange={changeHandler}
               value={register.password}
+              // placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
+              className={classes.placeholder}
               name="password"
               id="password"
               style={{
-                width: "100%",
+                width: "20vw",
+                backgroundColor: "coral",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -217,6 +256,7 @@ const SignupOrg = () => {
                 border: "none",
                 padding: "1rem",
                 backgroundColor: "transparent",
+                outline: "none",
               }}
             />
             <Label
@@ -234,22 +274,28 @@ const SignupOrg = () => {
               )}
             </Label>
           </Box>
+          {/* <Box>Enter valid password</Box> */}
           <Typography variant="body1">Glömt lösenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <FilledBtn onClick={clickHandler} title="Skapa konto" />
             </Link>
           </Box>
-          <Typography variant="body1">eller</Typography>
-          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <OutlineBtn title="Konto med Google" />
+          <Box style={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant="body1">eller</Typography>
           </Box>
-          <Typography
-            variant="body1"
-            // sx={{ textAlign: "center", width: "100%" }}
-          >
-            Har du redan ett konto?<Link to="/login">Logga in</Link>
-          </Typography>
+          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+            {/* <OutlineBtn title="Konto med Google" /> */}
+          </Box>
+          <Box style={{ display: "flex", justifyContent: "center" }}>
+            <Typography
+              variant="body1"
+              style={{ textTransform: "uppercase  " }}
+              // sx={{ textAlign: "center", width: "100%" }}
+            >
+              Har du redan ett konto?<Link to="/login"> Logga in</Link>
+            </Typography>
+          </Box>
           <Box
             sx={{
               display: "flex",

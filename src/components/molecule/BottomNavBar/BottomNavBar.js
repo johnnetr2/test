@@ -1,66 +1,78 @@
-import React, { useState, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import Logo from "../../../../assets/Icons/Logo.svg";
-import Home from "../../../../assets/Icons/Home.svg";
-import HomeC from "../../../../assets/Icons/HomeC.svg";
-import Course from "../../../../assets/Icons/Courses.svg";
-import CoursesGrey from "../../../../assets/Icons/CoursesGrey.svg";
-import MsgGrey from "../../../../assets/Icons/MsgGrey.svg";
-import ProfileGrey from "../../../../assets/Icons/ProfileGrey.svg";
-import CourseC from "../../../../assets/Icons/CoursesC.svg";
-import Feedback from "../../../../assets/Icons/Msg.svg";
-import FeedbackC from "../../../../assets/Icons/FeedbackC.svg";
-import Profile from "../../../../assets/Icons/Profile.svg";
-import ProfileC from "../../../../assets/Icons/ProfileC.svg";
-import {
-  Container,
-  makeStyles,
-  Typography,
-  Box,
-  TableContainer,
-} from "@material-ui/core";
+import { Box, Container, Typography, makeStyles } from "@material-ui/core";
+import { NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+
+import Course from "../../../assets/Icons/Courses.svg";
+import CourseC from "../../../assets/Icons/CoursesC.svg";
+import CoursesGrey from "../../../assets/Icons/CoursesGrey.svg";
+import Feedback from "../../../assets/Icons/Msg.svg";
+import FeedbackC from "../../../assets/Icons/FeedbackC.svg";
+import Home from "../../../assets/Icons/Home.svg";
+import HomeC from "../../../assets/Icons/HomeC.svg";
+import MsgGrey from "../../../assets/Icons/MsgGrey.svg";
+import Profile from "../../../assets/Icons/Profile.svg";
+import ProfileC from "../../../assets/Icons/ProfileC.svg";
+import ProfileGrey from "../../../assets/Icons/ProfileGrey.svg";
+
+function useScroll() {
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [bodyOffset, setBodyOffset] = useState(
+    document.body.getBoundingClientRect()
+  );
+  const [scrollDirection, setScrollDirection] = useState();
+
+  const listener = (e) => {
+    setBodyOffset(document.body.getBoundingClientRect());
+    setScrollDirection(lastScrollTop > -bodyOffset.top ? "up" : "down");
+    setLastScrollTop(-bodyOffset.top);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", listener);
+    return () => {
+      window.removeEventListener("scroll", listener);
+    };
+  });
+
+  return {
+    scrollDirection,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    borderRight: "1px solid #e1e1e1",
-    height: "100vh",
     backgroundColor: "#f9f9f9",
     color: "white",
     paddingRight: theme.spacing(0),
     paddingLeft: theme.spacing(0),
     position: "sticky",
-    top: 0,
-    [theme.breakpoints.down("sm")]: {
-      padding: 0,
-      backgroundColor: "#FAFAFA",
+    bottom: 0,
+    [theme.breakpoints.down("600")]: {
+      display: "flex",
+      justifyContent: "space-evenly",
     },
-    [theme.breakpoints.up("sm")]: {
-      backgroundColor: "#FAFAFA",
-      color: "#555",
+    [theme.breakpoints.up("600")]: {
+      display: "none",
     },
   },
   item: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "5rem",
-    marginBottom: theme.spacing(1),
+    padding: theme.spacing(1, 2),
+    borderRadius: "4px",
+
     "&:hover": {
       backgroundColor: "#0A1596",
       color: "#fff",
     },
-    [theme.breakpoints.up("sm")]: {
-      marginBottom: theme.spacing(0),
-      cursor: "pointer",
-    },
   },
-  Disableitem: {
+  DisableItem: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "5rem",
+    padding: theme.spacing(1, 2),
   },
   icon: {
-    height: "2rem",
-    marginBottom: theme.spacing(1),
+    height: "1.5rem",
   },
   navStyle: {
     display: "flex",
@@ -68,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     color: "#b4b4b4",
     textDecoration: "none",
+    borderRadius: "4px",
   },
   disabledNavStyle: {
     display: "flex",
@@ -87,33 +100,32 @@ const useStyles = makeStyles((theme) => ({
     // "&:active": {
     //   color: "#fff",
     // },
-    textTransform: "uppercase",
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
+  },
+  active: {
+    visibility: "visible",
+    transition: "all 0.5s",
+  },
+  hidden: {
+    visibility: "hidden",
+    transition: "all 0.5s",
+    transform: "translateY(100%)",
   },
 }));
 
-const HomeLeftBar = (props) => {
+const BottomNavBar = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { scrollDirection } = useScroll();
 
   return (
     <Container
       maxWidth="false"
-      style={{ width: "6rem" }}
-      className={classes.container}
+      style={{ width: "auto", height: "56px" }}
+      className={[
+        classes.container,
+        scrollDirection === "down" ? classes.hidden : classes.active,
+      ]}
     >
-      <TableContainer
-        style={{
-          padding: "1rem",
-          borderBottom: "1px solid #e1e1e1",
-        }}
-      >
-        <Link to="/home">
-          <img src={Logo} />
-        </Link>
-      </TableContainer>
       <NavLink
         to="/home"
         onClick={() => {
@@ -161,7 +173,7 @@ const HomeLeftBar = (props) => {
           </Typography>
         </Box>
       </NavLink>
-      <Box
+      <NavLink
         // to="/courses"
         to="#"
         className={classes.disabledNavStyle}
@@ -173,7 +185,7 @@ const HomeLeftBar = (props) => {
         // }}
       >
         <Box
-          className={classes.Disableitem}
+          className={classes.DisableItem}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -194,8 +206,8 @@ const HomeLeftBar = (props) => {
             prov
           </Typography>
         </Box>
-      </Box>
-      <Box
+      </NavLink>
+      <NavLink
         // to="/message"
         to="#"
         className={classes.disabledNavStyle}
@@ -207,7 +219,7 @@ const HomeLeftBar = (props) => {
         // }}
       >
         <Box
-          className={classes.Disableitem}
+          className={classes.DisableItem}
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -225,8 +237,8 @@ const HomeLeftBar = (props) => {
             Feedback
           </Typography>
         </Box>
-      </Box>
-      <Box
+      </NavLink>
+      <NavLink
         to="#"
         className={classes.disabledNavStyle}
         // style={({ isActive }) => {
@@ -237,7 +249,7 @@ const HomeLeftBar = (props) => {
         // }}
       >
         <Box
-          className={classes.Disableitem}
+          className={classes.DisableItem}
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -255,9 +267,9 @@ const HomeLeftBar = (props) => {
             Profile
           </Typography>
         </Box>
-      </Box>
+      </NavLink>
     </Container>
   );
 };
 
-export default HomeLeftBar;
+export default BottomNavBar;

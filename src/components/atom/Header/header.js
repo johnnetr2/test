@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#6FCF97",
     },
     "& .MuiLinearProgress-bar": {
-      // apply a new animation-duration to the `.bar` class
       animationDuration: "8s",
     },
   },
@@ -25,20 +24,21 @@ function Header(props) {
   const classes = useStyles();
 
   const [quiz, setQuiz] = useState();
-  const [barPerccentage, setBarPercentage] = useState();
-  const [progress, setProgress] = useState(10);
+  const [barPerccentage, setBarPercentage] = useState(0);
+  let totalPAragraphQuestions = 0;
 
   useEffect(() => {
     let correctAnswers = 0;
     let totalQuestions = 0;
     setQuiz(props?.quiz);
+    totalPAragraphQuestions = totalPAragraphQuestions + 1;
 
     props.quiz &&
-      props?.quiz.map((item, index) => {
-        if (item.type === "multiple") {
+      props?.quiz?.map((item) => {
+        if (item.type == "multiple") {
           totalQuestions = totalQuestions + item.question.length;
           item.question.map((question) => {
-            if (question.answer) {
+            if (question.optionId) {
               correctAnswers = correctAnswers + 1;
             }
           });
@@ -50,8 +50,6 @@ function Header(props) {
         }
       });
     setBarPercentage((correctAnswers / totalQuestions) * 100);
-    console.log((correctAnswers / totalQuestions) * 100, "correct qnaswerer");
-    console.log(totalQuestions, "totalQuestions");
   }, [props?.quiz]);
 
   return (
@@ -62,6 +60,7 @@ function Header(props) {
           flexDirection: "row",
           justifyContent: "space-between",
         }}
+        mb={1}
       >
         <Box
           mt={2}
@@ -75,7 +74,7 @@ function Header(props) {
         >
           <img src={BarChart} alt="" />
           <Typography variant="body1" style={{ marginLeft: "0.4rem" }}>
-            {props.selectedIndex + 1} av {props.totalQuestions}
+            {props.selectedIndex} av {props.totalQuestions}
           </Typography>
         </Box>
         {props.params && props.params.value == true && (

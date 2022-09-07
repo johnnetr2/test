@@ -6,6 +6,8 @@ const InputField = (props) => {
   return (
     <div className="input-style">
       <input
+        title={props.title}
+        pattern={props.pattern}
         type={props.type}
         placeholder={props.placeholder}
         name={props.name}

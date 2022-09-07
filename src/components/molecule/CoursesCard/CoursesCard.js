@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core";
-import {
-  Container,
-  Box,
-  Typography,
-  Stack,
-  Chip,
-  Button,
-  Menu,
-  MenuItem,
-  IconButton,
-} from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Chip, Container, IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { EndPoints, instance2 } from "../../service/Route";
-import Image70 from '../../../assets/Imgs/image70.png'
+import React, { useEffect, useState } from "react";
+
+import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import informationIcon from "../../../assets/Imgs/informationIcon.png";
+import { makeStyles } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../WindowDimensions/dimension";
 
 const useStyles = makeStyles((theme) => ({
@@ -88,8 +80,7 @@ const useStyles = makeStyles((theme) => ({
 const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [showPopup, setShowPopup] = useState(false)
-
+  const [showPopup, setShowPopup] = useState(false);
 
   const percentage = () => {
     switch (props?.quizzes?.length) {
@@ -117,9 +108,9 @@ const CoursesCard = (props) => {
         state: {
           id: props.id,
           session: props.item,
-          provpass: props?.quizzes
+          provpass: props?.quizzes,
         },
-      })
+      });
     });
   };
 
@@ -127,13 +118,11 @@ const CoursesCard = (props) => {
     const { height, width } = useWindowDimensions();
 
     return (
-      <div className='result_popup'
-        onClick={() => props.onClick()}
-        style={{ marginTop: '70px'}}
-      >STARTA OM
-        <div className='popup' ></div>
+      <div className="result_popup" onClick={() => props.onClick()} style={{ marginTop: "70px" }}>
+        STARTA OM
+        <div className="popup"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -149,37 +138,41 @@ const CoursesCard = (props) => {
           maxWidth: "48rem",
         }}
       >
-        <Box
-          sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
-        >
+        <Box sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'flex-end',
-                width: '1.1rem',
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "flex-end",
+                width: "1.1rem",
               }}
             >
               <MoreVertIcon
                 style={{
-                  color: 'grey',
-                  marginRight: '0.5px'
-                }} onClick={() => setShowPopup(!showPopup)}
+                  color: "grey",
+                  marginRight: "0.5px",
+                }}
+                onClick={() => setShowPopup(!showPopup)}
               />
 
-              {showPopup && <Dropdown style={{
-                backgroundColor: 'blue'
-              }} onClick={() => restartQuiz()} />}
+              {showPopup && (
+                <Dropdown
+                  style={{
+                    backgroundColor: "blue",
+                  }}
+                  onClick={() => restartQuiz()}
+                />
+              )}
             </Box>
-
           </Box>
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              flexWrap: "wrap",
             }}
           >
             <Box
@@ -188,7 +181,7 @@ const CoursesCard = (props) => {
                   state: {
                     id: props.id,
                     session: props.item,
-                    provpass: props?.quizzes
+                    provpass: props?.quizzes,
                   },
                 })
               }
@@ -209,20 +202,13 @@ const CoursesCard = (props) => {
                   {" "}
                   {props?.item?.month}{" "}
                 </Typography>
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}
-                >
+                <Stack direction="row" spacing={1} style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}>
                   {[1, 2, 3, 4].map((item) => {
                     return (
                       <Chip
                         label={"Provpass " + item}
                         style={{
-                          backgroundColor: props.quizzes &&
-                            item <= props?.quizzes.simuleraQuizResult?.length
-                            ? "#6FCF97"
-                            : "#E1E1E1",
+                          backgroundColor: props.quizzes && item <= props?.quizzes.simuleraQuizResult?.length ? "#6FCF97" : "#E1E1E1",
                           color: "#505050",
                         }}
                         size="small"
@@ -235,79 +221,79 @@ const CoursesCard = (props) => {
                 </Stack>
               </Box>
             </Box>
-            {
-              props.quizzes === undefined && props?.quizzes?.simuleraQuizResult.length > 3 ? (
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    marginRight: "1.5rem",
-                    // backgroundColor: 'blue'
-                  }}
-                >
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Typography variant="h4" component="h4">
-                      {" "}
-                      {props.progress}{" "}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      component="body2"
-                      style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
-                    >
-                      {" "}
-                      {"Poäng"}{" "}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Button
-                      variant="outlined"
-                      style={{
-                        width: "10rem",
-                        textTransform: "capitalize",
-                        border: "2px solid #0A1596",
-                        color: "#0A1596",
-                      }}
-                      onClick={() => restartQuiz()}
-                    >
-                      Gör om prov
-                    </Button>
-                  </Box>
+            {props.quizzes === undefined && props?.quizzes?.simuleraQuizResult.length > 3 ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  marginRight: "1.5rem",
+                  // backgroundColor: 'blue'
+                }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Typography variant="h4" component="h4">
+                    {" "}
+                    {props.progress}{" "}
+                  </Typography>
+                  <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem" }}>
+                    {" "}
+                    {"Poäng"}{" "}
+                  </Typography>
                 </Box>
-
-              ) :
-                (
+                <Box>
+                  <Button
+                    variant="outlined"
+                    style={{
+                      width: "10rem",
+                      textTransform: "capitalize",
+                      border: "2px solid #0A1596",
+                      color: "#0A1596",
+                    }}
+                    onClick={() => restartQuiz()}
+                  >
+                    Gör om prov
+                  </Button>
+                </Box>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  // alignItems: "center",
+                  flexDirection: "column",
+                  marginRight: "6rem",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Typography
+                    style={{
+                      display: "flex",
+                      fontSize: "3rem",
+                      color: "#505050",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    -
+                  </Typography>
                   <Box
                     sx={{
                       display: "flex",
-                      // alignItems: "center",
                       flexDirection: "column",
-                      marginRight: '6rem',
-                      marginBottom: '1.5rem'
+                      width: "3.5rem",
                     }}
                   >
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Typography
-                        style={{
-                          display: 'flex', fontSize: '3rem', color: '#505050',
-                          marginBottom: '1rem',
-                        }} >
-                        -
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="body2"
-                        style={{ marginLeft: ".5rem", marginTop: ".5rem", color: '#505050', }}
-                      >
-                        {" "}
-                        {'Poäng'}{" "}
-                      </Typography>
-                      <img src={Image70} style={{ marginLeft: '1.5rem', marginBottom: '1rem' }} />
-                    </Box>
+                    <CustomizedTooltip title="Du behöver göra klart hela provet för att få poängprognos" placement="top">
+                      <img src={informationIcon} style={{ display: "flex", height: "0.625em", width: "0.625rem", alignSelf: "flex-end" }} />
+                    </CustomizedTooltip>
+                    <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem", color: "#505050" }}>
+                      {"Poäng"}
+                    </Typography>
                   </Box>
-                )
-            }
+                </Box>
+              </Box>
+            )}
           </Box>
         </Box>
       </Box>
