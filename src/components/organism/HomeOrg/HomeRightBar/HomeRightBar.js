@@ -20,45 +20,67 @@ const useStyles = makeStyles((theme) => ({
     backgrounColor: "#fff",
   },
 }));
-
 const HomeRightBar = (props) => {
   const classes = useStyles();
   // const [studentPreference, setStudentPreference] = useState();
   let [showPrognos, seTShowPrognos] = useState();
-  let obj = {};
   const [weeklyProgress, setWeeklyProgress] = useState(0);
   const [weeks, setWeeks] = useState();
   let weeklyProgressArr = [];
   let weeksArr = [];
+  let newArray = [];
 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
         const data = datesGroupByComponent(response.data.lastWeek, "W");
-        data &&
-          Object.values(data).map((key, index) => {
-            const week = (Object.keys(data)[index] =
-              "V." + Object.keys(data)[index]);
-            weeksArr.push(week);
-            let obj = {};
-            key.map((item) => {
-              // console.log(item, "request key");
-              obj.correctAnswers = obj?.correctAnswers
-                ? obj?.correctAnswers + item.correctAnswer
-                : item.correctAnswer;
-              obj.attemptedQuestion = obj?.attemptedQuestion
-                ? obj?.attemptedQuestion + item.attemptedQuestion
-                : item.attemptedQuestion;
-            });
-            var overAllprognos = obj?.correctAnswers / obj?.attemptedQuestion;
-            var a = overAllprognos * 2;
-            obj.overAllprognos = a.toFixed(1);
+        let previousweeks = [];
+        let a;
+        if (Object.keys(data).length < 7) {
+          let keys = Object.keys(data); //35,36
+          let first = keys[0]; //35
+          a = 7 - Object.keys(data).length; //5
+          let b = first - a; //30
+          console.log(b, "last index");
+          console.log(a, "left");
+          for (let index = b; index < first; index++) {
+            previousweeks.push("V." + index);
+          }
+          let obj = {};
+          // console.log(previousweeks, "previousweeks");
+          for (let index = 0; index < a; index++) {
+            obj.correctAnswers = 0;
+            obj.attemptedQuestion = 0;
+            obj.overAllprognos = 0;
             weeklyProgressArr.push(obj);
+          }
+        }
+        Object.values(data).map((key, index) => {
+          const week = (Object.keys(data)[index] =
+            "V." + Object.keys(data)[index]);
+          // console.log(Object.keys(data)[index], "daaaaaaaaaaaa");
+          weeksArr.push(week);
+          newArray = previousweeks.concat(weeksArr);
+          let obj = {};
+          key.map((item) => {
+            // console.log(item, "request key");
+            obj.correctAnswers = obj?.correctAnswers
+              ? obj?.correctAnswers + item.correctAnswer
+              : item.correctAnswer;
+            obj.attemptedQuestion = obj?.attemptedQuestion
+              ? obj?.attemptedQuestion + item.attemptedQuestion
+              : item.attemptedQuestion;
           });
+          var overAllprognos = obj?.correctAnswers / obj?.attemptedQuestion;
+          var a = overAllprognos * 2;
+          obj.overAllprognos = a.toFixed(1);
+          weeklyProgressArr.push(obj);
+        });
 
         setWeeklyProgress(weeklyProgressArr);
-        setWeeks(weeksArr);
+        console.log(weeklyProgressArr, "weeklyProgressArr");
+        setWeeks(newArray);
       });
 
       const getPreviosRecord =
