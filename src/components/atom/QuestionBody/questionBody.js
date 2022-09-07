@@ -66,7 +66,7 @@ const QuestionBody = (props) => {
         onLeftClick={() => props.onLeftClick()}
         onResultHandler={() => props.onResultHandler()}
         onCloseTimer={() => props.CloseTimerFunc()}
-        // callBackForTimer={(value) => props.setTimeLeft(value)}
+        callBackForTimer={(value) => props.setTimeLeft(value)}
         paragraphIndex={props.paragraphIndex}
         questionIndex={props.questionIndex}
         timeLeft={props.timeLeft}

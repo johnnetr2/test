@@ -134,7 +134,6 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-  // const spendTimeCalculator = () => {};
 
   var tymer;
   useEffect(() => {
@@ -168,8 +167,8 @@ const QuestionViewDTKOrg = (props) => {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
-      // timeleft: props?.timeLeft ? props?.timeLeft : 0,
-      timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - dataSubmit[index]?.spendtime : props.totalTime - seconds,
+      timeleft: props?.timeLeft ? props?.timeLeft : 0,
+      // timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - dataSubmit[index]?.spendtime : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[index]?.spendtime
         ? dataSubmit[index]?.spendtime + seconds
@@ -202,7 +201,8 @@ const QuestionViewDTKOrg = (props) => {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
-      timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - (dataSubmit[index]?.spendtime + seconds) : props.totalTime - seconds,
+      timeleft: props?.timeLeft ? props?.timeLeft : 0,
+      // timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - (dataSubmit[index]?.spendtime + seconds) : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[index]?.spendtime
         ? dataSubmit[index]?.spendtime + seconds

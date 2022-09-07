@@ -600,7 +600,7 @@ const QuestionViewXyzOrg = () => {
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
-          // callBackForTimer={(value) => setTimeLeft(value)}
+          callBackForTimer={(value) => setTimeLeft(value)}
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
@@ -666,51 +666,7 @@ const QuestionViewXyzOrg = () => {
               localStorage.removeItem("quiz");
             }}
           />
-        ) : // <UnAttemptedTimer
-          //   popUpstatus={timeEnd}
-          //   redirect={() => {
-          //     navigate("/category", {
-          //       state: {
-          //         item: params?.state?.sectionCategory,
-          //       },
-          //     })
-          //     localStorage.removeItem('quiz')
-          //   }
-          //   }
-          // />
-
-          //   <UnAttemptedTimer
-          //   title={"Tiden är över."}
-          //   description={"Bra kämpat! Gå vidare och checka ditt resultat."}
-          //   btnName={"Se resultat"}
-          //   popUpstatus={timeEnd}
-          //   redirect={() => {
-          //     navigate("/resultsummary", {
-          //       state: {
-          //         sectionCategory: params?.state?.sectionCategory,
-          //         quizId: params?.state?.quizId,
-          //         time: timeLeft,
-          //       },
-          //     });
-          //     localStorage.removeItem("quiz");
-          //   }}
-          // />
-          null}
-
-        {/* <UnAttemptedPopup
-          title={"Tiden är över."}
-          description={"Inget resultat sparas eftersom ingen fråga är besvarad."}
-          btnName={"Avsluta"}
-           currentStatus={isOpen}
-            handleOptionClose={() => setIsOpen(false)}
-          redirect={() =>
-            navigate("/category", {
-              state: {
-                item: params?.state?.sectionCategory,
-              },
-            })
-          }
-        /> */}
+        ) : null}
 
         {quiz &&
           quiz?.map((item, index) => {
@@ -735,7 +691,7 @@ const QuestionViewXyzOrg = () => {
                   stopTime={() => setStatus(false)}
                   SelectOption={(e, index) => SelectFunc(e, index)}
                   onCloseTimer={() => CloseTimerFunc()}
-                  // callBackForTimer={(value) => setTimeLeft(value)}
+                  callBackForTimer={(value) => setTimeLeft(value)}
                   totalTime={time}
                   quiz={quiz}
                   onhover={(optionId) => setOnhover(optionId)}

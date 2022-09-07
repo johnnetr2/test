@@ -99,7 +99,7 @@ function Header(props) {
                   props.nextPress();
                 }
               }}
-              // callBackForTimer={(value) => props.callBackForTimer(value)}
+              callBackForTimer={(value) => props.callBackForTimer(value)}
               onCloseTimer={() => props.onCloseTimer()}
             />
           </Box>
