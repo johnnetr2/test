@@ -66,7 +66,7 @@ const QuestionBody = (props) => {
         onLeftClick={() => props.onLeftClick()}
         onResultHandler={() => props.onResultHandler()}
         onCloseTimer={() => props.CloseTimerFunc()}
-        callBackForTimer={(value) => props.setTimeLeft(value)}
+        // callBackForTimer={(value) => props.setTimeLeft(value)}
         paragraphIndex={props.paragraphIndex}
         questionIndex={props.questionIndex}
         timeLeft={props.timeLeft}
@@ -81,7 +81,8 @@ const QuestionBody = (props) => {
         startTimer={() => props.startTime()}
         previosQuestion={() => props.previosQuestion()}
         PopupTimeEnd={props.PopupTimeEnd}
-        updateCompleteQuiz ={(quiz) => props.updateCompleteQuiz(quiz) }
+        updateCompleteQuiz={(quiz) => props.updateCompleteQuiz(quiz)}
+        changeTime={(time) => props.changeTime(time)}
       />
     );
   } else if (props.question.multipartQuestion) {
@@ -254,30 +255,30 @@ const QuestionBody = (props) => {
                     sx={{
                       height:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 60
                           : 150,
                       padding:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 0
                           : 10,
                       border: "1px solid #e1e1e1",
                       width:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 600
                           : 300,
                       display: "flex",
                       color:
                         !question.answer &&
-                        optionIndex == question.selectedIndex
+                          optionIndex == question.selectedIndex
                           ? "#0A1596"
                           : "",
                       "&:hover": {
@@ -341,14 +342,14 @@ const QuestionBody = (props) => {
                         display: "flex",
                         marginLeft:
                           question?.options[0].options.length > 4 ||
-                          item.image === ""
+                            item.image === ""
                             ? "1rem"
                             : "0",
                         justifyContent:
                           question?.options[0].options.length > 4 ||
-                          !item.value.includes(
-                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                          )
+                            !item.value.includes(
+                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                            )
                             ? "flex-start"
                             : "center",
                         alignItems: "center",

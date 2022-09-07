@@ -134,7 +134,7 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-  const spendTimeCalculator = () => {};
+  // const spendTimeCalculator = () => {};
 
   var tymer;
   useEffect(() => {
@@ -168,15 +168,16 @@ const QuestionViewDTKOrg = (props) => {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
-      timeleft: props?.timeLeft ? props?.timeLeft : null,
+      // timeleft: props?.timeLeft ? props?.timeLeft : 0,
+      timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - dataSubmit[index]?.spendtime : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[index]?.spendtime
         ? dataSubmit[index]?.spendtime + seconds
         : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
+          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+        )
+          ? seconds
+          : 0,
     };
     dataSubmit.splice(index, 1, data);
     // }
@@ -185,6 +186,7 @@ const QuestionViewDTKOrg = (props) => {
       setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
     selectedIndex + 1 < quiz?.question.length && props.changeIndex();
+    props.changeTime(props.totalTime - seconds)
     setSeconds(0);
     setMinutes(0);
   };
@@ -200,40 +202,40 @@ const QuestionViewDTKOrg = (props) => {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
-      timeleft: props?.timeLeft ? props?.timeLeft : null,
+      timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - (dataSubmit[index]?.spendtime + seconds) : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[index]?.spendtime
         ? dataSubmit[index]?.spendtime + seconds
         : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
+          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+        )
+          ? seconds
+          : 0,
     };
 
     dataSubmit.splice(index, 1, data);
 
     setSelectedIndex(selectedIndex - 1);
     props.previosQuestion();
+    props.changeTime(props.totalTime - seconds)
     setSeconds(0);
     setMinutes(0);
   };
 
-  const getSpendTime = (timeLeft, totalTime, index) => {
-    if (index) {
-      return totalTime - (timeLeft + dataSubmit[index - 1].spendtime);
-    } else if (index == 0) {
-      return totalTime - timeLeft;
-    } else {
-      return null;
-    }
-  };
+  // const getSpendTime = (timeLeft, totalTime, index) => {
+  //   if (index) {
+  //     return totalTime - (timeLeft + dataSubmit[index - 1].spendtime);
+  //   } else if (index == 0) {
+  //     return totalTime - timeLeft;
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
   const SelectFunc = (item, optionIndex) => {
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
     let question = qz[selectedIndex];
-    // console.log(question, 'this is the console of questions')
     question.selectedOptionIndex = optionIndex;
     question.optionId = item._id;
     allQuiz.question = qz;
@@ -291,7 +293,7 @@ const QuestionViewDTKOrg = (props) => {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
-      timeleft: props?.timeLeft ? props?.timeLeft : null,
+      timeleft: props?.totalTime ? props?.totalTime - seconds : null,
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: seconds,
     };
@@ -313,7 +315,8 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
-        // console.log(response, 'this is the console of response of multi part question')
+        props.changeTime(props.totalTime - seconds)
+        console.log(response.data, 'this is the console of response of multi part question')
         dataSubmit = [];
         setShowResult(true);
       });
@@ -474,18 +477,18 @@ const QuestionViewDTKOrg = (props) => {
                           </Typography>
                           {
                             quiz &&
-                              selectedIndex < quiz?.question?.length - 1 &&
-                              quiz?.question.length > 1 &&
-                              quiz?.question[0].selectedOptionIndex !=
-                                undefined && (
-                                <img
-                                  onClick={handleRightArrowFunction}
-                                  src={BlueRightIcon}
-                                  style={{ cursor: "pointer" }}
-                                  className={classes.size}
-                                  alt=""
-                                />
-                              )
+                            selectedIndex < quiz?.question?.length - 1 &&
+                            quiz?.question.length > 1 &&
+                            quiz?.question[0].selectedOptionIndex !=
+                            undefined && (
+                              <img
+                                onClick={handleRightArrowFunction}
+                                src={BlueRightIcon}
+                                style={{ cursor: "pointer" }}
+                                className={classes.size}
+                                alt=""
+                              />
+                            )
                             // : (
                             //   <img
                             //     src={Righticon}

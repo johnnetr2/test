@@ -41,10 +41,10 @@ const Timer = (props) => {
   
   }, [start]);
 
-  useEffect(() => {
-    props.callBackForTimer(timer)
+  // useEffect(() => {
+  //   props.callBackForTimer(timer)
 
-  }, [timer])
+  // }, [timer])
 
   useEffect(() => {
     setTimeout(() => {
