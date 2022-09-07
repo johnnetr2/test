@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
       color: "#E1E1E1",
     },
   },
+  // InputFieldPlaceholder: {
+  //   "&::placeholder": {
+  //     color: "#E1E1E1"
+  //   }
+  // }
 }));
 
 const SignupOrg = () => {
@@ -161,17 +166,19 @@ const SignupOrg = () => {
         disableGutters
         sx={{
           width: "60%",
-          paddingTop: "6rem",
+          // paddingTop: "6rem",
           display: "flex",
           justifyContent: "center",
           alignItem: "center",
+          alignSelf: "center"
+
         }}
         className={classes.mobileView}
       >
         <Box sx={{ padding: "1rem 0" }}>
           <Box
             sx={{
-              marginBottom: "1rem",
+              marginBottom: "2rem",
             }}
           >
             <Typography
@@ -192,13 +199,14 @@ const SignupOrg = () => {
             onChange={changeHandler}
             value={register.fullName}
             name="fullName"
+            className={classes.placeholder}
             style={{
               width: "100%",
               height: "3rem",
               padding: "1rem",
               border: "1px solid #e1e1e1",
               marginTop: ".5rem",
-              borderRadius: "5px",
+              borderRadius: "8px",
               marginBottom: "1rem",
               outline: "none",
             }}
@@ -209,6 +217,7 @@ const SignupOrg = () => {
             placeholder="Email"
             onChange={changeHandler}
             value={register.email}
+            className={classes.placeholder}
             name="email"
             style={{
               width: "100%",
@@ -216,12 +225,12 @@ const SignupOrg = () => {
               padding: "1rem",
               border: "1px solid #e1e1e1",
               marginTop: ".5rem",
-              borderRadius: "5px",
+              borderRadius: "8px",
               marginBottom: "1rem",
               outline: "none",
             }}
           />
-          <Label for="password">Lösenord</Label>
+          <Label for="password" style={{ color: "#B5B5B5" }}>Lösenord</Label>
           <Box
             sx={{
               display: "flex",
@@ -268,14 +277,14 @@ const SignupOrg = () => {
               onClick={() => setShowPassword(!showPassword)}
             >
               {!showPassword ? (
-                <VisibilityOutlinedIcon />
+                <VisibilityOutlinedIcon style={{ color: "#B5B5B5" }} />
               ) : (
-                <VisibilityOffOutlinedIcon />
+                <VisibilityOffOutlinedIcon style={{ color: "#B5B5B5" }} />
               )}
             </Label>
           </Box>
           {/* <Box>Enter valid password</Box> */}
-          <Typography variant="body1">Glömt lösenord?</Typography>
+          <Typography style={{ textDecorationLine: "underline", color: "#505050" }} variant="body1">Glömt lösenord?</Typography>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             <Link to="/login" style={{ textDecoration: "none" }}>
               <FilledBtn onClick={clickHandler} title="Skapa konto" />
@@ -290,16 +299,16 @@ const SignupOrg = () => {
           <Box style={{ display: "flex", justifyContent: "center" }}>
             <Typography
               variant="body1"
-              style={{ textTransform: "uppercase  " }}
-              // sx={{ textAlign: "center", width: "100%" }}
+              style={{ textTransform: "uppercase" }}
             >
-              Har du redan ett konto?<Link to="/login"> Logga in</Link>
+              Har du redan ett konto?<Link style={{ textDecoration: "none" }} to="/login"> Logga in</Link>
             </Typography>
           </Box>
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
+              paddingTop: '2.5rem'
             }}
           >
             <Typography
