@@ -33,7 +33,7 @@ function Header(props) {
     setQuiz(props?.quiz);
     totalPAragraphQuestions = totalPAragraphQuestions + 1;
 
-    console.log(props.quiz, 'this is the console inside the header')
+    // console.log(props.quiz, 'this is the console inside the header')
     props.quiz &&
       props?.quiz?.map((item) => {
         if (item.type == "multiple") {

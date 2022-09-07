@@ -264,22 +264,9 @@ const QuestionViewDTKOrg = (props) => {
     if (answerLenght == quiz.question.length) {
       setAnswerExistance(true);
     }
-
-    // quiz &&
-    //   quiz?.question.map((item) => {
-    //     if (item.optionId) {
-    //       setAnswerExistance(true);
-    //     } else {
-    //       setAnswerExistance(false);
-    //     }
-    //   });
   };
 
-  // const tempQuestions = [...dataSubmit]
-  // tempQuestions[selectedIndex].totaltime = props.totalTime ? props.totalTime : null
-  // tempQuestions[selectedIndex].timeleft = props.timeLeft ? props.timeLeft : null
-  // tempQuestions[selectedIndex].spendtime = getSpendTime(props.timeLeft, props.totalTime, selectedIndex)
-  // dataSubmit = tempQuestions
+ 
 
   const Options = (question, option, optionIndex) => {
     if (optionIndex == question.selectedOptionIndex) {
@@ -345,7 +332,7 @@ const QuestionViewDTKOrg = (props) => {
         props.updateCompleteQuiz(Quiz);
       });
     } catch (error) {
-      console.log("in catch block: ", error);
+      // console.log("in catch block: ", error);
     }
   };
 

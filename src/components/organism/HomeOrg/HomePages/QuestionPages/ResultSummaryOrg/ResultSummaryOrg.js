@@ -87,7 +87,7 @@ const ResultSummaryOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    console.log(params?.state, 'this is the console of time in result summary')
+    // console.log(params?.state, 'this is the console of time in result summary')
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
 
@@ -105,7 +105,7 @@ const ResultSummaryOrg = (props) => {
       } else {
         setTimePerQues(false);
       }
-      console.log(response, "this is the console of response of data collection for result summary");
+      // console.log(response, "this is the console of response of data collection for result summary");
       setresponseCollection(response.data);
     });
 
@@ -411,7 +411,7 @@ const ResultSummaryOrg = (props) => {
           >
             {responseCollection &&
               responseCollection?.question?.map((item, index) => {
-                console.log(params?.state?.time);
+                // console.log(params?.state?.time);
                 return (
                   <Box
                     key={index}
