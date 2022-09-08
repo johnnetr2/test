@@ -40,7 +40,7 @@ export default function StartPopup({
         <Box>
           <DialogTitle>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <img onClick={() => hidePopup()} src={Cross} alt="" />
+              <img onClick={() => hidePopup()} src={Cross} alt="" style={{ cursor: 'pointer' }} />
             </Box>
           </DialogTitle>
           <DialogContent style={{ paddingLeft: "4rem", paddingRight: "4rem" }}>
@@ -61,6 +61,7 @@ export default function StartPopup({
                   marginTop: "1rem",
                   height: "3rem",
                   border: "1px solid #b4b4b4",
+                  cursor: "pointer",
                 }}
               >
                 <option hidden selected>
