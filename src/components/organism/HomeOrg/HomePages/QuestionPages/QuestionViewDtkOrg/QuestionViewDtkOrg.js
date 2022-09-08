@@ -264,7 +264,7 @@ const QuestionViewDTKOrg = (props) => {
                 fontWeight: "500",
               }}
             >
-              {selectedIndex + 1 + " uppgifter:"}
+              {quiz && quiz.question.length + " uppgifter:"}
             </Typography>
             <Typography variant="h6" component="h6">
               {quiz?.title}
