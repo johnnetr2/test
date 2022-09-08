@@ -160,9 +160,12 @@ const QuestionViewDTKOrg = (props) => {
   const handleRightArrowFunction = () => {
     // if(selectedIndex != quiz?.question.length - 1) {
     const Quiz = { ...quiz };
-    const index = dataSubmit.findIndex(
-      (item) => item?.questionId == Quiz.question[selectedIndex]._id
-    );
+    // const index = dataSubmit.findIndex(
+    //   (item) => item?.questionId == Quiz.question[selectedIndex]._id
+    // );
+
+    // console.log('this is the console of selected index inside the right arrow function', selectedIndex)
+
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
@@ -170,15 +173,12 @@ const QuestionViewDTKOrg = (props) => {
       timeleft: props?.timeLeft ? props?.timeLeft : 0,
       // timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - dataSubmit[index]?.spendtime : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[index]?.spendtime
-        ? dataSubmit[index]?.spendtime + seconds
-        : Boolean(
-          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-        )
-          ? seconds
-          : 0,
+      spendtime: dataSubmit[selectedIndex]?.spendtime ? dataSubmit[selectedIndex]?.spendtime + seconds : Boolean(getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds : 0,
     };
-    dataSubmit.splice(index, 1, data);
+
+    // console.log(dataSubmit, 'this is the console of data submit inside right arrow function')
+
+    dataSubmit.splice(selectedIndex, 1, data);
     // }
 
     selectedIndex + 1 < quiz.question.length &&
@@ -192,22 +192,28 @@ const QuestionViewDTKOrg = (props) => {
 
   const handleLeftArrowFunction = () => {
     const Quiz = { ...quiz };
-    console.log(Quiz, 'this is Quiz')
-    const index = dataSubmit.findIndex(
-      (item) => item?.questionId == Quiz.question[selectedIndex]._id
-    );
+    
+
+    // const index = dataSubmit.findIndex(
+    //   (item) => item?.questionId == Quiz.question[selectedIndex]._id
+    // );
+    // console.log(index, 'this is the console of index')
+
+    // console.log('this is the console of index inside the left arrow function', selectedIndex)
+
 
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : 0,
-      // timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - (dataSubmit[index]?.spendtime + seconds) : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[index]?.spendtime ? dataSubmit[index]?.spendtime + seconds : Boolean( getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds: 0,
+      spendtime: dataSubmit[selectedIndex]?.spendtime ? dataSubmit[selectedIndex]?.spendtime + seconds : Boolean( getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds: 0,
     };
+    // console.log(dataSubmit, 'this is the console of data submit inside left arrow function')
 
-    dataSubmit.splice(index, 1, data);
+
+    dataSubmit.splice(selectedIndex, 1, data);
 
     setSelectedIndex(selectedIndex - 1);
     props.previosQuestion();
@@ -254,7 +260,10 @@ const QuestionViewDTKOrg = (props) => {
       dataSubmit.splice(index, 1, data);
     } else {
       dataSubmit.push(data);
+      // console.log(dataSubmit, 'this is th econsole of data submit on selecting option')
     }
+
+
 
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
     if (answerLenght == quiz.question.length) {
@@ -287,15 +296,12 @@ const QuestionViewDTKOrg = (props) => {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
-      timeleft: props?.totalTime ? props?.totalTime - seconds : null,
+      timeleft: props?.timeLeft ? props?.timeLeft : 0,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: seconds,
+      spendtime: dataSubmit[selectedIndex]?.spendtime ? dataSubmit[selectedIndex]?.spendtime + seconds : Boolean( getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds: 0,
     };
 
-    const index = dataSubmit.findIndex(
-      (item) => item?.questionId == data?.questionId
-    );
-    dataSubmit.splice(index, 1, data);
+    dataSubmit.splice(selectedIndex, 1, data);
 
     props.updateQuiz(quiz);
 
@@ -310,7 +316,7 @@ const QuestionViewDTKOrg = (props) => {
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
         // props.changeTime(props.totalTime - seconds)
-        console.log(response.data, 'this is the console of response of multi part question')
+        // console.log(response.data, 'this is the console of response of multi part question')
         dataSubmit = [];
         setShowResult(true);
       });
