@@ -7,6 +7,7 @@ const Filled_btn = ({ title, onClick, disabled }) => {
       <Button
         // variant="contained"
         onClick={onClick}
+        type="submit"
         disabled={disabled}
         sx={{
           backgroundColor: "#0A1596",
