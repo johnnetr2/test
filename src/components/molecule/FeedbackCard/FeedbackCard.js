@@ -22,7 +22,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const BootstrapDialogTitle = (props) => {
+const CrossIcon = (props) => {
   const { children, onClose, ...other } = props;
 
   return (
@@ -46,7 +46,7 @@ const BootstrapDialogTitle = (props) => {
   );
 };
 
-BootstrapDialogTitle.propTypes = {
+CrossIcon.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
@@ -74,55 +74,86 @@ export default function CustomizedDialogs(props) {
   return (
     <div>
       <BootstrapDialog
+        BackdropProps={{ invisible: true }}
+        hideBackdrop
         onClose={props.onClose}
         aria-labelledby="customized-dialog-title"
         open={props.show}
+        PaperProps={{
+          style: {
+            border: "1px solid #e1e1e1",
+            boxShadow: "0 4px 10px #f2f2f2",
+            position: "absolute",
+            right: 50,
+            bottom: 0,
+          },
+        }}
       >
-        <BootstrapDialogTitle
-          id="customized-dialog-title"
-          onClose={props.onClose}
-        ></BootstrapDialogTitle>
-        <DialogContent>
-          <Typography gutterBottom sx={{ marginTop: "2rem", color: "#999" }}>
-            {props.count} Tack för din feedback! Vill du även berätta några ord
-            för oss vad som inte var bra så att vi kan förbättra det?
-            (frivilligt)
-          </Typography>
-          <Box
-            style={{
-              width: "auto",
-              height: "10rem",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <CrossIcon id="customized-dialog-title" onClose={props.onClose} />
+        </Box>
+        <Box sx={{ p: "0 2rem 2rem 2rem" }}>
+          <DialogContent>
+            <Typography sx={{ color: "#505050", fontSize: "14px" }}>
+              Tack, din feedback sparades
+            </Typography>
+            <Typography sx={{ color: "#505050", fontSize: "14px" }}>
+              Lägg gärna till något nedan. Det hjälper oss att förbättra oss.
+            </Typography>
+            <Typography
+              gutterBottom
+              sx={{ color: "#505050", fontSize: "14px" }}
+            >
+              (frivilligt)
+            </Typography>
+            {/* <Box
+              style={{
+                width: "auto",
+
+                height: "10rem",
+              }}
+            > */}
             <TextareaAutosize
               aria-label="empty textarea"
-              style={{ width: "35.5rem", padding: "1rem", height: "10rem", resize: 'none' }}
+              style={{
+                backgroundColor: "#f9f9f9",
+                border: "none",
+                width: "25rem",
+                padding: "1rem",
+                height: "7rem",
+                resize: "none",
+              }}
               onChange={(e) => setQuestionFeedback(e.target.value)}
               value={questionFeedback}
             />
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            autoFocus
-            onClick={cardSubmittion}
-            disabled={!questionFeedback}
-            style={{
-              backgroundColor: "#0A1596",
-              color: "#fff",
-              display: "block",
-              margin: "auto",
-              width: "35rem",
-              height: "2.25rem",
-              textTransform: "initial",
-              fontWeight: "400",
-              borderRadius: "5px",
-            }}
-          >
-            Skicka in
-          </Button>
-        </DialogActions>
+            {/* </Box> */}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              autoFocus
+              onClick={cardSubmittion}
+              disabled={!questionFeedback}
+              style={{
+                backgroundColor: "#0A1596",
+                color: "#fff",
+                display: "block",
+                margin: "auto",
+                width: "25rem",
+                height: "2.5rem",
+                textTransform: "initial",
+                fontWeight: "400",
+                borderRadius: "5px",
+              }}
+            >
+              Skicka in
+            </Button>
+          </DialogActions>
+        </Box>
       </BootstrapDialog>
     </div>
   );

@@ -111,12 +111,14 @@ const QuestionBody = (props) => {
           flexDirection: "column",
         }}
       >
-        <FeedbackCard
-          count={count}
-          show={feedbackPopup}
-          onClose={() => setFeedbackPopup(false)}
-          questionId={questionId}
-        />
+        <Box sx={{ position: "absolute", right: 0, bottom: 0 }}>
+          <FeedbackCard
+            count={count}
+            show={feedbackPopup}
+            onClose={() => setFeedbackPopup(false)}
+            questionId={questionId}
+          />
+        </Box>
         {/* question container for single question */}
         <Container
           maxWidth="sm"

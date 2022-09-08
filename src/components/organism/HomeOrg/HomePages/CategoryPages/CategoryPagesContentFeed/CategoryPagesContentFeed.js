@@ -236,12 +236,12 @@ const CategoryPagesFeedContent = (props) => {
                 marginLeft: "0.2rem",
               }}
             >
-              Välj om du vill köra på tid
+              Välj Övningsläge
             </Typography>
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
             <OutlineField
-              title="Tid & poäng"
+              title={"Tid \& Prognosis"}
               type="checkbox"
               checked={timer}
               onClickCheck={(e) => setTimer(!timer)}
@@ -476,7 +476,7 @@ const CategoryPagesFeedContent = (props) => {
               setTabValue(0);
             }}
           >
-            Historia
+            Historik
           </Typography>
 
           <Typography
@@ -496,8 +496,7 @@ const CategoryPagesFeedContent = (props) => {
               setTabValue(1);
             }}
           >
-            {" "}
-            / Statistik
+            {"Statistik - " + props.item.title}
           </Typography>
         </Box>
 

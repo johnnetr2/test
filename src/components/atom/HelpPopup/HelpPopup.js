@@ -42,7 +42,7 @@ const HelpPopup = () => {
           right: 0,
         }}
       >
-        <Typography variant="h5">Välkommen till provpassvyn!</Typography>
+        <Typography variant="h5">Välkommen till övningsläget!</Typography>
         <Typography
           variant="body1"
           style={{
@@ -52,11 +52,9 @@ const HelpPopup = () => {
             fontSize: "0.75rem",
           }}
         >
-          Du kan fritt gå emellan uppgifter genom att trycka på nästa och
-          föregående längst ner. Facit visas efter att hela provet är inlämnat.
-          Trycker du på överblick får du se alla provpassets uppgifter.Om du
-          avbryter genom att klicka på pilen längst uppe till vänster sparas
-          inte provpasset, men du kan göra om det senare.
+          • Du kan se vilken fråga du är på uppe till vänster.<br></br>
+          • Uppe till höger visas tid kvar om du valt att köra på tid.<br></br>
+          • Vill du avbryta? Klicka då på pilen längst uppe till vänster.
         </Typography>
       </Box>
     </>
