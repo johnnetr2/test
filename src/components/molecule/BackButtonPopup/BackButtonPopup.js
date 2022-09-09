@@ -78,10 +78,11 @@ export default function BackButtonPopup(props) {
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem" }}>
           <Typography gutterTop variant="h4">
-            Vill du avsluta?
+            Vill du avsluta provet?
           </Typography>
           <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
-            Du tas nu till summersingssidan.
+            Du måste göra klart provpasset för att få din poäng. Om du trycker
+            på avsluta, sparas inte dina svar.
           </Typography>
         </DialogContent>
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
@@ -98,7 +99,7 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            Avsluta
+            Avsluta prov
           </Button>
           <Button
             autoFocus
@@ -112,7 +113,7 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            Fortsätt öva.
+            Gör klart provpass
           </Button>
         </DialogActions>
       </BootstrapDialog>

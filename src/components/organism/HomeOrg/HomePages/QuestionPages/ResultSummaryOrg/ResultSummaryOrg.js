@@ -90,6 +90,7 @@ const ResultSummaryOrg = (props) => {
     // console.log(params?.state, 'this is the console of time in result summary')
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
+
     instance2.get(URL).then((response) => {
       response.data.question.map((item) => {
         return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);

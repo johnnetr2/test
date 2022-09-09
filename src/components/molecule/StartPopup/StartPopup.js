@@ -119,7 +119,7 @@ export default function StartPopup({
                       width: "30%",
                     }}
                   >
-                    Spara
+                    Nästa
                   </Button>
                 </Box>
               </DialogActions>

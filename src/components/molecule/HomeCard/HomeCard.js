@@ -102,7 +102,6 @@ const HomeCard = (props) => {
         <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
           {data?.information}
         </Typography>
-        {/* {console.log(props.data, "previousRecord")} */}
         <Box>
           <ProgressBar
             average={

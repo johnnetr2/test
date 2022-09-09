@@ -175,7 +175,7 @@ const LoginOrg = () => {
           <Label_field
             type="text"
             placeholder="Email"
-            title="Email"
+            title="E-mail"
             name="email"
             onChange={getVal}
             value={user.email}

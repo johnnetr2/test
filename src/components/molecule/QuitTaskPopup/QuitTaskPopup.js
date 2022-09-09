@@ -6,9 +6,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -30,41 +27,12 @@ export default function AlertDialogSlide(props) {
   //   setOpen(props.popUpstatus)
   // }, [])
 
-  const CrossIcon = (props) => {
-    const { children, onClose, ...other } = props;
-
-    return (
-      <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-        {children}
-        {onClose ? (
-          <IconButton
-            aria-label="close"
-            onClick={onClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        ) : null}
-      </DialogTitle>
-    );
-  };
-
-  CrossIcon.propTypes = {
-    children: PropTypes.node,
-    onClose: PropTypes.func.isRequired,
-  };
-
   return (
     <>
       {/* <Button variant="outlined" onClick={handleClickOpen}>
         Slide in alert dialog
       </Button> */}
-      <Box
+      <Box 
       // style={{ padding: "5rem" }}
       >
         <Dialog
@@ -76,14 +44,6 @@ export default function AlertDialogSlide(props) {
           fullWidth
           maxWidth="sm"
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <CrossIcon id="customized-dialog-title" onClose={props.onClose} />
-          </Box>
           <DialogTitle
             style={{
               display: "flex",
@@ -115,7 +75,6 @@ export default function AlertDialogSlide(props) {
               variant="outlined"
               style={{
                 width: "10rem",
-                textTransform: "capitalize",
                 color: "#0A1596",
                 border: "1px solid #0A1596",
               }}
@@ -130,11 +89,6 @@ export default function AlertDialogSlide(props) {
                 color: "#0A1596",
                 backgroundColor: "#0A1596",
                 color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                textTransform: "capitalize",
-                paddingLeft: "1rem",
               }}
             >
               {props.agreeBtnName}
