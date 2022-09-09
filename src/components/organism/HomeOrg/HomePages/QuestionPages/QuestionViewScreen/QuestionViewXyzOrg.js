@@ -82,8 +82,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime(60);
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(60);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -108,9 +108,9 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime(60);
+        setTime(60);
 
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -165,11 +165,11 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
+        console.log(quiz, 'this is the console of quiz')
     if (
-      nextPress &&
-      !quiz[0]?.type == 'multiple' &&
-      quiz?.length > 0 &&
-      (timeLeft || (!params?.state?.data.value && !timeLeft))
+      (nextPress &&
+      // !quiz[0]?.type == 'multiple' && 
+      quiz?.length > 0 && (timeLeft || (!params?.state?.data.value && !timeLeft)))
     ) {
       const questions = [...quiz];
       let question = questions[selectedIndex];
@@ -187,6 +187,7 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data).then((response) => {
         setAnsSubmittedState(response.data.answer);
+        console.log(response.data, 'answer submit')
         setTime(timeLeft);
         setNextPress(undefined);
         // localStorage.setItem('quiz', JSON.stringify(quiz))
@@ -197,7 +198,7 @@ const QuestionViewXyzOrg = () => {
     } else {
       return;
     }
-  }, [nextPress, timeLeft]);
+  }, [nextPress, timeLeft && !quiz[0]?.type == 'multiple']);
 
   const useStyles = makeStyles((theme) => ({
     root: {

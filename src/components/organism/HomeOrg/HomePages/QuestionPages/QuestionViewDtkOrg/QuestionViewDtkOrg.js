@@ -134,7 +134,6 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-
   var tymer;
   useEffect(() => {
     tymer = setInterval(() => {
@@ -171,12 +170,15 @@ const QuestionViewDTKOrg = (props) => {
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : 0,
-      // timeleft: dataSubmit[index]?.spendtime ? props?.totalTime - dataSubmit[index]?.spendtime : props.totalTime - seconds,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[selectedIndex]?.spendtime ? dataSubmit[selectedIndex]?.spendtime + seconds : Boolean(getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds : 0,
+      spendtime: dataSubmit[selectedIndex]?.spendtime
+        ? dataSubmit[selectedIndex]?.spendtime + seconds
+        : Boolean(
+            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+          )
+        ? seconds
+        : 0,
     };
-
-    // console.log(dataSubmit, 'this is the console of data submit inside right arrow function')
 
     dataSubmit.splice(selectedIndex, 1, data);
     // }
@@ -185,52 +187,33 @@ const QuestionViewDTKOrg = (props) => {
       setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
     selectedIndex + 1 < quiz?.question.length && props.changeIndex();
-    // props.changeTime(props.totalTime - seconds)
     setSeconds(0);
     setMinutes(0);
   };
 
   const handleLeftArrowFunction = () => {
     const Quiz = { ...quiz };
-    
-
-    // const index = dataSubmit.findIndex(
-    //   (item) => item?.questionId == Quiz.question[selectedIndex]._id
-    // );
-    // console.log(index, 'this is the console of index')
-
-    // console.log('this is the console of index inside the left arrow function', selectedIndex)
-
-
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
       optionId: Quiz.question[selectedIndex].optionId,
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : 0,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[selectedIndex]?.spendtime ? dataSubmit[selectedIndex]?.spendtime + seconds : Boolean( getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds: 0,
+      spendtime: dataSubmit[selectedIndex]?.spendtime
+        ? dataSubmit[selectedIndex]?.spendtime + seconds
+        : Boolean(
+            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+          )
+        ? seconds
+        : 0,
     };
-    // console.log(dataSubmit, 'this is the console of data submit inside left arrow function')
-
-
     dataSubmit.splice(selectedIndex, 1, data);
 
     setSelectedIndex(selectedIndex - 1);
     props.previosQuestion();
-    // props.changeTime(props.totalTime - seconds)
     setSeconds(0);
     setMinutes(0);
   };
-
-  // const getSpendTime = (timeLeft, totalTime, index) => {
-  //   if (index) {
-  //     return totalTime - (timeLeft + dataSubmit[index - 1].spendtime);
-  //   } else if (index == 0) {
-  //     return totalTime - timeLeft;
-  //   } else {
-  //     return null;
-  //   }
-  // };
 
   const SelectFunc = (item, optionIndex) => {
     let allQuiz = { ...quiz };
@@ -260,18 +243,13 @@ const QuestionViewDTKOrg = (props) => {
       dataSubmit.splice(index, 1, data);
     } else {
       dataSubmit.push(data);
-      // console.log(dataSubmit, 'this is th econsole of data submit on selecting option')
     }
-
-
 
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
     if (answerLenght == quiz.question.length) {
       setAnswerExistance(true);
     }
   };
-
- 
 
   const Options = (question, option, optionIndex) => {
     if (optionIndex == question.selectedOptionIndex) {
@@ -298,7 +276,13 @@ const QuestionViewDTKOrg = (props) => {
       MultipartQuestion: Quiz._id,
       timeleft: props?.timeLeft ? props?.timeLeft : 0,
       totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[selectedIndex]?.spendtime ? dataSubmit[selectedIndex]?.spendtime + seconds : Boolean( getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex) ) ? seconds: 0,
+      spendtime: dataSubmit[selectedIndex]?.spendtime
+        ? dataSubmit[selectedIndex]?.spendtime + seconds
+        : Boolean(
+            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+          )
+        ? seconds
+        : 0,
     };
 
     dataSubmit.splice(selectedIndex, 1, data);
@@ -477,18 +461,18 @@ const QuestionViewDTKOrg = (props) => {
                           </Typography>
                           {
                             quiz &&
-                            selectedIndex < quiz?.question?.length - 1 &&
-                            quiz?.question.length > 1 &&
-                            quiz?.question[0].selectedOptionIndex !=
-                            undefined && (
-                              <img
-                                onClick={handleRightArrowFunction}
-                                src={BlueRightIcon}
-                                style={{ cursor: "pointer" }}
-                                className={classes.size}
-                                alt=""
-                              />
-                            )
+                              selectedIndex < quiz?.question?.length - 1 &&
+                              quiz?.question.length > 1 &&
+                              quiz?.question[0].selectedOptionIndex !=
+                                undefined && (
+                                <img
+                                  onClick={handleRightArrowFunction}
+                                  src={BlueRightIcon}
+                                  style={{ cursor: "pointer" }}
+                                  className={classes.size}
+                                  alt=""
+                                />
+                              )
                             // : (
                             //   <img
                             //     src={Righticon}
