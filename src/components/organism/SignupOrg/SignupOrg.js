@@ -192,104 +192,104 @@ const SignupOrg = () => {
               Påbörja resan mot Högskoleprovet idag.
             </Typography>
           </Box>
-          <LabelField
-            type="text"
-            title="Namn"
-            placeholder="Namn"
-            onChange={changeHandler}
-            value={register.fullName}
-            name="fullName"
-            className={classes.placeholder}
-            style={{
-              width: "100%",
-              height: "3rem",
-              padding: "1rem",
-              border: "1px solid #e1e1e1",
-              marginTop: ".5rem",
-              borderRadius: "8px",
-              marginBottom: "1rem",
-              outline: "none",
-            }}
-          />
-          <LabelField
-            type="email"
-            title="E-mail"
-            placeholder="Email"
-            onChange={changeHandler}
-            value={register.email}
-            className={classes.placeholder}
-            name="email"
-            style={{
-              width: "100%",
-              height: "3rem",
-              padding: "1rem",
-              border: "1px solid #e1e1e1",
-              marginTop: ".5rem",
-              borderRadius: "8px",
-              marginBottom: "1rem",
-              outline: "none",
-            }}
-          />
-          <Label for="password" style={{ color: "#B5B5B5" }}>Lösenord</Label>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              height: "3rem",
-              marginTop: ".5rem",
-              marginBottom: "1rem",
-              border: "1px solid #e1e1e1",
-              backgroundColor: "transparent",
-              borderRadius: "5px",
-            }}
-          >
-            <InputField
-              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-              type={showPassword ? "password" : "text"}
-              title="6+ bokstäver, 1 stor bokstav, 1 siffra"
-              placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
+          <form type="submit" onSubmit={clickHandler}>
+            <LabelField
+              type="text"
+              title="Namn"
+              placeholder="Namn"
               onChange={changeHandler}
-              value={register.password}
-              // placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
-              className={classes.placeholder}
-              name="password"
-              id="password"
+              value={register.fullName}
+              name="fullName"
               style={{
-                width: "20vw",
-                backgroundColor: "coral",
+                width: "100%",
+                height: "3rem",
+                padding: "1rem",
+                border: "1px solid #e1e1e1",
+                marginTop: ".5rem",
+                borderRadius: "5px",
+                marginBottom: "1rem",
+                outline: "none",
+              }}
+            />
+            <LabelField
+              type="email"
+              title="E-mail"
+              placeholder="Email"
+              onChange={changeHandler}
+              value={register.email}
+              name="email"
+              style={{
+                width: "100%",
+                height: "3rem",
+                padding: "1rem",
+                border: "1px solid #e1e1e1",
+                marginTop: ".5rem",
+                borderRadius: "5px",
+                marginBottom: "1rem",
+                outline: "none",
+              }}
+            />
+            <Label for="password">Lösenord</Label>
+            <Box
+              sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 height: "3rem",
-                border: "none",
-                padding: "1rem",
+                marginTop: ".5rem",
+                marginBottom: "1rem",
+                border: "1px solid #e1e1e1",
                 backgroundColor: "transparent",
-                outline: "none",
+                borderRadius: "5px",
               }}
-            />
-            <Label
-              for="password"
-              style={{
-                padding: "0 1rem",
-                margin: "0",
-              }}
-              onClick={() => setShowPassword(!showPassword)}
             >
-              {!showPassword ? (
-                <VisibilityOutlinedIcon style={{ color: "#B5B5B5" }} />
-              ) : (
-                <VisibilityOffOutlinedIcon style={{ color: "#B5B5B5" }} />
-              )}
-            </Label>
-          </Box>
-          {/* <Box>Enter valid password</Box> */}
-          <Typography style={{ textDecorationLine: "underline", color: "#505050" }} variant="body1">Glömt lösenord?</Typography>
-          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Link to="/login" style={{ textDecoration: "none" }}>
-              <FilledBtn onClick={clickHandler} title="Skapa konto" />
-            </Link>
-          </Box>
+              <InputField
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                type={showPassword ? "password" : "text"}
+                title="6+ bokstäver, 1 stor bokstav, 1 siffra"
+                placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
+                onChange={changeHandler}
+                value={register.password}
+                // placeholder="6+ bokstäver, 1 stor bokstav, 1 siffra"
+                className={classes.placeholder}
+                name="password"
+                id="password"
+                style={{
+                  width: "20vw",
+                  backgroundColor: "coral",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  height: "3rem",
+                  border: "none",
+                  padding: "1rem",
+                  backgroundColor: "transparent",
+                  outline: "none",
+                }}
+              />
+              <Label
+                for="password"
+                style={{
+                  padding: "0 1rem",
+                  margin: "0",
+                }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {!showPassword ? (
+                  <VisibilityOutlinedIcon />
+                ) : (
+                  <VisibilityOffOutlinedIcon />
+                )}
+              </Label>
+            </Box>
+            {/* <Box>Enter valid password</Box> */}
+            <Typography variant="body1">Glömt lösenord?</Typography>
+            <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <FilledBtn onClick={clickHandler} title="Skapa konto" />
+              </Link>
+            </Box>
+          </form>
           <Box style={{ display: "flex", justifyContent: "center" }}>
             <Typography variant="body1">eller</Typography>
           </Box>

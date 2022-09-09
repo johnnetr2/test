@@ -47,7 +47,6 @@ const LoginOrg = () => {
   };
 
   const loginFunc = (e) => {
-    e.preventDefault();
     if (user.email == "" || user.password == "") {
       swal({
         icon: "warning",
@@ -172,84 +171,84 @@ const LoginOrg = () => {
               Välkommen tillbaka! Logga för att sätta igång med plugget.
             </Typography>
           </Box>
-          <Label_field
-            type="text"
-            placeholder="Email"
-            title="E-mail"
-            name="email"
-            onChange={getVal}
-            value={user.email}
-            style={{
-              width: "100%",
-              height: "3rem",
-              padding: "1rem",
-              border: "1px solid #e1e1e1",
-              marginTop: ".5rem",
-              borderRadius: "8px",
-              marginBottom: "1rem",
-              outline: "none",
-              WebkitBoxShadow: "0 0 0 1000px white inset",
-            }}
-          />
-          <Label style={{ color: "#B5B5B5" }} for="password">Lösenord</Label>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              height: "3rem",
-              marginTop: ".5rem",
-              marginBottom: "1rem",
-              border: "1px solid #e1e1e1",
-              backgroundColor: "transparent",
-              borderRadius: "8px",
-            }}
-          >
-            <InputField
-              type={showPassword ? "password" : "text"}
-              title="Password"
-              placeholder="Lösenord"
+          <form type="submit" onSubmit={loginFunc}>
+            <Label_field
+              type="text"
+              placeholder="Email"
+              title="Email"
+              name="email"
               onChange={getVal}
-              value={user.password}
-              name="password"
-              id="password"
+              value={user.email}
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "2rem",
-                padding: "1rem",
                 width: "100%",
-                backgroundColor: "transparent",
+                height: "3rem",
+                padding: "1rem",
+                border: "1px solid #e1e1e1",
+                marginTop: ".5rem",
+                borderRadius: "5px",
+                marginBottom: "1rem",
                 outline: "none",
-                border: "none",
                 WebkitBoxShadow: "0 0 0 1000px white inset",
               }}
-              className={classes.autoFillColor}
             />
-            <Label
-              for="password"
-              style={{
-                paddingRight: "1rem",
-                margin: "0",
+            <Label for="password">Lösenord</Label>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                height: "3rem",
+                marginTop: ".5rem",
+                marginBottom: "1rem",
+                border: "1px solid #e1e1e1",
+                backgroundColor: "transparent",
+                borderRadius: "5px",
               }}
-              onClick={() => setShowPassword(!showPassword)}
             >
-              {!showPassword ? (
-                <VisibilityOutlinedIcon style={{ color: "#B5B5B5"  }} />
-              ) : (
-                <VisibilityOffOutlinedIcon style={{ color: "#B5B5B5"  }} />
-              )}
-            </Label>
-          </Box>
-          <Link style={{ color: "#505050" }} to="#" onClick={forgotPassword}>
-            Glömt lösenord?
-          </Link>
-          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Link style={{ textDecoration: "none" }} to="/home">
-              <Filled_btn title="Logga in" onClick={loginFunc} />
+              <InputField
+                type={showPassword ? "password" : "text"}
+                title="Password"
+                placeholder="Lösenord"
+                onChange={getVal}
+                value={user.password}
+                name="password"
+                id="password"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "2rem",
+                  padding: "1rem",
+                  width: "100%",
+                  backgroundColor: "transparent",
+                  outline: "none",
+                  border: "none",
+                  WebkitBoxShadow: "0 0 0 1000px white inset",
+                }}
+                className={classes.autoFillColor}
+              />
+              <Label
+                for="password"
+                style={{
+                  paddingRight: "1rem",
+                  margin: "0",
+                }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {!showPassword ? (
+                  <VisibilityOutlinedIcon />
+                ) : (
+                  <VisibilityOffOutlinedIcon />
+                )}
+              </Label>
+            </Box>
+            <Link to="#" onClick={forgotPassword}>
+              Glömt lösenord?
             </Link>
-          </Box>
+            <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+              <Filled_btn title="Logga in" onClick={loginFunc} />
+            </Box>
+          </form>
           {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="body1">eller</Typography>
           </Box> */}
