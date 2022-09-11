@@ -9,8 +9,6 @@ import { makeStyles } from '@material-ui/core/styles'
 // import HelpOutlineIcon from '@mui/Icons-material/HelpOutline'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
 import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
-import { OpenInFull, Close } from '@mui/icons-material/';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 const QuestionViewElfGap = () => {
 
@@ -82,10 +80,6 @@ const QuestionViewElfGap = () => {
         };
     }, []);
 
-    const [extendedView, setExtendView] = useState(false)
-    const openExtended = () => {setExtendView(true);};
-    const closeExtended = () => {setExtendView(false);};
-
 
     return <div>
         <CssBaseline />
@@ -114,7 +108,7 @@ const QuestionViewElfGap = () => {
                     <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
                 </Box>
             </Container>
-            <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', position: 'relative' }}>
+            <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                 <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 373, overflow: 'auto', border: '1px solid #e1e1e1' }}>
                     <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
                         5 uppgifter:
@@ -130,31 +124,6 @@ const QuestionViewElfGap = () => {
                         Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv.
                         För att försöka komma till rätta med flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som
                     </Typography>
-                    <OpenInFull onClick={()=>{setExtendView(!extendedView); openExtended()}} style={{ position: 'absolute', top: '10', right: '20', cursor: 'pointer' }}/>
-                    <Dialog
-                        open={extendedView}
-                        onClose={closeExtended}
-                        maxWidth={'xl'}
-                    >
-                        <DialogTitle >
-                            <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
-                                5 uppgifter:
-                            </Typography>
-                            <Typography variant="h3" component='h3'>
-                                Australian Prehistory 
-                            </Typography>
-                        </DialogTitle>
-                        <DialogContent style={{ columnCount: '2', padding: '0 5rem 2rem' }}>
-                            <Typography variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500', marginBottom: '1rem' }}>
-                                Researchers Patrick Nunn and Nicholas Reid believe that a number of indigenous stories from across the Australian con-tinent 31 record events between 18,000 and 7,000 years ago, when the sea rose 120 m. Reid said a key feature of indig-enous storytelling culture – a distinctive “cross-generational cross-checking process” – might explain the remarkable con-sistency in accounts passed down by preliterate people which researchers previously believed could not persist for more than 800 years. cholars of oral traditions have previously been sceptical of how accurately they reflect real events. However, Nunn and Reid argue that the stories provide empirical corroboration of a postglacial sea level rise documented by marine geographers. Some of the stories are 32 factual accounts,
-                            </Typography>
-                            <Typography mt={3} variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500', marginBottom: '1rem' }}>
-                                Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv.
-                                För att försöka komma till rätta med flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som
-                            </Typography>
-                        </DialogContent>
-                        <Close onClick={()=>{setExtendView(false)}} style={{ position: 'absolute', top: '10', right: '10', cursor: 'pointer' }}/>
-                    </Dialog>
                 </Box>
                 <Box paddingX={4} mt={5} sx={{ backgroundColor: '#fff', width: 600, height: 120, border: '1px solid #e1e1e1' }}>
                     <Box style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: 10 }}>
