@@ -47,6 +47,7 @@ const LoginOrg = () => {
   };
 
   const loginFunc = (e) => {
+    e.preventDefault();
     if (user.email == "" || user.password == "") {
       swal({
         icon: "warning",
