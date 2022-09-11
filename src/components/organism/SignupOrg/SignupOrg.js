@@ -301,7 +301,7 @@ const SignupOrg = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              marginBottom: "2rem",
+              // marginBottom: "2rem",
             }}
           >
             <Typography
