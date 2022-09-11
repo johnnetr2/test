@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   placeholder: {
-    "&::placeholder": {
+    "&:placeholder": {
       color: "#E1E1E1",
     },
   },
@@ -170,8 +170,7 @@ const SignupOrg = () => {
           display: "flex",
           justifyContent: "center",
           alignItem: "center",
-          alignSelf: "center"
-
+          alignSelf: "center",
         }}
         className={classes.mobileView}
       >
@@ -206,7 +205,7 @@ const SignupOrg = () => {
                 padding: "1rem",
                 border: "1px solid #e1e1e1",
                 marginTop: ".5rem",
-                borderRadius: "5px",
+                borderRadius: "8px",
                 marginBottom: "1rem",
                 outline: "none",
               }}
@@ -224,12 +223,14 @@ const SignupOrg = () => {
                 padding: "1rem",
                 border: "1px solid #e1e1e1",
                 marginTop: ".5rem",
-                borderRadius: "5px",
+                borderRadius: "8px",
                 marginBottom: "1rem",
                 outline: "none",
               }}
             />
-            <Label for="password">Lösenord</Label>
+            <Label for="password" style={{ color: "#B5B5B5" }}>
+              Lösenord
+            </Label>
             <Box
               sx={{
                 display: "flex",
@@ -240,7 +241,7 @@ const SignupOrg = () => {
                 marginBottom: "1rem",
                 border: "1px solid #e1e1e1",
                 backgroundColor: "transparent",
-                borderRadius: "5px",
+                borderRadius: "8px",
               }}
             >
               <InputField
@@ -276,14 +277,14 @@ const SignupOrg = () => {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {!showPassword ? (
-                  <VisibilityOutlinedIcon />
+                  <VisibilityOutlinedIcon style={{ color: "#B5B5B5" }} />
                 ) : (
-                  <VisibilityOffOutlinedIcon />
+                  <VisibilityOffOutlinedIcon style={{ color: "#B5B5B5" }} />
                 )}
               </Label>
             </Box>
             {/* <Box>Enter valid password</Box> */}
-            <Typography variant="body1">Glömt lösenord?</Typography>
+            <Typography variant="body1" style={{ color: "#505050", textDecorationLine: "underline" }}>Glömt lösenord?</Typography>
             <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <FilledBtn onClick={clickHandler} title="Skapa konto" />
@@ -296,12 +297,22 @@ const SignupOrg = () => {
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             {/* <OutlineBtn title="Konto med Google" /> */}
           </Box>
-          <Box style={{ display: "flex", justifyContent: "center" }}>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "2rem",
+            }}
+          >
             <Typography
               variant="body1"
               style={{ textTransform: "uppercase" }}
             >
-              Har du redan ett konto?<Link style={{ textDecoration: "none" }} to="/login"> Logga in</Link>
+              Har du redan ett konto?
+              <Link to="/login" style={{ textDecorationLine: "none" }}>
+                {" "}
+                Logga in
+              </Link>
             </Typography>
           </Box>
           <Box
