@@ -12,7 +12,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { EndPoints, instance2 } from "../../service/Route";
-import emailjs from "@emailjs/browser"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -70,16 +69,6 @@ export default function CustomizedDialogs(props) {
         setQuestionFeedback("");
       }
     });
-    emailjs.send(
-      'service_6r3gsg3', 
-      'template_sf7swzl', 
-      {point: payLoad.point, explanation: payLoad.explanation, question: payLoad.question, user: payLoad.user}, 
-      'wnbxeUZqIKanLhh88')
-      .then(function(response) {
-         console.log('SUCCESS!', response.status, response.text);
-      }, function(error) {
-         console.log('FAILED...', error);
-      });
   };
 
   return (
@@ -111,16 +100,16 @@ export default function CustomizedDialogs(props) {
         <Box sx={{ p: "0 2rem 2rem 2rem" }}>
           <DialogContent>
             <Typography sx={{ color: "#505050", fontSize: "14px" }}>
-              Tack, din feedback sparades.
+              Tack, din feedback sparades
             </Typography>
             <Typography sx={{ color: "#505050", fontSize: "14px" }}>
-              Lägg gärna till något nedan. Det hjälper oss att förbättra oss
+              Lägg gärna till något nedan. Det hjälper oss att förbättra oss.
             </Typography>
             <Typography
               gutterBottom
               sx={{ color: "#505050", fontSize: "14px" }}
             >
-              (frivilligt).
+              (frivilligt)
             </Typography>
             {/* <Box
               style={{
