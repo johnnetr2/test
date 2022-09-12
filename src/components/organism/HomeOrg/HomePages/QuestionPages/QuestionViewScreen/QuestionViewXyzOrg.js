@@ -165,7 +165,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   useEffect(() => {
-        console.log(quiz, 'this is the console of quiz')
+        // console.log(quiz, 'this is the console of quiz')
     if (
       (nextPress &&
       // !quiz[0]?.type == 'multiple' && 
@@ -297,10 +297,10 @@ const QuestionViewXyzOrg = () => {
       instance2
         .post(URL, payload)
         .then((response) => {
-          console.log(
-            response.data,
-            "this is the console of response of closer time function"
-          );
+          // console.log(
+          //   response.data,
+          //   "this is the console of response of closer time function"
+          // );
         })
         .catch((error) => {
           console.log("this is the consnole of error", error);
