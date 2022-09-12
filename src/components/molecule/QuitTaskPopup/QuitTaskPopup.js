@@ -99,7 +99,7 @@ export default function AlertDialogSlide(props) {
               style={{ display: "flex", justifyContent: "center" }}
               id="alert-dialog-slide-description"
             >
-              Ingen fara, vi sparar dina svar.
+              Du tas nu till summeringssidan.
             </DialogContentText>
           </DialogContent>
           <DialogActions

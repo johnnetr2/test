@@ -54,7 +54,8 @@ export default function UnAttemptedTimer(props) {
               }}
               id="alert-dialog-slide-description"
             >
-              Ingen fråga är besvarad så du tas direkt tillbaka till övningssidan.
+              Ingen fråga är besvarad så du tas direkt tillbaka till
+              övningssidan.
             </DialogContentText>
           </DialogContent>
           <DialogActions

@@ -146,7 +146,9 @@ const CategoryPagesRightBar = (props) => {
         }}
       >
         <Box>
-          {width > 900 && <Typography variant="h5">Statistik</Typography>}
+          {width > 900 && (
+            <Typography variant="h5">Statistik - {props.item.title}</Typography>
+          )}
           <Typography variant="body2" style={{ marginTop: "0.5rem" }}>
             Du har klarat {lastWeekTasks.totalCorrectQuestions} av{" "}
             {lastWeekTasks.totalQuestions} uppgifter

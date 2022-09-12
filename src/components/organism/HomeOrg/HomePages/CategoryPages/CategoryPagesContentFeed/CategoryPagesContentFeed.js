@@ -227,7 +227,7 @@ const CategoryPagesFeedContent = (props) => {
             <Typography
               variant="body2"
               style={{
-                textTransform: "uppercase",
+                textTransform: "capitalize",
                 fontSize: "0.75rem",
                 width: "12rem",
                 marginLeft: "0.2rem",
@@ -238,7 +238,7 @@ const CategoryPagesFeedContent = (props) => {
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
             <OutlineField
-              title={"Tid \& Prognosis"}
+              title={"Tid & Prognos"}
               type="checkbox"
               checked={timer}
               onClickCheck={(e) => setTimer(!timer)}
@@ -250,7 +250,7 @@ const CategoryPagesFeedContent = (props) => {
             <Typography
               variant="body2"
               style={{
-                textTransform: "uppercase",
+                textTransform: "capitalize",
                 fontSize: "0.75rem",
                 marginLeft: "0.2rem",
               }}
@@ -355,7 +355,7 @@ const CategoryPagesFeedContent = (props) => {
             <Typography
               variant="body2"
               style={{
-                textTransform: "uppercase",
+                textTransform: "capitalize",
                 fontSize: "0.75rem",
                 marginLeft: "0.2rem",
               }}
