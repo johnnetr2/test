@@ -129,42 +129,7 @@ const QuestionViewXyzOrg = () => {
     }
   }, []);
 
-  const Next = (question) => {
-    if (question.answer) {
-      if (selectedIndex + 1 == quiz.length) {
-        navigate("/resultsummary", {
-          state: {
-            sectionCategory: params?.state?.sectionCategory,
-            quizId: params?.state?.quizId,
-            spendtime: answerSubmittedState,
-            time: params?.state?.time,
-          },
-        });
-        localStorage.removeItem("time");
-        localStorage.removeItem("quiz");
-      } else {
-        setStatus(true);
-        selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
-        setCurrentQuestion(currentQuestion + 1);
-      }
-    } else {
-      if (question.selectedIndex + 1) {
-        const questions = [...quiz];
-        let ques = questions[selectedIndex];
-        const URL = EndPoints.getAnswerByQuestionId + ques._id;
-        instance2.get(URL).then((response) => {
-          ques.answer = response?.data;
-          ques.answerSubmited = true;
-          !params?.state?.data?.value && setNextPress(!nextPress);
-          localStorage.setItem("quiz", JSON.stringify(questions));
-          setQuiz(questions);
-          setStatus(false);
-        });
-      }
-    }
-  };
-
-  useEffect(() => {
+useEffect(() => {
         // console.log(quiz, 'this is the console of quiz')
     if (
       (nextPress &&
@@ -186,7 +151,7 @@ const QuestionViewXyzOrg = () => {
       };
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data).then((response) => {
-        setAnsSubmittedState(response.data.answer);
+        setAnsSubmittedState(response.data);
         console.log(response.data, 'answer submit')
         setTime(timeLeft);
         setNextPress(undefined);
@@ -199,6 +164,47 @@ const QuestionViewXyzOrg = () => {
       return;
     }
   }, [nextPress, timeLeft && !quiz[0]?.type == 'multiple']);
+
+
+  const Next = (question) => {
+    if (question.answer) {
+      if (selectedIndex + 1 == quiz.length) {
+        if (answerSubmittedState.answer.length === answerSubmittedState.totalQuestion){
+          navigate("/resultsummary", {
+            state: {
+              sectionCategory: params?.state?.sectionCategory,
+              quizId: params?.state?.quizId,
+              spendtime: answerSubmittedState,
+              time: params?.state?.time,
+            },
+          });
+        }
+        localStorage.removeItem("time");
+        localStorage.removeItem("quiz");
+      }
+       else {
+        setStatus(true);
+        selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
+        setCurrentQuestion(currentQuestion + 1);
+      }
+    } else {
+      if (question.selectedIndex + 1) {
+        const questions = [...quiz];
+        let ques = questions[selectedIndex];
+        const URL = EndPoints.getAnswerByQuestionId + ques._id;
+        instance2.get(URL).then((response) => {
+          ques.answer = response?.data;
+          ques.answerSubmited = true;
+          !params?.state?.data?.value && setNextPress(!nextPress);
+          localStorage.setItem("quiz", JSON.stringify(questions));
+          setQuiz(questions);
+          setStatus(false);
+        });
+      }
+    }
+  };
+
+  
 
   const useStyles = makeStyles((theme) => ({
     root: {
