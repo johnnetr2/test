@@ -82,7 +82,7 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime(60);
+        setTime(30);
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
@@ -108,7 +108,7 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime(60);
+        setTime(30);
 
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
