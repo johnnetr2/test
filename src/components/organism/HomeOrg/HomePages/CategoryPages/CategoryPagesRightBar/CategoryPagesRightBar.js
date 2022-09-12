@@ -191,7 +191,7 @@ const CategoryPagesRightBar = (props) => {
               {!lastWeekTasks ? "0" : lastWeekTasks?.weeklyCorrectQuestions}
             </Typography>
             <Typography variant="body2">
-              Gjorda uppgifter förra veckan
+              Klarade uppgifter denna veckan
             </Typography>
           </Box>
           <Box sx={{ marginLeft: "1rem" }}>

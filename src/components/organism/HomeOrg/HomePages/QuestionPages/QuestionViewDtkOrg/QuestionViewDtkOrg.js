@@ -385,10 +385,7 @@ const QuestionViewDTKOrg = (props) => {
             <Typography variant="h6" component="h6">
               {quiz?.title}
             </Typography>
-            <Typography
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
-            >
+            <Typography variant="subtitle1" style={{ fontSize: ".85rem" }}>
               <MarkLatex content={quiz?.description} />
             </Typography>
             {quiz?.image && (
