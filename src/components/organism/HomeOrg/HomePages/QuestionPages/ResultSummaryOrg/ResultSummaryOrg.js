@@ -87,9 +87,12 @@ const ResultSummaryOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
+    console.log(params?.state, 'this is the console of params?.state in result summary')
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
+
     instance2.get(URL).then((response) => {
+      console.log(response, "this is the console of response get attempted quiz")
       response.data.question.map((item) => {
         return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
       });
@@ -103,8 +106,11 @@ const ResultSummaryOrg = (props) => {
       } else {
         setTimePerQues(false);
       }
+      // console.log(response, "this is the console of response of data collection for result summary");
       setresponseCollection(response.data);
-    });
+    }).catch((error) => {
+      console.log(error, "this is the console of error ")
+    })
 
     return () => {
       // clearInterval(timer);
@@ -191,10 +197,11 @@ const ResultSummaryOrg = (props) => {
               {responseCollection?.question.length} av{" "}
               {responseCollection?.question.length}
             </Box>
-            {responseCollection &&
-              responseCollection?.question[0].timeleft != 0 && (
+            {
+              // responseCollection && responseCollection?.question[0].timeleft != 0
+              params?.state?.time && (
                 <Box mt={2} sx={{ color: "#222" }}>
-                  <img src={Clock} alt="" style={{ paddingRight: "4px" }} />{" "}
+                  <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
                   {responseCollection
                     ? dispSecondsAsMins(
                         responseCollection?.question[
@@ -203,7 +210,8 @@ const ResultSummaryOrg = (props) => {
                       )
                     : "00:00"}
                 </Box>
-              )}
+              )
+            } 
           </Box>
           <Box mt={2}>
             <LinearProgress
@@ -314,8 +322,9 @@ const ResultSummaryOrg = (props) => {
                 </Typography>
               </Box>
             </Box>
-            {responseCollection &&
-              responseCollection?.question[0].timeleft != 0 && (
+            {
+              // responseCollection && responseCollection?.question[0].timeleft != 0
+              params?.state?.time && (
                 <Box
                   sx={{
                     display: "flex",
@@ -384,7 +393,8 @@ const ResultSummaryOrg = (props) => {
                     </Typography>
                   </Box>
                 </Box>
-              )}
+              )
+            }
           </Box>
 
           <Box mt={2} sx={{ width: 600, display: "flex" }}>
@@ -404,6 +414,7 @@ const ResultSummaryOrg = (props) => {
           >
             {responseCollection &&
               responseCollection?.question?.map((item, index) => {
+                // console.log(params?.state?.time);
                 return (
                   <Box
                     key={index}
@@ -475,10 +486,11 @@ const ResultSummaryOrg = (props) => {
                       component="h6"
                       style={{ fontSize: ".75rem", fontWeight: "600" }}
                     >
-                      {/* Tid: 04:51 */}
                       {item?.spendTime
                         ? "Tid: " + dispSecondsAsMins(item?.spendTime)
-                        : "Tid 0:0"}
+                        : params?.state?.time
+                        ? "Tid: 00:00"
+                        : ""}
                     </Typography>
                     <Box
                       style={{

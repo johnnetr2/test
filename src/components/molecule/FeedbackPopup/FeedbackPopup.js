@@ -65,10 +65,10 @@ export default function FeedbackPopup(props) {
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem" }}>
           <Typography gutterTop variant="h4">
-            Tack, din feedback sparades.
+            Tack för din feedback.
           </Typography>
           <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
-            {"Lägg gärna till något nedan. Det hjälper oss att förbättra oss (frivilligt)."}
+            Vi kommer att använda den för att förbättra vår app i framtiden.
           </Typography>
         </DialogContent>
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
@@ -84,7 +84,7 @@ export default function FeedbackPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            Skicka in
+            Tillbaka
           </Button>
         </DialogActions>
       </BootstrapDialog>

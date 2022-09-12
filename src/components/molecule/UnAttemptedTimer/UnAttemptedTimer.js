@@ -43,7 +43,7 @@ export default function UnAttemptedTimer(props) {
               marginTop: "2rem",
             }}
           >
-            Tiden är över.
+            {props.title}
           </DialogTitle>
           <DialogContent style={{ height: "3rem" }}>
             <DialogContentText
@@ -54,8 +54,7 @@ export default function UnAttemptedTimer(props) {
               }}
               id="alert-dialog-slide-description"
             >
-              Ingen fråga är besvarad så du tas direkt tillbaka till
-              övningssidan.
+              {props.description}
             </DialogContentText>
           </DialogContent>
           <DialogActions
@@ -76,7 +75,7 @@ export default function UnAttemptedTimer(props) {
                 color: "#fff",
               }}
             >
-              Avsluta
+              {props.btnName}
             </Button>
           </DialogActions>
         </Dialog>
