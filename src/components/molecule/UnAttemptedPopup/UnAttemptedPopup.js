@@ -43,7 +43,7 @@ export default function UnAttemptedPopup(props) {
               marginTop: "2rem",
             }}
           >
-            {props.title}
+            Vill du avsluta?
           </DialogTitle>
           <DialogContent style={{ height: "3rem" }}>
             <DialogContentText
@@ -54,7 +54,7 @@ export default function UnAttemptedPopup(props) {
               }}
               id="alert-dialog-slide-description"
             >
-              {props.description}
+              Ingen fråga är besvarad.
             </DialogContentText>
           </DialogContent>
           <DialogActions
@@ -86,7 +86,7 @@ export default function UnAttemptedPopup(props) {
                 color: "#fff",
               }}
             >
-              {props.btnName}
+              Avsluta
             </Button>
           </DialogActions>
         </Dialog>

@@ -35,16 +35,12 @@ const Timer = (props) => {
     if (start) {
       tick.current = setInterval(() => {
         setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1));
+       
       }, 1000);
     }
     return () => clearInterval(tick.current);
   
   }, [start]);
-
-  useEffect(() => {
-    props.callBackForTimer(timer)
-
-  }, [timer])
 
   useEffect(() => {
     setTimeout(() => {

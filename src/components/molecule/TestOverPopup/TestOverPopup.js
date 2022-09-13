@@ -73,11 +73,10 @@ export default function TestOverPopup(props) {
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "1.5rem 5rem" }}>
           <Typography gutterTop variant="h4">
-            Provpasset är över
+            Tiden är över
           </Typography>
           <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
-            Efter att du lämnat in kan du ta en paus innan du börjar nästa
-            provpass. Ditt resultat sparas.
+            Bra kämpat! Gå vidare och checka ditt resultat.
           </Typography>
         </DialogContent>
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
@@ -93,7 +92,7 @@ export default function TestOverPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            Lämna in provpasset
+            Se resultat
           </Button>
         </DialogActions>
       </BootstrapDialog>

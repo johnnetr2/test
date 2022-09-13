@@ -74,7 +74,7 @@ const ProgressBar = (props) => {
                 marginTop: 3,
               }}
             >
-              Copy här
+              Gjorda Uppgifter
             </Typography>
           )}
         </Box>
@@ -97,7 +97,7 @@ const ProgressBar = (props) => {
                 color: "#0A5B2D",
               }}
             >
-              Copy här
+              Gjorda Uppgifter
             </Typography>
           )}
         </Box>
