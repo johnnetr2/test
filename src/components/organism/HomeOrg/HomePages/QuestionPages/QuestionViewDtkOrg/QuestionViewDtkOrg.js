@@ -174,10 +174,10 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
+          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+        )
+          ? seconds
+          : 0,
     };
 
     dataSubmit.splice(selectedIndex, 1, data);
@@ -202,10 +202,10 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
+          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+        )
+          ? seconds
+          : 0,
     };
     dataSubmit.splice(selectedIndex, 1, data);
 
@@ -279,10 +279,10 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
+          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+        )
+          ? seconds
+          : 0,
     };
 
     dataSubmit.splice(selectedIndex, 1, data);
@@ -316,6 +316,7 @@ const QuestionViewDTKOrg = (props) => {
         response?.data?.question?.map((item, index) => {
           Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
         });
+        console.log(Quiz, 'this is quiz')
         props.updateCompleteQuiz(Quiz);
       });
     } catch (error) {
@@ -459,27 +460,30 @@ const QuestionViewDTKOrg = (props) => {
                           >
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
-                          {
-                            quiz &&
-                              selectedIndex < quiz?.question?.length - 1 &&
-                              quiz?.question.length > 1 &&
-                              quiz?.question[0].selectedOptionIndex !=
-                                undefined && (
-                                <img
-                                  onClick={handleRightArrowFunction}
-                                  src={BlueRightIcon}
-                                  style={{ cursor: "pointer" }}
-                                  className={classes.size}
-                                  alt=""
-                                />
-                              )
-                            // : (
-                            //   <img
-                            //     src={Righticon}
-                            //     alt=""
-                            //     style={{ height: 15 }}
-                            //   />
-                          }
+                          {quiz &&
+                            quiz?.question.length > 1 &&
+                            quiz?.question[0].selectedOptionIndex != undefined ? (
+                            <img
+                              onClick={() => {
+                                selectedIndex + 1 < quiz.question.length &&
+                                  setSelectedIndex(selectedIndex + 1);
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.updateQuiz(quiz);
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.changeIndex();
+                              }}
+                              src={BlueRightIcon}
+                              style={{ cursor: "pointer" }}
+                              className={classes.size}
+                              alt=""
+                            />
+                          ) : (
+                            <img
+                              src={Righticon}
+                              alt=""
+                              style={{ height: 15 }}
+                            />
+                          )}
                         </Box>
                       </Box>
                       <Typography
