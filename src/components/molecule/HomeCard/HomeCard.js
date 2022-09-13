@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, LinearProgress, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
@@ -10,62 +10,77 @@ import { MEKNormeringValueFor } from "../../atom/percentageCalculator/Percentage
 import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
+import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
 import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
+import {
+  EndPoints,
+  instance2,
+} from "../../service/Route";
 
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
+  const [totalCategoryQuestions, setTotalCategoryQuestions] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const lastWeeksData = EndPoints.lastWeekTasks + props.item._id;
+    instance2.get(lastWeeksData).then((response) => {
+      setTotalCategoryQuestions(response.data.totalQuestions);
+      setLoading(false);
+    });
+  }, []);
 
   const percentageCalculation = () => {
     if (props?.item.title == "XYZ") {
       return XYZNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     } else if (props?.item.title == "KVA") {
       return KVANormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     } else if (props?.item.title == "NOG") {
       return NOGNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     } else if (props?.item.title == "DTK") {
       return DTKNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     } else if (props?.item.title == "ELF") {
       return ELFNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     } else if (props?.item.title == "LÄS") {
       return LASNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     } else if (props?.item.title == "ORD") {
       return ORDNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     } else if (props?.item.title == "MEK") {
       return MEKNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-          100
+        100
       );
     }
   };
@@ -104,19 +119,23 @@ const HomeCard = (props) => {
         </Typography>
         {/* {console.log(props.data, "previousRecord")} */}
         <Box>
-          <ProgressBar
-            average={
-              props?.previousRecord
-                ? (props?.previousRecord.CorrectQuestion /
-                    props?.previousRecord.TotalQuestion) *
-                  100
+          { loading ? 
+            <ProgressBarLoader/> 
+          :
+            <ProgressBar
+              average={
+                props?.previousRecord
                   ? (props?.previousRecord.CorrectQuestion /
-                      props?.previousRecord.TotalQuestion) *
+                    totalCategoryQuestions) *
                     100
+                    ? (props?.previousRecord.CorrectQuestion /
+                      totalCategoryQuestions) *
+                    100
+                    : 0
                   : 0
-                : 0
-            }
-          />
+              }
+            />
+          }
         </Box>
       </Box>
       <Box
