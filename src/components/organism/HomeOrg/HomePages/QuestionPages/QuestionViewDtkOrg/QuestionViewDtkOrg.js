@@ -363,13 +363,14 @@ const QuestionViewDTKOrg = (props) => {
         >
           <Box
             mt={5}
-            paddingX={6}
+            paddingX={10}
             paddingY={2}
             sx={{
               backgroundColor: "#fff",
               width: 600,
               height: 373,
               overflow: "auto",
+              border: "1px solid #e1e1e1",
             }}
             className={classes.scrollbar}
           >
@@ -385,7 +386,12 @@ const QuestionViewDTKOrg = (props) => {
             <Typography variant="h6" component="h6">
               {quiz?.title}
             </Typography>
-            <Typography variant="subtitle1" style={{ fontSize: ".85rem" }}>
+            <Typography
+              variant="subtitle1"
+              style={{
+                fontSize: ".85rem",
+              }}
+            >
               <MarkLatex content={quiz?.description} />
             </Typography>
             {quiz?.image && (
@@ -421,7 +427,10 @@ const QuestionViewDTKOrg = (props) => {
                         backgroundColor: "#fff",
                         width: 600,
                         border: "1px solid #e1e1e1",
-                        marginLeft: ".5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "relative",
                       }}
                     >
                       <Box
@@ -434,6 +443,9 @@ const QuestionViewDTKOrg = (props) => {
                       >
                         <Box
                           style={{
+                            position: "absolute",
+                            top: 0,
+                            right: 0,
                             width: 70,
                             display: "flex",
                             justifyContent: "space-evenly",
@@ -485,8 +497,7 @@ const QuestionViewDTKOrg = (props) => {
                         style={{
                           fontSize: ".75rem",
                           fontWeight: "600",
-                          marginTop: 20,
-                          paddingBottom: "2rem",
+                          padding: "3rem 0rem",
                           display: "flex",
                           flexDirection: "column",
                         }}
