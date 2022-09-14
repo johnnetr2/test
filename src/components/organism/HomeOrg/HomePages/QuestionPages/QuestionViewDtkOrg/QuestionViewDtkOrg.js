@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
 import { styled } from "@mui/material/styles";
@@ -15,7 +15,7 @@ import {
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
-import { EndPoints, instance, instance2 } from "../../../../../service/Route";
+import { EndPoints, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -28,11 +28,6 @@ const QuestionViewDTKOrg = (props) => {
   const [showResult, setShowResult] = useState(false);
   const [answerExistance, setAnswerExistance] = useState();
   const [onHover, setOnHover] = useState();
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-
-  // let minutes = 0;
-  // let seconds = 0;
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -99,9 +94,6 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    // console.log(props.quiz, 'this is the console of complete props.quiz')
-    // console.log(props.selectedIndex, 'this is the console of props dot selected index')
-
     if (props.paragraphIndex != undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
@@ -134,87 +126,6 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-  var tymer;
-  useEffect(() => {
-    tymer = setInterval(() => {
-      setSeconds((seconds) => seconds + 1);
-    }, 1000);
-
-    return () => clearInterval(tymer);
-  }, []);
-
-  // quiz?.[0]?.question?.[0]?.answer &&
-
-  const getTimeForUnattemptedQuestions = (quiz, index) => {
-    const ans = quiz[index].question.map((item) => {
-      if (item.answer) {
-        return true;
-      } else if (!item.answer) {
-        return false;
-      }
-    });
-    return ans;
-  };
-
-  const handleRightArrowFunction = () => {
-    // if(selectedIndex != quiz?.question.length - 1) {
-    const Quiz = { ...quiz };
-    // const index = dataSubmit.findIndex(
-    //   (item) => item?.questionId == Quiz.question[selectedIndex]._id
-    // );
-
-    // console.log('this is the console of selected index inside the right arrow function', selectedIndex)
-
-    const data = {
-      questionId: Quiz.question[selectedIndex]._id,
-      optionId: Quiz.question[selectedIndex].optionId,
-      MultipartQuestion: Quiz._id,
-      timeleft: props?.timeLeft ? props?.timeLeft : 0,
-      totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[selectedIndex]?.spendtime
-        ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
-    };
-
-    dataSubmit.splice(selectedIndex, 1, data);
-    // }
-
-    selectedIndex + 1 < quiz.question.length &&
-      setSelectedIndex(selectedIndex + 1);
-    selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
-    selectedIndex + 1 < quiz?.question.length && props.changeIndex();
-    setSeconds(0);
-    setMinutes(0);
-  };
-
-  const handleLeftArrowFunction = () => {
-    const Quiz = { ...quiz };
-    const data = {
-      questionId: Quiz.question[selectedIndex]._id,
-      optionId: Quiz.question[selectedIndex].optionId,
-      MultipartQuestion: Quiz._id,
-      timeleft: props?.timeLeft ? props?.timeLeft : 0,
-      totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[selectedIndex]?.spendtime
-        ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
-    };
-    dataSubmit.splice(selectedIndex, 1, data);
-
-    setSelectedIndex(selectedIndex - 1);
-    props.previosQuestion();
-    setSeconds(0);
-    setMinutes(0);
-  };
-
   const SelectFunc = (item, optionIndex) => {
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
@@ -228,9 +139,9 @@ const QuestionViewDTKOrg = (props) => {
       questionId: quiz.question[selectedIndex]._id,
       optionId: quiz.question[selectedIndex].optionId,
       MultipartQuestion: quiz._id,
-      // timeleft: props?.timeLeft ? props?.timeLeft : null,
-      // totaltime: props?.totalTime ? props?.totalTime : null,
-      // spendtime: getSpendTime(props?.timeLeft, props?.totalTime, selectedIndex),
+      timeleft: props.timeLeft ? props.timeLeft : null,
+      totaltime: props.totalTime ? props.totalTime : null,
+      spendtime: props.timeLeft ? props.totalTime - props.timeLeft : null,
     };
 
     const ifExists = dataSubmit.some(
@@ -249,6 +160,15 @@ const QuestionViewDTKOrg = (props) => {
     if (answerLenght == quiz.question.length) {
       setAnswerExistance(true);
     }
+
+    // quiz &&
+    //   quiz?.question.map((item) => {
+    //     if (item.optionId) {
+    //       setAnswerExistance(true);
+    //     } else {
+    //       setAnswerExistance(false);
+    //     }
+    //   });
   };
 
   const Options = (question, option, optionIndex) => {
@@ -268,29 +188,8 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const submitAnswer = async () => {
-    const Quiz = { ...quiz };
-
-    const data = {
-      questionId: Quiz.question[selectedIndex]._id,
-      optionId: Quiz.question[selectedIndex].optionId,
-      MultipartQuestion: Quiz._id,
-      timeleft: props?.timeLeft ? props?.timeLeft : 0,
-      totaltime: props?.totalTime ? props?.totalTime : null,
-      spendtime: dataSubmit[selectedIndex]?.spendtime
-        ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : Boolean(
-            getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-          )
-        ? seconds
-        : 0,
-    };
-
-    dataSubmit.splice(selectedIndex, 1, data);
-
     props.updateQuiz(quiz);
-
     try {
-      props.stopTimer();
       const obj = {
         quiz: props.quizId,
         user: localStorage.getItem("userId"),
@@ -298,25 +197,10 @@ const QuestionViewDTKOrg = (props) => {
         answer: dataSubmit,
       };
       const URL = EndPoints.submitMultiquestionParagragh;
-      await instance2.post(URL, obj).then((response) => {
-        // props.changeTime(props.totalTime - seconds)
-        // console.log(response.data, 'this is the console of response of multi part question')
+      instance2.post(URL, obj).then((response) => {
         dataSubmit = [];
         setShowResult(true);
-      });
-
-      const Quiz = [...props?.quiz];
-      let paragraphID = Quiz[props?.selectedIndex]?._id;
-      const payload = {
-        quiz: props?.quizId,
-      };
-
-      const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
-      instance2.post(URL1, payload).then((response) => {
-        response?.data?.question?.map((item, index) => {
-          Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
-        });
-        props.updateCompleteQuiz(Quiz);
+        props.stopTimer();
       });
     } catch (error) {
       // console.log("in catch block: ", error);
@@ -363,13 +247,14 @@ const QuestionViewDTKOrg = (props) => {
         >
           <Box
             mt={5}
-            paddingX={6}
+            paddingX={10}
             paddingY={2}
             sx={{
               backgroundColor: "#fff",
               width: 600,
               height: 373,
               overflow: "auto",
+              border: "1px solid #e1e1e1",
             }}
             className={classes.scrollbar}
           >
@@ -387,7 +272,9 @@ const QuestionViewDTKOrg = (props) => {
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{
+                fontSize: ".85rem",
+              }}
             >
               <MarkLatex content={quiz?.description} />
             </Typography>
@@ -424,7 +311,10 @@ const QuestionViewDTKOrg = (props) => {
                         backgroundColor: "#fff",
                         width: 600,
                         border: "1px solid #e1e1e1",
-                        marginLeft: ".5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "relative",
                       }}
                     >
                       <Box
@@ -437,6 +327,9 @@ const QuestionViewDTKOrg = (props) => {
                       >
                         <Box
                           style={{
+                            position: "absolute",
+                            top: 0,
+                            right: 0,
                             width: 70,
                             display: "flex",
                             justifyContent: "space-evenly",
@@ -445,7 +338,10 @@ const QuestionViewDTKOrg = (props) => {
                         >
                           {selectedIndex > 0 && (
                             <img
-                              onClick={handleLeftArrowFunction}
+                              onClick={() => {
+                                setSelectedIndex(selectedIndex - 1);
+                                props.previosQuestion();
+                              }}
                               src={BlueLeftIcon}
                               style={{ cursor: "pointer" }}
                               className={classes.size}
@@ -459,27 +355,30 @@ const QuestionViewDTKOrg = (props) => {
                           >
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
-                          {
-                            quiz &&
-                              selectedIndex < quiz?.question?.length - 1 &&
-                              quiz?.question.length > 1 &&
-                              quiz?.question[0].selectedOptionIndex !=
-                                undefined && (
-                                <img
-                                  onClick={handleRightArrowFunction}
-                                  src={BlueRightIcon}
-                                  style={{ cursor: "pointer" }}
-                                  className={classes.size}
-                                  alt=""
-                                />
-                              )
-                            // : (
-                            //   <img
-                            //     src={Righticon}
-                            //     alt=""
-                            //     style={{ height: 15 }}
-                            //   />
-                          }
+                          {quiz &&
+                          quiz?.question.length > 1 &&
+                          quiz?.question[0].selectedOptionIndex != undefined ? (
+                            <img
+                              onClick={() => {
+                                selectedIndex + 1 < quiz.question.length &&
+                                  setSelectedIndex(selectedIndex + 1);
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.updateQuiz(quiz);
+                                selectedIndex + 1 < quiz?.question.length &&
+                                  props.changeIndex();
+                              }}
+                              src={BlueRightIcon}
+                              style={{ cursor: "pointer" }}
+                              className={classes.size}
+                              alt=""
+                            />
+                          ) : (
+                            <img
+                              src={Righticon}
+                              alt=""
+                              style={{ height: 15 }}
+                            />
+                          )}
                         </Box>
                       </Box>
                       <Typography
@@ -488,8 +387,7 @@ const QuestionViewDTKOrg = (props) => {
                         style={{
                           fontSize: ".75rem",
                           fontWeight: "600",
-                          marginTop: 20,
-                          paddingBottom: "2rem",
+                          padding: "3rem 0rem",
                           display: "flex",
                           flexDirection: "column",
                         }}

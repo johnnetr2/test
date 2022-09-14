@@ -27,7 +27,7 @@ export default function DropPenPopup(props) {
     <>
       <Box>
         <Dialog
-          open={props?.popUpstatus}
+          open={props.popUpstatus}
           TransitionComponent={Transition}
           keepMounted
           onClose={handleClose}
@@ -43,16 +43,14 @@ export default function DropPenPopup(props) {
               marginTop: "2rem",
             }}
           >
-            {/* Dags att droppa pennan! */}
-            {props?.title}
+            Dags att droppa pennan!
           </DialogTitle>
           <DialogContent style={{ height: "3rem" }}>
             <DialogContentText
               style={{ display: "flex", justifyContent: "center" }}
               id="alert-dialog-slide-description"
             >
-              {/* Dags att droppa pennan! */}
-              {props?.description}
+              Dags att droppa pennan!
             </DialogContentText>
           </DialogContent>
           <DialogActions
@@ -64,7 +62,7 @@ export default function DropPenPopup(props) {
             }}
           >
             <Button
-              onClick={props?.redirect}
+              onClick={props.redirect}
               variant="contained"
               style={{
                 width: "10rem",
@@ -73,8 +71,7 @@ export default function DropPenPopup(props) {
                 color: "#fff",
               }}
             >
-              {/* Se resultat */}
-              {props?.btnName}
+              Se resultat
             </Button>
           </DialogActions>
         </Dialog>

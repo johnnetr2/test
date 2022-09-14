@@ -20,30 +20,47 @@ const useStyles = makeStyles((theme) => ({
     backgrounColor: "#fff",
   },
 }));
-
 const HomeRightBar = (props) => {
   const classes = useStyles();
   // const [studentPreference, setStudentPreference] = useState();
   let [showPrognos, seTShowPrognos] = useState();
-  let obj = {};
   const [weeklyProgress, setWeeklyProgress] = useState(0);
   const [weeks, setWeeks] = useState();
   let weeklyProgressArr = [];
   let weeksArr = [];
+  let newArray = [];
 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
         const data = datesGroupByComponent(response.data.lastWeek, "W");
+        let previousweeks = [];
+        let a;
+        if (Object.keys(data).length < 7) {
+          let keys = Object.keys(data); //35,36
+          let first = keys[0]; //35
+          a = 7 - Object.keys(data).length; //5
+          let b = first - a; //30 //first = 35
+          for (let index = b; index < first; index++) {
+            previousweeks.push("V." + index);
+          }
+          let obj = {};
+          for (let index = 0; index < a; index++) {
+            obj.correctAnswers = 0;
+            obj.attemptedQuestion = 0;
+            obj.overAllprognos = 0;
+            weeklyProgressArr.push(obj);
+          }
+        }
         data &&
           Object.values(data).map((key, index) => {
             const week = (Object.keys(data)[index] =
               "V." + Object.keys(data)[index]);
             weeksArr.push(week);
+            newArray = previousweeks.concat(weeksArr);
             let obj = {};
             key.map((item) => {
-              // console.log(item, "request key");
               obj.correctAnswers = obj?.correctAnswers
                 ? obj?.correctAnswers + item.correctAnswer
                 : item.correctAnswer;
@@ -58,7 +75,7 @@ const HomeRightBar = (props) => {
           });
 
         setWeeklyProgress(weeklyProgressArr);
-        setWeeks(weeksArr);
+        setWeeks(newArray);
       });
 
       const getPreviosRecord =

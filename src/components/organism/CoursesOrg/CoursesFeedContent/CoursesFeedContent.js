@@ -147,7 +147,7 @@ const CoursesFeedContent = (props) => {
             <Box>
               <img style={{ marginLeft: ".5rem" }} src={SearchIcon} alt="" />
             </Box>
-            {/* {console.log(props?.seasons, "seasons")} */}
+            {console.log(props?.seasons, "seasons")}
           </Box>
         </Box>
       </Box>

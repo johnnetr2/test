@@ -33,7 +33,6 @@ function Header(props) {
     setQuiz(props?.quiz);
     totalPAragraphQuestions = totalPAragraphQuestions + 1;
 
-    // console.log(props.quiz, 'this is the console inside the header')
     props.quiz &&
       props?.quiz?.map((item) => {
         if (item.type == "multiple") {
@@ -96,10 +95,11 @@ function Header(props) {
               timeleft={(timer) => {
                 if (!props.status) {
                   props.timeLeft(timer);
+                  // setTimeout(() => {
                   props.nextPress();
+                  // }, 1000);
                 }
               }}
-              callBackForTimer={(value) => props.callBackForTimer(value)}
               onCloseTimer={() => props.onCloseTimer()}
             />
           </Box>

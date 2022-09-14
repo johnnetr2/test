@@ -39,15 +39,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   placeholder: {
-    "&:placeholder": {
+    "&::placeholder": {
       color: "#E1E1E1",
     },
   },
-  // InputFieldPlaceholder: {
-  //   "&::placeholder": {
-  //     color: "#E1E1E1"
-  //   }
-  // }
 }));
 
 const SignupOrg = () => {
@@ -166,18 +161,17 @@ const SignupOrg = () => {
         disableGutters
         sx={{
           width: "60%",
-          // paddingTop: "6rem",
+          paddingTop: "6rem",
           display: "flex",
           justifyContent: "center",
           alignItem: "center",
-          alignSelf: "center",
         }}
         className={classes.mobileView}
       >
         <Box sx={{ padding: "1rem 0" }}>
           <Box
             sx={{
-              marginBottom: "2rem",
+              marginBottom: "1rem",
             }}
           >
             <Typography
@@ -205,7 +199,7 @@ const SignupOrg = () => {
                 padding: "1rem",
                 border: "1px solid #e1e1e1",
                 marginTop: ".5rem",
-                borderRadius: "8px",
+                borderRadius: "5px",
                 marginBottom: "1rem",
                 outline: "none",
               }}
@@ -223,14 +217,12 @@ const SignupOrg = () => {
                 padding: "1rem",
                 border: "1px solid #e1e1e1",
                 marginTop: ".5rem",
-                borderRadius: "8px",
+                borderRadius: "5px",
                 marginBottom: "1rem",
                 outline: "none",
               }}
             />
-            <Label for="password" style={{ color: "#B5B5B5" }}>
-              Lösenord
-            </Label>
+            <Label for="password">Lösenord</Label>
             <Box
               sx={{
                 display: "flex",
@@ -241,7 +233,7 @@ const SignupOrg = () => {
                 marginBottom: "1rem",
                 border: "1px solid #e1e1e1",
                 backgroundColor: "transparent",
-                borderRadius: "8px",
+                borderRadius: "5px",
               }}
             >
               <InputField
@@ -277,14 +269,14 @@ const SignupOrg = () => {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {!showPassword ? (
-                  <VisibilityOutlinedIcon style={{ color: "#B5B5B5" }} />
+                  <VisibilityOutlinedIcon />
                 ) : (
-                  <VisibilityOffOutlinedIcon style={{ color: "#B5B5B5" }} />
+                  <VisibilityOffOutlinedIcon />
                 )}
               </Label>
             </Box>
             {/* <Box>Enter valid password</Box> */}
-            <Typography variant="body1" style={{ color: "#505050", textDecorationLine: "underline" }}>Glömt lösenord?</Typography>
+            <Typography variant="body1">Glömt lösenord?</Typography>
             <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <FilledBtn onClick={clickHandler} title="Skapa konto" />
@@ -297,29 +289,19 @@ const SignupOrg = () => {
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
             {/* <OutlineBtn title="Konto med Google" /> */}
           </Box>
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              // marginBottom: "2rem",
-            }}
-          >
+          <Box style={{ display: "flex", justifyContent: "center" }}>
             <Typography
               variant="body1"
-              style={{ textTransform: "uppercase" }}
+              style={{ textTransform: "uppercase  " }}
+              // sx={{ textAlign: "center", width: "100%" }}
             >
-              Har du redan ett konto?
-              <Link to="/login" style={{ textDecorationLine: "none" }}>
-                {" "}
-                Logga in
-              </Link>
+              Har du redan ett konto?<Link to="/login"> Logga in</Link>
             </Typography>
           </Box>
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
-              paddingTop: '2.5rem'
             }}
           >
             <Typography

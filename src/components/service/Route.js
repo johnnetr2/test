@@ -79,5 +79,4 @@ export const EndPoints = {
   getLastSevenWeeksData: "/api/task/sectionGraph/",
   OverAllNormeringValue: "/api/tableHistory/ProgressOfHundred/",
   getLastSevenWeeksData: "/api/task/sectionGraph/",
-  getParagraphQuestionAnswer: "/api/quizResult/paragraphQuestionResult/",
 };
