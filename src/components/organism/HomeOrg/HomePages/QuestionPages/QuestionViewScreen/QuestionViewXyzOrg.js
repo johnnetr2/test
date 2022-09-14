@@ -152,6 +152,7 @@ const QuestionViewXyzOrg = () => {
           ques.answerSubmited = true;
           !params?.state?.data.value && setNextPress(!nextPress);
           localStorage.setItem('quiz', JSON.stringify(questions))
+          console.log(questions, 'this is the console of questions')
           setQuiz(questions);
           setStatus(false);
           console.log(quiz)
