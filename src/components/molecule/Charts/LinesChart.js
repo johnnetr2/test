@@ -13,25 +13,6 @@ const LinesChart = (props) => {
     console.log(props, "previousProps");
   }, []);
 
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div
-          style={{
-            backgroundColor: "#fff",
-            border: "1px solid #e1e1e1",
-            borderRadius: "5px",
-            padding: ".65rem .75rem",
-          }}
-        >
-          <p>{`Prognos: ${payload[0].value}`}</p>
-        </div>
-      );
-    }
-
-    return null;
-  };
-
   return (
     <Box>
       <LineChart
@@ -89,7 +70,6 @@ const LinesChart = (props) => {
         <XAxis dataKey="name" dy={10} tickLine={false} />
         <YAxis type="number" dx={-10} tickLine={false} axisLine={false} />
         <Tooltip
-          content={<CustomTooltip />}
           contentStyle={{
             backgroundColor: "#fff",
             border: "1px solid #e1e1e1",

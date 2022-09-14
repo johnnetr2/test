@@ -126,25 +126,6 @@ const LineDemo = (props) => {
     },
   ];
 
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div
-          style={{
-            backgroundColor: "#fff",
-            border: "1px solid #e1e1e1",
-            borderRadius: "5px",
-            padding: ".65rem .75rem",
-          }}
-        >
-          <p>{`Correct: ${payload[0].value}`}</p>
-        </div>
-      );
-    }
-
-    return null;
-  };
-
   return (
     <Box>
       {props?.weeks && data && (
@@ -167,7 +148,6 @@ const LineDemo = (props) => {
           <XAxis dataKey="name" dy={10} tickLine={false} />
           <YAxis dx={-10} tickLine={false} axisLine={false} />
           <Tooltip
-            content={<CustomTooltip />}
             contentStyle={{
               backgroundColor: "#fff",
               border: "1px solid #e1e1e1",
