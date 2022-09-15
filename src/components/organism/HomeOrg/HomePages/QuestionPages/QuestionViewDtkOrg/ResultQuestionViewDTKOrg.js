@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
-import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
-import { styled } from "@mui/material/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Typography,
-  Paper,
   Box,
-  CssBaseline,
   Container,
+  CssBaseline,
+  Paper,
+  Typography,
 } from "@material-ui/core";
+import { EndPoints, instance2 } from "../../../../../service/Route";
+import React, { useEffect, useState } from "react";
+
+import CircularProgress from "@mui/material/CircularProgress";
+import Correct from "../../../../../../assets/Imgs/correct.png";
+import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
 import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 import TopArrow from "../../../../../../assets/Icons/TopArrow.svg";
-import Correct from "../../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
-import { EndPoints, instance2 } from "../../../../../service/Route";
 import axios from "axios";
-import CircularProgress from "@mui/material/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 
@@ -173,7 +174,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                       <Typography
                         variant="h6"
                         component="h6"
-                        style={{ fontSize: ".75rem", fontWeight: "600" }}
+                        style={{ fontSize: "1rem", fontWeight: "600" }}
                       >
                         {item.questionStatement}
                       </Typography>
@@ -234,7 +235,6 @@ const ResultQuestionViewDtkOrg = (props) => {
               variant="h6"
               style={{
                 fontSize: "0.75rem",
-                marginRight: "0.5rem",
                 width: "3rem",
               }}
             >
