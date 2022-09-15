@@ -476,7 +476,7 @@ const CategoryPagesFeedContent = (props) => {
               setTabValue(0);
             }}
           >
-            Historia
+            Historik
           </Typography>
 
           <Typography

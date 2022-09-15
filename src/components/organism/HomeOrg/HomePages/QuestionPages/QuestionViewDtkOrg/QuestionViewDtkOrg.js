@@ -444,7 +444,7 @@ const QuestionViewDTKOrg = (props) => {
                         <Box
                           style={{
                             position: "absolute",
-                            top: 0,
+                            top: 10,
                             right: 0,
                             width: 70,
                             display: "flex",
@@ -520,7 +520,7 @@ const QuestionViewDTKOrg = (props) => {
                             backgroundColor: "#fff",
                             width: 600,
                             border: "1px solid #e1e1e1",
-                            marginLeft: ".5rem",
+                            // marginLeft: ".5rem",
                             color:
                               optionIndex == question.selectedOptionIndex &&
                               "#0A1596",
@@ -606,7 +606,6 @@ const QuestionViewDTKOrg = (props) => {
                           width: "100%",
                           marginTop: "2%",
                           marginBottom: "2%",
-                          marginLeft: "1%",
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",

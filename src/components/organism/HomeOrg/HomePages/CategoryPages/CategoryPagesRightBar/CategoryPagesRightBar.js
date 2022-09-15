@@ -44,17 +44,41 @@ const CategoryPagesRightBar = (props) => {
   const [weeks, setWeeks] = useState();
   let weeklyProgressArr = [];
   let weeksArr = [];
+  let newArray = [];
 
   useEffect(() => {
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
     instance2.get(lastWeeksData).then((response) => {
       const data = datesGroupByComponent(response.data.sevenWeekData, "W");
+      let previousweeks = [];
+      let a;
+      if (Object.keys(data).length < 7) {
+        let keys = Object.keys(data); //35,36
+        let first = keys[0]; //35
+        a = 7 - Object.keys(data).length; //5
+        let b = first - a; //30 //first = 35
+        for (let index = b; index < first; index++) {
+          previousweeks.push("V." + index);
+        }
+
+        let obj = {};
+        for (let index = 0; index < a; index++) {
+          obj.correctAnswers = 0;
+          obj.attemptQuestions = 0;
+          obj.eachCategoryPrognos = 0;
+          obj.totalQuestion = 0;
+          weeklyProgressArr.push(obj);
+        }
+      }
       data &&
         Object.values(data).map((key, index) => {
           const week = (Object.keys(data)[index] =
             "V." + Object.keys(data)[index]);
-          weeksArr.push(week);
+
           let obj = {};
+          weeksArr.push(week);
+          newArray = previousweeks.concat(weeksArr);
+
           key.map((item) => {
             obj.correctAnswers = obj?.correctAnswers
               ? obj?.correctAnswers + item.correctAnswer
@@ -72,7 +96,7 @@ const CategoryPagesRightBar = (props) => {
           weeklyProgressArr.push(obj);
         });
       setWeeklyProgress(weeklyProgressArr);
-      setWeeks(weeksArr);
+      setWeeks(newArray);
     });
   }, []);
 
@@ -198,7 +222,7 @@ const CategoryPagesRightBar = (props) => {
             <Typography variant="h5">
               {!lastWeekTasks ? "0" : lastWeekTasks.totalCorrectQuestions}
             </Typography>
-            <Typography variant="body2">Gjorda uppgifter totalt</Typography>
+            <Typography variant="body2">Klarade uppgifter totalt</Typography>
           </Box>
         </Box>
         <Box
@@ -279,26 +303,27 @@ const CategoryPagesRightBar = (props) => {
 
             {weeks && weeklyProgress && (
               <LinesChart
+                syncId="anyId"
                 mondayData={
-                  weeklyProgress[0] ? weeklyProgress[0].eachCategoryPrognos : ""
+                  weeklyProgress[0] ? weeklyProgress[0].eachCategoryPrognos : 0
                 }
                 tuesdayData={
-                  weeklyProgress[1] ? weeklyProgress[1].eachCategoryPrognos : ""
+                  weeklyProgress[1] ? weeklyProgress[1].eachCategoryPrognos : 0
                 }
                 wednesdayData={
-                  weeklyProgress[2] ? weeklyProgress[2].eachCategoryPrognos : ""
+                  weeklyProgress[2] ? weeklyProgress[2].eachCategoryPrognos : 0
                 }
                 thursdayData={
-                  weeklyProgress[3] ? weeklyProgress[3].eachCategoryPrognos : ""
+                  weeklyProgress[3] ? weeklyProgress[3].eachCategoryPrognos : 0
                 }
                 fridayData={
-                  weeklyProgress[4] ? weeklyProgress[4].eachCategoryPrognos : ""
+                  weeklyProgress[4] ? weeklyProgress[4].eachCategoryPrognos : 0
                 }
                 saturdayData={
-                  weeklyProgress[5] ? weeklyProgress[5].eachCategoryPrognos : ""
+                  weeklyProgress[5] ? weeklyProgress[5].eachCategoryPrognos : 0
                 }
                 sundayData={
-                  weeklyProgress[6] ? weeklyProgress[6].eachCategoryPrognos : ""
+                  weeklyProgress[6] ? weeklyProgress[6].eachCategoryPrognos : 0
                 }
                 weeklyProgress={weeklyProgress}
                 weeks={weeks}
