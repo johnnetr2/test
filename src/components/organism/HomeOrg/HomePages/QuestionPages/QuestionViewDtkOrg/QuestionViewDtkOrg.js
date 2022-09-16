@@ -99,8 +99,6 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-    // console.log(props.quiz, 'this is the console of complete props.quiz')
-    // console.log(props.selectedIndex, 'this is the console of props dot selected index')
 
     if (props.paragraphIndex != undefined) {
       setSelectedIndex(props.questionIndex);
@@ -157,13 +155,7 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const handleRightArrowFunction = () => {
-    // if(selectedIndex != quiz?.question.length - 1) {
     const Quiz = { ...quiz };
-    // const index = dataSubmit.findIndex(
-    //   (item) => item?.questionId == Quiz.question[selectedIndex]._id
-    // );
-
-    // console.log('this is the console of selected index inside the right arrow function', selectedIndex)
 
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
@@ -173,11 +165,12 @@ const QuestionViewDTKOrg = (props) => {
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : Boolean(
-          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-        )
-          ? seconds
-          : 0,
+        : seconds
+      // Boolean(
+      //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+      // )
+      //   ? seconds
+      //   : 0,
     };
 
     dataSubmit.splice(selectedIndex, 1, data);
@@ -201,11 +194,12 @@ const QuestionViewDTKOrg = (props) => {
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : Boolean(
-          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-        )
-          ? seconds
-          : 0,
+        : seconds
+      // Boolean(
+      //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+      // )
+      //   ? seconds
+      //   : 0,
     };
     dataSubmit.splice(selectedIndex, 1, data);
 
@@ -278,11 +272,12 @@ const QuestionViewDTKOrg = (props) => {
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : Boolean(
-          getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-        )
-          ? seconds
-          : 0,
+        : seconds
+      // Boolean(
+      //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
+      // )
+      //   ? seconds
+      //   : 0,
     };
 
     dataSubmit.splice(selectedIndex, 1, data);
@@ -299,8 +294,6 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
-        // props.changeTime(props.totalTime - seconds)
-        // console.log(response.data, 'this is the console of response of multi part question')
         dataSubmit = [];
         setShowResult(true);
       });
@@ -310,17 +303,17 @@ const QuestionViewDTKOrg = (props) => {
       const payload = {
         quiz: props?.quizId,
       };
-
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
       instance2.post(URL1, payload).then((response) => {
         response?.data?.question?.map((item, index) => {
-          Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
+          if (Quiz[props?.selectedIndex].question[index]) {
+            Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
+          }
         });
-        console.log(Quiz, 'this is quiz')
         props.updateCompleteQuiz(Quiz);
       });
     } catch (error) {
-      // console.log("in catch block: ", error);
+      console.log("in catch block: ", error);
     }
   };
 
@@ -364,13 +357,14 @@ const QuestionViewDTKOrg = (props) => {
         >
           <Box
             mt={5}
-            paddingX={6}
+            paddingX={10}
             paddingY={2}
             sx={{
               backgroundColor: "#fff",
               width: 600,
               height: 373,
               overflow: "auto",
+              border: "1px solid #e1e1e1",
             }}
             className={classes.scrollbar}
           >
@@ -388,7 +382,9 @@ const QuestionViewDTKOrg = (props) => {
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{
+                fontSize: ".85rem",
+              }}
             >
               <MarkLatex content={quiz?.description} />
             </Typography>
@@ -425,7 +421,11 @@ const QuestionViewDTKOrg = (props) => {
                         backgroundColor: "#fff",
                         width: 600,
                         border: "1px solid #e1e1e1",
-                        marginLeft: ".5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "relative",
+                        marginLeft: 8
                       }}
                     >
                       <Box
@@ -438,6 +438,9 @@ const QuestionViewDTKOrg = (props) => {
                       >
                         <Box
                           style={{
+                            position: "absolute",
+                            top: 0,
+                            right: 0,
                             width: 70,
                             display: "flex",
                             justifyContent: "space-evenly",
@@ -460,30 +463,27 @@ const QuestionViewDTKOrg = (props) => {
                           >
                             {selectedIndex + 1 + "/" + quiz.question.length}
                           </Typography>
-                          {quiz &&
+                          {
+                            quiz &&
+                            selectedIndex < quiz?.question?.length - 1 &&
                             quiz?.question.length > 1 &&
-                            quiz?.question[0].selectedOptionIndex != undefined ? (
-                            <img
-                              onClick={() => {
-                                selectedIndex + 1 < quiz.question.length &&
-                                  setSelectedIndex(selectedIndex + 1);
-                                selectedIndex + 1 < quiz?.question.length &&
-                                  props.updateQuiz(quiz);
-                                selectedIndex + 1 < quiz?.question.length &&
-                                  props.changeIndex();
-                              }}
-                              src={BlueRightIcon}
-                              style={{ cursor: "pointer" }}
-                              className={classes.size}
-                              alt=""
-                            />
-                          ) : (
-                            <img
-                              src={Righticon}
-                              alt=""
-                              style={{ height: 15 }}
-                            />
-                          )}
+                            quiz?.question[0].selectedOptionIndex !=
+                            undefined && (
+                              <img
+                                onClick={handleRightArrowFunction}
+                                src={BlueRightIcon}
+                                style={{ cursor: "pointer" }}
+                                className={classes.size}
+                                alt=""
+                              />
+                            )
+                            // : (
+                            //   <img
+                            //     src={Righticon}
+                            //     alt=""
+                            //     style={{ height: 15 }}
+                            //   />
+                          }
                         </Box>
                       </Box>
                       <Typography

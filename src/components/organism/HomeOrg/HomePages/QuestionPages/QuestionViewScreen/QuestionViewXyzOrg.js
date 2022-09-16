@@ -84,8 +84,7 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime(15);
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -110,8 +109,7 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime(15);
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -152,7 +150,7 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data).then((response) => {
         setAnsSubmittedState(response.data);
-        console.log(response.data, 'answer submit')
+        console.log('answer submit')
         setTime(timeLeft);
         setNextPress(undefined);
       });
@@ -298,7 +296,6 @@ const QuestionViewXyzOrg = () => {
         });
       }
     });
-    console.log(singleQuestionArray, 'array of questions')
     return singleQuestionArray;
   };
 
@@ -445,7 +442,7 @@ const QuestionViewXyzOrg = () => {
               color: "#FFFFFF",
             }}
           >
-            Svara
+            {question.answer ? 'Nästa' : 'Svara'}
           </Typography>
         </Box>
       ) : (

@@ -21,7 +21,6 @@ function MultiQuestionSummary(props) {
 
   useEffect(() => {
     setQuestion(props.question);
-    console.log(props.question, 'this is question')
   }, []);
 
   const Options = (question, curentOption, optionIndex) => {
@@ -83,44 +82,6 @@ function MultiQuestionSummary(props) {
         flexDirection: "column",
       }}
     >
-      {/* <Box
-              mt={5}
-              paddingX={6}
-              paddingY={2}
-              sx={{
-                  width: 600,
-                  height: 280,
-                  border: "1px solid #e1e1e1",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  backgroundColor: '#fff',
-                  overflow: 'auto' 
-              }}
-          >
-
-              <Typography
-                  variant="h6"
-                  component="h6"
-                  style={{ fontSize: "0.75rem", fontWeight: "600", marginTop: '5rem', backgroundColor: 'blue', height: 'fit-content', bottom: 0 }}
-              >
-                  {console.log(question?.multipartQuestion.description)}
-
-                  {/* {question?.multipartQuestion.description} */}
-      {/* <MarkLatex content={question?.multipartQuestion.description} />
-              </Typography>
-
-              <Typography
-                  variant="h6"
-                  component="h6"
-                  style={{ height: '12rem', display: 'flex', justifyContent: 'center' }}
-              >
-                  {question?.multipartQuestion?.image &&  <img style={{ height: '100%' }} src={question?.multipartQuestion?.image} />}
-
-              </Typography> */}
-
-      {/* </Box> */}
-
       <Box
         mt={5}
         paddingX={6}
@@ -176,30 +137,31 @@ function MultiQuestionSummary(props) {
             marginLeft: ".5rem",
           }}
         >
-          <Box
+          {/* <Box
             style={{
               display: "flex",
               justifyContent: "flex-end",
               alignItems: "center",
               marginTop: 10,
             }}
-          ></Box>
+          ></Box> */}
           <Typography
             variant="h6"
             component="h6"
             style={{
-              fontSize: ".75rem",
+              fontSize: "14px",
               fontWeight: "600",
               marginTop: 20,
+              paddingBottom: "2rem",
               display: "flex",
               flexDirection: "column",
             }}
           >
             <MarkLatex content={question?.questionStatement} />
 
-            {question?.images && (
+            {/* {question?.images[0] && (
               <img src={question.images[0]} style={{ marginBottom: ".4rem" }} />
-            )}
+            )} */}
           </Typography>
         </Box>
         {question?.options[0].options.map((curentOption, optionIndex) => {
@@ -214,7 +176,7 @@ function MultiQuestionSummary(props) {
               }}
             >
               <FormControlLabel
-                onClick={(e) => {}}
+                onClick={(e) => { }}
                 value={curentOption._id}
                 style={{ marginLeft: ".5rem", marginTop: ".3rem" }}
                 control={Options(question, curentOption, optionIndex)}
