@@ -86,7 +86,7 @@ const LoginOrg = () => {
             localStorage.setItem("email", response.data.user.email);
             MixpanelTracking.getInstance().login(
               "success",
-              localStorage.userId
+              response.data.user?._id
             );
             // navigate("/home");
             window.location.href = "/home";
