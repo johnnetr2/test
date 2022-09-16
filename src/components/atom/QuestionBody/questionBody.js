@@ -82,7 +82,7 @@ const QuestionBody = (props) => {
         previosQuestion={() => props.previosQuestion()}
         PopupTimeEnd={props.PopupTimeEnd}
         updateCompleteQuiz={(quiz) => props.updateCompleteQuiz(quiz)}
-        // changeTime={(time) => props.changeTime(time)}
+      // changeTime={(time) => props.changeTime(time)}
       />
     );
   } else if (props.question.multipartQuestion) {
@@ -416,24 +416,8 @@ const QuestionBody = (props) => {
                   marginTop: 10,
                 }}
               >
-                {/* {question.answer.answer} */}
                 <MarkLatex content={question.answer.answer} />
               </Typography>
-              {/* </Box>
-            <Box
-              mt={2}
-              style={{
-                // marginLeft: "15rem",
-                marginTop: "2rem",
-              }}
-            > */}
-
-              {/* {(question?.answer?.answer.includes(
-                "https://hp-appen.s3.eu-north-1.amazonaws.com/"
-              )) {
-                splitItem()
-              }: ""
-                } */}
 
               {question?.answer?.image ? (
                 <img

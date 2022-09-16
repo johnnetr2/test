@@ -88,25 +88,23 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => {});
+      .catch(() => { });
     // instance2.get(URL, data).then(response => {
     //   console.log(response.data, 'responsessssssss')
     //   setParagraph(response.data.question)
     // })
   }, []);
 
-  const showResult = (item, index) => {
+  const showResult = (index) => {
     const quiz = [...paragraph];
-    const question = quiz[index];
-    question.showResult = true;
-    setParagraph(quiz);
-  };
-
-  const hideResult = (item, index) => {
-    const quiz = [...paragraph];
-    const question = quiz[index];
-    question.showResult = false;
-    setParagraph(quiz);
+    let question = quiz[index];
+    if (question?.showResult) {
+      question.showResult = false;
+      setParagraph(quiz);
+    } else {
+      question.showResult = true;
+      setParagraph(quiz);
+    }
   };
 
   return (
@@ -131,6 +129,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                     padding: "1rem",
                     marginTop: "5%",
                     width: 600,
+                    cursor: 'pointer'
                   }}
                 >
                   <Box
@@ -142,6 +141,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                       border: "1px solid #e1e1e1",
                       display: "flex",
                     }}
+                    onClick={() => showResult(index)}
                   >
                     {item.optionId === item?.answer?.option ? (
                       <img
@@ -187,7 +187,6 @@ const ResultQuestionViewDtkOrg = (props) => {
                           <img
                             src={TopArrow}
                             style={{ cursor: "pointer" }}
-                            onClick={() => hideResult(item, index)}
                             className={classes.size}
                             alt=""
                           />
@@ -195,7 +194,6 @@ const ResultQuestionViewDtkOrg = (props) => {
                           <img
                             src={DownArrow}
                             style={{ cursor: "pointer" }}
-                            onClick={() => showResult(item, index)}
                             className={classes.size}
                             alt=""
                           />
@@ -238,7 +236,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                 width: "3rem",
               }}
             >
-              Svara
+              Nästa
             </Typography>
           </Box>
         </div>
