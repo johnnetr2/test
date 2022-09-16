@@ -93,7 +93,7 @@ export const CategoryTable = (props) => {
     } else if (props?.sectionCategory.title == "MEK") {
       return MEKNormeringValueFor(value);
     }
-  }
+  };
 
   return (
     <Container maxWidth="lg" disableGutters>
@@ -109,8 +109,9 @@ export const CategoryTable = (props) => {
             style={{
               display: "flex",
               fontWeight: 500,
-              width: "45%",
+              width: "50%",
               justifyContent: "flex-start",
+              textTransform: "capitalize",
             }}
           >
             Datum
@@ -120,7 +121,8 @@ export const CategoryTable = (props) => {
               display: "flex",
               justifyContent: "center",
               fontWeight: 500,
-              width: "40%",
+              width: "35%",
+              textTransform: "capitalize",
             }}
           >
             Resultat
@@ -131,6 +133,7 @@ export const CategoryTable = (props) => {
               justifyContent: "center",
               fontWeight: 500,
               width: "40%",
+              textTransform: "capitalize",
             }}
           >
             Normering
@@ -153,56 +156,56 @@ export const CategoryTable = (props) => {
       >
         <Table>
           <TableBody>
-            {categoryTable
-              .map((row, index) => {
-                return (
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    key={index}
+            {categoryTable.map((row, index) => {
+              return (
+                <TableRow
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  key={index}
+                >
+                  <TableCell component="th" scope="row">
+                    {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
+                  </TableCell>
+                  <TableCell align="left">
+                    {row.correctAnswer} av {row.answer.length}
+                  </TableCell>
+
+                  <TableCell align="right">
+                    {percentageCalculation(
+                      (row.correctAnswer / row.answer.length) * 100
+                    )}
+                  </TableCell>
+
+                  <TableCell
+                    style={{
+                      display: "flex",
+                      flexDirection: "row-reverse",
+                      color: "grey",
+                      height: "5rem",
+                      alignItems: "center",
+                      alignSelf: "flex-end",
+                    }}
                   >
-                    <TableCell component="th" scope="row">
-                      {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
-                    </TableCell>
-                    <TableCell align="left">
-                      {row.correctAnswer} av {row.answer.length}
-                    </TableCell>
-
-                    <TableCell align="right">
-                      {percentageCalculation((row.correctAnswer / row.answer.length) * 100)}
-                    </TableCell>
-
-                    <TableCell
+                    <Box
                       style={{
                         display: "flex",
-                        flexDirection: "row-reverse",
-                        color: "grey",
-                        height: "5rem",
-                        alignItems: "center",
-                        alignSelf: "flex-end",
+                        flexDirection: "column",
+                        display: "flex",
+                        alignItems: "flex-end",
+                        position: "relative",
                       }}
                     >
-                      <Box
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          display: "flex",
-                          alignItems: "flex-end",
-                          position: "relative",
-                        }}
-                      >
-                        <MoreVertIcon
-                          sx={{ cursor: "pointer", color: "#b4b4b4" }}
-                          onClick={() => showPopup(index)}
-                        />
-                        {row.result && (
-                          <Dropdown onClick={() => ResultHandler(row)} />
-                        )}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                );
-              })
-            }
+                      <MoreVertIcon
+                        sx={{ cursor: "pointer", color: "#b4b4b4" }}
+                        onClick={() => showPopup(index)}
+                      />
+                      {row.result && (
+                        <Dropdown onClick={() => ResultHandler(row)} />
+                      )}
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </Box>

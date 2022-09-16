@@ -7,6 +7,8 @@ import { Box, Typography, Button } from "@mui/material";
 import Slide from "@material-ui/core/Slide";
 import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router-dom";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Cross from "../../../assets/Icons/Cross.svg";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -56,6 +58,11 @@ export default function EndPopup({
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
+      {/* <DialogTitle>
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <img onClick={() => hidePopup()} src={Cross} alt="" />
+        </Box>
+      </DialogTitle> */}
       <DialogContent
         style={{
           paddingTop: "3rem",
@@ -74,8 +81,8 @@ export default function EndPopup({
             Sätt ditt mål
           </Typography>
           <Typography variant="body2" sx={{ color: "#252525" }}>
-            Ditt målpoäng beror ofta på vilken utbilding du vill söka till. Är
-            du osäker kan du alltid ändra senare.
+            Sätt en målpoäng som inspiration. Olika utbildningar har olika
+            antagningsstatistik, är du osäker kan du ändra senare.
           </Typography>
 
           <Box sx={{ width: 495, marginTop: "1rem" }}>

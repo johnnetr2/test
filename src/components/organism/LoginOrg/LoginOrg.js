@@ -271,9 +271,15 @@ const LoginOrg = () => {
               title="Logga in Med Google"
             /> */}
           </Box>
-          <Box style={{ display: "flex", justifyContent: "center", marginTop: '2rem' }}>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "2rem",
+            }}
+          >
             <Typography variant="body1">
-              Har du ingte konto? <Link to="/">Skapa konto här</Link>
+              Har du inget konto?<Link to="/">Skapa konto här</Link>
             </Typography>
           </Box>
         </Box>

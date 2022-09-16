@@ -50,7 +50,7 @@ export default function UnAttemptedPopup(props) {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                color: 'gray',
+                color: "gray",
               }}
               id="alert-dialog-slide-description"
             >
@@ -65,6 +65,17 @@ export default function UnAttemptedPopup(props) {
               marginBottom: "2rem",
             }}
           >
+            <Button
+              onClick={props.handleOptionClose}
+              variant="contained"
+              style={{
+                width: "10rem",
+                color: "#0A1596",
+                border: "1px solid #0A1596",
+              }}
+            >
+              Fortsätt öva
+            </Button>
             <Button
               onClick={props.redirect}
               variant="contained"

@@ -212,7 +212,7 @@ export const KVANormeringValueFor = (percentage) => {
       min: 90.9,
       max: 93.3,
       value: 1.9,
-    },
+    },  
     {
       min: 93.4,
       max: 100,
@@ -376,7 +376,7 @@ export const DTKNormeringValueFor = (percentage) => {
       value: 0.7,
     },
     {
-      min: 47.8,
+      min: 47.9,
       max: 52.6,
       value: 0.8,
     },
@@ -513,16 +513,16 @@ export const ORDNormeringValueFor = (percentage) => {
     },
     {
       min: 72.4,
-      max: 82.7,
+      max: 76.0,
       value: 1.3,
     },
     {
-      min: 82.8,
-      max: 73.0,
+      min: 76.1,
+      max: 79.7,
       value: 1.4,
     },
     {
-      min: 73.1,
+      min: 79.8,
       max: 83.3,
       value: 1.5,
     },
@@ -624,16 +624,16 @@ export const LASNormeringValueFor = (percentage) => {
     },
     {
       min: 71.5,
-      max: 81.8,
+      max: 75.1,
       value: 1.3,
     },
     {
-      min: 81.9,
-      max: 72.2,
+      min: 75.2,
+      max: 78.8,
       value: 1.4,
     },
     {
-      min: 72.3,
+      min: 78.9,
       max: 82.3,
       value: 1.5,
     },
@@ -735,16 +735,16 @@ export const MEKNormeringValueFor = (percentage) => {
     },
     {
       min: 73.3,
-      max: 83.9,
+      max: 77.0,
       value: 1.3,
     },
     {
-      min: 84.0,
-      max: 74.0,
+      min: 77.1,
+      max: 80.8,
       value: 1.4,
     },
     {
-      min: 74.1,
+      min: 80.9,
       max: 84.4,
       value: 1.5,
     },
@@ -846,16 +846,16 @@ export const ELFNormeringValueFor = (percentage) => {
     },
     {
       min: 73.0,
-      max: 83.5,
+      max: 76.7,
       value: 1.3,
     },
     {
-      min: 83.6,
-      max: 73.6,
+      min: 76.8,
+      max: 80.5,
       value: 1.4,
     },
     {
-      min: 73.7,
+      min: 80.6,
       max: 84.0,
       value: 1.5,
     },
@@ -1033,7 +1033,7 @@ export const VerbalNormeringValueFor = (percentage) => {
     },
     {
       min: 43.44,
-      max: 47.8,
+      max: 47.80,
       value: 0.6,
     },
     {
@@ -1067,19 +1067,19 @@ export const VerbalNormeringValueFor = (percentage) => {
       value: 1.2,
     },
     {
-      min: 72.6,
-      max: 83.12,
+      min: 72.60,
+      max: 76.34,
       value: 1.3,
     },
     {
-      min: 83.13,
-      max: 73.33,
+      min: 76.35,
+      max: 80.09,
       value: 1.4,
     },
     {
-      min: 73.33,
+      min: 80.10,
       max: 83.64,
-      value: 1.5,
+      value: 1.5, 
     },
     {
       min: 83.65,

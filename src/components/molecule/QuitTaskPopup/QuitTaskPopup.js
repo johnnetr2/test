@@ -32,7 +32,7 @@ export default function AlertDialogSlide(props) {
       {/* <Button variant="outlined" onClick={handleClickOpen}>
         Slide in alert dialog
       </Button> */}
-      <Box 
+      <Box
       // style={{ padding: "5rem" }}
       >
         <Dialog

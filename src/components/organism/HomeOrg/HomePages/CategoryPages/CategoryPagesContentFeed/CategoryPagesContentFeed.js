@@ -185,13 +185,37 @@ const CategoryPagesFeedContent = (props) => {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
-            // console.log('response', response)
             setOpen(false);
+            // console.log("response data", response.data)
+            const quizobj = response.data;
+            const { quiz: quistions } = quizobj;
+            const questionswithSuffeldOptions = quistions.map((question) => {
+              // console.log("options simple", question?.options[0]?.options)
+
+              const options = question?.options[0]?.options
+                .map((value) => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value);
+              // console.log("options shhhhh", options)
+
+              const optionsShuffeld = [
+                {
+                  options,
+                },
+              ];
+              return {
+                ...question,
+                options: optionsShuffeld,
+              };
+            });
+            quizobj.quiz = questionswithSuffeldOptions;
+            // console.log("after shuffle",quizobj)
+
             navigate("/question", {
               state: {
-                data: response.data,
+                data: quizobj,
                 sectionCategory: props.item,
-                quizId: response.data._id,
+                quizId: quizobj._id,
                 time: timer,
               },
             });
@@ -230,7 +254,7 @@ const CategoryPagesFeedContent = (props) => {
             <Typography
               variant="body2"
               style={{
-                textTransform: "uppercase",
+                textTransform: "capitalize",
                 fontSize: "0.75rem",
                 width: "12rem",
                 marginLeft: "0.2rem",
@@ -241,7 +265,7 @@ const CategoryPagesFeedContent = (props) => {
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
             <OutlineField
-              title="Tid & poäng"
+              title={"Tid & Prognos"}
               type="checkbox"
               checked={timer}
               onClickCheck={(e) => setTimer(!timer)}
@@ -253,7 +277,7 @@ const CategoryPagesFeedContent = (props) => {
             <Typography
               variant="body2"
               style={{
-                textTransform: "uppercase",
+                textTransform: "capitalize",
                 fontSize: "0.75rem",
                 marginLeft: "0.2rem",
               }}
@@ -358,7 +382,7 @@ const CategoryPagesFeedContent = (props) => {
             <Typography
               variant="body2"
               style={{
-                textTransform: "uppercase",
+                textTransform: "capitalize",
                 fontSize: "0.75rem",
                 marginLeft: "0.2rem",
               }}
@@ -476,7 +500,7 @@ const CategoryPagesFeedContent = (props) => {
               setTabValue(0);
             }}
           >
-            Historia
+            Historik
           </Typography>
 
           <Typography
