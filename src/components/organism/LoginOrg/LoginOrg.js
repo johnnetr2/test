@@ -279,7 +279,7 @@ const LoginOrg = () => {
             }}
           >
             <Typography variant="body1">
-              Har du inget konto?<Link to="/">Skapa konto här</Link>
+              Har du inget konto? <Link to="/">Skapa konto här</Link>
             </Typography>
           </Box>
         </Box>
