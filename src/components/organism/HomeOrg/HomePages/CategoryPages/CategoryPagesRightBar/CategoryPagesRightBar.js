@@ -36,6 +36,7 @@ function datesGroupByComponent(dates, token) {
 }
 
 const CategoryPagesRightBar = (props) => {
+  console.log(props, "test props");
   const classes = useStyles();
   const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");
@@ -305,25 +306,39 @@ const CategoryPagesRightBar = (props) => {
               <LinesChart
                 syncId="anyId"
                 mondayData={
-                  weeklyProgress[0] ? weeklyProgress[0].eachCategoryPrognos : 0
+                  weeklyProgress[0]
+                    ? weeklyProgress[0].eachCategoryPrognos
+                    : null
                 }
                 tuesdayData={
-                  weeklyProgress[1] ? weeklyProgress[1].eachCategoryPrognos : 0
+                  weeklyProgress[1]
+                    ? weeklyProgress[1].eachCategoryPrognos
+                    : null
                 }
                 wednesdayData={
-                  weeklyProgress[2] ? weeklyProgress[2].eachCategoryPrognos : 0
+                  weeklyProgress[2]
+                    ? weeklyProgress[2].eachCategoryPrognos
+                    : null
                 }
                 thursdayData={
-                  weeklyProgress[3] ? weeklyProgress[3].eachCategoryPrognos : 0
+                  weeklyProgress[3]
+                    ? weeklyProgress[3].eachCategoryPrognos
+                    : null
                 }
                 fridayData={
-                  weeklyProgress[4] ? weeklyProgress[4].eachCategoryPrognos : 0
+                  weeklyProgress[4]
+                    ? weeklyProgress[4].eachCategoryPrognos
+                    : null
                 }
                 saturdayData={
-                  weeklyProgress[5] ? weeklyProgress[5].eachCategoryPrognos : 0
+                  weeklyProgress[5]
+                    ? weeklyProgress[5].eachCategoryPrognos
+                    : null
                 }
                 sundayData={
-                  weeklyProgress[6] ? weeklyProgress[6].eachCategoryPrognos : 0
+                  weeklyProgress[6]
+                    ? weeklyProgress[6].eachCategoryPrognos
+                    : null
                 }
                 weeklyProgress={weeklyProgress}
                 weeks={weeks}

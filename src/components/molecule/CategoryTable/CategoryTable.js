@@ -109,7 +109,7 @@ export const CategoryTable = (props) => {
             style={{
               display: "flex",
               fontWeight: 500,
-              width: "50%",
+              width: "45%",
               justifyContent: "flex-start",
               textTransform: "capitalize",
             }}

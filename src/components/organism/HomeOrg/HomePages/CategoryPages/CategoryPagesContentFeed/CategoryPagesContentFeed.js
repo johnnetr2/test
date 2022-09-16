@@ -187,35 +187,35 @@ const CategoryPagesFeedContent = (props) => {
           } else {
             setOpen(false);
             // console.log("response data", response.data)
-            const quizobj = response.data;
-            const { quiz: quistions } = quizobj;
-            const questionswithSuffeldOptions = quistions.map((question) => {
-              // console.log("options simple", question?.options[0]?.options)
+            // const quizobj = response.data;
+            // const { quiz: quistions } = quizobj;
+            // const questionswithSuffeldOptions = quistions.map((question) => {
+            //   console.log("options simple", question?.options[0]?.options)
 
-              const options = question?.options[0]?.options
-                .map((value) => ({ value, sort: Math.random() }))
-                .sort((a, b) => a.sort - b.sort)
-                .map(({ value }) => value);
-              // console.log("options shhhhh", options)
+            //   const options = question?.options[0]?.options
+            //     .map((value) => ({ value, sort: Math.random() }))
+            //     .sort((a, b) => a.sort - b.sort)
+            //     .map(({ value }) => value);
+            //   // console.log("options shhhhh", options)
 
-              const optionsShuffeld = [
-                {
-                  options,
-                },
-              ];
-              return {
-                ...question,
-                options: optionsShuffeld,
-              };
-            });
-            quizobj.quiz = questionswithSuffeldOptions;
+            //   const optionsShuffeld = [
+            //     {
+            //       options,
+            //     },
+            //   ];
+            //   return {
+            //     ...question,
+            //     options: optionsShuffeld,
+            //   };
+            // });
+            // quizobj.quiz = questionswithSuffeldOptions;
             // console.log("after shuffle",quizobj)
 
             navigate("/question", {
               state: {
-                data: quizobj,
+                data: response.data,
                 sectionCategory: props.item,
-                quizId: quizobj._id,
+                quizId: response.data._id,
                 time: timer,
               },
             });

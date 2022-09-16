@@ -129,12 +129,13 @@ const QuestionViewXyzOrg = () => {
     }
   }, []);
 
-useEffect(() => {
-        // console.log(quiz, 'this is the console of quiz')
+  useEffect(() => {
+    // console.log(quiz, 'this is the console of quiz')
     if (
-      (nextPress &&
-      // !quiz[0]?.type == 'multiple' && 
-      quiz?.length > 0 && (timeLeft || (!params?.state?.data.value && !timeLeft)))
+      nextPress &&
+      // !quiz[0]?.type == 'multiple' &&
+      quiz?.length > 0 &&
+      (timeLeft || (!params?.state?.data.value && !timeLeft))
     ) {
       const questions = [...quiz];
       let question = questions[selectedIndex];
@@ -152,7 +153,7 @@ useEffect(() => {
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data).then((response) => {
         setAnsSubmittedState(response.data);
-        console.log(response.data, 'answer submit')
+        console.log(response.data, "answer submit");
         setTime(timeLeft);
         setNextPress(undefined);
         // localStorage.setItem('quiz', JSON.stringify(quiz))
@@ -163,13 +164,15 @@ useEffect(() => {
     } else {
       return;
     }
-  }, [nextPress, timeLeft && !quiz[0]?.type == 'multiple']);
-
+  }, [nextPress, timeLeft && !quiz[0]?.type == "multiple"]);
 
   const Next = (question) => {
     if (question.answer) {
       if (selectedIndex + 1 == quiz.length) {
-        if (answerSubmittedState.answer.length === answerSubmittedState.totalQuestion){
+        if (
+          answerSubmittedState.answer.length ===
+          answerSubmittedState.totalQuestion
+        ) {
           navigate("/resultsummary", {
             state: {
               sectionCategory: params?.state?.sectionCategory,
@@ -181,8 +184,7 @@ useEffect(() => {
         }
         localStorage.removeItem("time");
         localStorage.removeItem("quiz");
-      }
-       else {
+      } else {
         setStatus(true);
         selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
         setCurrentQuestion(currentQuestion + 1);
@@ -203,8 +205,6 @@ useEffect(() => {
       }
     }
   };
-
-  
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -491,7 +491,9 @@ useEffect(() => {
   };
 
   const PopupHandler = () => {
+    console.log(quiz, "quiz");
     const checkPopup = params?.state?.questionIndex;
+    console.log(checkPopup, "check popup");
     if (checkPopup != undefined) {
     }
     // else if (
@@ -500,8 +502,11 @@ useEffect(() => {
     //     quiz?.[0]?.question[0]?.answer &&
     //     quiz?.[0]?.question[0].multipartQuestion !== null)
     // ) {
-    setOpen(true);
-    // setIsOpen(false);
+    else if (quiz?.[0]?.answer || quiz?.[0]?.question?.[0].answer) {
+      setOpen(true);
+    } else {
+      navigate(-1);
+    } // setIsOpen(false);
     // } else {
     //   setIsOpen(true);
     //   setOpen(false);
@@ -509,6 +514,7 @@ useEffect(() => {
   };
 
   const handleAlertDialogPopup = () => {
+    console.log("handleAlertDialogPopup");
     if (
       (quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
       (quiz &&
@@ -607,13 +613,13 @@ useEffect(() => {
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
-          callBackForTimer={(value) => setTimeLeft(value)}
+            callBackForTimer={(value) => setTimeLeft(value)}
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <AlertDialogSlide
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -636,9 +642,9 @@ useEffect(() => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
