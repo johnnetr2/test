@@ -205,16 +205,43 @@ const CategoryPagesFeedContent = (props) => {
         };
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
+          // console.log(response, 'this is the conosle of response of create q1uiz')
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
             setOpen(false);
+            // console.log("response data", response.data)
+            // const quizobj = response.data;
+            // const { quiz: quistions } = quizobj;
+            // const questionswithSuffeldOptions = quistions.map((question) => {
+            //   console.log("options simple", question?.options[0]?.options)
+
+            //   const options = question?.options[0]?.options
+            //     .map((value) => ({ value, sort: Math.random() }))
+            //     .sort((a, b) => a.sort - b.sort)
+            //     .map(({ value }) => value);
+            //   // console.log("options shhhhh", options)
+
+            //   const optionsShuffeld = [
+            //     {
+            //       options,
+            //     },
+            //   ];
+            //   return {
+            //     ...question,
+            //     options: optionsShuffeld,
+            //   };
+            // });
+            // quizobj.quiz = questionswithSuffeldOptions;
+            // console.log("after shuffle",quizobj)
+
             navigate("/question", {
               state: {
                 data: response.data,
                 sectionCategory: props.item,
                 quizId: response.data._id,
+                time: timer,
               },
             });
           }
@@ -258,7 +285,7 @@ const CategoryPagesFeedContent = (props) => {
                 marginLeft: "0.2rem",
               }}
             >
-              Välj Övningsläge
+              Välj om du vill köra på tid
             </Typography>
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
@@ -518,7 +545,8 @@ const CategoryPagesFeedContent = (props) => {
               setTabValue(1);
             }}
           >
-            {"Statistik - " + props.item.title}
+            {" "}
+            / Statistik
           </Typography>
         </Box>
 

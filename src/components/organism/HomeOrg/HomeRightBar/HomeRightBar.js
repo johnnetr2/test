@@ -49,7 +49,7 @@ const HomeRightBar = (props) => {
           for (let index = 0; index < a; index++) {
             obj.correctAnswers = 0;
             obj.attemptedQuestion = 0;
-            obj.overAllprognos = 0;
+            obj.overAllprognos = null;
             weeklyProgressArr.push(obj);
           }
         }

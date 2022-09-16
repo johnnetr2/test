@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
       width: "100% !important",
     },
   },
+  placeholder: {
+    "&:placeholder": {
+      color: "#E1E1E1",
+    },
+  },
 }));
 
 const LoginOrg = () => {
@@ -155,15 +160,16 @@ const LoginOrg = () => {
         disableGutters
         sx={{
           width: "60%",
-          paddingTop: "6rem",
+          // paddingTop: "6rem",
           display: "flex",
           justifyContent: "center",
-          alignItem: "center",
+          alignItems: "center",
+          alignSelf: "center",
         }}
         className={classes.mobileView}
       >
         <Box sx={{ padding: "1rem 0" }}>
-          <Box sx={{ marginBottom: "1rem" }}>
+          <Box sx={{ marginBottom: "2rem" }}>
             <Typography variant="h3" sx={{ marginBottom: "1rem" }}>
               Logga in
             </Typography>
@@ -178,6 +184,7 @@ const LoginOrg = () => {
               title="Email"
               name="email"
               onChange={getVal}
+              className={classes.placeholder}
               value={user.email}
               style={{
                 width: "100%",
@@ -185,13 +192,15 @@ const LoginOrg = () => {
                 padding: "1rem",
                 border: "1px solid #e1e1e1",
                 marginTop: ".5rem",
-                borderRadius: "5px",
+                borderRadius: "8px",
                 marginBottom: "1rem",
                 outline: "none",
                 WebkitBoxShadow: "0 0 0 1000px white inset",
               }}
             />
-            <Label for="password">Lösenord</Label>
+            <Label for="password" style={{ color: "#B5B5B5" }}>
+              Lösenord
+            </Label>
             <Box
               sx={{
                 display: "flex",
@@ -202,7 +211,7 @@ const LoginOrg = () => {
                 marginBottom: "1rem",
                 border: "1px solid #e1e1e1",
                 backgroundColor: "transparent",
-                borderRadius: "5px",
+                borderRadius: "8px",
               }}
             >
               <InputField
@@ -213,6 +222,7 @@ const LoginOrg = () => {
                 value={user.password}
                 name="password"
                 id="password"
+                className={classes.placeholder}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -225,7 +235,6 @@ const LoginOrg = () => {
                   border: "none",
                   WebkitBoxShadow: "0 0 0 1000px white inset",
                 }}
-                className={classes.autoFillColor}
               />
               <Label
                 for="password"
@@ -236,13 +245,17 @@ const LoginOrg = () => {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {!showPassword ? (
-                  <VisibilityOutlinedIcon />
+                  <VisibilityOutlinedIcon style={{ color: "#B5B5B5" }} />
                 ) : (
-                  <VisibilityOffOutlinedIcon />
+                  <VisibilityOffOutlinedIcon style={{ color: "#B5B5B5" }} />
                 )}
               </Label>
             </Box>
-            <Link to="#" onClick={forgotPassword}>
+            <Link
+              to="#"
+              onClick={forgotPassword}
+              style={{ color: "#505050", textDecorationLine: "underline" }}
+            >
               Glömt lösenord?
             </Link>
             <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
@@ -258,7 +271,13 @@ const LoginOrg = () => {
               title="Logga in Med Google"
             /> */}
           </Box>
-          <Box style={{ display: "flex", justifyContent: "center" }}>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "2rem",
+            }}
+          >
             <Typography variant="body1">
               Har du inget konto? <Link to="/">Skapa konto här</Link>
             </Typography>

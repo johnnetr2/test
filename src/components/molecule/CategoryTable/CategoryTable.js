@@ -121,7 +121,7 @@ export const CategoryTable = (props) => {
               display: "flex",
               justifyContent: "center",
               fontWeight: 500,
-              width: "40%",
+              width: "35%",
               textTransform: "capitalize",
             }}
           >

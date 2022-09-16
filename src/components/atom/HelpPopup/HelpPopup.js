@@ -74,7 +74,7 @@ const HelpPopup = () => {
             fontSize: "0.75rem",
           }}
         >
-          • Vill du avbryta? Klicka då på pilen längst uppe till vänster.
+        • Vill du avbryta? Klicka då på pilen längst uppe till vänster.
         </Typography>
 
       </Box>

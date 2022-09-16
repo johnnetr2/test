@@ -42,39 +42,39 @@ const LinesChart = (props) => {
         }}
         data={[
           {
-            name: props?.weeks[0] ? props.weeks[0] : "",
-            Prognos: props?.mondayData,
+            name: props?.weeks[0] ? props.weeks[0] : null,
+            Prognos: props?.mondayData ? props?.mondayData : null,
             // point:props.mondayData
             // (props.homeRightBar && props.mondayData) ||
             // (props.categoryRightBar && props.mondayData),
           },
           {
             name: props?.weeks[1] ? props.weeks[1] : null,
-            Prognos: props?.tuesdayData,
+            Prognos: props?.tuesdayData ? props?.tuesdayData : null,
             // (props.homeRightBar && props.tuesdayData) ||
             // (props.categoryRightBar && props.tuesdayData),
           },
           {
             name: props?.weeks[2] ? props?.weeks[2] : null,
-            Prognos: props?.wednesdayData,
+            Prognos: props?.wednesdayData ? props?.wednesdayData : null,
             // (props?.homeRightBar && props.wednesdayData) ||
             // (props?.categoryRightBar && props.wednesdayData),
           },
           {
             name: props?.weeks[3] ? props.weeks[3] : null,
-            Prognos: props?.thursdayData,
+            Prognos: props?.thursdayData ? props?.thursdayData : null,
           },
           {
             name: props?.weeks[4] ? props.weeks[4] : null,
-            Prognos: props?.fridayData,
+            Prognos: props?.fridayData ? props?.fridayData : null,
           },
           {
             name: props?.weeks[5] ? props.weeks[5] : null,
-            Prognos: props?.saturdayData,
+            Prognos: props?.saturdayData ? props?.saturdayData : null,
           },
           {
             name: props?.weeks[6] ? props.weeks[6] : null,
-            Prognos: props?.sundayData,
+            Prognos: props?.sundayData ? props?.sundayData : null,
           },
         ]}
         syncId="anyId"

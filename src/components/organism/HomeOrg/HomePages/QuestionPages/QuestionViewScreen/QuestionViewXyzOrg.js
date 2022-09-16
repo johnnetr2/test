@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
 import Backdrop from "@mui/material/Backdrop";
@@ -23,7 +23,6 @@ import HelpPopup from "../../../../../atom/HelpPopup/HelpPopup";
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
 import QuestionBody from "../../../../../atom/QuestionBody/questionBody";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
-import UnAttemptedPopup from "../../../../../molecule/UnAttemptedPopup/UnAttemptedPopup";
 import UnAttemptedTimer from "../../../../../molecule/UnAttemptedTimer/UnAttemptedTimer";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
@@ -38,7 +37,6 @@ const QuestionViewXyzOrg = () => {
   const [timeLeft, setTimeLeft] = useState();
   const [time, setTime] = useState(0);
   const [open, setOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [timeEnd, setTimeEnd] = useState(false);
   const [nextPress, setNextPress] = useState(undefined);
   const [totalQuestions, setTotalQuestions] = useState(0);
@@ -46,6 +44,11 @@ const QuestionViewXyzOrg = () => {
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [answerSubmittedState, setAnsSubmittedState] = useState();
+  const [seconds, setSeconds] = useState(0);
+  const [startTimer, setStartTimer] = useState(true);
+  let [remainingTime, setRemainingTime] = useState(0);
+  var timer;
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -54,18 +57,17 @@ const QuestionViewXyzOrg = () => {
   }));
 
   useEffect(() => {
-    console.log(params?.state)
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
       setSelectedIndex(questionToShow);
       setCurrentQuestion(questionToShow);
-      setCurrentQuestion(questionToShow + 1)
+      setCurrentQuestion(questionToShow + 1);
       setQuiz(params?.state?.quiz.question);
       setTotalQuestions(params?.state?.quiz?.question?.length);
       setLoading(false);
     } else {
-      if (localStorage.getItem('quiz')) {
-        let refreshQuiz = JSON.parse(localStorage.getItem('quiz'))
+      if (localStorage.getItem("quiz")) {
+        let refreshQuiz = JSON.parse(localStorage.getItem("quiz"));
         let totalQ = 0;
         setLoading(false);
         refreshQuiz &&
@@ -74,7 +76,7 @@ const QuestionViewXyzOrg = () => {
               setSelectedIndex((selectedIndex) => selectedIndex + 1);
               setCurrentQuestion((currentQuestion) => currentQuestion + 1);
             }
-            if (item.type == 'multiple') {
+            if (item.type == "multiple") {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
               totalQ = totalQ + item?.question?.length;
             } else {
@@ -84,8 +86,8 @@ const QuestionViewXyzOrg = () => {
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
-        if (localStorage.getItem('quiz')) {
-          setQuiz(JSON.parse(localStorage.getItem('quiz')))
+        if (localStorage.getItem("quiz")) {
+          setQuiz(JSON.parse(localStorage.getItem("quiz")));
         } else {
           setQuiz(params?.state?.data?.quiz);
         }
@@ -99,7 +101,7 @@ const QuestionViewXyzOrg = () => {
               setSelectedIndex((selectedIndex) => selectedIndex + 1);
               setCurrentQuestion((currentQuestion) => currentQuestion + 1);
             }
-            if (item.type == 'multiple') {
+            if (item.type == "multiple") {
               setTotalQuestions((totalQ) => totalQ + item?.question?.length);
               totalQ = totalQ + item?.question?.length;
             } else {
@@ -109,8 +111,8 @@ const QuestionViewXyzOrg = () => {
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
         setStatus(true);
-        if (localStorage.getItem('quiz')) {
-          setQuiz(JSON.parse(localStorage.getItem('quiz')))
+        if (localStorage.getItem("quiz")) {
+          setQuiz(JSON.parse(localStorage.getItem("quiz")));
         } else {
           setQuiz(params?.state?.data?.quiz);
         }
@@ -120,45 +122,11 @@ const QuestionViewXyzOrg = () => {
 
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      if (JSON.parse(localStorage.getItem('quiz'))) {
-        setQuiz(JSON.parse(localStorage.getItem('quiz')))
+      if (JSON.parse(localStorage.getItem("quiz"))) {
+        setQuiz(JSON.parse(localStorage.getItem("quiz")));
       }
     }
   }, []);
-
-  const Next = (question) => {
-    if (question.answer) {
-      if (selectedIndex + 1 == quiz.length) {
-        navigate("/resultsummary", {
-          state: {
-            sectionCategory: params?.state?.sectionCategory,
-            quizId: params?.state?.quizId,
-          },
-        });
-        localStorage.removeItem("time");
-        localStorage.removeItem("quiz");
-      } else {
-        setStatus(true);
-        selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
-        setCurrentQuestion(currentQuestion + 1);
-      }
-    } else {
-      if (question.selectedIndex + 1) {
-        const questions = [...quiz];
-        let ques = questions[selectedIndex];
-        const URL = EndPoints.getAnswerByQuestionId + ques._id;
-        instance2.get(URL).then((response) => {
-          ques.answer = response.data;
-          ques.answerSubmited = true;
-          !params?.state?.data.value && setNextPress(!nextPress);
-          localStorage.setItem('quiz', JSON.stringify(questions))
-          setQuiz(questions);
-          setStatus(false);
-          console.log(quiz)
-        });
-      }
-    }
-  };
 
   useEffect(() => {
     if (
@@ -166,6 +134,7 @@ const QuestionViewXyzOrg = () => {
       quiz?.length > 0 &&
       (timeLeft || (!params?.state?.data.value && !timeLeft))
     ) {
+      setRemainingTime((remainingTime) => remainingTime + (time - timeLeft));
       const questions = [...quiz];
       let question = questions[selectedIndex];
       const data = {
@@ -176,22 +145,71 @@ const QuestionViewXyzOrg = () => {
         sectionCategory: params?.state?.sectionCategory?._id,
         timeleft: timeLeft ? timeLeft : 0,
         totaltime: time ? time : 0,
-        spendtime: timeLeft ? time - timeLeft : 0,
+        spendtime: params.state.time ? time - timeLeft : seconds,
         MultipartQuestion: null,
       };
-      const Submit = EndPoints.submitAnswer;
-      instance2.post(Submit, data).then((response) => {
+      const URL = EndPoints.submitAnswer;
+      instance2.post(URL, data).then((response) => {
+        setAnsSubmittedState(response.data);
+        console.log("answer submit");
         setTime(timeLeft);
         setNextPress(undefined);
-        // localStorage.setItem('quiz', JSON.stringify(quiz))
-
-        // localStorage.setItem("quiz", quiz);
-        console.log("Answer submited");
       });
     } else {
       return;
     }
-  }, [nextPress, timeLeft]);
+  }, [nextPress, timeLeft && !quiz[0]?.type == "multiple"]);
+
+  useEffect(() => {
+    timer = setInterval(() => {
+      setSeconds((seconds) => seconds + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [!params.state.time && startTimer]);
+
+  const Next = (question) => {
+    setStartTimer(false);
+    if (question.answer) {
+      if (selectedIndex + 1 == quiz.length) {
+        if (
+          answerSubmittedState.answer.length ===
+          answerSubmittedState.totalQuestion
+        ) {
+          navigate("/resultsummary", {
+            state: {
+              sectionCategory: params?.state?.sectionCategory,
+              quizId: params?.state?.quizId,
+              spendtime: answerSubmittedState,
+              time: params?.state?.time,
+            },
+          });
+        }
+        localStorage.removeItem("time");
+        localStorage.removeItem("quiz");
+      } else {
+        setSeconds(0);
+        setStatus(true);
+        setStartTimer(true);
+        selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
+        setCurrentQuestion(currentQuestion + 1);
+      }
+    } else {
+      if (question.selectedIndex + 1) {
+        const questions = [...quiz];
+        let ques = questions[selectedIndex];
+        const URL = EndPoints.getAnswerByQuestionId + ques._id;
+        instance2.get(URL).then((response) => {
+          ques.answer = response?.data;
+          ques.answerSubmited = true;
+          !params?.state?.data?.value && setNextPress(!nextPress);
+          localStorage.setItem("quiz", JSON.stringify(questions));
+          setQuiz(questions);
+          setStatus(false);
+        });
+      }
+    }
+  };
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -236,36 +254,71 @@ const QuestionViewXyzOrg = () => {
     },
     radio: {
       color: onHover && "#0A1596",
-      // '&$checked': {
-      //   color: '#0A1596',
-      //   marginRight: "0.5rem"
-      // }
     },
   }));
 
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const CloseTimerFunc = async () => {
-    setTimeEnd(true);
-    try {
-      return await Promise.all(
-        quiz?.map(async (item) => {
-          if (!item.answer) {
-            const data = {
-              quiz: params?.state?.quizId,
-              user: localStorage.getItem("userId"),
+  const AnswerArrayPayloadForCloseTimerFunc = () => {
+    let singleQuestionArray = [];
+    quiz?.map((item) => {
+      if (
+        item.hasOwnProperty("multipartQuestion") &&
+        item?.multipartQuestion === null
+      ) {
+        if (!item.answer) {
+          if (singleQuestionArray.length < 1) {
+            singleQuestionArray.push({
               questionId: item._id,
-              sectionCategory: params?.state?.sectionCategory?._id,
+              timeleft: 0,
+              totaltime: time ? time : 0,
+              spendtime: 15 - remainingTime,
+              // spendtime: (params.state.sectionCategory.time * quiz.length * 60) - remainingTime,
+            });
+          } else {
+            singleQuestionArray.push({
+              questionId: item._id,
               timeleft: 0,
               totaltime: time ? time : 0,
               spendtime: timeLeft ? time - timeLeft : 0,
-            };
-            const URL = EndPoints.submitAnswer;
-            await instance2.post(URL, data).then((response) => { });
+            });
           }
+        }
+      } else {
+        item?.question?.map((value) => {
+          if (value?.multipartQuestion && !value?.answer) {
+            singleQuestionArray.push({
+              questionId: value?._id,
+              timeleft: 0,
+              totaltime: time ? time : 0,
+              spendtime: 0,
+            });
+          }
+        });
+      }
+    });
+    return singleQuestionArray;
+  };
+
+  const CloseTimerFunc = async () => {
+    setTimeEnd(true);
+    try {
+      const payload = {
+        quiz: params?.state?.quizId,
+        user: localStorage.getItem("userId"),
+        sectionCategory: params?.state?.sectionCategory?._id,
+        answer: AnswerArrayPayloadForCloseTimerFunc(),
+      };
+      const URL = EndPoints.submitMultiquestionParagragh;
+      instance2
+        .post(URL, payload)
+        .then((response) => {
+          console.log("Answer submitted");
         })
-      );
+        .catch((error) => {
+          console.log("this is the consnole of error", error);
+        });
     } catch (error) {
       console.log("in catch block: ", error);
     }
@@ -279,7 +332,6 @@ const QuestionViewXyzOrg = () => {
     // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
-
 
   function OptionIndex(index) {
     switch (index) {
@@ -310,7 +362,7 @@ const QuestionViewXyzOrg = () => {
           style={{ marginLeft: "0.45rem", width: "1.5rem", color: "grey" }}
         />
       );
-    } else if (question.answer && curentOption._id != question?.optionId){
+    } else if (question.answer && curentOption._id != question?.optionId) {
       return (
         <Radio
           disabled
@@ -353,6 +405,7 @@ const QuestionViewXyzOrg = () => {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
                 quizId: params?.state?.quizId,
+                time: params?.state?.time,
               },
             });
           }}
@@ -391,7 +444,7 @@ const QuestionViewXyzOrg = () => {
               color: "#FFFFFF",
             }}
           >
-            Svara
+            {question.answer ? "Nästa" : "Svara"}
           </Typography>
         </Box>
       ) : (
@@ -425,14 +478,52 @@ const QuestionViewXyzOrg = () => {
   };
 
   const PopupHandler = () => {
+    console.log(quiz, "quiz");
     const checkPopup = params?.state?.questionIndex;
+    console.log(checkPopup, "check popup");
     if (checkPopup != undefined) {
-    } else if (quiz[0].answer) {
+    }
+    // else if (
+    //   (quiz[0].answer && quiz[0].multipartQuestion === null) ||
+    //   (quiz &&
+    //     quiz?.[0]?.question[0]?.answer &&
+    //     quiz?.[0]?.question[0].multipartQuestion !== null)
+    // ) {
+    else if (quiz?.[0]?.answer || quiz?.[0]?.question?.[0].answer) {
       setOpen(true);
-      setIsOpen(false);
     } else {
-      setIsOpen(true);
-      setOpen(false);
+      navigate(-1);
+    } // setIsOpen(false);
+    // } else {
+    //   setIsOpen(true);
+    //   setOpen(false);
+    // }
+  };
+
+  const handleAlertDialogPopup = () => {
+    console.log("handleAlertDialogPopup");
+    if (
+      (quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
+      (quiz &&
+        quiz?.[0]?.question?.[0]?.answer &&
+        quiz?.[0]?.question?.[0]?.multipartQuestion !== null)
+    ) {
+      navigate("/resultsummary", {
+        state: {
+          sectionCategory: params?.state?.sectionCategory,
+          quizId: params?.state?.quizId,
+          time: params?.state?.time,
+        },
+      });
+      localStorage.removeItem("quiz");
+      localStorage.removeItem("time");
+    } else {
+      navigate("/category", {
+        state: {
+          item: params?.state?.sectionCategory,
+        },
+      });
+      localStorage.removeItem("quiz");
     }
   };
 
@@ -509,64 +600,73 @@ const QuestionViewXyzOrg = () => {
             timeLeft={(timer) => {
               setTimeLeft(timer);
             }}
+            callBackForTimer={(value) => setTimeLeft(value)}
           />
         )}
+        {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          <AlertDialogSlide
+            title={"Vill du avsluta?"}
+            description={"Du tas nu till summeringssidan."}
+            cancelBtnName={"Fortsätt öva"}
+            agreeBtnName={"Avsluta"}
+            popUpstatus={open}
+            handleClose={() => setOpen(false)}
+            redirect={() => handleAlertDialogPopup()}
+          />
+        ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
+          <AlertDialogSlide
+            title={"Vill du avsluta?"}
+            description={"Ingen fråga är besvarad."}
+            cancelBtnName={"Fortsätt öva"}
+            agreeBtnName={"Avsluta"}
+            popUpstatus={open}
+            handleClose={() => setOpen(false)}
+            redirect={() => handleAlertDialogPopup()}
+          />
+        ) : null}
 
-        <AlertDialogSlide
-          popUpstatus={open}
-          handleClose={() => setOpen(false)}
-          redirect={() => {
-            navigate("/resultsummary", {
-              state: {
-                sectionCategory: params?.state?.sectionCategory,
-                quizId: params?.state?.quizId,
-              },
-            });
-            localStorage.removeItem('quiz')
-            localStorage.removeItem("time");
-          }}
-        />
-
-        {quiz && quiz[0]?.answer ? (
+        {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
+            title={"Tiden är över."}
+            description={"Bra kämpat! Gå vidare och checka ditt resultat."}
+            btnName={"Se resultat"}
             popUpstatus={timeEnd}
             redirect={() => {
               navigate("/resultsummary", {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
                   quizId: params?.state?.quizId,
+                  time: params?.state?.time,
                 },
               });
-              localStorage.removeItem('quiz')
+              localStorage.removeItem("quiz");
               localStorage.removeItem("time");
             }}
           />
-        ) : (
+        ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
           <UnAttemptedTimer
+            title={"Tiden är över."}
+            description={
+              "Ingen fråga är besvarad så du tas direkt tillbaka till övningssidan."
+            }
+            btnName={"Avsluta"}
             popUpstatus={timeEnd}
             redirect={() => {
               navigate("/category", {
                 state: {
                   item: params?.state?.sectionCategory,
                 },
-              })
-              localStorage.removeItem('quiz')
-            }
-            }
+              });
+              localStorage.removeItem("quiz");
+            }}
           />
-        )}
-
-        <UnAttemptedPopup
-          currentStatus={isOpen}
-          handleOptionClose={() => setIsOpen(false)}
-          redirect={() =>
-            navigate("/category", {
-              state: {
-                item: params?.state?.sectionCategory,
-              },
-            })
-          }
-        />
+        ) : null}
 
         {quiz &&
           quiz?.map((item, index) => {
@@ -590,6 +690,8 @@ const QuestionViewXyzOrg = () => {
                   }}
                   stopTime={() => setStatus(false)}
                   SelectOption={(e, index) => SelectFunc(e, index)}
+                  onCloseTimer={() => CloseTimerFunc()}
+                  callBackForTimer={(value) => setTimeLeft(value)}
                   totalTime={time}
                   quiz={quiz}
                   onhover={(optionId) => setOnhover(optionId)}
@@ -600,9 +702,10 @@ const QuestionViewXyzOrg = () => {
                       state: {
                         sectionCategory: params?.state?.sectionCategory,
                         quizId: params?.state?.quizId,
+                        time: params?.state?.time,
                       },
                     });
-                    localStorage.removeItem('quiz')
+                    localStorage.removeItem("quiz");
                     localStorage.removeItem("time");
                   }}
                   startTime={() => setStatus(true)}
@@ -611,23 +714,30 @@ const QuestionViewXyzOrg = () => {
                   }
                   updateQuiz={(value) => setQuiz(value)}
                   changeIndex={() => setCurrentQuestion(currentQuestion + 1)}
-                  previosQuestion={() => setCurrentQuestion(currentQuestion - 1)}
+                  previosQuestion={() =>
+                    setCurrentQuestion(currentQuestion - 1)
+                  }
                   OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
+                  // changeTime={(time) => setTime(time)}
                   quizId={params?.state?.quizId}
                   timeLeft={timeLeft}
+                  PopupTimeEnd={timeEnd}
+                  updateCompleteQuiz={(quiz) => setQuiz(quiz)}
                   nextQuestion={() => {
                     if (selectedIndex + 1 < quiz.length) {
                       setSelectedIndex(selectedIndex + 1);
                       setCurrentQuestion(currentQuestion + 1);
+                      localStorage.setItem("quiz", JSON.stringify(quiz));
                     } else {
                       navigate("/resultsummary", {
                         state: {
                           sectionCategory: params?.state?.sectionCategory,
                           quizId: params?.state?.quizId,
+                          time: params?.state?.time,
                         },
                       });
-                      localStorage.removeItem('quiz')
+                      localStorage.removeItem("quiz");
                       localStorage.removeItem("time");
                     }
                   }}

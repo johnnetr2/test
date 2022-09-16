@@ -64,7 +64,7 @@ const ProgressBar = (props) => {
             justifyContent: "center",
           }}
         >
-          {props.average < 20 && (
+          {props.average < 30 && (
             <Typography
               style={{
                 textTransform: "uppercase",
@@ -74,7 +74,7 @@ const ProgressBar = (props) => {
                 marginTop: 3,
               }}
             >
-              Gjorda Uppgifter
+              GJORDA UPPGIFTER
             </Typography>
           )}
         </Box>
@@ -97,7 +97,7 @@ const ProgressBar = (props) => {
                 color: "#0A5B2D",
               }}
             >
-              Gjorda Uppgifter
+              Copy här
             </Typography>
           )}
         </Box>

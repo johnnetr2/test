@@ -78,8 +78,7 @@ const HomeFeedContent = (props) => {
       //   }
       // });
       const loginUserID = localStorage.getItem("userId");
-      const NormeringValueOfBothMainCategories =
-        EndPoints.OverAllNormeringValue + loginUserID;
+      const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
         if (response?.data?.success) {
           setPreviousRecordProgress(response.data.Data);
