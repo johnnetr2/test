@@ -19,8 +19,11 @@ import { EndPoints, instance, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
 import CircularProgress from "@mui/material/CircularProgress";
+import Ruler from "../../../../../../assets/Imgs/ruler.png"
 import { OpenInFull, Close } from '@mui/icons-material/';
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import RulerButton from "../../../../../atom/RulerButton/RulerButton";
+import Draggable from 'react-draggable'
 
 let dataSubmit = [];
 
@@ -405,25 +408,59 @@ const QuestionViewDTKOrg = (props) => {
                 open={extendedView}
                 onClose={closeExtended}
                 maxWidth={'xl'}
+                fullWidth={true}
             >
-              <DialogTitle style={{ padding: '2rem 5rem 2rem' }}>
-                  <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
-                    {quiz && quiz.question.length + " uppgifter:"}
+
+              {quiz?.description && (
+              <>
+                <DialogTitle style={{ padding: '2rem 5rem 2rem' }}>
+                    <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
+                      {quiz && quiz.question.length + " uppgifter:"}
+                    </Typography>
+                    <Typography variant="h3" component='h3'>
+                      {quiz?.title}
+                    </Typography>
+                </DialogTitle>
+                <DialogContent style={{ columnCount: '2', padding: '0 5rem 2rem' }}>
+                  <Typography
+                  variant="subtitle1"
+                  style={{
+                    fontSize: ".85rem",
+                  }}
+                  >
+                    <MarkLatex content={quiz?.description} />
+                    
                   </Typography>
-                  <Typography variant="h3" component='h3'>
-                    {quiz?.title}
-                  </Typography>
-              </DialogTitle>
-              <DialogContent style={{ columnCount: '2', padding: '0 5rem 2rem' }}>
-                <Typography
-                variant="subtitle1"
-                style={{
-                  fontSize: ".85rem",
-                }}
-                >
-                  <MarkLatex content={quiz?.description} />
-                </Typography> 
-              </DialogContent>
+                </DialogContent>
+              </>
+              )}
+              {quiz?.image && (
+                <>
+                  <DialogTitle style={{padding: '0 5rem 2rem', flex: "1", display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+                  <Box>
+                    <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
+                      {quiz && quiz.question.length + " uppgifter:"}
+                    </Typography>
+                    <Typography variant="h3" component='h3'>
+                      {quiz?.title}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <RulerButton></RulerButton>
+                  </Box>
+                  </DialogTitle>
+                  <DialogContent style={{padding: '0 5rem 2rem', display: "flex" }}>
+                    <Box style={{width: "90%"}}>
+                      <img src={quiz?.image} style={{width: "100%"}} alt="" />
+                    </Box>
+                    <Box style={{width: "10%", display: "flex", justifyContent:"center", alignItems:"center"}}>
+                      <Draggable>
+                        <img src={Ruler} style={{background:"#fff", width: "75%"}} alt="" />
+                      </Draggable>
+                    </Box>
+                  </DialogContent>
+                </>
+                )}
               <Close onClick={()=>{setExtendView(false)}} style={{ position: 'absolute', top: '20', right: '20', cursor: 'pointer' }}/>
             </Dialog>
           </Box>
