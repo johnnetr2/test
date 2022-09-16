@@ -228,7 +228,7 @@ const QuestionViewNogOrg = () => {
               width: "60%",
             }}
           >
-            <ExerciseBtn title="Nasta" />
+            <ExerciseBtn title="Nästa" />
           </Box>
         </Box>
       </Box>

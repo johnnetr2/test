@@ -31,7 +31,7 @@ const HelpPopup = () => {
           backgroundColor: "#252525",
           padding: "2rem 3rem",
           color: "#fff",
-          width: "35%",
+          width: "30%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -42,20 +42,42 @@ const HelpPopup = () => {
           right: 0,
         }}
       >
+      <Box>
         <Typography variant="h5">Välkommen till övningsläget!</Typography>
+      </Box>
+      <Box>
         <Typography
           variant="body1"
           style={{
-            textAlign: "center",
             lineHeight: "1.5rem",
             marginTop: "1rem",
             fontSize: "0.75rem",
           }}
         >
-          • Du kan se vilken fråga du är på uppe till vänster.<br></br>
-          • Uppe till höger visas tid kvar om du valt att köra på tid.<br></br>
+        • Du kan se vilken fråga du är på uppe till vänster.
+        </Typography>
+        <Typography
+          variant="body1"
+          style={{
+            lineHeight: "1.5rem",
+
+            fontSize: "0.75rem",
+          }}
+        >
+        • Uppe till höger visas tid kvar om du valt att köra på tid.
+        </Typography>
+        <Typography
+          variant="body1"
+          style={{
+            lineHeight: "1.5rem",
+
+            fontSize: "0.75rem",
+          }}
+        >
           • Vill du avbryta? Klicka då på pilen längst uppe till vänster.
         </Typography>
+
+      </Box>
       </Box>
     </>
   );

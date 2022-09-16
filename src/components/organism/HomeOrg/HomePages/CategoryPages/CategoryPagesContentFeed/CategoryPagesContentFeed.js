@@ -51,6 +51,7 @@ const CategoryPagesFeedContent = (props) => {
   const [resultText, setResultText] = useState(false);
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
+  const [categoryTitle, setCategoryTitle] = useState("")
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -91,6 +92,25 @@ const CategoryPagesFeedContent = (props) => {
         setCheckedFunc(10);
       }
     });
+
+      if (props.item.title === "KVA"){
+        setCategoryTitle("Kvantitativa jämförelser")
+      } else if (props.item.title === "MEK"){
+        setCategoryTitle("Meningskomplettering")
+      } else if (props.item.title === "NOG"){
+        setCategoryTitle("Kvantitativa resonemang")
+      } else if (props.item.title === "XYZ"){
+        setCategoryTitle("Matematisk problemlösning")
+      } else if (props.item.title === "LÄS"){
+        setCategoryTitle("Svensk läsförståelse")
+      } else if (props.item.title === "DTK"){
+        setCategoryTitle("Diagram, tabeller och kartor")
+      } else if (props.item.title === "ORD"){
+        setCategoryTitle("Ordförståelse")
+      } else if (props.item.title === "ELF"){
+        setCategoryTitle("Engelsk läsförståelse")
+      }
+
   }, []);
 
   const [tabValue, setTabValue] = useState(0);
@@ -138,6 +158,9 @@ const CategoryPagesFeedContent = (props) => {
     }
   }, [alla]);
 
+  
+
+
   const realQuestionFunc = () => {
     setTitle(true);
     setChecked(false);
@@ -156,6 +179,8 @@ const CategoryPagesFeedContent = (props) => {
       setCheckedFunc(10);
     }
   };
+
+  
 
   const isChecked = (id) => {
     return checkedData.some((obj) => obj === id);
@@ -203,7 +228,7 @@ const CategoryPagesFeedContent = (props) => {
   return (
     <Container maxWidth="md" className={classes.root}>
       <Box>
-        <Heading title={"Kvantitativa jämförelser - " + props.item.title} />
+        <Heading title={ categoryTitle + " - " + props.item.title} />
         <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
       </Box>
       <Box

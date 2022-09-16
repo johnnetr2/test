@@ -238,7 +238,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                 width: "3rem",
               }}
             >
-              Svara
+              Nästa
             </Typography>
           </Box>
         </div>
