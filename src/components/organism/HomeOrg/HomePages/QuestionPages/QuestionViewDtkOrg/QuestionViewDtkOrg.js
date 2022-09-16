@@ -19,6 +19,8 @@ import { EndPoints, instance, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
 import CircularProgress from "@mui/material/CircularProgress";
+import { OpenInFull, Close } from '@mui/icons-material/';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 let dataSubmit = [];
 
@@ -332,6 +334,10 @@ const QuestionViewDTKOrg = (props) => {
     }
   }
 
+  const [extendedView, setExtendView] = useState(false);
+  const openExtended = () => {setExtendView(true)};
+  const closeExtended = () => {setExtendView(false)};
+
   return (
     <div>
       <CssBaseline />
@@ -367,6 +373,7 @@ const QuestionViewDTKOrg = (props) => {
               border: "1px solid #e1e1e1",
             }}
             className={classes.scrollbar}
+            style={{ position: 'relative'}}
           >
             <Typography
               variant="subtitle1"
@@ -387,12 +394,38 @@ const QuestionViewDTKOrg = (props) => {
               }}
             >
               <MarkLatex content={quiz?.description} />
-            </Typography>
+            </Typography>     
             {quiz?.image && (
               <Box>
                 <img src={quiz?.image} style={{ width: "100%" }} alt="" />
               </Box>
             )}
+            <OpenInFull onClick={openExtended} style={{ position: 'absolute', top: '10', right: '20', cursor: 'pointer' }}/>
+            <Dialog
+                open={extendedView}
+                onClose={closeExtended}
+                maxWidth={'xl'}
+            >
+              <DialogTitle style={{ padding: '2rem 5rem 2rem' }}>
+                  <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
+                    {quiz && quiz.question.length + " uppgifter:"}
+                  </Typography>
+                  <Typography variant="h3" component='h3'>
+                    {quiz?.title}
+                  </Typography>
+              </DialogTitle>
+              <DialogContent style={{ columnCount: '2', padding: '0 5rem 2rem' }}>
+                <Typography
+                variant="subtitle1"
+                style={{
+                  fontSize: ".85rem",
+                }}
+                >
+                  <MarkLatex content={quiz?.description} />
+                </Typography> 
+              </DialogContent>
+              <Close onClick={()=>{setExtendView(false)}} style={{ position: 'absolute', top: '20', right: '20', cursor: 'pointer' }}/>
+            </Dialog>
           </Box>
           {showResult ? (
             <ResultQuestionViewDtkOrg
