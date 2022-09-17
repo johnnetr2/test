@@ -26,20 +26,16 @@ const CrossIcon = (props) => {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ m: 0, p: 2, height: "1rem" }} {...other}>
       {children}
       {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
+        <IconButton aria-label="close" onClick={onClose}>
+          <CloseIcon
+            sx={{
+              color: "#B5B5B5",
+            }}
+            fontSize = "large"
+          />
         </IconButton>
       ) : null}
     </DialogTitle>
@@ -81,10 +77,11 @@ export default function CustomizedDialogs(props) {
         open={props.show}
         PaperProps={{
           style: {
-            border: "1px solid #e1e1e1",
+            border: "2px solid #e1e1e1",
             boxShadow: "0 4px 10px #f2f2f2",
             position: "absolute",
-            right: 50,
+            borderRadius: "5px",
+            right: 0,
             bottom: 0,
           },
         }}
@@ -97,7 +94,12 @@ export default function CustomizedDialogs(props) {
         >
           <CrossIcon id="customized-dialog-title" onClose={props.onClose} />
         </Box>
-        <Box sx={{ p: "0 2rem 2rem 2rem" }}>
+        <Box
+          sx={{ p: "0 2rem 2rem 2rem" }}
+          display="flex"
+          flexDirection="column"
+          alignItem="canter"
+        >
           <DialogContent>
             <Typography sx={{ color: "#505050", fontSize: "14px" }}>
               Tack, din feedback sparades
@@ -123,7 +125,7 @@ export default function CustomizedDialogs(props) {
               style={{
                 backgroundColor: "#f9f9f9",
                 border: "none",
-                width: "25rem",
+                width: "30rem",
                 padding: "1rem",
                 height: "7rem",
                 resize: "none",
@@ -139,15 +141,21 @@ export default function CustomizedDialogs(props) {
               onClick={cardSubmittion}
               disabled={!questionFeedback}
               style={{
-                backgroundColor: "#0A1596",
-                color: "#fff",
+                backgroundColor: `#${
+                  questionFeedback.length === 0 ? "E1E1E1" : "0A1596"
+                }`,
+                color: `#${
+                  questionFeedback.length === 0 ? "505050" : "FFFFFF"
+                }`,
                 display: "block",
                 margin: "auto",
-                width: "25rem",
-                height: "2.5rem",
+                width: "30rem",
+                height: "3rem",
+                fontSize: "1rem",
                 textTransform: "initial",
                 fontWeight: "400",
-                borderRadius: "5px",
+                borderRadius: "10px",
+                cursor: "pointer",
               }}
             >
               Skicka in
