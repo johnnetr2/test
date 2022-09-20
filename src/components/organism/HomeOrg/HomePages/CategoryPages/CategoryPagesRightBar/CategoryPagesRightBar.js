@@ -261,6 +261,7 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
+            {/* {console.log(lastWeekTasks, "last week task console")} */}
             {/* {lastWeekTasks
               ? (
                 (lastWeekTasks.totalCorrectQuestions /

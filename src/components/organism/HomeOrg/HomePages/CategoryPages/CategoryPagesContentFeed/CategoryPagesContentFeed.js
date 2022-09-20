@@ -51,7 +51,7 @@ const CategoryPagesFeedContent = (props) => {
   const [resultText, setResultText] = useState(false);
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
-  const [categoryTitle, setCategoryTitle] = useState("")
+  const [categoryTitle, setCategoryTitle] = useState("");
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -93,24 +93,23 @@ const CategoryPagesFeedContent = (props) => {
       }
     });
 
-      if (props.item.title === "KVA"){
-        setCategoryTitle("Kvantitativa jämförelser")
-      } else if (props.item.title === "MEK"){
-        setCategoryTitle("Meningskomplettering")
-      } else if (props.item.title === "NOG"){
-        setCategoryTitle("Kvantitativa resonemang")
-      } else if (props.item.title === "XYZ"){
-        setCategoryTitle("Matematisk problemlösning")
-      } else if (props.item.title === "LÄS"){
-        setCategoryTitle("Svensk läsförståelse")
-      } else if (props.item.title === "DTK"){
-        setCategoryTitle("Diagram, tabeller och kartor")
-      } else if (props.item.title === "ORD"){
-        setCategoryTitle("Ordförståelse")
-      } else if (props.item.title === "ELF"){
-        setCategoryTitle("Engelsk läsförståelse")
-      }
-
+    if (props.item.title === "KVA") {
+      setCategoryTitle("Kvantitativa jämförelser");
+    } else if (props.item.title === "MEK") {
+      setCategoryTitle("Meningskomplettering");
+    } else if (props.item.title === "NOG") {
+      setCategoryTitle("Kvantitativa resonemang");
+    } else if (props.item.title === "XYZ") {
+      setCategoryTitle("Matematisk problemlösning");
+    } else if (props.item.title === "LÄS") {
+      setCategoryTitle("Svensk läsförståelse");
+    } else if (props.item.title === "DTK") {
+      setCategoryTitle("Diagram, tabeller och kartor");
+    } else if (props.item.title === "ORD") {
+      setCategoryTitle("Ordförståelse");
+    } else if (props.item.title === "ELF") {
+      setCategoryTitle("Engelsk läsförståelse");
+    }
   }, []);
 
   const [tabValue, setTabValue] = useState(0);
@@ -158,9 +157,6 @@ const CategoryPagesFeedContent = (props) => {
     }
   }, [alla]);
 
-  
-
-
   const realQuestionFunc = () => {
     setTitle(true);
     setChecked(false);
@@ -179,8 +175,6 @@ const CategoryPagesFeedContent = (props) => {
       setCheckedFunc(10);
     }
   };
-
-  
 
   const isChecked = (id) => {
     return checkedData.some((obj) => obj === id);
@@ -211,36 +205,62 @@ const CategoryPagesFeedContent = (props) => {
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
             setOpen(false);
-            // console.log("response data", response.data)
-            // const quizobj = response.data;
-            // const { quiz: quistions } = quizobj;
-            // const questionswithSuffeldOptions = quistions.map((question) => {
-            //   console.log("options simple", question?.options[0]?.options)
+            console.log("response data", response.data);
+            const quizobj = response.data;
+            const { quiz: quistions } = quizobj;
+            const questionswithSuffeldOptions = quistions.map((question) => {
+              if (question.type == "multiple") {
+                console.log("multiple question check", question.question);
+                const options0Array = question.question.map((item) => {
+                  const options = item.options[0].options
+                    .map((value) => ({ value, sort: Math.random() }))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value);
 
-            //   const options = question?.options[0]?.options
-            //     .map((value) => ({ value, sort: Math.random() }))
-            //     .sort((a, b) => a.sort - b.sort)
-            //     .map(({ value }) => value);
-            //   // console.log("options shhhhh", options)
+                  const optionsShuffeld = [
+                    {
+                      options,
+                    },
+                  ];
 
-            //   const optionsShuffeld = [
-            //     {
-            //       options,
-            //     },
-            //   ];
-            //   return {
-            //     ...question,
-            //     options: optionsShuffeld,
-            //   };
-            // });
-            // quizobj.quiz = questionswithSuffeldOptions;
-            // console.log("after shuffle",quizobj)
+                  return {
+                    ...item,
+                    options: optionsShuffeld,
+                  };
+                });
+                console.log("multiple options shhhhh", options0Array);
+                return {
+                  ...question,
+                  question: options0Array,
+                };
+              } else {
+                console.log("options simple", question?.options[0]?.options);
+                const options = question?.options[0]?.options
+                  .map((value) => ({ value, sort: Math.random() }))
+                  .sort((a, b) => a.sort - b.sort)
+                  .map(({ value }) => value);
+                console.log("single options shhhhh", options);
+
+                const optionsShuffeld = [
+                  {
+                    options,
+                  },
+                ];
+                console.log(question, "single check");
+                return {
+                  ...question,
+                  options: optionsShuffeld,
+                };
+              }
+            });
+            quizobj.quiz = questionswithSuffeldOptions;
+            console.log("after shuffle", quizobj);
 
             navigate("/question", {
               state: {
-                data: response.data,
+                data: quizobj,
                 sectionCategory: props.item,
-                quizId: response.data._id,
+                quizId: quizobj._id,
                 time: timer,
               },
             });
@@ -255,7 +275,7 @@ const CategoryPagesFeedContent = (props) => {
   return (
     <Container maxWidth="md" className={classes.root}>
       <Box>
-        <Heading title={ categoryTitle + " - " + props.item.title} />
+        <Heading title={categoryTitle + " - " + props.item.title} />
         <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
       </Box>
       <Box

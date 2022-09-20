@@ -99,7 +99,6 @@ const QuestionViewDTKOrg = (props) => {
   const classes = useStyles(10);
 
   useEffect(() => {
-
     if (props.paragraphIndex != undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
@@ -125,7 +124,7 @@ const QuestionViewDTKOrg = (props) => {
       );
     } else {
       return (
-        <Box sx={{ width: 600, marginLeft: ".5rem" }}>
+        <Box sx={{ width: 600 }}>
           <ExerciseBtn title="svara" onClick={() => submitAnswer(question)} />
         </Box>
       );
@@ -165,7 +164,7 @@ const QuestionViewDTKOrg = (props) => {
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : seconds
+        : seconds,
       // Boolean(
       //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
       // )
@@ -194,7 +193,7 @@ const QuestionViewDTKOrg = (props) => {
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : seconds
+        : seconds,
       // Boolean(
       //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
       // )
@@ -272,7 +271,7 @@ const QuestionViewDTKOrg = (props) => {
       totaltime: props?.totalTime ? props?.totalTime : null,
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
-        : seconds
+        : seconds,
       // Boolean(
       //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
       // )
@@ -425,7 +424,6 @@ const QuestionViewDTKOrg = (props) => {
                         justifyContent: "center",
                         alignItems: "center",
                         position: "relative",
-                        marginLeft: 8
                       }}
                     >
                       <Box
@@ -465,18 +463,18 @@ const QuestionViewDTKOrg = (props) => {
                           </Typography>
                           {
                             quiz &&
-                            selectedIndex < quiz?.question?.length - 1 &&
-                            quiz?.question.length > 1 &&
-                            quiz?.question[0].selectedOptionIndex !=
-                            undefined && (
-                              <img
-                                onClick={handleRightArrowFunction}
-                                src={BlueRightIcon}
-                                style={{ cursor: "pointer" }}
-                                className={classes.size}
-                                alt=""
-                              />
-                            )
+                              selectedIndex < quiz?.question?.length - 1 &&
+                              quiz?.question.length > 1 &&
+                              quiz?.question[0].selectedOptionIndex !=
+                                undefined && (
+                                <img
+                                  onClick={handleRightArrowFunction}
+                                  src={BlueRightIcon}
+                                  style={{ cursor: "pointer" }}
+                                  className={classes.size}
+                                  alt=""
+                                />
+                              )
                             // : (
                             //   <img
                             //     src={Righticon}
