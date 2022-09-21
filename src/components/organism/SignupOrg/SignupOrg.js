@@ -347,7 +347,7 @@ const SignupOrg = () => {
                 textTransform: "uppercase",
                 fontSize: ".75rem",
                 textAlign: "center",
-                width: "60ch",
+                maxWidth: "60ch",
               }}
             >
               This site is protected by recaptcha and the Google privacy policy
