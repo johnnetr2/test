@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from "react";
 import {
-  Container,
-  makeStyles,
-  Typography,
   Box,
-  Tabs,
+  Container,
   Tab,
+  Tabs,
+  Typography,
+  makeStyles,
 } from "@material-ui/core";
-// import { Tabs, Tab } from '@mui/material';
+import { EndPoints, instance2 } from "../../../service/Route";
+import React, { useEffect, useState } from "react";
+
 import Heading from "../../../atom/Heading/Heading";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
-import { useNavigate } from "react-router-dom";
-import { EndPoints, instance2 } from "../../../service/Route";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
-import swal from "sweetalert";
-import styled from "@emotion/styled";
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
+
+// import { Tabs, Tab } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
   },
   newItem: {
-    [theme.breakpoints.up("1000")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "none",
     },
   },
@@ -78,7 +80,8 @@ const HomeFeedContent = (props) => {
       //   }
       // });
       const loginUserID = localStorage.getItem("userId");
-      const NormeringValueOfBothMainCategories = EndPoints.OverAllNormeringValue + loginUserID;
+      const NormeringValueOfBothMainCategories =
+        EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
         if (response?.data?.success) {
           setPreviousRecordProgress(response.data.Data);

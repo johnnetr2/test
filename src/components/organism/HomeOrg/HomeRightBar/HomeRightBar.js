@@ -1,11 +1,14 @@
+import { Box, Container, Typography, makeStyles } from "@material-ui/core";
+import { EndPoints, instance2 } from "../../../service/Route";
 import React, { useEffect, useState } from "react";
-import { Container, makeStyles, Typography, Box } from "@material-ui/core";
-import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
+
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
-import { EndPoints, instance2 } from "../../../service/Route";
+import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
+import { createTheme } from "@mui/material/styles";
 import moment from "moment";
+import { padding } from "@mui/system";
 
 function datesGroupByComponent(dates, token) {
   return dates.reduce(function (val, obj) {
@@ -22,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const HomeRightBar = (props) => {
   const classes = useStyles();
+  const theme = createTheme();
   // const [studentPreference, setStudentPreference] = useState();
   let [showPrognos, seTShowPrognos] = useState();
   const [weeklyProgress, setWeeklyProgress] = useState(0);
@@ -103,7 +107,7 @@ const HomeRightBar = (props) => {
   // }, [props.StudentPreference]);
 
   return (
-    <Container maxWidth={false} style={{ padding: "0 3rem" }}>
+    <Box sx={{ padding: { xs: 0, sm: "0 3rem" }, width: "100%" }}>
       <Box
         sx={{
           height: "auto",
@@ -125,15 +129,21 @@ const HomeRightBar = (props) => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
+              flexWrap: "wrap",
+              rowGap: ".5rem",
             }}
           >
-            <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
+            <Box
+              sx={{ width: { xs: "100%", sm: "49%" }, backgroundColor: "#fff" }}
+            >
               <QuestionProgressBox
                 totalPrognos={props?.totalPrognos}
                 showPrognos={showPrognos}
               />
             </Box>
-            <Box sx={{ width: "49%", backgroundColor: "#fff" }}>
+            <Box
+              sx={{ width: { xs: "100%", sm: "49%" }, backgroundColor: "#fff" }}
+            >
               <GoalBox
                 // goalPoint={
                 //   props.studentPreference && props.studentPreference
@@ -172,6 +182,10 @@ const HomeRightBar = (props) => {
               border: "1px solid #dddddd",
               boxShadow: "0px 5px 10px #f2f2f2",
               padding: "2rem",
+              [theme.breakpoints.down("md")]: {
+                padding: "1rem",
+                overflow: "scroll",
+              },
             }}
           >
             <Typography
@@ -239,7 +253,7 @@ const HomeRightBar = (props) => {
           </Box>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
