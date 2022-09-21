@@ -14,31 +14,6 @@ import Profile from "../../../assets/Icons/Profile.svg";
 import ProfileC from "../../../assets/Icons/ProfileC.svg";
 import ProfileGrey from "../../../assets/Icons/ProfileGrey.svg";
 
-function useScroll() {
-  const [lastScrollTop, setLastScrollTop] = useState(0);
-  const [bodyOffset, setBodyOffset] = useState(
-    document.body.getBoundingClientRect()
-  );
-  const [scrollDirection, setScrollDirection] = useState();
-
-  const listener = (e) => {
-    setBodyOffset(document.body.getBoundingClientRect());
-    setScrollDirection(lastScrollTop > -bodyOffset.top ? "up" : "down");
-    setLastScrollTop(-bodyOffset.top);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", listener);
-    return () => {
-      window.removeEventListener("scroll", listener);
-    };
-  });
-
-  return {
-    scrollDirection,
-  };
-}
-
 const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: "#f9f9f9",
@@ -115,16 +90,12 @@ const useStyles = makeStyles((theme) => ({
 const BottomNavBar = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { scrollDirection } = useScroll();
 
   return (
     <Container
       maxWidth="false"
       style={{ width: "auto", height: "56px" }}
-      className={[
-        classes.container,
-        scrollDirection === "down" ? classes.hidden : classes.active,
-      ]}
+      className={[classes.container, classes.active]}
     >
       <NavLink
         to="/home"
