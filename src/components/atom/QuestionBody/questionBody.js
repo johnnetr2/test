@@ -10,12 +10,25 @@ import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/Q
 import { Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 30,
     padding: 0,
   },
-});
+  questionContainer: {
+    padding: "4rem",
+    marginTop: "1rem",
+    border: "1px solid #e1e1e1",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    backgroundColor: "#fff",
+    [theme.breakpoints.down("sm")]: {
+      padding: "1.5rem",
+      overflow: "scroll",
+    },
+  },
+}));
 
 const QuestionBody = (props) => {
   const classes = useStyles();
@@ -118,18 +131,7 @@ const QuestionBody = (props) => {
           questionId={questionId}
         />
         {/* question container for single question */}
-        <Container
-          maxWidth="sm"
-          style={{
-            padding: "4rem 4rem",
-            marginTop: "1rem",
-            border: "1px solid #e1e1e1",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            backgroundColor: "#fff",
-          }}
-        >
+        <Container maxWidth="sm" className={classes.questionContainer}>
           <Typography
             variant="h6"
             component="h6"
@@ -250,7 +252,7 @@ const QuestionBody = (props) => {
           {question?.options[0]?.options?.map((item, optionIndex) => {
             if (item?.value) {
               return (
-                <Box sx={{ display: "flex" }}>
+                <Box sx={{ display: "flex", width: "100%" }}>
                   <Box
                     sx={{
                       height:
