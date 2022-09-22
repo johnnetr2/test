@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Container, makeStyles, Typography, Box } from "@material-ui/core";
-import { useNavigate, useLocation } from "react-router-dom";
-import Heading from "../../../../../atom/Heading/Heading";
-import BodyText from "../../../../../atom/BodyText/BodyText";
-import FilledBtn from "../../../../../atom/FilledBtn/FilledBtn";
-import OutlineField from "../../../../../atom/OutlineField/OutlineField";
-import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
-import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
+import { Box, Typography } from "@mui/material";
+import { Container, Tab, Tabs, makeStyles } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
-import swal from "sweetalert";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
+import BodyText from "../../../../../atom/BodyText/BodyText";
 import CategoryPagesRightBar from "../CategoryPagesRightBar/CategoryPagesRightBar";
+import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
+import CircularProgress from "@mui/material/CircularProgress";
+import FilledBtn from "../../../../../atom/FilledBtn/FilledBtn";
+import Heading from "../../../../../atom/Heading/Heading";
+import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
+import OutlineField from "../../../../../atom/OutlineField/OutlineField";
+import swal from "sweetalert";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,8 +24,24 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #212121",
   },
   hideStatistics: {
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "none",
+    },
+  },
+  ShowTitle: {
+    display: "none",
+    [theme.breakpoints.up("lg")]: {
+      display: "block",
+    },
+  },
+  tabsSection: {
+    marginTop: "4rem",
+    backgroundColor: "#fff",
+    [theme.breakpoints.down("md")]: {
+      backgroundColor: "#fafafa",
+      padding: "1rem",
+      marginBottom: "3rem",
+      borderRadius: "3px",
     },
   },
 }));
@@ -113,6 +131,9 @@ const CategoryPagesFeedContent = (props) => {
   }, []);
 
   const [tabValue, setTabValue] = useState(0);
+  const handelChange = (event, newTabValue) => {
+    setTabValue(newTabValue);
+  };
 
   const TabPanel = (props) => {
     const { children, value, index } = props;
@@ -285,7 +306,14 @@ const CategoryPagesFeedContent = (props) => {
           </Box>
         </Typography>
       </Box>
-      <Box style={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          rowGap: ".5rem",
+        }}
+      >
         <Box>
           <Box>
             <Typography
@@ -322,7 +350,14 @@ const CategoryPagesFeedContent = (props) => {
               Välj antal frågor
             </Typography>
           </Box>
-          <Box sx={{ display: "flex", marginTop: "1rem" }}>
+          <Box
+            sx={{
+              display: "flex",
+              marginTop: "1rem",
+              flexWrap: "wrap",
+              rowGap: ".5rem",
+            }}
+          >
             <OutlineBox
               checked={checked}
               title="5"
@@ -514,54 +549,51 @@ const CategoryPagesFeedContent = (props) => {
       >
         <FilledBtn title="Starta övningar" />
       </Box>
-      <Box sx={{ marginTop: "4rem" }}>
-        <Box
-          style={{
-            display: "flex",
-            flexDirection: "row",
+      <Box className={classes.tabsSection}>
+        <Tabs
+          className={classes.hideStatistics}
+          TabIndicatorProps={{
+            style: { backgroundColor: "#0A1596", height: "4px" },
           }}
+          value={tabValue}
+          onChange={handelChange}
+          variant="fullWidth"
         >
-          <Typography
+          <Tab
+            label="Historik"
             style={{
-              fontSize: "28px",
-              fontWeight: 400,
-              height: "fit-content",
-              textDecorationLine: width < 900 && historyText && "underline",
-              textDecorationThickness: "1.5px",
-              cursor: width < 900 && "pointer",
+              textTransform: "initial",
+              color: tabValue == 0 ? "black" : "#B5B5B5",
             }}
             onClick={() => {
               width < 900 && setHistoryText(true);
               setResultText(false);
               setTabValue(0);
             }}
-          >
-            Historik
-          </Typography>
+          />
 
-          <Typography
-            style={{
-              fontSize: "28px",
-              fontWeight: 400,
-              height: "fit-content",
-              textDecorationLine: width < 900 && resultText && "underline",
-              textDecorationThickness: "1.5px",
-              textDecorationWidth: "80%",
-              cursor: width < 900 && "pointer",
-            }}
+          <Tab
+            label="Statistik"
             className={classes.hideStatistics}
+            style={{
+              textTransform: "initial",
+              color: tabValue == 1 ? "black" : "#B5B5B5",
+            }}
             onClick={() => {
               width < 900 && setResultText(true);
               setHistoryText(false);
               setTabValue(1);
             }}
-          >
-            {" "}
-            / Statistik
-          </Typography>
-        </Box>
+          />
+        </Tabs>
 
         <TabPanel value={tabValue} index={0}>
+          <Box className={classes.ShowTitle}>
+            <Typography variant="h5" component="h5">
+              HISTORIK
+            </Typography>
+          </Box>
+
           <Box sx={{ marginTop: "1rem" }}>
             <CategoryTable
               sectionCategory={props.item}
