@@ -36,7 +36,6 @@ function datesGroupByComponent(dates, token) {
 }
 
 const CategoryPagesRightBar = (props) => {
-  console.log(props, "test props");
   const classes = useStyles();
   const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");

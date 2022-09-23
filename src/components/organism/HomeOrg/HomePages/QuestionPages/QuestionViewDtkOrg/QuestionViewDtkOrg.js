@@ -155,6 +155,7 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const handleRightArrowFunction = () => {
+    console.log(quiz, 'right arrow on click')
     const Quiz = { ...quiz };
 
     const data = {
@@ -173,9 +174,19 @@ const QuestionViewDTKOrg = (props) => {
       //   : 0,
     };
 
-    dataSubmit.splice(selectedIndex, 1, data);
-    // }
-
+    // dataSubmit.splice(selectedIndex, 1, data);
+    const ifExists = dataSubmit.some(
+      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+    );
+    if (ifExists) {
+      const index = dataSubmit.findIndex(
+        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      );
+      dataSubmit.splice(index, 1, data);
+    } else {
+      dataSubmit.push(data);
+    }
+    console.log(dataSubmit, 'datasubmit array')
     selectedIndex + 1 < quiz.question.length &&
       setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
@@ -201,7 +212,18 @@ const QuestionViewDTKOrg = (props) => {
       //   ? seconds
       //   : 0,
     };
-    dataSubmit.splice(selectedIndex, 1, data);
+    // dataSubmit.splice(selectedIndex, 1, data);
+    const ifExists = dataSubmit.some(
+      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+    );
+    if (ifExists) {
+      const index = dataSubmit.findIndex(
+        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      );
+      dataSubmit.splice(index, 1, data);
+    } else {
+      dataSubmit.push(data);
+    }
 
     setSelectedIndex(selectedIndex - 1);
     props.previosQuestion();
@@ -218,26 +240,26 @@ const QuestionViewDTKOrg = (props) => {
     allQuiz.question = qz;
     setQuiz(allQuiz);
 
-    const data = {
-      questionId: quiz.question[selectedIndex]._id,
-      optionId: quiz.question[selectedIndex].optionId,
-      MultipartQuestion: quiz._id,
-      // timeleft: props?.timeLeft ? props?.timeLeft : null,
-      // totaltime: props?.totalTime ? props?.totalTime : null,
-      // spendtime: getSpendTime(props?.timeLeft, props?.totalTime, selectedIndex),
-    };
+    // const data = {
+    //   questionId: quiz.question[selectedIndex]._id,
+    //   optionId: quiz.question[selectedIndex].optionId,
+    //   MultipartQuestion: quiz._id,
+    // timeleft: props?.timeLeft ? props?.timeLeft : null,
+    // totaltime: props?.totalTime ? props?.totalTime : null,
+    // spendtime: getSpendTime(props?.timeLeft, props?.totalTime, selectedIndex),
+    // };
 
-    const ifExists = dataSubmit.some(
-      (obj) => obj.questionId == quiz.question[selectedIndex]._id
-    );
-    if (ifExists) {
-      const index = dataSubmit.findIndex(
-        (obj) => obj.questionId == quiz.question[selectedIndex]._id
-      );
-      dataSubmit.splice(index, 1, data);
-    } else {
-      dataSubmit.push(data);
-    }
+    // const ifExists = dataSubmit.some(
+    //   (obj) => obj.questionId == quiz.question[selectedIndex]._id
+    // );
+    // if (ifExists) {
+    //   const index = dataSubmit.findIndex(
+    //     (obj) => obj.questionId == quiz.question[selectedIndex]._id
+    //   );
+    //   dataSubmit.splice(index, 1, data);
+    // } else {
+    //   dataSubmit.push(data);
+    // }
 
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
     if (answerLenght == quiz.question.length) {
@@ -279,6 +301,7 @@ const QuestionViewDTKOrg = (props) => {
       //   ? seconds
       //   : 0,
     };
+    console.log(data, 'this is data for submit')
 
     dataSubmit.splice(selectedIndex, 1, data);
 
@@ -292,6 +315,7 @@ const QuestionViewDTKOrg = (props) => {
         sectionCategory: quiz.sectionCategory,
         answer: dataSubmit,
       };
+      console.log(obj, 'array of answer onjects')
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
         dataSubmit = [];

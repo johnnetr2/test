@@ -9,9 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 const LinesChart = (props) => {
-  useEffect(() => {
-    console.log(props, "previousProps");
-  }, []);
+
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {

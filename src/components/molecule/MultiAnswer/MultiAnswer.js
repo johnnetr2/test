@@ -24,7 +24,7 @@ const MultiAnswer = (props) => {
           }}
         />
       );
-    } else if (props?.question.optionId === item._id) {
+    } else if (props?.question.optionId == item._id) {
       return (
         <img
           src={Wrong}

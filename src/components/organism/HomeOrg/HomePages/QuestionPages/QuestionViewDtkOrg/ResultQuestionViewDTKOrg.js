@@ -82,11 +82,13 @@ const ResultQuestionViewDtkOrg = (props) => {
     };
 
     const URL = EndPoints.getParagraphResult + props?.paragraph?._id;
+    console.log(URL, 'this is result api url')
     instance2
       .post(URL, data)
       .then((response) => {
         setShowLoader(false);
         setParagraph(response.data.question);
+        console.log(response.data.question, 'result')
       })
       .catch(() => { });
     // instance2.get(URL, data).then(response => {
