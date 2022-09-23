@@ -104,7 +104,14 @@ const SignupOrg = () => {
             localStorage.setItem("email", response?.data?.user?.email);
             localStorage.setItem("userId", response?.data?.user?._id);
             localStorage.setItem("token", response?.data?.token);
-            window.location.href = "/home";
+            // window.location.href = "/emailverification";
+            swal({
+              icon: "success",
+              title: "Success",
+              text: `Please confirm your email! We sent an email to ${localStorage.getItem(
+                "email"
+              )}`,
+            });
           } else if (response?.data?.result == "fail") {
             swal({
               icon: "warning",
@@ -284,7 +291,12 @@ const SignupOrg = () => {
               </Label>
             </Box>
             {/* <Box>Enter valid password</Box> */}
-            <Typography variant="body1" style={{ color: "#505050", textDecorationLine: "underline" }}>Glömt lösenord?</Typography>
+            <Typography
+              variant="body1"
+              style={{ color: "#505050", textDecorationLine: "underline" }}
+            >
+              Glömt lösenord?
+            </Typography>
             <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <FilledBtn onClick={clickHandler} title="Skapa konto" />
@@ -304,10 +316,7 @@ const SignupOrg = () => {
               // marginBottom: "2rem",
             }}
           >
-            <Typography
-              variant="body1"
-              style={{ textTransform: "uppercase" }}
-            >
+            <Typography variant="body1" style={{ textTransform: "uppercase" }}>
               Har du redan ett konto?
               <Link to="/login" style={{ textDecorationLine: "none" }}>
                 {" "}
@@ -319,7 +328,7 @@ const SignupOrg = () => {
             sx={{
               display: "flex",
               justifyContent: "center",
-              paddingTop: '2.5rem'
+              paddingTop: "2.5rem",
             }}
           >
             <Typography

@@ -27,6 +27,8 @@ import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/Ov
 import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
 import HomeLeftBar from "./components/organism/HomeOrg/HomeLeftBar/HomeLeftBar";
+import EmailVerification from "./components/molecule/EmailVerification/EmailVerification";
+import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
 
 function App() {
   const [toggleIcon, setToggleIcon] = useState({
@@ -48,6 +50,8 @@ function App() {
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg />} />
         <Route path="resultfooter" element={<ResultFooter />} />
         <Route path="/categoryrtbar" element={<CategoryPagesRightBar />} />
+        <Route path="/emailverification" element={<EmailVerification />} />
+        <Route path="/emailverified/:id" element={<EmailVerified />} />
         <Route path="/" element={<Signup />} />
         <Route path="/helppopup" element={<HelpPopup />} />
         <Route path="login" element={<Login />} />

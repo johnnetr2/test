@@ -199,18 +199,15 @@ const CategoryPagesFeedContent = (props) => {
         };
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
-          // console.log(response, 'this is the conosle of response of create q1uiz')
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");
           } else {
             setOpen(false);
-            console.log("response data", response.data);
             const quizobj = response.data;
             const { quiz: quistions } = quizobj;
             const questionswithSuffeldOptions = quistions.map((question) => {
               if (question.type == "multiple") {
-                console.log("multiple question check", question.question);
                 const options0Array = question.question.map((item) => {
                   const options = item.options[0].options
                     .map((value) => ({ value, sort: Math.random() }))
@@ -228,25 +225,21 @@ const CategoryPagesFeedContent = (props) => {
                     options: optionsShuffeld,
                   };
                 });
-                console.log("multiple options shhhhh", options0Array);
                 return {
                   ...question,
                   question: options0Array,
                 };
               } else {
-                console.log("options simple", question?.options[0]?.options);
                 const options = question?.options[0]?.options
                   .map((value) => ({ value, sort: Math.random() }))
                   .sort((a, b) => a.sort - b.sort)
-                  .map(({ value }) => value);
-                console.log("single options shhhhh", options);
-
+                  .map(({ value }) => value)
+                  .filter((option) => option.value);
                 const optionsShuffeld = [
                   {
                     options,
                   },
                 ];
-                console.log(question, "single check");
                 return {
                   ...question,
                   options: optionsShuffeld,
@@ -254,7 +247,6 @@ const CategoryPagesFeedContent = (props) => {
               }
             });
             quizobj.quiz = questionswithSuffeldOptions;
-            console.log("after shuffle", quizobj);
 
             navigate("/question", {
               state: {
@@ -460,7 +452,6 @@ const CategoryPagesFeedContent = (props) => {
 
             {questionCategories &&
               questionCategories?.map((item, index) => {
-                // console.log(item, "this is the console of categories");
                 return (
                   <>
                     {item?.sectionCategory?.title === "MEK" &&

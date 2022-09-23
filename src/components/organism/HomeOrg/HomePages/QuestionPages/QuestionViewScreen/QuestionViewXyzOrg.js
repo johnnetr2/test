@@ -329,6 +329,7 @@ const QuestionViewXyzOrg = () => {
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
     question.optionId = item._id;
+    console.log(questions, "test option index question view xyz org");
     // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
@@ -373,6 +374,7 @@ const QuestionViewXyzOrg = () => {
     }
 
     if (optionIndex == question.selectedIndex) {
+      console.log(optionIndex, "opt ind");
       return (
         <Radio
           color="blue"

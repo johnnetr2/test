@@ -36,7 +36,6 @@ function datesGroupByComponent(dates, token) {
 }
 
 const CategoryPagesRightBar = (props) => {
-  console.log(props, "test props");
   const classes = useStyles();
   const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");
@@ -261,7 +260,6 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {/* {console.log(lastWeekTasks, "last week task console")} */}
             {/* {lastWeekTasks
               ? (
                 (lastWeekTasks.totalCorrectQuestions /
@@ -272,7 +270,12 @@ const CategoryPagesRightBar = (props) => {
                 .replace(/\.0+$/, "")
               : ""} */}
             {/* {props.progress.toFixed(1)} */}
-            {percentageCalculation()}
+
+            {percentageCalculation(
+              (lastWeekTasks.totalCorrectQuestions /
+                lastWeekTasks.totalAttemptedQuestions) *
+                100
+            )}
           </Typography>
           <Typography variant="body2">
             Prognostiserad normerad poäng {props?.item.title}

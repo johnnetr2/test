@@ -80,4 +80,5 @@ export const EndPoints = {
   OverAllNormeringValue: "/api/tableHistory/ProgressOfHundred/",
   getLastSevenWeeksData: "/api/task/sectionGraph/",
   getParagraphQuestionAnswer: "/api/quizResult/paragraphQuestionResult/",
+  emailVerified: "/auth/verify/",
 };
