@@ -1,35 +1,36 @@
-import React, { useEffect, useState } from "react";
-import BarChart from "../../../../../../assets/Icons/BarChart.svg";
-import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
-import Clock from "../../../../../../assets/Icons/Clock.svg";
-import { styled } from "@mui/material/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Typography,
   AppBar,
-  Paper,
   Box,
+  Button,
+  Container,
   CssBaseline,
   FormControlLabel,
-  Toolbar,
-  Container,
   LinearProgress,
-  Button,
+  Paper,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
-import { instance2, EndPoints } from "../../../../../service/Route";
-import swal from "sweetalert";
-import CircularProgress from "@mui/material/CircularProgress";
+import { EndPoints, instance2 } from "../../../../../service/Route";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import BarChart from "../../../../../../assets/Icons/BarChart.svg";
+import CircularProgress from "@mui/material/CircularProgress";
+import Clock from "../../../../../../assets/Icons/Clock.svg";
 import Correct from "../../../../../../assets/Imgs/correct.png";
+import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
+import swal from "sweetalert";
 
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
@@ -95,9 +96,9 @@ const ResultSummaryOrg = (props) => {
         return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
       });
 
-      let lengthOfQuestions = response.data.question.length;
-      let timePerQuestion;
-      timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
+        let lengthOfQuestions = response.data.question.length;
+        let timePerQuestion;
+        timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
 
       if (sumOfTimeSpent) {
         setTimePerQues(timePerQuestion);
@@ -109,6 +110,42 @@ const ResultSummaryOrg = (props) => {
       console.log(error, "this is the console of error ")
     })
 
+=======
+    console.log(
+      params?.state,
+      "this is the console of params?.state in result summary"
+    );
+    const URL = EndPoints.getQuizResult + params?.state?.quizId;
+    let sumOfTimeSpent = 0;
+
+    instance2
+      .get(URL)
+      .then((response) => {
+        console.log(
+          response,
+          "this is the console of response get attempted quiz"
+        );
+        response.data.question.map((item) => {
+          return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
+        });
+
+        let lengthOfQuestions = response.data.question.length;
+        let timePerQuestion;
+        timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
+
+        if (sumOfTimeSpent) {
+          setTimePerQues(timePerQuestion);
+        } else {
+          setTimePerQues(false);
+        }
+        // console.log(response, "this is the console of response of data collection for result summary");
+        setresponseCollection(response.data);
+      })
+      .catch((error) => {
+        console.log(error, "this is the console of error ");
+      });
+
+>>>>>>> cfd0108 (UI: Fix responsiveness issues - Summary page view on mobile)
     return () => {
       // clearInterval(timer);
     };
@@ -208,7 +245,7 @@ const ResultSummaryOrg = (props) => {
                     : "00:00"}
                 </Box>
               )
-            } 
+            }
           </Box>
           <Box mt={2}>
             <LinearProgress
@@ -233,7 +270,7 @@ const ResultSummaryOrg = (props) => {
           <Box
             mt={5}
             paddingY={2}
-            sx={{ backgroundColor: "#f9f9f9", width: 600 }}
+            sx={{ backgroundColor: "#f9f9f9", width: "100%", maxWidth: 600 }}
           >
             <Typography variant="h5" component="h5">
               Resultat
@@ -243,6 +280,8 @@ const ResultSummaryOrg = (props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                flexWrap: "wrap",
+                rowGap: "1rem",
               }}
             >
               <Box
@@ -394,7 +433,7 @@ const ResultSummaryOrg = (props) => {
             }
           </Box>
 
-          <Box mt={2} sx={{ width: 600, display: "flex" }}>
+          <Box mt={2} sx={{ width: "100%", maxWidth: 600, display: "flex" }}>
             <Typography variant="h5">Dina svar</Typography>
           </Box>
           <Box
@@ -402,7 +441,8 @@ const ResultSummaryOrg = (props) => {
             mt={2}
             sx={{
               backgroundColor: "#fff",
-              width: 600,
+              width: "100%",
+              maxWidth: 600,
               height: "fit-content",
               border: "1px solid #e1e1e1",
               display: "flex",
@@ -437,7 +477,8 @@ const ResultSummaryOrg = (props) => {
                     style={{
                       height: "3.5rem",
                       border: "1px solid #E3E3E3",
-                      width: 550,
+                      width: "100%",
+                      maxWidth: 550,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
@@ -447,61 +488,64 @@ const ResultSummaryOrg = (props) => {
                       },
                     }}
                   >
-                    <FormControlLabel
-                      control={
-                        item.optionId === item.answer.option ? (
-                          <img
-                            style={{ height: "1.5rem", marginLeft: "1.5rem" }}
-                            src={Correct}
-                          />
-                        ) : (
-                          <img
-                            src={Wrong}
-                            style={{ height: "1.5rem", marginLeft: "1.5rem" }}
-                          />
-                        )
-                      }
-                    />
-                    <Typography
-                      style={{
-                        textTransform: "uppercase",
-                        fontSize: "0.75rem",
-                        fontWeight: "600",
-                        marginRight: "18rem",
-                      }}
-                      variant="body1"
-                      component="body1"
-                    >
-                      {"Uppgift " +
-                        `${index + 1}` +
-                        " av " +
-                        responseCollection.question.length}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      component="h6"
-                      style={{ fontSize: ".75rem", fontWeight: "600" }}
-                    >
-                      {item?.spendTime
-                        ? "Tid: " + dispSecondsAsMins(item?.spendTime)
-                        : params?.state?.time
-                        ? "Tid: 00:00"
-                        : ""}
-                    </Typography>
-                    <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img src={RightArrow} className={classes.size} alt="" />
+                    <Box>
+                      <FormControlLabel
+                        control={
+                          item.optionId === item.answer.option ? (
+                            <img
+                              style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                              src={Correct}
+                            />
+                          ) : (
+                            <img
+                              src={Wrong}
+                              style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                            />
+                          )
+                        }
+                      />
+                      <Typography
+                        style={{
+                          textTransform: "uppercase",
+                          fontSize: "0.75rem",
+                          fontWeight: "600",
+                        }}
+                        variant="body1"
+                        component="body1"
+                      >
+                        {"Uppgift " +
+                          `${index + 1}` +
+                          " av " +
+                          responseCollection.question.length}
+                      </Typography>
+                    </Box>
+                    <Box display={"flex"}>
+                      <Typography
+                        variant="h6"
+                        component="h6"
+                        style={{ fontSize: ".75rem", fontWeight: "600" }}
+                      >
+                        {item?.spendTime
+                          ? "Tid: " + dispSecondsAsMins(item?.spendTime)
+                          : params?.state?.time
+                          ? "Tid: 00:00"
+                          : ""}
+                      </Typography>
+                      <Box
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img src={RightArrow} className={classes.size} alt="" />
+                      </Box>
                     </Box>
                   </Box>
                 );
               })}
           </Box>
-          <Box padding={1} m={2} sx={{ width: 615 }}>
+          <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 615 }}>
             <Button
               variant="outlined"
               onClick={() =>
@@ -512,7 +556,8 @@ const ResultSummaryOrg = (props) => {
                 })
               }
               style={{
-                width: 600,
+                width: "100%",
+                maxWidth: 600,
                 color: "#000DAB",
                 borderColor: "#000DAB",
                 borderRadius: "8px",
