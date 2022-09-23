@@ -393,11 +393,11 @@ const QuestionViewDTKOrg = (props) => {
         >
           <Box
             mt={5}
-            paddingX={10}
+            paddingX={{ xs: 4, md: 10 }}
             paddingY={2}
             sx={{
               backgroundColor: "#fff",
-              width: 600,
+              maxWidth: 600,
               height: 373,
               overflow: "auto",
               border: "1px solid #e1e1e1",
@@ -615,18 +615,19 @@ const QuestionViewDTKOrg = (props) => {
             quiz?.question?.map((question, index) => {
               if (index == selectedIndex) {
                 return (
-                  <Box>
+                  <Box sx={{ maxWidth: 600, width: "100%" }}>
                     <Box
                       paddingX={8}
                       mt={5}
                       sx={{
                         backgroundColor: "#fff",
-                        width: 600,
+                        maxWidth: 600,
                         border: "1px solid #e1e1e1",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                         position: "relative",
+                        marginLeft: 8,
                       }}
                     >
                       <Box
@@ -714,7 +715,7 @@ const QuestionViewDTKOrg = (props) => {
                           padding={1}
                           sx={{
                             backgroundColor: "#fff",
-                            width: 600,
+                            maxWidth: 600,
                             border: "1px solid #e1e1e1",
                             // marginLeft: ".5rem",
                             color:
