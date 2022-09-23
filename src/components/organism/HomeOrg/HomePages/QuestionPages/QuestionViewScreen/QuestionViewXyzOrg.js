@@ -273,7 +273,7 @@ const QuestionViewXyzOrg = () => {
               questionId: item._id,
               timeleft: 0,
               totaltime: time ? time : 0,
-              spendtime: 15 - remainingTime,
+              spendtime: time - remainingTime,
               // spendtime: (params.state.sectionCategory.time * quiz.length * 60) - remainingTime,
             });
           } else {
@@ -482,7 +482,6 @@ const QuestionViewXyzOrg = () => {
   const PopupHandler = () => {
     console.log(quiz, "quiz");
     const checkPopup = params?.state?.questionIndex;
-    console.log(checkPopup, "check popup");
     if (checkPopup != undefined) {
     }
     // else if (
@@ -503,7 +502,6 @@ const QuestionViewXyzOrg = () => {
   };
 
   const handleAlertDialogPopup = () => {
-    console.log("handleAlertDialogPopup");
     if (
       (quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
       (quiz &&
@@ -606,9 +604,9 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <AlertDialogSlide
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -631,9 +629,9 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
