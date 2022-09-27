@@ -91,40 +91,9 @@ const ResultSummaryOrg = (props) => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
 
-    instance2.get(URL).then((response) => {
-      response.data.question.map((item) => {
-        return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
-      });
-
-        let lengthOfQuestions = response.data.question.length;
-        let timePerQuestion;
-        timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
-
-      if (sumOfTimeSpent) {
-        setTimePerQues(timePerQuestion);
-      } else {
-        setTimePerQues(false);
-      }
-      setresponseCollection(response.data);
-    }).catch((error) => {
-      console.log(error, "this is the console of error ")
-    })
-
-=======
-    console.log(
-      params?.state,
-      "this is the console of params?.state in result summary"
-    );
-    const URL = EndPoints.getQuizResult + params?.state?.quizId;
-    let sumOfTimeSpent = 0;
-
     instance2
       .get(URL)
       .then((response) => {
-        console.log(
-          response,
-          "this is the console of response get attempted quiz"
-        );
         response.data.question.map((item) => {
           return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
         });
@@ -138,14 +107,12 @@ const ResultSummaryOrg = (props) => {
         } else {
           setTimePerQues(false);
         }
-        // console.log(response, "this is the console of response of data collection for result summary");
         setresponseCollection(response.data);
       })
       .catch((error) => {
         console.log(error, "this is the console of error ");
       });
 
->>>>>>> cfd0108 (UI: Fix responsiveness issues - Summary page view on mobile)
     return () => {
       // clearInterval(timer);
     };
@@ -285,7 +252,7 @@ const ResultSummaryOrg = (props) => {
               }}
             >
               <Box
-                width={290}
+                width={{ xs: "100%", sm: 290 }}
                 height={100}
                 sx={{
                   backgroundColor: "#fff",
@@ -321,7 +288,7 @@ const ResultSummaryOrg = (props) => {
                 </Typography>
               </Box>
               <Box
-                width={290}
+                width={{ xs: "100%", sm: 290 }}
                 height={100}
                 sx={{
                   backgroundColor: "#fff",
@@ -366,11 +333,12 @@ const ResultSummaryOrg = (props) => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
+                    flexWrap: "wrap",
                   }}
                 >
                   <Box
                     mt={2}
-                    width={290}
+                    width={{ xs: "100%", sm: 290 }}
                     height={100}
                     sx={{
                       backgroundColor: "#fff",
@@ -399,7 +367,7 @@ const ResultSummaryOrg = (props) => {
                   </Box>
                   <Box
                     mt={2}
-                    width={290}
+                    width={{ xs: "100%", sm: 290 }}
                     height={100}
                     sx={{
                       backgroundColor: "#fff",

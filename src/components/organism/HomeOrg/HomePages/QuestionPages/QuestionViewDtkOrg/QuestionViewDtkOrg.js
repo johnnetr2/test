@@ -130,7 +130,7 @@ const QuestionViewDTKOrg = (props) => {
       );
     } else {
       return (
-        <Box sx={{ width: 600 }}>
+        <Box sx={{ width: "100%", maxWidth: 600 }}>
           <ExerciseBtn title="svara" onClick={() => submitAnswer(question)} />
         </Box>
       );
@@ -397,6 +397,7 @@ const QuestionViewDTKOrg = (props) => {
             paddingY={2}
             sx={{
               backgroundColor: "#fff",
+              width: "100%",
               maxWidth: 600,
               height: 373,
               overflow: "auto",
@@ -627,7 +628,6 @@ const QuestionViewDTKOrg = (props) => {
                         justifyContent: "center",
                         alignItems: "center",
                         position: "relative",
-                        marginLeft: 8,
                       }}
                     >
                       <Box
@@ -715,6 +715,7 @@ const QuestionViewDTKOrg = (props) => {
                           padding={1}
                           sx={{
                             backgroundColor: "#fff",
+                            width: "100%",
                             maxWidth: 600,
                             border: "1px solid #e1e1e1",
                             // marginLeft: ".5rem",
