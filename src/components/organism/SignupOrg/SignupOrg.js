@@ -97,7 +97,7 @@ const SignupOrg = () => {
       instance
         .post(URL, data)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response?.data?.token) {
             localStorage.setItem("role", response?.data?.user?.role);
             localStorage.setItem("fullName", response?.data?.user?.fullName);
@@ -108,9 +108,10 @@ const SignupOrg = () => {
             swal({
               icon: "success",
               title: "Success",
-              text: `Please confirm your email! We sent an email to ${localStorage.getItem(
-                "email"
-              )}`,
+              text: "Successfully Registered",
+              // text: `Please confirm your email! We sent an email to ${localStorage.getItem(
+              //   "email"
+              // )}`,
             });
           } else if (response?.data?.result == "fail") {
             swal({
