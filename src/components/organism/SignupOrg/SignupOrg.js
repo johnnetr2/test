@@ -112,8 +112,7 @@ const SignupOrg = () => {
               // text: `Please confirm your email! We sent an email to ${localStorage.getItem(
               //   "email"
               // )}`,
-            });
-            navigate('/login')
+            }).then(() => navigate("/login"));
           } else if (response?.data?.result == "fail") {
             swal({
               icon: "warning",
