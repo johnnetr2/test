@@ -40,6 +40,8 @@ const LoginOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  const [enterPressed, setEnterPressed] = useState(false)
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -51,8 +53,18 @@ const LoginOrg = () => {
     setUser({ ...user, [name]: value });
   };
 
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === 'Enter') {
+        setEnterPressed(true)
+      }
+    };
+    window.addEventListener('keydown', keyDownHandler);
+    return () => {window.removeEventListener('keydown', keyDownHandler)}; 
+  }, []);
+
   const loginFunc = (e) => {
-    e.preventDefault();
+    e && e.preventDefault();
     if (user.email == "" || user.password == "") {
       swal({
         icon: "warning",
@@ -64,7 +76,6 @@ const LoginOrg = () => {
         email: user.email,
         password: user.password,
       };
-
       const URL = EndPoints.Login;
       instance
         .post(URL, data)
@@ -91,6 +102,8 @@ const LoginOrg = () => {
     }
   };
 
+  if(enterPressed){loginFunc()}
+  
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
     const payLoad = {
@@ -116,7 +129,6 @@ const LoginOrg = () => {
   //   const provider = new firebase.auth.GoogleAuthProvider
   //   auth.signInwithPopup(provider)
   // }
-
   return (
     <Container
       maxWidth="false"
