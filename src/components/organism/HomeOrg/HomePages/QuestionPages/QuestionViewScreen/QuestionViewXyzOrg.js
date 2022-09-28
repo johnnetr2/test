@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
-import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
@@ -28,6 +27,7 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -352,18 +352,23 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
-    if (question.answer && question.answer.option == curentOption._id) {
+    if (question.answer && question.answer.option === curentOption._id) {
       return (
-        <img src={Correct} style={{ marginLeft: ".45rem", width: "1.5rem" }} />
+        <img
+          src={Correct}
+          style={{ marginLeft: ".45rem", width: "1.5rem" }}
+          alt=""
+        />
       );
-    } else if (question.answer && curentOption._id == question?.optionId) {
+    } else if (question.answer && curentOption._id === question?.optionId) {
       return (
         <img
           src={Wrong}
           style={{ marginLeft: "0.45rem", width: "1.5rem", color: "grey" }}
+          alt=""
         />
       );
-    } else if (question.answer && curentOption._id != question?.optionId) {
+    } else if (question.answer && curentOption._id !== question?.optionId) {
       return (
         <Radio
           disabled
@@ -373,8 +378,7 @@ const QuestionViewXyzOrg = () => {
       );
     }
 
-    if (optionIndex == question.selectedIndex) {
-      console.log(optionIndex, "opt ind");
+    if (optionIndex === question.selectedIndex) {
       return (
         <Radio
           color="blue"
@@ -389,7 +393,8 @@ const QuestionViewXyzOrg = () => {
           checked={false}
           style={{
             marginRight: "0.5rem",
-            color: !question.answer && curentOption._id == onHover && "#0A1596",
+            color:
+              !question.answer && curentOption._id === onHover && "#0A1596",
           }}
         />
       );
@@ -397,7 +402,7 @@ const QuestionViewXyzOrg = () => {
   };
 
   const getSubmitButton = (question) => {
-    if (params?.state?.questionIndex != undefined) {
+    if (params?.state?.questionIndex !== undefined) {
       return (
         <ResultFooter
           questionLength={quiz.length}
@@ -435,6 +440,7 @@ const QuestionViewXyzOrg = () => {
             backgroundColor: "#0A1596",
             borderRadius: ".3rem",
             cursor: "pointer",
+            marginBottom: "1.2rem",
           }}
         >
           <Typography
@@ -461,6 +467,7 @@ const QuestionViewXyzOrg = () => {
             backgroundColor: "#e1e1e1",
             borderRadius: ".3rem",
             cursor: "pointer",
+            marginBottom: "1.2rem",
           }}
         >
           <Typography
@@ -482,7 +489,7 @@ const QuestionViewXyzOrg = () => {
   const PopupHandler = () => {
     console.log(quiz, "quiz");
     const checkPopup = params?.state?.questionIndex;
-    if (checkPopup != undefined) {
+    if (checkPopup !== undefined) {
     }
     // else if (
     //   (quiz[0].answer && quiz[0].multipartQuestion === null) ||
@@ -604,9 +611,9 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <AlertDialogSlide
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -629,9 +636,9 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
