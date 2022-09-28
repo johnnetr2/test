@@ -113,6 +113,7 @@ const SignupOrg = () => {
               //   "email"
               // )}`,
             });
+            navigate('/login')
           } else if (response?.data?.result == "fail") {
             swal({
               icon: "warning",
