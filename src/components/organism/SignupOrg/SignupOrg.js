@@ -128,7 +128,6 @@ const SignupOrg = () => {
               response?.data?.user?.fullName,
               response?.data?.user?.email
             );
-            }).then(() => navigate("/login"));
           } else if (response?.data?.result == "fail") {
             swal({
               icon: "warning",
@@ -137,6 +136,7 @@ const SignupOrg = () => {
             });
           }
         })
+        .then(() => navigate("/login"))
         .catch((error) => {
           console.log(error);
           MixpanelTracking.getInstance().registration("Fail");
