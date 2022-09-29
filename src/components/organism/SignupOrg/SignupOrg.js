@@ -69,7 +69,6 @@ const SignupOrg = () => {
     email: "",
     password: "",
   });
-
   const [showPassword, setShowPassword] = useState(true);
 
   let isValidPassword =
@@ -109,25 +108,19 @@ const SignupOrg = () => {
         .post(URL, data)
         .then((response) => {
           if (response?.data?.token) {
-            localStorage.setItem("role", response?.data?.user?.role);
-            localStorage.setItem("fullName", response?.data?.user?.fullName);
-            localStorage.setItem("email", response?.data?.user?.email);
-            localStorage.setItem("userId", response?.data?.user?._id);
-            localStorage.setItem("token", response?.data?.token);
-            // window.location.href = "/emailverification";
-            swal({
-              icon: "success",
-              title: "Success",
-              text: `Please confirm your email! We sent an email to ${localStorage.getItem(
-                "email"
-              )}`,
-            });
             MixpanelTracking.getInstance().registration(
               "Success",
               response?.data?.user?._id,
               response?.data?.user?.fullName,
               response?.data?.user?.email
             );
+            // setRegister({ ...register, fullName: "", email: "", password: "" });
+            // window.reload()
+            swal({
+              icon: "success",
+              title: "Success",
+              text: `Please confirm your email! We sent an email to ${response.data.user.email}`,
+            }).then(() => navigate("/login"));
           } else if (response?.data?.result == "fail") {
             swal({
               icon: "warning",
@@ -136,7 +129,9 @@ const SignupOrg = () => {
             });
           }
         })
-        .then(() => navigate("/login"))
+        // .then(() =>
+        // setRegister({ ...register, fullName: "", email: "", password: "" })
+        // )
         .catch((error) => {
           console.log(error);
           MixpanelTracking.getInstance().registration("Fail");
@@ -316,9 +311,7 @@ const SignupOrg = () => {
               Glömt lösenord?
             </Typography>
             <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-              <Link to="/login" style={{ textDecoration: "none" }}>
-                <FilledBtn onClick={clickHandler} title="Skapa konto" />
-              </Link>
+              <FilledBtn type="submit" title="Skapa konto" />
             </Box>
           </form>
           <Box style={{ display: "flex", justifyContent: "center" }}>

@@ -1,18 +1,18 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-const Filled_btn = ({ title, onClick, disabled }) => {
+const Filled_btn = ({ title, onClick, disabled, type }) => {
   return (
     <div className="filled-btn-1">
       <Button
         // variant="contained"
         onClick={onClick}
-        type="submit"
+        type={type}
         disabled={disabled}
         sx={{
           backgroundColor: "#0A1596",
           borderRadius: "8px",
-          color: '#FFFFFF',
+          color: "#FFFFFF",
           textTransform: "initial",
           width: "100%",
           textDecoration: "none",

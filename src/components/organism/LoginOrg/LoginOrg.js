@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { signInWithGoogle } from "../../service/firebase";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { ElectricScooterTwoTone } from "@mui/icons-material";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -46,7 +47,7 @@ const LoginOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [enterPressed, setEnterPressed] = useState(false)
+  const [enterPressed, setEnterPressed] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -61,12 +62,14 @@ const LoginOrg = () => {
 
   useEffect(() => {
     const keyDownHandler = (event) => {
-      if (event.key === 'Enter') {
-        setEnterPressed(true)
+      if (event.key === "Enter") {
+        setEnterPressed(true);
       }
     };
-    window.addEventListener('keydown', keyDownHandler);
-    return () => {window.removeEventListener('keydown', keyDownHandler)}; 
+    window.addEventListener("keydown", keyDownHandler);
+    return () => {
+      window.removeEventListener("keydown", keyDownHandler);
+    };
   }, []);
 
   const loginFunc = (e) => {
@@ -86,11 +89,10 @@ const LoginOrg = () => {
       instance
         .post(URL, data)
         .then((response) => {
-          // console.log(response, "response");
-          // if (response.data.user.is_verified === 0) {
-          //   swal("Warning!", "User is not verfied", "warning");
-          // }
-          if (response.data.token) {
+          console.log(response, "response");
+          if (response.data.user.is_verified === 0) {
+            swal("Warning!", "User is not verfied", "warning");
+          } else if (response.data.token) {
             localStorage.setItem("userId", response.data.user._id);
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("role", response.data.user.role);
@@ -101,7 +103,7 @@ const LoginOrg = () => {
               response.data.user?._id
             );
             // navigate("/home");
-            window.location.href = "/home";
+            // window.location.href = "/home";
           } else {
             swal("Warning!", "Invalid Credentials", "error");
           }
@@ -112,8 +114,10 @@ const LoginOrg = () => {
     }
   };
 
-  if(enterPressed){loginFunc()}
-  
+  if (enterPressed) {
+    loginFunc();
+  }
+
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
     const payLoad = {
