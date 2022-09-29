@@ -1,29 +1,30 @@
-import React, { useEffect, useState, useRef } from "react";
+import {
+  Box,
+  Container,
+  CssBaseline,
+  FormControlLabel,
+  Paper,
+  Radio,
+  Typography,
+} from "@material-ui/core";
+import { Close, OpenInFull } from "@mui/icons-material/";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { EndPoints, instance, instance2 } from "../../../../../service/Route";
+import React, { useEffect, useRef, useState } from "react";
+
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
-import { styled } from "@mui/material/styles";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  Paper,
-  Box,
-  CssBaseline,
-  Radio,
-  FormControlLabel,
-  Container,
-} from "@material-ui/core";
+import CircularProgress from "@mui/material/CircularProgress";
+import Draggable from "react-draggable";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
-import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
-import { EndPoints, instance, instance2 } from "../../../../../service/Route";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
+import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
-import CircularProgress from "@mui/material/CircularProgress";
-import Ruler from "../../../../../../assets/Imgs/ruler.png"
-import { OpenInFull, Close } from '@mui/icons-material/';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import Ruler from "../../../../../../assets/Imgs/ruler.png";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
-import Draggable from 'react-draggable'
+import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 
 let dataSubmit = [];
 
@@ -159,7 +160,7 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const handleRightArrowFunction = () => {
-    console.log(quiz, 'right arrow on click')
+    console.log(quiz, "right arrow on click");
     const Quiz = { ...quiz };
 
     const data = {
@@ -190,7 +191,7 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       dataSubmit.push(data);
     }
-    console.log(dataSubmit, 'datasubmit array')
+    console.log(dataSubmit, "datasubmit array");
     selectedIndex + 1 < quiz.question.length &&
       setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
@@ -305,7 +306,7 @@ const QuestionViewDTKOrg = (props) => {
       //   ? seconds
       //   : 0,
     };
-    console.log(data, 'this is data for submit')
+    console.log(data, "this is data for submit");
 
     dataSubmit.splice(selectedIndex, 1, data);
 
@@ -319,7 +320,7 @@ const QuestionViewDTKOrg = (props) => {
         sectionCategory: quiz.sectionCategory,
         answer: dataSubmit,
       };
-      console.log(obj, 'array of answer onjects')
+      console.log(obj, "array of answer onjects");
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
         dataSubmit = [];
@@ -361,8 +362,12 @@ const QuestionViewDTKOrg = (props) => {
   }
 
   const [extendedView, setExtendView] = useState(false);
-  const openExtended = () => {setExtendView(true)};
-  const closeExtended = () => {setExtendView(false)};
+  const openExtended = () => {
+    setExtendView(true);
+  };
+  const closeExtended = () => {
+    setExtendView(false);
+  };
 
   return (
     <div>
@@ -399,13 +404,14 @@ const QuestionViewDTKOrg = (props) => {
               border: "1px solid #e1e1e1",
             }}
             className={classes.scrollbar}
-            style={{ position: 'relative'}}
+            style={{ position: "relative" }}
           >
             <Typography
               variant="subtitle1"
               style={{
                 fontSize: ".7rem",
                 fontWeight: "500",
+                marginBottom: ".25rem",
               }}
             >
               {quiz && quiz.question.length + " uppgifter:"}
@@ -416,75 +422,179 @@ const QuestionViewDTKOrg = (props) => {
             <Typography
               variant="subtitle1"
               style={{
-                fontSize: ".85rem",
+                fontSize: ".875rem",
+                fontWeight: "400",
               }}
             >
               <MarkLatex content={quiz?.description} />
-            </Typography>     
+            </Typography>
             {quiz?.image && (
-              <Box>
-                <img src={quiz?.image} style={{ width: "100%" }} alt="" />
-              </Box>
-            )}
-            <OpenInFull onClick={openExtended} style={{ position: 'absolute', top: '10', right: '20', cursor: 'pointer' }}/>
-            <Dialog
-                open={extendedView}
-                onClose={closeExtended}
-                maxWidth={'xl'}
-                fullWidth={true}
-            >
-
-              {quiz?.description && (
               <>
-                <DialogTitle style={{ padding: '2rem 5rem 2rem' }}>
-                    <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
-                      {quiz && quiz.question.length + " uppgifter:"}
-                    </Typography>
-                    <Typography variant="h3" component='h3'>
-                      {quiz?.title}
-                    </Typography>
-                </DialogTitle>
-                <DialogContent style={{ columnCount: '2', padding: '0 5rem 2rem' }}>
-                  <Typography
-                  variant="subtitle1"
+                <DialogTitle
                   style={{
-                    fontSize: ".85rem",
+                    padding: "0 5rem 2rem",
+                    flex: "1",
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center",
                   }}
-                  >
-                    <MarkLatex content={quiz?.description} />
-                    
-                  </Typography>
-                </DialogContent>
-              </>
-              )}
-              {quiz?.image && (
-                <>
-                  <DialogTitle style={{padding: '0 5rem 2rem', flex: "1", display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+                >
                   <Box>
-                    <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        textTransform: "uppercase",
+                        fontSize: ".7rem",
+                        fontWeight: "500",
+                      }}
+                    >
                       {quiz && quiz.question.length + " uppgifter:"}
                     </Typography>
-                    <Typography variant="h3" component='h3'>
+                    <Typography variant="h3" component="h3">
                       {quiz?.title}
                     </Typography>
                   </Box>
                   <Box>
                     <RulerButton></RulerButton>
                   </Box>
+                </DialogTitle>
+                <DialogContent
+                  style={{ padding: "0 5rem 2rem", display: "flex" }}
+                >
+                  <Box style={{ width: "90%" }}>
+                    <img src={quiz?.image} style={{ width: "100%" }} alt="" />
+                  </Box>
+                  <Box
+                    style={{
+                      width: "10%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Draggable>
+                      <img
+                        src={Ruler}
+                        style={{ background: "#fff", width: "75%" }}
+                        alt=""
+                      />
+                    </Draggable>
+                  </Box>
+                </DialogContent>
+              </>
+            )}
+            <OpenInFull
+              onClick={openExtended}
+              style={{
+                position: "absolute",
+                top: "10",
+                right: "20",
+                cursor: "pointer",
+              }}
+            />
+            <Dialog
+              open={extendedView}
+              onClose={closeExtended}
+              maxWidth={"xl"}
+              fullWidth={true}
+            >
+              {quiz?.description && (
+                <>
+                  <DialogTitle style={{ padding: "2rem 5rem 2rem" }}>
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        textTransform: "uppercase",
+                        fontSize: ".7rem",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {quiz && quiz.question.length + " uppgifter:"}
+                    </Typography>
+                    <Typography variant="h3" component="h3">
+                      {quiz?.title}
+                    </Typography>
                   </DialogTitle>
-                  <DialogContent style={{padding: '0 5rem 2rem', display: "flex" }}>
-                    <Box style={{width: "90%"}}>
-                      <img src={quiz?.image} style={{width: "100%"}} alt="" />
+                  <DialogContent
+                    style={{ columnCount: "2", padding: "0 5rem 2rem" }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        fontSize: ".85rem",
+                      }}
+                    >
+                      <MarkLatex content={quiz?.description} />
+                    </Typography>
+                  </DialogContent>
+                </>
+              )}
+              {quiz?.image && (
+                <>
+                  <DialogTitle
+                    style={{
+                      padding: "0 5rem 2rem",
+                      flex: "1",
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box>
+                      <Typography
+                        variant="subtitle1"
+                        style={{
+                          textTransform: "uppercase",
+                          fontSize: ".7rem",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {quiz && quiz.question.length + " uppgifter:"}
+                      </Typography>
+                      <Typography variant="h3" component="h3">
+                        {quiz?.title}
+                      </Typography>
                     </Box>
-                    <Box style={{width: "10%", display: "flex", justifyContent:"center", alignItems:"center"}}>
+                    <Box>
+                      <RulerButton></RulerButton>
+                    </Box>
+                  </DialogTitle>
+                  <DialogContent
+                    style={{ padding: "0 5rem 2rem", display: "flex" }}
+                  >
+                    <Box style={{ width: "90%" }}>
+                      <img src={quiz?.image} style={{ width: "100%" }} alt="" />
+                    </Box>
+                    <Box
+                      style={{
+                        width: "10%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <Draggable>
-                        <img src={Ruler} style={{background:"#fff", width: "75%"}} alt="" />
+                        <img
+                          src={Ruler}
+                          style={{ background: "#fff", width: "75%" }}
+                          alt=""
+                        />
                       </Draggable>
                     </Box>
                   </DialogContent>
                 </>
-                )}
-              <Close onClick={()=>{setExtendView(false)}} style={{ position: 'absolute', top: '20', right: '20', cursor: 'pointer' }}/>
+              )}
+              <Close
+                onClick={() => {
+                  setExtendView(false);
+                }}
+                style={{
+                  position: "absolute",
+                  top: "20",
+                  right: "20",
+                  cursor: "pointer",
+                }}
+              />
             </Dialog>
           </Box>
           {showResult ? (
@@ -508,7 +618,7 @@ const QuestionViewDTKOrg = (props) => {
                 return (
                   <Box>
                     <Box
-                      paddingX={4}
+                      paddingX={8}
                       mt={5}
                       sx={{
                         backgroundColor: "#fff",
@@ -582,7 +692,7 @@ const QuestionViewDTKOrg = (props) => {
                         variant="h6"
                         component="h6"
                         style={{
-                          fontSize: ".75rem",
+                          fontSize: "0.875rem",
                           fontWeight: "600",
                           padding: "3rem 0rem",
                           display: "flex",

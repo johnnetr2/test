@@ -1,10 +1,11 @@
+import { Box, FormControlLabel, Radio, Typography } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { Typography, Box, FormControlLabel, Radio } from "@material-ui/core";
-import Increment from "../../../assets/Icons/Increment.svg";
-import Decrement from "../../../assets/Icons/Decrement.svg";
+
 import Correct from "../../../assets/Imgs/correct.png";
-import Wrong from "../../../assets/Imgs/wrong.png";
+import Decrement from "../../../assets/Icons/Decrement.svg";
+import Increment from "../../../assets/Icons/Increment.svg";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
+import Wrong from "../../../assets/Imgs/wrong.png";
 
 const MultiAnswer = (props) => {
   const options = (item, index) => {
@@ -82,7 +83,7 @@ const MultiAnswer = (props) => {
               variant="h5"
               component="h5"
               style={{
-                fontSize: ".75rem",
+                fontSize: "1rem",
                 fontWeight: "600",
                 marginTop: 20,
               }}
@@ -93,8 +94,8 @@ const MultiAnswer = (props) => {
               variant="body1"
               component="div"
               style={{
-                fontSize: ".75rem",
-                fontWeight: "500",
+                fontSize: "1rem",
+                fontWeight: "400",
                 marginTop: 10,
                 width: props?.question?.answer.image ? "auto" : 500,
               }}
