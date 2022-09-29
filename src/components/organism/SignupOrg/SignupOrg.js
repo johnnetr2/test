@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import { Container, Typography, Box } from "@mui/material";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import LabelField from "../../molecule/LabelField/LabelField";
+import { Box, Container, Typography } from "@mui/material";
+import { EndPoints, instance } from "../../service/Route";
+import React, { useEffect, useState } from "react";
+
 import FilledBtn from "../../atom/FilledBtn/FilledBtn";
+import InputField from "../../atom/InputField/InputField";
+import { Label } from "reactstrap";
+import LabelField from "../../molecule/LabelField/LabelField";
+import { Link } from "react-router-dom";
+import Logo from "../../../assets/Icons/whiteLogo.svg";
+import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import OutlineBtn from "../../atom/OutlineBtn/OutlineBtn";
-import swal from "sweetalert";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import { Label } from "reactstrap";
-import { instance, EndPoints } from "../../service/Route";
-import InputField from "../../atom/InputField/InputField";
+import { makeStyles } from "@material-ui/core/styles";
+import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../../assets/Icons/whiteLogo.svg";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -48,9 +50,18 @@ const useStyles = makeStyles((theme) => ({
   //     color: "#E1E1E1"
   //   }
   // }
+  // InputFieldPlaceholder: {
+  //   "&::placeholder": {
+  //     color: "#E1E1E1"
+  //   }
+  // }
 }));
 
 const SignupOrg = () => {
+  useEffect(() => {
+    MixpanelTracking.getInstance().visitedPage("SignUp");
+  }, []);
+
   const classes = useStyles();
   const navigate = useNavigate();
   const [register, setRegister] = useState({
@@ -97,7 +108,6 @@ const SignupOrg = () => {
       instance
         .post(URL, data)
         .then((response) => {
-          // console.log(response);
           if (response?.data?.token) {
             localStorage.setItem("role", response?.data?.user?.role);
             localStorage.setItem("fullName", response?.data?.user?.fullName);
@@ -108,10 +118,16 @@ const SignupOrg = () => {
             swal({
               icon: "success",
               title: "Success",
-              text: "Successfully Registered",
-              // text: `Please confirm your email! We sent an email to ${localStorage.getItem(
-              //   "email"
-              // )}`,
+              text: `Please confirm your email! We sent an email to ${localStorage.getItem(
+                "email"
+              )}`,
+            });
+            MixpanelTracking.getInstance().registration(
+              "Success",
+              response?.data?.user?._id,
+              response?.data?.user?.fullName,
+              response?.data?.user?.email
+            );
             }).then(() => navigate("/login"));
           } else if (response?.data?.result == "fail") {
             swal({
@@ -123,6 +139,7 @@ const SignupOrg = () => {
         })
         .catch((error) => {
           console.log(error);
+          MixpanelTracking.getInstance().registration("Fail");
         });
     }
   };

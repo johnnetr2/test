@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { Container, Box, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+import { EndPoints, instance, instance2 } from "../../service/Route";
+import React, { useEffect, useState } from "react";
+
+import Filled_btn from "../../atom/FilledBtn/FilledBtn";
+import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
 import Label_field from "../../molecule/LabelField/LabelField";
-import Filled_btn from "../../atom/FilledBtn/FilledBtn";
+import { Link } from "react-router-dom";
+import Logo from "../../../assets/Icons/whiteLogo.svg";
+import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
-import swal from "sweetalert";
-import { instance, EndPoints, instance2 } from "../../service/Route";
-import { signInWithGoogle } from "../../service/firebase";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import firebase from "../../service/firebase";
-import Logo from "../../../assets/Icons/whiteLogo.svg";
-import InputField from "../../atom/InputField/InputField";
+import { makeStyles } from "@material-ui/core/styles";
+import { signInWithGoogle } from "../../service/firebase";
+import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginOrg = () => {
+  useEffect(() => {
+    MixpanelTracking.getInstance().visitedPage("Login");
+  }, []);
+
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -90,6 +96,10 @@ const LoginOrg = () => {
             localStorage.setItem("role", response.data.user.role);
             localStorage.setItem("fullName", response.data.user.fullName);
             localStorage.setItem("email", response.data.user.email);
+            MixpanelTracking.getInstance().login(
+              "success",
+              response.data.user?._id
+            );
             // navigate("/home");
             window.location.href = "/home";
           } else {
