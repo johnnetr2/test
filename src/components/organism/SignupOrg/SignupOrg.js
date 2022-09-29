@@ -118,10 +118,11 @@ const SignupOrg = () => {
             swal({
               icon: "success",
               title: "Success",
-              text: `Please confirm your email! We sent an email to ${localStorage.getItem(
-                "email"
-              )}`,
-            });
+              text: "Registered Successfully",
+              // text: `Please confirm your email! We sent an email to ${localStorage.getItem(
+              //   "email"
+              // )}`,
+            }).then(() => navigate("/login"));
             MixpanelTracking.getInstance().registration(
               "Success",
               response?.data?.user?._id,
@@ -136,7 +137,6 @@ const SignupOrg = () => {
             });
           }
         })
-        .then(() => navigate("/login"))
         .catch((error) => {
           console.log(error);
           MixpanelTracking.getInstance().registration("Fail");
