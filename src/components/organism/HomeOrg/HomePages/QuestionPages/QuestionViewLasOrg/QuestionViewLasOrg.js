@@ -8,6 +8,8 @@ import { styled } from '@mui/material/styles'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, AppBar, Card, Paper, Box, CardActions, CardContent, CardMedia, CssBaseline, Grid, Radio, FormControlLabel, Toolbar, Container, LinearProgress } from '@material-ui/core';
 import ExerciseBtn from '../../../../../atom/ExerciseBtn/ExerciseBtn';
+import { OpenInFull, Close } from '@mui/icons-material/';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 const QuestionViewLasOrg = () => {
 
@@ -79,6 +81,9 @@ const QuestionViewLasOrg = () => {
         };
     }, []);
 
+    const [extendedView, setExtendView] = useState(false);
+    const openExtended = () => {setExtendView(true)};
+    const closeExtended = () => {setExtendView(false)};
 
     return <div>
         <CssBaseline />
@@ -105,7 +110,7 @@ const QuestionViewLasOrg = () => {
                     <LinearProgress className={classes.color_progress} variant="determinate" value={progress} />
                 </Box>
             </Container> */}
-            <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            <Container maxWidth="md" style={{ marginTop: 0, backgroundColor: '#f9f9f9', height: 'fit-content', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', position: 'relative' }}>
                 <Box mt={5} paddingX={6} paddingY={2} sx={{ backgroundColor: '#fff', width: 600, height: 373, overflow: 'auto', border: '1px solid #e1e1e1' }}>
                     <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
                         4 uppgifter:
@@ -121,6 +126,31 @@ const QuestionViewLasOrg = () => {
                         Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv.
                         För att försöka komma till rätta med flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som
                     </Typography>
+                    <OpenInFull onClick={openExtended} style={{ position: 'absolute', top: '10', right: '20', cursor: 'pointer' }}/>
+                    <Dialog
+                        open={extendedView}
+                        onClose={closeExtended}
+                        maxWidth={'xl'}
+                    >
+                        <DialogTitle style={{ padding: '2rem 5rem 2rem' }}>
+                            <Typography variant="subtitle1" style={{ textTransform: 'uppercase', fontSize: '.7rem', fontWeight: '500' }}>
+                                4 uppgifter:
+                            </Typography>
+                            <Typography variant="h3" component='h3'>
+                                Ormbett
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent style={{ columnCount: '2', padding: '0 5rem 2rem' }}>
+                            <Typography variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500', marginBottom: '1rem' }}>
+                            Varje år inträffar uppskattningsvis cirka 300 bett av huggorm (Vipera berus) i Sverige. De flesta bitna kommer i något skede i kontakt med sjukvården. I flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som blir in-tensivvårdskrävande. Dödsfall har förekommit, men det senaste kända fallet i Sverige ligger närmare 20 år till-baka i tiden.
+                            </Typography>
+                            <Typography mt={3} variant="subtitle1" style={{ fontSize: '.7rem', fontWeight: '500', marginBottom: '1rem' }}>
+                            Trots i övrigt framgångsrika behandlingsrutiner har det dock visat sig svårt att undvika att vissa patienter får omfattande lokalreaktioner som fortsätter att breda ut sig under de första dygnen. Orsaken till detta är oftast att serum (antitoxin) inte getts alls, getts för sent eller att upprepade doser inte kommit till stånd vid symtom-recidiv.
+                            För att försöka komma till rätta med flertalet av dessa fall konsulteras Giftinformationscentralen, som då har möjlighet att följa förloppet genom upprepade  kontakter med behandlande läkare samt även få tillgång till epikriser. Allvarlighetsgraden varierar avsevärt, men ett fyrtiotal patienter årligen utvecklar uttalade lokala reaktioner och/eller toxisk systempåverkan som
+                            </Typography>
+                        </DialogContent>
+                        <Close onClick={()=>{setExtendView(false)}} style={{ position: 'absolute', top: '20', right: '20', cursor: 'pointer' }}/>
+                    </Dialog>
                 </Box>
                 <Box paddingX={4} mt={5} sx={{ backgroundColor: '#fff', width: 600, height: 120, border: '1px solid #e1e1e1' }}>
                     <Box style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: 10 }}>

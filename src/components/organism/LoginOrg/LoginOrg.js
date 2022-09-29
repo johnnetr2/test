@@ -46,6 +46,8 @@ const LoginOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  const [enterPressed, setEnterPressed] = useState(false)
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -57,8 +59,18 @@ const LoginOrg = () => {
     setUser({ ...user, [name]: value });
   };
 
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === 'Enter') {
+        setEnterPressed(true)
+      }
+    };
+    window.addEventListener('keydown', keyDownHandler);
+    return () => {window.removeEventListener('keydown', keyDownHandler)}; 
+  }, []);
+
   const loginFunc = (e) => {
-    e.preventDefault();
+    e && e.preventDefault();
     if (user.email == "" || user.password == "") {
       swal({
         icon: "warning",
@@ -70,15 +82,15 @@ const LoginOrg = () => {
         email: user.email,
         password: user.password,
       };
-
       const URL = EndPoints.Login;
       instance
         .post(URL, data)
         .then((response) => {
-          console.log(response, "response");
-          if (response.data.user.is_verified === 0) {
-            swal("Warning!", "User is not verfied", "warning");
-          } else if (response.data.token) {
+          // console.log(response, "response");
+          // if (response.data.user.is_verified === 0) {
+          //   swal("Warning!", "User is not verfied", "warning");
+          // }
+          if (response.data.token) {
             localStorage.setItem("userId", response.data.user._id);
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("role", response.data.user.role);
@@ -100,6 +112,8 @@ const LoginOrg = () => {
     }
   };
 
+  if(enterPressed){loginFunc()}
+  
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
     const payLoad = {
@@ -125,7 +139,6 @@ const LoginOrg = () => {
   //   const provider = new firebase.auth.GoogleAuthProvider
   //   auth.signInwithPopup(provider)
   // }
-
   return (
     <Container
       maxWidth="false"

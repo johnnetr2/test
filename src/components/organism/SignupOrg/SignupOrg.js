@@ -128,7 +128,7 @@ const SignupOrg = () => {
               response?.data?.user?.fullName,
               response?.data?.user?.email
             );
-            window.location.href = "/home";
+            }).then(() => navigate("/login"));
           } else if (response?.data?.result == "fail") {
             swal({
               icon: "warning",

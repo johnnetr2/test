@@ -1,17 +1,14 @@
 import axios from "axios";
 
+require("dotenv").config();
+
+console.log("env 12", process.env.REACT_APP_API_BASE_URL);
 export const instance = axios.create({
-  // baseURL: "http://localhost:2000",
-  // baseURL: 'http://13.53.194.168:2000',
-  baseURL: "http://13.48.132.192", //Production URL
-  // baseURL: "http://13.51.198.134", //Beta URL
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });
 
 export const instance2 = axios.create({
-  // baseURL: "http://localhost:2000",
-  // baseURL: 'http://13.53.194.168:2000',
-  baseURL: "http://13.48.132.192", //Production URL
-  // baseURL: "http://13.51.198.134", //Beta URL
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
@@ -19,10 +16,7 @@ export const instance2 = axios.create({
 });
 
 export const instance3 = axios.create({
-  // baseURL: "http://localhost:2000",
-  // baseURL: 'http://13.53.194.168:2000',
-  baseURL: "http://13.48.132.192", //Production URL
-  // baseURL: "http://13.51.198.134", //Beta URL
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
