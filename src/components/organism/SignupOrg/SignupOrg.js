@@ -129,9 +129,6 @@ const SignupOrg = () => {
             });
           }
         })
-        // .then(() =>
-        // setRegister({ ...register, fullName: "", email: "", password: "" })
-        // )
         .catch((error) => {
           console.log(error);
           MixpanelTracking.getInstance().registration("Fail");
