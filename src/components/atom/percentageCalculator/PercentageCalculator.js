@@ -212,7 +212,7 @@ export const KVANormeringValueFor = (percentage) => {
       min: 90.9,
       max: 93.3,
       value: 1.9,
-    },  
+    },
     {
       min: 93.4,
       max: 100,
@@ -1033,7 +1033,7 @@ export const VerbalNormeringValueFor = (percentage) => {
     },
     {
       min: 43.44,
-      max: 47.80,
+      max: 47.8,
       value: 0.6,
     },
     {
@@ -1067,7 +1067,7 @@ export const VerbalNormeringValueFor = (percentage) => {
       value: 1.2,
     },
     {
-      min: 72.60,
+      min: 72.6,
       max: 76.34,
       value: 1.3,
     },
@@ -1077,9 +1077,9 @@ export const VerbalNormeringValueFor = (percentage) => {
       value: 1.4,
     },
     {
-      min: 80.10,
+      min: 80.1,
       max: 83.64,
-      value: 1.5, 
+      value: 1.5,
     },
     {
       min: 83.65,

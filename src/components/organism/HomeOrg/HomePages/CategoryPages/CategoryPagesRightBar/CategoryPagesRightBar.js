@@ -42,6 +42,7 @@ const CategoryPagesRightBar = (props) => {
   const { height, width } = useWindowDimensions();
   const [weeklyProgress, setWeeklyProgress] = useState();
   const [weeks, setWeeks] = useState();
+  const [prognos, setPrognos] = useState();
   let weeklyProgressArr = [];
   let weeksArr = [];
   let newArray = [];
@@ -108,26 +109,31 @@ const CategoryPagesRightBar = (props) => {
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
       setLastWeekTasks(response.data);
+      setPrognos(
+        (response.data.totalCorrectQuestions /
+          response.data.totalAttemptedQuestions) *
+          100
+      );
     });
   }, []);
 
-  const percentageCalculation = () => {
+  const percentageCalculation = (prognos) => {
     if (props?.item.title == "XYZ") {
-      return XYZNormeringValueFor(props.progress);
+      return XYZNormeringValueFor(prognos);
     } else if (props?.item.title == "KVA") {
-      return KVANormeringValueFor(props.progress);
+      return KVANormeringValueFor(prognos);
     } else if (props?.item.title == "NOG") {
-      return NOGNormeringValueFor(props.progress);
+      return NOGNormeringValueFor(prognos);
     } else if (props?.item.title == "DTK") {
-      return DTKNormeringValueFor(props.progress);
+      return DTKNormeringValueFor(prognos);
     } else if (props?.item.title == "ELF") {
-      return ELFNormeringValueFor(props.progress);
+      return ELFNormeringValueFor(prognos);
     } else if (props?.item.title == "LÄS") {
-      return LASNormeringValueFor(props.progress);
+      return LASNormeringValueFor(prognos);
     } else if (props?.item.title == "ORD") {
-      return ORDNormeringValueFor(props.progress);
+      return ORDNormeringValueFor(prognos);
     } else if (props?.item.title == "MEK") {
-      return MEKNormeringValueFor(props.progress);
+      return MEKNormeringValueFor(prognos);
     }
   };
 
@@ -260,22 +266,7 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {/* {lastWeekTasks
-              ? (
-                (lastWeekTasks.totalCorrectQuestions /
-                  lastWeekTasks.totalQuestions) *
-                2
-              )
-                .toFixed(1)
-                .replace(/\.0+$/, "")
-              : ""} */}
-            {/* {props.progress.toFixed(1)} */}
-
-            {percentageCalculation(
-              (lastWeekTasks.totalCorrectQuestions /
-                lastWeekTasks.totalAttemptedQuestions) *
-                100
-            )}
+            {prognos && percentageCalculation(prognos)}
           </Typography>
           <Typography variant="body2">
             Prognostiserad normerad poäng {props?.item.title}

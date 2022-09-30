@@ -9,8 +9,6 @@ import {
   Tooltip,
 } from "recharts";
 const LinesChart = (props) => {
-
-
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -85,7 +83,14 @@ const LinesChart = (props) => {
       >
         <CartesianGrid vertical="" horizontal="true" />
         <XAxis dataKey="name" dy={10} tickLine={false} />
-        <YAxis type="number" dx={-10} tickLine={false} axisLine={false} />
+        <YAxis
+          type="number"
+          dx={-10}
+          domain={[0, "auto"]}
+          allowDecimals={false}
+          tickLine={false}
+          axisLine={false}
+        />
         <Tooltip
           content={<CustomTooltip />}
           contentStyle={{

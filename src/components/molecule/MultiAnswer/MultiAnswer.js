@@ -1,13 +1,26 @@
 import { Box, FormControlLabel, Radio, Typography } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Correct from "../../../assets/Imgs/correct.png";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import Increment from "../../../assets/Icons/Increment.svg";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 import Wrong from "../../../assets/Imgs/wrong.png";
+import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 
 const MultiAnswer = (props) => {
+  const [feedbackPopup, setFeedbackPopup] = useState(false);
+  const [count, setCount] = useState();
+
+  const PlusPoint = () => {
+    setCount(1);
+    setFeedbackPopup(true);
+  };
+
+  const MinusPoint = () => {
+    setCount(0);
+    setFeedbackPopup(true);
+  };
   const options = (item, index) => {
     if (
       props?.question?.answer &&
@@ -75,6 +88,12 @@ const MultiAnswer = (props) => {
         <Box mt={2} ml={5}></Box>
       </Box>
       <Box style={{ border: "1px solid #e1e1e1", padding: "2rem" }}>
+        <FeedbackCard
+          count={count}
+          show={feedbackPopup}
+          onClose={() => setFeedbackPopup(false)}
+          questionId={props.question._id}
+        />
         <Box
           sx={{ width: 500, display: "flex", justifyContent: "space-between" }}
         >
@@ -136,10 +155,10 @@ const MultiAnswer = (props) => {
             Berätta för oss om du var nöjd med lösningen
           </Typography>
           <Box ml={1} mr={0.5}>
-            <img src={Increment} alt="" />
+            <img src={Increment} onClick={PlusPoint} alt="" />
           </Box>
           <Box mr={1}>
-            <img src={Decrement} alt="" />
+            <img src={Decrement} onClick={MinusPoint} alt="" />
           </Box>
         </Box>
       </Box>
