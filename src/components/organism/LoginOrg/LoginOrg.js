@@ -102,7 +102,7 @@ const LoginOrg = () => {
               "success",
               response.data.user?._id
             );
-            // navigate("/home");
+            navigate("/home");
             // window.location.href = "/home";
           } else {
             swal("Warning!", "Invalid Credentials", "error");
