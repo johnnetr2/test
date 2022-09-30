@@ -90,7 +90,7 @@ const LoginOrg = () => {
         .post(URL, data)
         .then((response) => {
           console.log(response, "response");
-          if (response.data.user.is_verified === 0) {
+          if (!response.data.user.is_verified) {
             swal("Warning!", "User is not verfied", "warning");
           } else if (response.data.token) {
             localStorage.setItem("userId", response.data.user._id);
