@@ -8,7 +8,7 @@ import remarkMath from "remark-math";
 const MarkLatex = ({ content }) => {
   return (
     <ReactMarkdown
-      children={content.replace("\n", "  \n")}
+      children={content?.replace("\n", "  \n")}
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
     />

@@ -160,7 +160,6 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const handleRightArrowFunction = () => {
-    console.log(quiz, "right arrow on click");
     const Quiz = { ...quiz };
 
     const data = {
