@@ -1,13 +1,13 @@
 import axios from "axios";
 
 require("dotenv").config();
-const apiBase = "https://apidev.hpappen.se"
+
 export const instance = axios.create({
-  baseURL: apiBase,
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });
 
 export const instance2 = axios.create({
-  baseURL: apiBase,
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
@@ -15,7 +15,7 @@ export const instance2 = axios.create({
 });
 
 export const instance3 = axios.create({
-  baseURL: apiBase,
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
