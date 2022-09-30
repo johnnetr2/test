@@ -2,7 +2,6 @@ import axios from "axios";
 
 require("dotenv").config();
 
-console.log("env 12", process.env.REACT_APP_API_BASE_URL);
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
 });
