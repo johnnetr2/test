@@ -391,7 +391,7 @@ const QuestionBody = (props) => {
           // >
           <Container
             maxWidth="sm"
-            sx={{
+            style={{
               marginTop: "1.5rem",
               backgroundColor: "#fff",
               border: "1px solid #e1e1e1",
