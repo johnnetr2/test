@@ -1,29 +1,35 @@
+import { Box, Typography } from "@material-ui/core";
+
+import LeftArrow from "../../../assets/Icons/LeftArrow.svg";
 import React from "react";
-import { Box, Typography} from "@material-ui/core";
-import { useNavigate } from 'react-router-dom'
-import RightArrow from '../../../assets/Icons/RightArrow.svg'
-import LeftArrow from '../../../assets/Icons/LeftArrow.svg'
+import RightArrow from "../../../assets/Icons/RightArrow.svg";
+import { useNavigate } from "react-router-dom";
 
 const ResultFooter = (props) => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <div>
+    <div style={{ width: "100%", maxWidth: 615 }}>
       <Box
         padding={1}
         mt={2}
-        sx={{ width: 615, display: "flex", justifyContent: "space-between" }}
+        sx={{
+          width: "100%",
+          maxWidth: 615,
+          display: "flex",
+          justifyContent: "space-between",
+        }}
       >
-        
-          <Box
+        <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            cursor: 'pointer'
+            cursor: "pointer",
           }}
-          onClick={()=>{props.questionIndex>0 && props.onLeftClick()}}
+          onClick={() => {
+            props.questionIndex > 0 && props.onLeftClick();
+          }}
         >
           {" "}
           <img src={LeftArrow} alt="" />{" "}
@@ -38,10 +44,18 @@ const ResultFooter = (props) => {
             Föregående
           </Typography>
         </Box>
-        <Box onClick={()=>{props.onResultHandler()}}>
+        <Box
+          onClick={() => {
+            props.onResultHandler();
+          }}
+        >
           <Typography
             variant="h6"
-            style={{ fontSize: "0.75rem", textTransform: "uppercase", cursor: 'pointer', }}
+            style={{
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              cursor: "pointer",
+            }}
           >
             Resultatsida
           </Typography>
@@ -51,9 +65,12 @@ const ResultFooter = (props) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            cursor: 'pointer'
+            cursor: "pointer",
           }}
-          onClick={()=>{props.questionIndex<props.questionLength - 1 && props.onRightClick()}}
+          onClick={() => {
+            props.questionIndex < props.questionLength - 1 &&
+              props.onRightClick();
+          }}
         >
           <Typography
             variant="h6"

@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Container, makeStyles, Typography, Box } from "@material-ui/core";
-import { LinearProgress } from "@mui/material";
-import BarChart from "../../../../../molecule/Charts/BarChart";
-import LinesChart from "../../../../../molecule/Charts/LinesChart";
+import { Box, Container, Typography, makeStyles } from "@material-ui/core";
 import {
   EndPoints,
   instance2,
 } from "../../../../../../components/service/Route";
-import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
-import LineDemo from "../../../../../molecule/Charts/BarChart";
+import React, { useEffect, useState } from "react";
 import moment, { weekdays } from "moment";
-import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+
+import BarChart from "../../../../../molecule/Charts/BarChart";
 import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import LineDemo from "../../../../../molecule/Charts/BarChart";
+import { LinearProgress } from "@mui/material";
+import LinesChart from "../../../../../molecule/Charts/LinesChart";
+import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
+import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -138,17 +139,17 @@ const CategoryPagesRightBar = (props) => {
   };
 
   return (
-    <Container
-      maxWidth={false}
+    <Box
+      maxWidth={true}
       style={{
         backgrounColor: "#fafafa",
-        padding: "0 3rem",
+        padding: { xs: "0 !important", md: "0 3rem" },
       }}
     >
       <Box
         sx={{
           height: "fit-content",
-          marginTop: width < 901 ? "2rem" : "11.7rem",
+          marginTop: width < 1280 ? "2rem" : "11.7rem",
         }}
       >
         <Box>
@@ -345,7 +346,7 @@ const CategoryPagesRightBar = (props) => {
           </Box>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

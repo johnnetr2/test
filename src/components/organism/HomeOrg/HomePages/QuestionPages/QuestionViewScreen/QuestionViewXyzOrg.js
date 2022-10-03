@@ -434,7 +434,8 @@ const QuestionViewXyzOrg = () => {
           mt={2}
           mb={2}
           sx={{
-            width: 600,
+            width: "100%",
+            maxWidth: 600,
             display: "flex",
             justifyContent: "center",
             backgroundColor: "#0A1596",
@@ -461,7 +462,8 @@ const QuestionViewXyzOrg = () => {
           mt={2}
           mb={2}
           sx={{
-            width: 600,
+            width: "100%",
+            maxWidth: 600,
             display: "flex",
             justifyContent: "center",
             backgroundColor: "#e1e1e1",

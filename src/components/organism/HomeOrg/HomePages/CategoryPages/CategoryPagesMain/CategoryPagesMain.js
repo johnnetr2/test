@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
-import { Grid, makeStyles, Container } from "@material-ui/core";
-import CategoryPagesFeedContent from "../../CategoryPages/CategoryPagesContentFeed/CategoryPagesContentFeed";
-import CategoryPagesRightBar from "../../CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
-import CategoryPagesLeftBar from "../../../HomeLeftBar/HomeLeftBar";
-import { useLocation } from "react-router-dom";
+import { Container, Grid } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
+import React, { useEffect } from "react";
+
+import BottomNavBar from "../../../../../molecule/BottomNavBar/BottomNavBar";
+import CategoryPagesFeedContent from "../../CategoryPages/CategoryPagesContentFeed/CategoryPagesContentFeed";
+import CategoryPagesLeftBar from "../../../HomeLeftBar/HomeLeftBar";
+import CategoryPagesRightBar from "../../CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
 import HomeLeftBar from "../../../HomeLeftBar/HomeLeftBar";
+import { makeStyles } from "@material-ui/core";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   right: {
-    [theme.breakpoints.down("1200")]: {
+    [theme.breakpoints.down("md")]: {
       display: "none",
     },
   },
@@ -62,13 +65,7 @@ const CategoryPagesMain = () => {
           <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
             <CategoryPagesFeedContent item={params?.state?.item} />
           </Grid>
-          <Grid
-            item
-            style={{
-              width: "35rem",
-            }}
-            className={classes.right}
-          >
+          <Grid item className={classes.right}>
             <CategoryPagesRightBar
               item={params?.state?.item}
               progress={params?.state.progress}
@@ -76,6 +73,7 @@ const CategoryPagesMain = () => {
           </Grid>
         </Container>
       </Grid>
+      <BottomNavBar currentPage="category" />
     </Container>
   );
 };
