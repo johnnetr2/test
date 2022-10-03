@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { EndPoints, instance2 } from "../../service/Route";
+import React, { useState } from "react";
+
+import { Box } from "@mui/material";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import PropTypes from "prop-types";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -34,7 +35,7 @@ const CrossIcon = (props) => {
             sx={{
               color: "#B5B5B5",
             }}
-            fontSize = "large"
+            fontSize="large"
           />
         </IconButton>
       ) : null}
@@ -68,7 +69,11 @@ export default function CustomizedDialogs(props) {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
       <BootstrapDialog
         BackdropProps={{ invisible: true }}
         hideBackdrop
@@ -83,6 +88,7 @@ export default function CustomizedDialogs(props) {
             borderRadius: "5px",
             right: 0,
             bottom: 0,
+            maxWidth: 600,
           },
         }}
       >
@@ -125,7 +131,8 @@ export default function CustomizedDialogs(props) {
               style={{
                 backgroundColor: "#f9f9f9",
                 border: "none",
-                width: "30rem",
+                width: "100%",
+                maxWidth: "30rem",
                 padding: "1rem",
                 height: "7rem",
                 resize: "none",
@@ -149,7 +156,8 @@ export default function CustomizedDialogs(props) {
                 }`,
                 display: "block",
                 margin: "auto",
-                width: "30rem",
+                width: "100%",
+                maxWidth: "30rem",
                 height: "3rem",
                 fontSize: "1rem",
                 textTransform: "initial",

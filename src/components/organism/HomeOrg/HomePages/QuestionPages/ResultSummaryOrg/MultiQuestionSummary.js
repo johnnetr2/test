@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
 import {
-  Typography,
   Box,
-  FormControlLabel,
   Container,
+  FormControlLabel,
   Radio,
+  Typography,
 } from "@material-ui/core";
-import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
-import Increment from "../../../../../../assets/Icons/Increment.svg";
-import Decrement from "../../../../../../assets/Icons/Decrement.svg";
-import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
-import Correct from "../../../../../../assets/Imgs/correct.png";
-import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import React, { useEffect, useState } from "react";
+
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
+import Correct from "../../../../../../assets/Imgs/correct.png";
+import Decrement from "../../../../../../assets/Icons/Decrement.svg";
+import Increment from "../../../../../../assets/Icons/Increment.svg";
+import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
+import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Timer from "../../../../../atom/Timer/timer";
+import Wrong from "../../../../../../assets/Imgs/wrong.png";
 
 function MultiQuestionSummary(props) {
   const [question, setQuestion] = useState();
@@ -88,7 +89,8 @@ function MultiQuestionSummary(props) {
         paddingY={2}
         sx={{
           backgroundColor: "#fff",
-          width: 600,
+          width: "100%",
+          maxWidth: 600,
           height: 373,
           border: "1px solid #e1e1e1",
           overflow: "auto",
@@ -132,9 +134,9 @@ function MultiQuestionSummary(props) {
           mt={5}
           sx={{
             backgroundColor: "#fff",
-            width: 600,
+            width: "100%",
+            maxWidth: 600,
             border: "1px solid #e1e1e1",
-            marginLeft: ".5rem",
           }}
         >
           {/* <Box
@@ -170,13 +172,13 @@ function MultiQuestionSummary(props) {
               padding={1}
               sx={{
                 backgroundColor: "#fff",
-                width: 600,
+                width: "100%",
+                maxWidth: 600,
                 border: "1px solid #e1e1e1",
-                marginLeft: ".5rem",
               }}
             >
               <FormControlLabel
-                onClick={(e) => { }}
+                onClick={(e) => {}}
                 value={curentOption._id}
                 style={{ marginLeft: ".5rem", marginTop: ".3rem" }}
                 control={Options(question, curentOption, optionIndex)}
@@ -196,7 +198,8 @@ function MultiQuestionSummary(props) {
         mt={3}
         sx={{
           backgroundColor: "#fff",
-          width: 600,
+          width: "100%",
+          maxWidth: 600,
           height: 220,
           border: "1px solid #e1e1e1",
           overflow: "auto",
@@ -224,7 +227,8 @@ function MultiQuestionSummary(props) {
                 fontSize: ".75rem",
                 fontWeight: "500",
                 marginTop: 10,
-                width: question?.answer.image ? "auto" : 540,
+                width: "100%",
+                maxWidth: question?.answer.image ? "auto" : 540,
               }}
             >
               <MarkLatex content={question?.answer.answer} />
