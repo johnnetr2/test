@@ -155,7 +155,7 @@ const LineDemo = (props) => {
             fontSize: "0.75rem",
           }}
           data={data}
-          syncId="anyId"
+          syncId="snycId"
           margin={{
             top: 10,
             right: 10,

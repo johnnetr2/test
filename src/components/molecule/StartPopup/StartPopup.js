@@ -40,7 +40,12 @@ export default function StartPopup({
         <Box>
           <DialogTitle>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <img onClick={() => hidePopup()} src={Cross} alt="" style={{ cursor: 'pointer' }} />
+              <img
+                onClick={() => hidePopup()}
+                src={Cross}
+                alt=""
+                style={{ cursor: "pointer" }}
+              />
             </Box>
           </DialogTitle>
           <DialogContent style={{ paddingLeft: "4rem", paddingRight: "4rem" }}>
@@ -119,7 +124,7 @@ export default function StartPopup({
                       width: "30%",
                     }}
                   >
-                    Nästa
+                    Spara
                   </Button>
                 </Box>
               </DialogActions>

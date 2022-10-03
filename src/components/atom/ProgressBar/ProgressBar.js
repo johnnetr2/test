@@ -78,7 +78,7 @@ const ProgressBar = (props) => {
             </Typography>
           )}
         </Box>
-        <Box
+        {/* <Box
           sx={{
             width: props.average + "%",
             height: "1.25rem",
@@ -89,7 +89,7 @@ const ProgressBar = (props) => {
             alignItems: "center",
           }}
         >
-          {props.average > 20 && (
+          {props.average > 30 && (
             <Typography
               style={{
                 textTransform: "uppercase",
@@ -97,10 +97,10 @@ const ProgressBar = (props) => {
                 color: "#0A5B2D",
               }}
             >
-              Copy här
+              GJORDA UPPGIFTER
             </Typography>
           )}
-        </Box>
+        </Box> */}
       </Box>
       <Box>
         <Typography variant="body2" color="text.secondary">{`${Math.round(

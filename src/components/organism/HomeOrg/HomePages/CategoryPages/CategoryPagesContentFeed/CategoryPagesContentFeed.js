@@ -297,7 +297,7 @@ const CategoryPagesFeedContent = (props) => {
                 marginLeft: "0.2rem",
               }}
             >
-              Välj om du vill köra på tid
+              Välj övningsläge
             </Typography>
           </Box>
           <Box sx={{ marginTop: "1rem" }}>
