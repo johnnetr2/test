@@ -440,7 +440,7 @@ const QuestionViewXyzOrg = () => {
             backgroundColor: "#0A1596",
             borderRadius: ".3rem",
             cursor: "pointer",
-            marginBottom: "1.2rem",
+            marginBottom: "2.2rem",
           }}
         >
           <Typography

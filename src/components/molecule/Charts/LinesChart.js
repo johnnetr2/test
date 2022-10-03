@@ -33,6 +33,7 @@ const LinesChart = (props) => {
       <LineChart
         width={396}
         height={200}
+        align="center"
         style={{
           fontSize: "0.75rem",
         }}
@@ -86,8 +87,8 @@ const LinesChart = (props) => {
         <YAxis
           type="number"
           dx={-10}
-          domain={[0, "auto"]}
-          allowDecimals={false}
+          domain={[0, 2]}
+          allowDecimals={true}
           tickLine={false}
           axisLine={false}
         />
@@ -113,7 +114,6 @@ const LinesChart = (props) => {
           type="monotone"
           dataKey="Prognos"
           stroke="#0A1596"
-          strokeWidth="3"
           isAnimationActive={false}
           activeDot={{
             fill: "#0A1596",
@@ -121,16 +121,8 @@ const LinesChart = (props) => {
             strokeWidth: 2,
             r: 6,
           }}
+          align="center"
           dot={{ fill: "#0A1596", stroke: "#0A1596", strokeWidth: 2, r: 6 }}
-          options={{
-            scales: {
-              x: {
-                grid: {
-                  display: "false",
-                },
-              },
-            },
-          }}
         />
       </LineChart>
     </Box>

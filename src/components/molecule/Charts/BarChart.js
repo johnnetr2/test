@@ -155,17 +155,22 @@ const LineDemo = (props) => {
             fontSize: "0.75rem",
           }}
           data={data}
-          syncId="syncId"
+          syncId="anyId"
           margin={{
             top: 10,
             right: 10,
-            left: -25,
+            left: -35,
             bottom: 0,
           }}
         >
           <CartesianGrid strokeDasharray="0 0" vertical="" horizontal="true" />
           <XAxis dataKey="name" dy={10} tickLine={false} />
-          <YAxis dx={-10} tickLine={false} axisLine={false} />
+          <YAxis
+            dx={-10}
+            tickLine={false}
+            allowDecimals={false}
+            axisLine={false}
+          />
           <Tooltip
             content={<CustomTooltip />}
             contentStyle={{

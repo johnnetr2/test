@@ -266,7 +266,7 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {prognos && percentageCalculation(prognos)}
+            {prognos ? percentageCalculation(prognos) : 0}
           </Typography>
           <Typography variant="body2">
             Prognostiserad normerad poäng {props?.item.title}
