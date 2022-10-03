@@ -78,7 +78,7 @@ const ProgressBar = (props) => {
             </Typography>
           )}
         </Box>
-        {/* <Box
+        <Box
           sx={{
             width: props.average + "%",
             height: "1.25rem",
@@ -100,7 +100,7 @@ const ProgressBar = (props) => {
               GJORDA UPPGIFTER
             </Typography>
           )}
-        </Box> */}
+        </Box>
       </Box>
       <Box>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
