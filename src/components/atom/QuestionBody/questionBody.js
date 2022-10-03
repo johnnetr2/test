@@ -1,6 +1,7 @@
-import { Box, Container, FormControlLabel } from "@material-ui/core";
+import { Box, FormControlLabel } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
+import { Container } from "@mui/material";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import Increment from "../../../assets/Icons/Increment.svg";
@@ -10,12 +11,25 @@ import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/Q
 import { Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 30,
     padding: 0,
   },
-});
+  questionContainer: {
+    padding: "4rem",
+    marginTop: "1rem",
+    border: "1px solid #e1e1e1",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    backgroundColor: "#fff",
+    [theme.breakpoints.down("sm")]: {
+      padding: "1.5rem",
+      overflow: "scroll",
+    },
+  },
+}));
 
 const QuestionBody = (props) => {
   const classes = useStyles();
@@ -118,18 +132,7 @@ const QuestionBody = (props) => {
           questionId={questionId}
         />
         {/* question container for single question */}
-        <Container
-          maxWidth="sm"
-          style={{
-            padding: "4rem 4rem",
-            marginTop: "1rem",
-            border: "1px solid #e1e1e1",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            backgroundColor: "#fff",
-          }}
-        >
+        <Container maxWidth="sm" className={classes.questionContainer}>
           <Typography
             variant="h6"
             component="h6"
@@ -231,7 +234,8 @@ const QuestionBody = (props) => {
           {props?.questionTypeTitle == "NOG" ? (
             <Box
               sx={{
-                width: 600,
+                width: "100%",
+                maxWidth: 600,
                 height: 100,
                 border: "1px solid #e1e1e1",
                 display: "flex",
@@ -241,7 +245,10 @@ const QuestionBody = (props) => {
             >
               <Typography
                 variant="p"
-                style={{ fontWeight: "bold", marginLeft: "50px" }}
+                sx={{
+                  fontWeight: "bold",
+                  marginLeft: { xs: "1rem", sm: "50px" },
+                }}
               >
                 Tillräckligt information för lösningen erhålls
               </Typography>
@@ -250,7 +257,7 @@ const QuestionBody = (props) => {
           {question?.options[0]?.options?.map((item, optionIndex) => {
             if (item?.value) {
               return (
-                <Box sx={{ display: "flex" }}>
+                <Box sx={{ display: "flex", width: "100%" }}>
                   <Box
                     sx={{
                       height:
@@ -268,7 +275,8 @@ const QuestionBody = (props) => {
                           ? 0
                           : 10,
                       border: "1px solid #e1e1e1",
-                      width:
+                      width: "100%",
+                      maxWidth:
                         question?.options[0].options.length > 4 ||
                         !item.value.includes(
                           "hp-appen.s3.eu-north-1.amazonaws.com"
@@ -384,11 +392,11 @@ const QuestionBody = (props) => {
           // >
           <Container
             maxWidth="sm"
-            style={{
+            sx={{
               marginTop: "1.5rem",
               backgroundColor: "#fff",
               border: "1px solid #e1e1e1",
-              padding: "1rem 3rem",
+              padding: { xs: "1rem", sm: "1rem 3rem" },
             }}
           >
             <Box

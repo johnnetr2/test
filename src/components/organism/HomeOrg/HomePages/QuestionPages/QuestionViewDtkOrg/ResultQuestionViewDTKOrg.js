@@ -83,15 +83,15 @@ const ResultQuestionViewDtkOrg = (props) => {
     };
 
     const URL = EndPoints.getParagraphResult + props?.paragraph?._id;
-    console.log(URL, 'this is result api url')
+    console.log(URL, "this is result api url");
     instance2
       .post(URL, data)
       .then((response) => {
         setShowLoader(false);
         setParagraph(response.data.question);
-        console.log(response.data.question, 'result')
+        console.log(response.data.question, "result");
       })
-      .catch(() => { });
+      .catch(() => {});
     // instance2.get(URL, data).then(response => {
     //   console.log(response.data, 'responsessssssss')
     //   setParagraph(response.data.question)
@@ -117,7 +117,7 @@ const ResultQuestionViewDtkOrg = (props) => {
           <CircularProgress />
         </Box>
       ) : (
-        <div>
+        <div style={{ width: "100%" }}>
           <CssBaseline />
 
           {paragraph &&
@@ -131,8 +131,9 @@ const ResultQuestionViewDtkOrg = (props) => {
                     height: "fit-content",
                     padding: "1rem",
                     marginTop: "5%",
-                    width: 600,
-                    cursor: 'pointer'
+                    maxWidth: 600,
+                    width: "100%",
+                    cursor: "pointer",
                   }}
                 >
                   <Box

@@ -1,12 +1,13 @@
-import { Box, FormControlLabel, Radio, Typography } from "@material-ui/core";
+import { FormControlLabel, Radio, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
+import { Box } from "@mui/material";
 import Correct from "../../../assets/Imgs/correct.png";
 import Decrement from "../../../assets/Icons/Decrement.svg";
+import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import Increment from "../../../assets/Icons/Increment.svg";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 import Wrong from "../../../assets/Imgs/wrong.png";
-import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 
 const MultiAnswer = (props) => {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
@@ -58,7 +59,7 @@ const MultiAnswer = (props) => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box>
         <Box
           sx={{
             display: "flex",
@@ -72,7 +73,8 @@ const MultiAnswer = (props) => {
                 style={{
                   border: "1px solid #e1e1e1",
                   padding: "1rem",
-                  width: 565,
+                  width: "100%",
+                  maxWidth: 565,
                 }}
               >
                 <FormControlLabel
@@ -87,17 +89,30 @@ const MultiAnswer = (props) => {
 
         <Box mt={2} ml={5}></Box>
       </Box>
-      <Box style={{ border: "1px solid #e1e1e1", padding: "2rem" }}>
+      <Box
+        sx={{
+          border: "1px solid #e1e1e1",
+          padding: { xs: "1rem", sm: "2rem" },
+          width: "100%",
+          overflow: "scroll",
+        }}
+      >
         <FeedbackCard
           count={count}
           show={feedbackPopup}
           onClose={() => setFeedbackPopup(false)}
           questionId={props.question._id}
         />
+
         <Box
-          sx={{ width: 500, display: "flex", justifyContent: "space-between" }}
+          sx={{
+            width: "100%",
+            maxWidth: 500,
+            display: "flex",
+            justifyContent: "space-between",
+          }}
         >
-          <Box>
+          <Box width="100%">
             <Typography
               variant="h5"
               component="h5"
@@ -116,7 +131,8 @@ const MultiAnswer = (props) => {
                 fontSize: "1rem",
                 fontWeight: "400",
                 marginTop: 10,
-                width: props?.question?.answer.image ? "auto" : 500,
+                width: "100%",
+                maxWidth: props?.question?.answer.image ? "auto" : 500,
               }}
             >
               <MarkLatex content={props?.question?.answer?.answer} />
