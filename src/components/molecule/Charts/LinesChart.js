@@ -114,6 +114,7 @@ const LinesChart = (props) => {
           type="monotone"
           dataKey="Prognos"
           stroke="#0A1596"
+          strokeWidth="3"
           isAnimationActive={false}
           activeDot={{
             fill: "#0A1596",
