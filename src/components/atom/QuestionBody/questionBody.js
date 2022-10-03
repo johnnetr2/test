@@ -1,6 +1,6 @@
 import { Box, Container, FormControlLabel } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-
+import { Container } from "@material-ui/core";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import Increment from "../../../assets/Icons/Increment.svg";
@@ -102,6 +102,7 @@ const QuestionBody = (props) => {
     return (
       <Container
         maxWidth="md"
+        disableGutters
         style={{
           height: "fit-content",
           backgroundColor: "#f9f9f9",

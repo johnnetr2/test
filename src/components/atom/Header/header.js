@@ -54,7 +54,7 @@ function Header(props) {
   }, [props?.quiz]);
 
   return (
-    <Container disableGutters maxWidth="md" style={{ backgroundColor: "#fff" }}>
+    <Container maxWidth="md" disableGutters style={{ backgroundColor: "#fff" }}>
       <Box
         sx={{
           display: "flex",

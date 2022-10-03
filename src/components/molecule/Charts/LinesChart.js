@@ -33,7 +33,7 @@ const LinesChart = (props) => {
       <LineChart
         width={396}
         height={200}
-        align="center"
+        // align="center"
         style={{
           fontSize: "0.75rem",
         }}

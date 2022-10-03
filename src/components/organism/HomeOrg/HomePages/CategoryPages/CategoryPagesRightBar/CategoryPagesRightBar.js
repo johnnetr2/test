@@ -242,6 +242,7 @@ const CategoryPagesRightBar = (props) => {
             boxShadow: "0px 5px 10px #f2f2f2",
             padding: "2rem",
             backgroundColor: "#fff",
+            // overflow: "scroll",
           }}
         >
           <Typography
@@ -284,6 +285,7 @@ const CategoryPagesRightBar = (props) => {
               boxShadow: "0px 5px 10px #f2f2f2",
               padding: "2rem",
               backgroundColor: "#fff",
+              // overflow: "scroll",
             }}
           >
             <Typography

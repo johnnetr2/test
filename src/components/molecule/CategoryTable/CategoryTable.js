@@ -156,56 +156,58 @@ export const CategoryTable = (props) => {
       >
         <Table>
           <TableBody>
-            {categoryTable.map((row, index) => {
-              return (
-                <TableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  key={index}
-                >
-                  <TableCell component="th" scope="row">
-                    {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
-                  </TableCell>
-                  <TableCell align="left">
-                    {row.correctAnswer} av {row.answer.length}
-                  </TableCell>
-
-                  <TableCell align="right">
-                    {percentageCalculation(
-                      (row.correctAnswer / row.answer.length) * 100
-                    )}
-                  </TableCell>
-
-                  <TableCell
-                    style={{
-                      display: "flex",
-                      flexDirection: "row-reverse",
-                      color: "grey",
-                      height: "5rem",
-                      alignItems: "center",
-                      alignSelf: "flex-end",
-                    }}
+            {categoryTable
+              .map((row, index) => {
+                return (
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    key={index}
                   >
-                    <Box
+                    <TableCell component="th" scope="row">
+                      {moment(row?.createdAt).format("YYYY.MM.D hh:mm:ss")}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.correctAnswer} av {row.answer.length}
+                    </TableCell>
+
+                    <TableCell align="right">
+                      {percentageCalculation(
+                        (row.correctAnswer / row.answer.length) * 100
+                      )}
+                    </TableCell>
+
+                    <TableCell
                       style={{
                         display: "flex",
-                        flexDirection: "column",
-                        display: "flex",
-                        alignItems: "flex-end",
-                        position: "relative",
+                        flexDirection: "row-reverse",
+                        color: "grey",
+                        height: "5rem",
+                        alignItems: "center",
+                        alignSelf: "flex-end",
                       }}
                     >
-                      <MoreVertIcon
-                        sx={{ cursor: "pointer", color: "#b4b4b4" }}
-                        onClick={() => showPopup(index)}
-                      />
-                      {row.result && (
-                        <Dropdown onClick={() => ResultHandler(row)} />
-                      )}
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                      <Box
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          display: "flex",
+                          alignItems: "flex-end",
+                          position: "relative",
+                        }}
+                      >
+                        <MoreVertIcon
+                          sx={{ cursor: "pointer", color: "#b4b4b4" }}
+                          onClick={() => showPopup(index)}
+                        />
+                        {row.result && (
+                          <Dropdown onClick={() => ResultHandler(row)} />
+                        )}
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+              .reverse()}
           </TableBody>
         </Table>
       </Box>

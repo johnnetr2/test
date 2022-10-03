@@ -589,6 +589,7 @@ const QuestionViewXyzOrg = () => {
       </AppBar>
       <Container
         maxWidth="false"
+        disableGutters
         style={{
           backgroundColor: "#fff",
           minHeight: "100vh",
