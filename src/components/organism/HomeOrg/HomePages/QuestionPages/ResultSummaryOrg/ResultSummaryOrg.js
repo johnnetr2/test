@@ -32,6 +32,43 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import swal from "sweetalert";
 
+export const dispSecondsAsMins = (seconds) => {
+  // 25:00
+  const mins = Math.floor(seconds / 60);
+  const seconds_ = seconds % 60;
+  /*
+  return (
+    Math.floor(mins?.toString()) +
+    ":" +
+    (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
+  ); 
+  */
+  return (
+    (mins < 10 ? "0" + mins : mins) +
+    ":" +
+    (seconds_ < 10 ? "0" + seconds_ : seconds_)
+  );
+};
+
+export const percentageCalculation = (params, value) => {
+  if (params?.state?.sectionCategory?.title == "XYZ") {
+    return XYZNormeringValueFor(value);
+  } else if (params?.state?.sectionCategory?.title == "KVA") {
+    return KVANormeringValueFor(value);
+  } else if (params?.state?.sectionCategory?.title == "NOG") {
+    return NOGNormeringValueFor(value);
+  } else if (params?.state?.sectionCategory?.title == "DTK") {
+    return DTKNormeringValueFor(value);
+  } else if (params?.state?.sectionCategory?.title == "ELF") {
+    return ELFNormeringValueFor(value);
+  } else if (params?.state?.sectionCategory?.title == "LÄS") {
+    return LASNormeringValueFor(value);
+  } else if (params?.state?.sectionCategory?.title == "ORD") {
+    return ORDNormeringValueFor(value);
+  } else if (params?.state?.sectionCategory?.title == "MEK") {
+    return MEKNormeringValueFor(value);
+  }
+};
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
   const [timePerQues, setTimePerQues] = useState();
@@ -117,44 +154,6 @@ const ResultSummaryOrg = (props) => {
       // clearInterval(timer);
     };
   }, []);
-
-  const dispSecondsAsMins = (seconds) => {
-    // 25:00
-    const mins = Math.floor(seconds / 60);
-    const seconds_ = seconds % 60;
-    /*
-    return (
-      Math.floor(mins?.toString()) +
-      ":" +
-      (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
-    ); 
-    */
-    return (
-      (mins < 10 ? "0" + mins : mins) +
-      ":" +
-      (seconds_ < 10 ? "0" + seconds_ : seconds_)
-    );
-  };
-
-  const percentageCalculation = (value) => {
-    if (params?.state?.sectionCategory?.title == "XYZ") {
-      return XYZNormeringValueFor(value);
-    } else if (params?.state?.sectionCategory?.title == "KVA") {
-      return KVANormeringValueFor(value);
-    } else if (params?.state?.sectionCategory?.title == "NOG") {
-      return NOGNormeringValueFor(value);
-    } else if (params?.state?.sectionCategory?.title == "DTK") {
-      return DTKNormeringValueFor(value);
-    } else if (params?.state?.sectionCategory?.title == "ELF") {
-      return ELFNormeringValueFor(value);
-    } else if (params?.state?.sectionCategory?.title == "LÄS") {
-      return LASNormeringValueFor(value);
-    } else if (params?.state?.sectionCategory?.title == "ORD") {
-      return ORDNormeringValueFor(value);
-    } else if (params?.state?.sectionCategory?.title == "MEK") {
-      return MEKNormeringValueFor(value);
-    }
-  };
 
   return (
     <div>
@@ -303,6 +302,7 @@ const ResultSummaryOrg = (props) => {
                   <Typography variant="h4">
                     {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
                     {percentageCalculation(
+                      params,
                       (responseCollection.correctAnswer /
                         responseCollection.question.length) *
                         100

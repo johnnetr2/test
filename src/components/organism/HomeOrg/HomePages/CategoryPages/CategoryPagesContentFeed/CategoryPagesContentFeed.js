@@ -6,11 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Backdrop from "@mui/material/Backdrop";
 import BodyText from "../../../../../atom/BodyText/BodyText";
+import { Category } from "@mui/icons-material";
 import CategoryPagesRightBar from "../CategoryPagesRightBar/CategoryPagesRightBar";
 import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
 import CircularProgress from "@mui/material/CircularProgress";
 import FilledBtn from "../../../../../atom/FilledBtn/FilledBtn";
 import Heading from "../../../../../atom/Heading/Heading";
+import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import swal from "sweetalert";
@@ -268,7 +270,10 @@ const CategoryPagesFeedContent = (props) => {
               }
             });
             quizobj.quiz = questionswithSuffeldOptions;
-
+            MixpanelTracking.getInstance().startTest(props.item.images, [
+              quizobj.quiz.length,
+              quizobj.isTimeRestricted,
+            ]);
             navigate("/question", {
               state: {
                 data: quizobj,
