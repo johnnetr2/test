@@ -165,7 +165,6 @@ const LoginOrg = () => {
       >
         link
       </a>
-      ;
       <Container
         maxWidth="false"
         disableGutters
