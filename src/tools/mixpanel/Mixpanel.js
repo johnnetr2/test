@@ -74,4 +74,45 @@ export class MixpanelTracking {
       status: status,
     });
   }
+
+  oldUsersRegistration(
+    userId,
+    userName,
+    userEmail,
+    registrationDate,
+    planType = "Free",
+    registrationMethod = "Email"
+  ) {
+    this.#setPoeple({
+      "User Id": userId,
+      // prettier-ignore
+      "$name": userName,
+      // prettier-ignore
+      "$email": userEmail,
+      "Plan type": planType,
+      "Registration date": registrationDate,
+      "Registration method": registrationMethod,
+    });
+  }
+
+  startTest(exerciceCategory, exerciseSettings) {
+    this.#track("Test Started", {
+      Category: exerciceCategory,
+      Settings: exerciseSettings,
+    });
+  }
+
+  endTest(
+    exerciceCategory,
+    exerciseSettings,
+    exerciseCompletion,
+    SummaryResult
+  ) {
+    this.#track("Test Ended", {
+      Category: exerciceCategory,
+      Settings: exerciseSettings,
+      Completion: exerciseCompletion,
+      "Summary Result": SummaryResult,
+    });
+  }
 }

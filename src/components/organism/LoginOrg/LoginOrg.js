@@ -2,6 +2,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
 
+import { ElectricScooterTwoTone } from "@mui/icons-material";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
@@ -17,7 +18,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { signInWithGoogle } from "../../service/firebase";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
-import { ElectricScooterTwoTone } from "@mui/icons-material";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -102,6 +102,13 @@ const LoginOrg = () => {
               "success",
               response.data.user?._id
             );
+            new Date(response.data.user.createdAt) < new Date("2022-10-7") &&
+              MixpanelTracking.getInstance().oldUsersRegistration(
+                response.data.user._id,
+                response.data.user.fullName,
+                response.data.user.email,
+                response.data.user.createdAt
+              );
             navigate("/home");
             // window.location.href = "/home";
           } else {
