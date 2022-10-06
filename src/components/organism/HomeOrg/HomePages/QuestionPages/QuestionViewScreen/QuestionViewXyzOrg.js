@@ -85,6 +85,7 @@ const QuestionViewXyzOrg = () => {
             }
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -110,6 +111,7 @@ const QuestionViewXyzOrg = () => {
             }
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -151,7 +153,7 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data).then((response) => {
         setAnsSubmittedState(response.data);
-        console.log("answer submit");
+        console.log(response.data, "answer submit");
         setTime(timeLeft);
         setNextPress(undefined);
       });
@@ -261,33 +263,45 @@ const QuestionViewXyzOrg = () => {
   const navigate = useNavigate();
 
   const AnswerArrayPayloadForCloseTimerFunc = () => {
+    // console.log("AnswerArrayPayloadForCloseTimerFunc", quiz);
     let singleQuestionArray = [];
     quiz?.map((item) => {
       if (
         item.hasOwnProperty("multipartQuestion") &&
         item?.multipartQuestion === null
       ) {
+        // console.log(item, "test quiz item"); //as we solve the quiz key key will be appended into quiz obj
         if (!item.answer) {
+          // console.log(
+          //   singleQuestionArray.length,
+          //   "length of single question array"
+          // );
           if (singleQuestionArray.length < 1) {
+            // console.log("less than 1 fun call");
+            // console.log(remainingTime, "remaining time");
+            // console.log(time - remainingTime, "time - remaining time");
             singleQuestionArray.push({
               questionId: item._id,
-              timeleft: 0,
-              totaltime: time ? time : 0,
-              spendtime: time - remainingTime,
+              totaltime: time ? time : 0, //22
+              spendtime: time, //14 = 22 - 8
+              timeleft: time - (time - remainingTime), //8 = 22 - 14
               // spendtime: (params.state.sectionCategory.time * quiz.length * 60) - remainingTime,
             });
           } else {
+            // console.log("else case");
             singleQuestionArray.push({
               questionId: item._id,
               timeleft: 0,
               totaltime: time ? time : 0,
-              spendtime: timeLeft ? time - timeLeft : 0,
+              spendtime: 0,
             });
           }
         }
       } else {
         item?.question?.map((value) => {
+          // console.log(item, "item in multiquestion case");
           if (value?.multipartQuestion && !value?.answer) {
+            // console.log("spend");
             singleQuestionArray.push({
               questionId: value?._id,
               timeleft: 0,
@@ -298,10 +312,12 @@ const QuestionViewXyzOrg = () => {
         });
       }
     });
+    // console.log(singleQuestionArray, "singleQuestion array");
     return singleQuestionArray;
   };
 
   const CloseTimerFunc = async () => {
+    // console.log("close timer function");
     setTimeEnd(true);
     try {
       const payload = {
@@ -310,11 +326,12 @@ const QuestionViewXyzOrg = () => {
         sectionCategory: params?.state?.sectionCategory?._id,
         answer: AnswerArrayPayloadForCloseTimerFunc(),
       };
+      // console.log(payload, "popup function call");
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2
         .post(URL, payload)
         .then((response) => {
-          console.log("Answer submitted");
+          // console.log(response, "submitted multipart paragraph");
         })
         .catch((error) => {
           console.log("this is the consnole of error", error);
@@ -329,7 +346,7 @@ const QuestionViewXyzOrg = () => {
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
     question.optionId = item._id;
-    console.log(questions, "test option index question view xyz org");
+    // console.log(questions, "test option index question view xyz org");
     // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
@@ -489,7 +506,6 @@ const QuestionViewXyzOrg = () => {
   };
 
   const PopupHandler = () => {
-    console.log(quiz, "quiz");
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup !== undefined) {
     }
@@ -540,7 +556,6 @@ const QuestionViewXyzOrg = () => {
     <>
       <CssBaseline />
       {helpPopup && <HelpPopup />}
-
       <AppBar
         color="#fff"
         className={classes.appbar}

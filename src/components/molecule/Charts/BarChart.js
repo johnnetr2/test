@@ -159,7 +159,7 @@ const LineDemo = (props) => {
           margin={{
             top: 10,
             right: 10,
-            left: -35,
+            left: -28,
             bottom: 0,
           }}
         >

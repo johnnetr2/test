@@ -44,6 +44,7 @@ const CategoryPagesRightBar = (props) => {
   const [weeklyProgress, setWeeklyProgress] = useState();
   const [weeks, setWeeks] = useState();
   const [prognos, setPrognos] = useState();
+  const [weeklyCorrect, setWeeklyCorrect] = useState();
   let weeklyProgressArr = [];
   let weeksArr = [];
   let newArray = [];
@@ -110,6 +111,18 @@ const CategoryPagesRightBar = (props) => {
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
       setLastWeekTasks(response.data);
+      const weeklyCorrect = datesGroupByComponent(
+        response.data.weeklyCorrectQuestions,
+        "W"
+      );
+      // const aks = Object.keys(weeklyCorrect);
+      let totalCorrect = 0;
+      const WeeklyObjArray = Object.keys(weeklyCorrect).pop();
+      const CorrectAnswers = weeklyCorrect[WeeklyObjArray];
+      for (let i = 0; i < CorrectAnswers.length; i++) {
+        totalCorrect = totalCorrect + CorrectAnswers[i].correctAnswer;
+      }
+      setWeeklyCorrect(totalCorrect);
       setPrognos(
         (response.data.totalCorrectQuestions /
           response.data.totalAttemptedQuestions) *
@@ -157,8 +170,9 @@ const CategoryPagesRightBar = (props) => {
             <Typography variant="h5">Statistik - {props.item.title}</Typography>
           )}
           <Typography variant="body2" style={{ marginTop: "0.5rem" }}>
-            Du har klarat {lastWeekTasks.totalCorrectQuestions} av{" "}
-            {lastWeekTasks.totalQuestions} uppgifter
+            Du har klarat {`${lastWeekTasks?.totalCorrectQuestions} `} av
+            {` ${lastWeekTasks?.totalQuestions} `}
+            uppgifter
           </Typography>
         </Box>
         <Box sx={{ marginTop: "1rem" }}>
@@ -219,7 +233,7 @@ const CategoryPagesRightBar = (props) => {
         >
           <Box sx={{ marginRight: "3rem" }}>
             <Typography variant="h5">
-              {!lastWeekTasks ? "0" : lastWeekTasks?.weeklyCorrectQuestions}
+              {!weeklyCorrect ? "0" : weeklyCorrect}
             </Typography>
             <Typography variant="body2">
               Klarade uppgifter denna veckan
