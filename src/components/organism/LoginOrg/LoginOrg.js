@@ -102,7 +102,12 @@ const LoginOrg = () => {
               "success",
               response.data.user?._id
             );
-            navigate("/home");
+            // navigate("/home");
+            if (window.innerWidth < 600) {
+              document.getElementById("link").click();
+            } else {
+              navigate("/home");
+            }
             // window.location.href = "/home";
           } else {
             swal("Warning!", "Invalid Credentials", "error");
@@ -152,6 +157,15 @@ const LoginOrg = () => {
         display: "flex",
       }}
     >
+      <a
+        style={{ display: "none" }}
+        target="_blank"
+        href="https://www.hpappen.se/mobil"
+        id="link"
+      >
+        link
+      </a>
+      ;
       <Container
         maxWidth="false"
         disableGutters
