@@ -417,7 +417,7 @@ const QuestionViewDTKOrg = (props) => {
               {quiz && quiz.question.length + " uppgifter:"}
             </Typography>
             <Typography variant="h6" component="h6">
-              {quiz?.title}
+              {!quiz?.title === "DTK" ? quiz?.title : ""}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -451,7 +451,7 @@ const QuestionViewDTKOrg = (props) => {
                       {quiz && quiz.question.length + " uppgifter:"}
                     </Typography>
                     <Typography variant="h3" component="h3">
-                      {quiz?.title}
+                      {quiz?.title !== "DTK" ? quiz?.title : ""}
                     </Typography>
                   </Box>
                   <Box>
@@ -512,7 +512,7 @@ const QuestionViewDTKOrg = (props) => {
                       {quiz && quiz.question.length + " uppgifter:"}
                     </Typography>
                     <Typography variant="h3" component="h3">
-                      {quiz?.title}
+                      {!quiz?.title === "DTK" ? quiz?.title : ""}
                     </Typography>
                   </DialogTitle>
                   <DialogContent

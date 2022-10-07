@@ -61,29 +61,31 @@ const QuestionViewXyzOrg = () => {
     color: theme.palette.text.secondary,
   }));
 
-  const trackEndTest = () => {
-    const poang = percentageCalculation(
-      params,
-      (answerSubmittedState.correctAnswer / params?.state?.data.quiz.length) *
-        100
-    );
-    const lastAnswerItem = answerSubmittedState.answer.slice(-1)[0];
-    const totalTimeSpent = dispSecondsAsMins(
-      lastAnswerItem.totaltime - lastAnswerItem.timeleft
-    );
-    const testFinished =
-      params?.state?.data.quiz.length === answerSubmittedState?.answer?.length;
-    MixpanelTracking.getInstance().endTest(
-      params?.state?.sectionCategory.images,
-      [params?.state?.data.quiz.length, params?.state?.time],
-      testFinished,
-      [
-        `${answerSubmittedState.correctAnswer}/${answerSubmittedState.attemptedQuestion}`,
-        poang,
-        totalTimeSpent,
-      ]
-    );
-  };
+  // const trackEndTest = () => {
+  //   console.log(params, "test params");
+  //   const poang = percentageCalculation(
+  //     params,
+  //     (answerSubmittedState?.correctAnswer ??
+  //       0 / params?.state?.data?.quiz?.length ??
+  //       1) * 100
+  //   );
+  //   const lastAnswerItem = answerSubmittedState.answer.slice(-1)[0];
+  //   const totalTimeSpent = dispSecondsAsMins(
+  //     lastAnswerItem.totaltime - lastAnswerItem.timeleft
+  //   );
+  //   const testFinished =
+  //     params?.state?.data.quiz.length === answerSubmittedState?.answer?.length;
+  //   MixpanelTracking.getInstance().endTest(
+  //     params?.state?.sectionCategory.images,
+  //     [params?.state?.data.quiz.length, params?.state?.time],
+  //     testFinished,
+  //     [
+  //       `${answerSubmittedState.correctAnswer}/${answerSubmittedState.attemptedQuestion}`,
+  //       poang,
+  //       totalTimeSpent,
+  //     ]
+  //   );
+  // };
 
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
@@ -207,7 +209,7 @@ const QuestionViewXyzOrg = () => {
           answerSubmittedState.answer.length ===
           answerSubmittedState.totalQuestion
         ) {
-          trackEndTest();
+          // trackEndTest();
           navigate("/resultsummary", {
             state: {
               sectionCategory: params?.state?.sectionCategory,
@@ -361,7 +363,7 @@ const QuestionViewXyzOrg = () => {
       instance2
         .post(URL, payload)
         .then((response) => {
-          // console.log(response, "submitted multipart paragraph");
+          console.log(response, "submitted multipart paragraph");
         })
         .catch((error) => {
           console.log("this is the consnole of error", error);
@@ -455,7 +457,7 @@ const QuestionViewXyzOrg = () => {
           questionLength={quiz.length}
           questionIndex={selectedIndex}
           onResultHandler={() => {
-            trackEndTest();
+            // trackEndTest();
             navigate("/resultsummary", {
               state: {
                 sectionCategory: params?.state?.sectionCategory,
@@ -564,7 +566,7 @@ const QuestionViewXyzOrg = () => {
         quiz?.[0]?.question?.[0]?.answer &&
         quiz?.[0]?.question?.[0]?.multipartQuestion !== null)
     ) {
-      trackEndTest();
+      // trackEndTest();
       navigate("/resultsummary", {
         state: {
           sectionCategory: params?.state?.sectionCategory,
@@ -695,7 +697,7 @@ const QuestionViewXyzOrg = () => {
             btnName={"Se resultat"}
             popUpstatus={timeEnd}
             redirect={() => {
-              trackEndTest();
+              // trackEndTest();
               navigate("/resultsummary", {
                 state: {
                   sectionCategory: params?.state?.sectionCategory,
@@ -756,7 +758,7 @@ const QuestionViewXyzOrg = () => {
                   onHoverLeave={() => setOnhover(null)}
                   sectionCategory={params?.state?.sectionCategory}
                   onResultHandler={() => {
-                    trackEndTest();
+                    // trackEndTest();
                     navigate("/resultsummary", {
                       state: {
                         sectionCategory: params?.state?.sectionCategory,
@@ -789,7 +791,7 @@ const QuestionViewXyzOrg = () => {
                       setCurrentQuestion(currentQuestion + 1);
                       localStorage.setItem("quiz", JSON.stringify(quiz));
                     } else {
-                      trackEndTest();
+                      // trackEndTest();
                       navigate("/resultsummary", {
                         state: {
                           sectionCategory: params?.state?.sectionCategory,

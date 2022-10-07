@@ -111,18 +111,25 @@ const CategoryPagesRightBar = (props) => {
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
       setLastWeekTasks(response.data);
-      const weeklyCorrect = datesGroupByComponent(
+      const weeklyAttempted = datesGroupByComponent(
         response.data.weeklyCorrectQuestions,
         "W"
       );
       // const aks = Object.keys(weeklyCorrect);
-      let totalCorrect = 0;
-      const WeeklyObjArray = Object.keys(weeklyCorrect).pop();
-      const CorrectAnswers = weeklyCorrect[WeeklyObjArray];
-      for (let i = 0; i < CorrectAnswers.length; i++) {
-        totalCorrect = totalCorrect + CorrectAnswers[i].correctAnswer;
+      // let totalCorrect = 0;
+      // console.log(weeklyCorrect, "WC");
+      const WeeklyObjArray = Object.keys(weeklyAttempted).pop();
+      const AttemptedExercises = weeklyAttempted[WeeklyObjArray];
+      // // const WeeklyObjArray = Object.keys(weeklyCorrect);
+      // // for (let i = 0; i < CorrectAnswers.length; i++) {
+      // //   totalCorrect = totalCorrect + CorrectAnswers[i].correctAnswer;
+      // // }
+      if (AttemptedExercises?.length !== 0) {
+        setWeeklyCorrect(AttemptedExercises?.length);
+      } else {
+        setWeeklyCorrect(0);
       }
-      setWeeklyCorrect(totalCorrect);
+
       setPrognos(
         (response.data.totalCorrectQuestions /
           response.data.totalAttemptedQuestions) *
@@ -170,8 +177,9 @@ const CategoryPagesRightBar = (props) => {
             <Typography variant="h5">Statistik - {props.item.title}</Typography>
           )}
           <Typography variant="body2" style={{ marginTop: "0.5rem" }}>
-            Du har klarat {`${lastWeekTasks?.totalCorrectQuestions} `} av
-            {` ${lastWeekTasks?.totalQuestions} `}
+            Du har klarat
+            {` ${lastWeekTasks && lastWeekTasks?.totalAttemptedQuestions} `} av
+            {` ${lastWeekTasks && lastWeekTasks?.totalQuestions} `}
             uppgifter
           </Typography>
         </Box>
@@ -196,7 +204,7 @@ const CategoryPagesRightBar = (props) => {
               variant="determinate"
               value={
                 lastWeekTasks
-                  ? (lastWeekTasks.totalCorrectQuestions /
+                  ? (lastWeekTasks.totalAttemptedQuestions /
                       lastWeekTasks.totalQuestions) *
                     100
                   : 0
@@ -241,7 +249,7 @@ const CategoryPagesRightBar = (props) => {
           </Box>
           <Box sx={{ marginLeft: "1rem" }}>
             <Typography variant="h5">
-              {!lastWeekTasks ? "0" : lastWeekTasks.totalCorrectQuestions}
+              {!lastWeekTasks ? "0" : lastWeekTasks.totalAttemptedQuestions}
             </Typography>
             <Typography variant="body2">Klarade uppgifter totalt</Typography>
           </Box>
