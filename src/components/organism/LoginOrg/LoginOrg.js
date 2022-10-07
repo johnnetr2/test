@@ -262,28 +262,30 @@ const LoginOrg = () => {
                 borderRadius: "8px",
               }}
             >
-              <InputField
-                type={showPassword ? "password" : "text"}
-                title="Password"
-                placeholder="Lösenord"
-                onChange={getVal}
-                value={user.password}
-                name="password"
-                id="password"
-                className={classes.placeholder}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "2rem",
-                  padding: "1rem",
-                  width: "100%",
-                  backgroundColor: "transparent",
-                  outline: "none",
-                  border: "none",
-                  WebkitBoxShadow: "0 0 0 1000px white inset",
-                }}
-              />
+              <Box flexBasis={"100%"}>
+                <InputField
+                  type={showPassword ? "password" : "text"}
+                  title="Password"
+                  placeholder="Lösenord"
+                  onChange={getVal}
+                  value={user.password}
+                  name="password"
+                  id="password"
+                  className={classes.placeholder}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "2rem",
+                    padding: "1rem",
+                    width: "100%",
+                    backgroundColor: "transparent",
+                    outline: "none",
+                    border: "none",
+                    WebkitBoxShadow: "0 0 0 1000px white inset",
+                  }}
+                />
+              </Box>
               <Label
                 for="password"
                 style={{
