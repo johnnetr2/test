@@ -6,6 +6,8 @@ You’ll need to have Node `>= 14.x.x` on your local development machine to run 
 
 It's recommended to use the latest LTS but we haven't updated to the latest LTS yet so to keep the projects in sync we will rely on Node `>= 14.x.x` for now.
 
+Checkout to the `development` branch and create your branch first and then follow the blow process.
+
 ### `npm install
 
 Before run command start copy content from `.env.example` and past it in `.env` file in the root directory of the project.
