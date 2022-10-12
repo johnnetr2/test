@@ -236,108 +236,70 @@ const ResultSummaryOrg = (props) => {
           <Box
             mt={5}
             paddingY={2}
-            sx={{ backgroundColor: "#f9f9f9", width: "100%", maxWidth: 600 }}
+            sx={{
+              backgroundColor: "#f9f9f9",
+              width: "100%",
+              maxWidth: 600,
+            }}
           >
             <Typography variant="h5" component="h5">
               Resultat
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                rowGap: "1rem",
+                display: !params?.state?.time && "flex",
+                gap: !params?.state?.time && 20,
+                alignItems: !params?.state?.time && "center",
               }}
             >
               <Box
-                width={{ xs: "100%", sm: 290 }}
-                height={100}
                 sx={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e1e1e1",
                   display: "flex",
-                  justifyContent: "center",
                   alignItems: "center",
-                  borderRadius: "5px",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  rowGap: "1rem",
                 }}
               >
-                {responseCollection?.totalQuestion &&
-                responseCollection?.correctAnswer != null ? (
-                  <Typography variant="h4">
-                    {responseCollection &&
-                      responseCollection.correctAnswer +
-                        " /" +
-                        responseCollection.question.length}
-                  </Typography>
-                ) : (
-                  <Box sx={{ display: "flex" }}>
-                    <CircularProgress />
-                  </Box>
-                )}
-                <Typography
-                  variant="body1"
-                  style={{
-                    fontSize: "0.75rem",
-                    marginLeft: ".7rem",
-                    marginTop: ".8rem",
-                  }}
-                >
-                  Dina poäng
-                </Typography>
-              </Box>
-              <Box
-                width={{ xs: "100%", sm: 290 }}
-                height={100}
-                sx={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e1e1e1",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "5px",
-                }}
-              >
-                {responseCollection ? (
-                  <Typography variant="h4">
-                    {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
-                    {percentageCalculation(
-                      params,
-                      (responseCollection.correctAnswer /
-                        responseCollection.question.length) *
-                        100
-                    )}
-                  </Typography>
-                ) : (
-                  <Box sx={{ display: "flex" }}>
-                    <CircularProgress />
-                  </Box>
-                )}
-                <Typography
-                  variant="body1"
-                  style={{
-                    fontSize: "0.75rem",
-                    marginLeft: ".7rem",
-                    marginTop: ".8rem",
-                  }}
-                >
-                  Din normerade poäng
-                </Typography>
-              </Box>
-            </Box>
-            {
-              // responseCollection && responseCollection?.question[0].timeleft != 0
-              params?.state?.time && (
                 <Box
+                  width={{ xs: "100%", sm: 290 }}
+                  height={100}
                   sx={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #e1e1e1",
                     display: "flex",
+                    justifyContent: "center",
                     alignItems: "center",
-                    justifyContent: "space-between",
-                    flexWrap: "wrap",
+                    borderRadius: "5px",
                   }}
                 >
+                  {responseCollection?.totalQuestion &&
+                  responseCollection?.correctAnswer != null ? (
+                    <Typography variant="h4">
+                      {responseCollection &&
+                        responseCollection.correctAnswer +
+                          " /" +
+                          responseCollection.question.length}
+                    </Typography>
+                  ) : (
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress />
+                    </Box>
+                  )}
+                  <Typography
+                    variant="body1"
+                    style={{
+                      fontSize: "0.75rem",
+                      marginLeft: ".7rem",
+                      marginTop: ".8rem",
+                    }}
+                  >
+                    Dina poäng
+                  </Typography>
+                </Box>
+
+                {params?.state?.time && (
                   <Box
-                    mt={2}
                     width={{ xs: "100%", sm: 290 }}
                     height={100}
                     sx={{
@@ -349,10 +311,68 @@ const ResultSummaryOrg = (props) => {
                       borderRadius: "5px",
                     }}
                   >
+                    {responseCollection ? (
+                      <Typography variant="h4">
+                        {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
+                        {percentageCalculation(
+                          params,
+                          (responseCollection.correctAnswer /
+                            responseCollection.question.length) *
+                            100
+                        )}
+                      </Typography>
+                    ) : (
+                      <Box sx={{ display: "flex" }}>
+                        <CircularProgress />
+                      </Box>
+                    )}
+                    <Typography
+                      variant="body1"
+                      style={{
+                        fontSize: "0.75rem",
+                        marginLeft: ".7rem",
+                        marginTop: ".8rem",
+                      }}
+                    >
+                      Din normerade poäng
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+
+              {
+                // responseCollection && responseCollection?.question[0].timeleft != 0
+                // params?.state?.time && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <Box
+                    // mt={2}
+                    width={{ xs: "100%", sm: 290 }}
+                    height={100}
+                    sx={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #e1e1e1",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "5px",
+                      marginTop: params?.state?.time && "1.5rem",
+                    }}
+                  >
                     <Typography variant="h4">
-                      {timePerQues
-                        ? dispSecondsAsMins(timePerQues?.toFixed(0))
-                        : "00:00"}
+                      {timePerQues ? (
+                        dispSecondsAsMins(timePerQues?.toFixed(0))
+                      ) : (
+                        <Box sx={{ display: "flex" }}>
+                          <CircularProgress />
+                        </Box>
+                      )}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -365,40 +385,48 @@ const ResultSummaryOrg = (props) => {
                       Tid per fråga
                     </Typography>
                   </Box>
-                  <Box
-                    mt={2}
-                    width={{ xs: "100%", sm: 290 }}
-                    height={100}
-                    sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #e1e1e1",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <Typography variant="h4">
-                      {responseCollection
-                        ? dispSecondsAsMins(
-                            responseCollection?.question.at(-1).timeleft
-                          )
-                        : "00:00"}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      style={{
-                        fontSize: "0.75rem",
-                        marginLeft: ".7rem",
-                        marginTop: ".8rem",
+                  {params?.state?.time && (
+                    <Box
+                      // mt={2}
+                      width={{ xs: "100%", sm: 290 }}
+                      height={100}
+                      sx={{
+                        backgroundColor: "#fff",
+                        border: "1px solid #e1e1e1",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderRadius: "5px",
+                        marginTop: "1.5rem",
                       }}
                     >
-                      Tid kvar
-                    </Typography>
-                  </Box>
+                      <Typography variant="h4">
+                        {responseCollection ? (
+                          dispSecondsAsMins(
+                            responseCollection?.question.at(-1).timeleft
+                          )
+                        ) : (
+                          <Box sx={{ display: "flex" }}>
+                            <CircularProgress />
+                          </Box>
+                        )}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          fontSize: "0.75rem",
+                          marginLeft: ".7rem",
+                          marginTop: ".8rem",
+                        }}
+                      >
+                        Tid kvar
+                      </Typography>
+                    </Box>
+                  )}
                 </Box>
-              )
-            }
+                // )
+              }
+            </Box>
           </Box>
 
           <Box mt={2} sx={{ width: "100%", maxWidth: 600, display: "flex" }}>

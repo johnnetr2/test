@@ -180,6 +180,7 @@ const QuestionViewXyzOrg = () => {
         totaltime: time ? time : 0,
         spendtime: params.state.time ? time - timeLeft : seconds,
         MultipartQuestion: null,
+        isTimeRestricted: params?.state?.time,
       };
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data).then((response) => {
@@ -195,6 +196,7 @@ const QuestionViewXyzOrg = () => {
 
   useEffect(() => {
     timer = setInterval(() => {
+      console.log((seconds) => seconds + 1, "sec");
       setSeconds((seconds) => seconds + 1);
     }, 1000);
 
@@ -331,9 +333,15 @@ const QuestionViewXyzOrg = () => {
         }
       } else {
         item?.question?.map((value) => {
-          // console.log(item, "item in multiquestion case");
-          if (value?.multipartQuestion && !value?.answer) {
+          if (singleQuestionArray.length < 1) {
             // console.log("spend");
+            singleQuestionArray.push({
+              questionId: value?._id,
+              totaltime: time ? time : 0, //22
+              spendtime: time, //14 = 22 - 8
+              timeleft: time - (time - remainingTime), //8 = 22 - 14
+            });
+          } else {
             singleQuestionArray.push({
               questionId: value?._id,
               timeleft: 0,
@@ -341,10 +349,18 @@ const QuestionViewXyzOrg = () => {
               spendtime: 0,
             });
           }
+          // else {
+          //   singleQuestionArray.push({
+          //     questionId: value?._id,
+          //     timeleft: 0,
+          //     totaltime: time ? time : 0,
+          //     spendtime: 0,
+          //   });
+          // }
         });
       }
     });
-    // console.log(singleQuestionArray, "singleQuestion array");
+
     return singleQuestionArray;
   };
 
@@ -358,7 +374,7 @@ const QuestionViewXyzOrg = () => {
         sectionCategory: params?.state?.sectionCategory?._id,
         answer: AnswerArrayPayloadForCloseTimerFunc(),
       };
-      // console.log(payload, "popup function call");
+      console.log(payload, "popup function call");
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2
         .post(URL, payload)
@@ -733,6 +749,7 @@ const QuestionViewXyzOrg = () => {
             if (index === selectedIndex) {
               return (
                 <QuestionBody
+                  isTimeRestricted={params?.state?.time}
                   question={quiz[selectedIndex]}
                   totalQuestions={totalQuestions}
                   selectedOption={params.state.selectedOption}
@@ -750,7 +767,7 @@ const QuestionViewXyzOrg = () => {
                   }}
                   stopTime={() => setStatus(false)}
                   SelectOption={(e, index) => SelectFunc(e, index)}
-                  onCloseTimer={() => CloseTimerFunc()}
+                  // onCloseTimer={() => CloseTimerFunc()}
                   callBackForTimer={(value) => setTimeLeft(value)}
                   totalTime={time}
                   quiz={quiz}

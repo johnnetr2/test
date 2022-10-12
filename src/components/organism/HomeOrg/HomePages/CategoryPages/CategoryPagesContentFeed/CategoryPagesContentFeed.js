@@ -74,6 +74,7 @@ const CategoryPagesFeedContent = (props) => {
   const [categoryTitle, setCategoryTitle] = useState("");
 
   useEffect(() => {
+    //getting all the categories/subject
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       if (!response.data.message) {
@@ -169,7 +170,6 @@ const CategoryPagesFeedContent = (props) => {
     setAllChecked(!allChecked);
     if (alla) {
       SetCategoryError(false);
-
       let newArray = [...selectAll];
       questionCategories?.map((item) => {
         newArray.push(item._id);
@@ -222,6 +222,7 @@ const CategoryPagesFeedContent = (props) => {
         };
         const URL = EndPoints.storeQuiz;
         instance2.post(URL, data).then((response) => {
+          console.log(response.data, "response submittion");
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");

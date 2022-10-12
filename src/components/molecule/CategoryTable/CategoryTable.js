@@ -171,9 +171,11 @@ export const CategoryTable = (props) => {
                     </TableCell>
 
                     <TableCell align="right">
-                      {percentageCalculation(
-                        (row.correctAnswer / row.answer.length) * 100
-                      )}
+                      {row.quiz.isTimeRestricted
+                        ? percentageCalculation(
+                            (row.correctAnswer / row.answer.length) * 100
+                          )
+                        : "-"}
                     </TableCell>
 
                     <TableCell

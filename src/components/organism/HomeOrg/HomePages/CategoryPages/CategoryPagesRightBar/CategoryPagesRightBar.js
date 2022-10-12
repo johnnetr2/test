@@ -93,9 +93,8 @@ const CategoryPagesRightBar = (props) => {
               ? obj?.attemptQuestions + item.answer.length
               : item.answer.length;
           });
-          var overAllprognos = obj?.correctAnswers / obj.attemptQuestions;
-          var a = overAllprognos * 2;
-          obj.eachCategoryPrognos = a.toFixed(1);
+          let prognos = (obj?.correctAnswers / obj?.attemptQuestions) * 100;
+          obj.eachCategoryPrognos = percentageCalculation(prognos);
           weeklyProgressArr.push(obj);
         });
       setWeeklyProgress(weeklyProgressArr);
@@ -111,30 +110,36 @@ const CategoryPagesRightBar = (props) => {
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
       setLastWeekTasks(response.data);
-      const weeklyAttempted = datesGroupByComponent(
-        response.data.weeklyCorrectQuestions,
-        "W"
-      );
-      // const aks = Object.keys(weeklyCorrect);
+      // const weeklyAttempted = datesGroupByComponent(
+      //   response?.data?.weeklyCorrectQuestions,
+      //   "W"
+      // );
       // let totalCorrect = 0;
-      // console.log(weeklyCorrect, "WC");
-      const WeeklyObjArray = Object.keys(weeklyAttempted).pop();
-      const AttemptedExercises = weeklyAttempted[WeeklyObjArray];
-      // // const WeeklyObjArray = Object.keys(weeklyCorrect);
-      // // for (let i = 0; i < CorrectAnswers.length; i++) {
-      // //   totalCorrect = totalCorrect + CorrectAnswers[i].correctAnswer;
-      // // }
-      if (AttemptedExercises?.length !== 0) {
-        setWeeklyCorrect(AttemptedExercises?.length);
-      } else {
-        setWeeklyCorrect(0);
-      }
+      // console.log(weeklyAttempted, "WA");
+      // const WeeklyObjArray =
+      //   Object.keys(weeklyAttempted).length > 0
+      //     ? Object.keys(weeklyAttempted)?.pop()
+      //     : null;
+      // console.log(WeeklyObjArray && WeeklyObjArray, "WOA");
+      // const CorrectAnswers = WeeklyObjArray
+      //   ? weeklyAttempted[WeeklyObjArray]
+      //   : [];
+      // console.log(CorrectAnswers, "CA 121212212");
+      // for (let i = 0; i < CorrectAnswers?.length; i++) {
+      //   if (CorrectAnswers[i] && CorrectAnswers[i].quiz.isTimeRestricted) {
+      //     totalCorrect = totalCorrect + CorrectAnswers[i].correctAnswer;
+      //   }
+      // }
 
-      setPrognos(
-        (response.data.totalCorrectQuestions /
-          response.data.totalAttemptedQuestions) *
-          100
-      );
+      // setWeeklyCorrect(totalCorrect > 0 ? totalCorrect : 0);
+      // {
+      //   console.log(
+      //     "test prognos",
+      //     (response.data.totalCorrectQuestions /
+      //       response.data.totalAttemptedQuestions) *
+      //       100
+      //   );
+      // }
     });
   }, []);
 
@@ -194,6 +199,7 @@ const CategoryPagesRightBar = (props) => {
               backgroundColor: "#fff",
             }}
           >
+            {console.log(lastWeekTasks, "LWT")}
             <LinearProgress
               className={classes.root}
               sx={{
@@ -241,7 +247,8 @@ const CategoryPagesRightBar = (props) => {
         >
           <Box sx={{ marginRight: "3rem" }}>
             <Typography variant="h5">
-              {!weeklyCorrect ? "0" : weeklyCorrect}
+              {console.log(weeklyCorrect, "Weekly Correct")}
+              {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
             </Typography>
             <Typography variant="body2">
               Klarade uppgifter denna veckan
@@ -290,7 +297,13 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {prognos ? percentageCalculation(prognos) : 0}
+            {lastWeekTasks
+              ? percentageCalculation(
+                  (lastWeekTasks?.totalCorrectQuestions /
+                    lastWeekTasks?.totalAttemptedQuestions) *
+                    100
+                )
+              : 0}
           </Typography>
           <Typography variant="body2">
             Prognostiserad normerad poäng {props?.item.title}

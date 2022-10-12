@@ -14,10 +14,7 @@ import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
 import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
-import {
-  EndPoints,
-  instance2,
-} from "../../service/Route";
+import { EndPoints, instance2 } from "../../service/Route";
 
 const HomeCard = (props) => {
   const data = props?.item;
@@ -38,49 +35,49 @@ const HomeCard = (props) => {
       return XYZNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "KVA") {
       return KVANormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "NOG") {
       return NOGNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "DTK") {
       return DTKNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "ELF") {
       return ELFNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "LÄS") {
       return LASNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "ORD") {
       return ORDNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     } else if (props?.item.title == "MEK") {
       return MEKNormeringValueFor(
         (props?.previousRecord?.CorrectQuestion /
           props?.previousRecord?.TotalQuestion) *
-        100
+          100
       );
     }
   };
@@ -118,23 +115,23 @@ const HomeCard = (props) => {
           {data?.information}
         </Typography>
         <Box>
-          { loading ? 
-            <ProgressBarLoader/> 
-          :
+          {loading ? (
+            <ProgressBarLoader />
+          ) : (
             <ProgressBar
               average={
                 props?.previousRecord
                   ? (props?.previousRecord.CorrectQuestion /
-                    totalCategoryQuestions) *
-                    100
-                    ? (props?.previousRecord.CorrectQuestion /
                       totalCategoryQuestions) *
                     100
+                    ? (props?.previousRecord.CorrectQuestion /
+                        totalCategoryQuestions) *
+                      100
                     : 0
                   : 0
               }
             />
-          }
+          )}
         </Box>
       </Box>
       <Box

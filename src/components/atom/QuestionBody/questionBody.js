@@ -70,6 +70,7 @@ const QuestionBody = (props) => {
   if (props.question.type == "multiple") {
     return (
       <QuestionViewDTKOrg
+        isTimeRestricted={props.isTimeRestricted}
         question={props.question}
         selectedOption={props.selectedOption}
         totalQuestions={props.totalQuestions}
@@ -77,7 +78,7 @@ const QuestionBody = (props) => {
         onRightClick={() => props.onRightClick()}
         onLeftClick={() => props.onLeftClick()}
         onResultHandler={() => props.onResultHandler()}
-        onCloseTimer={() => props.CloseTimerFunc()}
+        // onCloseTimer={() => props.CloseTimerFunc()}
         callBackForTimer={(value) => props.setTimeLeft(value)}
         paragraphIndex={props.paragraphIndex}
         questionIndex={props.questionIndex}

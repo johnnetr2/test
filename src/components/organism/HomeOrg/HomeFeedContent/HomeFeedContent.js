@@ -160,10 +160,7 @@ const HomeFeedContent = (props) => {
         count = count + item.CorrectQuestion;
         totalQuestion = totalQuestion + item.TotalQuestion;
       });
-    // console.log(totalQuestion, 'totalQuestion')
-    // console.log(count, 'count')
     let avgPrognos = previousRecordProgress && (count / totalQuestion) * 2;
-    // console.log(avgPrognos, 'total avaerageee')
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);
@@ -249,6 +246,7 @@ const HomeFeedContent = (props) => {
           </Box>
         </Box>
       </Box>
+
       <TabPanel value={tabValue} index={0}>
         <Box sx={{ marginBottom: "1rem" }}>
           <Typography variant="h5" component="h5">

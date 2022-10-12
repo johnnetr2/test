@@ -29,6 +29,7 @@ import { styled } from "@mui/material/styles";
 let dataSubmit = [];
 
 const QuestionViewDTKOrg = (props) => {
+  console.log(props, "multiquestion props");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const [showResult, setShowResult] = useState(false);
@@ -318,6 +319,7 @@ const QuestionViewDTKOrg = (props) => {
         user: localStorage.getItem("userId"),
         sectionCategory: quiz.sectionCategory,
         answer: dataSubmit,
+        isTimeRestricted: props.isTimeRestricted,
       };
       console.log(obj, "array of answer onjects");
       const URL = EndPoints.submitMultiquestionParagragh;
