@@ -10,7 +10,7 @@ Checkout to the `development` branch and create your branch first and then follo
 
 ### `npm install
 
-Before run command start copy content from `.env.example` and past it in `.env` file in the root directory of the project.
+Before run command start: duplicate the file `.env.example` and rename to `.env`, afterward put `.env` inside the directory `./src`
 
 ### `npm start`
 
