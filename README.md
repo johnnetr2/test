@@ -10,7 +10,7 @@ Checkout to the `development` branch and create your branch first and then follo
 
 ### `npm install
 
-Before run command start, create `.env` file in the rood directory of the app and copy content from `.env.example` and past it in that file.
+Before run command start, create `.env` file in the rood directory of the app and copy content from `.env.example` and paste it in that file.
 
 ### `npm start`
 
