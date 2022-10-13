@@ -56,7 +56,7 @@ export const CategoryTable = (props) => {
   const ResultHandler = (row) => {
     navigate("/resultsummary", {
       state: {
-        quizId: row.quiz,
+        quizId: row.quiz._id,
         sectionCategory: sectionCategory,
         user: localStorage.getItem("userId"),
       },

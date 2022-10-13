@@ -83,6 +83,7 @@ const HomeFeedContent = (props) => {
       const NormeringValueOfBothMainCategories =
         EndPoints.OverAllNormeringValue + loginUserID;
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
+        console.log(response.data, "progress of hundred");
         if (response?.data?.success) {
           setPreviousRecordProgress(response.data.Data);
         }

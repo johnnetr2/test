@@ -71,6 +71,7 @@ export const percentageCalculation = (params, value) => {
 };
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
+  console.log(params, "test params");
   const [timePerQues, setTimePerQues] = useState();
   const [progress, setProgress] = useState(0);
   const [responseCollection, setresponseCollection] = useState();
@@ -126,6 +127,7 @@ const ResultSummaryOrg = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
+    console.log(URL, "useEffect URL");
     let sumOfTimeSpent = 0;
 
     instance2

@@ -38,6 +38,7 @@ const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const params = useLocation();
+  console.log(params, "params question");
   const [status, setStatus] = useState();
   const [timeLeft, setTimeLeft] = useState();
   const [time, setTime] = useState(0);
