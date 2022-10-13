@@ -6,11 +6,12 @@ import swal from "sweetalert";
 const Timer = (props) => {
   const sec = props.time ? props.time : 0;
   const [timer, setTimer] = useState(sec); // 25 minutes
-  const [start, setStart] = useState();
+  const [start, setStart] = useState(false);
   const firstStart = useRef(true);
   const tick = useRef();
 
   const clearAll = () => {
+    console.log("calling back")
     props.onCloseTimer();
     clearInterval(tick.current);
     return 0;
@@ -25,12 +26,15 @@ const Timer = (props) => {
   }, [props.continueStatus]);
 
   useEffect(() => {
+    console.log("thsi is in the use effect of timer", start)
     if (firstStart.current) {
       firstStart.current = !firstStart.current;
       return;
     }
 
-    if (start) {
+    if (start === true) {
+      console.log("thsi is in the use effect of timer if statement", start)
+
       tick.current = setInterval(() => {
         setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1));
       }, 1000);
