@@ -183,7 +183,7 @@ const CategoryPagesRightBar = (props) => {
           )}
           <Typography variant="body2" style={{ marginTop: "0.5rem" }}>
             Du har klarat
-            {` ${lastWeekTasks && lastWeekTasks?.totalAttemptedQuestions} `} av
+            {` ${lastWeekTasks && lastWeekTasks?.correctedNoTimePressure} `} av
             {` ${lastWeekTasks && lastWeekTasks?.totalQuestions} `}
             uppgifter
           </Typography>
@@ -210,7 +210,7 @@ const CategoryPagesRightBar = (props) => {
               variant="determinate"
               value={
                 lastWeekTasks
-                  ? (lastWeekTasks.totalAttemptedQuestions /
+                  ? (lastWeekTasks.totalCorrectQuestions /
                       lastWeekTasks.totalQuestions) *
                     100
                   : 0
@@ -256,7 +256,7 @@ const CategoryPagesRightBar = (props) => {
           </Box>
           <Box sx={{ marginLeft: "1rem" }}>
             <Typography variant="h5">
-              {!lastWeekTasks ? "0" : lastWeekTasks.totalAttemptedQuestions}
+              {!lastWeekTasks ? "0" : lastWeekTasks.correctedNoTimePressure}
             </Typography>
             <Typography variant="body2">Klarade uppgifter totalt</Typography>
           </Box>
