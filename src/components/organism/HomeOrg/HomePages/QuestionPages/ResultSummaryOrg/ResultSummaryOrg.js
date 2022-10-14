@@ -126,7 +126,6 @@ const ResultSummaryOrg = () => {
   }));
 
   const classes = useStyles(10);
-
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
@@ -134,19 +133,21 @@ const ResultSummaryOrg = () => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
+    let attemptedQuestion = 0;
+
     instance2
       .get(URL, { headers })
       .then((response) => {
         response.data.question.map((item) => {
-
-          return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
+          sumOfTimeSpent = sumOfTimeSpent + item.spendTime;
+          if (item.spendTime !== 0) {
+            attemptedQuestion++;
+          }
+          return sumOfTimeSpent;
         });
 
-        let lengthOfQuestions = response.data.question.length;
-        let timePerQuestion;
-        timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
-
         if (sumOfTimeSpent) {
+          let timePerQuestion = sumOfTimeSpent / attemptedQuestion;
           setTimePerQues(timePerQuestion);
         } else {
           setTimePerQues(false);
@@ -211,10 +212,10 @@ const ResultSummaryOrg = () => {
                   <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
                   {responseCollection
                     ? dispSecondsAsMins(
-                      responseCollection?.question[
-                        responseCollection.question.length - 1
-                      ].timeleft?.toFixed(0)
-                    )
+                        responseCollection?.question[
+                          responseCollection.question.length - 1
+                        ].timeleft?.toFixed(0)
+                      )
                     : "00:00"}
                 </Box>
               )
@@ -281,12 +282,12 @@ const ResultSummaryOrg = () => {
                   }}
                 >
                   {responseCollection?.totalQuestion &&
-                    responseCollection?.correctAnswer != null ? (
+                  responseCollection?.correctAnswer != null ? (
                     <Typography variant="h4">
                       {responseCollection &&
                         responseCollection.correctAnswer +
-                        " /" +
-                        responseCollection.question.length}
+                          " /" +
+                          responseCollection.question.length}
                     </Typography>
                   ) : (
                     <Box sx={{ display: "flex" }}>
@@ -325,7 +326,7 @@ const ResultSummaryOrg = () => {
                           params,
                           (responseCollection.correctAnswer /
                             responseCollection.question.length) *
-                          100
+                            100
                         )}
                       </Typography>
                     ) : (
