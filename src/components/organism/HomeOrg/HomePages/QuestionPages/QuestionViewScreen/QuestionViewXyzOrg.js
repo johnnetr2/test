@@ -116,8 +116,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -142,8 +142,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -168,6 +168,7 @@ const QuestionViewXyzOrg = () => {
       quiz?.length > 0 &&
       (timeLeft || (!params?.state?.data.value && !timeLeft))
     ) {
+      console.log("121213331");
       setRemainingTime((remainingTime) => remainingTime + (time - timeLeft));
       const questions = [...quiz];
       let question = questions[selectedIndex];
@@ -193,7 +194,7 @@ const QuestionViewXyzOrg = () => {
     } else {
       return;
     }
-  }, [nextPress, timeLeft && !quiz[0]?.type == "multiple"]);
+  }, [nextPress, timeLeft && !quiz[0]?.type == 'multiple']);
 
   useEffect(() => {
     timer = setInterval(() => {
@@ -299,7 +300,9 @@ const QuestionViewXyzOrg = () => {
 
   const AnswerArrayPayloadForCloseTimerFunc = () => {
     // console.log("AnswerArrayPayloadForCloseTimerFunc", quiz);
+
     let singleQuestionArray = [];
+    console.log("ajhdkjahdakdhasjhdashkdhaskhd", quiz);
     quiz?.map((item) => {
       if (
         item.hasOwnProperty("multipartQuestion") &&
@@ -312,9 +315,8 @@ const QuestionViewXyzOrg = () => {
           //   "length of single question array"
           // );
           if (singleQuestionArray.length < 1) {
-            // console.log("less than 1 fun call");
-            // console.log(remainingTime, "remaining time");
-            // console.log(time - remainingTime, "time - remaining time");
+            console.log("remainingTime", remainingTime);
+            console.log("remainingTime time", time);
             singleQuestionArray.push({
               questionId: item._id,
               totaltime: time ? time : 0, //22
@@ -323,7 +325,7 @@ const QuestionViewXyzOrg = () => {
               // spendtime: (params.state.sectionCategory.time * quiz.length * 60) - remainingTime,
             });
           } else {
-            // console.log("else case");
+            console.log("else case");
             singleQuestionArray.push({
               questionId: item._id,
               timeleft: 0,
@@ -333,23 +335,32 @@ const QuestionViewXyzOrg = () => {
           }
         }
       } else {
-        item?.question?.map((value) => {
-          if (singleQuestionArray.length < 1) {
-            // console.log("spend");
-            singleQuestionArray.push({
-              questionId: value?._id,
-              totaltime: time ? time : 0, //22
-              spendtime: time, //14 = 22 - 8
-              timeleft: time - (time - remainingTime), //8 = 22 - 14
-            });
-          } else {
-            singleQuestionArray.push({
-              questionId: value?._id,
-              timeleft: 0,
-              totaltime: time ? time : 0,
-              spendtime: 0,
-            });
+        console.log("asgajsgj", item?.question?.length);
+        item?.question?.map((multipartQuestion) => {
+          if (!multipartQuestion.answer) {
+            if (singleQuestionArray.length < 1) {
+              console.log("remainingTime", remainingTime);
+              console.log("remainingTime time", time);
+
+              // console.log("spend");
+              singleQuestionArray.push({
+                questionId: multipartQuestion?._id,
+                totaltime: time ? time : 0, //22
+                spendtime: time - remainingTime, //14 = 22 - 8
+                timeleft: 0, //8 = 22 - 14
+              });
+            } else {
+              console.log("questionId", multipartQuestion?._id);
+
+              singleQuestionArray.push({
+                questionId: multipartQuestion?._id,
+                timeleft: 0,
+                totaltime: time ? time : 0,
+                spendtime: 0,
+              });
+            }
           }
+          return multipartQuestion;
           // else {
           //   singleQuestionArray.push({
           //     questionId: value?._id,
@@ -360,7 +371,9 @@ const QuestionViewXyzOrg = () => {
           // }
         });
       }
+      return item;
     });
+    console.log("asdkajdkjahkd", singleQuestionArray.length);
 
     return singleQuestionArray;
   };
@@ -715,15 +728,20 @@ const QuestionViewXyzOrg = () => {
             popUpstatus={timeEnd}
             redirect={() => {
               // trackEndTest();
-              navigate("/resultsummary", {
-                state: {
-                  sectionCategory: params?.state?.sectionCategory,
-                  quizId: params?.state?.quizId,
-                  time: params?.state?.time,
-                },
-              });
               localStorage.removeItem("quiz");
               localStorage.removeItem("time");
+
+              setTimeout(() => {
+                navigate("/resultsummary", {
+                  state: {
+                    sectionCategory: params?.state?.sectionCategory,
+                    quizId: params?.state?.quizId,
+                    time: params?.state?.time,
+                  },
+                });
+              }, 2000);
+              
+             
             }}
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
