@@ -161,28 +161,43 @@ const HomeLeftBar = (props) => {
           </Typography>
         </Box>
       </NavLink>
-      <Box
-        // to="/courses"
-        to="#"
-        className={classes.disabledNavStyle}
-        // style={({ isActive }) => {
-        //   return {
-        //     backgroundColor: isActive ? "#0A1596" : "none",
-        //     color: isActive ? "#fff" : "none",
-        //   };
+      {/* Home Nav */}
+
+      <NavLink
+        to="/courses"
+        // onClick={() => {
+        //   navigate("/courses", {
+        //     state: {
+        //       popUpStatus: true,
+        //     },
+        //   });
         // }}
+        className={classes.navStyle}
+        style={({ isActive }) => {
+          return {
+            backgroundColor: isActive ? "#0A1596" : "none",
+            color: isActive ? "#fff" : "none",
+          };
+        }}
       >
         <Box
-          className={classes.Disableitem}
+          className={classes.item}
           style={{
             display: "flex",
             justifyContent: "center",
           }}
+          // onClick={() =>
+          // navigate("/home", {
+          //   state: {
+          //     popUpStatus: true,
+          //   },
+          // })
+          // }
         >
+          {/* <img src={HomeC} alt="" srcset="" /> */}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <img
-              // src={props.currentPage === "course" ? CourseC : Course}
-              src={CoursesGrey}
+              src={props.currentPage === "course" ? CourseC : Course}
               className={classes.icon}
             />
           </Box>
@@ -191,10 +206,63 @@ const HomeLeftBar = (props) => {
             component="body1"
             className={classes.text}
           >
-            prov
+            Prov
           </Typography>
         </Box>
-      </Box>
+      </NavLink>
+
+      {/* <NavLink
+        to="/courses"
+        // to="#"
+        className={classes.navStyle}
+        style={({ isActive }) => {
+          return {
+            backgroundColor: isActive ? "#0A1596" : "none",
+            color: isActive ? "#fff" : "none",
+          };
+        }}
+      >
+        <Box
+          // to="/courses"
+          // // to="#"
+          className={classes.item}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+          // style={({ isActive }) => {
+          //   return {
+          //     backgroundColor: isActive ? "#0A1596" : "none",
+          //     color: isActive ? "#fff" : "none",
+          //   };
+          // }}
+        >
+          <Box
+            // className={classes.Disableitem}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <img
+                src={props.currentPage === "course" ? CourseC : Course}
+                // src={CoursesGrey}
+                className={classes.icon}
+              />
+            </Box>
+            <Typography
+              variant="body1"
+              component="body1"
+              className={classes.text}
+            >
+              prov
+            </Typography>
+          </Box>
+        </Box>
+      </NavLink> */}
+
+      {/* Courses Nav */}
       <Box
         // to="/message"
         to="#"
