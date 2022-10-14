@@ -31,54 +31,23 @@ const HomeCard = (props) => {
   }, []);
 
   const percentageCalculation = () => {
-    if (props?.item.title == "XYZ") {
-      return XYZNormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
-    } else if (props?.item.title == "KVA") {
-      return KVANormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
-    } else if (props?.item.title == "NOG") {
-      return NOGNormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
-    } else if (props?.item.title == "DTK") {
-      return DTKNormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
-    } else if (props?.item.title == "ELF") {
-      return ELFNormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
-    } else if (props?.item.title == "LÄS") {
-      return LASNormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
-    } else if (props?.item.title == "ORD") {
-      return ORDNormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
-    } else if (props?.item.title == "MEK") {
-      return MEKNormeringValueFor(
-        (props?.previousRecord?.CorrectQuestion /
-          props?.previousRecord?.TotalQuestion) *
-          100
-      );
+    const calculatePercentage = (props?.previousRecord?.correctedFromLastHundred / props?.previousRecord?.totalAttemptedHundred) * 100
+    if (props?.item.title === "XYZ") {
+      return XYZNormeringValueFor(calculatePercentage);
+    } else if (props?.item.title === "KVA") {
+      return KVANormeringValueFor(calculatePercentage);
+    } else if (props?.item.title === "NOG") {
+      return NOGNormeringValueFor(calculatePercentage);
+    } else if (props?.item.title === "DTK") {
+      return DTKNormeringValueFor(calculatePercentage);
+    } else if (props?.item.title === "ELF") {
+      return ELFNormeringValueFor(calculatePercentage);
+    } else if (props?.item.title === "LÄS") {
+      return LASNormeringValueFor(calculatePercentage);
+    } else if (props?.item.title === "ORD") {
+      return ORDNormeringValueFor(calculatePercentage);
+    } else if (props?.item.title === "MEK") {
+      return MEKNormeringValueFor(calculatePercentage);
     }
   };
 
