@@ -29,7 +29,7 @@ import { styled } from "@mui/material/styles";
 let dataSubmit = [];
 
 const QuestionViewDTKOrg = (props) => {
-  console.log(props, "multiquestion props");
+  // console.log(props, "multiquestion props");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const [showResult, setShowResult] = useState(false);
@@ -321,9 +321,10 @@ const QuestionViewDTKOrg = (props) => {
         answer: dataSubmit,
         isTimeRestricted: props.isTimeRestricted,
       };
-      console.log(obj, "array of answer onjects");
+      // console.log(obj, "array of answer onjects");
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
+        console.log(response, "submit response dtk");
         dataSubmit = [];
         setShowResult(true);
       });

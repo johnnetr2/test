@@ -11,7 +11,7 @@ const Timer = (props) => {
   const tick = useRef();
 
   const clearAll = () => {
-    console.log("calling back")
+    console.log("calling back");
     props.onCloseTimer();
     clearInterval(tick.current);
     return 0;
@@ -26,14 +26,14 @@ const Timer = (props) => {
   }, [props.continueStatus]);
 
   useEffect(() => {
-    console.log("thsi is in the use effect of timer", start)
+    console.log("thsi is in the use effect of timer", start);
     if (firstStart.current) {
       firstStart.current = !firstStart.current;
       return;
     }
 
     if (start === true) {
-      console.log("thsi is in the use effect of timer if statement", start)
+      console.log("thsi is in the use effect of timer if statement", start);
 
       tick.current = setInterval(() => {
         setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1));
@@ -42,9 +42,10 @@ const Timer = (props) => {
     return () => clearInterval(tick.current);
   }, [start]);
 
-  useEffect(() => {
-    props.callBackForTimer(timer);
-  }, [timer]);
+  // useEffect(() => {
+  //   console.log(timer, "test timer");
+  //   props.callBackForTimer(timer);
+  // }, [timer]);
 
   useEffect(() => {
     setTimeout(() => {

@@ -39,6 +39,7 @@ const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
   const params = useLocation();
+  console.log(params, "test params");
   const [quiz, setQuiz] = useState();
   const [status, setStatus] = useState();
   const [time, setTime] = useState();
