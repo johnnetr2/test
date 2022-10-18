@@ -274,7 +274,7 @@ const SignupOrg = () => {
                 name="password"
                 id="password"
                 style={{
-                  width: "20vw",
+                  flexBasis: "100%",
                   backgroundColor: "coral",
                   display: "flex",
                   alignItems: "center",
