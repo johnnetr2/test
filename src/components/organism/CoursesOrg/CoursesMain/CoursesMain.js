@@ -45,6 +45,7 @@ const CoursesMain = () => {
     };
     const getPreviosExams = EndPoints.getPreviousExams;
     instance2.get(getPreviosExams, data).then((response) => {
+      console.log(response, "get previous exams");
       setPreviousExams(response.data.data);
     });
 
@@ -132,7 +133,7 @@ const CoursesMain = () => {
 
   return (
     <Container maxWidth="false" disableGutters>
-      <Grid container wrap="nowrap" className={classes.main} >
+      <Grid container wrap="nowrap" className={classes.main}>
         <Grid
           item
           className={classes.leftBarHide}
@@ -146,7 +147,7 @@ const CoursesMain = () => {
           {/* <CoursesLeftBar /> */}
           <HomeLeftBar currentPage="course" />
         </Grid>
-        <Grid item xs={12} sm={12}  md={7} lg={7} xl={7}>
+        <Grid item xs={12} sm={12} md={7} lg={7} xl={7}>
           <CoursesFeedContent
             previousExams={previousExams}
             data={provHistoryData}
@@ -166,7 +167,6 @@ const CoursesMain = () => {
             data={provHistoryData}
             previousExams={previousExams}
           />
-          
         </Grid>
       </Grid>
       <BottomNavBar currentPage="course" />

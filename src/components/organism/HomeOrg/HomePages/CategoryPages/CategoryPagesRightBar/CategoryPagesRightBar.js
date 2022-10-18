@@ -174,7 +174,7 @@ const CategoryPagesRightBar = (props) => {
               backgroundColor: "#fff",
             }}
           >
-            {console.log(lastWeekTasks, "LWT")}
+            {/* {console.log(lastWeekTasks, "LWT")} */}
             <LinearProgress
               className={classes.root}
               sx={{
@@ -202,7 +202,7 @@ const CategoryPagesRightBar = (props) => {
         >
           <Box sx={{ marginRight: "3rem" }}>
             <Typography variant="h5">
-              {console.log(weeklyCorrect, "Weekly Correct")}
+              {/* {console.log(weeklyCorrect, "Weekly Correct")} */}
               {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
             </Typography>
             <Typography variant="body2">

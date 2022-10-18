@@ -112,7 +112,7 @@ const LoginOrg = () => {
             if (window.innerWidth < 600) {
               document.getElementById("link").click();
             } else {
-              navigate("/home");
+              window.location.href = "/home";
             }
           } else {
             swal("Warning!", "Invalid Credentials", "error");
