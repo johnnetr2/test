@@ -468,6 +468,7 @@ const ResultSummaryOrg = (props) => {
                             value: false,
                             sectionCategory: params?.state?.sectionCategory,
                           },
+                          time: params?.state?.time,
                         },
                       });
                     }}
