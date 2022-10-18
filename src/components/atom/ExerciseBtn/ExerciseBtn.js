@@ -10,8 +10,7 @@ const ExerciseBtn = (props) => {
             style={{
                 backgroundColor: '#0A1596', color: "#FFFFFF", height: '2.7rem', borderRadius: '.4rem', '&:hover': {
                     backgroundColor: '#0A1596', opacity: [1, 1, 0.9],
-                }, textTransform: 'capitalize', width: '100%', marginTop: '2%', marginBottom: '2%'
-            }}
+                }, textTransform: 'capitalize', width: '100%'}}
             >{props.title}</Button>
         </div>
     )

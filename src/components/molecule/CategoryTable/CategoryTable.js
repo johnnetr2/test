@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from "react";
 import {
+  Box,
+  Container,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableRow,
-  Paper,
-  Box,
   Typography,
-  Container,
 } from "@mui/material";
-import { makeStyles } from "@material-ui/core";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useNavigate } from "react-router-dom";
-import moment from "moment";
-import Dropdown from "../../atom/ArrowDropDown/dropdown";
-import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import React, { useEffect, useState } from "react";
+
 import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import Dropdown from "../../atom/ArrowDropDown/dropdown";
+import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { makeStyles } from "@material-ui/core";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {

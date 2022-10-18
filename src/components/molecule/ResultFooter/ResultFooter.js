@@ -12,12 +12,13 @@ const ResultFooter = (props) => {
     <div style={{ width: "100%", maxWidth: 615 }}>
       <Box
         padding={1}
-        mt={2}
         sx={{
           width: "100%",
           maxWidth: 615,
           display: "flex",
           justifyContent: "space-between",
+          marginTop:'.75rem',
+          marginBottom:'1.5rem'
         }}
       >
         <Box

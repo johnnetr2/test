@@ -39,7 +39,6 @@ const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
   const params = useLocation();
-  console.log(params, "test params");
   const [quiz, setQuiz] = useState();
   const [status, setStatus] = useState();
   const [time, setTime] = useState();
@@ -53,16 +52,15 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
-      console.log(params.state.quiz.simuleraQuiz);
       setTime(params?.state?.timeLeft);
       setQuiz(params?.state?.quiz.simuleraQuiz);
       setCurrentIndex(params?.state?.questionIndex);
       setStatus(true);
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
-      console.log(URL);
+  
       instance2.get(URL).then((response) => {
-        console.log(response.data, "this is response");
+
         setQuiz(response.data.simuleraQuiz);
         setTime(3300);
         setOpen(false);
@@ -209,7 +207,6 @@ const StandardViewXyz = () => {
     //   return <Radio color="primary" checked={false} />;
     // }
     if (optionIndex === question.selectedOptionIndex) {
-      console.log(question, "check option index");
       return (
         <Radio
           color="primary"
@@ -261,7 +258,7 @@ const StandardViewXyz = () => {
     } else {
       questions.push(data);
       setSubmitedQuestions(questions);
-      console.log("question submited");
+      // console.log("question submited");
       setTime(timeLeft);
     }
   };
@@ -378,6 +375,7 @@ const StandardViewXyz = () => {
                         setTimeLeft(0);
                         setShouldNavigate(true);
                       }}
+                      callBackForTimer={(value) => setTimeLeft(value)}
                     />
                   )}
               <BackButtonPopup
@@ -538,10 +536,6 @@ const StandardViewXyz = () => {
                             // gridTemplateColumns: "1fr 1fr",
                           }}
                         >
-                          {console.log(
-                            question.options.options.length,
-                            "question option console"
-                          )}
                           {question.options.options.map(
                             (option, optionIndex) => {
                               return (
