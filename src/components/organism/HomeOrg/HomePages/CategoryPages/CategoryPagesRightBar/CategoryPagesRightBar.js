@@ -53,93 +53,68 @@ const CategoryPagesRightBar = (props) => {
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
     instance2.get(lastWeeksData).then((response) => {
       const data = datesGroupByComponent(response.data.sevenWeekData, "W");
-      let previousweeks = [];
+      console.log("data 111341113", data);
+      let previousWeeks = [];
       let a;
       if (Object.keys(data).length < 7) {
         let keys = Object.keys(data); //35,36
         let first = keys[0]; //35
-        a = 7 - Object.keys(data).length; //5
+        a = 7 - keys.length; //5
         let b = first - a; //30 //first = 35
+        const defaultValuseObj = {
+          correctAnswers: 0,
+          attemptQuestions: 0,
+          eachCategoryPrognos: 0,
+          totalQuestion: 0,
+        };
         for (let index = b; index < first; index++) {
-          previousweeks.push("V." + index);
-        }
-
-        let obj = {};
-        for (let index = 0; index < a; index++) {
-          obj.correctAnswers = 0;
-          obj.attemptQuestions = 0;
-          obj.eachCategoryPrognos = 0;
-          obj.totalQuestion = 0;
-          weeklyProgressArr.push(obj);
+          previousWeeks.push("V." + index);
+          weeklyProgressArr.push(defaultValuseObj);
         }
       }
+      
+      let weekWiseProgress = {}
+      let calculationForTerminate = 0
+      
       data &&
-        Object.values(data).map((key, index) => {
-          const week = (Object.keys(data)[index] =
-            "V." + Object.keys(data)[index]);
+        Object.keys(data).forEach((weekKey, index) => {
+          previousWeeks.push("V." + weekKey);
 
-          let obj = {};
-          weeksArr.push(week);
-          newArray = previousweeks.concat(weeksArr);
+          for (let iterations = index; iterations >= 0 ; iterations--) {
+            const weekWiseData = Object.values(data)[iterations]
 
-          key.map((item) => {
-            obj.correctAnswers = obj?.correctAnswers
-              ? obj?.correctAnswers + item.correctAnswer
+            for (let index = 0; index < weekWiseData.length; index++) {
+              const item = weekWiseData[index];
+              calculationForTerminate = calculationForTerminate +item.attemptedQuestion
+              if(calculationForTerminate >= 100) {
+                break
+              }
+              weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
+              ? weekWiseProgress?.correctAnswers + item.correctAnswer
               : item.correctAnswer;
-            obj.totalQuestion = obj?.totalQuestion
-              ? obj?.totalQuestion + item.totalQuestion
+              weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
+              ? weekWiseProgress?.totalQuestion + item.totalQuestion
               : item.totalQuestion;
-            obj.attemptQuestions = obj?.attemptQuestions
-              ? obj?.attemptQuestions + item.answer.length
-              : item.answer.length;
-          });
-          let prognos = (obj?.correctAnswers / obj?.attemptQuestions) * 100;
-          obj.eachCategoryPrognos = percentageCalculation(prognos);
-          weeklyProgressArr.push(obj);
+              weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
+              ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
+              : item.attemptedQuestion;
+            }
+          }
+          let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
+          weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
+          weeklyProgressArr.push(weekWiseProgress);
+          weekWiseProgress = {}
+          calculationForTerminate = 0
         });
       setWeeklyProgress(weeklyProgressArr);
-      setWeeks(newArray);
+      setWeeks(previousWeeks);
     });
   }, []);
 
   useEffect(() => {
-    // const URL = EndPoints.testHistory + props.item._id;
-    // instance2.get(URL).then((response) => {
-    //   setProgressData(response.data, "token response");
-    // });
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
       setLastWeekTasks(response.data);
-      // const weeklyAttempted = datesGroupByComponent(
-      //   response?.data?.weeklyCorrectQuestions,
-      //   "W"
-      // );
-      // let totalCorrect = 0;
-      // console.log(weeklyAttempted, "WA");
-      // const WeeklyObjArray =
-      //   Object.keys(weeklyAttempted).length > 0
-      //     ? Object.keys(weeklyAttempted)?.pop()
-      //     : null;
-      // console.log(WeeklyObjArray && WeeklyObjArray, "WOA");
-      // const CorrectAnswers = WeeklyObjArray
-      //   ? weeklyAttempted[WeeklyObjArray]
-      //   : [];
-      // console.log(CorrectAnswers, "CA 121212212");
-      // for (let i = 0; i < CorrectAnswers?.length; i++) {
-      //   if (CorrectAnswers[i] && CorrectAnswers[i].quiz.isTimeRestricted) {
-      //     totalCorrect = totalCorrect + CorrectAnswers[i].correctAnswer;
-      //   }
-      // }
-
-      // setWeeklyCorrect(totalCorrect > 0 ? totalCorrect : 0);
-      // {
-      //   console.log(
-      //     "test prognos",
-      //     (response.data.totalCorrectQuestions /
-      //       response.data.totalAttemptedQuestions) *
-      //       100
-      //   );
-      // }
     });
   }, []);
 
@@ -216,26 +191,6 @@ const CategoryPagesRightBar = (props) => {
                   : 0
               }
             />
-            {/* <Typography
-              style={{
-                marginTop: "-0.95rem",
-                position: "absolute",
-                fontSize: "12px",
-                alignSelf: "center",
-                display: "flex",
-                flexDirection: "row",
-                // width: "3rem",
-                marginLeft: width > 900 ? width * 0.125 : width * 0.34,
-                color: "#fff",
-                // lastWeekTasks.totalCorrectQuestions >
-                //   lastWeekTasks.totalQuestions / 2
-                //   ? "#F9F9F9"
-                //   : "",
-              }}
-            >
-              {lastWeekTasks.totalCorrectQuestions} av{" "}
-              {lastWeekTasks.totalQuestions}
-            </Typography> */}
           </Box>
         </Box>
         <Box
