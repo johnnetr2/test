@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
 const Timer = (props) => {
+  console.log(props, 'timer props')
   const sec = props.time ? props.time : 0;
   const [timer, setTimer] = useState(sec); // 25 minutes
   const [start, setStart] = useState(false);
@@ -11,13 +12,16 @@ const Timer = (props) => {
   const tick = useRef();
 
   const clearAll = () => {
-    console.log("calling back");
+    console.log("clear All");
     props.onCloseTimer();
     clearInterval(tick.current);
     return 0;
   };
 
+
+
   useEffect(() => {
+    // console.log(props.continueStatus, 'continue status')
     setStart(props.continueStatus);
     // props.onChangeTime(timer)
     // if (!props.continueStatus) {
@@ -26,38 +30,41 @@ const Timer = (props) => {
   }, [props.continueStatus]);
 
   useEffect(() => {
-    console.log("thsi is in the use effect of timer", start);
+    // console.log("start timer", start);
     if (firstStart.current) {
       firstStart.current = !firstStart.current;
       return;
     }
 
     if (start === true) {
-      console.log("thsi is in the use effect of timer if statement", start);
+      // console.log("start if", start);
 
       tick.current = setInterval(() => {
         setTimer((timer) => (timer <= 0 ? clearAll() : timer - 1));
       }, 1000);
+
+      // console.log(tick.current, 'tick current use ref')
+
     }
     return () => clearInterval(tick.current);
   }, [start]);
 
-  // useEffect(() => {
-  //   console.log(timer, "test timer");
-  //   props.callBackForTimer(timer);
-  // }, [timer]);
+  useEffect(() => {
+    // console.log(timer, "test timer");
+    props.callBackForTimer(timer);
+  }, [timer]);
 
   useEffect(() => {
     setTimeout(() => {
       localStorage.setItem("time", timer);
-      // console.log(timer, 'this is the timer of local storafe')
+      // console.log(timer, 'localStorage setTimeout')
     }, 2000);
   }, [timer]);
 
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       if (localStorage.getItem("time")) {
-        // console.log('hello', localStorage.getItem('time'))
+        // console.log('localStorage getTime', localStorage.getItem('time'))
         setTimer(localStorage.getItem("time"));
       }
     }
@@ -86,6 +93,7 @@ const Timer = (props) => {
           color: props.continueStatus ? "" : "red",
         }}
       >
+        {/* {console.log(timer != 0 ? dispSecondsAsMins(timer) : "00:00", 'timer in return')} */}
         {timer != 0 ? dispSecondsAsMins(timer) : "00:00"} min
       </Typography>
       <Box className="startDiv"></Box>

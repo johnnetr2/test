@@ -29,7 +29,7 @@ import { styled } from "@mui/material/styles";
 let dataSubmit = [];
 
 const QuestionViewDTKOrg = (props) => {
-  // console.log(props, "multiquestion props");
+  console.log(props, "multiquestion props");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const [showResult, setShowResult] = useState(false);
@@ -131,7 +131,7 @@ const QuestionViewDTKOrg = (props) => {
       );
     } else {
       return (
-        <Box sx={{ width: "100%", maxWidth: 600 }}>
+        <Box sx={{ width: "100%", maxWidth: 600, marginTop:'1rem', marginBottom:'2rem' }}>
           <ExerciseBtn title="svara" onClick={() => submitAnswer(question)} />
         </Box>
       );
@@ -290,6 +290,8 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     const Quiz = { ...quiz };
+    console.log(quiz, 'submit answer quiz')
+    console.log(dataSubmit, 'data submit array')
 
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
@@ -300,15 +302,19 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : seconds,
+      spendtimevtwo: props?.totalTime ? props?.totalTime - props?.timeLeft : seconds,
       // Boolean(
       //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
       // )
       //   ? seconds
       //   : 0,
     };
-    console.log(data, "this is data for submit");
+    console.log(data, "submit answer multiquestion");
+    console.log(data.spendtime, 'data of spendTime')
+    console.log(data.spendtimevtwo, 'data of spendtimevtwo')
 
     dataSubmit.splice(selectedIndex, 1, data);
+
 
     props.updateQuiz(quiz);
 
@@ -321,7 +327,7 @@ const QuestionViewDTKOrg = (props) => {
         answer: dataSubmit,
         isTimeRestricted: props.isTimeRestricted,
       };
-      // console.log(obj, "array of answer onjects");
+      console.log(obj, "payload of multiquestion submit answer api");
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj).then((response) => {
         console.log(response, "submit response dtk");
@@ -336,6 +342,7 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
       instance2.post(URL1, payload).then((response) => {
+        console.log(response, 'multiquestion get paragraph questionanswer')
         response?.data?.question?.map((item, index) => {
           if (Quiz[props?.selectedIndex].question[index]) {
             Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
@@ -702,6 +709,7 @@ const QuestionViewDTKOrg = (props) => {
                           flexDirection: "column",
                         }}
                       >
+                        {console.log(question.questionStatement, 'question statement')}
                         <MarkLatex content={question.questionStatement} />
 
                         {question.image && (
@@ -798,25 +806,23 @@ const QuestionViewDTKOrg = (props) => {
                     ) : (
                       <Box
                         padding={1}
-                        mt={2}
                         style={{
                           backgroundColor: "grey",
                           color: "#FFFFFF",
                           height: "2.7rem",
                           borderRadius: ".4rem",
                           width: "100%",
-                          marginTop: "2%",
-                          marginBottom: "2%",
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          marginBottom:'2rem',
+                          marginTop:'1rem'
                         }}
                       >
                         <Typography
                           variant="h6"
                           style={{
                             fontSize: "0.75rem",
-                            marginRight: "0.5rem",
                             width: "3rem",
                           }}
                         >

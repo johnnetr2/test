@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header(props) {
+  // console.log('header props', props)
   const classes = useStyles();
 
   const [quiz, setQuiz] = useState();

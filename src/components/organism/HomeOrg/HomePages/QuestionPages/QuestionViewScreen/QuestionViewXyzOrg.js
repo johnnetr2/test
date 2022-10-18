@@ -38,6 +38,7 @@ const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const params = useLocation();
+  console.log(params, 'params question view xyz')
   const [status, setStatus] = useState();
   const [timeLeft, setTimeLeft] = useState();
   const [time, setTime] = useState(0);
@@ -115,8 +116,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -141,8 +142,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -313,13 +314,13 @@ const QuestionViewXyzOrg = () => {
           //   "length of single question array"
           // );
           if (singleQuestionArray.length < 1) {
-            // console.log("remainingTime", remainingTime);
-            // console.log("remainingTime time", time);
+            console.log("remainingTime", timeLeft);
+            console.log("remainingTime time", time);
             singleQuestionArray.push({
               questionId: item._id,
-              totaltime: time ? time : 0, //22
-              spendtime: time, //14 = 22 - 8
-              timeleft: time - (time - remainingTime), //8 = 22 - 14
+              timeleft: 0,
+              spendtime: timeLeft,
+              totaltime: time ? time : 0,
               // spendtime: (params.state.sectionCategory.time * quiz.length * 60) - remainingTime,
             });
           } else {
@@ -333,21 +334,18 @@ const QuestionViewXyzOrg = () => {
           }
         }
       } else {
-        // console.log("asgajsgj", item?.question?.length);
         item?.question?.map((multipartQuestion) => {
           if (!multipartQuestion.answer) {
             if (singleQuestionArray.length < 1) {
-              // console.log("remainingTime", remainingTime);
-              // console.log("remainingTime time", time);
+              console.log("remainingTime", timeLeft);
+              console.log("remainingTime time", time);
               singleQuestionArray.push({
                 questionId: multipartQuestion?._id,
-                totaltime: time ? time : 0, //22
-                spendtime: time - remainingTime, //14 = 30 - 3
-                timeleft: 0, //8 = 22 - 14
+                timeleft: 0,
+                spendtime: timeLeft,
+                totaltime: time ? time : 0, //8 = 22 - 14
               });
             } else {
-              // console.log("questionId", multipartQuestion?._id);
-
               singleQuestionArray.push({
                 questionId: multipartQuestion?._id,
                 timeleft: 0,
@@ -369,7 +367,7 @@ const QuestionViewXyzOrg = () => {
       }
       return item;
     });
-    // console.log("single question array", singleQuestionArray);
+    console.log("single question array", singleQuestionArray);
 
     return singleQuestionArray;
   };
@@ -689,9 +687,9 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <AlertDialogSlide
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -714,9 +712,9 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}

@@ -71,7 +71,6 @@ export const percentageCalculation = (params, value) => {
 };
 const ResultSummaryOrg = (props) => {
   const params = useLocation();
-  // console.log(params, "test params");
   const [timePerQues, setTimePerQues] = useState();
   const [progress, setProgress] = useState(0);
   const [responseCollection, setresponseCollection] = useState();
@@ -127,13 +126,13 @@ const ResultSummaryOrg = (props) => {
 
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
-    console.log(URL, "useEffect URL");
     let sumOfTimeSpent = 0;
 
     instance2
       .get(URL)
       .then((response) => {
         response.data.question.map((item) => {
+          console.log(item, 'get quiz')
           return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
         });
 
@@ -526,8 +525,8 @@ const ResultSummaryOrg = (props) => {
                         {item?.spendTime
                           ? "Tid: " + dispSecondsAsMins(item?.spendTime)
                           : params?.state?.time
-                          ? "Tid: 00:00"
-                          : ""}
+                          ? params?.state?.time
+                          : "Tid: 00:00"}
                       </Typography>
                       <Box
                         style={{
