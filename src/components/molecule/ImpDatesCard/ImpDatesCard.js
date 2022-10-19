@@ -38,10 +38,12 @@ const ImpDatesCard = (props) => {
   // }
 
   const hostenDate = new Date("10/23/2022");
-  // const varenDate = new Date("3/25/2023");
+  const varenDate = new Date("3/25/2023");
+  const hosten2023 = new Date("10/22/2023");
   const notSure = new Date();
   const formatHostenDate = moment(hostenDate).format("DD.MM.YYYY");
-  // const formatVarenDate = moment(varenDate).format("DD.MM.YYYY");
+  const formatVarenDate = moment(varenDate).format("DD.MM.YYYY");
+  const formatHosten2023 = moment(hosten2023).format("DD.MM.YYYY");
   const formatNotSure = moment(notSure).format("DD.MM.YYYY");
 
   const showHostenDate = () => {
@@ -54,7 +56,13 @@ const ImpDatesCard = (props) => {
     } else if (collection.season == "Våren 2023") {
       return (
         <Typography variant="h3" style={{ fontSize: "2rem" }}>
-          Våren 2023
+          {formatVarenDate}
+        </Typography>
+      );
+    } else if(collection.season == "Hösten 2023") {
+      return (
+        <Typography variant="h3" style={{ fontSize: "2rem" }}>
+          {formatHosten2023}
         </Typography>
       );
     } else {
@@ -72,7 +80,6 @@ const ImpDatesCard = (props) => {
               variant="body2"
               style={{
                 fontSize: ".65rem",
-                // marginBottom: "0.35rem",
                 marginLeft: ".15rem",
               }}
             >
@@ -83,19 +90,36 @@ const ImpDatesCard = (props) => {
         </>
       );
     } else if (collection.season == "Våren 2023") {
-      // return moment(varenDate).diff(moment(notSure), "days");
       return (
-        <Typography
-          variant="body2"
-          style={{
-            fontSize: ".65rem",
-            color: "#656565",
-
-            //  marginBottom: "0.35rem"
-          }}
-        >
-          inget officiellt datum finns ännu
-        </Typography>
+        <Box sx={{ display: "flex" }}>
+            {moment(varenDate).diff(moment(notSure), "days")}
+            <Typography
+              variant="body2"
+              style={{
+                fontSize: ".65rem",
+                marginLeft: ".15rem",
+              }}
+            >
+              {" "}
+              dagar till provdagen
+            </Typography>
+          </Box>
+      );
+    } else if (collection.season == "Hösten 2023") {
+      return (
+        <Box sx={{ display: "flex" }}>
+            {moment(hosten2023).diff(moment(notSure), "days")}
+            <Typography
+              variant="body2"
+              style={{
+                fontSize: ".65rem",
+                marginLeft: ".15rem",
+              }}
+            >
+              {" "}
+              dagar till provdagen
+            </Typography>
+          </Box>
       );
     } else {
       return "-";
