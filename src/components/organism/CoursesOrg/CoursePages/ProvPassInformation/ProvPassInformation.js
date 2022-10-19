@@ -61,12 +61,12 @@ const ProvPassInformation = () => {
       color: "#6FCF97",
     },
     content: {
-      minHeight: "90vh",
+      height: "95vh",
       backgroundColor: "#fff",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "90vw",
+      width: "100%",
     },
   }));
 
@@ -78,7 +78,7 @@ const ProvPassInformation = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{}}>
       <CssBaseline />
       {helpPopup && <HelpPopup />}
       <AppBar
@@ -122,18 +122,18 @@ const ProvPassInformation = () => {
       <Container
         maxWidth={false}
         disableGutters
+        className={classes.content}
         style={{
           backgroundColor: "#fff",
-          height: "fit-content",
           border: "1px solid #fff",
         }}
       >
         <Container
-          maxWidth="md"
           style={{
             marginTop: 65,
             backgroundColor: "#f9f9f9",
-            height: "fit-content",
+            width: "80%",
+            height: "75%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -171,7 +171,7 @@ const ProvPassInformation = () => {
               backgroundColor: "#fff",
               maxWidth: 600,
               // width: 600,
-              height: 480,
+              height: 800,
               overflow: "auto",
               border: "1px solid #e1e1e1",
               top: 0,
