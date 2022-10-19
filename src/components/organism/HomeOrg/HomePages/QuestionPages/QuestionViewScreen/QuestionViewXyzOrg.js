@@ -32,7 +32,6 @@ const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const params = useLocation();
-  console.log(params, 'params question view xyz')
   const [status, setStatus] = useState();
   const [timeLeft, setTimeLeft] = useState();
   const [time, setTime] = useState(0);
@@ -84,8 +83,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        setTime(30);
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -110,8 +109,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        setTime(30);
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(30);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));

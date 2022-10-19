@@ -132,7 +132,6 @@ const ResultSummaryOrg = (props) => {
       .get(URL)
       .then((response) => {
         response.data.question.map((item) => {
-          console.log(item, 'get quiz')
           return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
         });
 
@@ -525,8 +524,6 @@ const ResultSummaryOrg = (props) => {
                       >
                         {item?.spendTime
                           ? "Tid: " + dispSecondsAsMins(item?.spendTime)
-                          : params?.state?.time
-                          ? params?.state?.time
                           : "Tid: 00:00"}
                       </Typography>
                       <Box

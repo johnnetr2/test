@@ -166,10 +166,13 @@ const LineDemo = (props) => {
           <CartesianGrid strokeDasharray="0 0" vertical="" horizontal="true" />
           <XAxis dataKey="name" dy={10} tickLine={false} />
           <YAxis
+            type="number"
             dx={-10}
             tickLine={false}
             allowDecimals={false}
             axisLine={false}
+            domain={[0, 4]}
+            tickCount={5}
           />
           <Tooltip
             content={<CustomTooltip />}

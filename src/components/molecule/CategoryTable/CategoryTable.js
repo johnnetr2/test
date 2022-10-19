@@ -60,6 +60,7 @@ export const CategoryTable = (props) => {
         quizId: row.quiz._id,
         sectionCategory: sectionCategory,
         user: localStorage.getItem("userId"),
+        time: row.quiz.isTimeRestricted
       },
     });
   };

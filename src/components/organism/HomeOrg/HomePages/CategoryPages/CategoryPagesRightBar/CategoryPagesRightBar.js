@@ -53,7 +53,6 @@ const CategoryPagesRightBar = (props) => {
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
     instance2.get(lastWeeksData).then((response) => {
       const data = datesGroupByComponent(response.data.sevenWeekData, "W");
-      console.log("data 111341113", data);
       let previousWeeks = [];
       let a;
       if (Object.keys(data).length < 7) {

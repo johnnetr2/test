@@ -123,7 +123,6 @@ const QuestionBody = (props) => {
           justifyContent: "flex-start",
           alignItems: "center",
           flexDirection: "column",
-          border:'2px solid #f00'
         }}
       >
         <FeedbackCard

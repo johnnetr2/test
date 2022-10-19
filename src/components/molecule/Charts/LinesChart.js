@@ -99,14 +99,6 @@ const LinesChart = (props) => {
             border: "1px solid #e1e1e1",
             borderRadius: "5px",
           }}
-          // dataKey="x"
-          // viewBox={{ y: 0 }}
-          // labelFormatter={() => undefined}
-          // formatter={(okay) => [
-          //   new Intl.NumberFormat("en").format(okay),
-          //   undefined,
-          // ]}
-          // content={ dataKey: name }}
           itemStyle={{ color: "#000" }}
           cursor={false}
         />
