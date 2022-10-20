@@ -29,7 +29,6 @@ import { styled } from "@mui/material/styles";
 let dataSubmit = [];
 
 const QuestionViewDTKOrg = (props) => {
-  console.log(props, "multiquestion props");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const [showResult, setShowResult] = useState(false);
@@ -104,8 +103,15 @@ const QuestionViewDTKOrg = (props) => {
   }));
 
   const classes = useStyles(10);
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
+    scrollTop();
     if (props.paragraphIndex != undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
@@ -131,7 +137,14 @@ const QuestionViewDTKOrg = (props) => {
       );
     } else {
       return (
-        <Box sx={{ width: "100%", maxWidth: 600, marginTop:'1rem', marginBottom:'2rem' }}>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: 600,
+            marginTop: "1rem",
+            marginBottom: "2rem",
+          }}
+        >
           <ExerciseBtn title="svara" onClick={() => submitAnswer(question)} />
         </Box>
       );
@@ -290,8 +303,8 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     const Quiz = { ...quiz };
-    console.log(quiz, 'submit answer quiz')
-    console.log(dataSubmit, 'data submit array')
+    console.log(quiz, "submit answer quiz");
+    console.log(dataSubmit, "data submit array");
 
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
@@ -302,7 +315,9 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : seconds,
-      spendtimevtwo: props?.totalTime ? props?.totalTime - props?.timeLeft : seconds,
+      spendtimevtwo: props?.totalTime
+        ? props?.totalTime - props?.timeLeft
+        : seconds,
       // Boolean(
       //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
       // )
@@ -310,11 +325,10 @@ const QuestionViewDTKOrg = (props) => {
       //   : 0,
     };
     console.log(data, "submit answer multiquestion");
-    console.log(data.spendtime, 'data of spendTime')
-    console.log(data.spendtimevtwo, 'data of spendtimevtwo')
+    console.log(data.spendtime, "data of spendTime");
+    console.log(data.spendtimevtwo, "data of spendtimevtwo");
 
     dataSubmit.splice(selectedIndex, 1, data);
-
 
     props.updateQuiz(quiz);
 
@@ -342,7 +356,7 @@ const QuestionViewDTKOrg = (props) => {
       };
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
       instance2.post(URL1, payload).then((response) => {
-        console.log(response, 'multiquestion get paragraph questionanswer')
+        console.log(response, "multiquestion get paragraph questionanswer");
         response?.data?.question?.map((item, index) => {
           if (Quiz[props?.selectedIndex].question[index]) {
             Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
@@ -709,7 +723,10 @@ const QuestionViewDTKOrg = (props) => {
                           flexDirection: "column",
                         }}
                       >
-                        {console.log(question.questionStatement, 'question statement')}
+                        {console.log(
+                          question.questionStatement,
+                          "question statement"
+                        )}
                         <MarkLatex content={question.questionStatement} />
 
                         {question.image && (
@@ -815,8 +832,8 @@ const QuestionViewDTKOrg = (props) => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-                          marginBottom:'2rem',
-                          marginTop:'1rem'
+                          marginBottom: "2rem",
+                          marginTop: "1rem",
                         }}
                       >
                         <Typography

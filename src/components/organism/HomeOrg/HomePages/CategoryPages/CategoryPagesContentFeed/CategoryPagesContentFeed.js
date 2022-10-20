@@ -73,6 +73,13 @@ const CategoryPagesFeedContent = (props) => {
   const [alla, setAlla] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
 
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     //getting all the categories/subject
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -131,6 +138,7 @@ const CategoryPagesFeedContent = (props) => {
     } else if (props.item.title === "ELF") {
       setCategoryTitle("Engelsk läsförståelse");
     }
+    scrollTop();
   }, []);
 
   const [tabValue, setTabValue] = useState(0);

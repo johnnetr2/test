@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AlertDialogSlide from "../../../../../molecule/QuitTaskPopup/QuitTaskPopup";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -48,6 +48,7 @@ const QuestionViewXyzOrg = () => {
   const [startTimer, setStartTimer] = useState(true);
   let [remainingTime, setRemainingTime] = useState(0);
   var timer;
+  const myRef = useRef(null);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -171,9 +172,29 @@ const QuestionViewXyzOrg = () => {
     return () => clearInterval(timer);
   }, [!params.state.time && startTimer]);
 
-  const Next = (question) => {
+  const scrollBottom = () => {
+    setTimeout(() => {
+      myRef.current.scrollIntoView();
+    }, 500);
+  };
+
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const Next = (question, buttonText) => {
     setStartTimer(false);
+    if (buttonText === "Svara") {
+      console.log("scroll bottom 12122");
+      scrollBottom();
+    } else {
+      scrollTop(0);
+    }
     if (question.answer) {
+      // ref.current?.offsetTop({behavior: 'smooth'});
       if (selectedIndex + 1 == quiz.length) {
         if (
           answerSubmittedState.answer.length ===
@@ -192,6 +213,8 @@ const QuestionViewXyzOrg = () => {
         localStorage.removeItem("time");
         localStorage.removeItem("quiz");
       } else {
+        console.log("top click");
+        // scrollTop();
         setSeconds(0);
         setStatus(true);
         setStartTimer(true);
@@ -470,7 +493,7 @@ const QuestionViewXyzOrg = () => {
     } else {
       return question.selectedIndex + 1 || question.answer ? (
         <Box
-          onClick={() => Next(question)}
+          onClick={(e) => Next(question, e.target.innerText)}
           padding={1}
           mt={2}
           mb={2}
@@ -532,11 +555,12 @@ const QuestionViewXyzOrg = () => {
   const PopupHandler = () => {
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup !== undefined) {
-      navigate('/category',  {state: {
-        item: params?.state?.sectionCategory,
-      }});
-
-    }else if (quiz?.[0]?.answer || quiz?.[0]?.question?.[0].answer) {
+      navigate("/category", {
+        state: {
+          item: params?.state?.sectionCategory,
+        },
+      });
+    } else if (quiz?.[0]?.answer || quiz?.[0]?.question?.[0].answer) {
       setOpen(true);
     } else {
       navigate(-1);
@@ -647,9 +671,9 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <AlertDialogSlide
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -672,9 +696,9 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
@@ -720,6 +744,7 @@ const QuestionViewXyzOrg = () => {
             if (index === selectedIndex) {
               return (
                 <QuestionBody
+                  onScrollBottom={myRef}
                   isTimeRestricted={params?.state?.time}
                   question={quiz[selectedIndex]}
                   totalQuestions={totalQuestions}
