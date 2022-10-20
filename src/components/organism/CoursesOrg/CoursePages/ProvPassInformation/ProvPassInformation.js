@@ -78,7 +78,7 @@ const ProvPassInformation = () => {
   }, []);
 
   return (
-    <div style={{}}>
+    <div>
       <CssBaseline />
       {helpPopup && <HelpPopup />}
       <AppBar
