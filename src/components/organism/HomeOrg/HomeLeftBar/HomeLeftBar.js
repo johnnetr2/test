@@ -19,6 +19,7 @@ import {
   Box,
   TableContainer,
 } from "@material-ui/core";
+require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -163,15 +164,9 @@ const HomeLeftBar = (props) => {
       </NavLink>
       {/* Home Nav */}
 
+      { process.env.REACT_APP_SERVER_NAME === "DEV" ?
       <NavLink
         to="/courses"
-        // onClick={() => {
-        //   navigate("/courses", {
-        //     state: {
-        //       popUpStatus: true,
-        //     },
-        //   });
-        // }}
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
@@ -210,6 +205,48 @@ const HomeLeftBar = (props) => {
           </Typography>
         </Box>
       </NavLink>
+      :
+      <Box
+      to="/#"
+      className={classes.disabledNavStyle}
+      // style={({ isActive }) => {
+      //   return {
+      //     backgroundColor: isActive ? "#0A1596" : "none",
+      //     color: isActive ? "#fff" : "none",
+      //   };
+      // }}
+    >
+      <Box
+        className={classes.Disableitem}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+        // onClick={() =>
+        // navigate("/home", {
+        //   state: {
+        //     popUpStatus: true,
+        //   },
+        // })
+        // }
+      >
+        {/* <img src={HomeC} alt="" srcset="" /> */}
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <img
+            src={props.currentPage === "course" ? CourseC : Course}
+            className={classes.icon}
+          />
+        </Box>
+        <Typography
+          variant="body1"
+          component="body1"
+          className={classes.text}
+        >
+          Prov
+        </Typography>
+      </Box>
+    </Box>
+}
 
       {/* <NavLink
         to="/courses"
