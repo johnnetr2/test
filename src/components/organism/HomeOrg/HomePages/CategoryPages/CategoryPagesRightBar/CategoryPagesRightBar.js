@@ -65,53 +65,70 @@ const CategoryPagesRightBar = (props) => {
           attemptQuestions: 0,
           eachCategoryPrognos: 0,
           totalQuestion: 0,
-          weekWiseCorrected : 0
+          weekWiseCorrected: 0,
         };
         for (let index = b; index < first; index++) {
           previousWeeks.push("V." + index);
-          weeklyProgressArr.push({...defaultValuseObj, name : "V." + index});
+          weeklyProgressArr.push({ ...defaultValuseObj, name: "V." + index });
         }
       }
-      
-      let weekWiseProgress = {}
-      let calculationForTerminate = 0
-      
+
+      let weekWiseProgress = {};
+      let calculationForTerminate = 0;
+
       data &&
         Object.keys(data).forEach((weekKey, index) => {
-          const weekKeyName = "V." + weekKey
-          let weekWiseCorrected = 0
+          const weekKeyName = "V." + weekKey;
+          previousWeeks.push(weekKeyName);
 
-          for (let iterations = index; iterations >= 0 ; iterations--) {
-            const weekWiseData = Object.values(data)[iterations]
+          let weekWiseCorrected = 0;
 
-            if(iterations === index) {
+          for (let iterations = index; iterations >= 0; iterations--) {
+            const weekWiseData = Object.values(data)[iterations];
+
+            if (iterations === index) {
               for (const solvedQuiz of weekWiseData) {
-                weekWiseCorrected = weekWiseCorrected + solvedQuiz.correctAnswer
+                weekWiseCorrected =
+                  weekWiseCorrected + solvedQuiz.correctAnswer;
               }
             }
 
-            for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
+            for (
+              let indexQuizResolved = 0;
+              indexQuizResolved < weekWiseData.length;
+              indexQuizResolved++
+            ) {
               const item = weekWiseData[indexQuizResolved];
-              calculationForTerminate = calculationForTerminate +item.attemptedQuestion
-              if(calculationForTerminate >= 100) {
-                break
+              calculationForTerminate =
+                calculationForTerminate + item.attemptedQuestion;
+              if (calculationForTerminate >= 100) {
+                break;
               }
               weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-              ? weekWiseProgress?.correctAnswers + item.correctAnswer
-              : item.correctAnswer;
+                ? weekWiseProgress?.correctAnswers + item.correctAnswer
+                : item.correctAnswer;
               weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-              ? weekWiseProgress?.totalQuestion + item.totalQuestion
-              : item.totalQuestion;
-              weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-              ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
-              : item.attemptedQuestion;
+                ? weekWiseProgress?.totalQuestion + item.totalQuestion
+                : item.totalQuestion;
+              weekWiseProgress.attemptQuestions =
+                weekWiseProgress?.attemptQuestions
+                  ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
+                  : item.attemptedQuestion;
             }
           }
-          let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
-          weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
-          weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected, name: weekKeyName});
-          weekWiseProgress = {}
-          calculationForTerminate = 0
+          let progress =
+            (weekWiseProgress?.correctAnswers /
+              weekWiseProgress?.attemptQuestions) *
+            100;
+          weekWiseProgress.eachCategoryPrognos =
+            percentageCalculation(progress);
+          weeklyProgressArr.push({
+            ...weekWiseProgress,
+            weekWiseCorrected,
+            name: weekKeyName,
+          });
+          weekWiseProgress = {};
+          calculationForTerminate = 0;
         });
       setWeeklyProgress(weeklyProgressArr);
       setWeeks(previousWeeks);
