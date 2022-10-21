@@ -53,7 +53,7 @@ const LineDemo = (props) => {
 
   // useEffect(() => {
   //   props.weeklyProgress.map((item) => {
-  //     weeklyProgressArr.push(item.correctAnswers);
+  //     weeklyProgressArr.push(item.weekWiseCorrected);
   //   });
   //   console.log(weeklyProgressArr, "weeklyProgressArr console in useEffect");
   //   setWeeklyProgress(weeklyProgressArr);
@@ -79,49 +79,49 @@ const LineDemo = (props) => {
       name: props?.weeks?.length !== 0 ? props?.weeks[0] : "",
       correct:
         props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[0]?.correctAnswers
+          ? props?.weeklyProgress[0]?.weekWiseCorrected
           : "",
     },
     {
       name: props?.weeks?.length !== 0 ? props?.weeks[1] : "",
       correct:
         props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[1]?.correctAnswers
+          ? props?.weeklyProgress[1]?.weekWiseCorrected
           : "",
     },
     {
       name: props?.weeks?.length !== 0 ? props?.weeks[2] : "",
       correct:
         props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[2]?.correctAnswers
+          ? props?.weeklyProgress[2]?.weekWiseCorrected
           : "",
     },
     {
       name: props?.weeks?.length !== 0 ? props?.weeks[3] : "",
       correct:
         props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[3]?.correctAnswers
+          ? props?.weeklyProgress[3]?.weekWiseCorrected
           : "",
     },
     {
       name: props?.weeks?.length !== 0 ? props?.weeks[4] : "",
       correct:
         props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[4]?.correctAnswers
+          ? props?.weeklyProgress[4]?.weekWiseCorrected
           : "",
     },
     {
       name: props?.weeks?.length !== 0 ? props?.weeks[5] : "",
       correct:
         props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[5]?.correctAnswers
+          ? props?.weeklyProgress[5]?.weekWiseCorrected
           : "",
     },
     {
       name: props?.weeks?.length !== 0 ? props?.weeks[6] : "",
       correct:
         props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[6]?.correctAnswers
+          ? props?.weeklyProgress[6]?.weekWiseCorrected
           : "",
     },
   ];

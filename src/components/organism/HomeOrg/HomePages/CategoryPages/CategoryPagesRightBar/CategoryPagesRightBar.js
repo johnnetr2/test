@@ -65,6 +65,7 @@ const CategoryPagesRightBar = (props) => {
           attemptQuestions: 0,
           eachCategoryPrognos: 0,
           totalQuestion: 0,
+          weekWiseCorrected : 0
         };
         for (let index = b; index < first; index++) {
           previousWeeks.push("V." + index);
@@ -78,12 +79,19 @@ const CategoryPagesRightBar = (props) => {
       data &&
         Object.keys(data).forEach((weekKey, index) => {
           previousWeeks.push("V." + weekKey);
+          let weekWiseCorrected = 0
 
           for (let iterations = index; iterations >= 0 ; iterations--) {
             const weekWiseData = Object.values(data)[iterations]
 
-            for (let index = 0; index < weekWiseData.length; index++) {
-              const item = weekWiseData[index];
+            if(iterations === index) {
+              for (const solvedQuiz of weekWiseData) {
+                weekWiseCorrected = weekWiseCorrected + solvedQuiz.correctAnswer
+              }
+            }
+
+            for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
+              const item = weekWiseData[indexQuizResolved];
               calculationForTerminate = calculationForTerminate +item.attemptedQuestion
               if(calculationForTerminate >= 100) {
                 break
@@ -101,7 +109,7 @@ const CategoryPagesRightBar = (props) => {
           }
           let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
           weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
-          weeklyProgressArr.push(weekWiseProgress);
+          weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected});
           weekWiseProgress = {}
           calculationForTerminate = 0
         });
