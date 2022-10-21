@@ -69,7 +69,7 @@ const CategoryPagesRightBar = (props) => {
         };
         for (let index = b; index < first; index++) {
           previousWeeks.push("V." + index);
-          weeklyProgressArr.push(defaultValuseObj);
+          weeklyProgressArr.push({...defaultValuseObj, name : "V." + index});
         }
       }
       
@@ -78,7 +78,7 @@ const CategoryPagesRightBar = (props) => {
       
       data &&
         Object.keys(data).forEach((weekKey, index) => {
-          previousWeeks.push("V." + weekKey);
+          const weekKeyName = "V." + weekKey
           let weekWiseCorrected = 0
 
           for (let iterations = index; iterations >= 0 ; iterations--) {
@@ -109,7 +109,7 @@ const CategoryPagesRightBar = (props) => {
           }
           let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
           weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
-          weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected});
+          weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected, name: weekKeyName});
           weekWiseProgress = {}
           calculationForTerminate = 0
         });
