@@ -129,12 +129,13 @@ const StandardViewXyz = () => {
       color: "#6FCF97",
     },
     content: {
-      minHeight: "90vh",
+      minHeight: "95vh",
       backgroundColor: "#fff",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "90vw",
+      flexDirection: "column",
+      width: "100%",
     },
 
     spara: {
@@ -351,7 +352,8 @@ const StandardViewXyz = () => {
       <Container
         disableGutters
         maxWidth="false"
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        style={{ backgroundColor: "#fff" }}
+        className={classes.content}
       >
         <Container
           disableGutters
