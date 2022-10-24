@@ -10,12 +10,16 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { EndPoints, instance2 } from "../../service/Route";
 import EndPopup from "../EndPopup/EndPopup";
+import { useSelector } from "react-redux";
 
 const GoalBox = (props) => {
   const [pointCollection, setPointCollection] = useState({
     point: "",
     popup: false,
   });
+
+  const { user, token } = useSelector((state) => state.value);
+  console.log(user, token, "user and token");
   useEffect(() => {
     setPointCollection({ ...pointCollection, point: props.goalPoint });
   }, [props.goalPoint]);
@@ -24,13 +28,16 @@ const GoalBox = (props) => {
     setPointCollection({ ...pointCollection, popup: true });
   };
   const updatePoint = () => {
-    const pointURL =
-      EndPoints.testDate + "/User/" + localStorage.getItem("userId");
-
+    const pointURL = EndPoints.testDate + "User/" + user._id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
     const body = {
       point: pointCollection.point,
     };
-    instance2.put(pointURL, body).then((response) => {
+    instance2.put(pointURL, body, { headers }).then((response) => {
+      console.log(response, "response");
       setPointCollection({ ...pointCollection, popup: false });
     });
   };

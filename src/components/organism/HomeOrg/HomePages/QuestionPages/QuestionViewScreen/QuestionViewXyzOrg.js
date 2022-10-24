@@ -27,6 +27,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -46,6 +47,7 @@ const QuestionViewXyzOrg = () => {
   const [answerSubmittedState, setAnsSubmittedState] = useState();
   const [seconds, setSeconds] = useState(0);
   const [startTimer, setStartTimer] = useState(true);
+  const { user, token } = useSelector((state) => state.value);
   let [remainingTime, setRemainingTime] = useState(0);
   var timer;
 
@@ -139,9 +141,15 @@ const QuestionViewXyzOrg = () => {
       setRemainingTime((remainingTime) => remainingTime + (time - timeLeft));
       const questions = [...quiz];
       let question = questions[selectedIndex];
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
       const data = {
         quiz: params?.state?.quizId,
-        user: localStorage.getItem("userId"),
+        user: user._id,
         optionId: question.optionId,
         questionId: question._id,
         sectionCategory: params?.state?.sectionCategory?._id,
@@ -151,8 +159,9 @@ const QuestionViewXyzOrg = () => {
         MultipartQuestion: null,
         isTimeRestricted: params?.state?.time,
       };
+
       const URL = EndPoints.submitAnswer;
-      instance2.post(URL, data).then((response) => {
+      instance2.post(URL, data, { headers }).then((response) => {
         setAnsSubmittedState(response.data);
         console.log(response.data, "answer submit");
         setTime(timeLeft);
@@ -202,8 +211,12 @@ const QuestionViewXyzOrg = () => {
       if (question.selectedIndex + 1) {
         const questions = [...quiz];
         let ques = questions[selectedIndex];
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        };
         const URL = EndPoints.getAnswerByQuestionId + ques._id;
-        instance2.get(URL).then((response) => {
+        instance2.get(URL, { headers }).then((response) => {
           ques.answer = response?.data;
           ques.answerSubmited = true;
           !params?.state?.data?.value && setNextPress(!nextPress);
@@ -345,14 +358,18 @@ const QuestionViewXyzOrg = () => {
     try {
       const payload = {
         quiz: params?.state?.quizId,
-        user: localStorage.getItem("userId"),
+        user: user._id,
         sectionCategory: params?.state?.sectionCategory?._id,
         answer: AnswerArrayPayloadForCloseTimerFunc(),
       };
       // console.log(payload, "popup function call");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2
-        .post(URL, payload)
+        .post(URL, payload, { headers })
         .then((response) => {
           console.log(response, "submitted multipart paragraph");
         })
@@ -532,11 +549,12 @@ const QuestionViewXyzOrg = () => {
   const PopupHandler = () => {
     const checkPopup = params?.state?.questionIndex;
     if (checkPopup !== undefined) {
-      navigate('/category',  {state: {
-        item: params?.state?.sectionCategory,
-      }});
-
-    }else if (quiz?.[0]?.answer || quiz?.[0]?.question?.[0].answer) {
+      navigate("/category", {
+        state: {
+          item: params?.state?.sectionCategory,
+        },
+      });
+    } else if (quiz?.[0]?.answer || quiz?.[0]?.question?.[0].answer) {
       setOpen(true);
     } else {
       navigate(-1);
@@ -647,9 +665,9 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <AlertDialogSlide
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -672,9 +690,9 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}

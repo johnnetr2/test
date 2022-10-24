@@ -17,6 +17,7 @@ import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import swal from "sweetalert";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,11 +73,19 @@ const CategoryPagesFeedContent = (props) => {
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
+  const email = useSelector((state) => state);
+  const { user, token } = useSelector((state) => state.value);
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
 
   useEffect(() => {
     //getting all the categories/subject
+    console.log(email, "testing user email");
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
-    instance2.get(URL).then((response) => {
+    instance2.get(URL, { headers }).then((response) => {
       if (!response.data.message) {
         setQuestionCategories(response.data);
         setAllChecked(true);
@@ -92,7 +101,7 @@ const CategoryPagesFeedContent = (props) => {
       setCheckData(newArray);
 
       const URLHistory = EndPoints.testHistory + props.item._id;
-      instance2.get(URLHistory).then((response) => {
+      instance2.get(URLHistory, { headers }).then((response) => {
         setTableHistory(response?.data);
       });
 
@@ -216,12 +225,12 @@ const CategoryPagesFeedContent = (props) => {
           sectionCategory: props.item._id,
           totalQuestion: parseInt(chekedValue),
           value: timer,
-          user: localStorage.getItem("userId"),
+          user: user._id,
           multipartQuestion: null,
           isTimeRestricted: timer ? true : false,
         };
         const URL = EndPoints.storeQuiz;
-        instance2.post(URL, data).then((response) => {
+        instance2.post(URL, data, { headers }).then((response) => {
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");

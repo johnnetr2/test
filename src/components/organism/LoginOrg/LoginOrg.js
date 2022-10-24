@@ -18,6 +18,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { signInWithGoogle } from "../../service/firebase";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../../store/reducers";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -46,6 +48,8 @@ const LoginOrg = () => {
 
   const classes = useStyles();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.value);
 
   const [enterPressed, setEnterPressed] = useState(false);
 
@@ -90,14 +94,16 @@ const LoginOrg = () => {
         .post(URL, data)
         .then((response) => {
           console.log(response, "response");
+          const { user, token } = response.data;
           if (!response.data.user.is_verified) {
             swal("Warning!", "User is not verfied", "warning");
           } else if (response.data.token) {
-            localStorage.setItem("userId", response.data.user._id);
+            dispatch(login({ user, token }));
             localStorage.setItem("token", response.data.token);
-            localStorage.setItem("role", response.data.user.role);
-            localStorage.setItem("fullName", response.data.user.fullName);
-            localStorage.setItem("email", response.data.user.email);
+            // localStorage.setItem("userId", response.data.user._id);
+            // localStorage.setItem("role", response.data.user.role);
+            // localStorage.setItem("fullName", response.data.user.fullName);
+            // localStorage.setItem("email", response.data.user.email);
             MixpanelTracking.getInstance().login(
               "success",
               response.data.user?._id
@@ -130,10 +136,14 @@ const LoginOrg = () => {
 
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
-    const payLoad = {
-      email: localStorage.getItem("email"),
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     };
-    instance2.post(URL, payLoad).then((response) => {
+    const payLoad = {
+      email: user.email,
+    };
+    instance2.post(URL, payLoad, { headers }).then((response) => {
       if (response.status === 200) {
         swal("Success!", response.data, "success");
       }

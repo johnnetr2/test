@@ -8,23 +8,29 @@ import {
   instance3,
 } from "../../components/service/Route";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [firstPopup, setFirstPopup] = useState("");
   const [secondPopup, setSecondPopup] = useState("");
+  const { user, token } = useSelector((state) => state.value);
   const [collection, setCollection] = useState({
     season: "",
     gpa: "",
     StudentPreference: "",
-    userId: localStorage.getItem("userId"),
+    userId: user._id,
   });
 
   const location = useLocation();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
 
   useEffect(async () => {
-    const id = await localStorage.getItem("userId");
-    const URL = EndPoints.getStudentPreference + id;
-    instance2.get(URL).then((response) => {
+    const userId = await user._id;
+    const URL = EndPoints.getStudentPreference + userId;
+    instance2.get(URL, { headers }).then((response) => {
       if (response?.data?.StudentPreference) {
         setCollection({
           ...collection,
@@ -41,10 +47,10 @@ const Home = () => {
     const payLoad = {
       season: collection.season,
       point: collection.gpa ? collection.gpa : 1,
-      user: localStorage.getItem("userId"),
+      user: user._id,
     };
     const URL = EndPoints.testDate;
-    await instance3.post(URL, payLoad).then((response) => {
+    await instance2.post(URL, payLoad, { headers }).then((response) => {
       if (response?.data?.StudentPreference) {
         setCollection({ StudentPreference: response.data.StudentPreference });
         setSecondPopup(false);

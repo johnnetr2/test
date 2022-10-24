@@ -19,6 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ResultQuestionViewDtkOrg = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
@@ -70,6 +71,7 @@ const ResultQuestionViewDtkOrg = (props) => {
   const classes = useStyles(10);
   const [paragraph, setParagraph] = useState();
   const [showLoader, setShowLoader] = useState(false);
+  const { user, token } = useSelector((state) => state.value);
 
   const changeQuestion = () => {
     props.startTimer();
@@ -84,8 +86,12 @@ const ResultQuestionViewDtkOrg = (props) => {
 
     const URL = EndPoints.getParagraphResult + props?.paragraph?._id;
     console.log(URL, "this is result api url");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
     instance2
-      .post(URL, data)
+      .post(URL, data, { headers })
       .then((response) => {
         setShowLoader(false);
         setParagraph(response.data.question);

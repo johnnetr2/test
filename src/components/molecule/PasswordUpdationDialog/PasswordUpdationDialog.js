@@ -18,6 +18,7 @@ import FilledBtn from "../../atom/FilledBtn/FilledBtn";
 import { EndPoints, instance2 } from "../../service/Route";
 import axios from "axios";
 import swal from "sweetalert";
+import { useSelector } from "react-redux";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -64,6 +65,7 @@ export default function PasswordUpdationDialog(props) {
     currentPassword: "",
     updatedPassword: "",
   });
+  const { user, token } = useSelector((state) => state.value);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -75,9 +77,13 @@ export default function PasswordUpdationDialog(props) {
       oldPassword: updatePassword.currentPassword,
       password: updatePassword.updatedPassword,
     };
-    const URL = EndPoints.changePassword + localStorage.getItem("userId");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+    const URL = EndPoints.changePassword + user._id;
     instance2
-      .post(URL, payLoad)
+      .post(URL, payLoad, { headers })
       .then((response) => {
         if (response.data.message === "success") {
           props.hidePopup();

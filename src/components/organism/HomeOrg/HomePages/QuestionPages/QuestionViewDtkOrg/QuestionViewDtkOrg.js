@@ -25,6 +25,7 @@ import Ruler from "../../../../../../assets/Imgs/ruler.png";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 
 let dataSubmit = [];
 
@@ -37,7 +38,11 @@ const QuestionViewDTKOrg = (props) => {
   const [onHover, setOnHover] = useState();
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
-
+  const { user, token } = useSelector((state) => state.value);
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
   // let minutes = 0;
   // let seconds = 0;
 
@@ -131,7 +136,14 @@ const QuestionViewDTKOrg = (props) => {
       );
     } else {
       return (
-        <Box sx={{ width: "100%", maxWidth: 600, marginTop:'1rem', marginBottom:'2rem' }}>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: 600,
+            marginTop: "1rem",
+            marginBottom: "2rem",
+          }}
+        >
           <ExerciseBtn title="svara" onClick={() => submitAnswer(question)} />
         </Box>
       );
@@ -290,8 +302,8 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     const Quiz = { ...quiz };
-    console.log(quiz, 'submit answer quiz')
-    console.log(dataSubmit, 'data submit array')
+    console.log(quiz, "submit answer quiz");
+    console.log(dataSubmit, "data submit array");
 
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
@@ -302,7 +314,9 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : seconds,
-      spendtimevtwo: props?.totalTime ? props?.totalTime - props?.timeLeft : seconds,
+      spendtimevtwo: props?.totalTime
+        ? props?.totalTime - props?.timeLeft
+        : seconds,
       // Boolean(
       //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
       // )
@@ -310,11 +324,10 @@ const QuestionViewDTKOrg = (props) => {
       //   : 0,
     };
     console.log(data, "submit answer multiquestion");
-    console.log(data.spendtime, 'data of spendTime')
-    console.log(data.spendtimevtwo, 'data of spendtimevtwo')
+    console.log(data.spendtime, "data of spendTime");
+    console.log(data.spendtimevtwo, "data of spendtimevtwo");
 
     dataSubmit.splice(selectedIndex, 1, data);
-
 
     props.updateQuiz(quiz);
 
@@ -322,14 +335,15 @@ const QuestionViewDTKOrg = (props) => {
       props.stopTimer();
       const obj = {
         quiz: props.quizId,
-        user: localStorage.getItem("userId"),
+        user: user._id,
         sectionCategory: quiz.sectionCategory,
         answer: dataSubmit,
         isTimeRestricted: props.isTimeRestricted,
       };
       console.log(obj, "payload of multiquestion submit answer api");
+
       const URL = EndPoints.submitMultiquestionParagragh;
-      await instance2.post(URL, obj).then((response) => {
+      await instance2.post(URL, obj, { headers }).then((response) => {
         console.log(response, "submit response dtk");
         dataSubmit = [];
         setShowResult(true);
@@ -340,9 +354,10 @@ const QuestionViewDTKOrg = (props) => {
       const payload = {
         quiz: props?.quizId,
       };
+
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
-      instance2.post(URL1, payload).then((response) => {
-        console.log(response, 'multiquestion get paragraph questionanswer')
+      instance2.post(URL1, payload, { headers }).then((response) => {
+        console.log(response, "multiquestion get paragraph questionanswer");
         response?.data?.question?.map((item, index) => {
           if (Quiz[props?.selectedIndex].question[index]) {
             Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
@@ -709,7 +724,10 @@ const QuestionViewDTKOrg = (props) => {
                           flexDirection: "column",
                         }}
                       >
-                        {console.log(question.questionStatement, 'question statement')}
+                        {console.log(
+                          question.questionStatement,
+                          "question statement"
+                        )}
                         <MarkLatex content={question.questionStatement} />
 
                         {question.image && (
@@ -815,8 +833,8 @@ const QuestionViewDTKOrg = (props) => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-                          marginBottom:'2rem',
-                          marginTop:'1rem'
+                          marginBottom: "2rem",
+                          marginTop: "1rem",
                         }}
                       >
                         <Typography

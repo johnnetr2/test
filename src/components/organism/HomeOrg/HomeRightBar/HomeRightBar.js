@@ -9,6 +9,7 @@ import QuestionProgressBox from "../../../../components/molecule/QuestionProgres
 import { createTheme } from "@mui/material/styles";
 import moment from "moment";
 import { padding } from "@mui/system";
+import { useSelector } from "react-redux";
 
 function datesGroupByComponent(dates, token) {
   return dates.reduce(function (val, obj) {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const HomeRightBar = (props) => {
   const classes = useStyles();
   const theme = createTheme();
+  const { token, user } = useSelector((state) => state.value);
   // const [studentPreference, setStudentPreference] = useState();
   let [showPrognos, seTShowPrognos] = useState();
   const [weeklyProgress, setWeeklyProgress] = useState(0);
@@ -34,10 +36,15 @@ const HomeRightBar = (props) => {
   let weeksArr = [];
   let newArray = [];
 
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("userId")) {
-      const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
-      instance2.get(URL).then((response) => {
+    if (user._id) {
+      const URL = EndPoints.oneDayResult + user._id;
+      instance2.get(URL, { headers }).then((response) => {
         const data = datesGroupByComponent(response.data.lastWeek, "W");
         let previousweeks = [];
         let a;
@@ -82,9 +89,8 @@ const HomeRightBar = (props) => {
         setWeeks(newArray);
       });
 
-      const getPreviosRecord =
-        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-      instance2.get(getPreviosRecord).then((response) => {
+      const getPreviosRecord = EndPoints.studentPerviousProgress + user._id;
+      instance2.get(getPreviosRecord, { headers }).then((response) => {
         response.data.Data.map((item) => {
           if (item.CorrectQuestion < 1) {
             seTShowPrognos(false);

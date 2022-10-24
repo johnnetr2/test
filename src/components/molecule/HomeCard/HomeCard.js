@@ -15,23 +15,33 @@ import { XYZNormeringValueFor } from "../../atom/percentageCalculator/Percentage
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../service/Route";
+import { useSelector } from "react-redux";
 
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
   const [totalCategoryQuestions, setTotalCategoryQuestions] = useState();
   const [loading, setLoading] = useState(true);
+  const { token, user } = useSelector((state) => state.value);
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
 
   useEffect(() => {
     const lastWeeksData = EndPoints.lastWeekTasks + props.item._id;
-    instance2.get(lastWeeksData).then((response) => {
+    instance2.get(lastWeeksData, { headers }).then((response) => {
       setTotalCategoryQuestions(response.data.totalQuestions);
       setLoading(false);
     });
   }, []);
 
   const percentageCalculation = () => {
-    const calculatePercentage = (props?.previousRecord?.correctedFromLastHundred / props?.previousRecord?.totalAttemptedHundred) * 100
+    const calculatePercentage =
+      (props?.previousRecord?.correctedFromLastHundred /
+        props?.previousRecord?.totalAttemptedHundred) *
+      100;
     if (props?.item.title === "XYZ") {
       return XYZNormeringValueFor(calculatePercentage);
     } else if (props?.item.title === "KVA") {

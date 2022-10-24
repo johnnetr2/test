@@ -19,6 +19,7 @@ import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/P
 import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,13 +46,18 @@ const CategoryPagesRightBar = (props) => {
   const [weeks, setWeeks] = useState();
   const [prognos, setPrognos] = useState();
   const [weeklyCorrect, setWeeklyCorrect] = useState();
+  const { token } = useSelector((state) => state.value);
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
   let weeklyProgressArr = [];
   let weeksArr = [];
   let newArray = [];
 
   useEffect(() => {
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
-    instance2.get(lastWeeksData).then((response) => {
+    instance2.get(lastWeeksData, { headers }).then((response) => {
       const data = datesGroupByComponent(response.data.sevenWeekData, "W");
       let previousWeeks = [];
       let a;
@@ -71,39 +77,45 @@ const CategoryPagesRightBar = (props) => {
           weeklyProgressArr.push(defaultValuseObj);
         }
       }
-      
-      let weekWiseProgress = {}
-      let calculationForTerminate = 0
-      
+
+      let weekWiseProgress = {};
+      let calculationForTerminate = 0;
+
       data &&
         Object.keys(data).forEach((weekKey, index) => {
           previousWeeks.push("V." + weekKey);
 
-          for (let iterations = index; iterations >= 0 ; iterations--) {
-            const weekWiseData = Object.values(data)[iterations]
+          for (let iterations = index; iterations >= 0; iterations--) {
+            const weekWiseData = Object.values(data)[iterations];
 
             for (let index = 0; index < weekWiseData.length; index++) {
               const item = weekWiseData[index];
-              calculationForTerminate = calculationForTerminate +item.attemptedQuestion
-              if(calculationForTerminate >= 100) {
-                break
+              calculationForTerminate =
+                calculationForTerminate + item.attemptedQuestion;
+              if (calculationForTerminate >= 100) {
+                break;
               }
               weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-              ? weekWiseProgress?.correctAnswers + item.correctAnswer
-              : item.correctAnswer;
+                ? weekWiseProgress?.correctAnswers + item.correctAnswer
+                : item.correctAnswer;
               weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-              ? weekWiseProgress?.totalQuestion + item.totalQuestion
-              : item.totalQuestion;
-              weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-              ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
-              : item.attemptedQuestion;
+                ? weekWiseProgress?.totalQuestion + item.totalQuestion
+                : item.totalQuestion;
+              weekWiseProgress.attemptQuestions =
+                weekWiseProgress?.attemptQuestions
+                  ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
+                  : item.attemptedQuestion;
             }
           }
-          let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
-          weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
+          let progress =
+            (weekWiseProgress?.correctAnswers /
+              weekWiseProgress?.attemptQuestions) *
+            100;
+          weekWiseProgress.eachCategoryPrognos =
+            percentageCalculation(progress);
           weeklyProgressArr.push(weekWiseProgress);
-          weekWiseProgress = {}
-          calculationForTerminate = 0
+          weekWiseProgress = {};
+          calculationForTerminate = 0;
         });
       setWeeklyProgress(weeklyProgressArr);
       setWeeks(previousWeeks);
@@ -112,7 +124,7 @@ const CategoryPagesRightBar = (props) => {
 
   useEffect(() => {
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
-    instance2.get(LastWeekURL).then((response) => {
+    instance2.get(LastWeekURL, { headers }).then((response) => {
       setLastWeekTasks(response.data);
     });
   }, []);

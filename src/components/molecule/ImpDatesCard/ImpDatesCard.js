@@ -11,20 +11,25 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
 import StartPopup from "../StartPopup/StartPopup";
 import { EndPoints, instance2 } from "../../service/Route";
+import { useSelector } from "react-redux";
 
 const ImpDatesCard = (props) => {
+  const { user, token } = useSelector((state) => state.value);
   const [collection, setCollection] = useState({
     season: "",
     popup: false,
     appliedDate: "",
   });
   const updateDate = () => {
-    const pointURL =
-      EndPoints.testDate + "/User/" + localStorage.getItem("userId");
+    const pointURL = EndPoints.testDate + "/User/" + user._id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
     const body = {
       season: collection.season,
     };
-    instance2.put(pointURL, body).then((response) => {
+    instance2.put(pointURL, { headers }, body).then((response) => {
       setCollection({ ...collection, popup: false });
     });
   };
@@ -32,16 +37,9 @@ const ImpDatesCard = (props) => {
     setCollection({ ...collection, season: props.season });
   }, [props.season]);
 
-  // const dateShow = () => {
-  //     const convertedDate = collection.season === "Hösten 2022" && date;
-  //   setCollection({ ...collection, appliedDate: convertedDate });
-  // }
-
   const hostenDate = new Date("10/23/2022");
-  // const varenDate = new Date("3/25/2023");
   const notSure = new Date();
   const formatHostenDate = moment(hostenDate).format("DD.MM.YYYY");
-  // const formatVarenDate = moment(varenDate).format("DD.MM.YYYY");
   const formatNotSure = moment(notSure).format("DD.MM.YYYY");
 
   const showHostenDate = () => {
@@ -72,7 +70,6 @@ const ImpDatesCard = (props) => {
               variant="body2"
               style={{
                 fontSize: ".65rem",
-                // marginBottom: "0.35rem",
                 marginLeft: ".15rem",
               }}
             >
@@ -83,15 +80,12 @@ const ImpDatesCard = (props) => {
         </>
       );
     } else if (collection.season == "Våren 2023") {
-      // return moment(varenDate).diff(moment(notSure), "days");
       return (
         <Typography
           variant="body2"
           style={{
             fontSize: ".65rem",
             color: "#656565",
-
-            //  marginBottom: "0.35rem"
           }}
         >
           inget officiellt datum finns ännu

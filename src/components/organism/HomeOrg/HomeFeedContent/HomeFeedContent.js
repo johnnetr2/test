@@ -16,6 +16,7 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // import { Tabs, Tab } from '@mui/material';
 
@@ -69,8 +70,15 @@ const HomeFeedContent = (props) => {
   const [sections, setSections] = useState();
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState();
+  const { user, token } = useSelector((state) => state.value);
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (token) {
       // const previousRecordURL =
       //   EndPoints.studentPerviousProgress + localStorage.getItem("userId");
       // instance2.get(previousRecordURL).then((response) => {
@@ -79,17 +87,19 @@ const HomeFeedContent = (props) => {
       //     setPreviousRecordProgress(response.data.Data);
       //   }
       // });
-      const loginUserID = localStorage.getItem("userId");
+      const loginUserID = user._id;
       const NormeringValueOfBothMainCategories =
         EndPoints.OverAllNormeringValue + loginUserID;
-      instance2.get(NormeringValueOfBothMainCategories).then((response) => {
-        if (response?.data?.success) {
-          setPreviousRecordProgress(response.data.Data);
-        }
-      });
+      instance2
+        .get(NormeringValueOfBothMainCategories, { headers })
+        .then((response) => {
+          if (response?.data?.success) {
+            setPreviousRecordProgress(response.data.Data);
+          }
+        });
 
       const url = EndPoints.getAllSections;
-      instance2.get(url).then((response) => {
+      instance2.get(url, { headers }).then((response) => {
         let newArr = [];
         response.data.data.map((item) => {
           if (item.title == "XYZ") {
