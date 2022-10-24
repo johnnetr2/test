@@ -55,9 +55,10 @@ const StandardViewXyz = () => {
     if (params?.state?.questionIndex != undefined) {
       console.log(params.state.quiz.simuleraQuiz);
       setTime(params?.state?.timeLeft);
-      setQuiz(params?.state?.quiz.simuleraQuiz);
+      setQuiz(params?.state?.quiz);
       setCurrentIndex(params?.state?.questionIndex);
       setStatus(true);
+      setOpen(false)
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
       console.log(URL);
