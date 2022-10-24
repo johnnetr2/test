@@ -65,26 +65,27 @@ const CategoryPagesRightBar = (props) => {
           attemptQuestions: 0,
           eachCategoryPrognos: 0,
           totalQuestion: 0,
-          weekWiseCorrected : 0
+          weekWiseCorrected: 0
         };
         for (let index = b; index < first; index++) {
           previousWeeks.push("V." + index);
-          weeklyProgressArr.push({...defaultValuseObj, name : "V." + index});
+          weeklyProgressArr.push({ ...defaultValuseObj, name: "V." + index });
         }
       }
-      
+
       let weekWiseProgress = {}
       let calculationForTerminate = 0
-      
+
       data &&
         Object.keys(data).forEach((weekKey, index) => {
           const weekKeyName = "V." + weekKey
+          previousWeeks.push(weekKeyName)
           let weekWiseCorrected = 0
 
-          for (let iterations = index; iterations >= 0 ; iterations--) {
+          for (let iterations = index; iterations >= 0; iterations--) {
             const weekWiseData = Object.values(data)[iterations]
 
-            if(iterations === index) {
+            if (iterations === index) {
               for (const solvedQuiz of weekWiseData) {
                 weekWiseCorrected = weekWiseCorrected + solvedQuiz.correctAnswer
               }
@@ -92,24 +93,30 @@ const CategoryPagesRightBar = (props) => {
 
             for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
               const item = weekWiseData[indexQuizResolved];
-              calculationForTerminate = calculationForTerminate +item.attemptedQuestion
-              if(calculationForTerminate >= 100) {
+              calculationForTerminate = calculationForTerminate + item.attemptedQuestion
+              if (calculationForTerminate >= 100) {
                 break
               }
               weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-              ? weekWiseProgress?.correctAnswers + item.correctAnswer
-              : item.correctAnswer;
+                ? weekWiseProgress?.correctAnswers + item.correctAnswer
+                : item.correctAnswer;
               weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-              ? weekWiseProgress?.totalQuestion + item.totalQuestion
-              : item.totalQuestion;
+                ? weekWiseProgress?.totalQuestion + item.totalQuestion
+                : item.totalQuestion;
               weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-              ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
-              : item.attemptedQuestion;
+                ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
+                : item.attemptedQuestion;
             }
+
           }
-          let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
-          weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
-          weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected, name: weekKeyName});
+          if (weekWiseProgress?.attemptQuestions > 20) {
+            let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
+            weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
+            weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected, name: weekKeyName });
+
+          } else {
+            weeklyProgressArr.push({ eachCategoryPrognos: null, weekWiseCorrected, })
+          }
           weekWiseProgress = {}
           calculationForTerminate = 0
         });
@@ -126,23 +133,43 @@ const CategoryPagesRightBar = (props) => {
   }, []);
 
   const percentageCalculation = (prognos) => {
-    if (props?.item.title == "XYZ") {
-      return XYZNormeringValueFor(prognos);
-    } else if (props?.item.title == "KVA") {
-      return KVANormeringValueFor(prognos);
-    } else if (props?.item.title == "NOG") {
-      return NOGNormeringValueFor(prognos);
-    } else if (props?.item.title == "DTK") {
-      return DTKNormeringValueFor(prognos);
-    } else if (props?.item.title == "ELF") {
-      return ELFNormeringValueFor(prognos);
-    } else if (props?.item.title == "LÄS") {
-      return LASNormeringValueFor(prognos);
-    } else if (props?.item.title == "ORD") {
-      return ORDNormeringValueFor(prognos);
-    } else if (props?.item.title == "MEK") {
-      return MEKNormeringValueFor(prognos);
+    switch (props?.item.title) {
+      case 'XYZ':
+        return XYZNormeringValueFor(prognos);
+      case 'KVA':
+        return KVANormeringValueFor(prognos);
+      case 'NOG':
+        return NOGNormeringValueFor(prognos);
+      case 'DTK':
+        return DTKNormeringValueFor(prognos);
+      case 'ELF':
+        return ELFNormeringValueFor(prognos);
+      case 'ORD':
+        return ORDNormeringValueFor(prognos);
+      case 'MEK':
+        return MEKNormeringValueFor(prognos);
+      case 'LÄS':
+        return LASNormeringValueFor(prognos);
+      default:
+        break;
     }
+    // if (props?.item.title == "XYZ") {
+    //   return XYZNormeringValueFor(prognos);
+    // } else if (props?.item.title == "KVA") {
+    //   return KVANormeringValueFor(prognos);
+    // } else if (props?.item.title == "NOG") {
+    //   return NOGNormeringValueFor(prognos);
+    // } else if (props?.item.title == "DTK") {
+    //   return DTKNormeringValueFor(prognos);
+    // } else if (props?.item.title == "ELF") {
+    //   return ELFNormeringValueFor(prognos);
+    // } else if (props?.item.title == "LÄS") {
+    //   return LASNormeringValueFor(prognos);
+    // } else if (props?.item.title == "ORD") {
+    //   return ORDNormeringValueFor(prognos);
+    // } else if (props?.item.title == "MEK") {
+    //   return MEKNormeringValueFor(prognos);
+    // }
   };
 
   return (
@@ -192,8 +219,8 @@ const CategoryPagesRightBar = (props) => {
               value={
                 lastWeekTasks
                   ? (lastWeekTasks.totalCorrectQuestions /
-                      lastWeekTasks.totalQuestions) *
-                    100
+                    lastWeekTasks.totalQuestions) *
+                  100
                   : 0
               }
             />
@@ -259,10 +286,10 @@ const CategoryPagesRightBar = (props) => {
           <Typography variant="h5">
             {lastWeekTasks
               ? percentageCalculation(
-                  (lastWeekTasks?.totalCorrectQuestions /
-                    lastWeekTasks?.totalAttemptedQuestions) *
-                    100
-                )
+                (lastWeekTasks?.totalCorrectQuestions /
+                  lastWeekTasks?.totalAttemptedQuestions) *
+                100
+              )
               : 0}
           </Typography>
           <Typography variant="body2">
