@@ -81,6 +81,13 @@ const CategoryPagesFeedContent = (props) => {
     "Content-Type": "application/json",
   };
 
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     //getting all the categories/subject
     console.log(email, "testing user email");
@@ -140,6 +147,7 @@ const CategoryPagesFeedContent = (props) => {
     } else if (props.item.title === "ELF") {
       setCategoryTitle("Engelsk läsförståelse");
     }
+    scrollTop();
   }, []);
 
   const [tabValue, setTabValue] = useState(0);

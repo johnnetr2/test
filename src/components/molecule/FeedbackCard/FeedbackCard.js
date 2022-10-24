@@ -114,7 +114,7 @@ export default function CustomizedDialogs(props) {
         >
           <DialogContent>
             <Typography sx={{ color: "#505050", fontSize: "14px" }}>
-              Tack, din feedback sparades
+              Tack, din feedback sparades.
             </Typography>
             <Typography sx={{ color: "#505050", fontSize: "14px" }}>
               Lägg gärna till något nedan. Det hjälper oss att förbättra oss

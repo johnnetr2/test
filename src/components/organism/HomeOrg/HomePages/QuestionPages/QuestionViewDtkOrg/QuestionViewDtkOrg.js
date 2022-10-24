@@ -13,6 +13,7 @@ import { EndPoints, instance, instance2 } from "../../../../../service/Route";
 import React, { useEffect, useRef, useState } from "react";
 
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
+import ArrowSalt from "../../../../../../assets/Icons/ArrowSalt.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Draggable from "react-draggable";
@@ -30,7 +31,6 @@ import { useSelector } from "react-redux";
 let dataSubmit = [];
 
 const QuestionViewDTKOrg = (props) => {
-  console.log(props, "multiquestion props");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [quiz, setQuiz] = useState();
   const [showResult, setShowResult] = useState(false);
@@ -109,8 +109,15 @@ const QuestionViewDTKOrg = (props) => {
   }));
 
   const classes = useStyles(10);
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
+    scrollTop();
     if (props.paragraphIndex != undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
@@ -441,6 +448,16 @@ const QuestionViewDTKOrg = (props) => {
             >
               {quiz && quiz.question.length + " uppgifter:"}
             </Typography>
+            <img
+              onClick={openExtended}
+              style={{
+                position: "absolute",
+                top: 20,
+                right: 20,
+                cursor: "pointer",
+              }}
+              src={ArrowSalt}
+            />
             <Typography variant="h6" component="h6">
               {!quiz?.title === "DTK" ? quiz?.title : ""}
             </Typography>
@@ -484,7 +501,11 @@ const QuestionViewDTKOrg = (props) => {
                   </Box>
                 </DialogTitle>
                 <DialogContent
-                  style={{ padding: "0 5rem 2rem", display: "flex" }}
+                  style={{
+                    padding: "0 5rem 2rem",
+                    display: "flex",
+                    border: "1px solid #f00",
+                  }}
                 >
                   <Box style={{ width: "90%" }}>
                     <img src={quiz?.image} style={{ width: "100%" }} alt="" />
@@ -500,7 +521,11 @@ const QuestionViewDTKOrg = (props) => {
                     <Draggable>
                       <img
                         src={Ruler}
-                        style={{ background: "#fff", width: "75%" }}
+                        style={{
+                          background: "#fff",
+                          width: "75%",
+                          border: "1px solid #f00",
+                        }}
                         alt=""
                       />
                     </Draggable>
@@ -508,15 +533,7 @@ const QuestionViewDTKOrg = (props) => {
                 </DialogContent>
               </>
             )}
-            <OpenInFull
-              onClick={openExtended}
-              style={{
-                position: "absolute",
-                top: "10",
-                right: "20",
-                cursor: "pointer",
-              }}
-            />
+
             <Dialog
               open={extendedView}
               onClose={closeExtended}

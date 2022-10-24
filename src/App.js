@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Routes, Route } from "react-router-dom";
 import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
@@ -6,6 +7,7 @@ import Message from "./pages/Message/Message";
 import Logout from "./pages/Logout/Logout";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import ProvPassInformation from "./components/organism/CoursesOrg/CoursePages/ProvPassInformation/ProvPassInformation";
@@ -27,6 +29,7 @@ import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/Rattad
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
 import EmailVerification from "./components/molecule/EmailVerification/EmailVerification";
 import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
+require("dotenv").config();
 
 function App() {
   const [toggleIcon, setToggleIcon] = useState({
@@ -58,12 +61,14 @@ function App() {
             <Home toggleIcon={toggleIcon} setToggleIcon={setToggleIcon} />
           }
         />
-        <Route
-          path="courses"
-          toggleIcon={toggleIcon}
-          setToggleIcon={setToggleIcon}
-          element={<Courses />}
-        />
+        {process.env.REACT_APP_SERVER_NAME === 'DEV'?
+          <Route
+            path="courses"
+            toggleIcon={toggleIcon}
+            setToggleIcon={setToggleIcon}
+            element={<Courses />}
+          />
+        : ""}
         <Route path="profile" element={<Profile />} />
         <Route path="message" element={<Message />} />
         <Route path="logout" element={<Logout />} />

@@ -1,5 +1,5 @@
 import { Box, FormControlLabel, Container } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import Increment from "../../../assets/Icons/Increment.svg";
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const QuestionBody = (props) => {
   const classes = useStyles();
+
   const [question, setQuestion] = useState(props?.question);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
@@ -230,6 +231,7 @@ const QuestionBody = (props) => {
             flexWrap: "wrap",
             backgroundColor: "#fff",
           }}
+          ref={props.onScrollBottom}
         >
           {props?.questionTypeTitle == "NOG" ? (
             <Box
