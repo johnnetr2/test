@@ -21,7 +21,7 @@ const ImpDatesCard = (props) => {
     appliedDate: "",
   });
   const updateDate = () => {
-    const pointURL = EndPoints.testDate + "/User/" + user._id;
+    const pointURL = EndPoints.testDate + "User/" + user._id;
     const headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const ImpDatesCard = (props) => {
     const body = {
       season: collection.season,
     };
-    instance2.put(pointURL, { headers }, body).then((response) => {
+    instance2.put(pointURL, body, { headers }).then((response) => {
       setCollection({ ...collection, popup: false });
     });
   };
