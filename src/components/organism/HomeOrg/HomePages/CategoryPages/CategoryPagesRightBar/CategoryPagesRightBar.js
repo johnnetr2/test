@@ -153,23 +153,6 @@ const CategoryPagesRightBar = (props) => {
       default:
         break;
     }
-    // if (props?.item.title == "XYZ") {
-    //   return XYZNormeringValueFor(prognos);
-    // } else if (props?.item.title == "KVA") {
-    //   return KVANormeringValueFor(prognos);
-    // } else if (props?.item.title == "NOG") {
-    //   return NOGNormeringValueFor(prognos);
-    // } else if (props?.item.title == "DTK") {
-    //   return DTKNormeringValueFor(prognos);
-    // } else if (props?.item.title == "ELF") {
-    //   return ELFNormeringValueFor(prognos);
-    // } else if (props?.item.title == "LÄS") {
-    //   return LASNormeringValueFor(prognos);
-    // } else if (props?.item.title == "ORD") {
-    //   return ORDNormeringValueFor(prognos);
-    // } else if (props?.item.title == "MEK") {
-    //   return MEKNormeringValueFor(prognos);
-    // }
   };
 
   return (
@@ -284,7 +267,7 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {lastWeekTasks
+            {lastWeekTasks && lastWeekTasks?.totalAttemptedQuestions > 19
               ? percentageCalculation(
                 (lastWeekTasks?.totalCorrectQuestions /
                   lastWeekTasks?.totalAttemptedQuestions) *
