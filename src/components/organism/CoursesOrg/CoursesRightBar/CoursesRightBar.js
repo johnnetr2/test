@@ -233,7 +233,8 @@ const RightBar = (props) => {
               </Table>
             </TableContainer>
           </Box>
-          <Box
+          {/* Hide unlock premium card */}
+          {/* <Box
             sx={{
               border: "1px solid #e1e1e1",
               borderRadius: ".25rem",
@@ -285,7 +286,7 @@ const RightBar = (props) => {
             <Box>
               <img style={{ height: "10rem" }} src={Thumb} alt="" />
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </Container>
