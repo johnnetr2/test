@@ -79,6 +79,7 @@ const StandardViewXyz = () => {
           simuleraQuiz: quiz?._id,
           simuleraSeason: quiz?.season,
           timeLeft,
+          currentQuestion: currentIndex, 
         },
       });
     }

@@ -198,6 +198,19 @@ const OverBlick = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+
+            onClick={() => {
+              navigate("/simuleraprov", {
+                state: {
+                  quiz,
+                  SubmitedQuestions: params?.state?.SubmitedQuestions,
+                  simuleraQuiz: quiz?._id,
+                  simuleraSeason: quiz?.season,
+                  timeLeft: params?.state.timeLeft,
+                  questionIndex: params?.state?.currentQuestion, 
+                }
+              })
+            }}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
