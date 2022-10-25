@@ -1,13 +1,16 @@
-import { Box, Container, Typography, makeStyles } from "@material-ui/core";
-import { EndPoints, instance2 } from "../../../service/Route";
+import { Box, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { createTheme } from "@mui/material/styles";
+import moment from "moment";
 
+import { EndPoints, instance2 } from "../../../service/Route";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
-import { createTheme } from "@mui/material/styles";
-import moment from "moment";
+import { KvantitaPercentageCalculator } from "../../../atom/percentageCalculator/kvantitative"
+import { VerbelPercentageCalculator } from '../../../atom/percentageCalculator/verbal'
+
 
 function datesGroupByComponent(dates, token) {
   return dates.reduce(function (val, obj) {
@@ -30,9 +33,16 @@ const HomeRightBar = (props) => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
-        const lastSevenWeeksData = response.data.lastWeek
+        const { lastWeekSevenWeekVerbel, lastWeekSevenWeekQuantitaive } = response.data
+        const verbelWeekWiseData = datesGroupByComponent(lastWeekSevenWeekVerbel, "W");
+        const quantitativeWeekWiseData = datesGroupByComponent(lastWeekSevenWeekQuantitaive, "W");
+        const verbalWeekWiseProgress = calculateWeekWiseNorming(verbelWeekWiseData, 'verbel')
+        const quantitativeWeekWiseProgress = calculateWeekWiseNorming(quantitativeWeekWiseData, 'quantitative')
 
-        const data = datesGroupByComponent(response.data.lastWeek, "W");
+
+
+
+
         let previousWeeks = [];
         let a
         if (Object.keys(data).length < 7) {
@@ -114,6 +124,76 @@ const HomeRightBar = (props) => {
       });
     }
   }, []);
+
+  const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
+    const previousWeeks = []
+    const weeklyProgressArr = []
+    let noOfEmptyWeek = 0
+    if (Object.keys(weekWiseData).length < 7) {
+
+      const weekKeys = Object.keys(weekWiseData); //35,36
+      const firstWeekKey = weekKeys[0]; //35
+      noOfEmptyWeek = 7 - weekKeys.length; //5
+      const startIndexOfLoop = firstWeekKey - noOfEmptyWeek; //30 //first = 35
+      const defaultValuseObj = {
+        correctAnswers: 0,
+        attemptQuestions: 0,
+        eachCategoryPrognos: 0,
+        totalQuestion: 0,
+        weekWiseCorrected: 0
+      };
+      for (let index = startIndexOfLoop; index < firstWeekKey; index++) {
+        previousWeeks.push("V." + index);
+        weeklyProgressArr.push({ ...defaultValuseObj, name: "V." + index });
+      }
+    }
+
+    let weekWiseProgress = {};
+    let calculationForTerminate = 0
+
+    weekWiseData &&
+      Object.keys(weekWiseData).map((weekKeyName, index) => {
+        const week = "V." + weekKeyName;
+        previousWeeks.push(week);
+        for (let iterations = index; iterations >= 0; iterations--) {
+          const weekWiseData = Object.values(weekWiseData)[iterations]
+
+          for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
+            const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
+
+            calculationForTerminate = calculationForTerminate + solvedQuizOfWeek.attemptedQuestion
+            if (calculationForTerminate >= 100) {
+              break
+            }
+            weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
+              ? weekWiseProgress?.correctAnswers + solvedQuizOfWeek.correctAnswer
+              : solvedQuizOfWeek.correctAnswer;
+            weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
+              ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
+              : solvedQuizOfWeek.totalQuestion;
+            weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
+              ? weekWiseProgress?.attemptQuestions + solvedQuizOfWeek.attemptedQuestion
+              : solvedQuizOfWeek.attemptedQuestion;
+
+          }
+        }
+
+        let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
+        if (testTypes === 'verbel') {
+          weekWiseProgress.eachCategoryPrognos = VerbelPercentageCalculator(progress);
+        } else {
+          weekWiseProgress.eachCategoryPrognos = KvantitaPercentageCalculator(progress);
+        }
+        weeklyProgressArr.push({ ...weekWiseProgress, name: week });
+
+        // var overAllprognos = weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptedQuestion;
+        // var a = overAllprognos * 2;
+        // weekWiseProgress.overAllprognos = a.toFixed(1);
+        // weeklyProgressArr.push(weekWiseProgress);
+      });
+
+    return weeklyProgressArr
+  }
 
   // useEffect(() => {
   //   const studentPrefenenceURL =
