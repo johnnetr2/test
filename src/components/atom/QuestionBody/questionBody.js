@@ -8,6 +8,7 @@ import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages
 import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
 import { Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
+import "../../../styles/QuestionBody.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,10 +37,12 @@ const QuestionBody = (props) => {
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
 
+  console.log("test", props.questionTypeTitle);
+
   const updateQuiz = (value) => {
     let quiz = [...props.quiz];
     setQuestion(value);
-    const index = quiz.findIndex((obj) => obj._id == value._id);
+    const index = quiz.findIndex((obj) => obj._id === value._id);
     quiz.splice(index, 1, value);
     props.updateQuiz(quiz);
   };
@@ -134,31 +137,9 @@ const QuestionBody = (props) => {
         />
         {/* question container for single question */}
         <Container maxWidth="sm" className={classes.questionContainer}>
-          <Typography
-            variant="h6"
-            component="h6"
-            style={{
-              fontSize: "1rem",
-              fontWeight: "600",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+          <div className="QuestionStatement"> {/* CSS on ./styles/QuestionBody.css */}
             <MarkLatex content={question?.questionStatement} />
-          </Typography>
-
-          {/* {question?.images[0] && (
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{
-                height: "12rem",
-                display: "flex",
-              }}
-            >
-              <img style={{ height: "80%" }} src={question?.images[0]} />
-            </Typography>
-          )} */}
+          </div>
 
           <Box
             sx={{
@@ -167,11 +148,11 @@ const QuestionBody = (props) => {
           >
             {question?.information1 && (
               <Box sx={{ display: "flex" }}>
-                <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
+                <Box sx={{ marginRight: ".7rem", fontSize: "1.3rem" }}>
                   {props.questionTypeTitle === "KVA" ? (
                     <Typography
                       variant="p"
-                      sx={{ fontStyle: "italic", fontSize: "0.75rem" }}
+                      sx={{ fontStyle: "italic", fontSize: "1.3rem" }}
                     >
                       Kvantitet I:{" "}
                     </Typography>
@@ -183,7 +164,7 @@ const QuestionBody = (props) => {
                   variant="body1"
                   component="body1"
                   style={{
-                    fontSize: "0.75rem",
+                    fontSize: "1.3rem",
                     display: "flex",
                     // maxHeight: "1.25rem",
                   }}
@@ -194,11 +175,11 @@ const QuestionBody = (props) => {
             )}
             {question?.information2 && (
               <Box sx={{ display: "flex" }}>
-                <Box sx={{ marginRight: ".5rem", fontSize: "0.75rem" }}>
+                <Box sx={{ marginRight: ".7rem", fontSize: "1.3rem" }}>
                   {props.questionTypeTitle === "KVA" ? (
                     <Typography
                       variant="p"
-                      sx={{ fontStyle: "italic", fontSize: "0.75rem" }}
+                      sx={{ fontStyle: "italic", fontSize: "1.3rem" }}
                     >
                       Kvantitet II:{" "}
                     </Typography>
@@ -210,7 +191,7 @@ const QuestionBody = (props) => {
                   variant="body1"
                   component="body1"
                   style={{
-                    fontSize: "0.75rem",
+                    fontSize: "1.3rem",
                     // maxHeight: "1.25rem",
                     display: "flex",
                   }}
@@ -233,7 +214,7 @@ const QuestionBody = (props) => {
           }}
           ref={props.onScrollBottom}
         >
-          {props?.questionTypeTitle == "NOG" ? (
+          {props?.questionTypeTitle === "NOG" ? (
             <Box
               sx={{
                 width: "100%",
@@ -417,27 +398,13 @@ const QuestionBody = (props) => {
               >
                 Förklaring:
               </Typography>
-              <Typography
-                variant="body1"
-                component="div"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "500",
-                  marginTop: 10,
-                }}
-              >
-                <MarkLatex content={question.answer.answer} />
+              <Typography variant="body1" component="div">
+                <div className="Explaination">
+                  {" "}
+                  {/* Style Explaination images at ./styles/QuestionBody.css */}
+                  <MarkLatex content={question.answer.answer} />
+                </div>
               </Typography>
-
-              {question?.answer?.image ? (
-                <img
-                  style={{ width: 100 }}
-                  src={question?.answer?.image}
-                  alt="Explanation Image"
-                />
-              ) : (
-                <div></div>
-              )}
             </Box>
             <Box
               sx={{

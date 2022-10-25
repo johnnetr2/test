@@ -461,7 +461,11 @@ const QuestionViewDTKOrg = (props) => {
                 fontWeight: "400",
               }}
             >
-              <MarkLatex content={quiz?.description} />
+              <div className="DTK">
+                {" "}
+                {/* DTK styling on ./styles/QuestionBody.css */}
+                <MarkLatex content={quiz?.description} />
+              </div>
             </Typography>
             {quiz?.image && (
               <>
@@ -542,8 +546,11 @@ const QuestionViewDTKOrg = (props) => {
                       {!quiz?.title === "DTK" ? quiz?.title : ""}
                     </Typography>
                   </DialogTitle>
-                  <DialogContent
-                    style={{ columnCount: "2", padding: "0 5rem 2rem" }}
+                  <DialogContent  /* 1 column for DTK and 2 columns for LÄS/ELF */
+                    style={{
+                      columnCount: `${quiz.title === "DTK" ? "1" : "2"}`,
+                      padding: "0 5rem 2rem",
+                    }}
                   >
                     <Typography
                       variant="subtitle1"

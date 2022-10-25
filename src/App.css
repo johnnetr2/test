@@ -19,17 +19,6 @@ blockquote {
 input::placeholder {
   color: "#E1E1E1";
 }
-p > img {
-  width: 130px !important;
-}
-
-.MuiTypography-h6 > p > img {
-  width: 300px !important;
-}
-
-.MuiTypography-body1 p:nth-child(2) img {
-  width: 300px !important;
-}
 
 .MuiTypography-root.MuiTypography-subtitle1 > * {
   display: block;
