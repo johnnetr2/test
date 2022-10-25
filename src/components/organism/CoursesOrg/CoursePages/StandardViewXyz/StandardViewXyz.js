@@ -53,9 +53,10 @@ const StandardViewXyz = () => {
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
       setTime(params?.state?.timeLeft);
-      setQuiz(params?.state?.quiz.simuleraQuiz);
+      setQuiz(params?.state?.quiz);
       setCurrentIndex(params?.state?.questionIndex);
       setStatus(true);
+      setOpen(false)
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
   
