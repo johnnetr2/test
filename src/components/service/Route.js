@@ -34,7 +34,6 @@ export const EndPoints = {
   getAllCategories: "admin/sectionCategories",
   questionCategoryBysectionCategory:
     "/admin/QuestionCategory/questionCategoryBysectionCategory/",
-  ResultByUser: "/quizResult/resultByUser/",
   testDate: "/api/studentPrefenence/",
   getResult: "/api/quizResult/resultByUserAndQuizid/",
   testHistory: "/api/quizResult/getQuizBySecOruser/",
@@ -71,7 +70,6 @@ export const EndPoints = {
   getParagraphResult: "/api/quizResult/paragraphQuestionResult/",
   getLastSevenWeeksData: "/api/task/sectionGraph/",
   OverAllNormeringValue: "/api/tableHistory/ProgressOfHundred/",
-  getLastSevenWeeksData: "/api/task/sectionGraph/",
   getParagraphQuestionAnswer: "/api/quizResult/paragraphQuestionResult/",
   emailVerified: "/auth/verify/",
 };

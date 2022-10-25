@@ -32,22 +32,25 @@ const HomeCard = (props) => {
 
   const percentageCalculation = () => {
     const calculatePercentage = (props?.previousRecord?.correctedFromLastHundred / props?.previousRecord?.totalAttemptedHundred) * 100
-    if (props?.item.title === "XYZ") {
-      return XYZNormeringValueFor(calculatePercentage);
-    } else if (props?.item.title === "KVA") {
-      return KVANormeringValueFor(calculatePercentage);
-    } else if (props?.item.title === "NOG") {
-      return NOGNormeringValueFor(calculatePercentage);
-    } else if (props?.item.title === "DTK") {
-      return DTKNormeringValueFor(calculatePercentage);
-    } else if (props?.item.title === "ELF") {
-      return ELFNormeringValueFor(calculatePercentage);
-    } else if (props?.item.title === "LÄS") {
-      return LASNormeringValueFor(calculatePercentage);
-    } else if (props?.item.title === "ORD") {
-      return ORDNormeringValueFor(calculatePercentage);
-    } else if (props?.item.title === "MEK") {
-      return MEKNormeringValueFor(calculatePercentage);
+    switch (props?.item.title) {
+      case 'XYZ':
+        return XYZNormeringValueFor(calculatePercentage);
+      case 'KVA':
+        return KVANormeringValueFor(calculatePercentage);
+      case 'NOG':
+        return NOGNormeringValueFor(calculatePercentage);
+      case 'DTK':
+        return DTKNormeringValueFor(calculatePercentage);
+      case 'ELF':
+        return ELFNormeringValueFor(calculatePercentage);
+      case 'ORD':
+        return ORDNormeringValueFor(calculatePercentage);
+      case 'MEK':
+        return MEKNormeringValueFor(calculatePercentage);
+      case 'LÄS':
+        return LASNormeringValueFor(calculatePercentage);
+      default:
+        break;
     }
   };
 
@@ -91,11 +94,11 @@ const HomeCard = (props) => {
               average={
                 props?.previousRecord
                   ? (props?.previousRecord.CorrectQuestion /
-                      totalCategoryQuestions) *
+                    totalCategoryQuestions) *
                     100
                     ? (props?.previousRecord.CorrectQuestion /
-                        totalCategoryQuestions) *
-                      100
+                      totalCategoryQuestions) *
+                    100
                     : 0
                   : 0
               }

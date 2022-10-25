@@ -92,34 +92,47 @@ const CategoryPagesRightBar = (props) => {
             }
 
             for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
-              const item = weekWiseData[indexQuizResolved];
-              calculationForTerminate = calculationForTerminate + item.attemptedQuestion
+              const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
+
+              calculationForTerminate = calculationForTerminate + solvedQuizOfWeek.attemptedQuestion
               if (calculationForTerminate >= 100) {
                 break
               }
-              weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-                ? weekWiseProgress?.correctAnswers + item.correctAnswer
-                : item.correctAnswer;
-              weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-                ? weekWiseProgress?.totalQuestion + item.totalQuestion
-                : item.totalQuestion;
-              weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-                ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
-                : item.attemptedQuestion;
-            }
+              if (solvedQuizOfWeek.quiz.isTimeRestricted) {
 
+                weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
+                  ? weekWiseProgress?.correctAnswers + solvedQuizOfWeek.correctAnswer
+                  : solvedQuizOfWeek.correctAnswer;
+                weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
+                  ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
+                  : solvedQuizOfWeek.totalQuestion;
+                weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
+                  ? weekWiseProgress?.attemptQuestions + solvedQuizOfWeek.attemptedQuestion
+                  : solvedQuizOfWeek.attemptedQuestion;
+
+              }
+
+            }
           }
-          if (weekWiseProgress?.attemptQuestions > 20) {
+          console.log("ajhsdk ad", weekWiseProgress?.attemptQuestions)
+          if (weekWiseProgress?.attemptQuestions >= 20) {
             let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
             weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
             weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected, name: weekKeyName });
 
           } else {
-            weeklyProgressArr.push({ eachCategoryPrognos: null, weekWiseCorrected, })
+            weeklyProgressArr.push({
+              eachCategoryPrognos: null,
+              weekWiseCorrected,
+              correctAnswers: 0,
+              attemptQuestions: 0,
+              name: weekKeyName
+            })
           }
           weekWiseProgress = {}
           calculationForTerminate = 0
         });
+      console.log("weeklyProgressArr 1212", weeklyProgressArr)
       setWeeklyProgress(weeklyProgressArr);
       setWeeks(previousWeeks);
     });
