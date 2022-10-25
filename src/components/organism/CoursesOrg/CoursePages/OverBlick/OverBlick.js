@@ -242,13 +242,16 @@ const OverBlick = () => {
         style={{
           backgroundColor: "#fff",
           border: "1px solid #fff",
+          height: "96vh",
+          width: "100%"
           // minHeight: "100vh",
         }}
-      >
+        >
         <Container
           disableGutters
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
+          
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             {/* <Box mt={2} width={100} sx={{ color: "#222" }}>
@@ -326,6 +329,8 @@ const OverBlick = () => {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            height: "92.5%",
+            width: "80%"
           }}
         >
           <Box
@@ -506,10 +511,11 @@ const OverBlick = () => {
             justifyContent: "center",
             alignItems: "center",
             boxShadow: "1px 1px 5px #999",
-            position: "static",
+            position: "fixed",
             bottom: 0,
             left: 0,
             right: 0,
+            
           }}
         >
           <Button
