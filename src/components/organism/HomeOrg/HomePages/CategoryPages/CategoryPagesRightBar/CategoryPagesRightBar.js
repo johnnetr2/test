@@ -38,16 +38,11 @@ function datesGroupByComponent(dates, token) {
 
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
-  const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");
   const { height, width } = useWindowDimensions();
   const [weeklyProgress, setWeeklyProgress] = useState();
   const [weeks, setWeeks] = useState();
-  const [prognos, setPrognos] = useState();
-  const [weeklyCorrect, setWeeklyCorrect] = useState();
   let weeklyProgressArr = [];
-  let weeksArr = [];
-  let newArray = [];
 
   useEffect(() => {
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
@@ -87,7 +82,8 @@ const CategoryPagesRightBar = (props) => {
 
             if (iterations === index) {
               for (const solvedQuiz of weekWiseData) {
-                weekWiseCorrected = weekWiseCorrected + solvedQuiz.correctAnswer
+                weekWiseCorrected =
+                  weekWiseCorrected + solvedQuiz.correctAnswer;
               }
             }
 
@@ -114,7 +110,6 @@ const CategoryPagesRightBar = (props) => {
 
             }
           }
-          console.log("ajhsdk ad", weekWiseProgress?.attemptQuestions)
           if (weekWiseProgress?.attemptQuestions >= 20) {
             let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
             weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
@@ -132,7 +127,6 @@ const CategoryPagesRightBar = (props) => {
           weekWiseProgress = {}
           calculationForTerminate = 0
         });
-      console.log("weeklyProgressArr 1212", weeklyProgressArr)
       setWeeklyProgress(weeklyProgressArr);
       setWeeks(previousWeeks);
     });

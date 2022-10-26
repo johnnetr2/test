@@ -71,7 +71,15 @@ const ResultQuestionViewDtkOrg = (props) => {
   const [paragraph, setParagraph] = useState();
   const [showLoader, setShowLoader] = useState(false);
 
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const changeQuestion = () => {
+    scrollTop();
     props.startTimer();
     props.nextQuestion();
   };

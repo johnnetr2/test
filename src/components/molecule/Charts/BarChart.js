@@ -171,8 +171,6 @@ const LineDemo = (props) => {
             tickLine={false}
             allowDecimals={false}
             axisLine={false}
-            domain={[0, 4]}
-            tickCount={5}
           />
           <Tooltip
             content={<CustomTooltip />}
