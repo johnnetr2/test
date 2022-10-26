@@ -39,21 +39,11 @@ function datesGroupByComponent(dates, token) {
 
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
-  const [progressData, setProgressData] = useState("");
   const [lastWeekTasks, setLastWeekTasks] = useState("");
   const { height, width } = useWindowDimensions();
   const [weeklyProgress, setWeeklyProgress] = useState();
   const [weeks, setWeeks] = useState();
-  const [prognos, setPrognos] = useState();
-  const [weeklyCorrect, setWeeklyCorrect] = useState();
-  const { token } = useSelector((state) => state.value);
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
   let weeklyProgressArr = [];
-  let weeksArr = [];
-  let newArray = [];
 
   useEffect(() => {
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
@@ -86,7 +76,6 @@ const CategoryPagesRightBar = (props) => {
         Object.keys(data).forEach((weekKey, index) => {
           const weekKeyName = "V." + weekKey;
           previousWeeks.push(weekKeyName);
-
           let weekWiseCorrected = 0;
 
           for (let iterations = index; iterations >= 0; iterations--) {
@@ -104,35 +93,52 @@ const CategoryPagesRightBar = (props) => {
               indexQuizResolved < weekWiseData.length;
               indexQuizResolved++
             ) {
-              const item = weekWiseData[indexQuizResolved];
+              const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
+
               calculationForTerminate =
-                calculationForTerminate + item.attemptedQuestion;
+                calculationForTerminate + solvedQuizOfWeek.attemptedQuestion;
               if (calculationForTerminate >= 100) {
                 break;
               }
-              weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-                ? weekWiseProgress?.correctAnswers + item.correctAnswer
-                : item.correctAnswer;
-              weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-                ? weekWiseProgress?.totalQuestion + item.totalQuestion
-                : item.totalQuestion;
-              weekWiseProgress.attemptQuestions =
-                weekWiseProgress?.attemptQuestions
-                  ? weekWiseProgress?.attemptQuestions + item.attemptedQuestion
-                  : item.attemptedQuestion;
+              if (solvedQuizOfWeek.quiz.isTimeRestricted) {
+                weekWiseProgress.correctAnswers =
+                  weekWiseProgress?.correctAnswers
+                    ? weekWiseProgress?.correctAnswers +
+                      solvedQuizOfWeek.correctAnswer
+                    : solvedQuizOfWeek.correctAnswer;
+                weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
+                  ? weekWiseProgress?.totalQuestion +
+                    solvedQuizOfWeek.totalQuestion
+                  : solvedQuizOfWeek.totalQuestion;
+                weekWiseProgress.attemptQuestions =
+                  weekWiseProgress?.attemptQuestions
+                    ? weekWiseProgress?.attemptQuestions +
+                      solvedQuizOfWeek.attemptedQuestion
+                    : solvedQuizOfWeek.attemptedQuestion;
+              }
             }
           }
-          let progress =
-            (weekWiseProgress?.correctAnswers /
-              weekWiseProgress?.attemptQuestions) *
-            100;
-          weekWiseProgress.eachCategoryPrognos =
-            percentageCalculation(progress);
-          weeklyProgressArr.push({
-            ...weekWiseProgress,
-            weekWiseCorrected,
-            name: weekKeyName,
-          });
+          if (weekWiseProgress?.attemptQuestions >= 20) {
+            let progress =
+              (weekWiseProgress?.correctAnswers /
+                weekWiseProgress?.attemptQuestions) *
+              100;
+            weekWiseProgress.eachCategoryPrognos =
+              percentageCalculation(progress);
+            weeklyProgressArr.push({
+              ...weekWiseProgress,
+              weekWiseCorrected,
+              name: weekKeyName,
+            });
+          } else {
+            weeklyProgressArr.push({
+              eachCategoryPrognos: null,
+              weekWiseCorrected,
+              correctAnswers: 0,
+              attemptQuestions: 0,
+              name: weekKeyName,
+            });
+          }
           weekWiseProgress = {};
           calculationForTerminate = 0;
         });
@@ -150,22 +156,25 @@ const CategoryPagesRightBar = (props) => {
   }, []);
 
   const percentageCalculation = (prognos) => {
-    if (props?.item.title == "XYZ") {
-      return XYZNormeringValueFor(prognos);
-    } else if (props?.item.title == "KVA") {
-      return KVANormeringValueFor(prognos);
-    } else if (props?.item.title == "NOG") {
-      return NOGNormeringValueFor(prognos);
-    } else if (props?.item.title == "DTK") {
-      return DTKNormeringValueFor(prognos);
-    } else if (props?.item.title == "ELF") {
-      return ELFNormeringValueFor(prognos);
-    } else if (props?.item.title == "LÄS") {
-      return LASNormeringValueFor(prognos);
-    } else if (props?.item.title == "ORD") {
-      return ORDNormeringValueFor(prognos);
-    } else if (props?.item.title == "MEK") {
-      return MEKNormeringValueFor(prognos);
+    switch (props?.item.title) {
+      case "XYZ":
+        return XYZNormeringValueFor(prognos);
+      case "KVA":
+        return KVANormeringValueFor(prognos);
+      case "NOG":
+        return NOGNormeringValueFor(prognos);
+      case "DTK":
+        return DTKNormeringValueFor(prognos);
+      case "ELF":
+        return ELFNormeringValueFor(prognos);
+      case "ORD":
+        return ORDNormeringValueFor(prognos);
+      case "MEK":
+        return MEKNormeringValueFor(prognos);
+      case "LÄS":
+        return LASNormeringValueFor(prognos);
+      default:
+        break;
     }
   };
 
@@ -281,7 +290,7 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {lastWeekTasks
+            {lastWeekTasks && lastWeekTasks?.totalAttemptedQuestions > 19
               ? percentageCalculation(
                   (lastWeekTasks?.totalCorrectQuestions /
                     lastWeekTasks?.totalAttemptedQuestions) *

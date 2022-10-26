@@ -6,19 +6,14 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { EndPoints, instance2 } from "../../../service/Route";
+import PropTypes from "prop-types";
+import swal from "sweetalert";
 import React, { useEffect, useState } from "react";
 
+import { EndPoints, instance2 } from "../../../service/Route";
 import Heading from "../../../atom/Heading/Heading";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
-import PropTypes from "prop-types";
-import styled from "@emotion/styled";
-import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-// import { Tabs, Tab } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,74 +49,51 @@ const HomeFeedContent = (props) => {
   const classes = useStyles();
 
   const [tabValue, setTabValue] = useState(0);
-  // const [progress, setProgress] = useState(0);
-  // const [prognos, setPrognos] = useState(0);
-
   const handleTabs = (e, val) => {
     setTabValue(val);
   };
-
   const TabPanel = (props) => {
     const { children, value, index } = props;
     return <div>{value === index && <div>{children}</div>}</div>;
   };
-
-  const navigate = useNavigate();
   const [sections, setSections] = useState();
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState();
   const [loading, setLoading] = useState(false);
-  const { user, token } = useSelector((state) => state.value);
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
 
   useEffect(() => {
-    if (token) {
-      // const previousRecordURL =
-      //   EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-      // instance2.get(previousRecordURL).then((response) => {
-      //   console.log(response, 'this is the console of response of overall prognosis values')
-      //   if (response.data.success == true) {
-      //     setPreviousRecordProgress(response.data.Data);
-      //   }
-      // });
-      const loginUserID = user._id;
+    if (localStorage.getItem("token")) {
+      const loginUserID = localStorage.getItem("userId");
       const NormeringValueOfBothMainCategories =
         EndPoints.OverAllNormeringValue + loginUserID;
-      instance2
-        .get(NormeringValueOfBothMainCategories, { headers })
-        .then((response) => {
-          console.log("NormeringValueOfBothMainCategories", response);
-          if (response?.data?.success) {
-            setLoading(true);
-            setPreviousRecordProgress(response.data.Data);
-          }
-        });
 
+      instance2.get(NormeringValueOfBothMainCategories).then((response) => {
+        if (response?.data?.success) {
+          setLoading(true);
+          setPreviousRecordProgress(response.data.Data);
+        }
+      });
       const url = EndPoints.getAllSections;
       instance2.get(url, { headers }).then((response) => {
         let newArr = [];
         response.data.data.map((item) => {
-          if (item.title == "XYZ") {
+          if (item.title === "XYZ") {
             item.time = 1;
             newArr.push(item);
           }
-          if (item.title == "KVA") {
+          if (item.title === "KVA") {
             item.time = 1;
             newArr.push(item);
           }
-          if (item.title == "NOG") {
+          if (item.title === "NOG") {
             item.time = 10 / 6;
             newArr.push(item);
           }
-          if (item.title == "DTK") {
+          if (item.title === "DTK") {
             item.time = 23 / 12;
             newArr.push(item);
           }
-          if (item.title == "ELF") {
+          if (item.title === "ELF") {
             item.time = 2.2;
             newArr.push(item);
           }
@@ -129,11 +101,11 @@ const HomeFeedContent = (props) => {
             item.time = 2.2;
             newArr.push(item);
           }
-          if (item.title == "MEK") {
+          if (item.title === "MEK") {
             item.time = 0.8;
             newArr.push(item);
           }
-          if (item.title == "ORD") {
+          if (item.title === "ORD") {
             item.time = 0.3;
             newArr.push(item);
           }

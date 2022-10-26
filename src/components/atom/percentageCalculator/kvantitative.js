@@ -1,10 +1,7 @@
 
-function inRange(x, min, max) {
-    return ((x - min) * (x - max) <= 0);
-}
-
-const KvantitaPercentageCalculator = (props) => {
-    const kvantitativeRanges = [
+import { valueFor } from "./Utils";
+export  const quantitativePercentageCalculator = (props) => {
+    const quantitativeRanges = [
         {
             min: 0.0,
             max: 24.6,
@@ -112,15 +109,6 @@ const KvantitaPercentageCalculator = (props) => {
         },
 
     ]
-    let percentage = 0
-    for (let i = 0; i < kvantitativeRanges.length; i++) {
-        const isInRange = inRange(props.percentage, kvantitativeRanges[i].min, kvantitativeRanges[i].max)
-        if (isInRange === true) {
-            percentage = kvantitativeRanges[i].value;
-            break
-        }
-    }
-    return percentage
+    return valueFor(props, quantitativeRanges);
 }
 
-export default KvantitaPercentageCalculator;

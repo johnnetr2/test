@@ -1,0 +1,24 @@
+.DTK > p > img {  /* DTK images: Diagrams, Tables and Maps. Applied on QuestionViewDtkOrg.js */
+    width: 100%;
+}
+
+.QuestionStatement > p > img { /* All other images on question except DTK. Applied on QuestionBody.js */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.QuestionStatement {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+
+.Explaination > p > img { /* All images within "Explaination field" QuestionBody.js*/
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -53,9 +53,10 @@ const StandardViewXyz = () => {
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
       setTime(params?.state?.timeLeft);
-      setQuiz(params?.state?.quiz.simuleraQuiz);
+      setQuiz(params?.state?.quiz);
       setCurrentIndex(params?.state?.questionIndex);
       setStatus(true);
+      setOpen(false)
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
   
@@ -78,6 +79,7 @@ const StandardViewXyz = () => {
           simuleraQuiz: quiz?._id,
           simuleraSeason: quiz?.season,
           timeLeft,
+          currentQuestion: currentIndex, 
         },
       });
     }
@@ -127,12 +129,13 @@ const StandardViewXyz = () => {
       color: "#6FCF97",
     },
     content: {
-      minHeight: "90vh",
+      minHeight: "95vh",
       backgroundColor: "#fff",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      width: "90vw",
+      flexDirection: "column",
+      width: "100%",
     },
 
     spara: {
@@ -348,7 +351,8 @@ const StandardViewXyz = () => {
       <Container
         disableGutters
         maxWidth="false"
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        style={{ backgroundColor: "#fff" }}
+        className={classes.content}
       >
         <Container
           disableGutters
