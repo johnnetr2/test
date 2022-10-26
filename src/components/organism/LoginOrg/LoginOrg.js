@@ -18,7 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { signInWithGoogle } from "../../service/firebase";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../../store/reducers";
+import { login } from "../../../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -100,10 +100,10 @@ const LoginOrg = () => {
           } else if (response.data.token) {
             dispatch(login({ user, token }));
             localStorage.setItem("token", response.data.token);
-            // localStorage.setItem("userId", response.data.user._id);
-            // localStorage.setItem("role", response.data.user.role);
-            // localStorage.setItem("fullName", response.data.user.fullName);
-            // localStorage.setItem("email", response.data.user.email);
+            localStorage.setItem("userId", response.data.user._id);
+            localStorage.setItem("role", response.data.user.role);
+            localStorage.setItem("fullName", response.data.user.fullName);
+            localStorage.setItem("email", response.data.user.email);
             MixpanelTracking.getInstance().login(
               "success",
               response.data.user?._id

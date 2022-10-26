@@ -8,10 +8,10 @@ export const instance = axios.create({
 
 export const instance2 = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
-  // headers: {
-  //   Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //   "Content-Type": "application/json",
-  // },
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    "Content-Type": "application/json",
+  },
 });
 
 export const instance3 = axios.create({

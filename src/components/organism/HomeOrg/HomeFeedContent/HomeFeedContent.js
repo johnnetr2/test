@@ -70,6 +70,7 @@ const HomeFeedContent = (props) => {
   const [sections, setSections] = useState();
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState();
+  const [loading, setLoading] = useState(false);
   const { user, token } = useSelector((state) => state.value);
 
   const headers = {
@@ -93,7 +94,9 @@ const HomeFeedContent = (props) => {
       instance2
         .get(NormeringValueOfBothMainCategories, { headers })
         .then((response) => {
+          console.log("NormeringValueOfBothMainCategories", response);
           if (response?.data?.success) {
+            setLoading(true);
             setPreviousRecordProgress(response.data.Data);
           }
         });
@@ -153,7 +156,7 @@ const HomeFeedContent = (props) => {
   }, []);
 
   useEffect(() => {
-    let count = 0;
+    let correctQuestion = 0;
     let totalQuestion = 0;
     let show = true;
     previousRecordProgress &&
@@ -167,10 +170,13 @@ const HomeFeedContent = (props) => {
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
         // prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
-        count = count + item.CorrectQuestion;
+        correctQuestion = correctQuestion + item.CorrectQuestion;
         totalQuestion = totalQuestion + item.TotalQuestion;
       });
-    let avgPrognos = previousRecordProgress && (count / totalQuestion) * 2;
+    console.log("count & totalQuestion :", correctQuestion, totalQuestion);
+    let avgPrognos =
+      previousRecordProgress && (correctQuestion / totalQuestion) * 2;
+    console.log(avgPrognos, "avg Prognos");
     previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
     previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
   }, [previousRecordProgress]);
@@ -277,7 +283,8 @@ const HomeFeedContent = (props) => {
                           ? previousRecordProgress[index]
                           : ""
                       }
-                      data={previousRecordProgress}
+                      isLoading={loading}
+                      // data={previousRecordProgress}
                     />
                   );
                 }

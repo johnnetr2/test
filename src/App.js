@@ -61,14 +61,16 @@ function App() {
             <Home toggleIcon={toggleIcon} setToggleIcon={setToggleIcon} />
           }
         />
-        {process.env.REACT_APP_SERVER_NAME === 'DEV'?
+        {process.env.REACT_APP_SERVER_NAME === "DEV" ? (
           <Route
             path="courses"
             toggleIcon={toggleIcon}
             setToggleIcon={setToggleIcon}
             element={<Courses />}
           />
-        : ""}
+        ) : (
+          ""
+        )}
         <Route path="profile" element={<Profile />} />
         <Route path="message" element={<Message />} />
         <Route path="logout" element={<Logout />} />

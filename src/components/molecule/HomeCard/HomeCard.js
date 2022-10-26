@@ -18,10 +18,9 @@ import { EndPoints, instance2 } from "../../service/Route";
 import { useSelector } from "react-redux";
 
 const HomeCard = (props) => {
+  console.log("HomeCardProps", props);
   const data = props?.item;
   const navigate = useNavigate();
-  const [totalCategoryQuestions, setTotalCategoryQuestions] = useState();
-  const [loading, setLoading] = useState(true);
   const { token, user } = useSelector((state) => state.value);
 
   const headers = {
@@ -29,19 +28,21 @@ const HomeCard = (props) => {
     "Content-Type": "application/json",
   };
 
-  useEffect(() => {
-    const lastWeeksData = EndPoints.lastWeekTasks + props.item._id;
-    instance2.get(lastWeeksData, { headers }).then((response) => {
-      setTotalCategoryQuestions(response.data.totalQuestions);
-      setLoading(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const lastWeeksData = EndPoints.lastWeekTasks + props.item._id;
+  //   instance2.get(lastWeeksData, { headers }).then((response) => {
+  //     console.log(response, "last week task");
+  //     setTotalCategoryQuestions(response.data.totalQuestions);
+  //     setLoading(false);
+  //   });
+  // }, []);
 
   const percentageCalculation = () => {
     const calculatePercentage =
       (props?.previousRecord?.correctedFromLastHundred /
         props?.previousRecord?.totalAttemptedHundred) *
       100;
+    console.log(calculatePercentage, "calculate percentage");
     if (props?.item.title === "XYZ") {
       return XYZNormeringValueFor(calculatePercentage);
     } else if (props?.item.title === "KVA") {
@@ -94,19 +95,15 @@ const HomeCard = (props) => {
           {data?.information}
         </Typography>
         <Box>
-          {loading ? (
+          {!props.isLoading ? (
             <ProgressBarLoader />
           ) : (
             <ProgressBar
               average={
                 props?.previousRecord
-                  ? (props?.previousRecord.CorrectQuestion /
-                      totalCategoryQuestions) *
+                  ? (props?.previousRecord.totalCorrectQuestion /
+                      props?.previousRecord.totalQuestionPerCategory) *
                     100
-                    ? (props?.previousRecord.CorrectQuestion /
-                        totalCategoryQuestions) *
-                      100
-                    : 0
                   : 0
               }
             />
@@ -122,10 +119,9 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.TotalQuestion >= 20
+          {props?.previousRecord?.totalAttemptedQuestions >= 20
             ? percentageCalculation()
             : "-"}
-          {/* {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'} */}
         </Typography>
         <Box
           sx={{
