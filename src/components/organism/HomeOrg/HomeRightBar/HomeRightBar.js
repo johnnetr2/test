@@ -40,8 +40,8 @@ const HomeRightBar = (props) => {
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
-        const { lastWeekSevenWeekVerbel, lastWeekSevenWeekQuantitative } = response.data
-        const verbelWeekWiseData = datesGroupByComponent(lastWeekSevenWeekVerbel, "W");
+        const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative } = response.data
+        const verbelWeekWiseData = datesGroupByComponent(lastWeekSevenWeekVerbal, "W");
         const quantitativeWeekWiseData = datesGroupByComponent(lastWeekSevenWeekQuantitative, "W");
         const verbalWeekWiseProgress = calculateWeekWiseNorming(verbelWeekWiseData, 'verbel', setWeeks)
         const quantitativeWeekWiseProgress = calculateWeekWiseNorming(quantitativeWeekWiseData, 'quantitative', setWeeks)
