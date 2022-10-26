@@ -1,10 +1,7 @@
+import { valueFor } from "./Utils";
 
-function inRange(x, min, max) {
-    return ((x - min) * (x - max) <= 0);
-}
-
-const VerbelPercentageCalculator = (props) => {
-    const verbelRanges = [
+export const verbalPercentageCalculator = (props) => {
+    const verbalRanges = [
         {
             min: 0.0,
             max: 25.41,
@@ -112,15 +109,7 @@ const VerbelPercentageCalculator = (props) => {
         },
 
     ]
-    let percentage = 0
-    for (let i = 0; i < verbelRanges.length; i++) {
-        const isInRange = inRange(props.percentage, verbelRanges[i].min, verbelRanges[i].max)
-        if (isInRange === true) {
-            percentage = verbelRanges[i].value;
-            break
-        }
-    }
-    return percentage
+  const normValue = valueFor(props, verbalRanges);
+  return normValue
 }
 
-export default VerbelPercentageCalculator;

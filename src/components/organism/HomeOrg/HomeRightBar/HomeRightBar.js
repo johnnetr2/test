@@ -4,12 +4,11 @@ import { createTheme } from "@mui/material/styles";
 import moment from "moment";
 
 import { EndPoints, instance2 } from "../../../service/Route";
+import QuestionProgressBox from '../../../molecule/QuestionProgressBox/QuestionProgressBox'
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
-import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
-import { KvantitaPercentageCalculator } from "../../../atom/percentageCalculator/kvantitative"
-import { VerbelPercentageCalculator } from '../../../atom/percentageCalculator/verbal'
+import { calculateWeekWiseNorming } from "../../../atom/percentageCalculator/Utils"
 
 
 function datesGroupByComponent(dates, token) {
@@ -23,188 +22,41 @@ function datesGroupByComponent(dates, token) {
 
 const HomeRightBar = (props) => {
   const theme = createTheme();
-  let [showPrognos, seTShowPrognos] = useState();
-  const [weeklyProgress, setWeeklyProgress] = useState(0);
+  const [showProgress, setShowProgress] = useState(false);
+  const [weeklyProgress, setWeeklyProgress] = useState([]);
   const [weeks, setWeeks] = useState();
-  let weeklyProgressArr = [];
-  let newArray = [];
 
   useEffect(() => {
-    if (localStorage.getItem("userId")) {
-      const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
-      instance2.get(URL).then((response) => {
-        const { lastWeekSevenWeekVerbel, lastWeekSevenWeekQuantitaive } = response.data
-        const verbelWeekWiseData = datesGroupByComponent(lastWeekSevenWeekVerbel, "W");
-        const quantitativeWeekWiseData = datesGroupByComponent(lastWeekSevenWeekQuantitaive, "W");
-        const verbalWeekWiseProgress = calculateWeekWiseNorming(verbelWeekWiseData, 'verbel')
-        const quantitativeWeekWiseProgress = calculateWeekWiseNorming(quantitativeWeekWiseData, 'quantitative')
-
-
-
-
-
-        let previousWeeks = [];
-        let a
-        if (Object.keys(data).length < 7) {
-
-          let keys = Object.keys(data); //35,36
-          let first = keys[0]; //35
-          a = 7 - keys.length; //5
-          let b = first - a; //30 //first = 35
-          const defaultValuseObj = {
-            correctAnswers: 0,
-            attemptQuestions: 0,
-            eachCategoryPrognos: 0,
-            totalQuestion: 0,
-            weekWiseCorrected: 0
-          };
-          for (let index = b; index < first; index++) {
-            previousWeeks.push("V." + index);
-            weeklyProgressArr.push({ ...defaultValuseObj, name: "V." + index });
-          }
-        }
-
-        let weekWiseProgress = {};
-        let calculationForTerminate = 0
-
-        data &&
-          Object.values(data).map((key, index) => {
-            const week = "V." + Object.keys(data)[index];
-            previousWeeks.push(week);
-            for (let iterations = index; iterations >= 0; iterations--) {
-              const weekWiseData = Object.values(data)[iterations]
-
-              for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
-                const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
-
-                calculationForTerminate = calculationForTerminate + solvedQuizOfWeek.attemptedQuestion
-                if (calculationForTerminate >= 100) {
-                  break
-                }
-                if (solvedQuizOfWeek.quiz.isTimeRestricted) {
-
-                  weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-                    ? weekWiseProgress?.correctAnswers + solvedQuizOfWeek.correctAnswer
-                    : solvedQuizOfWeek.correctAnswer;
-                  weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-                    ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
-                    : solvedQuizOfWeek.totalQuestion;
-                  weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-                    ? weekWiseProgress?.attemptQuestions + solvedQuizOfWeek.attemptedQuestion
-                    : solvedQuizOfWeek.attemptedQuestion;
-
-                }
-
-              }
-            }
-
-            let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
-            // weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
-            weeklyProgressArr.push({ ...weekWiseProgress, name: week });
-
-            var overAllprognos = weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptedQuestion;
-            var a = overAllprognos * 2;
-            weekWiseProgress.overAllprognos = a.toFixed(1);
-            weeklyProgressArr.push(weekWiseProgress);
-          });
-
-        setWeeklyProgress(weeklyProgressArr);
-        setWeeks(newArray);
-      });
-
-      const getPreviosRecord =
-        EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+    const getPreviosRecord = EndPoints.studentPerviousProgress + localStorage.getItem("userId");
       instance2.get(getPreviosRecord).then((response) => {
         response.data.Data.map((item) => {
-          if (item.CorrectQuestion < 20) {
-            seTShowPrognos(false);
-            return;
+          if (item.AttemptedQuestion >= 20) {
+            setShowProgress(true);
+          }else {
+            setShowProgress(false);
           }
         });
       });
+    if (localStorage.getItem("userId")) {
+      const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
+      instance2.get(URL).then((response) => {
+        const { lastWeekSevenWeekVerbel, lastWeekSevenWeekQuantitative } = response.data
+        const verbelWeekWiseData = datesGroupByComponent(lastWeekSevenWeekVerbel, "W");
+        const quantitativeWeekWiseData = datesGroupByComponent(lastWeekSevenWeekQuantitative, "W");
+        const verbalWeekWiseProgress = calculateWeekWiseNorming(verbelWeekWiseData, 'verbel', setWeeks)
+        const quantitativeWeekWiseProgress = calculateWeekWiseNorming(quantitativeWeekWiseData, 'quantitative', setWeeks)
+        const progressOfUserAllCategories = []
+        
+        quantitativeWeekWiseProgress.forEach(quantitativeNorming => {
+          const verbalNormingOfWeek = verbalWeekWiseProgress.find(verbalNorming => verbalNorming.name === quantitativeNorming.name)
+          const overAllProgressOfWeek = (verbalNormingOfWeek.eachCategoryPrognos + quantitativeNorming.eachCategoryPrognos)/2
+          const averageProgressOfVerbalQuantitative = overAllProgressOfWeek.toFixed(1)
+          progressOfUserAllCategories.push({ overAllProgress: averageProgressOfVerbalQuantitative, name: quantitativeNorming.name })
+        });
+        setWeeklyProgress(progressOfUserAllCategories);
+      });
     }
   }, []);
-
-  const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
-    const previousWeeks = []
-    const weeklyProgressArr = []
-    let noOfEmptyWeek = 0
-    if (Object.keys(weekWiseData).length < 7) {
-
-      const weekKeys = Object.keys(weekWiseData); //35,36
-      const firstWeekKey = weekKeys[0]; //35
-      noOfEmptyWeek = 7 - weekKeys.length; //5
-      const startIndexOfLoop = firstWeekKey - noOfEmptyWeek; //30 //first = 35
-      const defaultValuseObj = {
-        correctAnswers: 0,
-        attemptQuestions: 0,
-        eachCategoryPrognos: 0,
-        totalQuestion: 0,
-        weekWiseCorrected: 0
-      };
-      for (let index = startIndexOfLoop; index < firstWeekKey; index++) {
-        previousWeeks.push("V." + index);
-        weeklyProgressArr.push({ ...defaultValuseObj, name: "V." + index });
-      }
-    }
-
-    let weekWiseProgress = {};
-    let calculationForTerminate = 0
-
-    weekWiseData &&
-      Object.keys(weekWiseData).map((weekKeyName, index) => {
-        const week = "V." + weekKeyName;
-        previousWeeks.push(week);
-        for (let iterations = index; iterations >= 0; iterations--) {
-          const weekWiseData = Object.values(weekWiseData)[iterations]
-
-          for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
-            const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
-
-            calculationForTerminate = calculationForTerminate + solvedQuizOfWeek.attemptedQuestion
-            if (calculationForTerminate >= 100) {
-              break
-            }
-            weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-              ? weekWiseProgress?.correctAnswers + solvedQuizOfWeek.correctAnswer
-              : solvedQuizOfWeek.correctAnswer;
-            weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-              ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
-              : solvedQuizOfWeek.totalQuestion;
-            weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-              ? weekWiseProgress?.attemptQuestions + solvedQuizOfWeek.attemptedQuestion
-              : solvedQuizOfWeek.attemptedQuestion;
-
-          }
-        }
-
-        let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
-        if (testTypes === 'verbel') {
-          weekWiseProgress.eachCategoryPrognos = VerbelPercentageCalculator(progress);
-        } else {
-          weekWiseProgress.eachCategoryPrognos = KvantitaPercentageCalculator(progress);
-        }
-        weeklyProgressArr.push({ ...weekWiseProgress, name: week });
-
-        // var overAllprognos = weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptedQuestion;
-        // var a = overAllprognos * 2;
-        // weekWiseProgress.overAllprognos = a.toFixed(1);
-        // weeklyProgressArr.push(weekWiseProgress);
-      });
-
-    return weeklyProgressArr
-  }
-
-  // useEffect(() => {
-  //   const studentPrefenenceURL =
-  //     EndPoints.getStudentPreference + localStorage.getItem("userId");
-  //   instance2.get(studentPrefenenceURL).then((response) => {
-  //     console.log(response, "home right bar get api response");
-  //     if (response?.data?.StudentPreference) {
-  //       setStudentPreference(response.data.StudentPreference);
-  //     }
-  //   });
-  // }, [props.StudentPreference]);
 
   return (
     <Box sx={{ padding: { xs: 0, sm: "0 3rem" }, width: "100%" }}>
@@ -238,18 +90,13 @@ const HomeRightBar = (props) => {
             >
               <QuestionProgressBox
                 totalPrognos={props?.totalPrognos}
-                showPrognos={showPrognos}
+                showPrognos={showProgress}
               />
             </Box>
             <Box
               sx={{ width: { xs: "100%", sm: "49%" }, backgroundColor: "#fff" }}
             >
               <GoalBox
-                // goalPoint={
-                //   props.studentPreference && props.studentPreference
-                //     ? props.studentPreference.point
-                //     : studentPreference?.point
-                // }
                 goalPoint={
                   props?.studentPreference?.point &&
                   props?.studentPreference?.point
@@ -298,29 +145,29 @@ const HomeRightBar = (props) => {
             >
               Poäng
             </Typography>
-            {weeks && weeklyProgress && (
+            {weeklyProgress.length > 0 && (
               <LinesChart
                 syncId="anyId"
                 mondayData={
-                  weeklyProgress[0] ? weeklyProgress[0].overAllprognos : ""
+                  weeklyProgress[0] && showProgress ? weeklyProgress[0].overAllProgress : null
                 }
                 tuesdayData={
-                  weeklyProgress[1] ? weeklyProgress[1].overAllprognos : ""
+                  weeklyProgress[1] && showProgress ? weeklyProgress[1].overAllProgress : null
                 }
                 wednesdayData={
-                  weeklyProgress[2] ? weeklyProgress[2].overAllprognos : ""
+                  weeklyProgress[2] && showProgress ? weeklyProgress[2].overAllProgress : null
                 }
                 thursdayData={
-                  weeklyProgress[3] ? weeklyProgress[3].overAllprognos : ""
+                  weeklyProgress[3] && showProgress ? weeklyProgress[3].overAllProgress : null
                 }
                 fridayData={
-                  weeklyProgress[4] ? weeklyProgress[4].overAllprognos : ""
+                  weeklyProgress[4] && showProgress ? weeklyProgress[4].overAllProgress : null
                 }
                 saturdayData={
-                  weeklyProgress[5] ? weeklyProgress[5].overAllprognos : ""
+                  weeklyProgress[5]&& showProgress  ? weeklyProgress[5].overAllProgress : null
                 }
                 sundayData={
-                  weeklyProgress[6] ? weeklyProgress[6].overAllprognos : ""
+                  weeklyProgress[6] && showProgress ? weeklyProgress[6].overAllProgress : null
                 }
                 weeklyProgress={weeklyProgress}
                 weeks={weeks}
