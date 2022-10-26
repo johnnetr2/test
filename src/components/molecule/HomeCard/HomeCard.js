@@ -21,21 +21,6 @@ const HomeCard = (props) => {
   console.log("HomeCardProps", props);
   const data = props?.item;
   const navigate = useNavigate();
-  const { token, user } = useSelector((state) => state.value);
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-
-  // useEffect(() => {
-  //   const lastWeeksData = EndPoints.lastWeekTasks + props.item._id;
-  //   instance2.get(lastWeeksData, { headers }).then((response) => {
-  //     console.log(response, "last week task");
-  //     setTotalCategoryQuestions(response.data.totalQuestions);
-  //     setLoading(false);
-  //   });
-  // }, []);
 
   const percentageCalculation = () => {
     const calculatePercentage =

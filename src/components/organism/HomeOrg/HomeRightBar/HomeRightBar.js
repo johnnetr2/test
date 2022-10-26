@@ -4,14 +4,10 @@ import { createTheme } from "@mui/material/styles";
 import moment from "moment";
 
 import { EndPoints, instance2 } from "../../../service/Route";
-import QuestionProgressBox from "../../../molecule/QuestionProgressBox/QuestionProgressBox";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
-import { createTheme } from "@mui/material/styles";
-import moment from "moment";
-import { padding } from "@mui/system";
 import { calculateWeekWiseNorming } from "../../../atom/percentageCalculator/Utils";
 
 function datesGroupByComponent(dates, token) {
@@ -27,11 +23,6 @@ const HomeRightBar = (props) => {
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
   const [weeks, setWeeks] = useState();
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
 
   useEffect(() => {
     const getPreviosRecord =

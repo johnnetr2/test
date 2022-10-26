@@ -69,12 +69,13 @@ const HomeFeedContent = (props) => {
 
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
         if (response?.data?.success) {
+          console.log(response, "response progress of 100");
           setLoading(true);
           setPreviousRecordProgress(response.data.Data);
         }
       });
       const url = EndPoints.getAllSections;
-      instance2.get(url, { headers }).then((response) => {
+      instance2.get(url).then((response) => {
         let newArr = [];
         response.data.data.map((item) => {
           if (item.title === "XYZ") {
@@ -141,9 +142,9 @@ const HomeFeedContent = (props) => {
 
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        // prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
-        correctQuestion = correctQuestion + item.CorrectQuestion;
-        totalQuestion = totalQuestion + item.TotalQuestion;
+        console.log(item, "item");
+        correctQuestion = correctQuestion + item.correctedFromLastHundred;
+        totalQuestion = totalQuestion + item.totalAttemptedHundred;
       });
     console.log("count & totalQuestion :", correctQuestion, totalQuestion);
     let avgPrognos =

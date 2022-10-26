@@ -92,7 +92,7 @@ const CategoryPagesFeedContent = (props) => {
     //getting all the categories/subject
     console.log(email, "testing user email");
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
-    instance2.get(URL, { headers }).then((response) => {
+    instance2.get(URL).then((response) => {
       if (!response.data.message) {
         setQuestionCategories(response.data);
         setAllChecked(true);
@@ -108,7 +108,7 @@ const CategoryPagesFeedContent = (props) => {
       setCheckData(newArray);
 
       const URLHistory = EndPoints.testHistory + props.item._id;
-      instance2.get(URLHistory, { headers }).then((response) => {
+      instance2.get(URLHistory).then((response) => {
         setTableHistory(response?.data);
       });
 
@@ -238,7 +238,7 @@ const CategoryPagesFeedContent = (props) => {
           isTimeRestricted: timer ? true : false,
         };
         const URL = EndPoints.storeQuiz;
-        instance2.post(URL, data, { headers }).then((response) => {
+        instance2.post(URL, data).then((response) => {
           if (response.data == "" || response.data.quiz.length < 1) {
             setOpen(false);
             swal("varning", "Det finns inga frågor mot denna kurs", "warning");

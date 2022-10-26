@@ -190,10 +190,10 @@ const ImpDatesCard = (props) => {
       <Container
         maxWidth="false"
         disableGutters
-        sx={{
+        style={{
           border: "1px solid #e1e1e1",
           boxShadow: "0px 5px 10px #f2f2f2",
-          borderRadius: 1,
+          borderRadius: 5,
         }}
       >
         <Box
