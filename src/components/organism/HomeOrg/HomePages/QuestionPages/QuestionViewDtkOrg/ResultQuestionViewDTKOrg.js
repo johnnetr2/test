@@ -93,7 +93,6 @@ const ResultQuestionViewDtkOrg = (props) => {
     };
 
     const URL = EndPoints.getParagraphResult + props?.paragraph?._id;
-    console.log(URL, "this is result api url");
     const headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -103,7 +102,6 @@ const ResultQuestionViewDtkOrg = (props) => {
       .then((response) => {
         setShowLoader(false);
         setParagraph(response.data.question);
-        console.log(response.data.question, "result");
       })
       .catch(() => {});
     // instance2.get(URL, data).then(response => {

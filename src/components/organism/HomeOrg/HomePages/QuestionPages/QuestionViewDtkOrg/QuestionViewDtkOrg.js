@@ -210,7 +210,6 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       dataSubmit.push(data);
     }
-    console.log(dataSubmit, "datasubmit array");
     selectedIndex + 1 < quiz.question.length &&
       setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
@@ -309,8 +308,6 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     const Quiz = { ...quiz };
-    console.log(quiz, "submit answer quiz");
-    console.log(dataSubmit, "data submit array");
 
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
@@ -330,9 +327,6 @@ const QuestionViewDTKOrg = (props) => {
       //   ? seconds
       //   : 0,
     };
-    console.log(data, "submit answer multiquestion");
-    console.log(data.spendtime, "data of spendTime");
-    console.log(data.spendtimevtwo, "data of spendtimevtwo");
 
     dataSubmit.splice(selectedIndex, 1, data);
 
@@ -347,11 +341,9 @@ const QuestionViewDTKOrg = (props) => {
         answer: dataSubmit,
         isTimeRestricted: props.isTimeRestricted,
       };
-      console.log(obj, "payload of multiquestion submit answer api");
 
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj, { headers }).then((response) => {
-        console.log(response, "submit response dtk");
         dataSubmit = [];
         setShowResult(true);
       });
@@ -364,7 +356,6 @@ const QuestionViewDTKOrg = (props) => {
 
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
       instance2.post(URL1, payload, { headers }).then((response) => {
-        console.log(response, "multiquestion get paragraph questionanswer");
         response?.data?.question?.map((item, index) => {
           if (Quiz[props?.selectedIndex].question[index]) {
             Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
@@ -561,7 +552,7 @@ const QuestionViewDTKOrg = (props) => {
                       {!quiz?.title === "DTK" ? quiz?.title : ""}
                     </Typography>
                   </DialogTitle>
-                  <DialogContent  /* 1 column for DTK and 2 columns for LÄS/ELF */
+                  <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
                       columnCount: `${quiz.title === "DTK" ? "1" : "2"}`,
                       padding: "0 5rem 2rem",
@@ -748,10 +739,6 @@ const QuestionViewDTKOrg = (props) => {
                           flexDirection: "column",
                         }}
                       >
-                        {console.log(
-                          question.questionStatement,
-                          "question statement"
-                        )}
                         <MarkLatex content={question.questionStatement} />
 
                         {question.image && (
