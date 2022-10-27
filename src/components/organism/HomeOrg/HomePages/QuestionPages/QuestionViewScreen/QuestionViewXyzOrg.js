@@ -138,7 +138,6 @@ const QuestionViewXyzOrg = () => {
       quiz?.length > 0 &&
       (timeLeft || (!params?.state?.data.value && !timeLeft))
     ) {
-      // console.log("121213331");
       setRemainingTime((remainingTime) => remainingTime + (time - timeLeft));
       const questions = [...quiz];
       let question = questions[selectedIndex];
@@ -164,7 +163,6 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data, { headers }).then((response) => {
         setAnsSubmittedState(response.data);
-        console.log(response.data, "answer submit");
         setTime(timeLeft);
         setNextPress(undefined);
       });
@@ -222,8 +220,6 @@ const QuestionViewXyzOrg = () => {
         localStorage.removeItem("time");
         localStorage.removeItem("quiz");
       } else {
-        console.log("top click");
-        // scrollTop();
         setSeconds(0);
         setStatus(true);
         setStartTimer(true);
@@ -317,8 +313,6 @@ const QuestionViewXyzOrg = () => {
           //   "length of single question array"
           // );
           if (singleQuestionArray.length < 1) {
-            console.log("remainingTime", timeLeft);
-            console.log("remainingTime time", time);
             singleQuestionArray.push({
               questionId: item._id,
               timeleft: 0,
@@ -340,8 +334,6 @@ const QuestionViewXyzOrg = () => {
         item?.question?.map((multipartQuestion) => {
           if (!multipartQuestion.answer) {
             if (singleQuestionArray.length < 1) {
-              console.log("remainingTime", timeLeft);
-              console.log("remainingTime time", time);
               singleQuestionArray.push({
                 questionId: multipartQuestion?._id,
                 timeleft: 0,
@@ -370,7 +362,6 @@ const QuestionViewXyzOrg = () => {
       }
       return item;
     });
-    console.log("single question array", singleQuestionArray);
 
     return singleQuestionArray;
   };
@@ -393,9 +384,7 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2
         .post(URL, payload, { headers })
-        .then((response) => {
-          console.log(response, "submitted multipart paragraph");
-        })
+        .then((response) => {})
         .catch((error) => {
           console.log("this is the consnole of error", error);
         });

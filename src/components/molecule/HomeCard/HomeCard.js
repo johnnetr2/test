@@ -18,7 +18,6 @@ import { EndPoints, instance2 } from "../../service/Route";
 import { useSelector } from "react-redux";
 
 const HomeCard = (props) => {
-  console.log("HomeCardProps", props);
   const data = props?.item;
   const navigate = useNavigate();
 

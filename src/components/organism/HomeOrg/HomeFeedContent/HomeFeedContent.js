@@ -14,6 +14,8 @@ import { EndPoints, instance2 } from "../../../service/Route";
 import Heading from "../../../atom/Heading/Heading";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
+import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
+import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,7 +71,6 @@ const HomeFeedContent = (props) => {
 
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
         if (response?.data?.success) {
-          console.log(response, "response progress of 100");
           setLoading(true);
           setPreviousRecordProgress(response.data.Data);
         }
@@ -129,29 +130,44 @@ const HomeFeedContent = (props) => {
   }, []);
 
   useEffect(() => {
-    let correctQuestion = 0;
-    let totalQuestion = 0;
-    let show = true;
+    const verbalCategories = [
+      "62627dd77a4f7b3068eaa825",
+      "62627de67a4f7b3068eaa82a",
+      "62627df17a4f7b3068eaa82f",
+      "62627dfe7a4f7b3068eaa834",
+    ];
+    let correctedLastHundred = 0;
+    let attemptedLastHundred = 0;
+    let verbalTotalNormValue = 0;
+    let quantitativeTotalNormValue = 0;
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        if (item.TotalQuestion <= 20) {
-          show = false;
+        const isVerbal = verbalCategories.find(
+          (sectionCategoryId) => sectionCategoryId === item._id
+        );
+        correctedLastHundred =
+          correctedLastHundred + item.correctedFromLastHundred;
+        attemptedLastHundred =
+          attemptedLastHundred + item.totalAttemptedHundred;
+        const percentageForGetNormValue =
+          (item.correctedFromLastHundred / item.totalAttemptedHundred) * 100;
+        if (isVerbal) {
+          verbalTotalNormValue += percentageForGetNormValue;
+        } else {
+          quantitativeTotalNormValue += percentageForGetNormValue;
         }
       });
-    props.show(show);
-
+    quantitativeTotalNormValue = quantitativePercentageCalculator(
+      quantitativeTotalNormValue
+    );
+    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue);
+    let avgProgressQuantitativeAndVerbal =
+      previousRecordProgress &&
+      (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
     previousRecordProgress &&
-      previousRecordProgress.map((item) => {
-        console.log(item, "item");
-        correctQuestion = correctQuestion + item.correctedFromLastHundred;
-        totalQuestion = totalQuestion + item.totalAttemptedHundred;
-      });
-    console.log("count & totalQuestion :", correctQuestion, totalQuestion);
-    let avgPrognos =
-      previousRecordProgress && (correctQuestion / totalQuestion) * 2;
-    console.log(avgPrognos, "avg Prognos");
-    previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
-    previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
+      setTotalPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
+    previousRecordProgress &&
+      props.getPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
   }, [previousRecordProgress]);
 
   function TabContainer(props) {
@@ -284,6 +300,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]?._id == item._id &&
                         previousRecordProgress[index]
                       }
+                      isLoading={loading}
                     />
                   );
                 }
@@ -310,6 +327,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]?._id == item._id &&
                         previousRecordProgress[index]
                       }
+                      isLoading={loading}
                     />
                   );
                 }
@@ -334,6 +352,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]?._id == item._id &&
                         previousRecordProgress[index]
                       }
+                      isLoading={loading}
                     />
                   );
                 }

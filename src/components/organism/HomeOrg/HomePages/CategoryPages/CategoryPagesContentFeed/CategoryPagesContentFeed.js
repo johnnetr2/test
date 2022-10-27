@@ -89,8 +89,6 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   useEffect(() => {
-    //getting all the categories/subject
-    console.log(email, "testing user email");
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       if (!response.data.message) {

@@ -150,7 +150,6 @@ const CategoryPagesRightBar = (props) => {
   useEffect(() => {
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
-      console.log(response, "last Week task");
       setLastWeekTasks(response.data);
     });
   }, []);

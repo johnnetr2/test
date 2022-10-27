@@ -19,7 +19,6 @@ const GoalBox = (props) => {
   });
   const { user, token } = useSelector((state) => state.value);
 
-  console.log(user, token, "user and token");
   useEffect(() => {
     setPointCollection({ ...pointCollection, point: props.goalPoint });
   }, [props.goalPoint]);
@@ -37,7 +36,6 @@ const GoalBox = (props) => {
       point: pointCollection.point,
     };
     instance2.put(pointURL, body, { headers }).then((response) => {
-      console.log(response, "response");
       setPointCollection({ ...pointCollection, popup: false });
     });
   };
