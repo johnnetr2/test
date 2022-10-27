@@ -47,7 +47,6 @@ const LoginOrg = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [enterPressed, setEnterPressed] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -60,17 +59,6 @@ const LoginOrg = () => {
     setUser({ ...user, [name]: value });
   };
 
-  useEffect(() => {
-    const keyDownHandler = (event) => {
-      if (event.key === "Enter") {
-        setEnterPressed(true);
-      }
-    };
-    window.addEventListener("keydown", keyDownHandler);
-    return () => {
-      window.removeEventListener("keydown", keyDownHandler);
-    };
-  }, []);
 
   const loginFunc = (e) => {
     e && e.preventDefault();
@@ -124,10 +112,7 @@ const LoginOrg = () => {
     }
   };
 
-  if (enterPressed) {
-    loginFunc();
-  }
-
+  
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
     const payLoad = {
@@ -307,7 +292,7 @@ const LoginOrg = () => {
               Glömt lösenord?
             </Link>
             <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-              <Filled_btn title="Logga in" onClick={loginFunc} />
+              <Filled_btn type="submit" title="Logga in" onClick={loginFunc} />
             </Box>
           </form>
           {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
