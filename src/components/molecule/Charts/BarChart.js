@@ -39,17 +39,17 @@ import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
 const LineDemo = (props) => {
   const weeksArray = getWeekNumbers();
 
-  const [rangeOfGraph, setRangeOfGraph] = useState();
+  const [rangeOfGraph, setRangeOfGraph] = useState(4);
 
   useEffect(() => {
-    console.log("weeklyProgress 121", props?.weeklyProgress);
     const weekWiseCorrectedAnswers = props?.weeklyProgress.map(
       (correctedInWeek) => correctedInWeek.weekWiseCorrected
     );
     const maxNumberOfCorrected = Math.max(...weekWiseCorrectedAnswers);
-    const noToAdd = 4 - (maxNumberOfCorrected % 4);
-
-    setRangeOfGraph(noToAdd + maxNumberOfCorrected);
+    if (maxNumberOfCorrected > 4) {
+      const noToAdd = 4 - (maxNumberOfCorrected % 4);
+      setRangeOfGraph(noToAdd + maxNumberOfCorrected);
+    }
   }, []);
   const data = [
     {

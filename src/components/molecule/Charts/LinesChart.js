@@ -31,7 +31,6 @@ const LinesChart = (props) => {
   };
 
   const weeksArray = getWeekNumbers();
-  console.log("weeksArray", weeksArray);
 
   return (
     <Box>
