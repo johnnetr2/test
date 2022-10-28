@@ -116,7 +116,7 @@ const HomeCard = (props) => {
             width: "3.5rem",
           }}
         >
-          {props?.previousRecord?.TotalQuestion < 20 && (
+          {props?.previousRecord?.totalAttemptedQuestions < 20 && (
             <CustomizedTooltip
               title="Gör minst 20 frågor på tid för att få poängprognos"
               placement="top"

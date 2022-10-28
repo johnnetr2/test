@@ -21,6 +21,19 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
   const previousWeeks = [];
   const weeklyProgressArr = [];
   let noOfEmptyWeek = 0;
+  if (Object.keys(weekWiseData).length < 1) {
+    const currentDate = new Date();
+    const yearStartDate = new Date(currentDate.getFullYear(), 0, 1);
+    const noOfDaysFromCurrentDate = Math.floor(
+      (currentDate - yearStartDate) / (24 * 60 * 60 * 1000)
+    );
+
+    const currentWeek = Math.ceil(noOfDaysFromCurrentDate / 7);
+    for (let index = currentWeek; index < currentWeek - 7; index++) {
+      previousWeeks.push("V." + index);
+    }
+  }
+
   if (Object.keys(weekWiseData).length < 7) {
     const weekKeys = Object.keys(weekWiseData); //35,36
     const firstWeekKey = weekKeys[0]; //35
@@ -88,4 +101,19 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
   setWeeks(previousWeeks);
 
   return weeklyProgressArr;
+};
+
+export const getWeekNumbers = () => {
+  const weeksArray = [];
+  const currentDate = new Date();
+  const yearStartDate = new Date(currentDate.getFullYear(), 0, 1);
+  const noOfDaysFromCurrentDate = Math.floor(
+    (currentDate - yearStartDate) / (24 * 60 * 60 * 1000)
+  );
+
+  const currentWeek = Math.ceil(noOfDaysFromCurrentDate / 7);
+  for (let index = currentWeek; index > currentWeek - 7; index--) {
+    weeksArray.push("V." + index);
+  }
+  return weeksArray;
 };

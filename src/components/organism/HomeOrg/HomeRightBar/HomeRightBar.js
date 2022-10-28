@@ -36,6 +36,7 @@ const HomeRightBar = (props) => {
         }
       });
     });
+
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
@@ -60,22 +61,26 @@ const HomeRightBar = (props) => {
           setWeeks
         );
         const progressOfUserAllCategories = [];
-
-        quantitativeWeekWiseProgress.forEach((quantitativeNorming) => {
-          const verbalNormingOfWeek = verbalWeekWiseProgress.find(
-            (verbalNorming) => verbalNorming.name === quantitativeNorming.name
-          );
-          const overAllProgressOfWeek =
-            (verbalNormingOfWeek.eachCategoryPrognos +
-              quantitativeNorming.eachCategoryPrognos) /
-            2;
-          const averageProgressOfVerbalQuantitative =
-            overAllProgressOfWeek.toFixed(1);
-          progressOfUserAllCategories.push({
-            overAllProgress: averageProgressOfVerbalQuantitative,
-            name: quantitativeNorming.name,
+        if (
+          lastWeekSevenWeekVerbal.length > 1 ||
+          lastWeekSevenWeekQuantitative.length > 1
+        ) {
+          quantitativeWeekWiseProgress.forEach((quantitativeNorming) => {
+            const verbalNormingOfWeek = verbalWeekWiseProgress.find(
+              (verbalNorming) => verbalNorming.name === quantitativeNorming.name
+            );
+            const overAllProgressOfWeek =
+              (verbalNormingOfWeek.eachCategoryPrognos +
+                quantitativeNorming.eachCategoryPrognos) /
+              2;
+            const averageProgressOfVerbalQuantitative =
+              overAllProgressOfWeek.toFixed(1);
+            progressOfUserAllCategories.push({
+              overAllProgress: averageProgressOfVerbalQuantitative,
+              name: quantitativeNorming.name,
+            });
           });
-        });
+        }
         setWeeklyProgress(progressOfUserAllCategories);
       });
     }
@@ -168,49 +173,47 @@ const HomeRightBar = (props) => {
             >
               Poäng
             </Typography>
-            {weeklyProgress.length > 0 && (
-              <LinesChart
-                syncId="anyId"
-                mondayData={
-                  weeklyProgress[0] && showProgress
-                    ? weeklyProgress[0].overAllProgress
-                    : null
-                }
-                tuesdayData={
-                  weeklyProgress[1] && showProgress
-                    ? weeklyProgress[1].overAllProgress
-                    : null
-                }
-                wednesdayData={
-                  weeklyProgress[2] && showProgress
-                    ? weeklyProgress[2].overAllProgress
-                    : null
-                }
-                thursdayData={
-                  weeklyProgress[3] && showProgress
-                    ? weeklyProgress[3].overAllProgress
-                    : null
-                }
-                fridayData={
-                  weeklyProgress[4] && showProgress
-                    ? weeklyProgress[4].overAllProgress
-                    : null
-                }
-                saturdayData={
-                  weeklyProgress[5] && showProgress
-                    ? weeklyProgress[5].overAllProgress
-                    : null
-                }
-                sundayData={
-                  weeklyProgress[6] && showProgress
-                    ? weeklyProgress[6].overAllProgress
-                    : null
-                }
-                weeklyProgress={weeklyProgress}
-                weeks={weeks}
-                HomeRightBar="homeRightBar"
-              />
-            )}
+            <LinesChart
+              syncId="anyId"
+              mondayData={
+                weeklyProgress[0] && showProgress
+                  ? weeklyProgress[0].overAllProgress
+                  : null
+              }
+              tuesdayData={
+                weeklyProgress[1] && showProgress
+                  ? weeklyProgress[1].overAllProgress
+                  : null
+              }
+              wednesdayData={
+                weeklyProgress[2] && showProgress
+                  ? weeklyProgress[2].overAllProgress
+                  : null
+              }
+              thursdayData={
+                weeklyProgress[3] && showProgress
+                  ? weeklyProgress[3].overAllProgress
+                  : null
+              }
+              fridayData={
+                weeklyProgress[4] && showProgress
+                  ? weeklyProgress[4].overAllProgress
+                  : null
+              }
+              saturdayData={
+                weeklyProgress[5] && showProgress
+                  ? weeklyProgress[5].overAllProgress
+                  : null
+              }
+              sundayData={
+                weeklyProgress[6] && showProgress
+                  ? weeklyProgress[6].overAllProgress
+                  : null
+              }
+              weeklyProgress={weeklyProgress}
+              weeks={weeks}
+              HomeRightBar="homeRightBar"
+            />
           </Box>
 
           <Box style={{ marginTop: "2rem" }}>

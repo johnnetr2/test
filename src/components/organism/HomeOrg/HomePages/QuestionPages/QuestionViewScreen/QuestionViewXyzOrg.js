@@ -48,7 +48,6 @@ const QuestionViewXyzOrg = () => {
   const [seconds, setSeconds] = useState(0);
   const [startTimer, setStartTimer] = useState(true);
   const { user, token } = useSelector((state) => state.value);
-  let [remainingTime, setRemainingTime] = useState(0);
   var timer;
   const myRef = useRef(null);
 
@@ -138,7 +137,6 @@ const QuestionViewXyzOrg = () => {
       quiz?.length > 0 &&
       (timeLeft || (!params?.state?.data.value && !timeLeft))
     ) {
-      setRemainingTime((remainingTime) => remainingTime + (time - timeLeft));
       const questions = [...quiz];
       let question = questions[selectedIndex];
 
@@ -195,7 +193,6 @@ const QuestionViewXyzOrg = () => {
   const Next = (question, buttonText) => {
     setStartTimer(false);
     if (buttonText === "Svara") {
-      console.log("scroll bottom 12122");
       scrollBottom();
     } else {
       scrollTop(0);
