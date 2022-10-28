@@ -12,8 +12,8 @@ import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { EndPoints, instance, instance2 } from "../../../../../service/Route";
 import React, { useEffect, useRef, useState } from "react";
 
-import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import ArrowSalt from "../../../../../../assets/Icons/ArrowSalt.svg";
+import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Draggable from "react-draggable";
@@ -532,7 +532,7 @@ const QuestionViewDTKOrg = (props) => {
             <Dialog
               open={extendedView}
               onClose={closeExtended}
-              maxWidth={"xl"}
+              maxWidth={"lg"}
               fullWidth={true}
             >
               {quiz?.description && (
@@ -554,7 +554,11 @@ const QuestionViewDTKOrg = (props) => {
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
-                      columnCount: `${quiz.title === "DTK" ? "1" : "2"}`,
+                      columnCount: `${
+                        quiz.title === "DTK" || quiz?.description.length < 2000
+                          ? "1"
+                          : "2"
+                      }`,
                       padding: "0 5rem 2rem",
                     }}
                   >
@@ -562,6 +566,8 @@ const QuestionViewDTKOrg = (props) => {
                       variant="subtitle1"
                       style={{
                         fontSize: ".85rem",
+                        maxWidth: "650px",
+                        margin: "auto",
                       }}
                     >
                       <MarkLatex content={quiz?.description} />
