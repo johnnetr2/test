@@ -93,13 +93,9 @@ const HomeCard = (props) => {
             <ProgressBar
               average={
                 props?.previousRecord
-                  ? (props?.previousRecord.CorrectQuestion /
-                    totalCategoryQuestions) *
-                    100
-                    ? (props?.previousRecord.CorrectQuestion /
-                      totalCategoryQuestions) *
-                    100
-                    : 0
+                  ? (props?.previousRecord.totalCorrectQuestion /
+                    props?.previousRecord.totalQuestionPerCategory) *
+                  100
                   : 0
               }
             />
@@ -115,7 +111,7 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.TotalQuestion >= 20
+          {props?.previousRecord?.totalAttemptedHundred >= 20
             ? percentageCalculation()
             : "-"}
           {/* {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'} */}
@@ -127,7 +123,7 @@ const HomeCard = (props) => {
             width: "3.5rem",
           }}
         >
-          {props?.previousRecord?.TotalQuestion < 20 && (
+          {props?.previousRecord?.totalAttemptedHundred < 20 && (
             <CustomizedTooltip
               title="Gör minst 20 frågor på tid för att få poängprognos"
               placement="top"

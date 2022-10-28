@@ -1,12 +1,9 @@
-import { Box, Container, Typography, makeStyles } from "@material-ui/core";
+import { Box, Typography, makeStyles } from "@material-ui/core";
 import {
   EndPoints,
   instance2,
 } from "../../../../../../components/service/Route";
 import React, { useEffect, useState } from "react";
-import moment, { weekdays } from "moment";
-
-import BarChart from "../../../../../molecule/Charts/BarChart";
 import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
@@ -19,6 +16,7 @@ import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/P
 import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
+import { datesGroupByComponent } from "../../../../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,19 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function datesGroupByComponent(dates, token) {
-  return dates.reduce(function (val, obj) {
-    let comp = moment(obj["createdAt"], "YYYY/MM/DD").format(token);
-    (val[comp] = val[comp] || []).push(obj);
-    return val;
-  }, {});
-}
 
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
   const [lastWeekTasks, setLastWeekTasks] = useState("");
   const { height, width } = useWindowDimensions();
   const [weeklyProgress, setWeeklyProgress] = useState();
+  const [isDesplayProgress, setIsDesplayProgress] = useState(false)
   const [weeks, setWeeks] = useState();
   let weeklyProgressArr = [];
 
@@ -111,6 +103,9 @@ const CategoryPagesRightBar = (props) => {
             }
           }
           if (weekWiseProgress?.attemptQuestions >= 20) {
+            if (!isDesplayProgress) {
+              setIsDesplayProgress(true)
+            }
             let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
             weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
             weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected, name: weekKeyName });
@@ -274,7 +269,7 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {lastWeekTasks && lastWeekTasks?.totalAttemptedQuestions > 19
+            {isDesplayProgress
               ? percentageCalculation(
                 (lastWeekTasks?.totalCorrectQuestions /
                   lastWeekTasks?.totalAttemptedQuestions) *
