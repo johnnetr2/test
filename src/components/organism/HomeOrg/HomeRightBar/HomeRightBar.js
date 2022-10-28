@@ -62,7 +62,7 @@ const HomeRightBar = (props) => {
         );
         const progressOfUserAllCategories = [];
         if (
-          lastWeekSevenWeekVerbal.length > 1 ||
+          lastWeekSevenWeekVerbal.length > 1 &&
           lastWeekSevenWeekQuantitative.length > 1
         ) {
           quantitativeWeekWiseProgress.forEach((quantitativeNorming) => {
