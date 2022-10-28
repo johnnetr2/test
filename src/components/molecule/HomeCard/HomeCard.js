@@ -1,5 +1,5 @@
-import { Box, LinearProgress, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import React from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
@@ -14,8 +14,6 @@ import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
 import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
-import { EndPoints, instance2 } from "../../service/Route";
-import { useSelector } from "react-redux";
 
 const HomeCard = (props) => {
   const data = props?.item;
@@ -105,7 +103,7 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.totalAttemptedQuestions >= 20
+          {props?.previousRecord?.totalAttemptedHundred >= 20
             ? percentageCalculation()
             : "-"}
         </Typography>
@@ -116,7 +114,7 @@ const HomeCard = (props) => {
             width: "3.5rem",
           }}
         >
-          {props?.previousRecord?.totalAttemptedQuestions < 20 && (
+          {props?.previousRecord?.totalAttemptedHundred < 20 && (
             <CustomizedTooltip
               title="Gör minst 20 frågor på tid för att få poängprognos"
               placement="top"

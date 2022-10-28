@@ -1,12 +1,9 @@
-import { Box, Container, Typography, makeStyles } from "@material-ui/core";
+import { Box, Typography, makeStyles } from "@material-ui/core";
 import {
   EndPoints,
   instance2,
 } from "../../../../../../components/service/Route";
 import React, { useEffect, useState } from "react";
-import moment, { weekdays } from "moment";
-
-import BarChart from "../../../../../molecule/Charts/BarChart";
 import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
@@ -19,7 +16,7 @@ import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/P
 import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
-import { useSelector } from "react-redux";
+import { datesGroupByComponent } from "../../../../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,19 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function datesGroupByComponent(dates, token) {
-  return dates.reduce(function (val, obj) {
-    let comp = moment(obj["createdAt"], "YYYY/MM/DD").format(token);
-    (val[comp] = val[comp] || []).push(obj);
-    return val;
-  }, {});
-}
 
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
   const [lastWeekTasks, setLastWeekTasks] = useState("");
   const { height, width } = useWindowDimensions();
   const [weeklyProgress, setWeeklyProgress] = useState();
+  const [isDesplayProgress, setIsDesplayProgress] = useState(false)
   const [weeks, setWeeks] = useState();
   let weeklyProgressArr = [];
 
@@ -104,32 +95,28 @@ const CategoryPagesRightBar = (props) => {
                 weekWiseProgress.correctAnswers =
                   weekWiseProgress?.correctAnswers
                     ? weekWiseProgress?.correctAnswers +
-                      solvedQuizOfWeek.correctAnswer
+                    solvedQuizOfWeek.correctAnswer
                     : solvedQuizOfWeek.correctAnswer;
                 weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
                   ? weekWiseProgress?.totalQuestion +
-                    solvedQuizOfWeek.totalQuestion
+                  solvedQuizOfWeek.totalQuestion
                   : solvedQuizOfWeek.totalQuestion;
                 weekWiseProgress.attemptQuestions =
                   weekWiseProgress?.attemptQuestions
                     ? weekWiseProgress?.attemptQuestions +
-                      solvedQuizOfWeek.attemptedQuestion
+                    solvedQuizOfWeek.attemptedQuestion
                     : solvedQuizOfWeek.attemptedQuestion;
               }
             }
           }
           if (weekWiseProgress?.attemptQuestions >= 20) {
-            let progress =
-              (weekWiseProgress?.correctAnswers /
-                weekWiseProgress?.attemptQuestions) *
-              100;
-            weekWiseProgress.eachCategoryPrognos =
-              percentageCalculation(progress);
-            weeklyProgressArr.push({
-              ...weekWiseProgress,
-              weekWiseCorrected,
-              name: weekKeyName,
-            });
+            if (!isDesplayProgress) {
+              setIsDesplayProgress(true)
+            }
+            let progress = (weekWiseProgress?.correctAnswers / weekWiseProgress?.attemptQuestions) * 100;
+            weekWiseProgress.eachCategoryPrognos = percentageCalculation(progress);
+            weeklyProgressArr.push({ ...weekWiseProgress, weekWiseCorrected, name: weekKeyName });
+
           } else {
             weeklyProgressArr.push({
               eachCategoryPrognos: null,
@@ -225,8 +212,8 @@ const CategoryPagesRightBar = (props) => {
               value={
                 lastWeekTasks
                   ? (lastWeekTasks.totalCorrectQuestions /
-                      lastWeekTasks.totalQuestions) *
-                    100
+                    lastWeekTasks.totalQuestions) *
+                  100
                   : 0
               }
             />
@@ -290,12 +277,12 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {lastWeekTasks && lastWeekTasks?.totalAttemptedQuestions > 19
+            {isDesplayProgress
               ? percentageCalculation(
-                  (lastWeekTasks?.totalCorrectQuestions /
-                    lastWeekTasks?.totalAttemptedQuestions) *
-                    100
-                )
+                (lastWeekTasks?.totalCorrectQuestions /
+                  lastWeekTasks?.totalAttemptedQuestions) *
+                100
+              )
               : 0}
           </Typography>
           <Typography variant="body2">
