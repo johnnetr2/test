@@ -39,6 +39,18 @@ import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
 const LineDemo = (props) => {
   const weeksArray = getWeekNumbers();
 
+  const [rangeOfGraph, setRangeOfGraph] = useState();
+
+  useEffect(() => {
+    console.log("weeklyProgress 121", props?.weeklyProgress);
+    const weekWiseCorrectedAnswers = props?.weeklyProgress.map(
+      (correctedInWeek) => correctedInWeek.weekWiseCorrected
+    );
+    const maxNumberOfCorrected = Math.max(...weekWiseCorrectedAnswers);
+    const noToAdd = 4 - (maxNumberOfCorrected % 4);
+
+    setRangeOfGraph(noToAdd + maxNumberOfCorrected);
+  }, []);
   const data = [
     {
       name: weeksArray[6],
@@ -106,7 +118,6 @@ const LineDemo = (props) => {
         </div>
       );
     }
-
     return null;
   };
 
@@ -133,10 +144,11 @@ const LineDemo = (props) => {
           <YAxis
             type="number"
             dx={-10}
-            domain={[0, 4]}
+            domain={[0, rangeOfGraph]}
             tickLine={false}
             allowDecimals={false}
             axisLine={false}
+            tickCount={10}
           />
           <Tooltip
             content={<CustomTooltip />}
