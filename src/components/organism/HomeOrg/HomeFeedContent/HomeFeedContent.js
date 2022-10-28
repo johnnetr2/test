@@ -14,7 +14,8 @@ import { EndPoints, instance2 } from "../../../service/Route";
 import Heading from "../../../atom/Heading/Heading";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
-
+import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
+import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,18 +61,20 @@ const HomeFeedContent = (props) => {
   const [sections, setSections] = useState();
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const loginUserID = localStorage.getItem("userId");
       const NormeringValueOfBothMainCategories =
         EndPoints.OverAllNormeringValue + loginUserID;
-      
+
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
         if (response?.data?.success) {
+          setLoading(true);
           setPreviousRecordProgress(response.data.Data);
         }
       });
-
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
         let newArr = [];
@@ -127,26 +130,44 @@ const HomeFeedContent = (props) => {
   }, []);
 
   useEffect(() => {
-    let count = 0;
-    let totalQuestion = 0;
-    let show = true;
+    const verbalCategories = [
+      "62627dd77a4f7b3068eaa825",
+      "62627de67a4f7b3068eaa82a",
+      "62627df17a4f7b3068eaa82f",
+      "62627dfe7a4f7b3068eaa834",
+    ];
+    let correctedLastHundred = 0;
+    let attemptedLastHundred = 0;
+    let verbalTotalNormValue = 0;
+    let quantitativeTotalNormValue = 0;
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        if (item.TotalQuestion <= 20) {
-          show = false;
+        const isVerbal = verbalCategories.find(
+          (sectionCategoryId) => sectionCategoryId === item._id
+        );
+        correctedLastHundred =
+          correctedLastHundred + item.correctedFromLastHundred;
+        attemptedLastHundred =
+          attemptedLastHundred + item.totalAttemptedHundred;
+        const percentageForGetNormValue =
+          (item.correctedFromLastHundred / item.totalAttemptedHundred) * 100;
+        if (isVerbal) {
+          verbalTotalNormValue += percentageForGetNormValue;
+        } else {
+          quantitativeTotalNormValue += percentageForGetNormValue;
         }
       });
-    props.show(show);
-
+    quantitativeTotalNormValue = quantitativePercentageCalculator(
+      quantitativeTotalNormValue
+    );
+    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue);
+    let avgProgressQuantitativeAndVerbal =
+      previousRecordProgress &&
+      (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
     previousRecordProgress &&
-      previousRecordProgress.map((item) => {
-        // prognos = (item.CorrectQuestion / item.TotalQuestion) * 2;
-        count = count + item.CorrectQuestion;
-        totalQuestion = totalQuestion + item.TotalQuestion;
-      });
-    let avgPrognos = previousRecordProgress && (count / totalQuestion) * 2;
-    previousRecordProgress && setTotalPrognos(avgPrognos.toFixed(2));
-    previousRecordProgress && props.getPrognos(avgPrognos.toFixed(2));
+      setTotalPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
+    previousRecordProgress &&
+      props.getPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
   }, [previousRecordProgress]);
 
   function TabContainer(props) {
@@ -251,7 +272,8 @@ const HomeFeedContent = (props) => {
                           ? previousRecordProgress[index]
                           : ""
                       }
-                      data={previousRecordProgress}
+                      isLoading={loading}
+                      // data={previousRecordProgress}
                     />
                   );
                 }
@@ -278,6 +300,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]?._id == item._id &&
                         previousRecordProgress[index]
                       }
+                      isLoading={loading}
                     />
                   );
                 }
@@ -304,6 +327,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]?._id == item._id &&
                         previousRecordProgress[index]
                       }
+                      isLoading={loading}
                     />
                   );
                 }
@@ -328,6 +352,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]?._id == item._id &&
                         previousRecordProgress[index]
                       }
+                      isLoading={loading}
                     />
                   );
                 }

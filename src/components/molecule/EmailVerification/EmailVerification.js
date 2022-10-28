@@ -3,8 +3,10 @@ import { Button } from "@mui/material";
 import React from "react";
 import VerificationIcon from "../../../assets/Icons/emailVerificationIcon.png";
 import { Container } from "reactstrap";
+import { useSelector } from "react-redux";
 
 const EmailVerification = () => {
+  const { user, token } = useSelector((state) => state.value);
   return (
     <div>
       <Container
@@ -53,9 +55,7 @@ const EmailVerification = () => {
               style={{ textAlign: "center", marginTop: "1rem" }}
             >
               You're almost there! We sent an email to{" "}
-              <span style={{ fontWeight: 500 }}>
-                {localStorage.getItem("email")}
-              </span>
+              <span style={{ fontWeight: 500 }}>{user.email}</span>
             </Typography>
 
             <Typography

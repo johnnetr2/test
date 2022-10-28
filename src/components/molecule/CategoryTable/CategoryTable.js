@@ -23,6 +23,7 @@ import { XYZNormeringValueFor } from "../../atom/percentageCalculator/Percentage
 import { makeStyles } from "@material-ui/core";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
@@ -47,6 +48,7 @@ export const CategoryTable = (props) => {
   const classes = useStyles();
   const [categoryTable, setCategoryTable] = useState(props.tableHistory);
   const [sectionCategory, setSectionCategory] = useState("");
+  const userId = useSelector((state) => state.value.user._id);
 
   const navigate = useNavigate();
 
@@ -59,8 +61,8 @@ export const CategoryTable = (props) => {
       state: {
         quizId: row.quiz._id,
         sectionCategory: sectionCategory,
-        user: localStorage.getItem("userId"),
-        time: row.quiz.isTimeRestricted
+        user: userId,
+        time: row.quiz.isTimeRestricted,
       },
     });
   };

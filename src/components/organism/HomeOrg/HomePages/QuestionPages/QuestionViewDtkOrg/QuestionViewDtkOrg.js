@@ -26,6 +26,7 @@ import Ruler from "../../../../../../assets/Imgs/ruler.png";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 
 let dataSubmit = [];
 
@@ -37,7 +38,11 @@ const QuestionViewDTKOrg = (props) => {
   const [onHover, setOnHover] = useState();
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
-
+  const { user, token } = useSelector((state) => state.value);
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
   // let minutes = 0;
   // let seconds = 0;
 
@@ -205,7 +210,6 @@ const QuestionViewDTKOrg = (props) => {
     } else {
       dataSubmit.push(data);
     }
-    console.log(dataSubmit, "datasubmit array");
     selectedIndex + 1 < quiz.question.length &&
       setSelectedIndex(selectedIndex + 1);
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
@@ -304,8 +308,6 @@ const QuestionViewDTKOrg = (props) => {
 
   const submitAnswer = async () => {
     const Quiz = { ...quiz };
-    console.log(quiz, "submit answer quiz");
-    console.log(dataSubmit, "data submit array");
 
     const data = {
       questionId: Quiz.question[selectedIndex]._id,
@@ -325,9 +327,6 @@ const QuestionViewDTKOrg = (props) => {
       //   ? seconds
       //   : 0,
     };
-    console.log(data, "submit answer multiquestion");
-    console.log(data.spendtime, "data of spendTime");
-    console.log(data.spendtimevtwo, "data of spendtimevtwo");
 
     dataSubmit.splice(selectedIndex, 1, data);
 
@@ -337,15 +336,14 @@ const QuestionViewDTKOrg = (props) => {
       props.stopTimer();
       const obj = {
         quiz: props.quizId,
-        user: localStorage.getItem("userId"),
+        user: user._id,
         sectionCategory: quiz.sectionCategory,
         answer: dataSubmit,
         isTimeRestricted: props.isTimeRestricted,
       };
-      console.log(obj, "payload of multiquestion submit answer api");
+
       const URL = EndPoints.submitMultiquestionParagragh;
-      await instance2.post(URL, obj).then((response) => {
-        console.log(response, "submit response dtk");
+      await instance2.post(URL, obj, { headers }).then((response) => {
         dataSubmit = [];
         setShowResult(true);
       });
@@ -355,9 +353,9 @@ const QuestionViewDTKOrg = (props) => {
       const payload = {
         quiz: props?.quizId,
       };
+
       const URL1 = EndPoints.getParagraphQuestionAnswer + paragraphID;
-      instance2.post(URL1, payload).then((response) => {
-        console.log(response, "multiquestion get paragraph questionanswer");
+      instance2.post(URL1, payload, { headers }).then((response) => {
         response?.data?.question?.map((item, index) => {
           if (Quiz[props?.selectedIndex].question[index]) {
             Quiz[props?.selectedIndex].question[index]["answer"] = item?.answer;
@@ -442,15 +440,15 @@ const QuestionViewDTKOrg = (props) => {
               {quiz && quiz.question.length + " uppgifter:"}
             </Typography>
             <img
-                onClick={openExtended}
-                style={{
-                  position: "absolute",
-                  top: 20,
-                  right: 20,
-                  cursor: "pointer",
-                }}
-                src={ArrowSalt}
-              />
+              onClick={openExtended}
+              style={{
+                position: "absolute",
+                top: 20,
+                right: 20,
+                cursor: "pointer",
+              }}
+              src={ArrowSalt}
+            />
             <Typography variant="h6" component="h6">
               {!quiz?.title === "DTK" ? quiz?.title : ""}
             </Typography>
@@ -498,7 +496,11 @@ const QuestionViewDTKOrg = (props) => {
                   </Box>
                 </DialogTitle>
                 <DialogContent
-                  style={{ padding: "0 5rem 2rem", display: "flex", border:'1px solid #f00' }}
+                  style={{
+                    padding: "0 5rem 2rem",
+                    display: "flex",
+                    border: "1px solid #f00",
+                  }}
                 >
                   <Box style={{ width: "90%" }}>
                     <img src={quiz?.image} style={{ width: "100%" }} alt="" />
@@ -514,7 +516,11 @@ const QuestionViewDTKOrg = (props) => {
                     <Draggable>
                       <img
                         src={Ruler}
-                        style={{ background: "#fff", width: "75%", border:'1px solid #f00' }}
+                        style={{
+                          background: "#fff",
+                          width: "75%",
+                          border: "1px solid #f00",
+                        }}
                         alt=""
                       />
                     </Draggable>
@@ -522,7 +528,7 @@ const QuestionViewDTKOrg = (props) => {
                 </DialogContent>
               </>
             )}
-              
+
             <Dialog
               open={extendedView}
               onClose={closeExtended}
@@ -546,7 +552,7 @@ const QuestionViewDTKOrg = (props) => {
                       {!quiz?.title === "DTK" ? quiz?.title : ""}
                     </Typography>
                   </DialogTitle>
-                  <DialogContent  /* 1 column for DTK and 2 columns for LÄS/ELF */
+                  <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
                       columnCount: `${quiz.title === "DTK" ? "1" : "2"}`,
                       padding: "0 5rem 2rem",
@@ -733,10 +739,6 @@ const QuestionViewDTKOrg = (props) => {
                           flexDirection: "column",
                         }}
                       >
-                        {console.log(
-                          question.questionStatement,
-                          "question statement"
-                        )}
                         <MarkLatex content={question.questionStatement} />
 
                         {question.image && (

@@ -11,7 +11,6 @@ import Signup from "./pages/Signup/Signup";
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import ProvPassInformation from "./components/organism/CoursesOrg/CoursePages/ProvPassInformation/ProvPassInformation";
-import TestInformation from "./components/organism/CoursesOrg/CoursePages/TestInformation/TestInformation";
 import ResultSummaryOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/ResultSummaryOrg";
 import StandardViewXyz from "./components/organism/CoursesOrg/CoursePages/StandardViewXyz/StandardViewXyz";
 import ProvPassNog from "./components/organism/CoursesOrg/CoursePages/ProvPassNog/ProvPassNog";
@@ -28,7 +27,6 @@ import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresul
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
-import HomeLeftBar from "./components/organism/HomeOrg/HomeLeftBar/HomeLeftBar";
 import EmailVerification from "./components/molecule/EmailVerification/EmailVerification";
 import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
 require("dotenv").config();
@@ -44,7 +42,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* <HomeLeftBar /> */}
         <Route
           path="/resultquesviewdtkorg"
           element={<ResultQuestionViewDtkOrg />}
@@ -64,14 +61,16 @@ function App() {
             <Home toggleIcon={toggleIcon} setToggleIcon={setToggleIcon} />
           }
         />
-        {process.env.REACT_APP_SERVER_NAME === 'DEV'?
+        {process.env.REACT_APP_SERVER_NAME === "DEV" ? (
           <Route
             path="courses"
             toggleIcon={toggleIcon}
             setToggleIcon={setToggleIcon}
             element={<Courses />}
           />
-        : ""}
+        ) : (
+          ""
+        )}
         <Route path="profile" element={<Profile />} />
         <Route path="message" element={<Message />} />
         <Route path="logout" element={<Logout />} />

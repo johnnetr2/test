@@ -4,12 +4,11 @@ import { createTheme } from "@mui/material/styles";
 import moment from "moment";
 
 import { EndPoints, instance2 } from "../../../service/Route";
-import QuestionProgressBox from '../../../molecule/QuestionProgressBox/QuestionProgressBox'
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
-import { calculateWeekWiseNorming } from "../../../atom/percentageCalculator/Utils"
-
+import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
+import { calculateWeekWiseNorming } from "../../../atom/percentageCalculator/Utils";
 
 function datesGroupByComponent(dates, token) {
   return dates.reduce(function (val, obj) {
@@ -19,7 +18,6 @@ function datesGroupByComponent(dates, token) {
   }, {});
 }
 
-
 const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
@@ -27,31 +25,56 @@ const HomeRightBar = (props) => {
   const [weeks, setWeeks] = useState();
 
   useEffect(() => {
-    const getPreviosRecord = EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-      instance2.get(getPreviosRecord).then((response) => {
-        response.data.Data.map((item) => {
-          if (item.AttemptedQuestion >= 20) {
-            setShowProgress(true);
-          }else {
-            setShowProgress(false);
-          }
-        });
+    const getPreviosRecord =
+      EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+    instance2.get(getPreviosRecord).then((response) => {
+      response.data.Data.map((item) => {
+        if (item.AttemptedQuestion >= 20) {
+          setShowProgress(true);
+        } else {
+          setShowProgress(false);
+        }
       });
+    });
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
-        const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative } = response.data
-        const verbelWeekWiseData = datesGroupByComponent(lastWeekSevenWeekVerbal, "W");
-        const quantitativeWeekWiseData = datesGroupByComponent(lastWeekSevenWeekQuantitative, "W");
-        const verbalWeekWiseProgress = calculateWeekWiseNorming(verbelWeekWiseData, 'verbel', setWeeks)
-        const quantitativeWeekWiseProgress = calculateWeekWiseNorming(quantitativeWeekWiseData, 'quantitative', setWeeks)
-        const progressOfUserAllCategories = []
-        
-        quantitativeWeekWiseProgress.forEach(quantitativeNorming => {
-          const verbalNormingOfWeek = verbalWeekWiseProgress.find(verbalNorming => verbalNorming.name === quantitativeNorming.name)
-          const overAllProgressOfWeek = (verbalNormingOfWeek.eachCategoryPrognos + quantitativeNorming.eachCategoryPrognos)/2
-          const averageProgressOfVerbalQuantitative = overAllProgressOfWeek.toFixed(1)
-          progressOfUserAllCategories.push({ overAllProgress: averageProgressOfVerbalQuantitative, name: quantitativeNorming.name })
+        const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative } =
+          response.data;
+        const verbelWeekWiseData = datesGroupByComponent(
+          lastWeekSevenWeekVerbal,
+          "W"
+        );
+        const quantitativeWeekWiseData = datesGroupByComponent(
+          lastWeekSevenWeekQuantitative,
+          "W"
+        );
+        const verbalWeekWiseProgress = calculateWeekWiseNorming(
+          verbelWeekWiseData,
+          "verbel",
+          setWeeks
+        );
+        const quantitativeWeekWiseProgress = calculateWeekWiseNorming(
+          quantitativeWeekWiseData,
+          "quantitative",
+          setWeeks
+        );
+        const progressOfUserAllCategories = [];
+
+        quantitativeWeekWiseProgress.forEach((quantitativeNorming) => {
+          const verbalNormingOfWeek = verbalWeekWiseProgress.find(
+            (verbalNorming) => verbalNorming.name === quantitativeNorming.name
+          );
+          const overAllProgressOfWeek =
+            (verbalNormingOfWeek.eachCategoryPrognos +
+              quantitativeNorming.eachCategoryPrognos) /
+            2;
+          const averageProgressOfVerbalQuantitative =
+            overAllProgressOfWeek.toFixed(1);
+          progressOfUserAllCategories.push({
+            overAllProgress: averageProgressOfVerbalQuantitative,
+            name: quantitativeNorming.name,
+          });
         });
         setWeeklyProgress(progressOfUserAllCategories);
       });
@@ -149,25 +172,39 @@ const HomeRightBar = (props) => {
               <LinesChart
                 syncId="anyId"
                 mondayData={
-                  weeklyProgress[0] && showProgress ? weeklyProgress[0].overAllProgress : null
+                  weeklyProgress[0] && showProgress
+                    ? weeklyProgress[0].overAllProgress
+                    : null
                 }
                 tuesdayData={
-                  weeklyProgress[1] && showProgress ? weeklyProgress[1].overAllProgress : null
+                  weeklyProgress[1] && showProgress
+                    ? weeklyProgress[1].overAllProgress
+                    : null
                 }
                 wednesdayData={
-                  weeklyProgress[2] && showProgress ? weeklyProgress[2].overAllProgress : null
+                  weeklyProgress[2] && showProgress
+                    ? weeklyProgress[2].overAllProgress
+                    : null
                 }
                 thursdayData={
-                  weeklyProgress[3] && showProgress ? weeklyProgress[3].overAllProgress : null
+                  weeklyProgress[3] && showProgress
+                    ? weeklyProgress[3].overAllProgress
+                    : null
                 }
                 fridayData={
-                  weeklyProgress[4] && showProgress ? weeklyProgress[4].overAllProgress : null
+                  weeklyProgress[4] && showProgress
+                    ? weeklyProgress[4].overAllProgress
+                    : null
                 }
                 saturdayData={
-                  weeklyProgress[5]&& showProgress  ? weeklyProgress[5].overAllProgress : null
+                  weeklyProgress[5] && showProgress
+                    ? weeklyProgress[5].overAllProgress
+                    : null
                 }
                 sundayData={
-                  weeklyProgress[6] && showProgress ? weeklyProgress[6].overAllProgress : null
+                  weeklyProgress[6] && showProgress
+                    ? weeklyProgress[6].overAllProgress
+                    : null
                 }
                 weeklyProgress={weeklyProgress}
                 weeks={weeks}

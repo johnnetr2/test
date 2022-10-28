@@ -11,31 +11,31 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
 import StartPopup from "../StartPopup/StartPopup";
 import { EndPoints, instance2 } from "../../service/Route";
+import { useSelector } from "react-redux";
 
 const ImpDatesCard = (props) => {
+  const { user, token } = useSelector((state) => state.value);
   const [collection, setCollection] = useState({
     season: "",
     popup: false,
     appliedDate: "",
   });
   const updateDate = () => {
-    const pointURL =
-      EndPoints.testDate + "/User/" + localStorage.getItem("userId");
+    const pointURL = EndPoints.testDate + "User/" + user._id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
     const body = {
       season: collection.season,
     };
-    instance2.put(pointURL, body).then((response) => {
+    instance2.put(pointURL, body, { headers }).then((response) => {
       setCollection({ ...collection, popup: false });
     });
   };
   useEffect(() => {
     setCollection({ ...collection, season: props.season });
   }, [props.season]);
-
-  // const dateShow = () => {
-  //     const convertedDate = collection.season === "Hösten 2022" && date;
-  //   setCollection({ ...collection, appliedDate: convertedDate });
-  // }
 
   const hostenDate = new Date("10/23/2022");
   const varenDate = new Date("3/25/2023");
@@ -59,7 +59,7 @@ const ImpDatesCard = (props) => {
           {formatVarenDate}
         </Typography>
       );
-    } else if(collection.season == "Hösten 2023") {
+    } else if (collection.season == "Hösten 2023") {
       return (
         <Typography variant="h3" style={{ fontSize: "2rem" }}>
           {formatHosten2023}
@@ -92,34 +92,34 @@ const ImpDatesCard = (props) => {
     } else if (collection.season == "Våren 2023") {
       return (
         <Box sx={{ display: "flex" }}>
-            {moment(varenDate).diff(moment(notSure), "days")}
-            <Typography
-              variant="body2"
-              style={{
-                fontSize: ".65rem",
-                marginLeft: ".15rem",
-              }}
-            >
-              {" "}
-              dagar till provdagen
-            </Typography>
-          </Box>
+          {moment(varenDate).diff(moment(notSure), "days")}
+          <Typography
+            variant="body2"
+            style={{
+              fontSize: ".65rem",
+              marginLeft: ".15rem",
+            }}
+          >
+            {" "}
+            dagar till provdagen
+          </Typography>
+        </Box>
       );
     } else if (collection.season == "Hösten 2023") {
       return (
         <Box sx={{ display: "flex" }}>
-            {moment(hosten2023).diff(moment(notSure), "days")}
-            <Typography
-              variant="body2"
-              style={{
-                fontSize: ".65rem",
-                marginLeft: ".15rem",
-              }}
-            >
-              {" "}
-              dagar till provdagen
-            </Typography>
-          </Box>
+          {moment(hosten2023).diff(moment(notSure), "days")}
+          <Typography
+            variant="body2"
+            style={{
+              fontSize: ".65rem",
+              marginLeft: ".15rem",
+            }}
+          >
+            {" "}
+            dagar till provdagen
+          </Typography>
+        </Box>
       );
     } else {
       return "-";
@@ -190,10 +190,10 @@ const ImpDatesCard = (props) => {
       <Container
         maxWidth="false"
         disableGutters
-        sx={{
+        style={{
           border: "1px solid #e1e1e1",
           boxShadow: "0px 5px 10px #f2f2f2",
-          borderRadius: 1,
+          borderRadius: 5,
         }}
       >
         <Box

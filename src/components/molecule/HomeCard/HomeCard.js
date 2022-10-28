@@ -1,5 +1,5 @@
-import { Box, LinearProgress, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import React from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
@@ -14,40 +14,32 @@ import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
 import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
-import { EndPoints, instance2 } from "../../service/Route";
 
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
-  const [totalCategoryQuestions, setTotalCategoryQuestions] = useState();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const lastWeeksData = EndPoints.lastWeekTasks + props.item._id;
-    instance2.get(lastWeeksData).then((response) => {
-      setTotalCategoryQuestions(response.data.totalQuestions);
-      setLoading(false);
-    });
-  }, []);
 
   const percentageCalculation = () => {
-    const calculatePercentage = (props?.previousRecord?.correctedFromLastHundred / props?.previousRecord?.totalAttemptedHundred) * 100
+    const calculatePercentage =
+      (props?.previousRecord?.correctedFromLastHundred /
+        props?.previousRecord?.totalAttemptedHundred) *
+      100;
     switch (props?.item.title) {
-      case 'XYZ':
+      case "XYZ":
         return XYZNormeringValueFor(calculatePercentage);
-      case 'KVA':
+      case "KVA":
         return KVANormeringValueFor(calculatePercentage);
-      case 'NOG':
+      case "NOG":
         return NOGNormeringValueFor(calculatePercentage);
-      case 'DTK':
+      case "DTK":
         return DTKNormeringValueFor(calculatePercentage);
-      case 'ELF':
+      case "ELF":
         return ELFNormeringValueFor(calculatePercentage);
-      case 'ORD':
+      case "ORD":
         return ORDNormeringValueFor(calculatePercentage);
-      case 'MEK':
+      case "MEK":
         return MEKNormeringValueFor(calculatePercentage);
-      case 'LÄS':
+      case "LÄS":
         return LASNormeringValueFor(calculatePercentage);
       default:
         break;
@@ -87,7 +79,7 @@ const HomeCard = (props) => {
           {data?.information}
         </Typography>
         <Box>
-          {loading ? (
+          {!props.isLoading ? (
             <ProgressBarLoader />
           ) : (
             <ProgressBar
@@ -111,11 +103,12 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.totalAttemptedHundred >= 20
-            ? percentageCalculation()
-            : "-"}
-          {/* {props?.previousRecord?.AttemptedQuestion >= 20 ? ((props?.previousRecord?.CorrectQuestion / props?.previousRecord?.TotalQuestion)*2).toFixed(1) : '-'} */}
-        </Typography>
+          {
+            props?.previousRecord?.totalAttemptedHundred >= 20
+              ? percentageCalculation()
+              : "-"
+          }
+        </Typography >
         <Box
           sx={{
             display: "flex",
@@ -148,8 +141,8 @@ const HomeCard = (props) => {
             Prognos
           </Typography>
         </Box>
-      </Box>
-    </Box>
+      </Box >
+    </Box >
   );
 };
 

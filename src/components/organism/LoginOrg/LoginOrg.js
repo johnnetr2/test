@@ -2,7 +2,6 @@ import { Box, Container, Typography } from "@mui/material";
 import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
 
-import { ElectricScooterTwoTone } from "@mui/icons-material";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
@@ -10,14 +9,12 @@ import Label_field from "../../molecule/LabelField/LabelField";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
-import Outline_btn from "../../atom/OutlineBtn/OutlineBtn";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import firebase from "../../service/firebase";
 import { makeStyles } from "@material-ui/core/styles";
-import { signInWithGoogle } from "../../service/firebase";
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
+import { login } from "../../../redux/reducers";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -45,7 +42,7 @@ const LoginOrg = () => {
   }, []);
 
   const classes = useStyles();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [enterPressed, setEnterPressed] = useState(false);
 
@@ -89,12 +86,13 @@ const LoginOrg = () => {
       instance
         .post(URL, data)
         .then((response) => {
-          console.log(response, "response");
+          const { user, token } = response.data;
           if (!response.data.user.is_verified) {
             swal("Warning!", "User is not verfied", "warning");
           } else if (response.data.token) {
-            localStorage.setItem("userId", response.data.user._id);
+            dispatch(login({ user, token }));
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("userId", response.data.user._id);
             localStorage.setItem("role", response.data.user.role);
             localStorage.setItem("fullName", response.data.user.fullName);
             localStorage.setItem("email", response.data.user.email);
@@ -130,8 +128,9 @@ const LoginOrg = () => {
 
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
+
     const payLoad = {
-      email: localStorage.getItem("email"),
+      email: user.email,
     };
     instance2.post(URL, payLoad).then((response) => {
       if (response.status === 200) {
@@ -140,19 +139,6 @@ const LoginOrg = () => {
     });
   };
 
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(data => {
-  //     if(data.user) {
-
-  //     }
-  //     setData(data);
-  //   })
-  // }, [])
-
-  // const signInWithGoogle = () => {
-  //   const provider = new firebase.auth.GoogleAuthProvider
-  //   auth.signInwithPopup(provider)
-  // }
   return (
     <Container
       maxWidth="false"
@@ -208,7 +194,6 @@ const LoginOrg = () => {
         disableGutters
         sx={{
           width: "60%",
-          // paddingTop: "6rem",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -312,15 +297,7 @@ const LoginOrg = () => {
               <Filled_btn title="Logga in" onClick={loginFunc} />
             </Box>
           </form>
-          {/* <Box style={{ display: 'flex', justifyContent: 'center' }}>
-          <Typography variant="body1">eller</Typography>
-          </Box> */}
-          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            {/* <Outline_btn
-              onClick={signInWithGoogle}
-              title="Logga in Med Google"
-            /> */}
-          </Box>
+          <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}></Box>
           <Box
             style={{
               display: "flex",

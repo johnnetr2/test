@@ -31,6 +31,7 @@ import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/P
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import swal from "sweetalert";
+import { useSelector } from "react-redux";
 
 export const dispSecondsAsMins = (seconds) => {
   // 25:00
@@ -75,6 +76,7 @@ const ResultSummaryOrg = (props) => {
   const [progress, setProgress] = useState(0);
   const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
+  const { user, token } = useSelector((state) => state.value);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -127,9 +129,12 @@ const ResultSummaryOrg = (props) => {
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
-
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
     instance2
-      .get(URL)
+      .get(URL, { headers })
       .then((response) => {
         response.data.question.map((item) => {
           return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);

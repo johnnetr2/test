@@ -52,7 +52,7 @@ const CategoryPagesRightBar = (props) => {
           attemptQuestions: 0,
           eachCategoryPrognos: 0,
           totalQuestion: 0,
-          weekWiseCorrected: 0
+          weekWiseCorrected: 0,
         };
         for (let index = b; index < first; index++) {
           previousWeeks.push("V." + index);
@@ -60,17 +60,17 @@ const CategoryPagesRightBar = (props) => {
         }
       }
 
-      let weekWiseProgress = {}
-      let calculationForTerminate = 0
+      let weekWiseProgress = {};
+      let calculationForTerminate = 0;
 
       data &&
         Object.keys(data).forEach((weekKey, index) => {
-          const weekKeyName = "V." + weekKey
-          previousWeeks.push(weekKeyName)
-          let weekWiseCorrected = 0
+          const weekKeyName = "V." + weekKey;
+          previousWeeks.push(weekKeyName);
+          let weekWiseCorrected = 0;
 
           for (let iterations = index; iterations >= 0; iterations--) {
-            const weekWiseData = Object.values(data)[iterations]
+            const weekWiseData = Object.values(data)[iterations];
 
             if (iterations === index) {
               for (const solvedQuiz of weekWiseData) {
@@ -79,27 +79,34 @@ const CategoryPagesRightBar = (props) => {
               }
             }
 
-            for (let indexQuizResolved = 0; indexQuizResolved < weekWiseData.length; indexQuizResolved++) {
+            for (
+              let indexQuizResolved = 0;
+              indexQuizResolved < weekWiseData.length;
+              indexQuizResolved++
+            ) {
               const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
 
-              calculationForTerminate = calculationForTerminate + solvedQuizOfWeek.attemptedQuestion
+              calculationForTerminate =
+                calculationForTerminate + solvedQuizOfWeek.attemptedQuestion;
               if (calculationForTerminate >= 100) {
-                break
+                break;
               }
               if (solvedQuizOfWeek.quiz.isTimeRestricted) {
-
-                weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-                  ? weekWiseProgress?.correctAnswers + solvedQuizOfWeek.correctAnswer
-                  : solvedQuizOfWeek.correctAnswer;
+                weekWiseProgress.correctAnswers =
+                  weekWiseProgress?.correctAnswers
+                    ? weekWiseProgress?.correctAnswers +
+                    solvedQuizOfWeek.correctAnswer
+                    : solvedQuizOfWeek.correctAnswer;
                 weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-                  ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
+                  ? weekWiseProgress?.totalQuestion +
+                  solvedQuizOfWeek.totalQuestion
                   : solvedQuizOfWeek.totalQuestion;
-                weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-                  ? weekWiseProgress?.attemptQuestions + solvedQuizOfWeek.attemptedQuestion
-                  : solvedQuizOfWeek.attemptedQuestion;
-
+                weekWiseProgress.attemptQuestions =
+                  weekWiseProgress?.attemptQuestions
+                    ? weekWiseProgress?.attemptQuestions +
+                    solvedQuizOfWeek.attemptedQuestion
+                    : solvedQuizOfWeek.attemptedQuestion;
               }
-
             }
           }
           if (weekWiseProgress?.attemptQuestions >= 20) {
@@ -116,11 +123,11 @@ const CategoryPagesRightBar = (props) => {
               weekWiseCorrected,
               correctAnswers: 0,
               attemptQuestions: 0,
-              name: weekKeyName
-            })
+              name: weekKeyName,
+            });
           }
-          weekWiseProgress = {}
-          calculationForTerminate = 0
+          weekWiseProgress = {};
+          calculationForTerminate = 0;
         });
       setWeeklyProgress(weeklyProgressArr);
       setWeeks(previousWeeks);
@@ -136,21 +143,21 @@ const CategoryPagesRightBar = (props) => {
 
   const percentageCalculation = (prognos) => {
     switch (props?.item.title) {
-      case 'XYZ':
+      case "XYZ":
         return XYZNormeringValueFor(prognos);
-      case 'KVA':
+      case "KVA":
         return KVANormeringValueFor(prognos);
-      case 'NOG':
+      case "NOG":
         return NOGNormeringValueFor(prognos);
-      case 'DTK':
+      case "DTK":
         return DTKNormeringValueFor(prognos);
-      case 'ELF':
+      case "ELF":
         return ELFNormeringValueFor(prognos);
-      case 'ORD':
+      case "ORD":
         return ORDNormeringValueFor(prognos);
-      case 'MEK':
+      case "MEK":
         return MEKNormeringValueFor(prognos);
-      case 'LÄS':
+      case "LÄS":
         return LASNormeringValueFor(prognos);
       default:
         break;

@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -51,16 +52,21 @@ CrossIcon.propTypes = {
 export default function CustomizedDialogs(props) {
   const [open, setOpen] = React.useState(false);
   const [questionFeedback, setQuestionFeedback] = useState("");
+  const { user, token } = useSelector((state) => state.value);
 
   const cardSubmittion = () => {
     const payLoad = {
       point: props.count,
       explanation: questionFeedback,
       question: props.questionId,
-      user: localStorage.getItem("userId"),
+      user: user._id,
+    };
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     };
     const URL = EndPoints.questionRating;
-    instance2.post(URL, payLoad).then((response) => {
+    instance2.post(URL, payLoad, { headers }).then((response) => {
       if (response.status === 200) {
         props.onClose();
         setQuestionFeedback("");

@@ -17,6 +17,7 @@ import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import swal from "sweetalert";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +73,13 @@ const CategoryPagesFeedContent = (props) => {
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
+  const email = useSelector((state) => state);
+  const { user, token } = useSelector((state) => state.value);
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
 
   const scrollTop = () => {
     window.scrollTo({
@@ -81,7 +89,6 @@ const CategoryPagesFeedContent = (props) => {
   };
 
   useEffect(() => {
-    //getting all the categories/subject
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
     instance2.get(URL).then((response) => {
       if (!response.data.message) {
@@ -224,7 +231,7 @@ const CategoryPagesFeedContent = (props) => {
           sectionCategory: props.item._id,
           totalQuestion: parseInt(chekedValue),
           value: timer,
-          user: localStorage.getItem("userId"),
+          user: user._id,
           multipartQuestion: null,
           isTimeRestricted: timer ? true : false,
         };

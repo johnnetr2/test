@@ -37,8 +37,6 @@ const QuestionBody = (props) => {
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
 
-  console.log("test", props.questionTypeTitle);
-
   const updateQuiz = (value) => {
     let quiz = [...props.quiz];
     setQuestion(value);
@@ -137,7 +135,9 @@ const QuestionBody = (props) => {
         />
         {/* question container for single question */}
         <Container maxWidth="sm" className={classes.questionContainer}>
-          <div className="QuestionStatement"> {/* CSS on ./styles/QuestionBody.css */}
+          <div className="QuestionStatement">
+            {" "}
+            {/* CSS on ./styles/QuestionBody.css */}
             <MarkLatex content={question?.questionStatement} />
           </div>
 

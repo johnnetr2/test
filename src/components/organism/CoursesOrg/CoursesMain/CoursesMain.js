@@ -7,6 +7,7 @@ import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
 import CoursesLeftBar from "../CoursesLeftBar/CoursesLeftBar";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -38,6 +39,7 @@ const CoursesMain = () => {
   const [limit, setLimit] = useState(7);
   const [provHistoryData, setProvHistoryData] = useState("");
   const [provpassSeasons, setProvpassSeasons] = useState();
+  const userId = useSelector((state) => state.value.user._id);
 
   useEffect(() => {
     const data = {
@@ -49,7 +51,6 @@ const CoursesMain = () => {
       setPreviousExams(response.data.data);
     });
 
-    const userId = localStorage.getItem("userId");
     const URL = EndPoints.simuleraQuizHistory + userId;
     instance2.get(URL).then((response) => {
       if (response.data.length > 0) {
