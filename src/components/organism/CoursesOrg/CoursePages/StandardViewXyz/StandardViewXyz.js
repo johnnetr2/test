@@ -56,12 +56,11 @@ const StandardViewXyz = () => {
       setQuiz(params?.state?.quiz);
       setCurrentIndex(params?.state?.questionIndex);
       setStatus(true);
-      setOpen(false)
+      setOpen(false);
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
-  
-      instance2.get(URL).then((response) => {
 
+      instance2.get(URL).then((response) => {
         setQuiz(response.data.simuleraQuiz);
         setTime(3300);
         setOpen(false);
@@ -79,11 +78,11 @@ const StandardViewXyz = () => {
           simuleraQuiz: quiz?._id,
           simuleraSeason: quiz?.season,
           timeLeft,
-          currentQuestion: currentIndex, 
+          currentQuestion: currentIndex,
         },
       });
     }
-  }, [timeLeft]);
+  }, [timeLeft, shouldNavigate]);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -583,7 +582,10 @@ const StandardViewXyz = () => {
                                       }}
                                     >
                                       <FormControlLabel
-                                        style={{ margin: 0, size: "0.5rem" }}
+                                        style={{
+                                          margin: 0,
+                                          size: "0.5rem",
+                                        }}
                                         value={option?._id}
                                         // control={<Radio color="primary" />}
                                         control={Options(
@@ -592,50 +594,56 @@ const StandardViewXyz = () => {
                                           optionIndex
                                         )}
                                         className={classes.optionStyle}
+                                        label={
+                                          <Box
+                                            sx={{
+                                              width:
+                                                question?.options.options
+                                                  .length >= 4
+                                                  ? "20rem"
+                                                  : "16rem",
+                                              display: "flex",
+                                              marginLeft:
+                                                question?.options.options
+                                                  .length >= 4
+                                                  ? "1rem"
+                                                  : "0",
+                                              justifyContent:
+                                                question?.options.options
+                                                  .length >= 4
+                                                  ? "flex-start"
+                                                  : "center",
+                                              alignItems: "center",
+                                              height:
+                                                question?.options.options
+                                                  .length >= 4 && "4rem",
+                                            }}
+                                          >
+                                            {option.image ? (
+                                              <img
+                                                className={
+                                                  classes.piechart_size
+                                                }
+                                                src={option.image}
+                                                alt=""
+                                              />
+                                            ) : (
+                                              <MarkLatex
+                                                content={option.value}
+                                              />
+                                            )}
+                                          </Box>
+                                        }
                                       />
                                       <Typography
                                         style={{
-                                          marginTop: "1.25rem",
+                                          marginTop: "2rem",
                                           color: "#717274",
                                         }}
                                         variant="body2"
                                       >
                                         {OptionIndex(optionIndex)}
                                       </Typography>
-                                    </Box>
-
-                                    <Box
-                                      // mt={2}
-                                      // ml={5}
-                                      sx={{
-                                        width:
-                                          question?.options.options.length >= 4
-                                            ? "20rem"
-                                            : "16rem",
-                                        display: "flex",
-                                        marginLeft:
-                                          question?.options.options.length >= 4
-                                            ? "1rem"
-                                            : "0",
-                                        justifyContent:
-                                          question?.options.options.length >= 4
-                                            ? "flex-start"
-                                            : "center",
-                                        alignItems: "center",
-                                        height:
-                                          question?.options.options.length >=
-                                            4 && "5rem",
-                                      }}
-                                    >
-                                      {option.image ? (
-                                        <img
-                                          className={classes.piechart_size}
-                                          src={option.image}
-                                          alt=""
-                                        />
-                                      ) : (
-                                        <MarkLatex content={option.value} />
-                                      )}
                                     </Box>
                                   </Box>
                                 </Box>
