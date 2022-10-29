@@ -9,6 +9,7 @@ import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesC
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
 import { calculateWeekWiseNorming } from "../../../atom/percentageCalculator/Utils";
+import { getWeekNumbers } from "../../../atom/percentageCalculator/Utils";
 
 function datesGroupByComponent(dates, token) {
   return dates.reduce(function (val, obj) {
@@ -42,42 +43,61 @@ const HomeRightBar = (props) => {
       instance2.get(URL).then((response) => {
         const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative } =
           response.data;
-        const verbelWeekWiseData = datesGroupByComponent(
-          lastWeekSevenWeekVerbal,
-          "W"
-        );
-        const quantitativeWeekWiseData = datesGroupByComponent(
-          lastWeekSevenWeekQuantitative,
-          "W"
-        );
-        const verbalWeekWiseProgress = calculateWeekWiseNorming(
-          verbelWeekWiseData,
-          "verbel",
-          setWeeks
-        );
-        const quantitativeWeekWiseProgress = calculateWeekWiseNorming(
-          quantitativeWeekWiseData,
-          "quantitative",
-          setWeeks
-        );
         const progressOfUserAllCategories = [];
         if (
-          lastWeekSevenWeekVerbal.length > 1 &&
-          lastWeekSevenWeekQuantitative.length > 1
+          lastWeekSevenWeekQuantitative.length > 1 &&
+          lastWeekSevenWeekVerbal.length > 1
         ) {
-          quantitativeWeekWiseProgress.forEach((quantitativeNorming) => {
+          const verbelWeekWiseData = datesGroupByComponent(
+            lastWeekSevenWeekVerbal,
+            "W"
+          );
+          const quantitativeWeekWiseData = datesGroupByComponent(
+            lastWeekSevenWeekQuantitative,
+            "W"
+          );
+          const verbalWeekWiseProgress = calculateWeekWiseNorming(
+            verbelWeekWiseData,
+            "verbel",
+            setWeeks
+          );
+          const quantitativeWeekWiseProgress = calculateWeekWiseNorming(
+            quantitativeWeekWiseData,
+            "quantitative",
+            setWeeks
+          );
+
+          const weekNames = getWeekNumbers();
+
+          weekNames.forEach((weekName) => {
             const verbalNormingOfWeek = verbalWeekWiseProgress.find(
-              (verbalNorming) => verbalNorming.name === quantitativeNorming.name
+              (verbalNorming) => verbalNorming.name === weekName
             );
-            const overAllProgressOfWeek =
-              (verbalNormingOfWeek.eachCategoryPrognos +
-                quantitativeNorming.eachCategoryPrognos) /
-              2;
+
+            const quantitativeNormingOfWeek = quantitativeWeekWiseProgress.find(
+              (quantitativeNorming) => quantitativeNorming.name === weekName
+            );
+            let overAllProgressOfWeek = 0;
+
+            if (quantitativeNormingOfWeek && verbalNormingOfWeek) {
+              overAllProgressOfWeek =
+                (verbalNormingOfWeek.eachCategoryPrognos +
+                  quantitativeNormingOfWeek.eachCategoryPrognos) /
+                2;
+            } else if (!verbalNormingOfWeek && quantitativeNormingOfWeek) {
+              overAllProgressOfWeek =
+                (0 + quantitativeNormingOfWeek.eachCategoryPrognos) / 2;
+            } else if (!quantitativeNormingOfWeek && verbalNormingOfWeek) {
+              overAllProgressOfWeek =
+                (verbalNormingOfWeek.eachCategoryPrognos + 0) / 2;
+            }
+
             const averageProgressOfVerbalQuantitative =
               overAllProgressOfWeek.toFixed(1);
+
             progressOfUserAllCategories.push({
               overAllProgress: averageProgressOfVerbalQuantitative,
-              name: quantitativeNorming.name,
+              name: weekName,
             });
           });
         }
