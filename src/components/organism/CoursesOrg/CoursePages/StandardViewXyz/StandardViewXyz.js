@@ -72,6 +72,7 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     if (shouldNavigate) {
+      console.log("this happened")
       navigate("/overblick", {
         state: {
           quiz: quiz,
@@ -83,6 +84,7 @@ const StandardViewXyz = () => {
         },
       });
     }
+    console.log("this ran")
   }, [timeLeft]);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -806,8 +808,8 @@ const StandardViewXyz = () => {
               ) : (
                 <Box
                   onClick={() => {
-                    setStatus(false);
                     setShouldNavigate(true);
+                    setStatus(false);
                   }}
                 >
                   <Typography
@@ -834,8 +836,8 @@ const StandardViewXyz = () => {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    setStatus(false);
                     setShouldNavigate(true);
+                    setStatus(false);
                   }}
                 >
                   <Typography
