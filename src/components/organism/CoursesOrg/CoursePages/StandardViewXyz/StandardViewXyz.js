@@ -72,7 +72,6 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     if (shouldNavigate) {
-      console.log("this happened")
       navigate("/overblick", {
         state: {
           quiz: quiz,
@@ -84,7 +83,6 @@ const StandardViewXyz = () => {
         },
       });
     }
-    console.log("this ran")
   }, [timeLeft]);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -198,6 +196,20 @@ const StandardViewXyz = () => {
         return "";
     }
   }
+
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if(e.keyCode === 13){
+        currentIndex + 1 < quiz.question.length &&
+        setCurrentIndex(oldIndex => oldIndex + 1)
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [quiz, currentIndex])
 
   const Options = (question, option, optionIndex) => {
     if (
@@ -808,8 +820,8 @@ const StandardViewXyz = () => {
               ) : (
                 <Box
                   onClick={() => {
-                    setShouldNavigate(true);
                     setStatus(false);
+                    setShouldNavigate(true);
                   }}
                 >
                   <Typography
@@ -836,8 +848,8 @@ const StandardViewXyz = () => {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    setShouldNavigate(true);
                     setStatus(false);
+                    setShouldNavigate(true);
                   }}
                 >
                   <Typography
