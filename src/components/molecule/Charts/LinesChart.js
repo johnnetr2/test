@@ -44,38 +44,38 @@ const LinesChart = (props) => {
         data={[
           {
             name: weeksArray[6],
-            Prognos: props?.mondayData ? props?.mondayData : null,
+            Prognos: props?.mondayData,
             // point:props.mondayData
             // (props.homeRightBar && props.mondayData) ||
             // (props.categoryRightBar && props.mondayData),
           },
           {
             name: weeksArray[5],
-            Prognos: props?.tuesdayData ? props?.tuesdayData : null,
+            Prognos: props?.tuesdayData,
             // (props.homeRightBar && props.tuesdayData) ||
             // (props.categoryRightBar && props.tuesdayData),
           },
           {
             name: weeksArray[4],
-            Prognos: props?.wednesdayData ? props?.wednesdayData : null,
+            Prognos: props?.wednesdayData,
             // (props?.homeRightBar && props.wednesdayData) ||
             // (props?.categoryRightBar && props.wednesdayData),
           },
           {
             name: weeksArray[3],
-            Prognos: props?.thursdayData ? props?.thursdayData : null,
+            Prognos: props?.thursdayData,
           },
           {
             name: weeksArray[2],
-            Prognos: props?.fridayData ? props?.fridayData : null,
+            Prognos: props?.fridayData,
           },
           {
             name: weeksArray[1],
-            Prognos: props?.saturdayData ? props?.saturdayData : null,
+            Prognos: props?.saturdayData,
           },
           {
             name: weeksArray[0],
-            Prognos: props?.sundayData ? props?.sundayData : null,
+            Prognos: props?.sundayData,
           },
         ]}
         syncId="anyId"

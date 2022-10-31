@@ -67,8 +67,7 @@ const HomeRightBar = (props) => {
             setWeeks
           );
 
-          const weekNames = getWeekNumbers();
-
+          const weekNames = getWeekNumbers().reverse();
           weekNames.forEach((weekName) => {
             const verbalNormingOfWeek = verbalWeekWiseProgress.find(
               (verbalNorming) => verbalNorming.name === weekName
@@ -79,11 +78,22 @@ const HomeRightBar = (props) => {
             );
             let overAllProgressOfWeek = 0;
 
+            if (!quantitativeNormingOfWeek && !verbalNormingOfWeek) {
+              overAllProgressOfWeek = null;
+            }
             if (quantitativeNormingOfWeek && verbalNormingOfWeek) {
-              overAllProgressOfWeek =
-                (verbalNormingOfWeek.eachCategoryPrognos +
-                  quantitativeNormingOfWeek.eachCategoryPrognos) /
-                2;
+              let { eachCategoryPrognos: verbalProgress } = verbalNormingOfWeek;
+              let { eachCategoryPrognos: quantitativeProgress } =
+                quantitativeNormingOfWeek;
+
+              if (verbalProgress || quantitativeProgress) {
+                overAllProgressOfWeek =
+                  (verbalNormingOfWeek.eachCategoryPrognos +
+                    quantitativeNormingOfWeek.eachCategoryPrognos) /
+                  2;
+              } else {
+                overAllProgressOfWeek = null;
+              }
             } else if (!verbalNormingOfWeek && quantitativeNormingOfWeek) {
               overAllProgressOfWeek =
                 (0 + quantitativeNormingOfWeek.eachCategoryPrognos) / 2;
@@ -92,8 +102,9 @@ const HomeRightBar = (props) => {
                 (verbalNormingOfWeek.eachCategoryPrognos + 0) / 2;
             }
 
-            const averageProgressOfVerbalQuantitative =
-              overAllProgressOfWeek.toFixed(1);
+            const averageProgressOfVerbalQuantitative = overAllProgressOfWeek
+              ? overAllProgressOfWeek.toFixed(1)
+              : overAllProgressOfWeek;
 
             progressOfUserAllCategories.push({
               overAllProgress: averageProgressOfVerbalQuantitative,

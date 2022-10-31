@@ -49,7 +49,7 @@ const CategoryPagesRightBar = (props) => {
         const defaultValuseObj = {
           correctAnswers: 0,
           attemptQuestions: 0,
-          eachCategoryPrognos: 0,
+          eachCategoryPrognos: null,
           totalQuestion: 0,
           weekWiseCorrected: 0,
         };
@@ -116,6 +116,7 @@ const CategoryPagesRightBar = (props) => {
               (weekWiseProgress?.correctAnswers /
                 weekWiseProgress?.attemptQuestions) *
               100;
+
             weekWiseProgress.eachCategoryPrognos =
               percentageCalculation(progress);
             weeklyProgressArr.push({
@@ -282,12 +283,10 @@ const CategoryPagesRightBar = (props) => {
           }}
         >
           <Typography variant="h5">
-            {isDesplayProgress
-              ? percentageCalculation(
-                  (lastWeekTasks?.totalCorrectQuestions /
-                    lastWeekTasks?.totalAttemptedQuestions) *
-                    100
-                )
+            {isDesplayProgress && weeklyProgress
+              ? weeklyProgress[6]?.eachCategoryPrognos
+                ? weeklyProgress[6]?.eachCategoryPrognos
+                : 0
               : 0}
           </Typography>
           <Typography variant="body2">

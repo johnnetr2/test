@@ -51,57 +51,25 @@ const LineDemo = (props) => {
       setRangeOfGraph(noToAdd + maxNumberOfCorrected);
     }
   }, []);
-  const data = [
-    {
-      name: weeksArray[6],
-      correct:
-        props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[0]?.weekWiseCorrected
-          : "",
-    },
-    {
-      name: weeksArray[5],
-      correct:
-        props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[1]?.weekWiseCorrected
-          : "",
-    },
-    {
-      name: weeksArray[4],
-      correct:
-        props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[2]?.weekWiseCorrected
-          : "",
-    },
-    {
-      name: weeksArray[3],
-      correct:
-        props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[3]?.weekWiseCorrected
-          : "",
-    },
-    {
-      name: weeksArray[2],
-      correct:
-        props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[4]?.weekWiseCorrected
-          : "",
-    },
-    {
-      name: weeksArray[1],
-      correct:
-        props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[5]?.weekWiseCorrected
-          : "",
-    },
-    {
-      name: weeksArray[0],
-      correct:
-        props?.weeklyProgress?.length !== 0
-          ? props?.weeklyProgress[6]?.weekWiseCorrected
-          : "",
-    },
-  ];
+
+  const lineChartParams = [];
+
+  const weekNameArray = weeksArray.reverse();
+
+  const data = props?.weeklyProgress;
+  weekNameArray.forEach((weekName) => {
+    const perWeekData = data.find(
+      (perWeekProgress) => perWeekProgress.name === weekName
+    );
+    if (perWeekData) {
+      lineChartParams.push({
+        name: weekName,
+        correct: perWeekData.weekWiseCorrected,
+      });
+    } else {
+      lineChartParams.push({ name: weekName, correct: "" });
+    }
+  });
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -123,14 +91,14 @@ const LineDemo = (props) => {
 
   return (
     <Box>
-      {props?.weeks && data && (
+      {lineChartParams.length > 0 && (
         <BarChart
           width={396}
           height={200}
           style={{
             fontSize: "0.75rem",
           }}
-          data={data}
+          data={lineChartParams}
           syncId="snycId"
           margin={{
             top: 10,

@@ -33,7 +33,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
       weeklyProgressArr.push({
         correctAnswers: 0,
         attemptQuestions: 0,
-        eachCategoryPrognos: 0,
+        eachCategoryPrognos: null,
         name: "V." + index,
       });
     }
@@ -44,7 +44,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
 
   weekWiseData &&
     Object.keys(weekWiseData).map((weekKeyName, index) => {
-      const week = "V." + index;
+      const week = "V." + weekKeyName;
       previousWeeks.push(week);
       for (let iterations = index; iterations >= 0; iterations--) {
         const weekData = Object.values(weekWiseData)[iterations];
@@ -58,7 +58,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
 
           calculationForTerminate =
             calculationForTerminate + solvedQuizOfWeek.attemptedQuestion;
-          if (calculationForTerminate >= 100) {
+          if (calculationForTerminate > 100) {
             break;
           }
           weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
@@ -68,6 +68,9 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
             ? weekWiseProgress?.attemptQuestions +
               solvedQuizOfWeek.attemptedQuestion
             : solvedQuizOfWeek.attemptedQuestion;
+        }
+        if (calculationForTerminate > 100) {
+          break;
         }
       }
 
@@ -84,6 +87,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
           progress.toFixed(2)
         );
       }
+      calculationForTerminate = 0;
       weeklyProgressArr.push({ ...weekWiseProgress, name: week });
     });
   setWeeks(previousWeeks);
