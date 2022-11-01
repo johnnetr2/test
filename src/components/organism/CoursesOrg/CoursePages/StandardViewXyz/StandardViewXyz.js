@@ -197,6 +197,20 @@ const StandardViewXyz = () => {
     }
   }
 
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if(e.keyCode === 13){
+        currentIndex + 1 < quiz.question.length &&
+        setCurrentIndex(oldIndex => oldIndex + 1)
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [quiz, currentIndex])
+
   const Options = (question, option, optionIndex) => {
     if (
       question.questionAnswer &&
