@@ -37,23 +37,14 @@ const ImpDatesCard = (props) => {
     setCollection({ ...collection, season: props.season });
   }, [props.season]);
 
-  const hostenDate = new Date("10/23/2022");
   const varenDate = new Date("3/25/2023");
   const hosten2023 = new Date("10/22/2023");
-  const notSure = new Date();
-  const formatHostenDate = moment(hostenDate).format("DD.MM.YYYY");
+  const currentDate = new Date();
   const formatVarenDate = moment(varenDate).format("DD.MM.YYYY");
   const formatHosten2023 = moment(hosten2023).format("DD.MM.YYYY");
-  const formatNotSure = moment(notSure).format("DD.MM.YYYY");
 
   const showHostenDate = () => {
-    if (collection && collection.season == "Hösten 2022") {
-      return (
-        <Typography variant="h3" style={{ fontSize: "2rem" }}>
-          {formatHostenDate}
-        </Typography>
-      );
-    } else if (collection.season == "Våren 2023") {
+     if (collection.season == "Våren 2023") {
       return (
         <Typography variant="h3" style={{ fontSize: "2rem" }}>
           {formatVarenDate}
@@ -66,33 +57,17 @@ const ImpDatesCard = (props) => {
         </Typography>
       );
     } else {
-      return formatNotSure;
+      return <Typography variant="h3" style={{ fontSize: "2rem" }}>
+      {formatHosten2023}
+    </Typography>
     }
   };
 
   const remainingDays = () => {
-    if (collection && collection.season == "Hösten 2022") {
-      return (
-        <>
-          <Box sx={{ display: "flex" }}>
-            {moment(hostenDate).diff(moment(notSure), "days")}
-            <Typography
-              variant="body2"
-              style={{
-                fontSize: ".65rem",
-                marginLeft: ".15rem",
-              }}
-            >
-              {" "}
-              dagar till provdagen
-            </Typography>
-          </Box>
-        </>
-      );
-    } else if (collection.season == "Våren 2023") {
+     if (collection.season == "Våren 2023") {
       return (
         <Box sx={{ display: "flex" }}>
-          {moment(varenDate).diff(moment(notSure), "days")}
+          {moment(varenDate).diff(moment(currentDate), "days")}
           <Typography
             variant="body2"
             style={{
@@ -108,7 +83,7 @@ const ImpDatesCard = (props) => {
     } else if (collection.season == "Hösten 2023") {
       return (
         <Box sx={{ display: "flex" }}>
-          {moment(hosten2023).diff(moment(notSure), "days")}
+          {moment(hosten2023).diff(moment(currentDate), "days")}
           <Typography
             variant="body2"
             style={{
@@ -122,15 +97,23 @@ const ImpDatesCard = (props) => {
         </Box>
       );
     } else {
-      return "-";
+      return (
+        <Box sx={{ display: "flex" }}>
+          {moment(hosten2023).diff(moment(currentDate), "days")}
+          <Typography
+            variant="body2"
+            style={{
+              fontSize: ".65rem",
+              marginLeft: ".15rem",
+            }}
+          >
+            {" "}
+            dagar till provdagen
+          </Typography>
+        </Box>
+      );
     }
   };
-
-  // const showvarenDate = collection.season === "Våren 2023" && formatVarenDate;
-  // setCollection({ ...collection, appliedDate: convertedDate });
-
-  // useEffect(() => {
-  // }, [collection.season]);
 
   const menuBtnClick = () => {
     setCollection({ ...collection, popup: true });
