@@ -43,11 +43,13 @@ const HomeRightBar = (props) => {
       instance2.get(URL).then((response) => {
         const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative } =
           response.data;
+        const weekNames = getWeekNumbers().reverse();
         const progressOfUserAllCategories = [];
         if (
           lastWeekSevenWeekQuantitative.length > 1 &&
           lastWeekSevenWeekVerbal.length > 1
         ) {
+
           const verbelWeekWiseData = datesGroupByComponent(
             lastWeekSevenWeekVerbal,
             "W"
@@ -67,7 +69,6 @@ const HomeRightBar = (props) => {
             setWeeks
           );
 
-          const weekNames = getWeekNumbers().reverse();
           weekNames.forEach((weekName) => {
             const verbalNormingOfWeek = verbalWeekWiseProgress.find(
               (verbalNorming) => verbalNorming.name === weekName
@@ -106,11 +107,17 @@ const HomeRightBar = (props) => {
               : overAllProgressOfWeek;
 
             progressOfUserAllCategories.push({
-              overAllProgress: averageProgressOfVerbalQuantitative,
+              Prognos: averageProgressOfVerbalQuantitative,
               name: weekName,
             });
           });
+        } else {
+          console.log("in the else 1212")
+          weekNames.forEach((weekName) => {
+            progressOfUserAllCategories.push({ name: weekName, Prognos: null })
+          })
         }
+        console.log("ajshdkj akdhk akjds", progressOfUserAllCategories)
         setWeeklyProgress(progressOfUserAllCategories);
       });
     }
@@ -205,43 +212,7 @@ const HomeRightBar = (props) => {
             </Typography>
             <LinesChart
               syncId="anyId"
-              mondayData={
-                weeklyProgress[0] && showProgress
-                  ? weeklyProgress[0].overAllProgress
-                  : null
-              }
-              tuesdayData={
-                weeklyProgress[1] && showProgress
-                  ? weeklyProgress[1].overAllProgress
-                  : null
-              }
-              wednesdayData={
-                weeklyProgress[2] && showProgress
-                  ? weeklyProgress[2].overAllProgress
-                  : null
-              }
-              thursdayData={
-                weeklyProgress[3] && showProgress
-                  ? weeklyProgress[3].overAllProgress
-                  : null
-              }
-              fridayData={
-                weeklyProgress[4] && showProgress
-                  ? weeklyProgress[4].overAllProgress
-                  : null
-              }
-              saturdayData={
-                weeklyProgress[5] && showProgress
-                  ? weeklyProgress[5].overAllProgress
-                  : null
-              }
-              sundayData={
-                weeklyProgress[6] && showProgress
-                  ? weeklyProgress[6].overAllProgress
-                  : null
-              }
-              weeklyProgress={weeklyProgress}
-              weeks={weeks}
+              weekWiseProgressGraph={weeklyProgress}
               HomeRightBar="homeRightBar"
             />
           </Box>

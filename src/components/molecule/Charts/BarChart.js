@@ -98,7 +98,7 @@ const LineDemo = (props) => {
           style={{
             fontSize: "0.75rem",
           }}
-          data={props.weeklyCoreectedGraph}
+          data={props?.weeklyCoreectedGraph}
           syncId="snycId"
           margin={{
             top: 10,

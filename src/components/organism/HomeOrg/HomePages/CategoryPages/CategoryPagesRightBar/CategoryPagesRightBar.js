@@ -27,15 +27,12 @@ const CategoryPagesRightBar = (props) => {
   const [weekWiseProgressGraph, setWeekWiseProgressGraph] = useState([]);
   const [weeklyProgress, setWeeklyProgress] = useState(0);
   const [isDesplayProgress, setIsDesplayProgress] = useState(false);
-  const [weeks, setWeeks] = useState();
-  let weeklyProgressArr = [];
 
   useEffect(() => {
     const weeknameArray = getWeekNumbers().reverse();
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
     instance2.get(lastWeeksData).then((response) => {
       const data = datesGroupByComponent(response.data.sevenWeekData, "W");
-      let previousWeeks = [];
       const weekWiseCorrectedArray = [];
       const weekWiseProgressArray = [];
       let weekWiseNormingofCategory = calculateWeekWiseNormingForCategory(
@@ -44,7 +41,7 @@ const CategoryPagesRightBar = (props) => {
         setIsDesplayProgress,
         props?.item.title
       );
-      console.log(weekWiseNormingofCategory, "weekWiseNormingofCategory 12");
+
       weeknameArray.forEach((weekKeyName, index) => {
         const weekPogress = weekWiseNormingofCategory.find(
           (weekWiseProgress) => weekWiseProgress.name === weekKeyName
@@ -58,13 +55,7 @@ const CategoryPagesRightBar = (props) => {
             name: weekKeyName,
             Prognos: weekPogress.eachCategoryPrognos,
           });
-          if (index === weeknameArray.length - 1) {
-            console.log(
-              "askhjda asd akhd akjd",
-              weekPogress.eachCategoryPrognos
-            );
-            setWeeklyProgress(weekPogress.eachCategoryPrognos);
-          }
+
         } else {
           weekWiseCorrectedArray.push({ name: weekKeyName, correct: "" });
           weekWiseProgressArray.push({
@@ -72,22 +63,19 @@ const CategoryPagesRightBar = (props) => {
             Prognos: null,
           });
         }
+        if (index === weeknameArray.length - 1) {
+          const lastWeek = weekPogress?.eachCategoryPrognos ? weekPogress?.eachCategoryPrognos : 0
+          setWeeklyProgress(lastWeek);
+        }
       });
-      console.log("khadkj akjd lkasjd", weekWiseProgressArray);
       setWeekWiseProgressGraph(weekWiseProgressArray);
       setWeeklyCoreectedGraph(weekWiseCorrectedArray);
-
-      // setWeeklyProgress(weeklyProgressArr);
-      // setWeeks(previousWeeks);
     });
   }, []);
-
-  console.log("ajks asjhd asdh", isDesplayProgress, weeklyProgress);
 
   useEffect(() => {
     const LastWeekURL = EndPoints.lastWeekTasks + props.item._id;
     instance2.get(LastWeekURL).then((response) => {
-      console.log("gas agdb asdh", response.data);
       setLastWeekTasks(response.data);
     });
   }, []);
@@ -139,8 +127,8 @@ const CategoryPagesRightBar = (props) => {
               value={
                 lastWeekTasks
                   ? (lastWeekTasks.totalCorrectQuestions /
-                      lastWeekTasks.totalQuestions) *
-                    100
+                    lastWeekTasks.totalQuestions) *
+                  100
                   : 0
               }
             />
@@ -239,7 +227,6 @@ const CategoryPagesRightBar = (props) => {
               <LinesChart
                 syncId="anyId"
                 weekWiseProgressGraph={weekWiseProgressGraph}
-                // weeks={weeks}
                 CategoryPagesRightBar="categoryPagesRightBar"
               />
             )}
