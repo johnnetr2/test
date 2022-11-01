@@ -112,12 +112,10 @@ const HomeRightBar = (props) => {
             });
           });
         } else {
-          console.log("in the else 1212")
           weekNames.forEach((weekName) => {
             progressOfUserAllCategories.push({ name: weekName, Prognos: null })
           })
         }
-        console.log("ajshdkj akdhk akjds", progressOfUserAllCategories)
         setWeeklyProgress(progressOfUserAllCategories);
       });
     }

@@ -180,7 +180,7 @@ const CategoryPagesRightBar = (props) => {
           >
             Uppgifter
           </Typography>
-          {weeklyCoreectedGraph && (
+          {weeklyCoreectedGraph.length > 0 && (
             <LineDemo weeklyCoreectedGraph={weeklyCoreectedGraph} />
           )}
         </Box>
