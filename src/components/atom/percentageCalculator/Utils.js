@@ -1,5 +1,14 @@
 import { verbalPercentageCalculator } from "./verbal";
 import { quantitativePercentageCalculator } from "./kvantitative";
+import { MEKNormeringValueFor } from "./PercentageCalculator";
+import { NOGNormeringValueFor } from "./PercentageCalculator";
+import { ORDNormeringValueFor } from "./PercentageCalculator";
+import { XYZNormeringValueFor } from "./PercentageCalculator";
+
+import { DTKNormeringValueFor } from "./PercentageCalculator";
+import { ELFNormeringValueFor } from "./PercentageCalculator";
+import { KVANormeringValueFor } from "./PercentageCalculator";
+import { LASNormeringValueFor } from "./PercentageCalculator";
 
 export const valueFor = (percentage, rageArray) => {
   let rageValue = 0;
@@ -113,4 +122,131 @@ export const getCurrentWeekNumber = () => {
 
   const currentWeek = Math.ceil(noOfDaysFromCurrentDate / 7);
   return currentWeek;
+};
+
+export const calculateWeekWiseNormingForCategory = (
+  sevenWeekWiseData,
+  isDesplayProgress,
+  setIsDesplayProgress,
+  categoryname
+) => {
+  const weeklyProgressArr = [];
+  let a;
+  if (Object.keys(sevenWeekWiseData).length < 7) {
+    let keys = Object.keys(sevenWeekWiseData); //35,36
+    let first = keys[0]; //35
+    a = 7 - keys.length; //5
+    let b = first - a; //30 //first = 35
+    const defaultValuseObj = {
+      correctAnswers: 0,
+      attemptQuestions: 0,
+      eachCategoryPrognos: null,
+      totalQuestion: 0,
+      weekWiseCorrected: 0,
+    };
+    for (let index = b; index < first; index++) {
+      weeklyProgressArr.push({ ...defaultValuseObj, name: "V." + index });
+    }
+  }
+
+  let weekWiseProgress = {};
+  let calculationForTerminate = 0;
+
+  sevenWeekWiseData &&
+    Object.keys(sevenWeekWiseData).forEach((weekKey, index) => {
+      const weekKeyName = "V." + weekKey;
+      let weekWiseCorrected = 0;
+
+      for (let iterations = index; iterations >= 0; iterations--) {
+        const weekWiseData = Object.values(sevenWeekWiseData)[iterations];
+
+        if (iterations === index) {
+          for (const solvedQuiz of weekWiseData) {
+            weekWiseCorrected = weekWiseCorrected + solvedQuiz.correctAnswer;
+          }
+        }
+
+        for (
+          let indexQuizResolved = 0;
+          indexQuizResolved < weekWiseData.length;
+          indexQuizResolved++
+        ) {
+          const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
+
+          calculationForTerminate =
+            calculationForTerminate + solvedQuizOfWeek.attemptedQuestion;
+          if (calculationForTerminate >= 100) {
+            break;
+          }
+          if (solvedQuizOfWeek.quiz.isTimeRestricted) {
+            weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
+              ? weekWiseProgress?.correctAnswers +
+                solvedQuizOfWeek.correctAnswer
+              : solvedQuizOfWeek.correctAnswer;
+            weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
+              ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
+              : solvedQuizOfWeek.totalQuestion;
+            weekWiseProgress.attemptQuestions =
+              weekWiseProgress?.attemptQuestions
+                ? weekWiseProgress?.attemptQuestions +
+                  solvedQuizOfWeek.attemptedQuestion
+                : solvedQuizOfWeek.attemptedQuestion;
+          }
+        }
+      }
+      if (weekWiseProgress?.attemptQuestions >= 20) {
+        if (!isDesplayProgress) {
+          setIsDesplayProgress(true);
+        }
+        let progress =
+          (weekWiseProgress?.correctAnswers /
+            weekWiseProgress?.attemptQuestions) *
+          100;
+
+        weekWiseProgress.eachCategoryPrognos = percentageCalculation(
+          progress,
+          categoryname
+        );
+        weeklyProgressArr.push({
+          ...weekWiseProgress,
+          weekWiseCorrected,
+          name: weekKeyName,
+        });
+      } else {
+        weeklyProgressArr.push({
+          eachCategoryPrognos: null,
+          weekWiseCorrected,
+          correctAnswers: 0,
+          attemptQuestions: 0,
+          name: weekKeyName,
+        });
+      }
+      weekWiseProgress = {};
+      calculationForTerminate = 0;
+    });
+
+  return weeklyProgressArr;
+};
+
+const percentageCalculation = (prognos, categoryname) => {
+  switch (categoryname) {
+    case "XYZ":
+      return XYZNormeringValueFor(prognos);
+    case "KVA":
+      return KVANormeringValueFor(prognos);
+    case "NOG":
+      return NOGNormeringValueFor(prognos);
+    case "DTK":
+      return DTKNormeringValueFor(prognos);
+    case "ELF":
+      return ELFNormeringValueFor(prognos);
+    case "ORD":
+      return ORDNormeringValueFor(prognos);
+    case "MEK":
+      return MEKNormeringValueFor(prognos);
+    case "LÄS":
+      return LASNormeringValueFor(prognos);
+    default:
+      break;
+  }
 };

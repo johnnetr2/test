@@ -1,7 +1,6 @@
 import react, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 
-import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
 import {
   LineChart,
   Line,
@@ -30,8 +29,6 @@ const LinesChart = (props) => {
     return null;
   };
 
-  const weeksArray = getWeekNumbers();
-
   return (
     <Box>
       <LineChart
@@ -41,43 +38,7 @@ const LinesChart = (props) => {
         style={{
           fontSize: "0.75rem",
         }}
-        data={[
-          {
-            name: weeksArray[6],
-            Prognos: props?.mondayData,
-            // point:props.mondayData
-            // (props.homeRightBar && props.mondayData) ||
-            // (props.categoryRightBar && props.mondayData),
-          },
-          {
-            name: weeksArray[5],
-            Prognos: props?.tuesdayData,
-            // (props.homeRightBar && props.tuesdayData) ||
-            // (props.categoryRightBar && props.tuesdayData),
-          },
-          {
-            name: weeksArray[4],
-            Prognos: props?.wednesdayData,
-            // (props?.homeRightBar && props.wednesdayData) ||
-            // (props?.categoryRightBar && props.wednesdayData),
-          },
-          {
-            name: weeksArray[3],
-            Prognos: props?.thursdayData,
-          },
-          {
-            name: weeksArray[2],
-            Prognos: props?.fridayData,
-          },
-          {
-            name: weeksArray[1],
-            Prognos: props?.saturdayData,
-          },
-          {
-            name: weeksArray[0],
-            Prognos: props?.sundayData,
-          },
-        ]}
+        data={props.weekWiseProgressGraph}
         syncId="anyId"
         margin={{
           top: 10,

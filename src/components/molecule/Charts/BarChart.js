@@ -37,12 +37,12 @@ import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
 // ];
 
 const LineDemo = (props) => {
-  const weeksArray = getWeekNumbers();
+  // const weeksArray = getWeekNumbers();
 
   const [rangeOfGraph, setRangeOfGraph] = useState(4);
 
   useEffect(() => {
-    const weekWiseCorrectedAnswers = props?.weeklyProgress.map(
+    const weekWiseCorrectedAnswers = props?.weeklyCoreectedGraph.map(
       (correctedInWeek) => correctedInWeek.weekWiseCorrected
     );
     const maxNumberOfCorrected = Math.max(...weekWiseCorrectedAnswers);
@@ -52,24 +52,24 @@ const LineDemo = (props) => {
     }
   }, []);
 
-  const lineChartParams = [];
+  // const lineChartParams = [];
 
-  const weekNameArray = weeksArray.reverse();
+  // const weekNameArray = weeksArray.reverse();
 
-  const data = props?.weeklyProgress;
-  weekNameArray.forEach((weekName) => {
-    const perWeekData = data.find(
-      (perWeekProgress) => perWeekProgress.name === weekName
-    );
-    if (perWeekData) {
-      lineChartParams.push({
-        name: weekName,
-        correct: perWeekData.weekWiseCorrected,
-      });
-    } else {
-      lineChartParams.push({ name: weekName, correct: "" });
-    }
-  });
+  // const data = props?.weeklyProgress;
+  // weekNameArray.forEach((weekName) => {
+  //   const perWeekData = data.find(
+  //     (perWeekProgress) => perWeekProgress.name === weekName
+  //   );
+  //   if (perWeekData) {
+  //     lineChartParams.push({
+  //       name: weekName,
+  //       correct: perWeekData.weekWiseCorrected,
+  //     });
+  //   } else {
+  //     lineChartParams.push({ name: weekName, correct: "" });
+  //   }
+  // });
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -91,14 +91,14 @@ const LineDemo = (props) => {
 
   return (
     <Box>
-      {lineChartParams.length > 0 && (
+      {props.weeklyCoreectedGraph.length > 0 && (
         <BarChart
           width={396}
           height={200}
           style={{
             fontSize: "0.75rem",
           }}
-          data={lineChartParams}
+          data={props.weeklyCoreectedGraph}
           syncId="snycId"
           margin={{
             top: 10,

@@ -80,8 +80,7 @@ const HomeRightBar = (props) => {
 
             if (!quantitativeNormingOfWeek && !verbalNormingOfWeek) {
               overAllProgressOfWeek = null;
-            }
-            if (quantitativeNormingOfWeek && verbalNormingOfWeek) {
+            } else if (quantitativeNormingOfWeek && verbalNormingOfWeek) {
               let { eachCategoryPrognos: verbalProgress } = verbalNormingOfWeek;
               let { eachCategoryPrognos: quantitativeProgress } =
                 quantitativeNormingOfWeek;
