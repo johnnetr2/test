@@ -46,6 +46,7 @@ const HomeRightBar = (props) => {
         const weekNames = getWeekNumbers().reverse();
         const progressOfUserAllCategories = [];
         if (
+          showProgress &&
           lastWeekSevenWeekQuantitative.length > 1 &&
           lastWeekSevenWeekVerbal.length > 1
         ) {
