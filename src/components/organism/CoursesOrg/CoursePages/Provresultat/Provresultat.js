@@ -41,6 +41,8 @@ const Provresultat = () => {
   const [open, setOpen] = useState(true);
   const { height, width } = useWindowDimensions();
   const [helpPopup, setHelpPopup] = useState(false);
+  const [seasonName, setSeasonName] = useState(null);
+  const [participantsAverage, setParticipantsAverage] = useState(null);
 
   useEffect(() => {
     if (params.state.seasonId) {
@@ -107,6 +109,13 @@ const Provresultat = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if(testSummary) {
+      console.log(testSummary)
+      console.log(params)
+    }
+  }, [testSummary])
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
