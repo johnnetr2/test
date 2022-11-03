@@ -268,12 +268,12 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                        previousRecordProgress[index]?._id == item._id
+                          previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }
                       isLoading={loading}
-                      // data={previousRecordProgress}
+                    // data={previousRecordProgress}
                     />
                   );
                 }
@@ -368,7 +368,7 @@ const HomeFeedContent = (props) => {
             justifyContent: "flex-start",
           }}
         >
-          {totalPrognos && <HomeRightBar totalPrognos={totalPrognos} />}
+          <HomeRightBar totalPrognos={totalPrognos} />
         </Box>
       </TabPanel>
     </Container>
