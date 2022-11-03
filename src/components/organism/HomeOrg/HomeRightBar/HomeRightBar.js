@@ -10,14 +10,7 @@ import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
 import { calculateWeekWiseNorming } from "../../../atom/percentageCalculator/Utils";
 import { getWeekNumbers } from "../../../atom/percentageCalculator/Utils";
-
-function datesGroupByComponent(dates, token) {
-  return dates.reduce(function (val, obj) {
-    let comp = moment(obj["createdAt"], "YYYY/MM/DD").format(token);
-    (val[comp] = val[comp] || []).push(obj);
-    return val;
-  }, {});
-}
+import { datesGroupByComponent } from '../../../service/commonService'
 
 const HomeRightBar = (props) => {
   const theme = createTheme();
