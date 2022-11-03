@@ -53,7 +53,11 @@ const HomeMainOrg = (props) => {
           />
         </Grid>
         <Grid item xs={12} sm={11} md={7} lg={7} xl={7}>
-          <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)} />
+          <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)}
+            studentPreference={
+              props?.StudentPreference && props?.StudentPreference
+            }
+          />
         </Grid>
         <Grid
           item

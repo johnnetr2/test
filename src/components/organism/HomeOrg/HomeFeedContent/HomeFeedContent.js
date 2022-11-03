@@ -369,7 +369,7 @@ const HomeFeedContent = (props) => {
             justifyContent: "flex-start",
           }}
         >
-          {totalPrognos && <HomeRightBar totalPrognos={totalPrognos} />}
+          <HomeRightBar totalPrognos={totalPrognos} />
         </Box>
       </TabPanel>
     </Container>
