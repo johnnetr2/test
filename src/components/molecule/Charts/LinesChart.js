@@ -1,5 +1,6 @@
 import react, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
+import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
 
 import {
   LineChart,
@@ -10,6 +11,7 @@ import {
   Tooltip,
 } from "recharts";
 const LinesChart = (props) => {
+  // const progressOfUserAllCategories = []
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -25,6 +27,16 @@ const LinesChart = (props) => {
         </div>
       );
     }
+
+    // useEffect(()=> {
+    //   if(!props.showProgress) { 
+    //     const weekNames = getWeekNumbers().reverse()
+    //     weekNames.forEach((weekName) => {
+    //       progressOfUserAllCategories.push({ name: weekName, Prognos: null })
+    //     })
+    //   }
+
+    // }, [props.showProgress])
 
     return null;
   };

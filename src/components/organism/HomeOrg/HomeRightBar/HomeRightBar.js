@@ -19,30 +19,31 @@ const HomeRightBar = (props) => {
   const [weeks, setWeeks] = useState();
 
   useEffect(() => {
-    const getPreviosRecord =
-      EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-    instance2.get(getPreviosRecord).then((response) => {
-      response.data.Data.map((item) => {
-        if (item.AttemptedQuestion >= 20) {
-          setShowProgress(true);
-        } else {
-          setShowProgress(false);
-        }
-      });
-    });
+    // const getPreviosRecord =
+    //   EndPoints.studentPerviousProgress + localStorage.getItem("userId");
+    // instance2.get(getPreviosRecord).then((response) => {
+    //   const { isAttemptedMoreThenTwenty } = response.data
+
+    //   console.log("sjagshahah akshd", response.data)
+
+    //   setShowProgress(isAttemptedMoreThenTwenty);
+    // });
 
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
       instance2.get(URL).then((response) => {
-        const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative } =
+        const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative, isAttemptedMoreThenTwenty } =
           response.data;
         const weekNames = getWeekNumbers().reverse();
         const progressOfUserAllCategories = [];
         if (
-          showProgress &&
+          isAttemptedMoreThenTwenty &&
           lastWeekSevenWeekQuantitative.length > 1 &&
           lastWeekSevenWeekVerbal.length > 1
         ) {
+
+          setShowProgress(isAttemptedMoreThenTwenty);
+
 
           const verbelWeekWiseData = datesGroupByComponent(
             lastWeekSevenWeekVerbal,
@@ -106,12 +107,10 @@ const HomeRightBar = (props) => {
             });
           });
         } else {
-          console.log("in the else 1212")
           weekNames.forEach((weekName) => {
             progressOfUserAllCategories.push({ name: weekName, Prognos: null })
           })
         }
-        console.log("ajshdkj akdhk akjds", progressOfUserAllCategories)
         setWeeklyProgress(progressOfUserAllCategories);
       });
     }
