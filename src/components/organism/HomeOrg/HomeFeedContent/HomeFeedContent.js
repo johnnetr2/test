@@ -60,7 +60,7 @@ const HomeFeedContent = (props) => {
   };
   const [sections, setSections] = useState();
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
-  const [totalPrognos, setTotalPrognos] = useState();
+  const [totalPrognos, setTotalPrognos] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -162,12 +162,13 @@ const HomeFeedContent = (props) => {
     );
     verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue);
     let avgProgressQuantitativeAndVerbal =
-      previousRecordProgress &&
       (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
-    previousRecordProgress &&
+
+    if (avgProgressQuantitativeAndVerbal > 0) {
       setTotalPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
-    previousRecordProgress &&
       props.getPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
+    }
+
   }, [previousRecordProgress]);
 
   function TabContainer(props) {
@@ -268,12 +269,12 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                        previousRecordProgress[index]?._id == item._id
+                          previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }
                       isLoading={loading}
-                      // data={previousRecordProgress}
+                    // data={previousRecordProgress}
                     />
                   );
                 }

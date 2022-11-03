@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeMainOrg = (props) => {
   const classes = useStyles();
-  const [totalPrognos, setTotalPrognos] = useState();
+  const [totalPrognos, setTotalPrognos] = useState(0);
   return (
     <Container maxWidth="false" disableGutters>
       <Grid container wrap="nowrap" className={classes.main}>
