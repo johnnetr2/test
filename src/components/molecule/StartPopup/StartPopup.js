@@ -72,7 +72,7 @@ export default function StartPopup({
                 <option hidden selected>
                   Välj prov...
                 </option>
-                {["Hösten 2022", "Våren 2023", "Hösten 2023"].map((item) => {
+                {["Våren 2023", "Hösten 2023"].map((item) => {
                   return (
                     <>
                       <option>{item}</option>

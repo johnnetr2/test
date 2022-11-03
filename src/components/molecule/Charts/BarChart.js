@@ -37,13 +37,12 @@ import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
 // ];
 
 const LineDemo = (props) => {
-  // const weeksArray = getWeekNumbers();
 
   const [rangeOfGraph, setRangeOfGraph] = useState(4);
 
   useEffect(() => {
     const weekWiseCorrectedAnswers = props?.weeklyCoreectedGraph.map(
-      (correctedInWeek) => correctedInWeek.weekWiseCorrected
+       ((correctedInWeek) =>  correctedInWeek?.correct)
     );
     const maxNumberOfCorrected = Math.max(...weekWiseCorrectedAnswers);
     if (maxNumberOfCorrected > 4) {
@@ -116,7 +115,7 @@ const LineDemo = (props) => {
             tickLine={false}
             allowDecimals={false}
             axisLine={false}
-            tickCount={10}
+            tickCount={5}
           />
           <Tooltip
             content={<CustomTooltip />}

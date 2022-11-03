@@ -169,6 +169,23 @@ const QuestionViewXyzOrg = () => {
     }
   }, [nextPress, timeLeft && !quiz[0]?.type == "multiple"]);
 
+
+  
+
+
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if(e.keyCode === 13){
+        Next(quiz[selectedIndex], quiz[selectedIndex].answer ? "Nästa" : "Svara")
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [quiz, selectedIndex])
+
   useEffect(() => {
     timer = setInterval(() => {
       setSeconds((seconds) => seconds + 1);
@@ -189,6 +206,8 @@ const QuestionViewXyzOrg = () => {
       behavior: "smooth",
     });
   };
+
+
 
   const Next = (question, buttonText) => {
     setStartTimer(false);
@@ -495,34 +514,35 @@ const QuestionViewXyzOrg = () => {
       );
     } else {
       return question.selectedIndex + 1 || question.answer ? (
-        <Box
-          onClick={(e) => Next(question, e.target.innerText)}
-          padding={1}
-          mt={2}
-          mb={2}
-          sx={{
-            width: "100%",
-            maxWidth: 600,
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "#0A1596",
-            borderRadius: ".3rem",
-            cursor: "pointer",
-            marginBottom: "2.2rem",
-          }}
-        >
-          <Typography
-            variant="h6"
-            style={{
-              fontSize: "0.75rem",
-              textTransform: "intialize",
-              marginRight: "0.5rem",
-              color: "#FFFFFF",
+          <Box
+            onClick={(e) => Next(question, e.target.innerText)}
+            padding={1}
+            mt={2}
+            mb={2}
+            sx={{
+              width: "100%",
+              maxWidth: 600,
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "#0A1596",
+              borderRadius: ".3rem",
+              cursor: "pointer",
+              marginBottom: "2.2rem",
             }}
           >
-            {question.answer ? "Nästa" : "Svara"}
-          </Typography>
-        </Box>
+            <Typography
+              variant="h6"
+              style={{
+                fontSize: "0.75rem",
+                textTransform: "intialize",
+                marginRight: "0.5rem",
+                color: "#FFFFFF",
+              }}
+            >
+              {question.answer ? "Nästa" : "Svara"}
+            </Typography>
+          </Box>
+       
       ) : (
         <Box
           padding={1}

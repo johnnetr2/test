@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeMainOrg = (props) => {
   const classes = useStyles();
-  const [totalPrognos, setTotalPrognos] = useState();
+  const [totalPrognos, setTotalPrognos] = useState(0);
   return (
     <Container maxWidth="false" disableGutters>
       <Grid container wrap="nowrap" className={classes.main}>
@@ -53,7 +53,11 @@ const HomeMainOrg = (props) => {
           />
         </Grid>
         <Grid item xs={12} sm={11} md={7} lg={7} xl={7}>
-          <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)} />
+          <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)}
+            studentPreference={
+              props?.StudentPreference && props?.StudentPreference
+            }
+          />
         </Grid>
         <Grid
           item
