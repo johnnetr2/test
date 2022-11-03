@@ -116,6 +116,7 @@ const HomeRightBar = (props) => {
             progressOfUserAllCategories.push({ name: weekName, Prognos: null })
           })
         }
+        console.log("progressOfUserAllCategories", progressOfUserAllCategories)
         setWeeklyProgress(progressOfUserAllCategories);
       });
     }
