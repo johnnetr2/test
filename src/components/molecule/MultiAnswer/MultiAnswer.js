@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 
 import { Box } from "@mui/material";
 import Correct from "../../../assets/Imgs/correct.png";
-import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
-import Increment from "../../../assets/Icons/Increment.svg";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 import Wrong from "../../../assets/Imgs/wrong.png";
+import FeedbackButtons from "../../atom/FeedbackButtons/FeedbackButtons";
+import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 
 const MultiAnswer = (props) => {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
@@ -15,11 +15,25 @@ const MultiAnswer = (props) => {
 
   const PlusPoint = () => {
     setCount(1);
+    MixpanelTracking.getInstance().feedbackButtonClicked(
+      localStorage.email,
+      props.question.sectionCategories.title,
+      props.question.questionCategory,
+      props.question.questionId,
+      "positive"
+    );
     setFeedbackPopup(true);
   };
 
   const MinusPoint = () => {
     setCount(0);
+    MixpanelTracking.getInstance().feedbackButtonClicked(
+      localStorage.email,
+      props.question.sectionCategories.title,
+      props.question.questionCategory,
+      props.question.questionId,
+      "negative"
+    );
     setFeedbackPopup(true);
   };
   const options = (item, index) => {
@@ -151,32 +165,7 @@ const MultiAnswer = (props) => {
             />
           </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            height: 60,
-          }}
-        >
-          <Typography
-            variant="body1"
-            component="body1"
-            style={{
-              fontSize: "0.7rem",
-              display: "flex",
-              justifySelf: "flex-end",
-            }}
-          >
-            Berätta för oss om du var nöjd med lösningen
-          </Typography>
-          <Box ml={1} mr={0.5}>
-            <img src={Increment} onClick={PlusPoint} alt="" />
-          </Box>
-          <Box mr={1}>
-            <img src={Decrement} onClick={MinusPoint} alt="" />
-          </Box>
-        </Box>
+        <FeedbackButtons onClickPlus={PlusPoint} onClickMinus={MinusPoint} />
       </Box>
     </>
   );
