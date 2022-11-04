@@ -170,12 +170,12 @@ const QuestionViewXyzOrg = () => {
   }, [nextPress, timeLeft && !quiz[0]?.type == "multiple"]);
 
 
-  
+
 
 
   useEffect(() => {
     const handleEnterClick = (e) => {
-      if(e.keyCode === 13){
+      if (e.keyCode === 13) {
         Next(quiz[selectedIndex], quiz[selectedIndex].answer ? "Nästa" : "Svara")
       }
     }
@@ -195,9 +195,7 @@ const QuestionViewXyzOrg = () => {
   }, [!params.state.time && startTimer]);
 
   const scrollBottom = () => {
-    setTimeout(() => {
-      myRef.current.scrollIntoView();
-    }, 500);
+    myRef.current.scrollIntoView();
   };
 
   const scrollTop = () => {
@@ -212,7 +210,7 @@ const QuestionViewXyzOrg = () => {
   const Next = (question, buttonText) => {
     setStartTimer(false);
     if (buttonText === "Svara") {
-      scrollBottom();
+      // scrollBottom();
     } else {
       scrollTop(0);
     }
@@ -257,6 +255,7 @@ const QuestionViewXyzOrg = () => {
           !params?.state?.data?.value && setNextPress(!nextPress);
           localStorage.setItem("quiz", JSON.stringify(questions));
           setQuiz(questions);
+          scrollBottom();
           setStatus(false);
         });
       }
@@ -400,7 +399,7 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2
         .post(URL, payload, { headers })
-        .then((response) => {})
+        .then((response) => { })
         .catch((error) => {
           console.log("this is the consnole of error", error);
         });
@@ -514,35 +513,35 @@ const QuestionViewXyzOrg = () => {
       );
     } else {
       return question.selectedIndex + 1 || question.answer ? (
-          <Box
-            onClick={(e) => Next(question, e.target.innerText)}
-            padding={1}
-            mt={2}
-            mb={2}
-            sx={{
-              width: "100%",
-              maxWidth: 600,
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "#0A1596",
-              borderRadius: ".3rem",
-              cursor: "pointer",
-              marginBottom: "2.2rem",
+        <Box
+          onClick={(e) => Next(question, e.target.innerText)}
+          padding={1}
+          mt={2}
+          mb={2}
+          sx={{
+            width: "100%",
+            maxWidth: 600,
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "#0A1596",
+            borderRadius: ".3rem",
+            cursor: "pointer",
+            marginBottom: "2.2rem",
+          }}
+        >
+          <Typography
+            variant="h6"
+            style={{
+              fontSize: "0.75rem",
+              textTransform: "intialize",
+              marginRight: "0.5rem",
+              color: "#FFFFFF",
             }}
           >
-            <Typography
-              variant="h6"
-              style={{
-                fontSize: "0.75rem",
-                textTransform: "intialize",
-                marginRight: "0.5rem",
-                color: "#FFFFFF",
-              }}
-            >
-              {question.answer ? "Nästa" : "Svara"}
-            </Typography>
-          </Box>
-       
+            {question.answer ? "Nästa" : "Svara"}
+          </Typography>
+        </Box>
+
       ) : (
         <Box
           padding={1}
@@ -694,9 +693,9 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <AlertDialogSlide
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -719,9 +718,9 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
