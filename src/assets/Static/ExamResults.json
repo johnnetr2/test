@@ -348,165 +348,165 @@
       ],
       "normalizedPoints": [
         {
-          "År": 2011,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.92,
-          "VERB norm": 0.92,
-          "Medelvärde Prov": 0.92
+          "year": 2011,
+          "season": "Hösten",
+          "KVANT": 0.92,
+          "VERB": 0.92,
+          "average": 0.92
         },
         {
-          "År": 2012,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.92,
-          "Medelvärde Prov": 0.92
+          "year": 2012,
+          "season": "Våren",
+          "KVANT": 0.91,
+          "VERB": 0.92,
+          "average": 0.92
         },
         {
-          "År": 2012,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.91,
-          "Medelvärde Prov": 0.91
+          "year": 2012,
+          "season": "Hösten",
+          "KVANT": 0.91,
+          "VERB": 0.91,
+          "average": 0.91
         },
         {
-          "År": 2013,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.89,
-          "Medelvärde Prov": 0.90
+          "year": 2013,
+          "season": "Våren",
+          "KVANT": 0.91,
+          "VERB": 0.89,
+          "average": 0.90
         },
         {
-          "År": 2013,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.91,
-          "Medelvärde Prov": 0.91
+          "year": 2013,
+          "season": "Hösten",
+          "KVANT": 0.91,
+          "VERB": 0.91,
+          "average": 0.91
         },
         {
-          "År": 2014,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.89,
-          "VERB norm": 0.9,
-          "Medelvärde Prov": 0.90
+          "year": 2014,
+          "season": "Våren",
+          "KVANT": 0.89,
+          "VERB": 0.9,
+          "average": 0.90
         },
         {
-          "År": 2014,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.89,
-          "VERB norm": 0.9,
-          "Medelvärde Prov": 0.90
+          "year": 2014,
+          "season": "Hösten",
+          "KVANT": 0.89,
+          "VERB": 0.9,
+          "average": 0.90
         },
         {
-          "År": 2015,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.89,
-          "Medelvärde Prov": 0.90
+          "year": 2015,
+          "season": "Våren",
+          "KVANT": 0.91,
+          "VERB": 0.89,
+          "average": 0.90
         },
         {
-          "År": 2015,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.9,
-          "VERB norm": 0.9,
-          "Medelvärde Prov": 0.90
+          "year": 2015,
+          "season": "Hösten",
+          "KVANT": 0.9,
+          "VERB": 0.9,
+          "average": 0.90
         },
         {
-          "År": 2016,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.9,
-          "VERB norm": 0.85,
-          "Medelvärde Prov": 0.88
+          "year": 2016,
+          "season": "Våren",
+          "KVANT": 0.9,
+          "VERB": 0.85,
+          "average": 0.88
         },
         {
-          "År": 2016,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.89,
-          "VERB norm": 0.85,
-          "Medelvärde Prov": 0.87
+          "year": 2016,
+          "season": "Hösten",
+          "KVANT": 0.89,
+          "VERB": 0.85,
+          "average": 0.87
         },
         {
-          "År": 2017,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.9,
-          "VERB norm": 0.86,
-          "Medelvärde Prov": 0.88
+          "year": 2017,
+          "season": "Våren",
+          "KVANT": 0.9,
+          "VERB": 0.86,
+          "average": 0.88
         },
         {
-          "År": 2017,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.84,
-          "Medelvärde Prov": 0.88
+          "year": 2017,
+          "season": "Hösten",
+          "KVANT": 0.91,
+          "VERB": 0.84,
+          "average": 0.88
         },
         {
-          "År": 2018,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.85,
-          "Medelvärde Prov": 0.88
+          "year": 2018,
+          "season": "Våren",
+          "KVANT": 0.91,
+          "VERB": 0.85,
+          "average": 0.88
         },
         {
-          "År": 2018,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.92,
-          "VERB norm": 0.85,
-          "Medelvärde Prov": 0.89
+          "year": 2018,
+          "season": "Hösten",
+          "KVANT": 0.92,
+          "VERB": 0.85,
+          "average": 0.89
         },
         {
-          "År": 2019,
-          "Tillfälle": "Våren",
-          "KVANT norm": 0.92,
-          "VERB norm": 0.85,
-          "Medelvärde Prov": 0.89
+          "year": 2019,
+          "season": "Våren",
+          "KVANT": 0.92,
+          "VERB": 0.85,
+          "average": 0.89
         },
         {
-          "År": 2019,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.94,
-          "VERB norm": 0.85,
-          "Medelvärde Prov": 0.90
+          "year": 2019,
+          "season": "Hösten",
+          "KVANT": 0.94,
+          "VERB": 0.85,
+          "average": 0.90
         },
         {
-          "År": 2020,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.86,
-          "VERB norm": 0.82,
-          "Medelvärde Prov": 0.84
+          "year": 2020,
+          "season": "Hösten",
+          "KVANT": 0.86,
+          "VERB": 0.82,
+          "average": 0.84
         },
         {
-          "År": 2021,
-          "Tillfälle": "Mars",
-          "KVANT norm": 0.92,
-          "VERB norm": 0.84,
-          "Medelvärde Prov": 0.88
+          "year": 2021,
+          "season": "Mars",
+          "KVANT": 0.92,
+          "VERB": 0.84,
+          "average": 0.88
         },
         {
-          "År": 2021,
-          "Tillfälle": "Maj",
-          "KVANT norm": 0.92,
-          "VERB norm": 0.86,
-          "Medelvärde Prov": 0.89
+          "year": 2021,
+          "season": "Maj",
+          "KVANT": 0.92,
+          "VERB": 0.86,
+          "average": 0.89
         },
         {
-          "År": 2021,
-          "Tillfälle": "Hösten",
-          "KVANT norm": 0.88,
-          "VERB norm": 0.85,
-          "Medelvärde Prov": 0.87
+          "year": 2021,
+          "season": "Hösten",
+          "KVANT": 0.88,
+          "VERB": 0.85,
+          "average": 0.87
         },
         {
-          "År": 2022,
-          "Tillfälle": "Mars",
-          "KVANT norm": 0.91,
-          "VERB norm": 0.82,
-          "Medelvärde Prov": 0.87
+          "year": 2022,
+          "season": "Mars",
+          "KVANT": 0.91,
+          "VERB": 0.82,
+          "average": 0.87
         },
         {
-          "År": 2022,
-          "Tillfälle": "Maj",
-          "KVANT norm": 0.93,
-          "VERB norm": 0.83,
-          "Medelvärde Prov": 0.88
+          "year": 2022,
+          "season": "Maj",
+          "KVANT": 0.93,
+          "VERB": 0.83,
+          "average": 0.88
         }
       ]
 }
