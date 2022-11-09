@@ -113,7 +113,6 @@ const Provresultat = () => {
   }, []);
 
   useEffect(() => {
-    console.log(params.state.seasonId)
     if(params.state.seasonId) {
       const URL = `${EndPoints.getPreviousExams}/${params.state.seasonId}`;
       instance2.get(URL).then((response) => {
@@ -136,36 +135,40 @@ const Provresultat = () => {
     }
   }, [])
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  function createSummaryData(rowName, totalCorrectAnswers, totalQuestions, averagePoints) {
+    return { rowName, totalCorrectAnswers, totalQuestions, averagePoints };
   }
 
-  const rows = [
-    createData(
+  function createExamPartData(examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints) {
+    return { examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints};
+  }
+
+  const kvantPartRows = [
+    createExamPartData(
       "XYZ",
       testSummary?.correctQuestions_of_XYZ,
       testSummary?.totalQuestion_of_XYZ,
       participantsAverage?.XYZ
     ),
-    createData(
+    createExamPartData(
       "KVA",
       testSummary?.correctQuestions_of_KVA,
       testSummary?.totalQuestion_of_KVA,
       participantsAverage?.KVA
     ),
-    createData(
+    createExamPartData(
       "NOG",
       testSummary?.correctQuestions_of_NOG,
       testSummary?.totalQuestion_of_NOG,
       participantsAverage?.NOG
     ),
-    createData(
+    createExamPartData(
       "DTK",
       testSummary?.correctQuestions_of_DTK,
       testSummary?.totalQuestion_of_DTK,
       participantsAverage?.DTK
     ),
-    createData(
+    createExamPartData(
       "SAMMANFATTNING",
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
@@ -176,32 +179,32 @@ const Provresultat = () => {
     ),
   ];
 
-  const row = [
-    createData(
+  const verbalPartRows = [
+    createExamPartData(
       "ORD",
       testSummary?.correctQuestions_of_ORD,
       testSummary?.totalQuestion_of_ORD,
       participantsAverage?.ORD
     ),
-    createData(
+    createExamPartData(
       "LAS",
       testSummary?.correctQuestions_of_LAS,
       testSummary?.totalQuestion_of_LAS,
       participantsAverage?.LÄS
     ),
-    createData(
+    createExamPartData(
       "MEK",
       testSummary?.correctQuestions_of_MEK,
       testSummary?.totalQuestion_of_MEK,
       participantsAverage?.MEK
     ),
-    createData(
+    createExamPartData(
       "ELF",
       testSummary?.correctQuestions_of_ELF,
       testSummary?.totalQuestion_of_ELF,
       participantsAverage?.ELF
     ),
-    createData(
+    createExamPartData(
       "SAMMANFATTNING",
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
@@ -212,18 +215,13 @@ const Provresultat = () => {
           .replace(/\.0+$/, "")
     ),
   ];
-  const its = [
-    createData(
+
+  const wholeExamRows = [
+    createSummaryData(
       "SAMMANFATTNING",
       correctAnswersOfKvantitative + correctAnswersOfVerbal,
       totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
-      (
-        ((correctAnswersOfKvantitative + correctAnswersOfVerbal) /
-          (totalQuestionsOfKvantitative + totalQuestionsOfVerbal)) *
-        100
-      )
-        .toFixed(1)
-        .replace(/\.0+$/, "")
+      participantsAverage?.Total,
     ),
   ];
 
@@ -697,9 +695,9 @@ const Provresultat = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {kvantPartRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.examPart}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: 0,
@@ -708,12 +706,12 @@ const Provresultat = () => {
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.examPart}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.correctAnswers}</TableCell>
+                      <TableCell align="left">{row.totalQuestions}</TableCell>
+                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -762,9 +760,9 @@ const Provresultat = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.map((row) => (
+                  {verbalPartRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.examPart}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: 0,
@@ -773,12 +771,12 @@ const Provresultat = () => {
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.examPart}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.correctAnswers}</TableCell>
+                      <TableCell align="left">{row.totalQuestions}</TableCell>
+                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -810,9 +808,9 @@ const Provresultat = () => {
                                     </TableRow> */}
                 </TableHead>
                 <TableBody>
-                  {its.map((row) => (
+                  {wholeExamRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.rowName}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: "0",
@@ -825,15 +823,15 @@ const Provresultat = () => {
                         scope="row"
                         sx={{ width: "5rem" }}
                       >
-                        {row.name}
+                        {row.rowName}
                       </TableCell>
                       <TableCell style={{ width: "10rem" }} align="left">
-                        {row.calories}
+                        {row.totalCorrectAnswers}
                       </TableCell>
                       <TableCell style={{ width: "7rem" }} align="left">
-                        {row.fat}
+                        {row.totalQuestions}
                       </TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
+                      <TableCell align="left">{row.averagePoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
