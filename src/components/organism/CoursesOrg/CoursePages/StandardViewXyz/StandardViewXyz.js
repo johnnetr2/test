@@ -398,6 +398,12 @@ const StandardViewXyz = () => {
               <BackButtonPopup
                 status={backPressPopup}
                 closePopup={() => setBackPressPopup(false)}
+                title="Vill du avsluta provet?"
+                description="Du måste göra klart provpasset för att få din poäng. Om du trycker
+                på avsluta, sparas inte dina svar."
+                cancelBtnName="Gör klart provpass"
+                agreeBtnName="Avsluta prov"
+                redirect={() => navigate("/courses")}
               />
             </Box>
           </Box>

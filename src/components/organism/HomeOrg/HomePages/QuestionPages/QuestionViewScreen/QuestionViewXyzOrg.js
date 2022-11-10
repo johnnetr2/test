@@ -28,6 +28,7 @@ import { styled } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -160,7 +161,6 @@ const QuestionViewXyzOrg = () => {
 
       const URL = EndPoints.submitAnswer;
       instance2.post(URL, data, { headers }).then((response) => {
-
         setAnsSubmittedState(response.data);
         setTime(timeLeft);
         setNextPress(undefined);
@@ -334,7 +334,6 @@ const QuestionViewXyzOrg = () => {
               timeleft: 0,
               spendtime: timeLeft,
               totaltime: time ? time : 0,
-              attempted: false,
               // spendtime: (params.state.sectionCategory.time * quiz.length * 60) - remainingTime,
             });
           } else {
@@ -344,7 +343,6 @@ const QuestionViewXyzOrg = () => {
               timeleft: 0,
               totaltime: time ? time : 0,
               spendtime: 0,
-              attempted: false,
             });
           }
         }
@@ -357,7 +355,6 @@ const QuestionViewXyzOrg = () => {
                 timeleft: 0,
                 spendtime: timeLeft,
                 totaltime: time ? time : 0, //8 = 22 - 14
-                attempted: false,
               });
             } else {
               singleQuestionArray.push({
@@ -365,7 +362,6 @@ const QuestionViewXyzOrg = () => {
                 timeleft: 0,
                 totaltime: time ? time : 0,
                 spendtime: 0,
-                attempted: false,
               });
             }
           }
@@ -382,37 +378,35 @@ const QuestionViewXyzOrg = () => {
       }
       return item;
     });
+
     return singleQuestionArray;
   };
 
   const CloseTimerFunc = async () => {
     // console.log("close timer function");
     setTimeEnd(true);
-
-    if (answerSubmittedState) {
-      try {
-        const payload = {
-          quiz: params?.state?.quizId,
-          user: user._id,
-          sectionCategory: params?.state?.sectionCategory?._id,
-          answer: AnswerArrayPayloadForCloseTimerFunc(),
-        };
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        };
-        const URL = EndPoints.submitMultiquestionParagragh;
-        instance2
-          .post(URL, payload, { headers })
-          .then((response) => { console.log(response, 'multipart question response') })
-          .catch((error) => {
-            console.log("this is the consnole of error", error);
-          });
-      } catch (error) {
-        console.log("in catch block: ", error);
-      }
+    try {
+      const payload = {
+        quiz: params?.state?.quizId,
+        user: user._id,
+        sectionCategory: params?.state?.sectionCategory?._id,
+        answer: AnswerArrayPayloadForCloseTimerFunc(),
+      };
+      // console.log(payload, "popup function call");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const URL = EndPoints.submitMultiquestionParagragh;
+      instance2
+        .post(URL, payload, { headers })
+        .then((response) => { })
+        .catch((error) => {
+          console.log("this is the consnole of error", error);
+        });
+    } catch (error) {
+      console.log("in catch block: ", error);
     }
-
   };
 
   const SelectFunc = (item, optionIndex) => {
@@ -420,6 +414,8 @@ const QuestionViewXyzOrg = () => {
     let question = questions[selectedIndex];
     question.selectedIndex = optionIndex;
     question.optionId = item._id;
+    // console.log(questions, "test option index question view xyz org");
+    // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
 
@@ -441,8 +437,7 @@ const QuestionViewXyzOrg = () => {
   }
 
   const Options = (question, curentOption, optionIndex) => {
-    if (question.answer && question.answer.option === curentOption._id && question?.optionId) {
-
+    if (question.answer && question.answer.option === curentOption._id) {
       return (
         <img
           src={Correct}
@@ -702,23 +697,23 @@ const QuestionViewXyzOrg = () => {
           (quiz &&
             quiz?.[0]?.question?.[0]?.answer &&
             quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
-          <AlertDialogSlide
+          <BackButtonPopup
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
             cancelBtnName={"Fortsätt öva"}
             agreeBtnName={"Avsluta"}
-            popUpstatus={open}
-            handleClose={() => setOpen(false)}
+            status={open}
+            closePopup={() => setOpen(false)}
             redirect={() => handleAlertDialogPopup()}
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
-          <AlertDialogSlide
+          <BackButtonPopup
             title={"Vill du avsluta?"}
             description={"Ingen fråga är besvarad."}
             cancelBtnName={"Fortsätt öva"}
             agreeBtnName={"Avsluta"}
-            popUpstatus={open}
-            handleClose={() => setOpen(false)}
+            status={open}
+            closePopup={() => setOpen(false)}
             redirect={() => handleAlertDialogPopup()}
           />
         ) : null}

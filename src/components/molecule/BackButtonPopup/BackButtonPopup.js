@@ -78,17 +78,16 @@ export default function BackButtonPopup(props) {
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem" }}>
           <Typography gutterTop variant="h4">
-            Vill du avsluta provet?
+            {props.title}
           </Typography>
           <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
-            Du måste göra klart provpasset för att få din poäng. Om du trycker
-            på avsluta, sparas inte dina svar.
+            {props.description}
           </Typography>
         </DialogContent>
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
           <Button
             autoFocus
-            onClick={() => navigate('/courses')}
+            onClick={props.closePopup}
             style={{
               backgroundColor: "transparent",
               color: "#0A1596",
@@ -99,11 +98,11 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            Avsluta prov
+            {props.cancelBtnName}
           </Button>
           <Button
             autoFocus
-            onClick={props.closePopup}
+            onClick={() => props.redirect()}
             style={{
               backgroundColor: "#0A1596",
               color: "#fff",
@@ -112,8 +111,8 @@ export default function BackButtonPopup(props) {
               padding: ".60rem 3rem",
               marginBottom: "2rem",
             }}
-          >
-            Gör klart provpass
+            >
+            {props.agreeBtnName}
           </Button>
         </DialogActions>
       </BootstrapDialog>
