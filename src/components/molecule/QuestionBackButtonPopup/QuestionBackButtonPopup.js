@@ -49,7 +49,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function BackButtonPopup(props) {
+export default function QuestionBackButtonPopup(props) {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate()
 
@@ -87,7 +87,7 @@ export default function BackButtonPopup(props) {
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
           <Button
             autoFocus
-            onClick={() => props.redirect()}
+            onClick={props.closePopup}
             style={{
               backgroundColor: "transparent",
               color: "#0A1596",
@@ -98,11 +98,11 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            {props.agreeBtnName}
+            {props.cancelBtnName}
           </Button>
           <Button
             autoFocus
-            onClick={props.closePopup}
+            onClick={() => props.redirect()}
             style={{
               backgroundColor: "#0A1596",
               color: "#fff",
@@ -112,7 +112,7 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
             >
-            {props.cancelBtnName}
+            {props.agreeBtnName}
           </Button>
         </DialogActions>
       </BootstrapDialog>

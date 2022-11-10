@@ -29,6 +29,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
+import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -697,7 +698,7 @@ const QuestionViewXyzOrg = () => {
           (quiz &&
             quiz?.[0]?.question?.[0]?.answer &&
             quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
-          <BackButtonPopup
+          <QuestionBackButtonPopup
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
             cancelBtnName={"Fortsätt öva"}
@@ -707,7 +708,7 @@ const QuestionViewXyzOrg = () => {
             redirect={() => handleAlertDialogPopup()}
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
-          <BackButtonPopup
+          <QuestionBackButtonPopup
             title={"Vill du avsluta?"}
             description={"Ingen fråga är besvarad."}
             cancelBtnName={"Fortsätt öva"}

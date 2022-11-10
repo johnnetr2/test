@@ -67,10 +67,12 @@ export default function DropPenPopup(props) {
               onClick={props?.redirect}
               variant="contained"
               style={{
-                width: "10rem",
-                color: "#0A1596",
                 backgroundColor: "#0A1596",
                 color: "#fff",
+                textTransform: "capitalize",
+                fontWeight: "regular",
+                padding: ".60rem 3rem",
+                marginBottom: "2rem",
               }}
             >
               {/* Se resultat */}
