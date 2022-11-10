@@ -364,7 +364,6 @@ const QuestionBody = (props) => {
                         alignItems: "center",
                       }}
                     >
-                      {console.log(item, 'item 123456')}
                       {item.image ? (
                         <img src={item?.value} alt="image" />
                       ) : (

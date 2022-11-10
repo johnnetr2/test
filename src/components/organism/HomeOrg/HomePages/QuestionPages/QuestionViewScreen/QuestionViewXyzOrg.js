@@ -85,8 +85,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(10);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -111,8 +111,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        setTime(10);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -386,33 +386,28 @@ const QuestionViewXyzOrg = () => {
   };
 
   const CloseTimerFunc = async () => {
-    // console.log("close timer function");
     setTimeEnd(true);
-
-    if (answerSubmittedState) {
-      try {
-        const payload = {
-          quiz: params?.state?.quizId,
-          user: user._id,
-          sectionCategory: params?.state?.sectionCategory?._id,
-          answer: AnswerArrayPayloadForCloseTimerFunc(),
-        };
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        };
-        const URL = EndPoints.submitMultiquestionParagragh;
-        instance2
-          .post(URL, payload, { headers })
-          .then((response) => { console.log(response, 'multipart question response') })
-          .catch((error) => {
-            console.log("this is the consnole of error", error);
-          });
-      } catch (error) {
-        console.log("in catch block: ", error);
-      }
+    try {
+      const payload = {
+        quiz: params?.state?.quizId,
+        user: user._id,
+        sectionCategory: params?.state?.sectionCategory?._id,
+        answer: AnswerArrayPayloadForCloseTimerFunc(),
+      };
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const URL = EndPoints.submitMultiquestionParagragh;
+      instance2
+        .post(URL, payload, { headers })
+        .then((response) => { console.log(response, 'multipart question response') })
+        .catch((error) => {
+          console.log("this is the consnole of error", error);
+        });
+    } catch (error) {
+      console.log("in catch block: ", error);
     }
-
   };
 
   const SelectFunc = (item, optionIndex) => {
