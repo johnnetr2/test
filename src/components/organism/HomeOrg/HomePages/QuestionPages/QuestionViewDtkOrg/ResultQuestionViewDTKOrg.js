@@ -103,7 +103,7 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => {});
+      .catch(() => { });
     // instance2.get(URL, data).then(response => {
     //   console.log(response.data, 'responsessssssss')
     //   setParagraph(response.data.question)

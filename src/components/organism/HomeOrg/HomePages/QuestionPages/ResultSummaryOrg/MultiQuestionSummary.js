@@ -16,8 +16,26 @@ import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import Timer from "../../../../../atom/Timer/timer";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import { makeStyles } from "@material-ui/core/styles";
+import WarningIcon from "../../../../../../assets/Icons/WarningIcon.svg";
+
+
+
+const useStyles = makeStyles((theme) => ({
+  unAttemptedQuestion: {
+    padding: "2rem 4rem",
+    marginTop: "1rem",
+    border: "1px solid #e1e1e1",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: "#fff",
+  }
+}));
 
 function MultiQuestionSummary(props) {
+  const classes = useStyles()
   const [question, setQuestion] = useState();
 
   useEffect(() => {
@@ -36,7 +54,7 @@ function MultiQuestionSummary(props) {
           }}
         />
       );
-    } else if (question.answer && curentOption._id === question.answer.option) {
+    } else if (question.answer && curentOption._id === question.answer.option && question?.optionId) {
       return (
         <img
           src={Wrong}
@@ -45,6 +63,14 @@ function MultiQuestionSummary(props) {
             marginLeft: ".5rem",
             marginBottom: ".6rem",
           }}
+        />
+      );
+    } else if (question.answer && curentOption._id !== question?.optionId) {
+      return (
+        <Radio
+          disabled
+          checked={false}
+          style={{ marginRight: "0.5rem", color: "#E1E1E1" }}
         />
       );
     }
@@ -83,6 +109,14 @@ function MultiQuestionSummary(props) {
         flexDirection: "column",
       }}
     >
+      {!question?.optionId && question?.answer &&
+        <Container maxWidth="sm" className={classes.unAttemptedQuestion}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <img src={WarningIcon} alt="warning-icon" style={{ marginRight: '1rem' }} />
+            <Typography variant="body1" style={{ fontSize: '.75rem', fontWeight: 500, margin: 0 }}>Tiden gick ut och du hann inte svara på denna fråga.</Typography>
+          </Box>
+        </Container>
+      }
       <Box
         mt={5}
         paddingX={6}
@@ -178,7 +212,7 @@ function MultiQuestionSummary(props) {
               }}
             >
               <FormControlLabel
-                onClick={(e) => {}}
+                onClick={(e) => { }}
                 value={curentOption._id}
                 style={{ marginLeft: ".5rem", marginTop: ".3rem" }}
                 control={Options(question, curentOption, optionIndex)}

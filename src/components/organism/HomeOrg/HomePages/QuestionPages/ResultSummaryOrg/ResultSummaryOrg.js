@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
+import UnAttemptedCheckBox from "../../../../../../assets/Icons/UnAttemptedCheckBox.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
 import Correct from "../../../../../../assets/Imgs/correct.png";
@@ -70,13 +71,13 @@ export const percentageCalculation = (params, value) => {
     return MEKNormeringValueFor(value);
   }
 };
-const ResultSummaryOrg = (props) => {
+const ResultSummaryOrg = () => {
   const params = useLocation();
   const [timePerQues, setTimePerQues] = useState();
   const [progress, setProgress] = useState(0);
   const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
-  const { user, token } = useSelector((state) => state.value);
+  const { token } = useSelector((state) => state.value);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -137,6 +138,7 @@ const ResultSummaryOrg = (props) => {
       .get(URL, { headers })
       .then((response) => {
         response.data.question.map((item) => {
+
           return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
         });
 
@@ -209,10 +211,10 @@ const ResultSummaryOrg = (props) => {
                   <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
                   {responseCollection
                     ? dispSecondsAsMins(
-                        responseCollection?.question[
-                          responseCollection.question.length - 1
-                        ].timeleft?.toFixed(0)
-                      )
+                      responseCollection?.question[
+                        responseCollection.question.length - 1
+                      ].timeleft?.toFixed(0)
+                    )
                     : "00:00"}
                 </Box>
               )
@@ -279,12 +281,12 @@ const ResultSummaryOrg = (props) => {
                   }}
                 >
                   {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
+                    responseCollection?.correctAnswer != null ? (
                     <Typography variant="h4">
                       {responseCollection &&
                         responseCollection.correctAnswer +
-                          " /" +
-                          responseCollection.question.length}
+                        " /" +
+                        responseCollection.question.length}
                     </Typography>
                   ) : (
                     <Box sx={{ display: "flex" }}>
@@ -323,7 +325,7 @@ const ResultSummaryOrg = (props) => {
                           params,
                           (responseCollection.correctAnswer /
                             responseCollection.question.length) *
-                            100
+                          100
                         )}
                       </Typography>
                     ) : (
@@ -497,6 +499,11 @@ const ResultSummaryOrg = (props) => {
                             <img
                               style={{ height: "1.5rem", marginLeft: "1.5rem" }}
                               src={Correct}
+                            />
+                          ) : item.optionId === null ? (
+                            <img
+                              src={UnAttemptedCheckBox}
+                              style={{ height: "1.5rem", marginLeft: "1.5rem" }}
                             />
                           ) : (
                             <img

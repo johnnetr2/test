@@ -554,11 +554,10 @@ const QuestionViewDTKOrg = (props) => {
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
-                      columnCount: `${
-                        quiz.title === "DTK" || quiz?.description.length < 2000
+                      columnCount: `${quiz.title === "DTK" || quiz?.description.length < 2000
                           ? "1"
                           : "2"
-                      }`,
+                        }`,
                       padding: "0 5rem 2rem",
                     }}
                   >
@@ -713,18 +712,18 @@ const QuestionViewDTKOrg = (props) => {
                           </Typography>
                           {
                             quiz &&
-                              selectedIndex < quiz?.question?.length - 1 &&
-                              quiz?.question.length > 1 &&
-                              quiz?.question[0].selectedOptionIndex !=
-                                undefined && (
-                                <img
-                                  onClick={handleRightArrowFunction}
-                                  src={BlueRightIcon}
-                                  style={{ cursor: "pointer" }}
-                                  className={classes.size}
-                                  alt=""
-                                />
-                              )
+                            selectedIndex < quiz?.question?.length - 1 &&
+                            quiz?.question.length > 1 &&
+                            quiz?.question[0].selectedOptionIndex !=
+                            undefined && (
+                              <img
+                                onClick={handleRightArrowFunction}
+                                src={BlueRightIcon}
+                                style={{ cursor: "pointer" }}
+                                className={classes.size}
+                                alt=""
+                              />
+                            )
                             // : (
                             //   <img
                             //     src={Righticon}

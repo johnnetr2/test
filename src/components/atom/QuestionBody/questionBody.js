@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import Increment from "../../../assets/Icons/Increment.svg";
+import WarningIcon from "../../../assets/Icons/WarningIcon.svg";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
 import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/QuestionViewDtkOrg/QuestionViewDtkOrg";
@@ -28,6 +29,16 @@ const useStyles = makeStyles((theme) => ({
       overflow: "scroll",
     },
   },
+  unAttemptedQuestion: {
+    padding: "2rem 4rem",
+    marginTop: "1rem",
+    border: "1px solid #e1e1e1",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: "#fff",
+  }
 }));
 
 const QuestionBody = (props) => {
@@ -56,7 +67,7 @@ const QuestionBody = (props) => {
   };
 
   const changeOptionsColor = (item) => {
-    if (question.answer && question.answer.option == item._id) {
+    if (question.answer && question.answer.option == item._id && question.optionId) {
       return "#27AE60";
     } else if (question.answer && item._id == question?.optionId) {
       return "#EB5757";
@@ -80,7 +91,6 @@ const QuestionBody = (props) => {
         onRightClick={() => props.onRightClick()}
         onLeftClick={() => props.onLeftClick()}
         onResultHandler={() => props.onResultHandler()}
-        // onCloseTimer={() => props.CloseTimerFunc()}
         callBackForTimer={(value) => props.setTimeLeft(value)}
         paragraphIndex={props.paragraphIndex}
         questionIndex={props.questionIndex}
@@ -97,7 +107,7 @@ const QuestionBody = (props) => {
         previosQuestion={() => props.previosQuestion()}
         PopupTimeEnd={props.PopupTimeEnd}
         updateCompleteQuiz={(quiz) => props.updateCompleteQuiz(quiz)}
-        // changeTime={(time) => props.changeTime(time)}
+      // changeTime={(time) => props.changeTime(time)}
       />
     );
   } else if (props.question.multipartQuestion) {
@@ -133,7 +143,15 @@ const QuestionBody = (props) => {
           onClose={() => setFeedbackPopup(false)}
           questionId={questionId}
         />
-        {/* question container for single question */}
+        {/* unAttempted question warning */}
+        {!question.optionId && question.answer &&
+          <Container maxWidth="sm" className={classes.unAttemptedQuestion}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <img src={WarningIcon} alt="warning-icon" style={{ marginRight: '1rem' }} />
+              <Typography variant="body1" style={{ fontSize: '.75rem', fontWeight: 500, margin: 0 }}>Tiden gick ut och du hann inte svara på denna fråga.</Typography>
+            </Box>
+          </Container>
+        }
         <Container maxWidth="sm" className={classes.questionContainer}>
           <div className="QuestionStatement">
             {" "}
@@ -245,31 +263,31 @@ const QuestionBody = (props) => {
                     sx={{
                       height:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 60
                           : 150,
                       padding:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 0
                           : 10,
                       border: "1px solid #e1e1e1",
                       width: "100%",
                       maxWidth:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 600
                           : 300,
                       display: "flex",
                       color:
                         !question.answer &&
-                        optionIndex == question.selectedIndex
+                          optionIndex == question.selectedIndex
                           ? "#0A1596"
                           : "",
                       "&:hover": {
@@ -333,21 +351,22 @@ const QuestionBody = (props) => {
                         display: "flex",
                         marginLeft:
                           question?.options[0].options.length > 4 ||
-                          item.image === ""
+                            item.image === ""
                             ? "1rem"
                             : "0",
                         justifyContent:
                           question?.options[0].options.length > 4 ||
-                          !item.value.includes(
-                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                          )
+                            !item.value.includes(
+                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                            )
                             ? "flex-start"
                             : "center",
                         alignItems: "center",
                       }}
                     >
+                      {console.log(item, 'item 123456')}
                       {item.image ? (
-                        <img src={item.image} />
+                        <img src={item?.value} alt="image" />
                       ) : (
                         <Typography>
                           <MarkLatex
@@ -363,91 +382,93 @@ const QuestionBody = (props) => {
           })}
         </Container>
 
-        {question.answer && (
-          // <Box
-          //   paddingX={4}
-          //   mt={2}
-          //   sx={{
-          //     backgroundColor: "#fff",
-          //     width: 600,
-          //     border: "1px solid #e1e1e1",
-          //   }}
-          // >
-          <Container
-            maxWidth="sm"
-            style={{
-              marginTop: "1.5rem",
-              backgroundColor: "#fff",
-              border: "1px solid #e1e1e1",
-              padding: { xs: "1rem", sm: "1rem 3rem" },
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
+        {
+          question.answer && (
+            // <Box
+            //   paddingX={4}
+            //   mt={2}
+            //   sx={{
+            //     backgroundColor: "#fff",
+            //     width: 600,
+            //     border: "1px solid #e1e1e1",
+            //   }}
+            // >
+            <Container
+              maxWidth="sm"
+              style={{
+                marginTop: "1.5rem",
+                backgroundColor: "#fff",
+                border: "1px solid #e1e1e1",
+                padding: { xs: "1rem", sm: "1rem 3rem" },
               }}
             >
-              <Typography
-                variant="h5"
-                component="h5"
-                style={{
-                  fontSize: "1.25rem",
-                  marginTop: 20,
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                Förklaring:
-              </Typography>
-              <Typography variant="body1" component="div">
-                <div className="Explaination">
-                  {" "}
-                  {/* Style Explaination images at ./styles/QuestionBody.css */}
-                  <MarkLatex content={question.answer.answer} />
-                </div>
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                height: 30,
-              }}
-            >
-              <Typography
-                variant="body1"
-                component="body1"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "500",
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  style={{
+                    fontSize: "1.25rem",
+                    marginTop: 20,
+                  }}
+                >
+                  Förklaring:
+                </Typography>
+                <Typography variant="body1" component="div">
+                  <div className="Explaination">
+                    {" "}
+                    {/* Style Explaination images at ./styles/QuestionBody.css */}
+                    <MarkLatex content={question.answer.answer} />
+                  </div>
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  height: 30,
                 }}
               >
-                Berätta för oss om du var nöjd med lösningen
-              </Typography>
-              <Box ml={1} mr={0.5}>
-                <img
-                  src={Increment}
-                  style={{ cursor: "pointer" }}
-                  onClick={PlusPoint}
-                  alt=""
-                />
+                <Typography
+                  variant="body1"
+                  component="body1"
+                  style={{
+                    fontSize: ".75rem",
+                    fontWeight: "500",
+                  }}
+                >
+                  Berätta för oss om du var nöjd med lösningen
+                </Typography>
+                <Box ml={1} mr={0.5}>
+                  <img
+                    src={Increment}
+                    style={{ cursor: "pointer" }}
+                    onClick={PlusPoint}
+                    alt=""
+                  />
+                </Box>
+                <Box mr={1}>
+                  <img
+                    src={Decrement}
+                    style={{ cursor: "pointer" }}
+                    onClick={MinusPoint}
+                    alt=""
+                  />
+                </Box>
               </Box>
-              <Box mr={1}>
-                <img
-                  src={Decrement}
-                  style={{ cursor: "pointer" }}
-                  onClick={MinusPoint}
-                  alt=""
-                />
-              </Box>
-            </Box>
-          </Container>
-        )}
+            </Container>
+          )
+        }
 
         {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
         {props.submitButton(question)}
         {/* }  */}
-      </Container>
+      </Container >
     );
   }
 };
