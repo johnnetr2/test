@@ -46,6 +46,7 @@ const QuestionViewXyzOrg = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [answerSubmittedState, setAnsSubmittedState] = useState();
   const [seconds, setSeconds] = useState(0);
+  const [paragraphResponse, setParagraphResponse] = useState(false)
   const [startTimer, setStartTimer] = useState(true);
   const { user, token } = useSelector((state) => state.value);
   var timer;
@@ -85,8 +86,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        setTime(10);
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(10);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -111,8 +112,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        setTime(10);
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(10);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -401,7 +402,7 @@ const QuestionViewXyzOrg = () => {
       const URL = EndPoints.submitMultiquestionParagragh;
       instance2
         .post(URL, payload, { headers })
-        .then((response) => { console.log(response, 'multipart question response') })
+        .then((response) => { setParagraphResponse(true) })
         .catch((error) => {
           console.log("this is the consnole of error", error);
         });
@@ -732,7 +733,7 @@ const QuestionViewXyzOrg = () => {
               localStorage.removeItem("quiz");
               localStorage.removeItem("time");
 
-              setTimeout(() => {
+              paragraphResponse &&
                 navigate("/resultsummary", {
                   state: {
                     sectionCategory: params?.state?.sectionCategory,
@@ -740,7 +741,7 @@ const QuestionViewXyzOrg = () => {
                     time: params?.state?.time,
                   },
                 });
-              }, 2000);
+
             }}
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
