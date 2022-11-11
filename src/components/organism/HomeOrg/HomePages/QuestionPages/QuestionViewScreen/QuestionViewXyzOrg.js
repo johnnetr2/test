@@ -87,7 +87,7 @@ const QuestionViewXyzOrg = () => {
             }
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(10);
+        // setTime(50);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -113,7 +113,7 @@ const QuestionViewXyzOrg = () => {
             }
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(10);
+        // setTime(50);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -389,26 +389,31 @@ const QuestionViewXyzOrg = () => {
   const CloseTimerFunc = async () => {
     setTimeEnd(true);
     try {
-      const payload = {
-        quiz: params?.state?.quizId,
-        user: user._id,
-        sectionCategory: params?.state?.sectionCategory?._id,
-        answer: AnswerArrayPayloadForCloseTimerFunc(),
-      };
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-      const URL = EndPoints.submitMultiquestionParagragh;
-      instance2
-        .post(URL, payload, { headers })
-        .then((response) => { setParagraphResponse(true) })
-        .catch((error) => {
-          console.log("this is the consnole of error", error);
-        });
+      if (localStorage.getItem("quiz")) {
+        const payload = {
+          quiz: params?.state?.quizId,
+          user: user._id,
+          sectionCategory: params?.state?.sectionCategory?._id,
+          answer: AnswerArrayPayloadForCloseTimerFunc(),
+        };
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        };
+        const URL = EndPoints.submitMultiquestionParagragh;
+        instance2
+          .post(URL, payload, { headers })
+          .then((response) => { setParagraphResponse(true) })
+          .catch((error) => {
+            console.log("this is the consnole of error", error);
+          });
+      } else {
+        console.log("no need to call api ")
+      }
     } catch (error) {
       console.log("in catch block: ", error);
     }
+
   };
 
   const SelectFunc = (item, optionIndex) => {
