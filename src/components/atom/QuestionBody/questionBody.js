@@ -1,5 +1,5 @@
 import { Box, FormControlLabel, Container } from "@material-ui/core";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import Increment from "../../../assets/Icons/Increment.svg";
@@ -107,7 +107,6 @@ const QuestionBody = (props) => {
         previosQuestion={() => props.previosQuestion()}
         PopupTimeEnd={props.PopupTimeEnd}
         updateCompleteQuiz={(quiz) => props.updateCompleteQuiz(quiz)}
-      // changeTime={(time) => props.changeTime(time)}
       />
     );
   } else if (props.question.multipartQuestion) {
@@ -381,92 +380,78 @@ const QuestionBody = (props) => {
           })}
         </Container>
 
-        {
-          question.answer && (
-            // <Box
-            //   paddingX={4}
-            //   mt={2}
-            //   sx={{
-            //     backgroundColor: "#fff",
-            //     width: 600,
-            //     border: "1px solid #e1e1e1",
-            //   }}
-            // >
-            <Container
-              maxWidth="sm"
-              style={{
-                marginTop: "1.5rem",
-                backgroundColor: "#fff",
-                border: "1px solid #e1e1e1",
-                padding: { xs: "1rem", sm: "1rem 3rem" },
+        {question.answer && question?.optionId && (
+          <Container
+            maxWidth="sm"
+            style={{
+              marginTop: "1.5rem",
+              backgroundColor: "#fff",
+              border: "1px solid #e1e1e1",
+              padding: { xs: "1rem", sm: "1rem 3rem" },
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
+              <Typography
+                variant="h5"
+                component="h5"
+                style={{
+                  fontSize: "1.25rem",
+                  marginTop: 20,
                 }}
               >
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  style={{
-                    fontSize: "1.25rem",
-                    marginTop: 20,
-                  }}
-                >
-                  Förklaring:
-                </Typography>
-                <Typography variant="body1" component="div">
-                  <div className="Explaination">
-                    {" "}
-                    {/* Style Explaination images at ./styles/QuestionBody.css */}
-                    <MarkLatex content={question.answer.answer} />
-                  </div>
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  height: 30,
+                Förklaring:
+              </Typography>
+              <Typography variant="body1" component="div">
+                <div className="Explaination">
+                  {" "}
+                  <MarkLatex content={question.answer.answer} />
+                </div>
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                height: 30,
+              }}
+            >
+              <Typography
+                variant="body1"
+                component="body1"
+                style={{
+                  fontSize: ".75rem",
+                  fontWeight: "500",
                 }}
               >
-                <Typography
-                  variant="body1"
-                  component="body1"
-                  style={{
-                    fontSize: ".75rem",
-                    fontWeight: "500",
-                  }}
-                >
-                  Berätta för oss om du var nöjd med lösningen
-                </Typography>
-                <Box ml={1} mr={0.5}>
-                  <img
-                    src={Increment}
-                    style={{ cursor: "pointer" }}
-                    onClick={PlusPoint}
-                    alt=""
-                  />
-                </Box>
-                <Box mr={1}>
-                  <img
-                    src={Decrement}
-                    style={{ cursor: "pointer" }}
-                    onClick={MinusPoint}
-                    alt=""
-                  />
-                </Box>
+                Berätta för oss om du var nöjd med lösningen
+              </Typography>
+              <Box ml={1} mr={0.5}>
+                <img
+                  src={Increment}
+                  style={{ cursor: "pointer" }}
+                  onClick={PlusPoint}
+                  alt=""
+                />
               </Box>
-            </Container>
-          )
+              <Box mr={1}>
+                <img
+                  src={Decrement}
+                  style={{ cursor: "pointer" }}
+                  onClick={MinusPoint}
+                  alt=""
+                />
+              </Box>
+            </Box>
+          </Container>
+        )
         }
-
-        {/* {(params.state.questionIndex != undefined) ? (<ResultFooter/>) :  */}
         {props.submitButton(question)}
-        {/* }  */}
       </Container >
     );
   }
