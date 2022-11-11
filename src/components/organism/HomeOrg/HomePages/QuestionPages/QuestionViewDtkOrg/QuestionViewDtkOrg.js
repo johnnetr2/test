@@ -555,8 +555,8 @@ const QuestionViewDTKOrg = (props) => {
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
                       columnCount: `${quiz.title === "DTK" || quiz?.description.length < 2000
-                          ? "1"
-                          : "2"
+                        ? "1"
+                        : "2"
                         }`,
                       padding: "0 5rem 2rem",
                     }}
