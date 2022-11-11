@@ -27,6 +27,7 @@ import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import useWindowDimensions from "../../../../molecule/WindowDimensions/dimension";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import ExamResults from '../../../../../assets/Static/ExamResults.json'
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -41,6 +42,9 @@ const Provresultat = () => {
   const [open, setOpen] = useState(true);
   const { height, width } = useWindowDimensions();
   const [helpPopup, setHelpPopup] = useState(false);
+  const [participantsAverage, setParticipantsAverage] = useState(null);
+  const [participantsNormalized, setParticipantsNormalized] = useState(null);
+  const [season, setSeason] = useState(null);
 
   useEffect(() => {
     if (params.state.seasonId) {
@@ -108,94 +112,116 @@ const Provresultat = () => {
     }
   }, []);
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  useEffect(() => {
+    if(params.state.seasonId) {
+      const URL = `${EndPoints.getPreviousExams}/${params.state.seasonId}`;
+      instance2.get(URL).then((response) => {
+        console.log(response.data);
+       setSeason(response.data.simuleraSeason);
+       const simuleraSeasonYear = response.data.simuleraSeason.title.split(' ')[1];
+       const rawPointsExam = ExamResults.rawPoints.find((item) => {
+        const examName = `${item.season} ${item.year}`;
+        return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
+       })
+       const normalizedPointsExam = ExamResults.normalizedPoints.find((item) => {
+        const examName = `${item.season} ${item.year}`;
+        return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
+       })
+       console.log(rawPointsExam, normalizedPointsExam)
+       setParticipantsAverage(rawPointsExam);
+       setParticipantsNormalized(normalizedPointsExam);
+      });
+      
+    }
+  }, [])
+
+  function createSummaryData(rowName, totalCorrectAnswers, totalQuestions, averagePoints) {
+    return { rowName, totalCorrectAnswers, totalQuestions, averagePoints };
   }
 
-  const rows = [
-    createData(
+  function createExamPartData(examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints) {
+    return { examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints};
+  }
+
+  const kvantPartRows = [
+    createExamPartData(
       "XYZ",
       testSummary?.correctQuestions_of_XYZ,
       testSummary?.totalQuestion_of_XYZ,
-      12.1
+      participantsAverage?.XYZ
     ),
-    createData(
-      "KYA",
+    createExamPartData(
+      "KVA",
       testSummary?.correctQuestions_of_KVA,
       testSummary?.totalQuestion_of_KVA,
-      10.1
+      participantsAverage?.KVA
     ),
-    createData(
+    createExamPartData(
       "NOG",
       testSummary?.correctQuestions_of_NOG,
       testSummary?.totalQuestion_of_NOG,
-      6.3
+      participantsAverage?.NOG
     ),
-    createData(
-      "DRK",
+    createExamPartData(
+      "DTK",
       testSummary?.correctQuestions_of_DTK,
       testSummary?.totalQuestion_of_DTK,
-      12.7
+      participantsAverage?.DTK
     ),
-    createData(
+    createExamPartData(
       "SAMMANFATTNING",
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
-      41.2,
+      participantsAverage?.KVANT,
       ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
         .toFixed(1)
         .replace(/\.0+$/, "")
     ),
   ];
 
-  const row = [
-    createData(
+  const verbalPartRows = [
+    createExamPartData(
       "ORD",
       testSummary?.correctQuestions_of_ORD,
       testSummary?.totalQuestion_of_ORD,
-      12.1
+      participantsAverage?.ORD
     ),
-    createData(
+    createExamPartData(
       "LAS",
       testSummary?.correctQuestions_of_LAS,
       testSummary?.totalQuestion_of_LAS,
-      10.1
+      participantsAverage?.LÄS
     ),
-    createData(
+    createExamPartData(
       "MEK",
       testSummary?.correctQuestions_of_MEK,
       testSummary?.totalQuestion_of_MEK,
-      6.3
+      participantsAverage?.MEK
     ),
-    createData(
+    createExamPartData(
       "ELF",
       testSummary?.correctQuestions_of_ELF,
       testSummary?.totalQuestion_of_ELF,
-      12.7
+      participantsAverage?.ELF
     ),
-    createData(
+    createExamPartData(
       "SAMMANFATTNING",
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
-      41.2,
+      participantsAverage?.VERB,
       correctAnswersOfVerbal &&
         ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
           .toFixed(1)
           .replace(/\.0+$/, "")
     ),
   ];
-  const its = [
-    createData(
+
+  const wholeExamRows = [
+    createSummaryData(
       "SAMMANFATTNING",
       correctAnswersOfKvantitative + correctAnswersOfVerbal,
       totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
-      (
-        ((correctAnswersOfKvantitative + correctAnswersOfVerbal) /
-          (totalQuestionsOfKvantitative + totalQuestionsOfVerbal)) *
-        100
-      )
-        .toFixed(1)
-        .replace(/\.0+$/, "")
+      participantsAverage?.Total,
     ),
   ];
 
@@ -379,7 +405,7 @@ const Provresultat = () => {
                 variant="h4"
                 component="h4"
               >
-                Provresultat - Hösten 2021, Oktober
+                Provresultat - {season?.title}, {season?.month}
               </Typography>
               <Typography style={{ fontWeight: "300", marginTop: "3%" }}>
                 <Typography>
@@ -492,7 +518,7 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      82.4
+                      {participantsAverage?.Total}
                     </Typography>
                     <Box
                       sx={{
@@ -597,7 +623,7 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      0.86
+                      {participantsNormalized?.average}
                     </Typography>
                     <Box sx={{ marginLeft: "0.5rem" }}>
                       <Typography
@@ -669,9 +695,9 @@ const Provresultat = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {kvantPartRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.examPart}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: 0,
@@ -680,12 +706,12 @@ const Provresultat = () => {
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.examPart}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.correctAnswers}</TableCell>
+                      <TableCell align="left">{row.totalQuestions}</TableCell>
+                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -734,9 +760,9 @@ const Provresultat = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.map((row) => (
+                  {verbalPartRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.examPart}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: 0,
@@ -745,12 +771,12 @@ const Provresultat = () => {
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.examPart}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.correctAnswers}</TableCell>
+                      <TableCell align="left">{row.totalQuestions}</TableCell>
+                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -782,9 +808,9 @@ const Provresultat = () => {
                                     </TableRow> */}
                 </TableHead>
                 <TableBody>
-                  {its.map((row) => (
+                  {wholeExamRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.rowName}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: "0",
@@ -797,15 +823,15 @@ const Provresultat = () => {
                         scope="row"
                         sx={{ width: "5rem" }}
                       >
-                        {row.name}
+                        {row.rowName}
                       </TableCell>
                       <TableCell style={{ width: "10rem" }} align="left">
-                        {row.calories}
+                        {row.totalCorrectAnswers}
                       </TableCell>
                       <TableCell style={{ width: "7rem" }} align="left">
-                        {row.fat}
+                        {row.totalQuestions}
                       </TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
+                      <TableCell align="left">{row.averagePoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
