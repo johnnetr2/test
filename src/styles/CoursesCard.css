@@ -1,0 +1,6 @@
+.Test {
+  display: "flex";
+  height: "14px";
+  width: "14px";
+  align-self: "flex-end";
+}

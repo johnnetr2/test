@@ -123,10 +123,11 @@ const HomeCard = (props) => {
                 src={informationIcon}
                 style={{
                   display: "flex",
-                  height: "0.625rem",
-                  width: "0.625rem",
+                  height: "14px",
+                  width: "14px",
                   alignSelf: "flex-end",
                 }}
+                alt="info"
               />
             </CustomizedTooltip>
           )}

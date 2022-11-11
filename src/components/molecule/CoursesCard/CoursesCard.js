@@ -285,7 +285,7 @@ const CoursesCard = (props) => {
                     }}
                   >
                     <CustomizedTooltip title="Du behöver göra klart hela provet för att få poängprognos" placement="top">
-                      <img src={informationIcon} style={{ display: "flex", height: "0.625em", width: "0.625rem", alignSelf: "flex-end" }} />
+                      <img src={informationIcon} style={{ display: "flex", height: "14px", width: "14px", alignSelf: "flex-end" }} alt="info"/>
                     </CustomizedTooltip>
                     <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem", color: "#505050" }}>
                       {"Poäng"}

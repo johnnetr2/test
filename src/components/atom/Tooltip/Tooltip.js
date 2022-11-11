@@ -4,11 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   customTooltip: {
     backgroundColor: "#252525",
-    color: "#E1E1E1",
-    padding: "1rem",
+    color: "white",
+    width: "auto",
+    height: "auto",
     fontWeight: "400",
-    fontSize: ".825rem",
-    maxWidth: "12rem",
+    fontSize: "12px",
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+    gap: "10px",
+    padding: "12px 12px"
   },
   customArrow: {
     color: "#252525",
