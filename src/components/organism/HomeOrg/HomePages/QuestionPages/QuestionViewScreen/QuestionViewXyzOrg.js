@@ -85,8 +85,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        setTime(10);
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(15);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -111,8 +111,8 @@ const QuestionViewXyzOrg = () => {
               setTotalQuestions((totalQ) => totalQ + 1);
             }
           });
-        // setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        setTime(10);
+        setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
+        // setTime(15);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));

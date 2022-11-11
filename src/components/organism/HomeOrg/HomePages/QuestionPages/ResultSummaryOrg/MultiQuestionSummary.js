@@ -227,91 +227,93 @@ function MultiQuestionSummary(props) {
         })}
         {/* {Button(question) } */}
       </Box>
-      <Box
-        paddingX={4}
-        mt={3}
-        sx={{
-          backgroundColor: "#fff",
-          width: "100%",
-          maxWidth: 600,
-          height: 220,
-          border: "1px solid #e1e1e1",
-          overflow: "auto",
-          "&::-webkit-scrollbar": { display: "none" },
-          //   '&::-webkit-scrollbar': { width : 0 },
-        }}
-      >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box>
-            <Typography
-              variant="h5"
-              component="h5"
+      {
+        question?.optionId && <Box
+          paddingX={4}
+          mt={3}
+          sx={{
+            backgroundColor: "#fff",
+            width: "100%",
+            maxWidth: 600,
+            height: 220,
+            border: "1px solid #e1e1e1",
+            overflow: "auto",
+            "&::-webkit-scrollbar": { display: "none" },
+            //   '&::-webkit-scrollbar': { width : 0 },
+          }}
+        >
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box>
+              <Typography
+                variant="h5"
+                component="h5"
+                style={{
+                  fontSize: ".75rem",
+                  fontWeight: "600",
+                  marginTop: 20,
+                }}
+              >
+                Förklaring:
+              </Typography>
+              <Typography
+                variant="body1"
+                component="div"
+                style={{
+                  fontSize: ".75rem",
+                  fontWeight: "500",
+                  marginTop: 10,
+                  width: "100%",
+                  maxWidth: question?.answer.image ? "auto" : 540,
+                }}
+              >
+                <MarkLatex content={question?.answer.answer} />
+              </Typography>
+            </Box>
+            <Box
+              mt={2}
               style={{
-                fontSize: ".75rem",
-                fontWeight: "600",
-                marginTop: 20,
+                //   marginLeft: "15rem",
+                marginTop: "2rem",
               }}
             >
-              Förklaring:
-            </Typography>
+              {question?.answer.image && (
+                <img
+                  style={{ height: 110 }}
+                  src={question?.answer.image}
+                  alt=""
+                />
+              )}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+              height: 60,
+            }}
+          >
             <Typography
               variant="body1"
-              component="div"
+              component="body1"
               style={{
                 fontSize: ".75rem",
                 fontWeight: "500",
                 marginTop: 10,
-                width: "100%",
-                maxWidth: question?.answer.image ? "auto" : 540,
+                //   width: "32rem",
               }}
             >
-              <MarkLatex content={question?.answer.answer} />
+              Berätta för oss om du var nöjd med lösningen
             </Typography>
-          </Box>
-          <Box
-            mt={2}
-            style={{
-              //   marginLeft: "15rem",
-              marginTop: "2rem",
-            }}
-          >
-            {question?.answer.image && (
-              <img
-                style={{ height: 110 }}
-                src={question?.answer.image}
-                alt=""
-              />
-            )}
+            <Box ml={1} mr={0.5}>
+              <img src={Increment} alt="" />
+            </Box>
+            <Box mr={1}>
+              <img src={Decrement} alt="" />
+            </Box>
           </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            height: 60,
-          }}
-        >
-          <Typography
-            variant="body1"
-            component="body1"
-            style={{
-              fontSize: ".75rem",
-              fontWeight: "500",
-              marginTop: 10,
-              //   width: "32rem",
-            }}
-          >
-            Berätta för oss om du var nöjd med lösningen
-          </Typography>
-          <Box ml={1} mr={0.5}>
-            <img src={Increment} alt="" />
-          </Box>
-          <Box mr={1}>
-            <img src={Decrement} alt="" />
-          </Box>
-        </Box>
-      </Box>
+      }
 
       {/* <ResultFooter/> */}
       <ResultFooter
