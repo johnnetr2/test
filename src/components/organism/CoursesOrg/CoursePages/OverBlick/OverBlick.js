@@ -446,6 +446,7 @@ const OverBlick = () => {
                               questionIndex: index,
                               quiz: quiz,
                               timeLeft: params.state.timeLeft,
+                              SubmittedQuestions: params?.state?.SubmitedQuestions,
                             },
                           })
                         }
