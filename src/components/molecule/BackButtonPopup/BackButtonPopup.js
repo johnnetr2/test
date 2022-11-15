@@ -33,7 +33,6 @@ const BootstrapDialogTitle = (props) => {
           sx={{
             position: "absolute",
             right: 8,
-            top: 8,
             color: (theme) => theme.palette.grey[500],
           }}
         >
@@ -75,6 +74,7 @@ export default function BackButtonPopup(props) {
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={props.closePopup}
+          style={{textAlign: "right"}}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem" }}>
           <Typography gutterTop variant="h4">

@@ -75,6 +75,7 @@ export default function QuestionBackButtonPopup(props) {
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={props.closePopup}
+          style={{textAlign: "right"}}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem" }}>
           <Typography gutterTop variant="h4">
