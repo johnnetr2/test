@@ -55,8 +55,10 @@ const StandardViewXyz = () => {
       setTime(params?.state?.timeLeft);
       setQuiz(params?.state?.quiz);
       setCurrentIndex(params?.state?.questionIndex);
+      setSubmitedQuestions(params?.state?.SubmittedQuestions || []);
       setStatus(true);
       setOpen(false);
+      console.log(params?.state);
     } else {
       const URL = EndPoints.getSimuleraQuiz + params.state.id;
 
