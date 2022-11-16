@@ -115,4 +115,20 @@ export class MixpanelTracking {
       "Summary Result": SummaryResult,
     });
   }
+
+  feedbackButtonClicked(
+    userEmail,
+    sectionCategory,
+    questionCategory,
+    questionId,
+    feedbackType
+  ) {
+    this.#track("Feedback Button Clicked", {
+      "User Email": userEmail,
+      "Section Category": sectionCategory,
+      "Question Category": questionCategory,
+      "Question ID": questionId,
+      "Feedback Type": feedbackType,
+    });
+  }
 }
