@@ -10,6 +10,8 @@ import QuestionViewDTKOrg from "../../organism/HomeOrg/HomePages/QuestionPages/Q
 import { Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import "../../../styles/QuestionBody.css";
+import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
+import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,11 +60,25 @@ const QuestionBody = (props) => {
 
   const PlusPoint = () => {
     setCount(1);
+    MixpanelTracking.getInstance().feedbackButtonClicked(
+      localStorage.email,
+      props.sectionCategory.title,
+      question.questionCategory,
+      question.questionId,
+      "positive"
+    );
     setFeedbackPopup(true);
   };
 
   const MinusPoint = () => {
     setCount(0);
+    MixpanelTracking.getInstance().feedbackButtonClicked(
+      localStorage.email,
+      props.sectionCategory.title,
+      question.questionCategory,
+      question.questionId,
+      "negative"
+    );
     setFeedbackPopup(true);
   };
 
@@ -413,41 +429,10 @@ const QuestionBody = (props) => {
                 </div>
               </Typography>
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                height: 30,
-              }}
-            >
-              <Typography
-                variant="body1"
-                component="body1"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "500",
-                }}
-              >
-                Berätta för oss om du var nöjd med lösningen
-              </Typography>
-              <Box ml={1} mr={0.5}>
-                <img
-                  src={Increment}
-                  style={{ cursor: "pointer" }}
-                  onClick={PlusPoint}
-                  alt=""
-                />
-              </Box>
-              <Box mr={1}>
-                <img
-                  src={Decrement}
-                  style={{ cursor: "pointer" }}
-                  onClick={MinusPoint}
-                  alt=""
-                />
-              </Box>
-            </Box>
+            <FeedbackButtons
+              onClickPlus={PlusPoint}
+              onClickMinus={MinusPoint}
+            />
           </Container>
         )
         }
