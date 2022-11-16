@@ -15,6 +15,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
+  "& .MuiPaper-root": {
+    width: "60%",
+  },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
@@ -70,17 +73,18 @@ export default function BackButtonPopup(props) {
         style={{
           textAlign: "center",
         }}
+        maxWidth="xxl"        
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={props.closePopup}
           style={{textAlign: "right"}}
         ></BootstrapDialogTitle>
-        <DialogContent style={{ padding: "2rem 5rem" }}>
-          <Typography gutterTop variant="h4">
+        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
+          <Typography gutterTop variant="h4" style={{width: "50%"}}>
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%" }}>
             {props.description}
           </Typography>
         </DialogContent>

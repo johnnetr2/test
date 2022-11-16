@@ -15,6 +15,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
+  "& .MuiPaper-root": {
+    width: "55%",
+  },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
@@ -71,6 +74,7 @@ export default function QuestionBackButtonPopup(props) {
         style={{
           textAlign: "center",
         }}
+        maxWidth="xxl"
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
