@@ -23,9 +23,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../service/Route";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
-import useWindowDimensions from "../../../../molecule/WindowDimensions/dimension";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import ExamResults from '../../../../../assets/Static/ExamResults.json'
 
@@ -40,7 +38,6 @@ const Provresultat = () => {
   const [totalQuestionsOfVerbal, setTotalQuestionsOfVerbal] = useState();
   const [correctAnswersOfVerbal, setCorrectAnswersOfVerbal] = useState();
   const [open, setOpen] = useState(true);
-  const { height, width } = useWindowDimensions();
   const [helpPopup, setHelpPopup] = useState(false);
   const [participantsAverage, setParticipantsAverage] = useState(null);
   const [participantsNormalized, setParticipantsNormalized] = useState(null);
@@ -52,86 +49,67 @@ const Provresultat = () => {
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setCorrectAnswersOfKvantitative(
-          response.data.correctQuestions_of_XYZ +
-            response.data.correctQuestions_of_KVA +
-            response.data.correctQuestions_of_NOG +
-            response.data.correctQuestions_of_DTK
-        );
-        setTotalQuestionsOfKvantitative(
-          response.data.totalQuestion_of_XYZ +
-            response.data.totalQuestion_of_KVA +
-            response.data.totalQuestion_of_NOG +
-            response.data.totalQuestion_of_DTK
-        );
-
-        setCorrectAnswersOfVerbal(
-          response.data.correctQuestions_of_ORD +
-            response.data.correctQuestions_of_LAS +
-            response.data.correctQuestions_of_MEK +
-            response.data.correctQuestions_of_ELF
-        );
-        setTotalQuestionsOfVerbal(
-          response.data.totalQuestion_of_ORD +
-            response.data.totalQuestion_of_LAS +
-            response.data.totalQuestion_of_MEK +
-            response.data.totalQuestion_of_ELF
-        );
+        setVerbalQuantitativeStates(response.data)
       });
     } else {
       const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setCorrectAnswersOfKvantitative(
-          response.data.correctQuestions_of_XYZ +
-            response.data.correctQuestions_of_KVA +
-            response.data.correctQuestions_of_NOG +
-            response.data.correctQuestions_of_DTK
-        );
-        setTotalQuestionsOfKvantitative(
-          response.data.totalQuestion_of_XYZ +
-            response.data.totalQuestion_of_KVA +
-            response.data.totalQuestion_of_NOG +
-            response.data.totalQuestion_of_DTK
-        );
+        setVerbalQuantitativeStates(response.data)
 
-        setCorrectAnswersOfVerbal(
-          response.data.correctQuestions_of_ORD +
-            response.data.correctQuestions_of_LAS +
-            response.data.correctQuestions_of_MEK +
-            response.data.correctQuestions_of_ELF
-        );
-        setTotalQuestionsOfVerbal(
-          response.data.totalQuestion_of_ORD +
-            response.data.totalQuestion_of_LAS +
-            response.data.totalQuestion_of_MEK +
-            response.data.totalQuestion_of_ELF
-        );
       });
     }
   }, []);
 
+
+  const setVerbalQuantitativeStates = (data) => {
+    setCorrectAnswersOfKvantitative(
+      data.correctQuestions_of_XYZ +
+      data.correctQuestions_of_KVA +
+      data.correctQuestions_of_NOG +
+      data.correctQuestions_of_DTK
+    );
+    setTotalQuestionsOfKvantitative(
+      data.totalQuestion_of_XYZ +
+      data.totalQuestion_of_KVA +
+      data.totalQuestion_of_NOG +
+      data.totalQuestion_of_DTK
+    );
+
+    setCorrectAnswersOfVerbal(
+      data.correctQuestions_of_ORD +
+      data.correctQuestions_of_LAS +
+      data.correctQuestions_of_MEK +
+      data.correctQuestions_of_ELF
+    );
+    setTotalQuestionsOfVerbal(
+      data.totalQuestion_of_ORD +
+      data.totalQuestion_of_LAS +
+      data.totalQuestion_of_MEK +
+      data.totalQuestion_of_ELF
+    );
+  }
+
   useEffect(() => {
-    if(params.state.seasonId) {
+    if (params.state.seasonId) {
       const URL = `${EndPoints.getPreviousExams}/${params.state.seasonId}`;
       instance2.get(URL).then((response) => {
-        console.log(response.data);
-       setSeason(response.data.simuleraSeason);
-       const simuleraSeasonYear = response.data.simuleraSeason.title.split(' ')[1];
-       const rawPointsExam = ExamResults.rawPoints.find((item) => {
-        const examName = `${item.season} ${item.year}`;
-        return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
-       })
-       const normalizedPointsExam = ExamResults.normalizedPoints.find((item) => {
-        const examName = `${item.season} ${item.year}`;
-        return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
-       })
-       console.log(rawPointsExam, normalizedPointsExam)
-       setParticipantsAverage(rawPointsExam);
-       setParticipantsNormalized(normalizedPointsExam);
+        setSeason(response.data.simuleraSeason);
+        const simuleraSeasonYear = response.data.simuleraSeason.title.split(' ')[1];
+        const rawPointsExam = ExamResults.rawPoints.find((item) => {
+          const examName = `${item.season} ${item.year}`;
+          return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
+        })
+        const normalizedPointsExam = ExamResults.normalizedPoints.find((item) => {
+          const examName = `${item.season} ${item.year}`;
+          return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
+        })
+        console.log(rawPointsExam, normalizedPointsExam)
+        setParticipantsAverage(rawPointsExam);
+        setParticipantsNormalized(normalizedPointsExam);
       });
-      
+
     }
   }, [])
 
@@ -140,7 +118,7 @@ const Provresultat = () => {
   }
 
   function createExamPartData(examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints) {
-    return { examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints};
+    return { examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints };
   }
 
   const kvantPartRows = [
@@ -173,8 +151,9 @@ const Provresultat = () => {
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
       participantsAverage?.KVANT,
+      correctAnswersOfKvantitative && totalQuestionsOfKvantitative &&
       ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
-        .toFixed(1)
+        ?.toFixed(1)
         .replace(/\.0+$/, "")
     ),
   ];
@@ -209,10 +188,10 @@ const Provresultat = () => {
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
       participantsAverage?.VERB,
-      correctAnswersOfVerbal &&
-        ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
-          .toFixed(1)
-          .replace(/\.0+$/, "")
+      correctAnswersOfVerbal && totalQuestionsOfVerbal &&
+      ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
+        ?.toFixed(1)
+        .replace(/\.0+$/, "")
     ),
   ];
 
@@ -461,17 +440,17 @@ const Provresultat = () => {
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -498,17 +477,17 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -563,17 +542,17 @@ const Provresultat = () => {
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -602,18 +581,18 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.5rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.5rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -656,7 +635,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
+              // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
               >
                 <Typography variant="h5" component="h5">
                   Kvantitativ del resultat
@@ -721,7 +700,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Verbal del resultat
@@ -785,7 +764,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Hela provet
@@ -840,7 +819,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Resultat per provpass
@@ -975,7 +954,7 @@ const Provresultat = () => {
                     display: "flex",
                     cursor: "pointer",
                   }}
-                  // onClick={() => openInNewTab('https://stackoverflow.com')}
+                // onClick={() => openInNewTab('https://stackoverflow.com')}
                 >
                   {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
                   {" "} */}
