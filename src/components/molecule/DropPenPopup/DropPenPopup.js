@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -33,7 +33,8 @@ export default function DropPenPopup(props) {
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
           fullWidth
-          maxWidth="sm"
+          maxWidth="md"
+
         >
           <DialogTitle
             style={{
@@ -52,7 +53,9 @@ export default function DropPenPopup(props) {
               id="alert-dialog-slide-description"
             >
               {/* Dags att droppa pennan! */}
-              {props?.description}
+              <Typography gutterTop>
+                {props.description}
+              </Typography>
             </DialogContentText>
           </DialogContent>
           <DialogActions
@@ -65,7 +68,6 @@ export default function DropPenPopup(props) {
           >
             <Button
               onClick={props?.redirect}
-              variant="contained"
               style={{
                 backgroundColor: "#0A1596",
                 color: "#fff",

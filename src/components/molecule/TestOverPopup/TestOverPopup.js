@@ -14,6 +14,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
+  "& .MuiPaper-root": {
+    width: "55%",
+  },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
@@ -66,16 +69,17 @@ export default function TestOverPopup(props) {
         style={{
           textAlign: "center",
         }}
+        maxWidth="xxl"
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
           // onClose={() => props.closePopUp()}
         ></BootstrapDialogTitle>
-        <DialogContent style={{ padding: "1.5rem 5rem" }}>
-          <Typography gutterTop variant="h4">
+        <DialogContent style={{ padding: "1.5rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+          <Typography gutterTop variant="h4" style={{width: "50%"}}>
             Provpasset är över
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%"}}>
             Efter att du lämnat in kan du ta en paus innan du börjar nästa
             provpass. Ditt resultat sparas.
           </Typography>
