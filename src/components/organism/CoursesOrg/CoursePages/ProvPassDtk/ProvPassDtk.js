@@ -20,6 +20,7 @@ import Correct from "../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../assets/Imgs/wrong.png";
 import Increment from "../../../../../assets/Icons/Increment.svg";
 import Decrement from "../../../../../assets/Icons/Decrement.svg";
+import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 
 const ProvPassDtk = (props) => {
   const [question, setQuestion] = useState();
@@ -306,41 +307,7 @@ const ProvPassDtk = (props) => {
               )}
             </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "flex-end",
-              height: 60,
-            }}
-          >
-            <Typography
-              variant="body1"
-              component="body1"
-              style={{
-                fontSize: ".75rem",
-                fontWeight: "500",
-                marginTop: 10,
-                // width: "32rem",
-              }}
-            >
-              Berätta för oss om du var nöjd med lösningen
-            </Typography>
-            <Box ml={1} mr={0.5}>
-              <img
-                src={Increment}
-                // onClick={() => setFeedbackPopup(true)}
-                alt=""
-              />
-            </Box>
-            <Box mr={1}>
-              <img
-                src={Decrement}
-                // onClick={() => setFeedbackPopup(true)}
-                alt=""
-              />
-            </Box>
-          </Box>
+          <FeedbackButtons />
         </Box>
       )}
       {/* </Container> */}

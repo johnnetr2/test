@@ -34,6 +34,7 @@ import Decrement from "../../../../../assets/Icons/Decrement.svg";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -200,17 +201,17 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     const handleEnterClick = (e) => {
-      if(e.keyCode === 13){
+      if (e.keyCode === 13) {
         currentIndex + 1 < quiz.question.length &&
-        setCurrentIndex(oldIndex => oldIndex + 1)
+          setCurrentIndex((oldIndex) => oldIndex + 1);
       }
-    }
+    };
     document.addEventListener("keydown", handleEnterClick);
 
     return () => {
       document.removeEventListener("keydown", handleEnterClick);
-    }
-  }, [quiz, currentIndex])
+    };
+  }, [quiz, currentIndex]);
 
   const Options = (question, option, optionIndex) => {
     if (
@@ -728,41 +729,7 @@ const StandardViewXyz = () => {
                                 )}
                               </Box>
                             </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                alignItems: "flex-end",
-                                height: 60,
-                              }}
-                            >
-                              <Typography
-                                variant="body1"
-                                component="body1"
-                                style={{
-                                  fontSize: ".75rem",
-                                  fontWeight: "500",
-                                  marginTop: 10,
-                                  // width: "32rem",
-                                }}
-                              >
-                                Berätta för oss om du var nöjd med lösningen
-                              </Typography>
-                              <Box ml={1} mr={0.5}>
-                                <img
-                                  src={Increment}
-                                  // onClick={() => setFeedbackPopup(true)}
-                                  alt=""
-                                />
-                              </Box>
-                              <Box mr={1}>
-                                <img
-                                  src={Decrement}
-                                  // onClick={() => setFeedbackPopup(true)}
-                                  alt=""
-                                />
-                              </Box>
-                            </Box>
+                            <FeedbackButtons />
                           </Box>
                         )}
                       </Box>
