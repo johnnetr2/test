@@ -1,13 +1,12 @@
-import { Box, Button, Chip, Container, IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
 import { EndPoints, instance2 } from "../../service/Route";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import useWindowDimensions from "../WindowDimensions/dimension";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -24,58 +23,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(0),
   },
 }));
-
-// const MenuIcon = (props) => {
-//   const options = "STARTA OM";
-//   const ITEM_HEIGHT = 48;
-//   const [anchorEl, setAnchorEl] = useState(null);
-
-//   const open = Boolean(anchorEl);
-
-//   const handleClick = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-
-//   return (
-//     <div>
-//       <IconButton
-//         aria-label="more"
-//         id="long-button"
-//         aria-controls={open ? "long-menu" : undefined}
-//         aria-expanded={open ? "true" : undefined}
-//         aria-haspopup="true"
-//         onClick={handleClick}
-//       >
-//         <MoreVertIcon />
-//       </IconButton>
-//       <Menu
-//         id="long-menu"
-//         MenuListProps={{
-//           "aria-labelledby": "long-button",
-//         }}
-//         anchorEl={anchorEl}
-//         open={open}
-//         onClose={handleClose}
-//         PaperProps={{
-//           style: {
-//             maxHeight: ITEM_HEIGHT * 4.5,
-//             width: "12ch",
-//             display: "flex",
-//             justifyContent: "center",
-//             alignItems: "center",
-//           },
-//         }}
-//       >
-//         <MenuItem
-//           onClick={() => props.onClick()}
-//         >{options}</MenuItem>
-//       </Menu>
-//     </div>
-//   );
-// };
 
 const CoursesCard = (props) => {
   const classes = useStyles();
@@ -114,11 +61,9 @@ const CoursesCard = (props) => {
     });
   };
 
-  function Dropdown(props) {
-    const { height, width } = useWindowDimensions();
-
+  function Dropdown(prop) {
     return (
-      <div className="result_popup" onClick={() => props.onClick()} style={{ marginTop: "70px" }}>
+      <div className="result_popup" onClick={() => prop.onClick()} style={{ marginTop: "70px" }}>
         STARTA OM
         <div className="popup"></div>
       </div>
@@ -221,7 +166,7 @@ const CoursesCard = (props) => {
                 </Stack>
               </Box>
             </Box>
-            {props.quizzes === undefined && props?.quizzes?.simuleraQuizResult.length > 3 ? (
+            {props.quizzes !== undefined && props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
@@ -245,7 +190,7 @@ const CoursesCard = (props) => {
                   <Button
                     variant="outlined"
                     style={{
-                      width: "10rem",
+                      width: "12rem",
                       textTransform: "capitalize",
                       border: "2px solid #0A1596",
                       color: "#0A1596",
@@ -285,7 +230,7 @@ const CoursesCard = (props) => {
                     }}
                   >
                     <CustomizedTooltip title="Du behöver göra klart hela provet för att få poängprognos" placement="top">
-                      <img src={informationIcon} style={{ display: "flex", height: "14px", width: "14px", alignSelf: "flex-end" }} alt="info"/>
+                      <img src={informationIcon} style={{ display: "flex", height: "14px", width: "14px", alignSelf: "flex-end" }} alt="info" />
                     </CustomizedTooltip>
                     <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem", color: "#505050" }}>
                       {"Poäng"}

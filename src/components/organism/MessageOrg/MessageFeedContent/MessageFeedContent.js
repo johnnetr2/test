@@ -6,14 +6,8 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-import { Rating, TextareaAutosize } from "@mui/material";
-import { Link } from "react-router-dom";
-import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
-import Heading from "../../../atom/Heading/Heading";
+import { Rating } from "@mui/material";
 import BodyText from "../../../atom/BodyText/BodyText";
-import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
-import { Input } from "reactstrap";
-import { width } from "@mui/system";
 import FeedbackPopup from "../../../molecule/FeedbackPopup/FeedbackPopup";
 import { EndPoints, instance2 } from "../../../service/Route";
 
