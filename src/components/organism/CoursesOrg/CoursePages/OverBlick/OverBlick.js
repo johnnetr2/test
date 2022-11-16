@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import BarChart from "../../../../../assets/Icons/BarChart.svg";
-import Timer from "../../../../atom/Timer/timer";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import Tick from "../../../../../assets/Icons/Tick.svg";
 import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
 import Warning from "../../../../../assets/Icons/Warning.svg";
-import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   AppBar,
-  Paper,
   Box,
   CssBaseline,
   Toolbar,
@@ -27,19 +22,16 @@ import TestOverPopup from "../../../../molecule/TestOverPopup/TestOverPopup";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import swal from "sweetalert";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
   const [testSubmitPopUp, setTestSubmitPopUp] = useState(false);
   const [timeOverPopUp, setTimeOverPopUp] = useState(false);
-  const [time, setTime] = useState();
-
   const params = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [helpPopup, setHelpPopup] = useState(false);
-
-  console.log(params, "Overblick data");
 
   useEffect(() => {
     setQuiz(params.state.quiz);
@@ -48,6 +40,7 @@ const OverBlick = () => {
 
   const submitQuiz = () => {
     setTimeOverPopUp(false);
+    setTestSubmitPopUp(false)
     setOpen(true);
     const data = {
       simuleraQuiz: params.state.simuleraQuiz,
@@ -57,7 +50,7 @@ const OverBlick = () => {
 
     const URL = EndPoints.submitSimuleraTest;
     instance2.post(URL, data).then((response) => {
-      console.log(response.data, ";this is api response");
+      // console.log(response.data, ";this is api response");
       if (response.status == 200) {
         const updatePreviosExam = EndPoints.updatePreviousExam;
         const examData = {
@@ -76,16 +69,10 @@ const OverBlick = () => {
           },
         });
       } else {
-        console.log("Fail to submit questions");
+        swal("Fail to submit questions");
       }
     });
   };
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -207,7 +194,7 @@ const OverBlick = () => {
                   simuleraQuiz: quiz?._id,
                   simuleraSeason: quiz?.season,
                   timeLeft: params?.state.timeLeft,
-                  questionIndex: params?.state?.currentQuestion, 
+                  questionIndex: params?.state?.currentQuestion,
                 }
               })
             }}
@@ -246,12 +233,12 @@ const OverBlick = () => {
           width: "100%"
           // minHeight: "100vh",
         }}
-        >
+      >
         <Container
           disableGutters
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
-          
+
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             {/* <Box mt={2} width={100} sx={{ color: "#222" }}>
@@ -516,7 +503,7 @@ const OverBlick = () => {
             bottom: 0,
             left: 0,
             right: 0,
-            
+
           }}
         >
           <Button

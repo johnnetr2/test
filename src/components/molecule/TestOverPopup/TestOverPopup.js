@@ -69,7 +69,7 @@ export default function TestOverPopup(props) {
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          // onClose={() => props.closePopUp()}
+        // onClose={() => props.closePopUp()}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "1.5rem 5rem" }}>
           <Typography gutterTop variant="h4">
