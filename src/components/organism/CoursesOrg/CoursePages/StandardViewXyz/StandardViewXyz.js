@@ -35,6 +35,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
+import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -440,11 +441,12 @@ const StandardViewXyz = () => {
             ></Box>
           </Box>
         </Container>
+
         <Container
           maxWidth="md"
           className={classes.questionComponent}
           // style={{
-          //   marginTop: 0,
+            //   marginTop: 0,
           //   backgroundColor: "#f9f9f9",
           //   height: "fit-content",
           //   display: "flex",
@@ -461,6 +463,7 @@ const StandardViewXyz = () => {
               alignItems: "center",
             }}
           >
+           {quiz?.question[currentIndex].sectionCategories.title === "ELF" && <ExamTextView text={quiz?.question[currentIndex].description}/>}
             {quiz &&
               quiz.question.map((question, questionIndex) => {
                 if (questionIndex === currentIndex) {
