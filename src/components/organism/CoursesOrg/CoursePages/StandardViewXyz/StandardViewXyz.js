@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
@@ -87,6 +87,11 @@ const StandardViewXyz = () => {
       });
     }
   }, [timeLeft, shouldNavigate]);
+
+
+  const isReadingComprehension = useMemo(() => (
+    quiz?.question[currentIndex].sectionCategories.title === "ELF" || quiz?.question[currentIndex].sectionCategories.title === "LÄS"
+  ), [currentIndex, quiz?.question]);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -463,7 +468,12 @@ const StandardViewXyz = () => {
               alignItems: "center",
             }}
           >
-           {quiz?.question[currentIndex].sectionCategories.title === "ELF" && <ExamTextView text={quiz?.question[currentIndex].description}/>}
+           {(quiz?.question[currentIndex].sectionCategories.title === "ELF" || quiz?.question[currentIndex].sectionCategories.title === "LÄS")  && 
+              <ExamTextView 
+                text={quiz?.question[currentIndex]?.multipartQuestion?.description} 
+                title={quiz?.question[currentIndex]?.multipartQuestion?.title} 
+                questionLength={quiz?.question[currentIndex]?.multipartQuestion?.question.length}
+              />}
             {quiz &&
               quiz.question.map((question, questionIndex) => {
                 if (questionIndex === currentIndex) {
@@ -489,11 +499,11 @@ const StandardViewXyz = () => {
                         <Box
                           mt={5}
                           paddingX={6}
-                          paddingY={2}
+                          /* paddingY={2} */
                           sx={{
                             backgroundColor: "#fff",
                             width: 600,
-                            height: question.images[0] ? 380 : 330,
+                            height: isReadingComprehension ? "auto" : (question.images[0] ? 380 : 330),
                             // border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
@@ -506,6 +516,9 @@ const StandardViewXyz = () => {
                             style={{
                               fontSize: "1rem",
                               fontWeight: "500",
+                              padding: isReadingComprehension ? "3rem 0rem" : 0,
+                              display: "flex",
+                              justifyContent: "center",
                             }}
                           >
                             <MarkLatex content={question.questionStatement} />
@@ -549,7 +562,7 @@ const StandardViewXyz = () => {
                           </Typography>
                         </Box>
                         <Box
-                          mt={5}
+                          mt={isReadingComprehension ? 0 : 5}
                           sx={{
                             backgroundColor: "#fff",
                             width: 600,
