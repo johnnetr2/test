@@ -89,7 +89,7 @@ export default function QuestionBackButtonPopup(props) {
             {props.description}
           </Typography>
         </DialogContent>
-        <DialogActions style={{ display: "flex", justifyContent: "center" }}>
+        <DialogActions style={{ display: "flex", justifyContent: "center", gap: "3rem" }}>
           <Button
             autoFocus
             onClick={props.closePopup}
