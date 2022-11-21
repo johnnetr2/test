@@ -91,6 +91,9 @@ const Outline_Field = (props) => {
           cursor: "pointer",
           paddingRight: "1.2rem",
           paddingLeft: "1.2rem",
+          "&:hover": {
+            background: "#f4f4f4",
+          },
         }}
       >
         <StyledCheckbox
