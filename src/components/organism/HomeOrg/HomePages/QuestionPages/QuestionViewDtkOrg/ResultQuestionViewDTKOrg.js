@@ -195,8 +195,9 @@ const ResultQuestionViewDtkOrg = (props) => {
                         style={{
                           display: "flex",
                           justifyContent: "flex-end",
-                          alignItems: "center",
-                          marginBottom: 10,
+                          alignItems: "right",
+                          marginRight: -30,
+                          marginBottom: -15,
                         }}
                       >
                         {item.showResult ? (
