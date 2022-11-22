@@ -468,7 +468,7 @@ const StandardViewXyz = () => {
               alignItems: "center",
             }}
           >
-           {(quiz?.question[currentIndex].sectionCategories.title === "ELF" || quiz?.question[currentIndex].sectionCategories.title === "LÄS")  && 
+           {isReadingComprehension  && 
               <ExamTextView 
                 text={quiz?.question[currentIndex]?.multipartQuestion?.description} 
                 title={quiz?.question[currentIndex]?.multipartQuestion?.title} 
