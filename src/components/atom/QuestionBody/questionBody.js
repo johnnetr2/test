@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QuestionBody = (props) => {
-  console.log('HERE, quesitonbody')
   const classes = useStyles();
 
   const [question, setQuestion] = useState(props?.question);
