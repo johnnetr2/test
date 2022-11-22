@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CoursesCard = (props) => {
+  console.log(props, "course card props !!!!!!!!!!");
   const classes = useStyles();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
@@ -54,7 +55,7 @@ const CoursesCard = (props) => {
       navigate("/provpassinfo", {
         state: {
           id: props.id,
-          session: props.item,
+          session: props?.item,
           provpass: props?.quizzes,
         },
       });
@@ -63,7 +64,11 @@ const CoursesCard = (props) => {
 
   function Dropdown(prop) {
     return (
-      <div className="result_popup" onClick={() => prop.onClick()} style={{ marginTop: "70px" }}>
+      <div
+        className="result_popup"
+        onClick={() => prop.onClick()}
+        style={{ marginTop: "70px" }}
+      >
         STARTA OM
         <div className="popup"></div>
       </div>
@@ -83,7 +88,9 @@ const CoursesCard = (props) => {
           maxWidth: "48rem",
         }}
       >
-        <Box sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}>
+        <Box
+          sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
+        >
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
               style={{
@@ -121,15 +128,15 @@ const CoursesCard = (props) => {
             }}
           >
             <Box
-              onClick={() =>
-                navigate("/provpassinfo", {
+              onClick={() => {
+                navigate("/testInformation", {
                   state: {
                     id: props.id,
-                    session: props.item,
+                    session: props?.item,
                     provpass: props?.quizzes,
                   },
-                })
-              }
+                });
+              }}
             >
               <Box
                 style={{
@@ -147,13 +154,21 @@ const CoursesCard = (props) => {
                   {" "}
                   {props?.item?.month}{" "}
                 </Typography>
-                <Stack direction="row" spacing={1} style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}
+                >
                   {[1, 2, 3, 4].map((item) => {
                     return (
                       <Chip
                         label={"Provpass " + item}
                         style={{
-                          backgroundColor: props.quizzes && item <= props?.quizzes.simuleraQuizResult?.length ? "#6FCF97" : "#E1E1E1",
+                          backgroundColor:
+                            props.quizzes &&
+                            item <= props?.quizzes.simuleraQuizResult?.length
+                              ? "#6FCF97"
+                              : "#E1E1E1",
                           color: "#505050",
                         }}
                         size="small"
@@ -166,7 +181,8 @@ const CoursesCard = (props) => {
                 </Stack>
               </Box>
             </Box>
-            {props.quizzes !== undefined && props?.quizzes?.simuleraQuizResult.length > 3 ? (
+            {props.quizzes !== undefined &&
+            props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
@@ -181,7 +197,11 @@ const CoursesCard = (props) => {
                     {" "}
                     {props.progress}{" "}
                   </Typography>
-                  <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem" }}>
+                  <Typography
+                    variant="body2"
+                    component="body2"
+                    style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
+                  >
                     {" "}
                     {"Poäng"}{" "}
                   </Typography>
@@ -229,10 +249,30 @@ const CoursesCard = (props) => {
                       width: "3.5rem",
                     }}
                   >
-                    <CustomizedTooltip title="Du behöver göra klart hela provet för att få poängprognos" placement="top">
-                      <img src={informationIcon} style={{ display: "flex", height: "14px", width: "14px", alignSelf: "flex-end" }} alt="info" />
+                    <CustomizedTooltip
+                      title="Du behöver göra klart hela provet för att få poängprognos"
+                      placement="top"
+                    >
+                      <img
+                        src={informationIcon}
+                        style={{
+                          display: "flex",
+                          height: "14px",
+                          width: "14px",
+                          alignSelf: "flex-end",
+                        }}
+                        alt="info"
+                      />
                     </CustomizedTooltip>
-                    <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem", color: "#505050" }}>
+                    <Typography
+                      variant="body2"
+                      component="body2"
+                      style={{
+                        marginLeft: ".5rem",
+                        marginTop: ".5rem",
+                        color: "#505050",
+                      }}
+                    >
                       {"Poäng"}
                     </Typography>
                   </Box>

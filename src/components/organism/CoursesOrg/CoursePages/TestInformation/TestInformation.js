@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Clock from "../../../../../assets/Icons/Clock.svg";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import { styled } from "@mui/material/styles";
@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 
-const TestInformation = () => {
+const TestInformation = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -66,9 +66,11 @@ const TestInformation = () => {
   }));
 
   const classes = useStyles(10);
+  const navigate = useNavigate();
+  const params = useLocation();
 
   return (
-    <div>
+    <>
       <CssBaseline />
       <AppBar
         color="#fff"
@@ -163,43 +165,65 @@ const TestInformation = () => {
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Ta paus mellan proven. Ditt provpass sparas och du kan fortsätta
-              provet vid ett annat tillfälle. När 55 minuter har gått avbryts
-              provpassen och du behöver lämna in för att få poäng. Du får din
-              poäng först när du gjort klart hela provet.
+              Högskoleprovet är indelat i fem provpass, men eftersom ett av
+              dessa är utprövningspass har vi här exkluderat detta provpass. Du
+              kommer alltså att få göra fyra provpass. Varje pass är 55 minuter
+              långt. Du kommer att skriva två kvantitativa provpass, två verbala
+              provpass.
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "600" }}
+              style={{
+                fontSize: ".7rem",
+                fontWeight: "600",
+                marginTop: "20px",
+              }}
             >
               Kvantiativt provpass
             </Typography>
 
             <Typography
-              mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod
+              Varje kvantitativt provpass består av uppgifter från fyra olika
+              delprov:
             </Typography>
             <Typography
-              mt={3}
+              variant="subtitle1"
+              style={{
+                fontSize: ".7rem",
+                fontWeight: "500",
+                marginTop: "20px",
+              }}
+            >
+              XYZ, matematisk problemlösning: 12 uppgifter
+            </Typography>
+            <Typography
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Lorem
+              KVA, kvantitativa jämförelser: 10 uppgifter
             </Typography>
             <Typography
-              mt={3}
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Lorem
+              NOG, kvantitativa resonemang: 6 uppgifter
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "600" }}
+              style={{ fontSize: ".7rem", fontWeight: "500" }}
+            >
+              DTK, diagram, tabeller och kartor: 12 uppgifter
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              style={{
+                fontSize: ".7rem",
+                fontWeight: "600",
+                marginTop: "20px",
+              }}
             >
               Verbalt provpass
             </Typography>
@@ -208,46 +232,68 @@ const TestInformation = () => {
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "500" }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod
+              Varje verbalt provpass består av uppgifter från fyra olika
+              delprov:
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              style={{
+                fontSize: ".7rem",
+                fontWeight: "500",
+                marginTop: "20px",
+              }}
+            >
+              ORD, ordförståelse: 10 uppgifter
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              style={{ fontSize: ".7rem", fontWeight: "500" }}
+            >
+              LÄS, svensk läsförståelse: 10 uppgifter
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              style={{ fontSize: ".7rem", fontWeight: "500" }}
+            >
+              MEK, meningskomplettering: 10 uppgifter
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              style={{ fontSize: ".7rem", fontWeight: "500" }}
+            >
+              ELF, engelsk läsförståelse: 10 uppgifter
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{
+                fontSize: ".7rem",
+                fontWeight: "600",
+                marginTop: "20px",
+              }}
             >
-              Lorem
-            </Typography>
-            <Typography
-              mt={3}
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
-            >
-              Lorem
-            </Typography>
-            <Typography
-              mt={3}
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
-            >
-              Lorem
-            </Typography>
-            <Typography
-              mt={3}
-              variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
-            >
-              Lorem
+              Lämna in provpass efter 55 minuter 
             </Typography>
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>
-            <Link to="#">
-              <ExerciseBtn title="Nasta" />
-            </Link>
+            <ExerciseBtn
+              title="Nasta"
+              onClick={() =>
+                navigate("/provpassinfo"
+                , {
+                  state: {
+                    id: params.state.id,
+                    session: params.state.session,
+                    provpass: params.state.quizzes,
+                  },
+                }
+                )
+              }
+            />
           </Box>
         </Container>
       </Container>
-    </div>
+    </>
   );
 };
 

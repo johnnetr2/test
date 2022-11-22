@@ -74,7 +74,7 @@ const ProvPassInformation = () => {
   const [helpPopup, setHelpPopup] = useState(false);
 
   useEffect(() => {
-    console.log(params?.provpass, "this is");
+    console.log(params?.provpass);
   }, []);
 
   return (
@@ -315,6 +315,7 @@ const ProvPassInformation = () => {
                 navigate("/simuleraprov", {
                   state: {
                     id: params.state.id,
+                    session: params.state.session
                   },
                 })
               }
