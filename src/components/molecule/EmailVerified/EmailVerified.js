@@ -6,20 +6,15 @@ import { Container } from "reactstrap";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../service/Route";
-import { useSelector } from "react-redux";
 
 const EmailVerified = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const userToken = useSelector((state) => state.value.token);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
-    const headers = {
-      Authorization: `Bearer ${userToken}`,
-      "Content-Type": "application/json",
-    };
+
     const URL = EndPoints.emailVerified + "?id=" + params.id;
-    instance2.get(URL, { headers }).then((response) => {
+    instance2.get(URL).then((response) => {
       if (response) {
         setLoader(false);
       }

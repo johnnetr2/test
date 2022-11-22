@@ -27,7 +27,6 @@ import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresul
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
-import EmailVerification from "./components/molecule/EmailVerification/EmailVerification";
 import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
 require("dotenv").config();
 
@@ -50,7 +49,6 @@ function App() {
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg />} />
         <Route path="resultfooter" element={<ResultFooter />} />
         <Route path="/categoryrtbar" element={<CategoryPagesRightBar />} />
-        <Route path="/emailverification" element={<EmailVerification />} />
         <Route path="/emailverified/:id" element={<EmailVerified />} />
         <Route path="/" element={<Signup />} />
         <Route path="/helppopup" element={<HelpPopup />} />
