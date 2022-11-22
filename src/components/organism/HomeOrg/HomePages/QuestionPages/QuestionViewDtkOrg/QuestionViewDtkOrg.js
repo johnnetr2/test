@@ -118,7 +118,7 @@ const QuestionViewDTKOrg = (props) => {
 
   useEffect(() => {
     scrollTop();
-    if (props.paragraphIndex != undefined) {
+    if (props.paragraphIndex !== undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
     } else {
@@ -127,7 +127,7 @@ const QuestionViewDTKOrg = (props) => {
   }, []);
 
   const Button = (question) => {
-    if (props.paragraphIndex != undefined) {
+    if (props.paragraphIndex !== undefined) {
       return (
         <ResultFooter
           questionLength={props.quiz.length}
@@ -200,11 +200,11 @@ const QuestionViewDTKOrg = (props) => {
 
     // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
-      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
     if (ifExists) {
       const index = dataSubmit.findIndex(
-        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+        (obj) => obj.questionId === quiz.question[selectedIndex]._id
       );
       dataSubmit.splice(index, 1, data);
     } else {
@@ -237,11 +237,11 @@ const QuestionViewDTKOrg = (props) => {
     };
     // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
-      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
     if (ifExists) {
       const index = dataSubmit.findIndex(
-        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+        (obj) => obj.questionId === quiz.question[selectedIndex]._id
       );
       dataSubmit.splice(index, 1, data);
     } else {
@@ -285,13 +285,13 @@ const QuestionViewDTKOrg = (props) => {
     // }
 
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
-    if (answerLenght == quiz.question.length) {
+    if (answerLenght === quiz.question.length) {
       setAnswerExistance(true);
     }
   };
 
   const Options = (question, option, optionIndex) => {
-    if (optionIndex == question.selectedOptionIndex) {
+    if (optionIndex === question.selectedOptionIndex) {
       return (
         <Radio color="primary" checked={true} style={{ color: "#0A1596" }} />
       );
@@ -300,7 +300,7 @@ const QuestionViewDTKOrg = (props) => {
         <Radio
           color="primary"
           checked={false}
-          style={{ color: option._id == onHover && "#0A1596" }}
+          style={{ color: option._id === onHover && "#0A1596" }}
         />
       );
     }
@@ -659,7 +659,7 @@ const QuestionViewDTKOrg = (props) => {
           ) : (
             quiz &&
             quiz?.question?.map((question, index) => {
-              if (index == selectedIndex) {
+              if (index === selectedIndex) {
                 return (
                   <Box sx={{ maxWidth: 600, width: "100%" }}>
                     <Box
@@ -765,7 +765,7 @@ const QuestionViewDTKOrg = (props) => {
                             border: "1px solid #e1e1e1",
                             // marginLeft: ".5rem",
                             color:
-                              optionIndex == question.selectedOptionIndex &&
+                              optionIndex === question.selectedOptionIndex &&
                               "#0A1596",
                             "&:hover": {
                               cursor: !option.answer && "pointer",
