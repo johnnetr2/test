@@ -83,11 +83,11 @@ const QuestionBody = (props) => {
   };
 
   const changeOptionsColor = (item) => {
-    if (question.answer && question.answer.option == item._id && question.optionId) {
+    if (question.answer && question.answer.option === item._id && question.optionId) {
       return "#27AE60";
-    } else if (question.answer && item._id == question?.optionId) {
+    } else if (question.answer && item._id === question?.optionId) {
       return "#EB5757";
-    } else if (question.answer && item._id != question?.optionId) {
+    } else if (question.answer && item._id !== question?.optionId) {
       return "#E1E1E1";
     } else {
       return "";
@@ -96,7 +96,7 @@ const QuestionBody = (props) => {
 
   const questionId = props.question._id;
 
-  if (props.question.type == "multiple") {
+  if (props.question.type === "multiple") {
     return (
       <QuestionViewDTKOrg
         isTimeRestricted={props.isTimeRestricted}
@@ -176,7 +176,7 @@ const QuestionBody = (props) => {
 
           <Box
             sx={{
-              marginTop: question?.images[0] == "" ? 0 : "2rem",
+              marginTop: question?.images[0] === "" ? 0 : "2rem",
             }}
           >
             {question?.information1 && (
@@ -302,7 +302,7 @@ const QuestionBody = (props) => {
                       display: "flex",
                       color:
                         !question.answer &&
-                          optionIndex == question.selectedIndex
+                          optionIndex === question.selectedIndex
                           ? "#0A1596"
                           : "",
                       "&:hover": {
@@ -383,9 +383,10 @@ const QuestionBody = (props) => {
                         <img src={item?.value} alt="image" />
                       ) : (
                         <Typography>
+                          {/* The shuffle of answer option happens in the backend */}
                           <MarkLatex
                             content={item.value.replace("\f", "\\f")}
-                          />{" "}
+                          />
                         </Typography>
                       )}
                     </Box>
@@ -418,6 +419,7 @@ const QuestionBody = (props) => {
                 style={{
                   fontSize: "1.25rem",
                   marginTop: 20,
+                  marginBottom: 20
                 }}
               >
                 Förklaring:

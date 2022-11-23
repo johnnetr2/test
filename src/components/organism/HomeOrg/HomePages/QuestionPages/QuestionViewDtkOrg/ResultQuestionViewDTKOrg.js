@@ -20,6 +20,7 @@ import { styled } from "@mui/material/styles";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 
 const ResultQuestionViewDtkOrg = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
@@ -103,7 +104,7 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => { });
+      .catch(() => {});
     // instance2.get(URL, data).then(response => {
     //   console.log(response.data, 'responsessssssss')
     //   setParagraph(response.data.question)
@@ -131,8 +132,6 @@ const ResultQuestionViewDtkOrg = (props) => {
       ) : (
         <div style={{ width: "100%" }}>
           <CssBaseline />
-
-
           <Container
             maxWidth="lg"
             style={{
