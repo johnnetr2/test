@@ -242,7 +242,6 @@ const CategoryPagesFeedContent = (props) => {
           } else {
             setOpen(false);
             const quizobj = response.data;
-            console.log("ahd asdh asdha kas ahsd ajd", quizobj)
             const { quiz: quistions } = quizobj;
             const questionswithSuffeldOptions = quistions.map((question) => {
               if (question.type == "multiple") {
