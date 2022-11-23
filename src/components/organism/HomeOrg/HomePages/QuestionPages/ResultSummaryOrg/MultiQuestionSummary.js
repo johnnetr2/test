@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import Correct from "../../../../../../assets/Imgs/correct.png";
 import FeedbackButtons from "../../../../../atom/FeedbackButtons/FeedbackButtons";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
+import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import WarningIcon from "../../../../../../assets/Icons/WarningIcon.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
@@ -140,33 +141,12 @@ function MultiQuestionSummary(props) {
           },
         }}
       >
-        <Typography
-          variant="subtitle1"
-          style={{
-            fontSize: ".7rem",
-            fontWeight: "500",
-          }}
-        >
-          {props.selectedIndex + 1 + " uppgifter:"}
-        </Typography>
-        <Typography variant="h6" component="h6">
-          {question?.multipartQuestion.title}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          style={{ fontSize: ".7rem", fontWeight: "500" }}
-        >
-          <MarkLatex content={question?.multipartQuestion.description} />
-        </Typography>
-        {question?.multipartQuestion.image && (
-          <Box>
-            <img
-              src={question?.multipartQuestion.image}
-              style={{ width: "100%" }}
-              alt=""
-            />
-          </Box>
-        )}
+        <QuestionStatement
+          numberOfQuestions={props.selectedIndex + 1}
+          title={question?.multipartQuestion.title}
+          description={question?.multipartQuestion.description}
+          image={question?.multipartQuestion.image}
+        />
       </Box>
 
       <Box>
