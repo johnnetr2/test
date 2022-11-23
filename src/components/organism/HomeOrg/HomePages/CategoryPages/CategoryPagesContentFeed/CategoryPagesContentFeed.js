@@ -3,10 +3,8 @@ import { Container, Tab, Tabs, makeStyles } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import Backdrop from "@mui/material/Backdrop";
 import BodyText from "../../../../../atom/BodyText/BodyText";
-import { Category } from "@mui/icons-material";
 import CategoryPagesRightBar from "../CategoryPagesRightBar/CategoryPagesRightBar";
 import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -50,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CategoryPagesFeedContent = (props) => {
+  const categoryName = props?.item?.title
   const classes = useStyles();
   const navigate = useNavigate();
   const [questionCategories, setQuestionCategories] = useState([]);
@@ -68,19 +67,10 @@ const CategoryPagesFeedContent = (props) => {
   const [allChecked, setAllChecked] = useState(false);
   const [selectAll, setSelectAll] = useState([]);
   const params = useLocation();
-  const [historyText, setHistoryText] = useState(false);
-  const [resultText, setResultText] = useState(false);
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
-  const email = useSelector((state) => state);
-  const { user, token } = useSelector((state) => state.value);
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-
+  const { user } = useSelector((state) => state.value);
   const scrollTop = () => {
     window.scrollTo({
       top: 0,
@@ -110,41 +100,41 @@ const CategoryPagesFeedContent = (props) => {
         setTableHistory(response?.data);
       });
 
-      setTitle(true);
-      setChecked(false);
-      setChecked2(false);
-      setChecked3(false);
-      setChecked4(false);
-      if (props?.item?.title === "XYZ") {
-        setCheckedFunc(12);
-      } else if (props?.item?.title === "KVA") {
-        setCheckedFunc(10);
-      } else if (props?.item?.title === "NOG") {
-        setCheckedFunc(6);
-      } else if (props?.item?.title === "DTK") {
-        setCheckedFunc(12);
-      } else {
-        setCheckedFunc(10);
-      }
+      setDefaultNuberOfQuestions()
+
     });
 
-    if (props.item.title === "KVA") {
-      setCategoryTitle("Kvantitativa jämförelser");
-    } else if (props.item.title === "MEK") {
-      setCategoryTitle("Meningskomplettering");
-    } else if (props.item.title === "NOG") {
-      setCategoryTitle("Kvantitativa resonemang");
-    } else if (props.item.title === "XYZ") {
-      setCategoryTitle("Matematisk problemlösning");
-    } else if (props.item.title === "LÄS") {
-      setCategoryTitle("Svensk läsförståelse");
-    } else if (props.item.title === "DTK") {
-      setCategoryTitle("Diagram, tabeller och kartor");
-    } else if (props.item.title === "ORD") {
-      setCategoryTitle("Ordförståelse");
-    } else if (props.item.title === "ELF") {
-      setCategoryTitle("Engelsk läsförståelse");
+
+
+    switch (categoryName) {
+      case "KVA":
+        setCategoryTitle("Kvantitativa jämförelser");
+        break;
+      case 'MEK':
+        setCategoryTitle("Meningskomplettering");
+        break;
+      case 'NOG':
+        setCategoryTitle("Kvantitativa resonemang");
+        break;
+      case 'XYZ':
+        setCategoryTitle("Matematisk problemlösning");
+        break;
+      case 'LÄS':
+        setCategoryTitle("Svensk läsförståelse");
+        break;
+      case 'DTK':
+        setCategoryTitle("Diagram, tabeller och kartor");
+        break;
+      case 'ORD':
+        setCategoryTitle("Ordförståelse");
+        break;
+      case 'ELF':
+        setCategoryTitle("Engelsk läsförståelse");
+        break;
+      default:
+        break;
     }
+
     scrollTop();
   }, []);
 
@@ -195,24 +185,33 @@ const CategoryPagesFeedContent = (props) => {
     }
   }, [alla]);
 
-  const realQuestionFunc = () => {
+  const setDefaultNuberOfQuestions = () => {
     setTitle(true);
     setChecked(false);
     setChecked2(false);
     setChecked3(false);
     setChecked4(false);
-    if (props?.item?.title === "XYZ") {
-      setCheckedFunc(12);
-    } else if (props?.item?.title === "KVA") {
-      setCheckedFunc(10);
-    } else if (props?.item?.title === "NOG") {
-      setCheckedFunc(6);
-    } else if (props?.item?.title === "DTK") {
-      setCheckedFunc(12);
-    } else {
-      setCheckedFunc(10);
+    let defaultNumberOfQuestion = 10
+
+    switch (categoryName) {
+      case 'XYZ':
+        defaultNumberOfQuestion = 12
+        break;
+      case 'KVA':
+        defaultNumberOfQuestion = 10
+        break;
+      case 'NOG':
+        defaultNumberOfQuestion = 6
+        break;
+      case 'DTK':
+        defaultNumberOfQuestion = 12
+        break;
+      default:
+        defaultNumberOfQuestion = 10
+        break;
     }
-  };
+    setCheckedFunc(defaultNumberOfQuestion)
+  }
 
   const isChecked = (id) => {
     return checkedData.some((obj) => obj === id);
@@ -243,6 +242,7 @@ const CategoryPagesFeedContent = (props) => {
           } else {
             setOpen(false);
             const quizobj = response.data;
+            console.log("ahd asdh asdha kas ahsd ajd", quizobj)
             const { quiz: quistions } = quizobj;
             const questionswithSuffeldOptions = quistions.map((question) => {
               if (question.type == "multiple") {
@@ -267,6 +267,8 @@ const CategoryPagesFeedContent = (props) => {
                   ...question,
                   question: options0Array,
                 };
+              } else if (categoryName === 'NOG' || categoryName === 'KVA') {
+                return question
               } else {
                 const options = question?.options[0]?.options
                   .map((value) => ({ value, sort: Math.random() }))
@@ -308,14 +310,14 @@ const CategoryPagesFeedContent = (props) => {
   return (
     <Container maxWidth="md" className={classes.root}>
       <Box>
-        <Heading title={categoryTitle + " - " + props.item.title} />
+        <Heading title={categoryTitle + " - " + categoryName} />
         <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
       </Box>
       <Box
         sx={{ marginBottom: "1rem", marginTop: "4rem", marginLeft: "0.1rem" }}
       >
         <Typography variant="h5" component="h5">
-          Övningsuppgifter för {props.item.title}
+          Övningsuppgifter för {categoryName}
           <Box>
             <Backdrop
               sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -443,7 +445,7 @@ const CategoryPagesFeedContent = (props) => {
                 alignItems: "center",
                 cursor: "pointer",
               }}
-              onClick={() => realQuestionFunc()}
+              onClick={() => setDefaultNuberOfQuestions()}
             >
               Ett delprov
             </Box>
@@ -498,7 +500,7 @@ const CategoryPagesFeedContent = (props) => {
                 onClickCheck={() => setAlla(!alla)}
                 checked={
                   questionCategories &&
-                  questionCategories?.length === checkedData.length
+                    questionCategories?.length === checkedData.length
                     ? true
                     : false
                 }
@@ -510,7 +512,7 @@ const CategoryPagesFeedContent = (props) => {
                 return (
                   <>
                     {item?.sectionCategory?.title === "MEK" &&
-                    item?.title === "others" ? (
+                      item?.title === "others" ? (
                       ""
                     ) : (
                       <OutlineField
@@ -586,9 +588,8 @@ const CategoryPagesFeedContent = (props) => {
               color: tabValue == 0 ? "black" : "#B5B5B5",
             }}
             onClick={() => {
-              width < 900 && setHistoryText(true);
-              setResultText(false);
-              setTabValue(0);
+              width < 900 &&
+                setTabValue(0);
             }}
           />
 
@@ -600,9 +601,8 @@ const CategoryPagesFeedContent = (props) => {
               color: tabValue == 1 ? "black" : "#B5B5B5",
             }}
             onClick={() => {
-              width < 900 && setResultText(true);
-              setHistoryText(false);
-              setTabValue(1);
+              width < 900 &&
+                setTabValue(1);
             }}
           />
         </Tabs>
