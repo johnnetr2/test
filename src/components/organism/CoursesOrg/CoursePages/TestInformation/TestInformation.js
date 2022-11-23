@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Clock from "../../../../../assets/Icons/Clock.svg";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
-import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
@@ -10,7 +9,6 @@ import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import {
   Typography,
   AppBar,
-  Paper,
   Box,
   CssBaseline,
   Toolbar,
@@ -19,11 +17,6 @@ import {
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 
 const TestInformation = (props) => {
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -272,7 +265,7 @@ const TestInformation = (props) => {
                 marginTop: "20px",
               }}
             >
-              Lämna in provpass efter 55 minuter 
+              Lämna in provpass efter 55 minuter
             </Typography>
           </Box>
           <Box padding={1} m={2} sx={{ width: 615 }}>
@@ -280,13 +273,13 @@ const TestInformation = (props) => {
               title="Nasta"
               onClick={() =>
                 navigate("/provpassinfo"
-                , {
-                  state: {
-                    id: params.state.id,
-                    session: params.state.session,
-                    provpass: params.state.quizzes,
-                  },
-                }
+                  , {
+                    state: {
+                      id: params.state.id,
+                      session: params.state.session,
+                      provpass: params.state.quizzes,
+                    },
+                  }
                 )
               }
             />

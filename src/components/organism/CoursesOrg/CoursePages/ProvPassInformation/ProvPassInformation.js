@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import Clock from "../../../../../assets/Icons/Clock.svg";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
-import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   AppBar,
-  Paper,
   Box,
   CssBaseline,
   Toolbar,
@@ -24,11 +21,6 @@ import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 const ProvPassInformation = () => {
   const navigate = useNavigate();
   const params = useLocation();
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {

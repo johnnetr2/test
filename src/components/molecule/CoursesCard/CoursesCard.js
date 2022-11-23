@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CoursesCard = (props) => {
-  console.log(props, "course card props !!!!!!!!!!");
   const classes = useStyles();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
+
   const percentage = () => {
-    switch (props?.quizzes?.length) {
+    switch (props?.quizzes?.simuleraQuizResult?.length) {
       case 1:
         return 25;
       case 2:
@@ -166,7 +166,7 @@ const CoursesCard = (props) => {
                         style={{
                           backgroundColor:
                             props.quizzes &&
-                            item <= props?.quizzes.simuleraQuizResult?.length
+                              item <= props?.quizzes.simuleraQuizResult?.length
                               ? "#6FCF97"
                               : "#E1E1E1",
                           color: "#505050",
@@ -182,7 +182,7 @@ const CoursesCard = (props) => {
               </Box>
             </Box>
             {props.quizzes !== undefined &&
-            props?.quizzes?.simuleraQuizResult.length > 3 ? (
+              props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",

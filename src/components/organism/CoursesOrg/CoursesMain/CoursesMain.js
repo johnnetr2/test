@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
 import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
-import CoursesLeftBar from "../CoursesLeftBar/CoursesLeftBar";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
 import { useSelector } from "react-redux";
@@ -57,6 +56,7 @@ const CoursesMain = () => {
         // setProvHistoryData(response.data);
 
         let newArray = [];
+        console.log("this is the response of the api", response.data)
 
         response.data &&
           response.data.map((item) => {
