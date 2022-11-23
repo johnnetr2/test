@@ -23,6 +23,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import swal from "sweetalert";
+import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -32,6 +33,7 @@ const OverBlick = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [helpPopup, setHelpPopup] = useState(false);
+  const [backPressPopup, setBackPressPopup] = useState(false);
 
   useEffect(() => {
     setQuiz(params.state.quiz);
@@ -176,6 +178,7 @@ const OverBlick = () => {
             alignItems: "center",
           }}
         >
+          
           <Box
             sx={{
               height: "4rem",
@@ -187,16 +190,7 @@ const OverBlick = () => {
             }}
 
             onClick={() => {
-              navigate("/simuleraprov", {
-                state: {
-                  quiz,
-                  SubmitedQuestions: params?.state?.SubmitedQuestions,
-                  simuleraQuiz: quiz?._id,
-                  simuleraSeason: quiz?.season,
-                  timeLeft: params?.state.timeLeft,
-                  questionIndex: params?.state?.currentQuestion,
-                }
-              })
+              setBackPressPopup(true)
             }}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
@@ -520,6 +514,10 @@ const OverBlick = () => {
           </Button>
         </Box>
       </Container>
+      <BackButtonPopup 
+        status={backPressPopup}
+        closePopup={() => setBackPressPopup(false)}
+      />
     </div>
   );
 };
