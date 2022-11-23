@@ -185,7 +185,12 @@ const ResultQuestionViewDtkOrg = (props) => {
                           " av " +
                           paragraph?.length}
                       </Typography>
-                      <Typography>
+                      <Typography
+                        style={{
+                          fontSize: "0.875rem",
+                          fontWeight: 500,
+                        }}
+                      >
                         <MarkLatex content={item.questionStatement} />
                       </Typography>
                       <Box

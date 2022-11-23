@@ -1,8 +1,6 @@
 import { Box, FormControlLabel, Container } from "@material-ui/core";
 import React, { useState } from "react";
-import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
-import Increment from "../../../assets/Icons/Increment.svg";
 import WarningIcon from "../../../assets/Icons/WarningIcon.svg";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
@@ -14,6 +12,7 @@ import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 
 import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
+import AnswerStatement from "../../molecule/AnswerStatement/AnswerStatement";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -361,30 +360,7 @@ const QuestionBody = (props) => {
               padding: { xs: "1rem", sm: "1rem 3rem" },
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Typography
-                variant="h5"
-                component="h5"
-                style={{
-                  fontSize: "1.25rem",
-                  marginTop: 20,
-                  marginBottom: 20,
-                }}
-              >
-                Förklaring:
-              </Typography>
-              <Typography variant="body1" component="div">
-                <div className="Explaination">
-                  {" "}
-                  <MarkLatex content={question.answer.answer} />
-                </div>
-              </Typography>
-            </Box>
+            {question && <AnswerStatement answer={question.answer.answer} />}
             <FeedbackButtons
               onClickPlus={PlusPoint}
               onClickMinus={MinusPoint}

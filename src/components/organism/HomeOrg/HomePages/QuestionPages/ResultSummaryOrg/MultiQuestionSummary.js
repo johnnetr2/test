@@ -15,6 +15,7 @@ import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import WarningIcon from "../../../../../../assets/Icons/WarningIcon.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
+import AnswerStatement from "../../../../../molecule/AnswerStatement/AnswerStatement";
 
 const useStyles = makeStyles((theme) => ({
   unAttemptedQuestion: {
@@ -229,49 +230,12 @@ function MultiQuestionSummary(props) {
             //   '&::-webkit-scrollbar': { width : 0 },
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box>
-              <Typography
-                variant="h5"
-                component="h5"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "600",
-                  marginTop: 20,
-                }}
-              >
-                Förklaring:
-              </Typography>
-              <Typography
-                variant="body1"
-                component="div"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "500",
-                  marginTop: 10,
-                  width: "100%",
-                  maxWidth: question?.answer.image ? "auto" : 540,
-                }}
-              >
-                <MarkLatex content={question?.answer.answer} />
-              </Typography>
-            </Box>
-            <Box
-              mt={2}
-              style={{
-                //   marginLeft: "15rem",
-                marginTop: "2rem",
-              }}
-            >
-              {question?.answer.image && (
-                <img
-                  style={{ height: 110 }}
-                  src={question?.answer.image}
-                  alt=""
-                />
-              )}
-            </Box>
-          </Box>
+          {question.answer && (
+            <AnswerStatement
+              answer={question?.answer?.answer}
+              image={question?.answer?.image}
+            />
+          )}
           <FeedbackButtons />
         </Box>
       )}
