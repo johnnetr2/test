@@ -16,7 +16,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(2),
   },
   "& .MuiPaper-root": {
-    width: "60%",
+    width: "55%",
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
@@ -36,6 +36,7 @@ const BootstrapDialogTitle = (props) => {
           sx={{
             position: "absolute",
             right: 8,
+            top: 8,
             color: (theme) => theme.palette.grey[500],
           }}
         >
@@ -51,7 +52,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function BackButtonPopup(props) {
+export default function QuestionBackButtonPopup(props) {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate()
 
@@ -73,25 +74,25 @@ export default function BackButtonPopup(props) {
         style={{
           textAlign: "center",
         }}
-        maxWidth="xxl"        
+        maxWidth="xxl"
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={props.closePopup}
           style={{textAlign: "right"}}
         ></BootstrapDialogTitle>
-        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
+        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
           <Typography gutterTop variant="h4" style={{width: "50%"}}>
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%" }}>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%"}}>
             {props.description}
           </Typography>
         </DialogContent>
-        <DialogActions style={{ display: "flex", justifyContent: "center" }}>
+        <DialogActions style={{ display: "flex", justifyContent: "center", gap: "3rem" }}>
           <Button
             autoFocus
-            onClick={() => props.redirect()}
+            onClick={props.closePopup}
             style={{
               backgroundColor: "transparent",
               color: "#0A1596",
@@ -102,11 +103,11 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            {props.agreeBtnName}
+            {props.cancelBtnName}
           </Button>
           <Button
             autoFocus
-            onClick={props.closePopup}
+            onClick={() => props.redirect()}
             style={{
               backgroundColor: "#0A1596",
               color: "#fff",
@@ -116,7 +117,7 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
             >
-            {props.cancelBtnName}
+            {props.agreeBtnName}
           </Button>
         </DialogActions>
       </BootstrapDialog>

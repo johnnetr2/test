@@ -376,6 +376,16 @@ const StandardViewXyz = () => {
         style={{ backgroundColor: "#fff" }}
         className={classes.content}
       >
+        <BackButtonPopup
+                status={backPressPopup}
+                closePopup={() => setBackPressPopup(false)}
+                title="Vill du avsluta provet?"
+                description="Du måste göra klart provpasset för att få din poäng. Om du trycker
+                på avsluta, sparas inte dina svar."
+                cancelBtnName="Gör klart provpass"
+                agreeBtnName="Avsluta prov"
+                redirect={() => navigate("/courses")}
+              />
         <Container
           disableGutters
           maxWidth="md"
@@ -404,10 +414,7 @@ const StandardViewXyz = () => {
                       callBackForTimer={(value) => setTimeLeft(value)}
                     />
                   )}
-              <BackButtonPopup
-                status={backPressPopup}
-                closePopup={() => setBackPressPopup(false)}
-              />
+              
             </Box>
           </Box>
           <Box
