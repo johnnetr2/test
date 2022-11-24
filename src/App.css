@@ -41,7 +41,11 @@ input::placeholder {
 } */
 
 .optionImage p img {
-  object-fit: cover;
-  width: 75%;
+  width: 55%;
+
+}
+.optionImage p {
+  text-align: center;
+  width: 100%;
 
 }

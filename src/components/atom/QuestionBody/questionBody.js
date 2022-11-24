@@ -401,29 +401,11 @@ const QuestionBody = (props) => {
                         alignItems: "center",
                       }}
                     >
-                      {/* {console.log(item.value.indexOf('('), 'val split')}
-                      {console.log(item.value.indexOf(')'), 'new val split')} */}
-                      {/* {console.log(item.value.substr(item.value.indexOf('(')), item.value.indexOf(')'), 'test url')}
-                      {console.log(item, 'item value image')} */}
-                      {item.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ?
-
-                        // (
-                        //   <img src={item.value.substr((item.value.indexOf('(')), (item.value.indexOf(')')))} alt="image" width="130px" height="130px" />
-                        // )
-                        <Typography className="optionImage">
-                          <MarkLatex
-                            content={item.value.replace("\f", "\\f")}
-                          />
-                        </Typography>
-
-
-                        : (
-                          <Typography>
-                            <MarkLatex
-                              content={item.value.replace("\f", "\\f")}
-                            />
-                          </Typography>
-                        )}
+                      <Typography className={item.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""}>
+                        <MarkLatex
+                          content={item.value.replace("\f", "\\f")}
+                        />
+                      </Typography>
                     </Box>
                   </Box>
                 </Box>
