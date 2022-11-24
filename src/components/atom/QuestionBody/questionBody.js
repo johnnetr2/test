@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: 'center',
     backgroundColor: "#fff",
-  }
+  },
+
 }));
 
 const QuestionBody = (props) => {
@@ -409,17 +410,15 @@ const QuestionBody = (props) => {
                         // (
                         //   <img src={item.value.substr((item.value.indexOf('(')), (item.value.indexOf(')')))} alt="image" width="130px" height="130px" />
                         // )
-                        <ReactMarkdown
-                          source={item}
-                          escapeHtml={false}
-                          renderers={{
-                            "image": () => <ImageRenderer src={item.value} alt="YOUR_ALT" />
-                          }}
-                        />
+                        <Typography className="optionImage">
+                          <MarkLatex
+                            content={item.value.replace("\f", "\\f")}
+                          />
+                        </Typography>
+
 
                         : (
                           <Typography>
-                            {/* The shuffle of answer option happens in the backend */}
                             <MarkLatex
                               content={item.value.replace("\f", "\\f")}
                             />

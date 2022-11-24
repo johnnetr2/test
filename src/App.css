@@ -1,9 +1,11 @@
 * {
   font-family: "Roboto";
 }
-label > img {
+
+label>img {
   width: 25px;
 }
+
 p {
   margin: 0;
 }
@@ -20,18 +22,26 @@ input::placeholder {
   color: "#E1E1E1";
 }
 
-.MuiTypography-root.MuiTypography-subtitle1 > * {
+.MuiTypography-root.MuiTypography-subtitle1>* {
   display: block;
   margin-bottom: 1.2em;
   margin-top: 1.2em;
 }
 
-.MuiTypography-root.MuiTypography-body1.css-ahj2mt-MuiTypography-root > p {
+.MuiTypography-root.MuiTypography-body1.css-ahj2mt-MuiTypography-root>p {
   padding-bottom: 1em;
 }
+
 .swal-modal .swal-text {
   text-align: center;
 }
+
 /* .input-style:focus {
   outline: none;
 } */
+
+.optionImage p img {
+  object-fit: cover;
+  width: 75%;
+
+}
