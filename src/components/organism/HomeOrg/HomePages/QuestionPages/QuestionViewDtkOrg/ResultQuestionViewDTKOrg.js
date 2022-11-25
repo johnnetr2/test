@@ -2,7 +2,6 @@ import {
   Box,
   Container,
   CssBaseline,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
@@ -14,20 +13,11 @@ import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
 import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 import TopArrow from "../../../../../../assets/Icons/TopArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
-import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import { styled } from "@mui/material/styles";
-import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 
 const ResultQuestionViewDtkOrg = (props) => {
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
+
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -105,10 +95,6 @@ const ResultQuestionViewDtkOrg = (props) => {
         setParagraph(response.data.question);
       })
       .catch(() => {});
-    // instance2.get(URL, data).then(response => {
-    //   console.log(response.data, 'responsessssssss')
-    //   setParagraph(response.data.question)
-    // })
   }, []);
 
   const showResult = (index) => {

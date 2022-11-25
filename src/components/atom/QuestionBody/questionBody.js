@@ -1,8 +1,6 @@
 import { Box, FormControlLabel, Container } from "@material-ui/core";
 import React, { useState } from "react";
-import Decrement from "../../../assets/Icons/Decrement.svg";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
-import Increment from "../../../assets/Icons/Increment.svg";
 import WarningIcon from "../../../assets/Icons/WarningIcon.svg";
 import MarkLatex from "../Marklatex/MarkLatex";
 import MultiQuestionSummary from "../../organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/MultiQuestionSummary";
@@ -14,6 +12,9 @@ import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import ReactMarkdown from "react-markdown";
 
+
+import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
+import AnswerStatement from "../../molecule/AnswerStatement/AnswerStatement";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +41,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: "#fff",
   },
-
 }));
 
 const QuestionBody = (props) => {
@@ -87,7 +87,11 @@ const QuestionBody = (props) => {
   };
 
   const changeOptionsColor = (item) => {
-    if (question.answer && question.answer.option === item._id && question.optionId) {
+    if (
+      question.answer &&
+      question.answer.option == item._id &&
+      question.optionId
+    ) {
       return "#27AE60";
     } else if (question.answer && item._id === question?.optionId) {
       return "#EB5757";
@@ -161,79 +165,29 @@ const QuestionBody = (props) => {
           questionId={questionId}
         />
         {/* unAttempted question warning */}
-        {!question.optionId && question.answer &&
+        {!question.optionId && question.answer && (
           <Container maxWidth="sm" className={classes.unAttemptedQuestion}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <img src={WarningIcon} alt="warning-icon" style={{ marginRight: '1rem' }} />
-              <Typography variant="body1" style={{ fontSize: '.75rem', fontWeight: 500, margin: 0 }}>Tiden gick ut och du hann inte svara på denna fråga.</Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={WarningIcon}
+                alt="warning-icon"
+                style={{ marginRight: "1rem" }}
+              />
+              <Typography
+                variant="body1"
+                style={{ fontSize: ".75rem", fontWeight: 500, margin: 0 }}
+              >
+                Tiden gick ut och du hann inte svara på denna fråga.
+              </Typography>
             </Box>
           </Container>
-        }
+        )}
         <Container maxWidth="sm" className={classes.questionContainer}>
-          <div className="QuestionStatement">
-            {" "}
-            {/* CSS on ./styles/QuestionBody.css */}
-            <MarkLatex content={question?.questionStatement} />
-          </div>
-
-          <Box
-            sx={{
-              marginTop: question?.images[0] === "" ? 0 : "2rem",
-            }}
-          >
-            {question?.information1 && (
-              <Box sx={{ display: "flex" }}>
-                <Box sx={{ marginRight: ".7rem", fontSize: "1.3rem" }}>
-                  {props.questionTypeTitle === "KVA" ? (
-                    <Typography
-                      variant="p"
-                      sx={{ fontStyle: "italic", fontSize: "1.3rem" }}
-                    >
-                      Kvantitet I:{" "}
-                    </Typography>
-                  ) : (
-                    "(1)"
-                  )}
-                </Box>
-                <Typography
-                  variant="body1"
-                  component="body1"
-                  style={{
-                    fontSize: "1.3rem",
-                    display: "flex",
-                  }}
-                >
-                  <MarkLatex content={question?.information1} />
-                </Typography>
-              </Box>
-            )}
-            {question?.information2 && (
-              <Box sx={{ display: "flex" }}>
-                <Box sx={{ marginRight: ".7rem", fontSize: "1.3rem" }}>
-                  {props.questionTypeTitle === "KVA" ? (
-                    <Typography
-                      variant="p"
-                      sx={{ fontStyle: "italic", fontSize: "1.3rem" }}
-                    >
-                      Kvantitet II:{" "}
-                    </Typography>
-                  ) : (
-                    "(2)"
-                  )}
-                </Box>
-                <Typography
-                  variant="body1"
-                  component="body1"
-                  style={{
-                    fontSize: "1.3rem",
-                    display: "flex",
-                  }}
-                >
-                  <MarkLatex content={question?.information2} />
-                </Typography>
-              </Box>
-            )}
-          </Box>
+          <QuestionStatement
+            description={question?.questionStatement}
+            indications={[question?.information1, question?.information2]}
+            type={props.questionTypeTitle}
+          />
         </Container>
 
         <Container
@@ -278,30 +232,30 @@ const QuestionBody = (props) => {
                     sx={{
                       height:
                         question?.options[0].options.length > 4 ||
-                          !item.value.includes(
-                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                          )
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
                           ? 60
                           : 150,
                       padding:
                         question?.options[0].options.length > 4 ||
-                          !item.value.includes(
-                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                          )
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
                           ? 0
                           : 10,
                       border: "1px solid #e1e1e1",
                       maxWidth:
                         question?.options[0].options.length > 4 ||
-                          !item.value.includes(
-                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                          )
+                        !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
                           ? 600
                           : 300,
                       display: "flex",
                       color:
                         !question.answer &&
-                          optionIndex === question.selectedIndex
+                        optionIndex == question.selectedIndex
                           ? "#0A1596"
                           : "",
                       "&:hover": {
@@ -365,7 +319,7 @@ const QuestionBody = (props) => {
                         display: "flex",
                         marginLeft:
                           question?.options[0].options.length > 4 ||
-                            item.image === ""
+                          item.image === ""
                             ? "1rem"
                             : "0",
                         width: !item.value.includes(
@@ -375,9 +329,9 @@ const QuestionBody = (props) => {
                           : 300,
                         justifyContent:
                           question?.options[0].options.length > 4 ||
-                            !item.value.includes(
-                              "hp-appen.s3.eu-north-1.amazonaws.com"
-                            )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                             ? "flex-start"
                             : "center",
                         alignItems: "center",
@@ -396,50 +350,25 @@ const QuestionBody = (props) => {
           })}
         </Container>
 
-        {
-          question.answer && question?.optionId && (
-            <Container
-              maxWidth="sm"
-              style={{
-                marginTop: "1.5rem",
-                backgroundColor: "#fff",
-                border: "1px solid #e1e1e1",
-                padding: { xs: "1rem", sm: "1rem 3rem" },
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  style={{
-                    fontSize: "1.25rem",
-                    marginTop: 20,
-                    marginBottom: 20
-                  }}
-                >
-                  Förklaring:
-                </Typography>
-                <Typography variant="body1" component="div">
-                  <div className="Explaination">
-                    {" "}
-                    <MarkLatex content={question.answer.answer} />
-                  </div>
-                </Typography>
-              </Box>
-              <FeedbackButtons
-                onClickPlus={PlusPoint}
-                onClickMinus={MinusPoint}
-              />
-            </Container>
-          )
-        }
+        {question.answer && question?.optionId && (
+          <Container
+            maxWidth="sm"
+            style={{
+              marginTop: "1.5rem",
+              backgroundColor: "#fff",
+              border: "1px solid #e1e1e1",
+              padding: { xs: "1rem", sm: "1rem 3rem" },
+            }}
+          >
+            {question && <AnswerStatement answer={question.answer.answer} />}
+            <FeedbackButtons
+              onClickPlus={PlusPoint}
+              onClickMinus={MinusPoint}
+            />
+          </Container>
+        )}
         {props.submitButton(question)}
-      </Container >
+      </Container>
     );
   }
 };

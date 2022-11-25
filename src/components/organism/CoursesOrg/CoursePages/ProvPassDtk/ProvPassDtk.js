@@ -18,9 +18,8 @@ import {
 import MarkLatex from "../../../../atom/Marklatex/MarkLatex";
 import Correct from "../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../assets/Imgs/wrong.png";
-import Increment from "../../../../../assets/Icons/Increment.svg";
-import Decrement from "../../../../../assets/Icons/Decrement.svg";
 import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
+import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
 
 const ProvPassDtk = (props) => {
   const [question, setQuestion] = useState();
@@ -265,47 +264,12 @@ const ProvPassDtk = (props) => {
           }}
         >
           <Box sx={{ width: 500, display: "flex" }}>
-            <Box>
-              <Typography
-                variant="h5"
-                component="h5"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "600",
-                  marginTop: 20,
-                }}
-              >
-                Förklaring:
-              </Typography>
-              <Typography
-                variant="body1"
-                component="div"
-                style={{
-                  fontSize: ".75rem",
-                  fontWeight: "500",
-                  marginTop: 10,
-                  width: question?.answer.image ? "auto" : 500,
-                }}
-              >
-                {/* {question.answer.answer} */}
-                <MarkLatex content={question.answer.answer} />
-              </Typography>
-            </Box>
-            <Box
-              mt={2}
-              style={{
-                // marginLeft: "15rem",
-                marginTop: "2rem",
-              }}
-            >
-              {question?.answer && (
-                <img
-                  style={{ height: 110 }}
-                  src={question?.answer.image}
-                  alt=""
-                />
-              )}
-            </Box>
+            {question.answer && (
+              <AnswerStatement
+                answer={question?.answer?.answer}
+                image={question?.answer?.image}
+              />
+            )}
           </Box>
           <FeedbackButtons />
         </Box>
