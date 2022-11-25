@@ -54,7 +54,7 @@ const RightBar = (props) => {
   const ResultHandler = (row) => {
     navigate("/provresultat", {
       state: {
-        quizId: row._id,
+        quizId: row?._id,
       },
     });
   };
@@ -173,10 +173,10 @@ const RightBar = (props) => {
                           {/* <Box style={{ display: 'flex' }}> */}
                           <TableCell align="left">
                             <Typography style={{ fontSize: "14px" }}>
-                              {row?.simuleraSeason.title},
+                              {row?.simuleraSeason?.title},
                             </Typography>
                             <Typography style={{ fontSize: "14px" }}>
-                              {row?.simuleraSeason.month}
+                              {row?.simuleraSeason?.month}
                             </Typography>
                           </TableCell>
                           {/* </Box> */}
