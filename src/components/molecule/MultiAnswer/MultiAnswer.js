@@ -45,7 +45,8 @@ const MultiAnswer = (props) => {
         <img
           src={Correct}
           style={{
-            height: "1.4rem",
+            height: "28px",
+            width: '28px',
             marginRight: ".5rem",
             marginLeft: ".8rem",
             marginTop: ".5rem",
@@ -58,7 +59,8 @@ const MultiAnswer = (props) => {
         <img
           src={Wrong}
           style={{
-            height: "1.4rem",
+            height: "28px",
+            width: '28px',
             marginRight: ".5rem",
             marginLeft: ".8rem",
             marginTop: ".5rem",
@@ -92,7 +94,10 @@ const MultiAnswer = (props) => {
                 }}
               >
                 <FormControlLabel
-                  style={{ marginLeft: ".5rem" }}
+                  style={{
+                    marginLeft: ".5rem", color: !props?.question?.answer && props?.question.optionId === item._id ? "#EB5757" : props?.question?.answer &&
+                      props?.question?.answer?.option === item._id ? "#27AE60" : "#505050"
+                  }}
                   control={options(item, index)}
                   label={item.value}
                 />
@@ -101,7 +106,7 @@ const MultiAnswer = (props) => {
           })}
         </Box>
 
-        <Box mt={2} ml={5}></Box>
+        {/* <Box mt={2} ml={5}></Box> */}
       </Box>
       <Box
         sx={{
