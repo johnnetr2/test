@@ -32,7 +32,23 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#FAFAFA',
     border: 'none',
     borderRadius: '10px'
-  }
+  },
+  scrollbar: {
+    "&::-webkit-scrollbar": {
+      width: 3,
+      height: 5,
+    },
+    "&::-webkit-scrollbar-track": {
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#505050",
+      borderRadius: "10px",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+      backgroundColor: "#707070",
+    },
+  },
 }));
 
 
@@ -142,9 +158,11 @@ const RightBar = (props) => {
               style={{
                 backgroundColor: "#fff",
                 display: "flex",
-                // borderRadius: '5px',
-
+                overflowY: "scroll",
+                overflowX: "hidden",
+                height: "60vh"
               }}
+              className={classes.scrollbar}
             >
               <Table aria-label="simple table" style={{ borderRadius: '10px' }} >
                 <TableHead className={classes.tableHeadBackgroundColor}>
@@ -206,7 +224,6 @@ const RightBar = (props) => {
                               style={{
                                 display: "flex",
                                 flexDirection: "column",
-                                display: "flex",
                                 alignItems: "flex-end",
                                 position: "relative",
                               }}
