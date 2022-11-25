@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
@@ -29,12 +29,12 @@ import { instance2, EndPoints } from "../../../../service/Route";
 import Timer from "../../../../atom/Timer/timer";
 import ProvPassDtk from "../ProvPassDtk/ProvPassDtk";
 import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
-import Increment from "../../../../../assets/Icons/Increment.svg";
-import Decrement from "../../../../../assets/Icons/Decrement.svg";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
+import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
+import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -86,6 +86,13 @@ const StandardViewXyz = () => {
       });
     }
   }, [timeLeft, shouldNavigate]);
+
+  const isReadingComprehension = useMemo(
+    () =>
+      quiz?.question[currentIndex].sectionCategories.title === "ELF" ||
+      quiz?.question[currentIndex].sectionCategories.title === "LÄS",
+    [currentIndex, quiz?.question]
+  );
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -370,6 +377,16 @@ const StandardViewXyz = () => {
         style={{ backgroundColor: "#fff" }}
         className={classes.content}
       >
+        <BackButtonPopup
+          status={backPressPopup}
+          closePopup={() => setBackPressPopup(false)}
+          title="Vill du avsluta provet?"
+          description="Du måste göra klart provpasset för att få din poäng. Om du trycker
+                på avsluta, sparas inte dina svar."
+          cancelBtnName="Gör klart provpass"
+          agreeBtnName="Avsluta prov"
+          redirect={() => navigate("/courses")}
+        />
         <Container
           disableGutters
           maxWidth="md"
@@ -398,10 +415,6 @@ const StandardViewXyz = () => {
                       callBackForTimer={(value) => setTimeLeft(value)}
                     />
                   )}
-              <BackButtonPopup
-                status={backPressPopup}
-                closePopup={() => setBackPressPopup(false)}
-              />
             </Box>
           </Box>
           <Box
@@ -440,6 +453,7 @@ const StandardViewXyz = () => {
             ></Box>
           </Box>
         </Container>
+
         <Container
           maxWidth="md"
           className={classes.questionComponent}
@@ -461,6 +475,18 @@ const StandardViewXyz = () => {
               alignItems: "center",
             }}
           >
+            {isReadingComprehension && (
+              <ExamTextView
+                text={
+                  quiz?.question[currentIndex]?.multipartQuestion?.description
+                }
+                title={quiz?.question[currentIndex]?.multipartQuestion?.title}
+                questionLength={
+                  quiz?.question[currentIndex]?.multipartQuestion?.question
+                    .length
+                }
+              />
+            )}
             {quiz &&
               quiz.question.map((question, questionIndex) => {
                 if (questionIndex === currentIndex) {
@@ -486,11 +512,15 @@ const StandardViewXyz = () => {
                         <Box
                           mt={5}
                           paddingX={6}
-                          paddingY={2}
+                          /* paddingY={2} */
                           sx={{
                             backgroundColor: "#fff",
                             width: 600,
-                            height: question.images[0] ? 380 : 330,
+                            height: isReadingComprehension
+                              ? "auto"
+                              : question.images[0]
+                              ? 380
+                              : 330,
                             // border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
@@ -503,6 +533,9 @@ const StandardViewXyz = () => {
                             style={{
                               fontSize: "1rem",
                               fontWeight: "500",
+                              padding: isReadingComprehension ? "3rem 0rem" : 0,
+                              display: "flex",
+                              justifyContent: "center",
                             }}
                           >
                             <MarkLatex content={question.questionStatement} />
@@ -546,7 +579,7 @@ const StandardViewXyz = () => {
                           </Typography>
                         </Box>
                         <Box
-                          mt={5}
+                          mt={isReadingComprehension ? 0 : 5}
                           sx={{
                             backgroundColor: "#fff",
                             width: 600,
@@ -682,53 +715,13 @@ const StandardViewXyz = () => {
                               //   '&::-webkit-scrollbar': { width : 0 },
                             }}
                           >
-                            <Box sx={{ width: 500, display: "flex" }}>
-                              <Box>
-                                <Typography
-                                  variant="h5"
-                                  component="h5"
-                                  style={{
-                                    fontSize: ".75rem",
-                                    fontWeight: "600",
-                                    marginTop: 20,
-                                  }}
-                                >
-                                  Förklaring:
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  component="div"
-                                  style={{
-                                    fontSize: ".75rem",
-                                    fontWeight: "500",
-                                    marginTop: 10,
-                                    width: question?.questionAnswer.image
-                                      ? "auto"
-                                      : 500,
-                                  }}
-                                >
-                                  {/* {question.answer.answer} */}
-                                  <MarkLatex
-                                    content={question.questionAnswer.answer}
-                                  />
-                                </Typography>
-                              </Box>
-                              <Box
-                                mt={2}
-                                style={{
-                                  // marginLeft: "15rem",
-                                  marginTop: "2rem",
-                                }}
-                              >
-                                {question?.questionAnswer && (
-                                  <img
-                                    style={{ height: 110 }}
-                                    src={question?.questionAnswer.image}
-                                    alt=""
-                                  />
-                                )}
-                              </Box>
-                            </Box>
+                            {question.questionAnswer && (
+                              <AnswerStatement
+                                answer={question.questionAnswer.answer}
+                                image={question?.questionAnswer.image}
+                              />
+                            )}
+
                             <FeedbackButtons />
                           </Box>
                         )}

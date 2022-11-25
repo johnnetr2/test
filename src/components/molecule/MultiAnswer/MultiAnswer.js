@@ -8,6 +8,7 @@ import MarkLatex from "../../atom/Marklatex/MarkLatex";
 import Wrong from "../../../assets/Imgs/wrong.png";
 import FeedbackButtons from "../../atom/FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
+import AnswerStatement from "../AnswerStatement/AnswerStatement";
 
 const MultiAnswer = (props) => {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
@@ -45,7 +46,8 @@ const MultiAnswer = (props) => {
         <img
           src={Correct}
           style={{
-            height: "1.4rem",
+            height: "28px",
+            width: '28px',
             marginRight: ".5rem",
             marginLeft: ".8rem",
             marginTop: ".5rem",
@@ -58,7 +60,8 @@ const MultiAnswer = (props) => {
         <img
           src={Wrong}
           style={{
-            height: "1.4rem",
+            height: "28px",
+            width: '28px',
             marginRight: ".5rem",
             marginLeft: ".8rem",
             marginTop: ".5rem",
@@ -92,7 +95,10 @@ const MultiAnswer = (props) => {
                 }}
               >
                 <FormControlLabel
-                  style={{ marginLeft: ".5rem" }}
+                  style={{
+                    marginLeft: ".5rem", color: !props?.question?.answer && props?.question.optionId === item._id ? "#EB5757" : props?.question?.answer &&
+                      props?.question?.answer?.option === item._id ? "#27AE60" : "#505050"
+                  }}
                   control={options(item, index)}
                   label={item.value}
                 />
@@ -101,14 +107,14 @@ const MultiAnswer = (props) => {
           })}
         </Box>
 
-        <Box mt={2} ml={5}></Box>
+        {/* <Box mt={2} ml={5}></Box> */}
       </Box>
       <Box
         sx={{
           border: "1px solid #e1e1e1",
           padding: { xs: "1rem", sm: "2rem" },
           width: "100%",
-          overflow: "scroll",
+          overflow: "auto",
         }}
       >
         <FeedbackCard
@@ -126,44 +132,12 @@ const MultiAnswer = (props) => {
             justifyContent: "space-between",
           }}
         >
-          <Box width="100%">
-            <Typography
-              variant="h5"
-              component="h5"
-              style={{
-                fontSize: "1rem",
-                fontWeight: "600",
-                marginTop: 20,
-              }}
-            >
-              Förklaring:
-            </Typography>
-            <Typography
-              variant="body1"
-              component="div"
-              style={{
-                fontSize: "1rem",
-                fontWeight: "400",
-                marginTop: 10,
-                width: "100%",
-                maxWidth: props?.question?.answer.image ? "auto" : 500,
-              }}
-            >
-              <MarkLatex content={props?.question?.answer?.answer} />
-            </Typography>
-          </Box>
-          <Box
-            mt={2}
-            style={{
-              marginTop: "2rem",
-            }}
-          >
-            <img
-              style={{ height: 110 }}
-              src={props?.question?.answer.image}
-              alt=""
+          {props?.question && (
+            <AnswerStatement
+              answer={props?.question?.answer?.answer}
+              image={props?.question?.answer?.image}
             />
-          </Box>
+          )}
         </Box>
         <FeedbackButtons onClickPlus={PlusPoint} onClickMinus={MinusPoint} />
       </Box>

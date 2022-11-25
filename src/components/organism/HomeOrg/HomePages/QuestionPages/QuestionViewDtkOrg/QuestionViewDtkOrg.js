@@ -19,6 +19,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Draggable from "react-draggable";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
+import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
@@ -118,7 +119,7 @@ const QuestionViewDTKOrg = (props) => {
 
   useEffect(() => {
     scrollTop();
-    if (props.paragraphIndex != undefined) {
+    if (props.paragraphIndex !== undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
     } else {
@@ -127,7 +128,7 @@ const QuestionViewDTKOrg = (props) => {
   }, []);
 
   const Button = (question) => {
-    if (props.paragraphIndex != undefined) {
+    if (props.paragraphIndex !== undefined) {
       return (
         <ResultFooter
           questionLength={props.quiz.length}
@@ -200,11 +201,11 @@ const QuestionViewDTKOrg = (props) => {
 
     // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
-      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
     if (ifExists) {
       const index = dataSubmit.findIndex(
-        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+        (obj) => obj.questionId === quiz.question[selectedIndex]._id
       );
       dataSubmit.splice(index, 1, data);
     } else {
@@ -237,11 +238,11 @@ const QuestionViewDTKOrg = (props) => {
     };
     // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
-      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
     if (ifExists) {
       const index = dataSubmit.findIndex(
-        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+        (obj) => obj.questionId === quiz.question[selectedIndex]._id
       );
       dataSubmit.splice(index, 1, data);
     } else {
@@ -285,13 +286,13 @@ const QuestionViewDTKOrg = (props) => {
     // }
 
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
-    if (answerLenght == quiz.question.length) {
+    if (answerLenght === quiz.question.length) {
       setAnswerExistance(true);
     }
   };
 
   const Options = (question, option, optionIndex) => {
-    if (optionIndex == question.selectedOptionIndex) {
+    if (optionIndex === question.selectedOptionIndex) {
       return (
         <Radio color="primary" checked={true} style={{ color: "#0A1596" }} />
       );
@@ -300,7 +301,7 @@ const QuestionViewDTKOrg = (props) => {
         <Radio
           color="primary"
           checked={false}
-          style={{ color: option._id == onHover && "#0A1596" }}
+          style={{ color: option._id === onHover && "#0A1596" }}
         />
       );
     }
@@ -429,16 +430,13 @@ const QuestionViewDTKOrg = (props) => {
             className={classes.scrollbar}
             style={{ position: "relative" }}
           >
-            <Typography
-              variant="subtitle1"
-              style={{
-                fontSize: ".7rem",
-                fontWeight: "500",
-                marginBottom: ".25rem",
-              }}
-            >
-              {quiz && quiz.question.length + " uppgifter:"}
-            </Typography>
+            {quiz && (
+              <QuestionStatement
+                numberOfQuestions={quiz?.question.length}
+                title={quiz?.title === "DTK" && ""}
+                description={quiz?.description}
+              />
+            )}
             <img
               onClick={openExtended}
               style={{
@@ -449,22 +447,6 @@ const QuestionViewDTKOrg = (props) => {
               }}
               src={ArrowSalt}
             />
-            <Typography variant="h6" component="h6">
-              {!quiz?.title === "DTK" ? quiz?.title : ""}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              style={{
-                fontSize: ".875rem",
-                fontWeight: "400",
-              }}
-            >
-              <div className="DTK">
-                {" "}
-                {/* DTK styling on ./styles/QuestionBody.css */}
-                <MarkLatex content={quiz?.description} />
-              </div>
-            </Typography>
             {quiz?.image && (
               <>
                 <DialogTitle
@@ -476,21 +458,13 @@ const QuestionViewDTKOrg = (props) => {
                     alignItems: "center",
                   }}
                 >
-                  <Box>
-                    <Typography
-                      variant="subtitle1"
-                      style={{
-                        textTransform: "uppercase",
-                        fontSize: ".7rem",
-                        fontWeight: "500",
-                      }}
-                    >
-                      {quiz && quiz.question.length + " uppgifter:"}
-                    </Typography>
-                    <Typography variant="h3" component="h3">
-                      {quiz?.title !== "DTK" ? quiz?.title : ""}
-                    </Typography>
-                  </Box>
+                  {quiz && (
+                    <QuestionStatement
+                      numberOfQuestions={quiz?.question.length}
+                      title={quiz?.title === "DTK" && quiz?.title}
+                      description={quiz?.description}
+                    />
+                  )}
                   <Box>
                     <RulerButton></RulerButton>
                   </Box>
@@ -528,7 +502,6 @@ const QuestionViewDTKOrg = (props) => {
                 </DialogContent>
               </>
             )}
-
             <Dialog
               open={extendedView}
               onClose={closeExtended}
@@ -554,10 +527,11 @@ const QuestionViewDTKOrg = (props) => {
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
-                      columnCount: `${quiz.title === "DTK" || quiz?.description.length < 2000
-                        ? "1"
-                        : "2"
-                        }`,
+                      columnCount: `${
+                        quiz.title === "DTK" || quiz?.description.length < 2000
+                          ? "1"
+                          : "2"
+                      }`,
                       padding: "0 5rem 2rem",
                     }}
                   >
@@ -659,7 +633,7 @@ const QuestionViewDTKOrg = (props) => {
           ) : (
             quiz &&
             quiz?.question?.map((question, index) => {
-              if (index == selectedIndex) {
+              if (index === selectedIndex) {
                 return (
                   <Box sx={{ maxWidth: 600, width: "100%" }}>
                     <Box
@@ -712,18 +686,18 @@ const QuestionViewDTKOrg = (props) => {
                           </Typography>
                           {
                             quiz &&
-                            selectedIndex < quiz?.question?.length - 1 &&
-                            quiz?.question.length > 1 &&
-                            quiz?.question[0].selectedOptionIndex !=
-                            undefined && (
-                              <img
-                                onClick={handleRightArrowFunction}
-                                src={BlueRightIcon}
-                                style={{ cursor: "pointer" }}
-                                className={classes.size}
-                                alt=""
-                              />
-                            )
+                              selectedIndex < quiz?.question?.length - 1 &&
+                              quiz?.question.length > 1 &&
+                              quiz?.question[0].selectedOptionIndex !=
+                                undefined && (
+                                <img
+                                  onClick={handleRightArrowFunction}
+                                  src={BlueRightIcon}
+                                  style={{ cursor: "pointer" }}
+                                  className={classes.size}
+                                  alt=""
+                                />
+                              )
                             // : (
                             //   <img
                             //     src={Righticon}
@@ -765,7 +739,7 @@ const QuestionViewDTKOrg = (props) => {
                             border: "1px solid #e1e1e1",
                             // marginLeft: ".5rem",
                             color:
-                              optionIndex == question.selectedOptionIndex &&
+                              optionIndex === question.selectedOptionIndex &&
                               "#0A1596",
                             "&:hover": {
                               cursor: !option.answer && "pointer",

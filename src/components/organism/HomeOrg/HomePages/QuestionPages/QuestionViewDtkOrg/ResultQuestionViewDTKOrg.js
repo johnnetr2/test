@@ -2,7 +2,6 @@ import {
   Box,
   Container,
   CssBaseline,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
@@ -14,19 +13,11 @@ import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
 import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 import TopArrow from "../../../../../../assets/Icons/TopArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
-import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import { styled } from "@mui/material/styles";
-import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ResultQuestionViewDtkOrg = (props) => {
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
+
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -103,11 +94,7 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => { });
-    // instance2.get(URL, data).then(response => {
-    //   console.log(response.data, 'responsessssssss')
-    //   setParagraph(response.data.question)
-    // })
+      .catch(() => {});
   }, []);
 
   const showResult = (index) => {
@@ -131,99 +118,101 @@ const ResultQuestionViewDtkOrg = (props) => {
       ) : (
         <div style={{ width: "100%" }}>
           <CssBaseline />
+          <Container
+            maxWidth="lg"
+            style={{
+              backgroundColor: "#fff",
+              border: "1px solid #e1e1e1",
+              height: "fit-content",
+              padding: "1rem",
+              marginTop: "5%",
+              maxWidth: 600,
+              width: "100%",
+              cursor: "pointer",
+            }}
+          >
+            {paragraph &&
+              paragraph?.map((item, index) => {
+                return (
+                  <Box>
+                    <Box
+                      paddingX={4}
+                      mt={4}
+                      sx={{
+                        backgroundColor: "#fff",
+                        border: "1px solid #e1e1e1",
+                        display: "flex",
+                      }}
+                      onClick={() => showResult(index)}
+                    >
+                      {item.optionId === item?.answer?.option ? (
+                        <img
+                          src={Correct}
+                          style={{ width: '28px', height: "28px", marginTop: "1.8rem" }}
+                        />
+                      ) : (
+                        <img
+                          src={Wrong}
+                          style={{ width: '28px', height: "28px", marginTop: "1.8rem" }}
+                        />
+                      )}
+                      <Box padding={1} marginY={"1rem"} style={{ width: 500, position: 'relative', paddingLeft: '.5rem' }}>
+                        <Typography
+                          style={{
+                            textTransform: "uppercase",
+                            fontSize: "0.75rem",
+                          }}
+                          variant="body1"
+                          component="body1"
+                        >
+                          {"Uppgift " +
+                            `${index + 1}` +
+                            " av " +
+                            paragraph?.length}
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          style={{ fontSize: "1rem", fontWeight: "600" }}
+                        >
+                          {item.questionStatement}
+                        </Typography>
+                        <Box
+                          style={{
+                            position: 'absolute',
+                            right: '-21px',
+                            bottom: '-11px',
+                          }}
+                        >
 
-          {paragraph &&
-            paragraph?.map((item, index) => {
-              return (
-                <Container
-                  maxWidth="lg"
-                  style={{
-                    backgroundColor: "#fff",
-                    border: "1px solid #e1e1e1",
-                    height: "fit-content",
-                    padding: "1rem",
-                    marginTop: "5%",
-                    maxWidth: 600,
-                    width: "100%",
-                    cursor: "pointer",
-                  }}
-                >
-                  <Box
-                    paddingX={4}
-                    mt={2}
-                    mb={2}
-                    sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #e1e1e1",
-                      display: "flex",
-                    }}
-                    onClick={() => showResult(index)}
-                  >
-                    {item.optionId === item?.answer?.option ? (
-                      <img
-                        src={Correct}
-                        style={{ height: "2rem", marginTop: "1.8rem" }}
-                      />
-                    ) : (
-                      <img
-                        src={Wrong}
-                        style={{ height: "2rem", marginTop: "1.8rem" }}
-                      />
-                    )}
-                    <Box padding={1} mt={2} mb={2} style={{ width: 500 }}>
-                      <Typography
-                        style={{
-                          textTransform: "uppercase",
-                          fontSize: "0.75rem",
-                        }}
-                        variant="body1"
-                        component="body1"
-                      >
-                        {"Uppgift " +
-                          `${index + 1}` +
-                          " av " +
-                          paragraph?.length}
-                      </Typography>
-                      <Typography
-                        variant="h6"
-                        component="h6"
-                        style={{ fontSize: "1rem", fontWeight: "600" }}
-                      >
-                        {item.questionStatement}
-                      </Typography>
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "flex-end",
-                          alignItems: "center",
-                          marginBottom: 10,
-                        }}
-                      >
-                        {item.showResult ? (
-                          <img
-                            src={TopArrow}
-                            style={{ cursor: "pointer" }}
-                            className={classes.size}
-                            alt=""
-                          />
-                        ) : (
-                          <img
-                            src={DownArrow}
-                            style={{ cursor: "pointer" }}
-                            className={classes.size}
-                            alt=""
-                          />
-                        )}
+                          {item.showResult ? (
+                            <img
+                              src={TopArrow}
+                              style={{ cursor: "pointer" }}
+                              className={classes.size}
+                              alt=""
+                            />
+                          ) : (
+
+                            <img
+                              src={DownArrow}
+                              style={{ cursor: "pointer" }}
+                              className={classes.size}
+                              alt=""
+                            />
+                          )}
+                        </Box>
                       </Box>
                     </Box>
-                  </Box>
 
-                  {item.showResult && (
-                    <MultiAnswer question={item} selectOption={item.optionId} />
-                  )}
-                </Container>
-              );
-            })}
+                    {item.showResult && (
+                      <MultiAnswer question={item} selectOption={item.optionId} />
+                    )}
+
+                  </Box>
+                );
+              })}
+          </Container>
 
           <Box
             sx={{

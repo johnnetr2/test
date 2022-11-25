@@ -10,6 +10,7 @@ import Signup from "./pages/Signup/Signup";
 
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
+import TestInformation from "./components/organism/CoursesOrg/CoursePages/TestInformation/TestInformation";
 import ProvPassInformation from "./components/organism/CoursesOrg/CoursePages/ProvPassInformation/ProvPassInformation";
 import ResultSummaryOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/ResultSummaryOrg";
 import StandardViewXyz from "./components/organism/CoursesOrg/CoursePages/StandardViewXyz/StandardViewXyz";
@@ -27,7 +28,6 @@ import Provresultat from "./components/organism/CoursesOrg/CoursePages/Provresul
 import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/OverBlick";
 import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
-import EmailVerification from "./components/molecule/EmailVerification/EmailVerification";
 import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
 require("dotenv").config();
 
@@ -50,7 +50,6 @@ function App() {
         <Route path="/quesvieworg" element={<QuestionViewXyzOrg />} />
         <Route path="resultfooter" element={<ResultFooter />} />
         <Route path="/categoryrtbar" element={<CategoryPagesRightBar />} />
-        <Route path="/emailverification" element={<EmailVerification />} />
         <Route path="/emailverified/:id" element={<EmailVerified />} />
         <Route path="/" element={<Signup />} />
         <Route path="/helppopup" element={<HelpPopup />} />
@@ -79,6 +78,7 @@ function App() {
         <Route path="/resultsummary" element={<ResultSummaryOrg />} />
         <Route path="/resultinfo" element={<ResultInformation />} />
         <Route path="/provpassinfo" element={<ProvPassInformation />} />
+        <Route path="/testInformation" element={<TestInformation />} />
         <Route path="/simuleraprov" element={<StandardViewXyz />} />
         <Route path="/provpassnog" element={<ProvPassNog />} />
         <Route path="/provpassdtk" element={<ProvPassDtk />} />
