@@ -10,6 +10,7 @@ import Signup from "./pages/Signup/Signup";
 
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
+import TestInformation from "./components/organism/CoursesOrg/CoursePages/TestInformation/TestInformation";
 import ProvPassInformation from "./components/organism/CoursesOrg/CoursePages/ProvPassInformation/ProvPassInformation";
 import ResultSummaryOrg from "./components/organism/HomeOrg/HomePages/QuestionPages/ResultSummaryOrg/ResultSummaryOrg";
 import StandardViewXyz from "./components/organism/CoursesOrg/CoursePages/StandardViewXyz/StandardViewXyz";
@@ -77,6 +78,7 @@ function App() {
         <Route path="/resultsummary" element={<ResultSummaryOrg />} />
         <Route path="/resultinfo" element={<ResultInformation />} />
         <Route path="/provpassinfo" element={<ProvPassInformation />} />
+        <Route path="/testInformation" element={<TestInformation />} />
         <Route path="/simuleraprov" element={<StandardViewXyz />} />
         <Route path="/provpassnog" element={<ProvPassNog />} />
         <Route path="/provpassdtk" element={<ProvPassDtk />} />
