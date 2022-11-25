@@ -12,6 +12,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../../../styles/QuestionBody.css";
 import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
+import ReactMarkdown from "react-markdown";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: 'center',
     backgroundColor: "#fff",
-  }
+  },
+
 }));
 
 const QuestionBody = (props) => {
@@ -49,6 +52,7 @@ const QuestionBody = (props) => {
   const [question, setQuestion] = useState(props?.question);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
+  const questionId = props.question._id;
 
   const updateQuiz = (value) => {
     let quiz = [...props.quiz];
@@ -93,8 +97,6 @@ const QuestionBody = (props) => {
       return "";
     }
   };
-
-  const questionId = props.question._id;
 
   if (props.question.type === "multiple") {
     return (
@@ -199,7 +201,6 @@ const QuestionBody = (props) => {
                   style={{
                     fontSize: "1.3rem",
                     display: "flex",
-                    // maxHeight: "1.25rem",
                   }}
                 >
                   <MarkLatex content={question?.information1} />
@@ -225,7 +226,6 @@ const QuestionBody = (props) => {
                   component="body1"
                   style={{
                     fontSize: "1.3rem",
-                    // maxHeight: "1.25rem",
                     display: "flex",
                   }}
                 >
@@ -273,7 +273,7 @@ const QuestionBody = (props) => {
           {question?.options[0]?.options?.map((item, optionIndex) => {
             if (item?.value) {
               return (
-                <Box sx={{ display: "flex", width: "100%" }}>
+                <Box sx={{ display: "flex", }}>
                   <Box
                     sx={{
                       height:
@@ -291,7 +291,6 @@ const QuestionBody = (props) => {
                           ? 0
                           : 10,
                       border: "1px solid #e1e1e1",
-                      width: "100%",
                       maxWidth:
                         question?.options[0].options.length > 4 ||
                           !item.value.includes(
@@ -369,6 +368,11 @@ const QuestionBody = (props) => {
                             item.image === ""
                             ? "1rem"
                             : "0",
+                        width: !item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
+                          ? 600
+                          : 300,
                         justifyContent:
                           question?.options[0].options.length > 4 ||
                             !item.value.includes(
@@ -379,16 +383,11 @@ const QuestionBody = (props) => {
                         alignItems: "center",
                       }}
                     >
-                      {item.image ? (
-                        <img src={item?.value} alt="image" />
-                      ) : (
-                        <Typography>
-                          {/* The shuffle of answer option happens in the backend */}
-                          <MarkLatex
-                            content={item.value.replace("\f", "\\f")}
-                          />
-                        </Typography>
-                      )}
+                      <Typography className={item.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""}>
+                        <MarkLatex
+                          content={item.value.replace("\f", "\\f")}
+                        />
+                      </Typography>
                     </Box>
                   </Box>
                 </Box>
@@ -397,46 +396,47 @@ const QuestionBody = (props) => {
           })}
         </Container>
 
-        {question.answer && question?.optionId && (
-          <Container
-            maxWidth="sm"
-            style={{
-              marginTop: "1.5rem",
-              backgroundColor: "#fff",
-              border: "1px solid #e1e1e1",
-              padding: { xs: "1rem", sm: "1rem 3rem" },
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
+        {
+          question.answer && question?.optionId && (
+            <Container
+              maxWidth="sm"
+              style={{
+                marginTop: "1.5rem",
+                backgroundColor: "#fff",
+                border: "1px solid #e1e1e1",
+                padding: { xs: "1rem", sm: "1rem 3rem" },
               }}
             >
-              <Typography
-                variant="h5"
-                component="h5"
-                style={{
-                  fontSize: "1.25rem",
-                  marginTop: 20,
-                  marginBottom: 20
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                Förklaring:
-              </Typography>
-              <Typography variant="body1" component="div">
-                <div className="Explaination">
-                  {" "}
-                  <MarkLatex content={question.answer.answer} />
-                </div>
-              </Typography>
-            </Box>
-            <FeedbackButtons
-              onClickPlus={PlusPoint}
-              onClickMinus={MinusPoint}
-            />
-          </Container>
-        )
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  style={{
+                    fontSize: "1.25rem",
+                    marginTop: 20,
+                    marginBottom: 20
+                  }}
+                >
+                  Förklaring:
+                </Typography>
+                <Typography variant="body1" component="div">
+                  <div className="Explaination">
+                    {" "}
+                    <MarkLatex content={question.answer.answer} />
+                  </div>
+                </Typography>
+              </Box>
+              <FeedbackButtons
+                onClickPlus={PlusPoint}
+                onClickMinus={MinusPoint}
+              />
+            </Container>
+          )
         }
         {props.submitButton(question)}
       </Container >
