@@ -52,6 +52,7 @@ const QuestionBody = (props) => {
   const [question, setQuestion] = useState(props?.question);
   const [count, setCount] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
+  const questionId = props.question._id;
 
   const updateQuiz = (value) => {
     let quiz = [...props.quiz];
@@ -96,22 +97,6 @@ const QuestionBody = (props) => {
       return "";
     }
   };
-
-  const ImageRenderer = (props) => {
-    const imageSrc = props.src;
-    const altText = props.alt;
-    console.log(props, 'props 99999999')
-    return (
-      <img
-        data-loading="lazy"
-        // data-slug={slug}
-        data-orig-file={imageSrc}
-        alt={altText}
-      />
-    );
-  }
-
-  const questionId = props.question._id;
 
   if (props.question.type === "multiple") {
     return (
@@ -216,7 +201,6 @@ const QuestionBody = (props) => {
                   style={{
                     fontSize: "1.3rem",
                     display: "flex",
-                    // maxHeight: "1.25rem",
                   }}
                 >
                   <MarkLatex content={question?.information1} />
@@ -242,7 +226,6 @@ const QuestionBody = (props) => {
                   component="body1"
                   style={{
                     fontSize: "1.3rem",
-                    // maxHeight: "1.25rem",
                     display: "flex",
                   }}
                 >
@@ -308,7 +291,6 @@ const QuestionBody = (props) => {
                           ? 0
                           : 10,
                       border: "1px solid #e1e1e1",
-                      // width: "100%",
                       maxWidth:
                         question?.options[0].options.length > 4 ||
                           !item.value.includes(
