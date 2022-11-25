@@ -53,11 +53,7 @@ const CoursesMain = () => {
     const URL = EndPoints.simuleraQuizHistory + userId;
     instance2.get(URL).then((response) => {
       if (response.data.length > 0) {
-        // setProvHistoryData(response.data);
-
         let newArray = [];
-        console.log("this is the response of the api", response.data)
-
         response.data &&
           response.data.map((item) => {
             let obj = item ?? {};
@@ -98,21 +94,6 @@ const CoursesMain = () => {
           }
         });
         setProvpassSeasons(provPassArray);
-        // let allSeasons;
-        // let newSeasons;
-        // response?.data.map(item => {
-        //   allSeasons = allSeasons ?? {}
-        //   allSeasons[item.simuleraSeason._id] = allSeasons[item.simuleraSeason._id] ?? []
-        //   allSeasons[item.simuleraSeason._id].push(item)
-        // })
-        // Object.keys(allSeasons).map(key => {
-        //   newSeasons = newSeasons ?? {}
-        //   newSeasons[key] = {
-        //     time: allSeasons[key][allSeasons[key].length - 1].createdAt,
-        //     season: allSeasons[key]
-        //   }
-        // })
-        // setSeasons(newSeasons)
       }
     });
   }, []);
@@ -120,17 +101,6 @@ const CoursesMain = () => {
   const LoadMore = () => {
     const limit = setLimit((lim) => lim + 10);
   };
-
-  // useEffect(() => {
-  //   return;
-  // const data = {
-  //   limit
-  // }
-  // const URL = EndPoints.getPreviousExams
-  // instance2.get(URL, data).then(response => {
-  //   setPreviousExams(response.data.data)
-  // })
-  // }, [limit]);
 
   return (
     <Container maxWidth="false" disableGutters>
