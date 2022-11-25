@@ -427,27 +427,12 @@ const CategoryPagesFeedContent = (props) => {
                 setCheckedFunc(value);
               }}
             />
-            <Box
-              sx={{
-                width: "10rem",
-                height: "4rem",
-                backgroundColor: title ? "#0a1596" : "#fff",
-                boxShadow: "1px 1px 8px #dfdfdf",
-                borderRadius: ".25rem",
-                marginLeft: ".25rem",
-                marginRight: ".25rem",
-                border: "1px solid #e1e1e1",
-                display: "flex",
-                flexWrap: "wrap",
-                color: title ? "#fff" : "#555555",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              onClick={() => setDefaultNuberOfQuestions()}
-            >
-              Ett delprov
-            </Box>
+            <OutlineBox
+              size="large"
+              checked={title}
+              title={"Ett delprov"}
+              onChangeCheck={() => setDefaultNuberOfQuestions()}
+            />
           </Box>
           {error && (
             <Typography
