@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import {
   Container,
   makeStyles,
@@ -6,7 +7,6 @@ import {
   Box,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
@@ -16,17 +16,26 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import moment from "moment";
 import Thumb from "../../../../assets/Imgs/Thumb.png";
 import { EndPoints, instance2 } from "../../../service/Route";
 import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../../molecule/WindowDimensions/dimension";
+import { borderRadius } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
     paddingTop: theme.spacing(18),
   },
+  tableHeadBackgroundColor: {
+    backgroundColor: '#FAFAFA',
+    border: 'none',
+    borderRadius: '10px'
+  }
 }));
+
+
 
 const RightBar = (props) => {
   const [resultHistory, setResultHistory] = useState();
@@ -59,6 +68,38 @@ const RightBar = (props) => {
     });
   };
 
+  const columns = [
+    { id: 'datum', label: 'Datum', minWidth: 50 },
+    {
+      id: 'prov',
+      label: 'Prov',
+      minWidth: 100,
+      align: 'left',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'Antal poäng',
+      label: 'Antal Poäng',
+      minWidth: 30,
+      align: 'left',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'Normerad Poäng',
+      label: 'Normerad Poäng',
+      minWidth: 40,
+      align: 'left',
+      format: (value) => value.toFixed(2),
+    },
+    {
+      id: '',
+      label: '',
+      minWidth: 50,
+      align: 'left',
+      format: (value) => value.toFixed(2),
+    },
+  ];
+
   function Dropdown(props) {
     return (
       <div className="result_popup" onClick={() => props.onClick()}>
@@ -88,7 +129,6 @@ const RightBar = (props) => {
           className={classes.topspace}
           style={{
             marginBottom: "2rem",
-
             marginTop: "1.3rem",
           }}
         >
@@ -96,76 +136,41 @@ const RightBar = (props) => {
             Dina slutförda prov
           </Typography>
         </Box>
-        <Box
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            textTransform: "uppercase",
-            marginBottom: "1.1rem",
-            width: "100%",
-            alignItems: "flex-end",
-          }}
-        >
-          <Typography
-            style={{
-              marginLeft: width > 900 ? "7.2%" : "6.3%",
-              fontSize: "14px",
-            }}
-          >
-            Datum
-          </Typography>
-
-          <Typography
-            style={{
-              marginLeft: width > 900 ? "19.5%" : "15.5%",
-              fontSize: "14px",
-            }}
-          >
-            Prov
-          </Typography>
-
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginLeft: width > 900 ? "16.5%" : "14%",
-            }}
-          >
-            <Typography style={{ fontSize: "14px" }}>Antal</Typography>
-            <Typography style={{ fontSize: "14px" }}>poäng</Typography>
-          </Box>
-
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginLeft: width > 900 ? "8%" : "7.5%",
-            }}
-          >
-            <Typography style={{ fontSize: "14px" }}>normerad</Typography>
-            <Typography style={{ fontSize: "14px" }}>poäng</Typography>
-          </Box>
-        </Box>
-        <Box className={classes.tablespace} style={{ marginBottom: "2rem" }}>
+        <Box style={{ marginBottom: "2rem" }}>
           <Box style={{ marginBottom: "2rem" }}>
             <TableContainer
               style={{
-                border: "1px solid #e1e1e1",
-                borderRadius: ".25rem",
-                // padding: "1rem",
-                boxShadow: "0px 5px 10px #f2f2f2",
                 backgroundColor: "#fff",
                 display: "flex",
+                // borderRadius: '5px',
+
               }}
             >
-              <Table aria-label="simple table">
-                <TableBody>
+              <Table aria-label="simple table" style={{ borderRadius: '10px' }} >
+                <TableHead className={classes.tableHeadBackgroundColor}>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth, fontWeight: 500 }}
+                      > {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody
+                  style={{
+                    borderRadius: "10px",
+                    border: "1px solid #e1e1e1",
+                    boxShadow: "0px 5px 10px #f2f2f2",
+                  }}
+                >
                   {resultHistory &&
                     resultHistory?.map((row, index) => {
                       return (
                         <TableRow
                           key={row.createdAt}
-                          // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                         >
                           <TableCell component="th" scope="row">
                             {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
@@ -180,7 +185,6 @@ const RightBar = (props) => {
                             </Typography>
                           </TableCell>
                           {/* </Box> */}
-
                           <TableCell style={{ width: "6rem" }} align="left">
                             {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
                             {row?.totalQuestions ? row?.totalQuestions : 0}
@@ -188,27 +192,18 @@ const RightBar = (props) => {
                           <TableCell align="left">
                             {row?.totalAnswer
                               ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
+                                .toFixed(1)
+                                .replace(/\.0+$/, "")
                               : 0}
                           </TableCell>
                           <TableCell
                             style={{
                               cursor: "pointer",
-                              display: "flex",
-                              color: "grey",
-                              height: "5rem",
-                              alignItems: "center",
-                              width: ".5rem",
+                              color: "#B4B4B4",
                             }}
                           >
                             <Box
                               style={{
-                                // display: "flex",
-                                // flexDirection: "column",
-                                // justifyContent: "center",
-                                // alignItems: "flex-end",
-                                // width: "1.1rem",
                                 display: "flex",
                                 flexDirection: "column",
                                 display: "flex",
