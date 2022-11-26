@@ -187,320 +187,58 @@ const RightBar = (props) => {
                   {resultHistory &&
                     resultHistory?.map((row, index) => {
                       return (
-                        <>
-                          <TableRow
-                            key={row.createdAt}
+                        <TableRow
+                          key={row.createdAt}
+                        >
+                          <TableCell component="th" scope="row">
+                            {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
+                          </TableCell>
+                          {/* <Box style={{ display: 'flex' }}> */}
+                          <TableCell align="left">
+                            <Typography style={{ fontSize: "14px" }}>
+                              {row?.simuleraSeason?.title},
+                            </Typography>
+                            <Typography style={{ fontSize: "14px" }}>
+                              {row?.simuleraSeason?.month}
+                            </Typography>
+                          </TableCell>
+                          {/* </Box> */}
+                          <TableCell style={{ width: "6rem" }} align="left">
+                            {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
+                            {row?.totalQuestions ? row?.totalQuestions : 0}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row?.totalAnswer
+                              ? ((row?.totalAnswer / row?.totalQuestions) * 2)
+                                .toFixed(1)
+                                .replace(/\.0+$/, "")
+                              : 0}
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              cursor: "pointer",
+                              color: "#B4B4B4",
+                            }}
                           >
-                            <TableCell component="th" scope="row">
-                              {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
-                            </TableCell>
-                            {/* <Box style={{ display: 'flex' }}> */}
-                            <TableCell align="left">
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.title},
-                              </Typography>
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.month}
-                              </Typography>
-                            </TableCell>
-                            {/* </Box> */}
-                            <TableCell style={{ width: "6rem" }} align="left">
-                              {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
-                              {row?.totalQuestions ? row?.totalQuestions : 0}
-                            </TableCell>
-                            <TableCell align="left">
-                              {row?.totalAnswer
-                                ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
-                                : 0}
-                            </TableCell>
-                            <TableCell
+                            <Box
                               style={{
-                                cursor: "pointer",
-                                color: "#B4B4B4",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "flex-end",
+                                position: "relative",
                               }}
                             >
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "flex-end",
-                                  position: "relative",
-                                }}
-                              >
-                                <MoreVertIcon
-                                  onClick={() =>
-                                    row?.totalQuestions && showPopup(index)
-                                  }
-                                />
-                                {row.result && (
-                                  <Dropdown onClick={() => ResultHandler(row)} />
-                                )}
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow
-                            key={row.createdAt}
-                          >
-                            <TableCell component="th" scope="row">
-                              {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
-                            </TableCell>
-                            {/* <Box style={{ display: 'flex' }}> */}
-                            <TableCell align="left">
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.title},
-                              </Typography>
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.month}
-                              </Typography>
-                            </TableCell>
-                            {/* </Box> */}
-                            <TableCell style={{ width: "6rem" }} align="left">
-                              {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
-                              {row?.totalQuestions ? row?.totalQuestions : 0}
-                            </TableCell>
-                            <TableCell align="left">
-                              {row?.totalAnswer
-                                ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
-                                : 0}
-                            </TableCell>
-                            <TableCell
-                              style={{
-                                cursor: "pointer",
-                                color: "#B4B4B4",
-                              }}
-                            >
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "flex-end",
-                                  position: "relative",
-                                }}
-                              >
-                                <MoreVertIcon
-                                  onClick={() =>
-                                    row?.totalQuestions && showPopup(index)
-                                  }
-                                />
-                                {row.result && (
-                                  <Dropdown onClick={() => ResultHandler(row)} />
-                                )}
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow
-                            key={row.createdAt}
-                          >
-                            <TableCell component="th" scope="row">
-                              {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
-                            </TableCell>
-                            {/* <Box style={{ display: 'flex' }}> */}
-                            <TableCell align="left">
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.title},
-                              </Typography>
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.month}
-                              </Typography>
-                            </TableCell>
-                            {/* </Box> */}
-                            <TableCell style={{ width: "6rem" }} align="left">
-                              {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
-                              {row?.totalQuestions ? row?.totalQuestions : 0}
-                            </TableCell>
-                            <TableCell align="left">
-                              {row?.totalAnswer
-                                ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
-                                : 0}
-                            </TableCell>
-                            <TableCell
-                              style={{
-                                cursor: "pointer",
-                                color: "#B4B4B4",
-                              }}
-                            >
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "flex-end",
-                                  position: "relative",
-                                }}
-                              >
-                                <MoreVertIcon
-                                  onClick={() =>
-                                    row?.totalQuestions && showPopup(index)
-                                  }
-                                />
-                                {row.result && (
-                                  <Dropdown onClick={() => ResultHandler(row)} />
-                                )}
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow
-                            key={row.createdAt}
-                          >
-                            <TableCell component="th" scope="row">
-                              {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
-                            </TableCell>
-                            {/* <Box style={{ display: 'flex' }}> */}
-                            <TableCell align="left">
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.title},
-                              </Typography>
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.month}
-                              </Typography>
-                            </TableCell>
-                            {/* </Box> */}
-                            <TableCell style={{ width: "6rem" }} align="left">
-                              {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
-                              {row?.totalQuestions ? row?.totalQuestions : 0}
-                            </TableCell>
-                            <TableCell align="left">
-                              {row?.totalAnswer
-                                ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
-                                : 0}
-                            </TableCell>
-                            <TableCell
-                              style={{
-                                cursor: "pointer",
-                                color: "#B4B4B4",
-                              }}
-                            >
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "flex-end",
-                                  position: "relative",
-                                }}
-                              >
-                                <MoreVertIcon
-                                  onClick={() =>
-                                    row?.totalQuestions && showPopup(index)
-                                  }
-                                />
-                                {row.result && (
-                                  <Dropdown onClick={() => ResultHandler(row)} />
-                                )}
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow
-                            key={row.createdAt}
-                          >
-                            <TableCell component="th" scope="row">
-                              {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
-                            </TableCell>
-                            {/* <Box style={{ display: 'flex' }}> */}
-                            <TableCell align="left">
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.title},
-                              </Typography>
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.month}
-                              </Typography>
-                            </TableCell>
-                            {/* </Box> */}
-                            <TableCell style={{ width: "6rem" }} align="left">
-                              {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
-                              {row?.totalQuestions ? row?.totalQuestions : 0}
-                            </TableCell>
-                            <TableCell align="left">
-                              {row?.totalAnswer
-                                ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
-                                : 0}
-                            </TableCell>
-                            <TableCell
-                              style={{
-                                cursor: "pointer",
-                                color: "#B4B4B4",
-                              }}
-                            >
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "flex-end",
-                                  position: "relative",
-                                }}
-                              >
-                                <MoreVertIcon
-                                  onClick={() =>
-                                    row?.totalQuestions && showPopup(index)
-                                  }
-                                />
-                                {row.result && (
-                                  <Dropdown onClick={() => ResultHandler(row)} />
-                                )}
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow
-                            key={row.createdAt}
-                          >
-                            <TableCell component="th" scope="row">
-                              {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
-                            </TableCell>
-                            {/* <Box style={{ display: 'flex' }}> */}
-                            <TableCell align="left">
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.title},
-                              </Typography>
-                              <Typography style={{ fontSize: "14px" }}>
-                                {row?.simuleraSeason?.month}
-                              </Typography>
-                            </TableCell>
-                            {/* </Box> */}
-                            <TableCell style={{ width: "6rem" }} align="left">
-                              {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
-                              {row?.totalQuestions ? row?.totalQuestions : 0}
-                            </TableCell>
-                            <TableCell align="left">
-                              {row?.totalAnswer
-                                ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                  .toFixed(1)
-                                  .replace(/\.0+$/, "")
-                                : 0}
-                            </TableCell>
-                            <TableCell
-                              style={{
-                                cursor: "pointer",
-                                color: "#B4B4B4",
-                              }}
-                            >
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "flex-end",
-                                  position: "relative",
-                                }}
-                              >
-                                <MoreVertIcon
-                                  onClick={() =>
-                                    row?.totalQuestions && showPopup(index)
-                                  }
-                                />
-                                {row.result && (
-                                  <Dropdown onClick={() => ResultHandler(row)} />
-                                )}
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                        </>
+                              <MoreVertIcon
+                                onClick={() =>
+                                  row?.totalQuestions && showPopup(index)
+                                }
+                              />
+                              {row.result && (
+                                <Dropdown onClick={() => ResultHandler(row)} />
+                              )}
+                            </Box>
+                          </TableCell>
+                        </TableRow>
                       );
                     })}
                 </TableBody>
