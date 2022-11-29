@@ -42,12 +42,15 @@ const LineDemo = (props) => {
 
   useEffect(() => {
     const weekWiseCorrectedAnswers = props?.weeklyCoreectedGraph.map(
-       ((correctedInWeek) =>  correctedInWeek?.correct)
+      ((correctedInWeek) => correctedInWeek?.correct)
     );
     const maxNumberOfCorrected = Math.max(...weekWiseCorrectedAnswers);
     if (maxNumberOfCorrected > 4) {
-      const noToAdd = 4 - (maxNumberOfCorrected % 4);
-      setRangeOfGraph(noToAdd + maxNumberOfCorrected);
+      let checkMaxNumber = maxNumberOfCorrected % 4;
+      if (checkMaxNumber > 0) {
+        const noToAdd = 4 - checkMaxNumber;
+        setRangeOfGraph(noToAdd + maxNumberOfCorrected);
+      }
     }
   }, []);
 

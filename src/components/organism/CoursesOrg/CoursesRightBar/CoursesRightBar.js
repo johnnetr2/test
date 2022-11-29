@@ -109,7 +109,7 @@ const RightBar = (props) => {
     {
       id: '',
       label: '',
-      minWidth: 50,
+      minWidth: 5,
       align: 'left',
       format: (value) => value.toFixed(2),
     },
