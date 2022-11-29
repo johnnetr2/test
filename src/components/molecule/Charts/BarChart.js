@@ -49,7 +49,6 @@ const LineDemo = (props) => {
       let checkMaxNumber = maxNumberOfCorrected % 4;
       if (checkMaxNumber > 0) {
         const noToAdd = 4 - checkMaxNumber;
-        console.log(noToAdd + maxNumberOfCorrected, 'noToAdd + maxNumberOfCorrected')
         setRangeOfGraph(noToAdd + maxNumberOfCorrected);
       }
     }
