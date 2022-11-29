@@ -1,8 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { createTheme } from "@mui/material/styles";
-import moment from "moment";
-
 import { EndPoints, instance2 } from "../../../service/Route";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
@@ -19,15 +17,6 @@ const HomeRightBar = (props) => {
   const [weeks, setWeeks] = useState();
 
   useEffect(() => {
-    // const getPreviosRecord =
-    //   EndPoints.studentPerviousProgress + localStorage.getItem("userId");
-    // instance2.get(getPreviosRecord).then((response) => {
-    //   const { isAttemptedMoreThenTwenty } = response.data
-
-    //   console.log("sjagshahah akshd", response.data)
-
-    //   setShowProgress(isAttemptedMoreThenTwenty);
-    // });
 
     if (localStorage.getItem("userId")) {
       const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
@@ -75,7 +64,7 @@ const HomeRightBar = (props) => {
             let overAllProgressOfWeek = 0;
 
             if (!quantitativeNormingOfWeek && !verbalNormingOfWeek) {
-              overAllProgressOfWeek = null;
+              overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
             } else if (quantitativeNormingOfWeek && verbalNormingOfWeek) {
               let { eachCategoryPrognos: verbalProgress } = verbalNormingOfWeek;
               let { eachCategoryPrognos: quantitativeProgress } =
@@ -87,7 +76,7 @@ const HomeRightBar = (props) => {
                     quantitativeNormingOfWeek.eachCategoryPrognos) /
                   2;
               } else {
-                overAllProgressOfWeek = null;
+                overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null
               }
             } else if (!verbalNormingOfWeek && quantitativeNormingOfWeek) {
               overAllProgressOfWeek =
@@ -97,7 +86,7 @@ const HomeRightBar = (props) => {
                 (verbalNormingOfWeek.eachCategoryPrognos + 0) / 2;
             }
 
-            const averageProgressOfVerbalQuantitative = overAllProgressOfWeek
+            const averageProgressOfVerbalQuantitative = overAllProgressOfWeek < 0
               ? overAllProgressOfWeek.toFixed(1)
               : overAllProgressOfWeek;
 
