@@ -51,7 +51,6 @@ const RightBar = (props) => {
 
   useEffect(() => {
     setResultHistory(props?.data);
-    console.log(props?.data);
   }, [props?.data]);
 
   const showPopup = (index) => {
@@ -73,7 +72,6 @@ const RightBar = (props) => {
       },
     });
   };
-  console.log(width, 'test')
   const columns = [
     { id: 'datum', label: 'Datum', minWidth: 150 },
     {
@@ -118,11 +116,6 @@ const RightBar = (props) => {
   return (
     <Container
       maxWidth={false}
-      style={{
-        // paddingLeft: width > 700 && "3rem",
-        // paddingRight: width > 700 && "3rem",
-        // marginLeft: width < 900 && "2.5rem",
-      }}
     >
       <Box
         sx={{
