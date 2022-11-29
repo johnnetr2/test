@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { styled } from '@mui/material/styles';
 import {
   Container,
   makeStyles,
@@ -10,19 +9,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Button,
-  Menu,
-  MenuItem,
-  IconButton,
+  TableCell
 } from "@material-ui/core";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import moment from "moment";
-import Thumb from "../../../../assets/Imgs/Thumb.png";
-import { EndPoints, instance2 } from "../../../service/Route";
 import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../../molecule/WindowDimensions/dimension";
-import { borderRadius } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
@@ -30,8 +22,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tableHeadBackgroundColor: {
     backgroundColor: 'transparent',
-    // border: 'none',
-    // borderRadius: '10px'
   },
   scrollbar: {
     "&::-webkit-scrollbar": {
@@ -83,9 +73,9 @@ const RightBar = (props) => {
       },
     });
   };
-
+  console.log(width, 'test')
   const columns = [
-    { id: 'datum', label: 'Datum', minWidth: 140 },
+    { id: 'datum', label: 'Datum', minWidth: 150 },
     {
       id: 'prov',
       label: 'Prov',
@@ -96,13 +86,14 @@ const RightBar = (props) => {
     {
       id: 'Antal poäng',
       label: 'Antal Poäng',
-      minWidth: 95,
+      minWidth: 100,
       align: 'left',
       format: (value) => value.toLocaleString('en-US'),
     },
     {
       id: 'Normerad Poäng',
       label: 'Normerad Poäng',
+      minWidth: 15,
       align: 'left',
       format: (value) => value.toFixed(2),
     },
@@ -128,9 +119,9 @@ const RightBar = (props) => {
     <Container
       maxWidth={false}
       style={{
-        paddingLeft: "3rem",
-        paddingRight: "3rem",
-        marginLeft: width < 900 && "2.5rem",
+        // paddingLeft: width > 700 && "3rem",
+        // paddingRight: width > 700 && "3rem",
+        // marginLeft: width < 900 && "2.5rem",
       }}
     >
       <Box
@@ -152,99 +143,95 @@ const RightBar = (props) => {
           </Typography>
         </Box>
         <Box style={{ marginBottom: "2rem" }}>
-          <Box style={{ marginBottom: "2rem" }}>
-            <TableHead className={classes.tableHeadBackgroundColor}>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth, fontWeight: 500, margin: 0, border: 0 }}
-                  > {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableContainer
-              style={{
-                backgroundColor: "#fff",
-                display: "flex",
-                overflowY: "auto",
-                overflowX: "hidden",
-                maxHeight: "60vh"
-              }}
-              className={classes.scrollbar}
-            >
-              <Table aria-label="simple table" style={{ borderRadius: '10px' }} >
 
-                <TableBody
-                  style={{
-                    borderRadius: "10px",
-                    border: "1px solid #e1e1e1",
-                    boxShadow: "0px 5px 10px #f2f2f2",
-                  }}
-                >
-                  {resultHistory &&
-                    resultHistory?.map((row, index) => {
-                      return (
-                        <TableRow
-                          key={row.createdAt}
+          <TableHead className={classes.tableHeadBackgroundColor}>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth, fontWeight: 500, margin: 0, border: 0 }}
+                > {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableContainer
+            style={{
+              backgroundColor: "#fff",
+              display: "flex",
+              overflowY: "auto",
+              overflowX: "hidden",
+              maxHeight: "60vh",
+              border: '1px solid #e1e1e1',
+              borderRadius: '5px',
+              boxShadow: "0px 5px 10px #f2f2f2",
+            }}
+            className={classes.scrollbar}
+          >
+            <Table aria-label="simple table" >
+
+              <TableBody
+              >
+                {resultHistory &&
+                  resultHistory?.map((row, index) => {
+                    return (
+                      <TableRow
+                        key={row.createdAt}
+                      >
+                        <TableCell component="th" scope="row">
+                          {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
+                        </TableCell>
+                        <TableCell align="left">
+                          <Typography style={{ fontSize: "14px" }}>
+                            {row?.simuleraSeason?.title},
+                          </Typography>
+                          <Typography style={{ fontSize: "14px" }}>
+                            {row?.simuleraSeason?.month}
+                          </Typography>
+                        </TableCell>
+                        <TableCell style={{ width: "6rem" }} align="left">
+                          {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
+                          {row?.totalQuestions ? row?.totalQuestions : 0}
+                        </TableCell>
+                        <TableCell align="left">
+                          {row?.totalAnswer
+                            ? ((row?.totalAnswer / row?.totalQuestions) * 2)
+                              .toFixed(1)
+                              .replace(/\.0+$/, "")
+                            : 0}
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            cursor: "pointer",
+                            color: "#B4B4B4",
+                          }}
                         >
-                          <TableCell component="th" scope="row">
-                            {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
-                          </TableCell>
-                          {/* <Box style={{ display: 'flex' }}> */}
-                          <TableCell align="left">
-                            <Typography style={{ fontSize: "14px" }}>
-                              {row?.simuleraSeason?.title},
-                            </Typography>
-                            <Typography style={{ fontSize: "14px" }}>
-                              {row?.simuleraSeason?.month}
-                            </Typography>
-                          </TableCell>
-                          {/* </Box> */}
-                          <TableCell style={{ width: "6rem" }} align="left">
-                            {row?.totalAnswer ? row?.totalAnswer : 0} av{" "}
-                            {row?.totalQuestions ? row?.totalQuestions : 0}
-                          </TableCell>
-                          <TableCell align="left">
-                            {row?.totalAnswer
-                              ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                .toFixed(1)
-                                .replace(/\.0+$/, "")
-                              : 0}
-                          </TableCell>
-                          <TableCell
+                          <Box
                             style={{
-                              cursor: "pointer",
-                              color: "#B4B4B4",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "flex-end",
+                              position: "relative",
                             }}
                           >
-                            <Box
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "flex-end",
-                                position: "relative",
-                              }}
-                            >
-                              <MoreVertIcon
-                                onClick={() =>
-                                  row?.totalQuestions && showPopup(index)
-                                }
-                              />
-                              {row.result && (
-                                <Dropdown onClick={() => ResultHandler(row)} />
-                              )}
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
+                            <MoreVertIcon
+                              onClick={() =>
+                                row?.totalQuestions && showPopup(index)
+                              }
+                            />
+                            {row.result && (
+                              <Dropdown onClick={() => ResultHandler(row)} />
+                            )}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
           {/* Hide unlock premium card */}
           {/* <Box
             sx={{

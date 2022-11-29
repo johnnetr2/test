@@ -49,6 +49,7 @@ const LineDemo = (props) => {
       let checkMaxNumber = maxNumberOfCorrected % 4;
       if (checkMaxNumber > 0) {
         const noToAdd = 4 - checkMaxNumber;
+        console.log(noToAdd + maxNumberOfCorrected, 'noToAdd + maxNumberOfCorrected')
         setRangeOfGraph(noToAdd + maxNumberOfCorrected);
       }
     }
@@ -105,7 +106,7 @@ const LineDemo = (props) => {
           margin={{
             top: 10,
             right: 10,
-            left: -28,
+            left: -20,
             bottom: 0,
           }}
         >
@@ -115,10 +116,10 @@ const LineDemo = (props) => {
             type="number"
             dx={-10}
             domain={[0, rangeOfGraph]}
-            tickLine={false}
             allowDecimals={false}
             axisLine={false}
             tickCount={5}
+            tickLine={false}
           />
           <Tooltip
             content={<CustomTooltip />}
@@ -135,6 +136,7 @@ const LineDemo = (props) => {
             fill="#0A1596"
             barSize={5}
             radius={[10, 10, 0, 0]}
+
           />
         </BarChart>
       )}
