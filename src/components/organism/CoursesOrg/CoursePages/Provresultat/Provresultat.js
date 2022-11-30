@@ -25,7 +25,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
-import ExamResults from '../../../../../assets/Static/ExamResults.json'
+import ExamResults from "../../../../../assets/Static/ExamResults.json";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -49,76 +49,101 @@ const Provresultat = () => {
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data)
+        setVerbalQuantitativeStates(response.data);
       });
     } else {
       const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data)
-
+        setVerbalQuantitativeStates(response.data);
       });
     }
   }, []);
 
-
   const setVerbalQuantitativeStates = (data) => {
     setCorrectAnswersOfKvantitative(
       data.correctQuestions_of_XYZ +
-      data.correctQuestions_of_KVA +
-      data.correctQuestions_of_NOG +
-      data.correctQuestions_of_DTK
+        data.correctQuestions_of_KVA +
+        data.correctQuestions_of_NOG +
+        data.correctQuestions_of_DTK
     );
     setTotalQuestionsOfKvantitative(
       data.totalQuestion_of_XYZ +
-      data.totalQuestion_of_KVA +
-      data.totalQuestion_of_NOG +
-      data.totalQuestion_of_DTK
+        data.totalQuestion_of_KVA +
+        data.totalQuestion_of_NOG +
+        data.totalQuestion_of_DTK
     );
 
     setCorrectAnswersOfVerbal(
       data.correctQuestions_of_ORD +
-      data.correctQuestions_of_LAS +
-      data.correctQuestions_of_MEK +
-      data.correctQuestions_of_ELF
+        data.correctQuestions_of_LAS +
+        data.correctQuestions_of_MEK +
+        data.correctQuestions_of_ELF
     );
     setTotalQuestionsOfVerbal(
       data.totalQuestion_of_ORD +
-      data.totalQuestion_of_LAS +
-      data.totalQuestion_of_MEK +
-      data.totalQuestion_of_ELF
+        data.totalQuestion_of_LAS +
+        data.totalQuestion_of_MEK +
+        data.totalQuestion_of_ELF
     );
-  }
+  };
 
   useEffect(() => {
     if (params.state.seasonId) {
       const URL = `${EndPoints.getPreviousExams}/${params.state.seasonId}`;
       instance2.get(URL).then((response) => {
         setSeason(response.data.simuleraSeason);
-        const simuleraSeasonYear = response.data.simuleraSeason.title.split(' ')[1];
+        const simuleraSeasonYear =
+          response.data.simuleraSeason.title.split(" ")[1];
         const rawPointsExam = ExamResults.rawPoints.find((item) => {
           const examName = `${item.season} ${item.year}`;
-          return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
-        })
-        const normalizedPointsExam = ExamResults.normalizedPoints.find((item) => {
-          const examName = `${item.season} ${item.year}`;
-          return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
-        })
-        console.log(rawPointsExam, normalizedPointsExam)
+          return (
+            examName === response.data.simuleraSeason.title ||
+            examName ===
+              `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+          );
+        });
+        const normalizedPointsExam = ExamResults.normalizedPoints.find(
+          (item) => {
+            const examName = `${item.season} ${item.year}`;
+            return (
+              examName === response.data.simuleraSeason.title ||
+              examName ===
+                `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+            );
+          }
+        );
+        console.log(rawPointsExam, normalizedPointsExam);
         setParticipantsAverage(rawPointsExam);
         setParticipantsNormalized(normalizedPointsExam);
       });
-
     }
-  }, [])
+  }, []);
 
-  function createSummaryData(rowName, totalCorrectAnswers, totalQuestions, averagePoints) {
+  function createSummaryData(
+    rowName,
+    totalCorrectAnswers,
+    totalQuestions,
+    averagePoints
+  ) {
     return { rowName, totalCorrectAnswers, totalQuestions, averagePoints };
   }
 
-  function createExamPartData(examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints) {
-    return { examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints };
+  function createExamPartData(
+    examPart,
+    correctAnswers,
+    totalQuestions,
+    averageOtherParticipants,
+    normalizedPoints
+  ) {
+    return {
+      examPart,
+      correctAnswers,
+      totalQuestions,
+      averageOtherParticipants,
+      normalizedPoints,
+    };
   }
 
   const kvantPartRows = [
@@ -151,10 +176,11 @@ const Provresultat = () => {
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
       participantsAverage?.KVANT,
-      correctAnswersOfKvantitative && totalQuestionsOfKvantitative &&
-      ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
-        ?.toFixed(1)
-        .replace(/\.0+$/, "")
+      correctAnswersOfKvantitative &&
+        totalQuestionsOfKvantitative &&
+        ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
+          ?.toFixed(1)
+          .replace(/\.0+$/, "")
     ),
   ];
 
@@ -188,10 +214,11 @@ const Provresultat = () => {
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
       participantsAverage?.VERB,
-      correctAnswersOfVerbal && totalQuestionsOfVerbal &&
-      ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
-        ?.toFixed(1)
-        .replace(/\.0+$/, "")
+      correctAnswersOfVerbal &&
+        totalQuestionsOfVerbal &&
+        ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
+          ?.toFixed(1)
+          .replace(/\.0+$/, "")
     ),
   ];
 
@@ -200,7 +227,7 @@ const Provresultat = () => {
       "SAMMANFATTNING",
       correctAnswersOfKvantitative + correctAnswersOfVerbal,
       totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
-      participantsAverage?.Total,
+      participantsAverage?.Total
     ),
   ];
 
@@ -238,13 +265,12 @@ const Provresultat = () => {
 
     cards: {
       [theme.breakpoints.up(1025)]: {
-        width: "23vw",
         // width: "49%",
         height: "15vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "#fff",
+        backgroundColor: "#fff",
         border: "1px solid #e1e1e1",
         borderRadius: "0.3rem",
         boxShadow: "0px 5px 10px #f2f2f2",
@@ -370,12 +396,13 @@ const Provresultat = () => {
         }}
       >
         <Box className={classes.main}>
-          <Box sx={{ backgroundColor: "transparent" }}>
+          <Box sx={{ backgroundColor: "transparent", width: "100%" }}>
             <Box
               className={classes.info}
               style={{
                 display: "flex",
                 flexDirection: "column",
+
                 // paddingLeft: width > 1025 ? "3.5rem" : "1rem",
               }}
             >
@@ -436,21 +463,22 @@ const Provresultat = () => {
                   dispaly: "flex",
                   flexDirection: "column",
                   paddingRight: "1rem",
+                  flexBasis: "50%",
                 }}
               >
                 <Box
                   className={classes.cards}
-                // sx={{
-                //   width: "24.5vw",
-                //   height: "15vh",
-                //   display: "flex",
-                //   justifyContent: "center",
-                //   alignItems: "center",
-                //   backgroundColor: "#fff",
-                //   border: "1px solid #e1e1e1",
-                //   borderRadius: "0.3rem",
-                //   boxShadow: "0px 1px 1px #e1e1e1",
-                // }}
+                  // sx={{
+                  //   width: "24.5vw",
+                  //   height: "15vh",
+                  //   display: "flex",
+                  //   justifyContent: "center",
+                  //   alignItems: "center",
+                  //   backgroundColor: "#fff",
+                  //   border: "1px solid #e1e1e1",
+                  //   borderRadius: "0.3rem",
+                  //   boxShadow: "0px 1px 1px #e1e1e1",
+                  // }}
                 >
                   <Box
                     sx={{
@@ -477,17 +505,17 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                // sx={{
-                //   width: "24.5vw",
-                //   height: "15vh",
-                //   display: "flex",
-                //   justifyContent: "center",
-                //   alignItems: "center",
-                //   backgroundColor: "#fff",
-                //   marginTop: "5%",
-                //   borderRadius: "0.3rem",
-                //   boxShadow: "0px 1px 1px #e1e1e1",
-                // }}
+                  // sx={{
+                  //   width: "24.5vw",
+                  //   height: "15vh",
+                  //   display: "flex",
+                  //   justifyContent: "center",
+                  //   alignItems: "center",
+                  //   backgroundColor: "#fff",
+                  //   marginTop: "5%",
+                  //   borderRadius: "0.3rem",
+                  //   boxShadow: "0px 1px 1px #e1e1e1",
+                  // }}
                 >
                   <Box
                     sx={{
@@ -538,21 +566,22 @@ const Provresultat = () => {
                   dispaly: "flex",
                   flexDirection: "column",
                   paddingLeft: "1rem",
+                  flexBasis: "50%",
                 }}
               >
                 <Box
                   className={classes.cards}
-                // sx={{
-                //   width: "24.5vw",
-                //   height: "15vh",
-                //   display: "flex",
-                //   justifyContent: "center",
-                //   alignItems: "center",
-                //   backgroundColor: "#fff",
-                //   border: "1px solid #e1e1e1",
-                //   borderRadius: "0.3rem",
-                //   boxShadow: "0px 1px 1px #e1e1e1",
-                // }}
+                  // sx={{
+                  //   width: "24.5vw",
+                  //   height: "15vh",
+                  //   display: "flex",
+                  //   justifyContent: "center",
+                  //   alignItems: "center",
+                  //   backgroundColor: "#fff",
+                  //   border: "1px solid #e1e1e1",
+                  //   borderRadius: "0.3rem",
+                  //   boxShadow: "0px 1px 1px #e1e1e1",
+                  // }}
                 >
                   <Box
                     sx={{
@@ -581,18 +610,18 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                // sx={{
-                //   width: "24.5vw",
-                //   height: "15vh",
-                //   display: "flex",
-                //   justifyContent: "center",
-                //   alignItems: "center",
-                //   backgroundColor: "#fff",
-                //   marginTop: "5%",
-                //   border: "1px solid #e1e1e1",
-                //   borderRadius: "0.5rem",
-                //   boxShadow: "0px 1px 1px #e1e1e1",
-                // }}
+                  // sx={{
+                  //   width: "24.5vw",
+                  //   height: "15vh",
+                  //   display: "flex",
+                  //   justifyContent: "center",
+                  //   alignItems: "center",
+                  //   backgroundColor: "#fff",
+                  //   marginTop: "5%",
+                  //   border: "1px solid #e1e1e1",
+                  //   borderRadius: "0.5rem",
+                  //   boxShadow: "0px 1px 1px #e1e1e1",
+                  // }}
                 >
                   <Box
                     sx={{
@@ -635,7 +664,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-              // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
+                // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
               >
                 <Typography variant="h5" component="h5">
                   Kvantitativ del resultat
@@ -689,7 +718,9 @@ const Provresultat = () => {
                       </TableCell>
                       <TableCell align="left">{row.correctAnswers}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
-                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">
+                        {row.averageOtherParticipants}
+                      </TableCell>
                       <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
@@ -700,7 +731,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-              //style={{ marginTop: "3%", fontWeight: "bold" }}
+                //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Verbal del resultat
@@ -754,7 +785,9 @@ const Provresultat = () => {
                       </TableCell>
                       <TableCell align="left">{row.correctAnswers}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
-                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">
+                        {row.averageOtherParticipants}
+                      </TableCell>
                       <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
@@ -764,7 +797,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-              //style={{ marginTop: "3%", fontWeight: "bold" }}
+                //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Hela provet
@@ -819,7 +852,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-              //style={{ marginTop: "3%", fontWeight: "bold" }}
+                //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Resultat per provpass
@@ -954,7 +987,7 @@ const Provresultat = () => {
                     display: "flex",
                     cursor: "pointer",
                   }}
-                // onClick={() => openInNewTab('https://stackoverflow.com')}
+                  // onClick={() => openInNewTab('https://stackoverflow.com')}
                 >
                   {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
                   {" "} */}
