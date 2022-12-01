@@ -147,7 +147,7 @@ const OverBlick = () => {
           src={YellowStar}
           alt=""
         />
-        
+
       );
     } else if (item.optionId) {
       return (
@@ -180,7 +180,7 @@ const OverBlick = () => {
             alignItems: "center",
           }}
         >
-          
+
           <Box
             sx={{
               height: "4rem",
@@ -321,7 +321,7 @@ const OverBlick = () => {
             sx={{ display: "flex", width: 600, flexDirection: "column" }}
           >
             <Typography variant="h6" component="h6">
-              Överblick Provpass {params?.state.provpass.simuleraQuizResult.length + 1}
+              Överblick Provpass {params?.state?.provpass?.simuleraQuizResult.length + 1}
             </Typography>
             <Typography variant="body2" component="body2">
               Innan du lämnar in se över vilka frågor du har missat, sparat samt
@@ -429,7 +429,9 @@ const OverBlick = () => {
                               questionIndex: index,
                               quiz: quiz,
                               timeLeft: params.state.timeLeft,
-                              SubmittedQuestions: params?.state?.SubmitedQuestions,
+                              SubmittedQuestions:
+                                params?.state?.SubmitedQuestions,
+                              provpass: params?.state?.provpass
                             },
                           })
                         }
@@ -516,7 +518,7 @@ const OverBlick = () => {
           </Button>
         </Box>
       </Container>
-      <BackButtonPopup 
+      <BackButtonPopup
         status={backPressPopup}
         closePopup={() => setBackPressPopup(false)}
       />
