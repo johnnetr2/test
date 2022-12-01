@@ -65,9 +65,6 @@ const ProvPassInformation = () => {
   const classes = useStyles(10);
   const [helpPopup, setHelpPopup] = useState(false);
 
-  useEffect(() => {
-    console.log(params?.provpass);
-  }, []);
 
   return (
     <div>
@@ -138,7 +135,7 @@ const ProvPassInformation = () => {
           >
             <Typography variant="h6" component="h6">
               Kvantitativt provpass - Provpass{" "}
-              {params?.state.provpass == undefined
+              {params?.state.provpass === undefined
                 ? 1
                 : params?.state.provpass.simuleraQuizResult.length + 1}
             </Typography>
@@ -307,7 +304,8 @@ const ProvPassInformation = () => {
                 navigate("/simuleraprov", {
                   state: {
                     id: params.state.id,
-                    session: params.state.session
+                    session: params.state.session,
+                    provpass: params.state.provpass,
                   },
                 })
               }
