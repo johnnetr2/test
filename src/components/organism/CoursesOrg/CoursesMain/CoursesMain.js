@@ -75,7 +75,7 @@ const CoursesMain = () => {
         let provPassArray = [];
         newArray?.map((item) => {
           const exist = provPassArray.some(
-            (elem) => item.simuleraSeason._id == elem.simuleraSeason._id
+            (elem) => item.simuleraSeason?._id == elem.simuleraSeason?._id
           );
           if (!exist) {
             provPassArray.push(item);

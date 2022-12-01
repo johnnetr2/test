@@ -40,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
       // display: 'block'
     },
   },
-  indicator: {
-    
-  }
+  indicator: {},
 }));
 
 const CoursesFeedContent = (props) => {
@@ -58,7 +56,7 @@ const CoursesFeedContent = (props) => {
   };
 
   const getSeasonQuizzzes = (seasons, item) => {
-    return seasons.find((elem) => item._id === elem.simuleraSeason._id);
+    return seasons.find((elem) => item?._id === elem.simuleraSeason?._id);
   };
 
   const TabPanel = (props) => {
