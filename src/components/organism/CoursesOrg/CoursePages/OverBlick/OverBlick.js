@@ -139,17 +139,19 @@ const OverBlick = () => {
   const classes = useStyles(10);
 
   const ShowImage = (item) => {
-    if (item.optionId) {
-      return (
-        <img style={{ width: "1rem", marginRight: "1rem" }} src={Tick} alt="" />
-      );
-    } else if (item.isFlaged) {
+
+    if (item.isFlaged) {
       return (
         <img
           style={{ width: "1rem", marginRight: "1rem" }}
           src={YellowStar}
           alt=""
         />
+        
+      );
+    } else if (item.optionId) {
+      return (
+        <img style={{ width: "1rem", marginRight: "1rem" }} src={Tick} alt="" />
       );
     } else {
       return (
