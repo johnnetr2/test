@@ -60,16 +60,15 @@ const CategoryPagesRightBar = (props) => {
           weekWiseCorrectedArray.push({ name: weekKeyName, correct: "" });
           weekWiseProgressArray.push({
             name: weekKeyName,
-            Prognos: null,
+            Prognos: weekWiseProgressArray[weekWiseProgressArray.length - 1]?.Prognos,
           });
         }
-        if (index === weeknameArray.length - 1) {
-          const lastWeek = weekPogress?.eachCategoryPrognos ? weekPogress?.eachCategoryPrognos : 0
-          setWeeklyProgress(lastWeek);
-        }
+
       });
       setWeekWiseProgressGraph(weekWiseProgressArray);
       setWeeklyCoreectedGraph(weekWiseCorrectedArray);
+      setWeeklyProgress(weekWiseProgressArray[weekWiseProgressArray.length - 1]?.Prognos);
+
     });
   }, []);
 
@@ -210,7 +209,6 @@ const CategoryPagesRightBar = (props) => {
               boxShadow: "0px 5px 10px #f2f2f2",
               padding: "2rem",
               backgroundColor: "#fff",
-              // overflow: "scroll",
             }}
           >
             <Typography

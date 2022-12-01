@@ -216,8 +216,9 @@ export const calculateWeekWiseNormingForCategory = (
         weeklyProgressArr.push({
           eachCategoryPrognos: null,
           weekWiseCorrected,
-          correctAnswers: 0,
-          attemptQuestions: 0,
+          correctAnswers: weekWiseProgress.correctAnswers,
+          totalQuestion: weekWiseProgress.totalQuestion,
+          attemptQuestions: weekWiseProgress.attemptQuestions,
           name: weekKeyName,
         });
       }
