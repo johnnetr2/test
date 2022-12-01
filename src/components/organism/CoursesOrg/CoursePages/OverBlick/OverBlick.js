@@ -319,7 +319,7 @@ const OverBlick = () => {
             sx={{ display: "flex", width: 600, flexDirection: "column" }}
           >
             <Typography variant="h6" component="h6">
-              Överblick Provpass 5
+              Överblick Provpass {params?.state.provpass.simuleraQuizResult.length + 1}
             </Typography>
             <Typography variant="body2" component="body2">
               Innan du lämnar in se över vilka frågor du har missat, sparat samt

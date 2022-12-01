@@ -82,6 +82,7 @@ const StandardViewXyz = () => {
           simuleraSeason: quiz?.season,
           timeLeft,
           currentQuestion: currentIndex,
+          provpass: params?.state?.provpass,
         },
       });
     }
