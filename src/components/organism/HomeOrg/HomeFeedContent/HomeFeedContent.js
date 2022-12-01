@@ -158,9 +158,9 @@ const HomeFeedContent = (props) => {
         }
       });
     quantitativeTotalNormValue = quantitativePercentageCalculator(
-      quantitativeTotalNormValue
+      quantitativeTotalNormValue / 4
     );
-    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue);
+    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue / 4);
     let avgProgressQuantitativeAndVerbal =
       (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
 

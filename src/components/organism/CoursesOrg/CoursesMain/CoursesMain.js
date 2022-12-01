@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("1200")]: {
       display: "none",
     },
+    padding: '0 1rem'
   },
   main: {
     minHeight: "100vh",
