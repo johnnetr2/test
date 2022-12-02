@@ -60,21 +60,40 @@ const OverBlick = () => {
           user: localStorage.getItem("userId"),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
+        const provpassNumber = params.state.provpass?.simuleraQuizResult?.length;
         console.log(examData, "exam data");
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
         });
-        navigate("/provresultat", {
-          state: {
-            seasonId: response.data.simuleraQuizResult.simuleraSeason,
-            simuleraQuizResultId: response.data.simuleraQuizResult._id,
-          },
-        });
+        console.log(provpassNumber, "provpassNumber");
+        if(provpassNumber < 3){
+          // DO something
+          // Item = simulera season
+          // Id = id of test
+          // Provpass = simulera quiz history / season
+
+          navigate("/provpassinfo", {
+            state: {
+              id: "",
+              session: "props?.item",
+              provpass: "props?.quizzes",
+            }
+          })
+        } else if(provpassNumber === 3){
+            navigate("/provresultat", {
+              state: {
+                seasonId: response.data.simuleraQuizResult.simuleraSeason,
+                simuleraQuizResultId: response.data.simuleraQuizResult._id,
+              },
+            });
+          }
       } else {
         swal("Fail to submit questions");
       }
     });
   };
+
+  console.log(params.state, "params.state");
 
   const useStyles = makeStyles((theme) => ({
     root: {
