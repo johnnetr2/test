@@ -543,6 +543,7 @@ const ResultSummaryOrg = () => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          marginLeft: "1.2rem",
                         }}
                       >
                         <img src={RightArrow} className={classes.size} alt="" />
