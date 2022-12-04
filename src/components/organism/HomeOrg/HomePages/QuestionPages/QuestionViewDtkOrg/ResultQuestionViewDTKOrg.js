@@ -13,6 +13,7 @@ import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
 import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 import TopArrow from "../../../../../../assets/Icons/TopArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 
@@ -175,7 +176,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                           component="h6"
                           style={{ fontSize: "1rem", fontWeight: "600" }}
                         >
-                          {item.questionStatement}
+                          <MarkLatex content={item.questionStatement} />
                         </Typography>
                         <Box
                           style={{
