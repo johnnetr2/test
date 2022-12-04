@@ -65,12 +65,20 @@ const OverBlick = () => {
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
         });
-        console.log(provpassNumber, "provpassNumber");
+
         if(provpassNumber < 3){
           // DO something
           // Item = simulera season
           // Id = id of test
           // Provpass = simulera quiz history / season
+
+          // Get simuleraquizzes in current season
+          // Get the next quiz in the season
+          
+          
+
+          
+
 
           navigate("/provpassinfo", {
             state: {
@@ -93,7 +101,14 @@ const OverBlick = () => {
     });
   };
 
-  console.log(params.state, "params.state");
+  useEffect(() => {
+    const currentSeason = params.state.simuleraSeason;
+          const getSeasonURL = `${EndPoints.getQuizzesBySeason}/${currentSeason}`;
+          instance2.get(getSeasonURL).then((res) => {
+            console.log(res.data, "season data");
+          })
+  }, [params.state.simuleraSeason])
+
 
   const useStyles = makeStyles((theme) => ({
     root: {
