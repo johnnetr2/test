@@ -96,7 +96,7 @@ const LoginOrg = () => {
                 response.data.user.createdAt
               );
             if (window.innerWidth < 600) {
-              document.getElementById("link").click();
+              window.location.replace('https://www.hpappen.se/mobil')
             } else {
               window.location.href = "/home";
             }
@@ -110,7 +110,7 @@ const LoginOrg = () => {
     }
   };
 
-  
+
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
 
@@ -133,14 +133,6 @@ const LoginOrg = () => {
         display: "flex",
       }}
     >
-      <a
-        style={{ display: "none" }}
-        target="_blank"
-        href="https://www.hpappen.se/mobil"
-        id="link"
-      >
-        link
-      </a>
       <Container
         maxWidth="false"
         disableGutters
