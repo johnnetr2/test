@@ -143,7 +143,7 @@ const HomeFeedContent = (props) => {
     let verbalTotalNormValue = 0;
     let quantitativeTotalNormValue = 0;
     previousRecordProgress &&
-      previousRecordProgress.map((item, index) => {
+      previousRecordProgress.map((item) => {
         const isVerbal = verbalCategories.find(sectionCategoryId => sectionCategoryId === item._id);
         if (isVerbal) {
           verbalCorrected += item.totalCorrectTimePressure;
@@ -153,12 +153,13 @@ const HomeFeedContent = (props) => {
           quantitativeAttempted += item.totalAttemptedTimePressure
         }
       });
+
     quantitativeTotalNormValue = (quantitativeCorrected / quantitativeAttempted) * 100;
     verbalTotalNormValue = (verbalCorrected / verbalAttempted) * 100;
     quantitativeTotalNormValue = quantitativePercentageCalculator(
-      quantitativeTotalNormValue
+      quantitativeTotalNormValue?.toFixed(2)
     );
-    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue);
+    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue?.toFixed(2));
     let avgProgressQuantitativeAndVerbal =
       (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
 
