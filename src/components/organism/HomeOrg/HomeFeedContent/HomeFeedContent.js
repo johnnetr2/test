@@ -136,31 +136,29 @@ const HomeFeedContent = (props) => {
       "62627df17a4f7b3068eaa82f",
       "62627dfe7a4f7b3068eaa834",
     ];
-    let correctedLastHundred = 0;
-    let attemptedLastHundred = 0;
+    let verbalCorrected = 0;
+    let quantitativeCorrected = 0;
+    let verbalAttempted = 0;
+    let quantitativeAttempted = 0;
     let verbalTotalNormValue = 0;
     let quantitativeTotalNormValue = 0;
     previousRecordProgress &&
-      previousRecordProgress.map((item) => {
-        const isVerbal = verbalCategories.find(
-          (sectionCategoryId) => sectionCategoryId === item._id
-        );
-        correctedLastHundred =
-          correctedLastHundred + item.correctedFromLastHundred;
-        attemptedLastHundred =
-          attemptedLastHundred + item.totalAttemptedHundred;
-        const percentageForGetNormValue =
-          (item.correctedFromLastHundred / item.totalAttemptedHundred) * 100;
+      previousRecordProgress.map((item, index) => {
+        const isVerbal = verbalCategories.find(sectionCategoryId => sectionCategoryId === item._id);
         if (isVerbal) {
-          verbalTotalNormValue += percentageForGetNormValue;
+          verbalCorrected += item.totalCorrectTimePressure;
+          verbalAttempted += item.totalAttemptedTimePressure
         } else {
-          quantitativeTotalNormValue += percentageForGetNormValue;
+          quantitativeCorrected += item.totalCorrectTimePressure;
+          quantitativeAttempted += item.totalAttemptedTimePressure
         }
       });
+    quantitativeTotalNormValue = (quantitativeCorrected / quantitativeAttempted) * 100;
+    verbalTotalNormValue = (verbalCorrected / verbalAttempted) * 100;
     quantitativeTotalNormValue = quantitativePercentageCalculator(
-      quantitativeTotalNormValue / 4
+      quantitativeTotalNormValue
     );
-    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue / 4);
+    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue);
     let avgProgressQuantitativeAndVerbal =
       (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
 
