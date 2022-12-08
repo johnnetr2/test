@@ -47,7 +47,6 @@ const CoursesMain = () => {
     };
     const getPreviosExams = EndPoints.getPreviousExams;
     instance2.get(getPreviosExams, data).then((response) => {
-      console.log(response, "get previous exams");
       setPreviousExams(response.data.data);
     });
 

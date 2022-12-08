@@ -61,54 +61,33 @@ const OverBlick = () => {
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
         const provpassNumber = params.state.provpass?.simuleraQuizResult?.length;
-        console.log(examData, "exam data");
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
+          if(provpassNumber < 3){
+            const currentSeason = params.state.simuleraSeason;
+            navigate("/provpassinfo", {
+              state: {
+                id: currentSeason,
+                session: params?.state?.session,
+                provpass: res.data.simuleraSeasonResult,
+              }
+            })
+          } else if(provpassNumber === 3){
+              navigate("/provresultat", {
+                state: {
+                  seasonId: response.data.simuleraQuizResult.simuleraSeason,
+                  simuleraQuizResultId: response.data.simuleraQuizResult._id,
+                },
+              });
+            }
         });
 
-        if(provpassNumber < 3){
-          // DO something
-          // Item = simulera season
-          // Id = id of test
-          // Provpass = simulera quiz history / season
-
-          // Get simuleraquizzes in current season
-          // Get the next quiz in the season
-          
-          
-
-          
-
-
-          navigate("/provpassinfo", {
-            state: {
-              id: "",
-              session: "props?.item",
-              provpass: "props?.quizzes",
-            }
-          })
-        } else if(provpassNumber === 3){
-            navigate("/provresultat", {
-              state: {
-                seasonId: response.data.simuleraQuizResult.simuleraSeason,
-                simuleraQuizResultId: response.data.simuleraQuizResult._id,
-              },
-            });
-          }
+        
       } else {
         swal("Fail to submit questions");
       }
     });
   };
-
-  useEffect(() => {
-    const currentSeason = params.state.simuleraSeason;
-          const getSeasonURL = `${EndPoints.getQuizzesBySeason}/${currentSeason}`;
-          instance2.get(getSeasonURL).then((res) => {
-            console.log(res.data, "season data");
-          })
-  }, [params.state.simuleraSeason])
-
 
   const useStyles = makeStyles((theme) => ({
     root: {

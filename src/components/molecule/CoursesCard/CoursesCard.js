@@ -55,7 +55,7 @@ const CoursesCard = (props) => {
         state: {
           id: props.id,
           session: props?.item,
-          provpass: props?.quizzes,
+          provpass: response.data.simuleraSeasonResult,
         },
       });
     });
