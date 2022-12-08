@@ -1,5 +1,7 @@
-* {
-  font-family: "Roboto";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap');
+
+body , html {
+  font-family: 'Poppins', sans-serif !important;
 }
 
 label>img {
@@ -35,10 +37,6 @@ input::placeholder {
 .swal-modal .swal-text {
   text-align: center;
 }
-
-/* .input-style:focus {
-  outline: none;
-} */
 
 .optionImage p img {
   width: 55%;

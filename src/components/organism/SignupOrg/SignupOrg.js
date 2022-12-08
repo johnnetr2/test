@@ -226,6 +226,7 @@ const SignupOrg = () => {
                 borderRadius: "8px",
                 marginBottom: "1rem",
                 outline: "none",
+                fontFamily: "Poppins"
               }}
             />
             <LabelField
