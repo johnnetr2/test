@@ -84,7 +84,7 @@ const CoursesCard = (props) => {
           boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
           cursor: "pointer",
-          maxWidth: "48rem",
+          maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
         <Box
