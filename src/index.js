@@ -7,31 +7,14 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createTheme({
-  typography: {
-    "fontFamily": "Poppins",
-  }
-});
-
-const appColors = {
-  appColor: {
-    blueColor: "#5263EB",
-    blackColor: "#000000",
-    whiteColor: "#FFFFFF"
-  }
-};
 
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <ThemeProvider theme={{ ...theme, ...appColors }}>
-        <PersistGate loading={null} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </BrowserRouter>,
   document.getElementById("root")

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { appColors } from "../../service/commonService";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { EndPoints, instance2 } from "../../service/Route";
 import { Box } from "@material-ui/core";
@@ -123,16 +124,16 @@ const LineDemo = (props) => {
           <Tooltip
             content={<CustomTooltip />}
             contentStyle={{
-              backgroundColor: "#fff",
+              backgroundColor: appColors.whiteColor,
               border: "1px solid #e1e1e1",
               borderRadius: "5px",
             }}
-            itemStyle={{ color: "#000" }}
+            itemStyle={{ color: appColors.blackColor }}
             cursor={false}
           />
           <Bar
             dataKey="correct"
-            fill="#0A1596"
+            fill={appColors.blueColor}
             barSize={5}
             radius={[10, 10, 0, 0]}
 

@@ -16,7 +16,7 @@ import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
 import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
 import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
-
+import { appColors } from "../../../service/commonService";
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navBelowBarColor: {
     "& .PrivateTabIndicator-colorSecondary-19": {
-      backgroundColor: "#0A1596",
+      backgroundColor: appColors.blueColor,
     },
   },
   tabIndicatorWidth: {
@@ -212,8 +212,8 @@ const HomeFeedContent = (props) => {
                 aria-label="scrollable prevent tabs example"
                 TabIndicatorProps={{
                   style: {
-                    background: "#0A1596",
-                    border: "4px solid #0A1596",
+                    background: appColors.blueColor,
+                    border: `4px solid ${appColors.blueColor}`,
                   },
                 }}
               >

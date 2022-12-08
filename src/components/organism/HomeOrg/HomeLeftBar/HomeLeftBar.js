@@ -19,6 +19,7 @@ import {
   Box,
   TableContainer,
 } from "@material-ui/core";
+import { appColors } from "../../../service/commonService";
 require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
@@ -46,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "5rem",
     marginBottom: theme.spacing(1),
     "&:hover": {
-      backgroundColor: "#0A1596",
-      color: "#fff",
+      backgroundColor: appColors.hoverBlue,
+      color: appColors.whiteColor,
     },
     [theme.breakpoints.up("sm")]: {
       marginBottom: theme.spacing(0),
@@ -85,9 +86,6 @@ const useStyles = makeStyles((theme) => ({
   text: {
     fontSize: "0.65rem",
     textAlign: "center",
-    // "&:active": {
-    //   color: "#fff",
-    // },
     textTransform: "uppercase",
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -127,8 +125,8 @@ const HomeLeftBar = (props) => {
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
-            backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? "#fff" : "none",
+            backgroundColor: isActive ? appColors.blueColor : "none",
+            color: isActive ? appColors.whiteColor : "none",
           };
         }}
       >
@@ -138,13 +136,13 @@ const HomeLeftBar = (props) => {
             display: "flex",
             justifyContent: "center",
           }}
-          // onClick={() =>
-          // navigate("/home", {
-          //   state: {
-          //     popUpStatus: true,
-          //   },
-          // })
-          // }
+        // onClick={() =>
+        // navigate("/home", {
+        //   state: {
+        //     popUpStatus: true,
+        //   },
+        // })
+        // }
         >
           {/* <img src={HomeC} alt="" srcset="" /> */}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -164,23 +162,23 @@ const HomeLeftBar = (props) => {
       </NavLink>
       {/* Home Nav */}
 
-      { process.env.REACT_APP_SERVER_NAME === "DEV" ?
-      <NavLink
-        to="/courses"
-        className={classes.navStyle}
-        style={({ isActive }) => {
-          return {
-            backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? "#fff" : "none",
-          };
-        }}
-      >
-        <Box
-          className={classes.item}
-          style={{
-            display: "flex",
-            justifyContent: "center",
+      {process.env.REACT_APP_SERVER_NAME === "DEV" ?
+        <NavLink
+          to="/courses"
+          className={classes.navStyle}
+          style={({ isActive }) => {
+            return {
+              backgroundColor: isActive ? appColors.blueColor : "none",
+              color: isActive ? appColors.whiteColor : "none",
+            };
           }}
+        >
+          <Box
+            className={classes.item}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
           // onClick={() =>
           // navigate("/home", {
           //   state: {
@@ -188,65 +186,65 @@ const HomeLeftBar = (props) => {
           //   },
           // })
           // }
-        >
-          {/* <img src={HomeC} alt="" srcset="" /> */}
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <img
-              src={props.currentPage === "course" ? CourseC : Course}
-              className={classes.icon}
-            />
-          </Box>
-          <Typography
-            variant="body1"
-            component="body1"
-            className={classes.text}
           >
-            Prov
-          </Typography>
-        </Box>
-      </NavLink>
-      :
-      <Box
-      to="/#"
-      className={classes.disabledNavStyle}
-      // style={({ isActive }) => {
-      //   return {
-      //     backgroundColor: isActive ? "#0A1596" : "none",
-      //     color: isActive ? "#fff" : "none",
-      //   };
-      // }}
-    >
-      <Box
-        className={classes.Disableitem}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-        // onClick={() =>
-        // navigate("/home", {
-        //   state: {
-        //     popUpStatus: true,
-        //   },
-        // })
-        // }
-      >
-        {/* <img src={HomeC} alt="" srcset="" /> */}
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <img
-            src={props.currentPage === "course" ? CourseC : Course}
-            className={classes.icon}
-          />
-        </Box>
-        <Typography
-          variant="body1"
-          component="body1"
-          className={classes.text}
+            {/* <img src={HomeC} alt="" srcset="" /> */}
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <img
+                src={props.currentPage === "course" ? CourseC : Course}
+                className={classes.icon}
+              />
+            </Box>
+            <Typography
+              variant="body1"
+              component="body1"
+              className={classes.text}
+            >
+              Prov
+            </Typography>
+          </Box>
+        </NavLink>
+        :
+        <Box
+          to="/#"
+          className={classes.disabledNavStyle}
+        // style={({ isActive }) => {
+        //   return {
+        //     backgroundColor: isActive ? appColors.blueColor : "none",
+        //     color: isActive ? appColors.whiteColor : "none",
+        //   };
+        // }}
         >
-          Prov
-        </Typography>
-      </Box>
-    </Box>
-}
+          <Box
+            className={classes.Disableitem}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          // onClick={() =>
+          // navigate("/home", {
+          //   state: {
+          //     popUpStatus: true,
+          //   },
+          // })
+          // }
+          >
+            {/* <img src={HomeC} alt="" srcset="" /> */}
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <img
+                src={props.currentPage === "course" ? CourseC : Course}
+                className={classes.icon}
+              />
+            </Box>
+            <Typography
+              variant="body1"
+              component="body1"
+              className={classes.text}
+            >
+              Prov
+            </Typography>
+          </Box>
+        </Box>
+      }
 
       {/* <NavLink
         to="/courses"
@@ -254,8 +252,8 @@ const HomeLeftBar = (props) => {
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
-            backgroundColor: isActive ? "#0A1596" : "none",
-            color: isActive ? "#fff" : "none",
+            backgroundColor: isActive ? appColors.blueColor : "none",
+            color: isActive ? appColors.whiteColor : "none",
           };
         }}
       >
@@ -269,8 +267,8 @@ const HomeLeftBar = (props) => {
           }}
           // style={({ isActive }) => {
           //   return {
-          //     backgroundColor: isActive ? "#0A1596" : "none",
-          //     color: isActive ? "#fff" : "none",
+          //     backgroundColor: isActive ? appColors.blueColor : "none",
+          //     color: isActive ? appColors.whiteColor : "none",
           //   };
           // }}
         >
@@ -304,12 +302,12 @@ const HomeLeftBar = (props) => {
         // to="/message"
         to="#"
         className={classes.disabledNavStyle}
-        // style={({ isActive }) => {
-        //   return {
-        //     backgroundColor: isActive ? "#0A1596" : "none",
-        //     color: isActive ? "#fff" : "none",
-        //   };
-        // }}
+      // style={({ isActive }) => {
+      //   return {
+      //     backgroundColor: isActive ? appColors.blueColor : "none",
+      //     color: isActive ? appColors.whiteColor : "none",
+      //   };
+      // }}
       >
         <Box
           className={classes.Disableitem}
@@ -334,12 +332,12 @@ const HomeLeftBar = (props) => {
       <Box
         to="#"
         className={classes.disabledNavStyle}
-        // style={({ isActive }) => {
-        //   return {
-        //     backgroundColor: isActive ? "#0A1596" : "none",
-        //     color: isActive ? "#fff" : "none",
-        //   };
-        // }}
+      // style={({ isActive }) => {
+      //   return {
+      //     backgroundColor: isActive ? appColors.blueColor : "none",
+      //     color: isActive ? appColors.whiteColor : "none",
+      //   };
+      // }}
       >
         <Box
           className={classes.Disableitem}

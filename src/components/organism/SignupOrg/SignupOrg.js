@@ -15,6 +15,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { appColors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -156,7 +157,7 @@ const SignupOrg = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#0A1596",
+          backgroundColor: appColors.blueColor,
         }}
       >
         <Box
@@ -328,7 +329,7 @@ const SignupOrg = () => {
           >
             <Typography variant="body1" style={{ textTransform: "uppercase" }}>
               Har du redan ett konto?
-              <Link to="/login" style={{ textDecorationLine: "none" }}>
+              <Link to="/login" style={{ textDecorationLine: "none", color: appColors.blueColor }}>
                 {" "}
                 Logga in
               </Link>
