@@ -52,8 +52,10 @@ const HomeMainOrg = (props) => {
             setToggleIcon={props.setToggleIcon}
           />
         </Grid>
-        <Grid item xs={12} sm={11} md={7} lg={7} xl={7}>
-          <HomeFeedContent getPrognos={(e) => setTotalPrognos(e)}
+
+        <Grid item xs={12} sm={10} lg={7} xl={7} style={{ margin: "0 auto" }}>
+          <HomeFeedContent
+            getPrognos={(e) => setTotalPrognos(e)}
             studentPreference={
               props?.StudentPreference && props?.StudentPreference
             }

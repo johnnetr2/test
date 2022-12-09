@@ -50,7 +50,7 @@ const HomeCard = (props) => {
     <Box
       sx={{
         height: "20%",
-        maxWidth: "41rem",
+        maxWidth: { md: "unset", lg: "41rem" },
         display: "flex",
         justifyContent: "space-between",
         border: "1px solid #e1e1e1",

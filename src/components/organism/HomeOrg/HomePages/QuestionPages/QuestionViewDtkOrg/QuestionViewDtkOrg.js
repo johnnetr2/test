@@ -433,7 +433,7 @@ const QuestionViewDTKOrg = (props) => {
             {quiz && (
               <QuestionStatement
                 numberOfQuestions={quiz?.question.length}
-                title={quiz?.title === "DTK" && ""}
+                title={quiz?.title}
                 description={quiz?.description}
               />
             )}
