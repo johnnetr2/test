@@ -33,6 +33,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import swal from "sweetalert";
 import { useSelector } from "react-redux";
+import { appColors } from "../../../../../service/commonService";
+import CirculerLoader from '../../../../../molecule/CircularLoader'
 
 export const dispSecondsAsMins = (seconds) => {
   // 25:00
@@ -290,7 +292,7 @@ const ResultSummaryOrg = () => {
                     </Typography>
                   ) : (
                     <Box sx={{ display: "flex" }}>
-                      <CircularProgress />
+                      <CirculerLoader />
                     </Box>
                   )}
                   <Typography
@@ -330,7 +332,7 @@ const ResultSummaryOrg = () => {
                       </Typography>
                     ) : (
                       <Box sx={{ display: "flex" }}>
-                        <CircularProgress />
+                        <CirculerLoader />
                       </Box>
                     )}
                     <Typography
@@ -377,7 +379,7 @@ const ResultSummaryOrg = () => {
                         dispSecondsAsMins(timePerQues?.toFixed(0))
                       ) : (
                         <Box sx={{ display: "flex" }}>
-                          <CircularProgress />
+                          <CirculerLoader />
                         </Box>
                       )}
                     </Typography>
@@ -414,7 +416,7 @@ const ResultSummaryOrg = () => {
                           )
                         ) : (
                           <Box sx={{ display: "flex" }}>
-                            <CircularProgress />
+                            <CirculerLoader />
                           </Box>
                         )}
                       </Typography>
@@ -566,8 +568,8 @@ const ResultSummaryOrg = () => {
               style={{
                 width: "100%",
                 maxWidth: 600,
-                color: "#000DAB",
-                borderColor: "#000DAB",
+                color: appColors.blueColor,
+                borderColor: appColors.blueColor,
                 borderRadius: "8px",
               }}
             >
