@@ -115,6 +115,8 @@ export default function BackButtonPopup(props) {
               fontWeight: "regular",
               padding: ".60rem 3rem",
               marginBottom: "2rem",
+              border: "2px solid #0A1596",
+
             }}
             >
             {props.cancelBtnName}

@@ -113,8 +113,10 @@ export default function QuestionBackButtonPopup(props) {
               color: "#fff",
               textTransform: "capitalize",
               fontWeight: "regular",
-              padding: ".60rem 3rem",
+              border: "2px solid #0A1596",
+              padding: ".6rem 3rem",
               marginBottom: "2rem",
+              borderRadius: "5px",
             }}
             >
             {props.agreeBtnName}
