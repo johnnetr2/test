@@ -62,7 +62,7 @@ const CategoryPagesMain = () => {
             justifyContent: "space-around",
           }}
         >
-          <Grid item sm={12} xs={11} md={7} lg={7} xl={7}>
+          <Grid item xs={12} sm={10} lg={7} xl={7}>
             <CategoryPagesFeedContent item={params?.state?.item} />
           </Grid>
           <Grid item className={classes.right}>

@@ -26,11 +26,11 @@ function inRange(x, min, max) {
   return min <= x && x <= max;
 }
 
-export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
-  const previousWeeks = [];
+export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
   const weeklyProgressArr = [];
   let noOfEmptyWeek = 0;
 
+  //set default values for empty weeks 
   if (Object.keys(weekWiseData).length < 7) {
     const weekKeys = Object.keys(weekWiseData); //35,36
     const firstWeekKey = weekKeys[0]; //35
@@ -38,7 +38,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
     const startIndexOfLoop = firstWeekKey - noOfEmptyWeek; //30 //first = 35
 
     for (let index = startIndexOfLoop; index < firstWeekKey; index++) {
-      previousWeeks.push("V." + index);
+
       weeklyProgressArr.push({
         correctAnswers: 0,
         attemptQuestions: 0,
@@ -51,10 +51,12 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
   let weekWiseProgress = {};
   let calculationForTerminate = 0;
 
+  // calculate percentage of week wise data and got normring from table
   weekWiseData &&
     Object.keys(weekWiseData).map((weekKeyName, index) => {
       const week = "V." + weekKeyName;
-      previousWeeks.push(week);
+
+      //reverse loop to add privious weeks data to achive privious hundred questions progress
       for (let iterations = index; iterations >= 0; iterations--) {
         const weekData = Object.values(weekWiseData)[iterations];
 
@@ -75,7 +77,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
             : solvedQuizOfWeek.correctAnswer;
           weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
             ? weekWiseProgress?.attemptQuestions +
-              solvedQuizOfWeek.attemptedQuestion
+            solvedQuizOfWeek.attemptedQuestion
             : solvedQuizOfWeek.attemptedQuestion;
         }
         if (calculationForTerminate > 100) {
@@ -87,11 +89,13 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
         (weekWiseProgress?.correctAnswers /
           weekWiseProgress?.attemptQuestions) *
         100;
-      if (testTypes === "verbel") {
+      if (testTypes === "verbal") {
+        // getting normring values from verbal normring tables
         weekWiseProgress.eachCategoryPrognos = verbalPercentageCalculator(
           progress.toFixed(2)
         );
       } else {
+        // getting normring values from quantitative normring tables
         weekWiseProgress.eachCategoryPrognos = quantitativePercentageCalculator(
           progress.toFixed(2)
         );
@@ -99,7 +103,6 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes, setWeeks) => {
       calculationForTerminate = 0;
       weeklyProgressArr.push({ ...weekWiseProgress, name: week });
     });
-  setWeeks(previousWeeks);
 
   return weeklyProgressArr;
 };
@@ -181,7 +184,7 @@ export const calculateWeekWiseNormingForCategory = (
           if (solvedQuizOfWeek.quiz.isTimeRestricted) {
             weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
               ? weekWiseProgress?.correctAnswers +
-                solvedQuizOfWeek.correctAnswer
+              solvedQuizOfWeek.correctAnswer
               : solvedQuizOfWeek.correctAnswer;
             weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
               ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
@@ -189,7 +192,7 @@ export const calculateWeekWiseNormingForCategory = (
             weekWiseProgress.attemptQuestions =
               weekWiseProgress?.attemptQuestions
                 ? weekWiseProgress?.attemptQuestions +
-                  solvedQuizOfWeek.attemptedQuestion
+                solvedQuizOfWeek.attemptedQuestion
                 : solvedQuizOfWeek.attemptedQuestion;
           }
         }

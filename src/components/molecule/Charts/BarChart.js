@@ -1,44 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
-import { appColors } from "../../service/commonService";
+import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
-import { EndPoints, instance2 } from "../../service/Route";
 import { Box } from "@material-ui/core";
-import moment from "moment";
-import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
-
-// const data = [
-//   {
-//     name: "V35",
-//     correct: 8,
-//   },
-//   {
-//     name: "V36",
-//     correct: 10,
-//   },
-//   {
-//     name: "V37",
-//     correct: 12,
-//   },
-//   {
-//     name: "V38",
-//     correct: 15,
-//   },
-//   {
-//     name: "V39",
-//     correct: 20,
-//   },
-//   {
-//     name: "V40",
-//     correct: 33,
-//   },
-//   {
-//     name: "V41",
-//     correct: 40,
-//   },
-// ];
+import { appColors } from "../../service/commonService";
 
 const LineDemo = (props) => {
-
   const [rangeOfGraph, setRangeOfGraph] = useState(4);
 
   useEffect(() => {
@@ -55,25 +20,6 @@ const LineDemo = (props) => {
     }
   }, []);
 
-  // const lineChartParams = [];
-
-  // const weekNameArray = weeksArray.reverse();
-
-  // const data = props?.weeklyProgress;
-  // weekNameArray.forEach((weekName) => {
-  //   const perWeekData = data.find(
-  //     (perWeekProgress) => perWeekProgress.name === weekName
-  //   );
-  //   if (perWeekData) {
-  //     lineChartParams.push({
-  //       name: weekName,
-  //       correct: perWeekData.weekWiseCorrected,
-  //     });
-  //   } else {
-  //     lineChartParams.push({ name: weekName, correct: "" });
-  //   }
-  // });
-
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -85,7 +31,7 @@ const LineDemo = (props) => {
             padding: ".65rem .75rem",
           }}
         >
-          <p>{`Correct: ${payload[0].value}`}</p>
+          <p>{`Klarade: ${payload[0].value}`}</p>
         </div>
       );
     }

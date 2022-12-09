@@ -62,16 +62,29 @@ const OverBlick = () => {
           user: localStorage.getItem("userId"),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
-        console.log(examData, "exam data");
+        const provpassNumber = params.state.provpass?.simuleraQuizResult?.length;
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
+          if(provpassNumber < 3){
+            const currentSeason = params.state.simuleraSeason;
+            navigate("/provpassinfo", {
+              state: {
+                id: currentSeason,
+                session: params?.state?.session,
+                provpass: res.data.simuleraSeasonResult,
+              }
+            })
+          } else if(provpassNumber === 3){
+              navigate("/provresultat", {
+                state: {
+                  seasonId: response.data.simuleraQuizResult.simuleraSeason,
+                  simuleraQuizResultId: response.data.simuleraQuizResult._id,
+                },
+              });
+            }
         });
-        navigate("/provresultat", {
-          state: {
-            seasonId: response.data.simuleraQuizResult.simuleraSeason,
-            simuleraQuizResultId: response.data.simuleraQuizResult._id,
-          },
-        });
+
+        
       } else {
         swal("Fail to submit questions");
       }

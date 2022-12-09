@@ -54,6 +54,7 @@ export const EndPoints = {
   getPreviousExams: "/api/simuleraSeasion",
   getStudentPreference: "/api/studentPrefenence/byUser/",
   getSimuleraQuiz: "/api/simuleraQuiz/quiz/",
+  getQuizzesBySeason: "/api/simuleraQuiz/quizBySeason",
   submitSimuleraTest: "/api/simuleraQuizResult",
   getSimuleraQuizByUser: "/api/simuleraQuizResult/quizByUser/",
   getSimuleraQuizResult: "/api/simuleraQuizResult/",

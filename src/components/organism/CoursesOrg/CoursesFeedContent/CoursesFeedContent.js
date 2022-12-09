@@ -190,7 +190,7 @@ const CoursesFeedContent = (props) => {
             marginTop: "1rem",
             display: "flex",
             justifyContent: "center",
-            maxWidth: "48rem",
+            maxWidth: { xs: "unset", lg: "48rem" },
           }}
         >
           <Button
