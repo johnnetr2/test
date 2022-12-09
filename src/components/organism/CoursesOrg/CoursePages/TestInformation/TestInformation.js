@@ -17,7 +17,6 @@ import {
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 
 const TestInformation = (props) => {
-
   const useStyles = makeStyles((theme) => ({
     root: {
       minHeight: "100vh",
@@ -100,7 +99,11 @@ const TestInformation = (props) => {
       <Container
         maxWidth={false}
         disableGutters
-        style={{ backgroundColor: "#fff", height: "fit-content" }}
+        style={{
+          backgroundColor: "#fff",
+          height: "fit-content",
+          paddingTop: 24,
+        }}
       >
         <Container
           maxWidth="md"
@@ -116,7 +119,12 @@ const TestInformation = (props) => {
         >
           <Box
             mt={3}
-            sx={{ display: "flex", width: 600, flexDirection: "column" }}
+            sx={{
+              display: "flex",
+              width: "100%",
+              maxWidth: 600,
+              flexDirection: "column",
+            }}
           >
             <Typography variant="h6" component="h6">
               Högskoleprov 2021 vår mars
@@ -137,8 +145,8 @@ const TestInformation = (props) => {
             padding={6}
             sx={{
               backgroundColor: "#fff",
-              width: 600,
-              height: 373,
+              width: "100%",
+              maxWidth: 600,
               overflow: "auto",
               border: "1px solid #e1e1e1",
             }}
@@ -148,7 +156,7 @@ const TestInformation = (props) => {
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "600" }}
+              style={{ fontSize: ".875rem", fontWeight: "600" }}
             >
               Fyra provpass
             </Typography>
@@ -156,7 +164,7 @@ const TestInformation = (props) => {
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               Högskoleprovet är indelat i fem provpass, men eftersom ett av
               dessa är utprövningspass har vi här exkluderat detta provpass. Du
@@ -167,7 +175,7 @@ const TestInformation = (props) => {
             <Typography
               variant="subtitle1"
               style={{
-                fontSize: ".7rem",
+                fontSize: ".875rem",
                 fontWeight: "600",
                 marginTop: "20px",
               }}
@@ -177,7 +185,7 @@ const TestInformation = (props) => {
 
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               Varje kvantitativt provpass består av uppgifter från fyra olika
               delprov:
@@ -185,8 +193,8 @@ const TestInformation = (props) => {
             <Typography
               variant="subtitle1"
               style={{
-                fontSize: ".7rem",
-                fontWeight: "500",
+                fontSize: ".875rem",
+                fontWeight: "400",
                 marginTop: "20px",
               }}
             >
@@ -194,26 +202,26 @@ const TestInformation = (props) => {
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               KVA, kvantitativa jämförelser: 10 uppgifter
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               NOG, kvantitativa resonemang: 6 uppgifter
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               DTK, diagram, tabeller och kartor: 12 uppgifter
             </Typography>
             <Typography
               variant="subtitle1"
               style={{
-                fontSize: ".7rem",
+                fontSize: ".875rem",
                 fontWeight: "600",
                 marginTop: "20px",
               }}
@@ -223,7 +231,7 @@ const TestInformation = (props) => {
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               Varje verbalt provpass består av uppgifter från fyra olika
               delprov:
@@ -231,8 +239,8 @@ const TestInformation = (props) => {
             <Typography
               variant="subtitle1"
               style={{
-                fontSize: ".7rem",
-                fontWeight: "500",
+                fontSize: ".875rem",
+                fontWeight: "400",
                 marginTop: "20px",
               }}
             >
@@ -240,19 +248,19 @@ const TestInformation = (props) => {
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               LÄS, svensk läsförståelse: 10 uppgifter
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               MEK, meningskomplettering: 10 uppgifter
             </Typography>
             <Typography
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               ELF, engelsk läsförståelse: 10 uppgifter
             </Typography>
@@ -260,7 +268,7 @@ const TestInformation = (props) => {
               mt={3}
               variant="subtitle1"
               style={{
-                fontSize: ".7rem",
+                fontSize: ".875rem",
                 fontWeight: "600",
                 marginTop: "20px",
               }}
@@ -268,19 +276,17 @@ const TestInformation = (props) => {
               Lämna in provpass efter 55 minuter
             </Typography>
           </Box>
-          <Box padding={1} m={2} sx={{ width: 615 }}>
+          <Box py={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             <ExerciseBtn
               title="Nasta"
               onClick={() =>
-                navigate("/provpassinfo"
-                  , {
-                    state: {
-                      id: params.state.id,
-                      session: params.state.session,
-                      provpass: params.state?.provpass,
-                    },
-                  }
-                )
+                navigate("/provpassinfo", {
+                  state: {
+                    id: params.state.id,
+                    session: params.state.session,
+                    provpass: params.state?.provpass,
+                  },
+                })
               }
             />
           </Box>

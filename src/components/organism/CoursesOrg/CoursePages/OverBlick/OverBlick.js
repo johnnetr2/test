@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from "react";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
-import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
-import Tick from "../../../../../assets/Icons/Tick.svg";
-import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
-import Warning from "../../../../../assets/Icons/Warning.svg";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Typography,
   AppBar,
   Box,
+  Button,
+  Container,
   CssBaseline,
   Toolbar,
-  Container,
-  Button,
+  Typography,
 } from "@material-ui/core";
-import { useLocation, useNavigate } from "react-router-dom";
-import BootstrapDialogTitle from "../../../../molecule/TestSubmitPopup/TestSubmitPopup";
 import { EndPoints, instance2 } from "../../../../service/Route";
-import TestOverPopup from "../../../../molecule/TestOverPopup/TestOverPopup";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
-import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
-import swal from "sweetalert";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
 import { appColors } from "../../../../service/commonService";
+import Backdrop from "@mui/material/Backdrop";
+import BootstrapDialogTitle from "../../../../molecule/TestSubmitPopup/TestSubmitPopup";
+import CircularProgress from "@mui/material/CircularProgress";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
+import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
+import TestOverPopup from "../../../../molecule/TestOverPopup/TestOverPopup";
+import Tick from "../../../../../assets/Icons/Tick.svg";
+import Warning from "../../../../../assets/Icons/Warning.svg";
+import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
+import { makeStyles } from "@material-ui/core/styles";
+import swal from "sweetalert";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -43,7 +44,7 @@ const OverBlick = () => {
 
   const submitQuiz = () => {
     setTimeOverPopUp(false);
-    setTestSubmitPopUp(false)
+    setTestSubmitPopUp(false);
     setOpen(true);
     const data = {
       simuleraQuiz: params.state.simuleraQuiz,
@@ -140,7 +141,6 @@ const OverBlick = () => {
   const classes = useStyles(10);
 
   const ShowImage = (item) => {
-
     if (item.isFlaged) {
       return (
         <img
@@ -148,7 +148,6 @@ const OverBlick = () => {
           src={YellowStar}
           alt=""
         />
-
       );
     } else if (item.optionId) {
       return (
@@ -181,7 +180,6 @@ const OverBlick = () => {
             alignItems: "center",
           }}
         >
-
           <Box
             sx={{
               height: "4rem",
@@ -191,9 +189,8 @@ const OverBlick = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
-
             onClick={() => {
-              setBackPressPopup(true)
+              setBackPressPopup(true);
             }}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
@@ -226,16 +223,13 @@ const OverBlick = () => {
         style={{
           backgroundColor: "#fff",
           border: "1px solid #fff",
-          height: "96vh",
-          width: "100%"
-          // minHeight: "100vh",
+          width: "100%",
         }}
       >
         <Container
           disableGutters
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
-
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             {/* <Box mt={2} width={100} sx={{ color: "#222" }}>
@@ -305,7 +299,7 @@ const OverBlick = () => {
         <Container
           maxWidth="md"
           style={{
-            marginTop: 65,
+            margin: "24px auto 80px",
             backgroundColor: "#f9f9f9",
             // backgroundColor: "#999",
             border: "1px solid #fff",
@@ -313,8 +307,8 @@ const OverBlick = () => {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
-            height: "92.5%",
-            width: "80%"
+            width: "80%",
+            paddingBottom: 24,
           }}
         >
           <Box
@@ -322,16 +316,18 @@ const OverBlick = () => {
             sx={{ display: "flex", width: 600, flexDirection: "column" }}
           >
             <Typography variant="h6" component="h6">
-              Överblick Provpass {params?.state?.provpass?.simuleraQuizResult.length + 1}
+              Överblick Provpass{" "}
+              {params?.state?.provpass?.simuleraQuizResult.length + 1}
             </Typography>
             <Typography variant="body2" component="body2">
-              Innan du lämnar in se över vilka frågor du har missat, sparat samt
-              gjort klart
+              Innan du lämnar in, kontrollera vilka frågor du har <b>missat</b>,
+              <b>sparat</b> samt <b>gjort klart</b>
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 marginTop: "1rem",
+                gap: 16,
               }}
             >
               <Box
@@ -348,7 +344,7 @@ const OverBlick = () => {
                   src={Tick}
                   alt=""
                 />
-                <Typography variant="body2">Gjord uppgit</Typography>
+                <Typography variant="body2">Gjord uppgift</Typography>
               </Box>
               <Box
                 mt={1}
@@ -392,7 +388,6 @@ const OverBlick = () => {
               backgroundColor: "#fff",
               width: 600,
               padding: "2rem",
-              height: 450,
               overflow: "auto",
               display: "flex",
               justifyContent: "center",
@@ -432,7 +427,7 @@ const OverBlick = () => {
                               timeLeft: params.state.timeLeft,
                               SubmittedQuestions:
                                 params?.state?.SubmitedQuestions,
-                              provpass: params?.state?.provpass
+                              provpass: params?.state?.provpass,
                             },
                           })
                         }
@@ -502,7 +497,6 @@ const OverBlick = () => {
             bottom: 0,
             left: 0,
             right: 0,
-
           }}
         >
           <Button
