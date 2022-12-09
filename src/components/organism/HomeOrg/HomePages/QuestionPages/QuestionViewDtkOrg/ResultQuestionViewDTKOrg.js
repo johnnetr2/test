@@ -16,6 +16,7 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import { appColors } from "../../../../../service/commonService";
 
 const ResultQuestionViewDtkOrg = (props) => {
 
@@ -95,7 +96,7 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const showResult = (index) => {
@@ -225,7 +226,7 @@ const ResultQuestionViewDtkOrg = (props) => {
               padding={1}
               mt={2}
               style={{
-                backgroundColor: "#0A1596",
+                backgroundColor: appColors.blueColor,
                 color: "#FFFFFF",
                 height: "2.7rem",
                 borderRadius: ".4rem",

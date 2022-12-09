@@ -266,7 +266,7 @@ const RightBar = (props) => {
               <Button
                 contained
                 style={{
-                  backgroundColor: "#0A1596",
+                  backgroundColor: appColors.blueColor,
                   textTransform: "capitalize",
                   color: "#fff",
                   width: "12rem",

@@ -70,8 +70,8 @@ export default function UnAttemptedPopup(props) {
               variant="contained"
               style={{
                 width: "10rem",
-                color: "#0A1596",
-                border: "1px solid #0A1596",
+                color: appColors.blueColor,
+                border: `1px solid ${appColors.blueColor}`,
               }}
             >
               Fortsätt öva
@@ -81,8 +81,8 @@ export default function UnAttemptedPopup(props) {
               variant="contained"
               style={{
                 width: "10rem",
-                color: "#0A1596",
-                backgroundColor: "#0A1596",
+                color: appColors.blueColor,
+                backgroundColor: appColors.blueColor,
                 color: "#fff",
               }}
             >

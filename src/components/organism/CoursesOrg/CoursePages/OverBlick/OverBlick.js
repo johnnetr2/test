@@ -24,6 +24,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import swal from "sweetalert";
 import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
+import { appColors } from "../../../../service/commonService";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -509,8 +510,8 @@ const OverBlick = () => {
             style={{
               width: 600,
               textTransform: "capitalize",
-              color: "#0A1596",
-              border: "1px solid #0A1596",
+              color: appColors.blueColor,
+              border: `1px solid ${appColors.blueColor}`,
             }}
             onClick={() => setTestSubmitPopUp(true)}
           >

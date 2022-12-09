@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, makeStyles, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from "@material-ui/core";
 import Thumb from '../../../../assets/Imgs/Thumb.png'
+import { appColors } from '../../../service/commonService';
 
 const useStyles = makeStyles((theme) => ({
   topspace: {
@@ -67,15 +68,15 @@ const MessageRightBar = () => {
               </Table>
             </TableContainer>
           </Box>
-          <Box sx={{ border: '1px solid #e1e1e1', borderRadius: '.25rem', padding: '1.5rem', boxShadow: '1px 1px 5px #d4d4d4', backgroundColor: '#fff', display:'flex', justifyContent:'space-between' }}>
-            <Box style={{display:'flex', flexDirection:'column'}}>
+          <Box sx={{ border: '1px solid #e1e1e1', borderRadius: '.25rem', padding: '1.5rem', boxShadow: '1px 1px 5px #d4d4d4', backgroundColor: '#fff', display: 'flex', justifyContent: 'space-between' }}>
+            <Box style={{ display: 'flex', flexDirection: 'column' }}>
               <Typography variant="h5" component="h5">Lås upp fler prov</Typography>
               <Typography variant="body2" component="body2">Lås upp premiumfunktioner
                 endast för 199 sek per sektion</Typography>
-                <Button contained style={{backgroundColor:'#0A1596', textTransform:'capitalize', color:'#fff', width:'8rem'}}>Lås upp prov</Button>
+              <Button contained style={{ backgroundColor: appColors.blueColor, textTransform: 'capitalize', color: '#fff', width: '8rem' }}>Lås upp prov</Button>
             </Box>
             <Box>
-              <img style={{width:'6rem'}} src={Thumb} alt="" />
+              <img style={{ width: '6rem' }} src={Thumb} alt="" />
             </Box>
           </Box>
         </Box>

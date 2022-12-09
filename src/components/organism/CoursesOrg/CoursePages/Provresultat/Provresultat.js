@@ -26,6 +26,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import ExamResults from '../../../../../assets/Static/ExamResults.json'
+import { appColors } from "../../../../service/commonService";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -883,8 +884,8 @@ const Provresultat = () => {
                           <Button
                             style={{
                               backgroundColor: "#fff",
-                              color: "#0A1596",
-                              border: "1px solid #0A1596",
+                              color: appColors.blueColor,
+                              border: `1px solid ${appColors.blueColor}`,
                             }}
                           >
                             SE RATTNING
@@ -986,9 +987,9 @@ const Provresultat = () => {
                 sx={{
                   // width: width > 1025 ? "91%" : "92%",
                   width: "100%",
-                  border: "1px solid #0A1596",
+                  border: `1px solid ${appColors.blueColor}`,
                   margin: "1rem 0",
-                  color: "#0A1596",
+                  color: appColors.blueColor,
                   display: "flex",
                 }}
                 onClick={() => navigate("/courses")}
