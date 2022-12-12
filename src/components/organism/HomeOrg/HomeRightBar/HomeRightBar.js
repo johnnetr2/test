@@ -68,7 +68,10 @@ const HomeRightBar = (props) => {
 
             // calculate average of verbal and quantitative normring values
             let overAllProgressOfWeek = 0;
-            if (quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
+            if (!quantitativeNormringOfLastHundred && !verbalNormringOfLastHundred) {
+              // for repeat privious progress if i did not done anything in nextweek
+              overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
+            } else if (quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
               if (verbalNormringOfLastHundred.eachCategoryPrognos || quantitativeNormringOfLastHundred.eachCategoryPrognos) {
                 overAllProgressOfWeek =
                   (verbalNormringOfLastHundred.eachCategoryPrognos + quantitativeNormringOfLastHundred.eachCategoryPrognos) / 2;
