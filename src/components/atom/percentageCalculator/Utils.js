@@ -49,6 +49,8 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
   }
 
   let weekWiseProgress = {};
+  let totalCorrecteted = 0;
+  let totalAttempted = 0;
   let calculationForTerminate = 0;
 
   // calculate percentage of week wise data and got normring from table
@@ -67,28 +69,29 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
         ) {
           const solvedQuizOfWeek = weekData[indexQuizResolved];
 
-          calculationForTerminate =
-            calculationForTerminate + solvedQuizOfWeek.attemptedQuestion;
-          if (calculationForTerminate > 100) {
+          calculationForTerminate += solvedQuizOfWeek.attemptedQuestion;
+          if (calculationForTerminate <= 100) {
+            totalCorrecteted += solvedQuizOfWeek.correctAnswer;
+            totalAttempted += solvedQuizOfWeek.attemptedQuestion
+          } else {
+            totalCorrecteted += solvedQuizOfWeek.correctAnswer;
+            totalAttempted = 100
             break;
           }
-          weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-            ? weekWiseProgress?.correctAnswers + solvedQuizOfWeek.correctAnswer
-            : solvedQuizOfWeek.correctAnswer;
-          weekWiseProgress.attemptQuestions = weekWiseProgress?.attemptQuestions
-            ? weekWiseProgress?.attemptQuestions +
-            solvedQuizOfWeek.attemptedQuestion
-            : solvedQuizOfWeek.attemptedQuestion;
+
         }
         if (calculationForTerminate > 100) {
           break;
         }
       }
 
-      let progress =
-        (weekWiseProgress?.correctAnswers /
-          weekWiseProgress?.attemptQuestions) *
-        100;
+      weekWiseProgress.correctAnswers = totalCorrecteted;
+      weekWiseProgress.attemptQuestions = totalAttempted;
+
+
+
+      let progress = (totalCorrecteted / totalAttempted) * 100;
+
       if (testTypes === "verbal") {
         // getting normring values from verbal normring tables
         weekWiseProgress.eachCategoryPrognos = verbalPercentageCalculator(
@@ -100,6 +103,8 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
           progress.toFixed(2)
         );
       }
+      totalCorrecteted = 0
+      totalAttempted = 0
       calculationForTerminate = 0;
       weeklyProgressArr.push({ ...weekWiseProgress, name: week });
     });

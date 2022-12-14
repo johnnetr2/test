@@ -18,8 +18,8 @@ const HomeRightBar = (props) => {
   useEffect(() => {
 
     if (localStorage.getItem("userId")) {
-      const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
-      instance2.get(URL).then((response) => {
+
+      instance2.get(EndPoints.allCategoriesResultByUserForHomeGraph).then((response) => {
         const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative, isAttemptedMoreThenTwenty } =
           response.data;
         const weekNames = getWeekNumbers().reverse();
@@ -43,6 +43,9 @@ const HomeRightBar = (props) => {
             "W"
           );
 
+          console.log("verbalWeekWiseData 000", verbalWeekWiseData)
+          console.log("quantitativeWeekWiseData 000", quantitativeWeekWiseData)
+
           // percentage calculation of last 100 question and get normring from verbal table
           const verbalWeekWiseProgress = calculateWeekWiseNorming(
             verbalWeekWiseData,
@@ -53,6 +56,9 @@ const HomeRightBar = (props) => {
             quantitativeWeekWiseData,
             "quantitative"
           );
+
+          console.log("quantitativeWeekWiseProgress 111", quantitativeWeekWiseProgress)
+          console.log("verbalWeekWiseProgress 111", verbalWeekWiseProgress)
 
           //calculate average of verbal and quantitative normring values 
           weekNames.forEach((weekName) => {
@@ -95,6 +101,7 @@ const HomeRightBar = (props) => {
             progressOfUserAllCategories.push({ name: weekName, Prognos: null })
           })
         }
+        console.log("progressOfUserAllCategories 222", progressOfUserAllCategories)
         setWeeklyProgress(progressOfUserAllCategories);
       });
     }

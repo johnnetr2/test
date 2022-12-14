@@ -67,8 +67,7 @@ const HomeCard = (props) => {
       onClick={() =>
         navigate("/category", {
           state: {
-            item: data,
-            progress: percentageCalculation(),
+            item: data
           },
         })
       }
@@ -86,8 +85,8 @@ const HomeCard = (props) => {
               average={
                 props?.previousRecord
                   ? (props?.previousRecord.totalCorrectQuestion /
-                      props?.previousRecord.totalQuestionPerCategory) *
-                    100
+                    props?.previousRecord.totalQuestionPerCategory) *
+                  100
                   : 0
               }
             />
