@@ -11,6 +11,8 @@ const FeedbackButtons = ({ onClickPlus, onClickMinus }) => {
         justifyContent: "flex-end",
         alignItems: "center",
         height: 60,
+        marginTop: "0.5rem",
+        marginBottom: "0.5rem"
       }}
     >
       <Typography
