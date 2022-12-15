@@ -74,8 +74,16 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
             totalCorrecteted += solvedQuizOfWeek.correctAnswer;
             totalAttempted += solvedQuizOfWeek.attemptedQuestion
           } else {
-            totalCorrecteted += solvedQuizOfWeek.correctAnswer;
+            let answers = solvedQuizOfWeek.answer
+            answers = answers.reverse()
+            const loopterminater = 100 - totalAttempted
+            let remainingCorrected = 0
+            for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
+              const answer = answers[answersIndex];
+              remainingCorrected += answer.questionCounter
+            }
             totalAttempted = 100
+            totalCorrecteted = totalCorrecteted + remainingCorrected;
             break;
           }
 

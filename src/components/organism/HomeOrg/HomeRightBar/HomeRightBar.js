@@ -20,89 +20,140 @@ const HomeRightBar = (props) => {
     if (localStorage.getItem("userId")) {
 
       instance2.get(EndPoints.allCategoriesResultByUserForHomeGraph).then((response) => {
-        const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative, isAttemptedMoreThenTwenty } =
+        console.log(response, 'response')
+        // const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative, isAttemptedMoreThenTwenty } =
+        //   response.data;
+        const { allCategoriesSolvedQuizes, isAttemptedMoreThenTwenty } =
           response.data;
         const weekNames = getWeekNumbers().reverse();
         const progressOfUserAllCategories = [];
         if (
           isAttemptedMoreThenTwenty &&
-          lastWeekSevenWeekQuantitative.length > 1 &&
-          lastWeekSevenWeekVerbal.length > 1
+          allCategoriesSolvedQuizes.length > 1
         ) {
+
           //set state , will show progress or not 
           setShowProgress(isAttemptedMoreThenTwenty);
 
-          // groupping verbal category data in weeks
-          const verbalWeekWiseData = datesGroupByComponent(
-            lastWeekSevenWeekVerbal,
-            "W"
-          );
-          // groupping quantitative category data in weeks
-          const quantitativeWeekWiseData = datesGroupByComponent(
-            lastWeekSevenWeekQuantitative,
-            "W"
-          );
+          const quantitativeSolvedQuizes12 = []
+          const verbalSolvedQuizes12 = []
+          allCategoriesSolvedQuizes.filter((categorySolvedQuiz) => {
+            if (categorySolvedQuiz.sectionCategory.section.title == "Kvantitativ del") {
+              quantitativeSolvedQuizes12.push(datesGroupByComponent(categorySolvedQuiz.solvedQuizesByUserTimePressure, "W"))
+            } else {
+              verbalSolvedQuizes12.push(datesGroupByComponent(categorySolvedQuiz.solvedQuizesByUserTimePressure, "W"))
+            }
+          })
 
-          console.log("verbalWeekWiseData 000", verbalWeekWiseData)
-          console.log("quantitativeWeekWiseData 000", quantitativeWeekWiseData)
+          const quantitativeSolvedQuizes1 = []
+          const verbalSolvedQuizes1 = []
+
+          for (let index = 0; index < 4; index++) {
+            const quantitativeWeekWise = quantitativeSolvedQuizes12[index];
+            const verbalWeekWise = verbalSolvedQuizes12[index];
+
+            quantitativeSolvedQuizes1.push(calculateWeekWiseNorming(quantitativeWeekWise))
+            verbalSolvedQuizes1.push(calculateWeekWiseNorming(verbalWeekWise))
+
+          }
+
+          // const quantitativeSolvedQuizes = allCategoriesSolvedQuizes.filter((categorySolvedQuiz) => {
+          //   return categorySolvedQuiz.sectionCategory.section.title == "Kvantitativ del"
+          // })
+          //   .map((underTimePressure) => {
+          //     const quantitativeDatesGroup = datesGroupByComponent(underTimePressure.solvedQuizesByUserTimePressure, "W")
+          //     return { quantitativeDatesGroup, sectionCategory: underTimePressure.sectionCategory }
+          //   })
+
+          // const verbalSolvedQuizes = allCategoriesSolvedQuizes.filter((categorySolvedQuiz) => {
+          //   return categorySolvedQuiz.sectionCategory.section.title == "Verbal del"
+          // })
+          //   .map((underTimePressure) => {
+          //     const verbalDatesGroup = datesGroupByComponent(underTimePressure.solvedQuizesByUserTimePressure, "W")
+          //     return { verbalDatesGroup, sectionCategory: underTimePressure.sectionCategory }
+          //   })
+
+          console.log(quantitativeSolvedQuizes1, 'quantitativeSolvedQuizes12')
+          console.log(verbalSolvedQuizes1, 'verbalSolvedQuizes12')
+
+          // const solvedQuizesByUserTimePressureQuantitative = quantitativeSolvedQuizes.map((underTimePressure) => underTimePressure.solvedQuizesByUserTimePressure)
+          // const solvedQuizesByUserTimePressureVerbal = verbalSolvedQuizes.map((underTimePressure) => {
+          //   const verbal = datesGroupByComponent(underTimePressure.solvedQuizesByUserTimePressure)
+          //   underTimePressure.solvedQuizesByUserTimePressure
+
+          //   return {}
+          // })
+
+          // groupping quantitative category data in weeks
+          // const quantitativeWeekWiseData = datesGroupByComponent(
+          //   solvedQuizesByUserTimePressureQuantitative,
+          //   "W"
+          // );
+          // // groupping verbal category data in weeks
+          // const verbalWeekWiseData = datesGroupByComponent(
+          //   solvedQuizesByUserTimePressureVerbal,
+          //   "W"
+          // );
 
           // percentage calculation of last 100 question and get normring from verbal table
-          const verbalWeekWiseProgress = calculateWeekWiseNorming(
-            verbalWeekWiseData,
-            "verbal",
-          );
+          // const verbalWeekWiseProgress = calculateWeekWiseNorming(
+          //   verbalWeekWiseData,
+          //   "verbal",
+          // );
           // percentage calculation of last 100 question and get normring from quantitative table
-          const quantitativeWeekWiseProgress = calculateWeekWiseNorming(
-            quantitativeWeekWiseData,
-            "quantitative"
-          );
+          // const quantitativeWeekWiseProgress = calculateWeekWiseNorming(
+          //   quantitativeWeekWiseData,
+          //   "quantitative"
+          // );
 
-          console.log("quantitativeWeekWiseProgress 111", quantitativeWeekWiseProgress)
-          console.log("verbalWeekWiseProgress 111", verbalWeekWiseProgress)
+          // console.log("quantitativeWeekWiseProgress 111", quantitativeWeekWiseProgress)
+          // console.log("verbalWeekWiseProgress 111", verbalWeekWiseProgress)
 
           //calculate average of verbal and quantitative normring values 
           weekNames.forEach((weekName) => {
-            //find verbal progress data for specific week number e.g V48
-            const verbalNormringOfLastHundred = verbalWeekWiseProgress.find(
-              (verbalNorming) => verbalNorming.name === weekName
-            );
+            // find verbal progress data for specific week number e.g V48
+            console.log(weekName, 'weekName')
+            // const verbalNormringOfLastHundred = verbalSolvedQuizes.find(
+            //   (verbalNorming) => verbalNorming.verbalDatesGroup === weekName
+            // );
+            // console.log(verbalNormringOfLastHundred, 'verbalNormringOfLastHundred')
 
             //find quantitave progress data for specific week number e.g V48
-            const quantitativeNormringOfLastHundred = quantitativeWeekWiseProgress.find(
-              (quantitativeNorming) => quantitativeNorming.name === weekName
-            );
+            // const quantitativeNormringOfLastHundred = quantitativeWeekWiseProgress.find(
+            //   (quantitativeNorming) => quantitativeNorming.name === weekName
+            // );
 
             // calculate average of verbal and quantitative normring values
-            let overAllProgressOfWeek = 0;
-            if (!quantitativeNormringOfLastHundred && !verbalNormringOfLastHundred) {
-              // for repeat privious progress if i did not done anything in next week
-              overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
-            } else if (quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
-              if (verbalNormringOfLastHundred.eachCategoryPrognos || quantitativeNormringOfLastHundred.eachCategoryPrognos) {
-                overAllProgressOfWeek =
-                  (verbalNormringOfLastHundred.eachCategoryPrognos + quantitativeNormringOfLastHundred.eachCategoryPrognos) / 2;
-              } else {
-                overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
-              }
-            } else if (!verbalNormringOfLastHundred && quantitativeNormringOfLastHundred) {
-              overAllProgressOfWeek = quantitativeNormringOfLastHundred.eachCategoryPrognos / 2;
-            } else if (!quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
-              overAllProgressOfWeek = verbalNormringOfLastHundred.eachCategoryPrognos / 2;
-            }
+            // let overAllProgressOfWeek = 0;
+            // if (!quantitativeNormringOfLastHundred && !verbalNormringOfLastHundred) {
+            //   // for repeat privious progress if i did not done anything in next week
+            //   overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
+            // } else if (quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
+            //   if (verbalNormringOfLastHundred.eachCategoryPrognos || quantitativeNormringOfLastHundred.eachCategoryPrognos) {
+            //     overAllProgressOfWeek =
+            //       (verbalNormringOfLastHundred.eachCategoryPrognos + quantitativeNormringOfLastHundred.eachCategoryPrognos) / 2;
+            //   } else {
+            //     overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
+            //   }
+            // } else if (!verbalNormringOfLastHundred && quantitativeNormringOfLastHundred) {
+            //   overAllProgressOfWeek = quantitativeNormringOfLastHundred.eachCategoryPrognos / 2;
+            // } else if (!quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
+            //   overAllProgressOfWeek = verbalNormringOfLastHundred.eachCategoryPrognos / 2;
+            // }
 
-            progressOfUserAllCategories.push({
-              Prognos: overAllProgressOfWeek < 0 ? overAllProgressOfWeek.toFixed(1) : overAllProgressOfWeek,
-              name: weekName,
-            });
+            // progressOfUserAllCategories.push({
+            //   Prognos: overAllProgressOfWeek < 0 ? overAllProgressOfWeek.toFixed(1) : overAllProgressOfWeek,
+            //   name: weekName,
+            // });
           });
         } else {
           // making default array for map for newly users
-          weekNames.forEach((weekName) => {
-            progressOfUserAllCategories.push({ name: weekName, Prognos: null })
-          })
+          // weekNames.forEach((weekName) => {
+          //   progressOfUserAllCategories.push({ name: weekName, Prognos: null })
+          // })
         }
-        console.log("progressOfUserAllCategories 222", progressOfUserAllCategories)
-        setWeeklyProgress(progressOfUserAllCategories);
+        // console.log("progressOfUserAllCategories 222", progressOfUserAllCategories)
+        // setWeeklyProgress(progressOfUserAllCategories);
       });
     }
   }, []);
