@@ -98,19 +98,19 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
 
 
 
-      let progress = (totalCorrecteted / totalAttempted) * 100;
+      // let progress = (totalCorrecteted / totalAttempted) * 100;
 
-      if (testTypes === "verbal") {
-        // getting normring values from verbal normring tables
-        weekWiseProgress.eachCategoryPrognos = verbalPercentageCalculator(
-          progress.toFixed(2)
-        );
-      } else {
-        // getting normring values from quantitative normring tables
-        weekWiseProgress.eachCategoryPrognos = quantitativePercentageCalculator(
-          progress.toFixed(2)
-        );
-      }
+      // if (testTypes === "verbal") {
+      //   // getting normring values from verbal normring tables
+      //   weekWiseProgress.eachCategoryPrognos = verbalPercentageCalculator(
+      //     progress.toFixed(2)
+      //   );
+      // } else {
+      //   // getting normring values from quantitative normring tables
+      //   weekWiseProgress.eachCategoryPrognos = quantitativePercentageCalculator(
+      //     progress.toFixed(2)
+      //   );
+      // }
       totalCorrecteted = 0
       totalAttempted = 0
       calculationForTerminate = 0;

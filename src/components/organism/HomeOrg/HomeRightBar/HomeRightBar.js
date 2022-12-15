@@ -35,27 +35,64 @@ const HomeRightBar = (props) => {
           //set state , will show progress or not 
           setShowProgress(isAttemptedMoreThenTwenty);
 
-          const quantitativeSolvedQuizes12 = []
-          const verbalSolvedQuizes12 = []
-          allCategoriesSolvedQuizes.filter((categorySolvedQuiz) => {
-            if (categorySolvedQuiz.sectionCategory.section.title == "Kvantitativ del") {
-              quantitativeSolvedQuizes12.push(datesGroupByComponent(categorySolvedQuiz.solvedQuizesByUserTimePressure, "W"))
-            } else {
-              verbalSolvedQuizes12.push(datesGroupByComponent(categorySolvedQuiz.solvedQuizesByUserTimePressure, "W"))
-            }
+          const weekWiseAllCategoryData = allCategoriesSolvedQuizes.map((categorySolvedQuiz) => {
+            // if (categorySolvedQuiz.sectionCategory.section.title == "Kvantitativ del") {
+            const weekWisePerCategoryData = datesGroupByComponent(categorySolvedQuiz.solvedQuizesByUserTimePressure, "W")
+            const isQuantitative = categorySolvedQuiz.sectionCategory.section.title === "Kvantitativ del"
+            return { weekWisePerCategoryData, isQuantitative }
+            // } else {
+            //   verbalSolvedQuizes12.push(datesGroupByComponent(categorySolvedQuiz.solvedQuizesByUserTimePressure, "W"))
+            // }
           })
 
-          const quantitativeSolvedQuizes1 = []
-          const verbalSolvedQuizes1 = []
+          console.log(weekWiseAllCategoryData, 'weekWiseAllCategoryData')
+          const verbalData = []
+          const quantitativeData = []
+          let perWeekVerbalCorrected = 0
+          let perWeekVerbalAttempted = 0
+          let perWeekQuantitativeCorrected = 0
+          let perWeekQuantitativeAttempted = 0
+          let weeknamecopy
+          const hundredQuestionsPerWeekData = []
+          for (let index = 0; index < weekWiseAllCategoryData.length; index++) {
+            const { weekWisePerCategoryData, isQuantitative } = weekWiseAllCategoryData[index];
+            const hundredQuestionsPerWeek = calculateWeekWiseNorming(weekWisePerCategoryData)
 
-          for (let index = 0; index < 4; index++) {
-            const quantitativeWeekWise = quantitativeSolvedQuizes12[index];
-            const verbalWeekWise = verbalSolvedQuizes12[index];
+            weekNames.forEach((weekName) => {
+              weeknamecopy = weekName
+              const oneWeekCategoryData = hundredQuestionsPerWeek.find(questionsPerWeek => questionsPerWeek.name === weekName)
+              if (!oneWeekCategoryData) {
+                if (isQuantitative) {
+                  quantitativeData.push({ weekName: weeknamecopy, perWeekQuantitativeCorrected, perWeekQuantitativeAttempted })
+                } else {
+                  verbalData.push({ weekName: weeknamecopy, perWeekVerbalAttempted, perWeekVerbalCorrected })
+                }
+              } else {
+                if (isQuantitative) {
+                  perWeekQuantitativeCorrected += oneWeekCategoryData.correctAnswers
+                  perWeekQuantitativeAttempted += oneWeekCategoryData.attemptQuestions
 
-            quantitativeSolvedQuizes1.push(calculateWeekWiseNorming(quantitativeWeekWise))
-            verbalSolvedQuizes1.push(calculateWeekWiseNorming(verbalWeekWise))
+                } else {
+                  perWeekVerbalCorrected += oneWeekCategoryData.correctAnswers
+                  perWeekVerbalAttempted += oneWeekCategoryData.attemptQuestions
+                }
+              }
+            })
+
+            if (isQuantitative) {
+              quantitativeData.push({ weekName: weeknamecopy, perWeekQuantitativeCorrected, perWeekQuantitativeAttempted })
+            } else {
+              verbalData.push({ weekName: weeknamecopy, perWeekVerbalAttempted, perWeekVerbalCorrected })
+            }
+
+            perWeekVerbalCorrected = 0
+            perWeekVerbalAttempted = 0
+            // hundredQuestionsPerWeekData.push({ hundredQuestionsPerWeek, isQuantitative })
+            // verbalSolvedQuizes1.push(calculateWeekWiseNorming(verbalWeekWise))
 
           }
+          console.log(verbalData, 'verbalData')
+          console.log(quantitativeData, 'quantitativeData')
 
           // const quantitativeSolvedQuizes = allCategoriesSolvedQuizes.filter((categorySolvedQuiz) => {
           //   return categorySolvedQuiz.sectionCategory.section.title == "Kvantitativ del"
@@ -72,10 +109,6 @@ const HomeRightBar = (props) => {
           //     const verbalDatesGroup = datesGroupByComponent(underTimePressure.solvedQuizesByUserTimePressure, "W")
           //     return { verbalDatesGroup, sectionCategory: underTimePressure.sectionCategory }
           //   })
-
-          console.log(quantitativeSolvedQuizes1, 'quantitativeSolvedQuizes12')
-          console.log(verbalSolvedQuizes1, 'verbalSolvedQuizes12')
-
           // const solvedQuizesByUserTimePressureQuantitative = quantitativeSolvedQuizes.map((underTimePressure) => underTimePressure.solvedQuizesByUserTimePressure)
           // const solvedQuizesByUserTimePressureVerbal = verbalSolvedQuizes.map((underTimePressure) => {
           //   const verbal = datesGroupByComponent(underTimePressure.solvedQuizesByUserTimePressure)
@@ -113,13 +146,25 @@ const HomeRightBar = (props) => {
           weekNames.forEach((weekName) => {
             // find verbal progress data for specific week number e.g V48
             console.log(weekName, 'weekName')
-            // const verbalNormringOfLastHundred = verbalSolvedQuizes.find(
+            // console.log("hundredQuestionsPerWeekData", hundredQuestionsPerWeekData)
+            // const weekNameQuantitative = hundredQuestionsPerWeekData.filter((weekData) => {
+            //   return weekData.isQuantitative
+            // })
+            // console.log(weekNameQuantitative)
+            // const weekWiseDataWithWeekName = hundredQuestionsPerWeekData.find((accordingWeek) => {
+            //   return accordingWeek.hundredQuestionsPerWeek
+            // })
+            // .hundredQuestionsPerWeek.find((weekName) => {
+            //   return weekName.name === "V.47"
+            // })
+            // console.log(weekNameQuantitative, 'weekNameQuantitative')
+            // const verbalNormringOfLastHundred = verbalSolvedQuizes1.find(
             //   (verbalNorming) => verbalNorming.verbalDatesGroup === weekName
             // );
             // console.log(verbalNormringOfLastHundred, 'verbalNormringOfLastHundred')
 
             //find quantitave progress data for specific week number e.g V48
-            // const quantitativeNormringOfLastHundred = quantitativeWeekWiseProgress.find(
+            // const quantitativeNormringOfLastHundred = quantitativeSolvedQuizes1.find(
             //   (quantitativeNorming) => quantitativeNorming.name === weekName
             // );
 
