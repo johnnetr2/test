@@ -146,11 +146,11 @@ const HomeFeedContent = (props) => {
       previousRecordProgress.map((item) => {
         const isVerbal = verbalCategories.find(sectionCategoryId => sectionCategoryId === item._id);
         if (isVerbal) {
-          verbalCorrected += item.totalCorrectTimePressure;
-          verbalAttempted += item.totalAttemptedTimePressure
+          verbalCorrected += item.correctedFromLastHundred;
+          verbalAttempted += item.totalAttemptedHundred
         } else {
-          quantitativeCorrected += item.totalCorrectTimePressure;
-          quantitativeAttempted += item.totalAttemptedTimePressure
+          quantitativeCorrected += item.correctedFromLastHundred;
+          quantitativeAttempted += item.totalAttemptedHundred
         }
       });
 
