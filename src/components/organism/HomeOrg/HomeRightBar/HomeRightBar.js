@@ -46,8 +46,7 @@ const HomeRightBar = (props) => {
           })
 
           console.log(weekWiseAllCategoryData, 'weekWiseAllCategoryData')
-          const verbalData = []
-          const quantitativeData = []
+
           let perWeekVerbalCorrected = 0
           let perWeekVerbalAttempted = 0
           let perWeekQuantitativeCorrected = 0
@@ -58,41 +57,48 @@ const HomeRightBar = (props) => {
             const { weekWisePerCategoryData, isQuantitative } = weekWiseAllCategoryData[index];
             const hundredQuestionsPerWeek = calculateWeekWiseNorming(weekWisePerCategoryData)
 
-            weekNames.forEach((weekName) => {
-              weeknamecopy = weekName
-              const oneWeekCategoryData = hundredQuestionsPerWeek.find(questionsPerWeek => questionsPerWeek.name === weekName)
-              if (!oneWeekCategoryData) {
-                if (isQuantitative) {
-                  quantitativeData.push({ weekName: weeknamecopy, perWeekQuantitativeCorrected, perWeekQuantitativeAttempted })
-                } else {
-                  verbalData.push({ weekName: weeknamecopy, perWeekVerbalAttempted, perWeekVerbalCorrected })
-                }
-              } else {
-                if (isQuantitative) {
-                  perWeekQuantitativeCorrected += oneWeekCategoryData.correctAnswers
-                  perWeekQuantitativeAttempted += oneWeekCategoryData.attemptQuestions
+            // weekNames.forEach((weekName) => {
+            //   weeknamecopy = weekName
+            //   const oneWeekCategoryData = hundredQuestionsPerWeek.find(questionsPerWeek => questionsPerWeek.name === weekName)
+            //   if (!oneWeekCategoryData) {
+            //     if (isQuantitative) {
+            //       quantitativeData.push({ weekName: weeknamecopy, perWeekQuantitativeCorrected, perWeekQuantitativeAttempted })
+            //     } else {
+            //       verbalData.push({ weekName: weeknamecopy, perWeekVerbalAttempted, perWeekVerbalCorrected })
+            //     }
+            //   } else {
+            //     if (isQuantitative) {
+            //       perWeekQuantitativeCorrected += oneWeekCategoryData.correctAnswers
+            //       perWeekQuantitativeAttempted += oneWeekCategoryData.attemptQuestions
 
-                } else {
-                  perWeekVerbalCorrected += oneWeekCategoryData.correctAnswers
-                  perWeekVerbalAttempted += oneWeekCategoryData.attemptQuestions
-                }
-              }
-            })
+            //     } else {
+            //       perWeekVerbalCorrected += oneWeekCategoryData.correctAnswers
+            //       perWeekVerbalAttempted += oneWeekCategoryData.attemptQuestions
+            //     }
+            //   }
+            // })
 
-            if (isQuantitative) {
-              quantitativeData.push({ weekName: weeknamecopy, perWeekQuantitativeCorrected, perWeekQuantitativeAttempted })
-            } else {
-              verbalData.push({ weekName: weeknamecopy, perWeekVerbalAttempted, perWeekVerbalCorrected })
-            }
+            // if (isQuantitative) {
+            //   quantitativeData.push({ weekName: weeknamecopy, perWeekQuantitativeCorrected, perWeekQuantitativeAttempted })
+            // } else {
+            //   verbalData.push({ weekName: weeknamecopy, perWeekVerbalAttempted, perWeekVerbalCorrected })
+            // }
 
-            perWeekVerbalCorrected = 0
-            perWeekVerbalAttempted = 0
-            // hundredQuestionsPerWeekData.push({ hundredQuestionsPerWeek, isQuantitative })
+            // perWeekVerbalCorrected = 0
+            // perWeekVerbalAttempted = 0
+            hundredQuestionsPerWeekData.push({ hundredQuestionsPerWeek, isQuantitative })
             // verbalSolvedQuizes1.push(calculateWeekWiseNorming(verbalWeekWise))
 
           }
-          console.log(verbalData, 'verbalData')
-          console.log(quantitativeData, 'quantitativeData')
+          console.log(hundredQuestionsPerWeekData, 'hundredQuestionsPerWeekData')
+
+          const verbalData = []
+          const quantitativeData = []
+          for (let index = 0; index < hundredQuestionsPerWeekData.length; index++) {
+            const weekName = weekNames[index]
+            const element = hundredQuestionsPerWeekData[index];
+
+          }
 
           // const quantitativeSolvedQuizes = allCategoriesSolvedQuizes.filter((categorySolvedQuiz) => {
           //   return categorySolvedQuiz.sectionCategory.section.title == "Kvantitativ del"
