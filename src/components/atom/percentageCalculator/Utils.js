@@ -152,19 +152,20 @@ export const calculateWeekWiseNormingForCategory = (
     let first = keys[0]; //35
     a = 7 - keys.length; //5
     let b = first - a; //30 //first = 35
-    const defaultValuseObj = {
-      correctAnswers: 0,
-      attemptQuestions: 0,
-      eachCategoryPrognos: null,
-      totalQuestion: 0,
-      weekWiseCorrected: 0,
-    };
     for (let index = b; index < first; index++) {
-      weeklyProgressArr.push({ ...defaultValuseObj, name: "V." + index });
+      weeklyProgressArr.push({
+        correctAnswers: 0,
+        attemptQuestions: 0,
+        eachCategoryPrognos: null,
+        weekWiseCorrected: 0,
+        name: "V." + index
+      });
     }
   }
 
-  let weekWiseProgress = {};
+  let correctAnswers = 0
+  let attemptQuestions = 0
+  let eachCategoryPrognos = null
   let calculationForTerminate = 0;
 
   sevenWeekWiseData &&
@@ -173,7 +174,7 @@ export const calculateWeekWiseNormingForCategory = (
       let weekWiseCorrected = 0;
 
       for (let iterations = index; iterations >= 0; iterations--) {
-        const weekWiseData = Object.values(sevenWeekWiseData)[iterations];
+        let weekWiseData = Object.values(sevenWeekWiseData)[iterations];
 
         if (iterations === index) {
           for (const solvedQuiz of weekWiseData) {
@@ -181,6 +182,7 @@ export const calculateWeekWiseNormingForCategory = (
           }
         }
 
+        weekWiseData = weekWiseData.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
         for (
           let indexQuizResolved = 0;
           indexQuizResolved < weekWiseData.length;
@@ -188,42 +190,38 @@ export const calculateWeekWiseNormingForCategory = (
         ) {
           const solvedQuizOfWeek = weekWiseData[indexQuizResolved];
 
-          calculationForTerminate =
-            calculationForTerminate + solvedQuizOfWeek.attemptedQuestion;
-          if (calculationForTerminate >= 100) {
-            break;
-          }
           if (solvedQuizOfWeek.quiz.isTimeRestricted) {
-            weekWiseProgress.correctAnswers = weekWiseProgress?.correctAnswers
-              ? weekWiseProgress?.correctAnswers +
-              solvedQuizOfWeek.correctAnswer
-              : solvedQuizOfWeek.correctAnswer;
-            weekWiseProgress.totalQuestion = weekWiseProgress?.totalQuestion
-              ? weekWiseProgress?.totalQuestion + solvedQuizOfWeek.totalQuestion
-              : solvedQuizOfWeek.totalQuestion;
-            weekWiseProgress.attemptQuestions =
-              weekWiseProgress?.attemptQuestions
-                ? weekWiseProgress?.attemptQuestions +
-                solvedQuizOfWeek.attemptedQuestion
-                : solvedQuizOfWeek.attemptedQuestion;
+            calculationForTerminate += solvedQuizOfWeek.attemptedQuestion;
+            if (calculationForTerminate <= 100) {
+              correctAnswers += solvedQuizOfWeek.correctAnswer;
+              attemptQuestions += solvedQuizOfWeek.attemptedQuestion
+            } else {
+              let answers = solvedQuizOfWeek.answer
+              answers = answers.reverse()
+              const loopterminater = 100 - attemptQuestions
+              let remainingCorrected = 0
+              for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
+                const answer = answers[answersIndex];
+                remainingCorrected += answer.questionCounter
+              }
+              attemptQuestions = 100
+              correctAnswers = correctAnswers + remainingCorrected;
+              break;
+            }
           }
         }
       }
-      if (weekWiseProgress?.attemptQuestions >= 20) {
+      if (attemptQuestions >= 20) {
         if (!isDesplayProgress) {
           setIsDesplayProgress(true);
         }
-        let progress =
-          (weekWiseProgress?.correctAnswers /
-            weekWiseProgress?.attemptQuestions) *
-          100;
+        let progress = (correctAnswers / attemptQuestions) * 100;
 
-        weekWiseProgress.eachCategoryPrognos = percentageCalculation(
-          progress,
-          categoryname
-        );
+        eachCategoryPrognos = percentageCalculation(progress < 0 ? 0 : progress.toFixed(2), categoryname);
         weeklyProgressArr.push({
-          ...weekWiseProgress,
+          correctAnswers,
+          attemptQuestions,
+          eachCategoryPrognos,
           weekWiseCorrected,
           name: weekKeyName,
         });
@@ -231,13 +229,14 @@ export const calculateWeekWiseNormingForCategory = (
         weeklyProgressArr.push({
           eachCategoryPrognos: null,
           weekWiseCorrected,
-          correctAnswers: weekWiseProgress.correctAnswers,
-          totalQuestion: weekWiseProgress.totalQuestion,
-          attemptQuestions: weekWiseProgress.attemptQuestions,
+          correctAnswers: correctAnswers,
+          attemptQuestions: attemptQuestions,
           name: weekKeyName,
         });
       }
-      weekWiseProgress = {};
+      correctAnswers = 0
+      attemptQuestions = 0
+      eachCategoryPrognos = null
       calculationForTerminate = 0;
     });
 
