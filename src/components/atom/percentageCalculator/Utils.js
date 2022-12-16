@@ -68,7 +68,6 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
           indexQuizResolved++
         ) {
           const solvedQuizOfWeek = weekData[indexQuizResolved];
-
           calculationForTerminate += solvedQuizOfWeek.attemptedQuestion;
           if (calculationForTerminate <= 100) {
             totalCorrecteted += solvedQuizOfWeek.correctAnswer;
