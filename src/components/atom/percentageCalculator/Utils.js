@@ -76,7 +76,6 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
             totalAttempted += solvedQuizOfWeek.attemptedQuestion
           } else {
             let answers = solvedQuizOfWeek.answer
-            answers = answers.reverse()
             const loopterminater = 100 - totalAttempted
             let remainingCorrected = 0
             for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
