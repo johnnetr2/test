@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { login } from "../../../redux/reducers";
 import { useDispatch } from "react-redux";
+import { appColors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -142,7 +143,7 @@ const LoginOrg = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#0A1596",
+          backgroundColor: appColors.blueColor,
         }}
         className={classes.hideOnMobile}
       >
@@ -206,6 +207,7 @@ const LoginOrg = () => {
                 marginBottom: "1rem",
                 outline: "none",
                 WebkitBoxShadow: "0 0 0 1000px white inset",
+                fontFamily: "Poppins"
               }}
             />
             <Label for="password" style={{ color: "#B5B5B5" }}>
@@ -245,6 +247,7 @@ const LoginOrg = () => {
                     outline: "none",
                     border: "none",
                     WebkitBoxShadow: "0 0 0 1000px white inset",
+                    fontFamily: "Poppins"
                   }}
                 />
               </Box>
@@ -283,7 +286,7 @@ const LoginOrg = () => {
             }}
           >
             <Typography variant="body1">
-              Har du inget konto? <Link to="/">Skapa konto här</Link>
+              Har du inget konto? <Link style={{ textDecoration: 'none', color: appColors.blueColor }} to="/">Skapa konto här</Link>
             </Typography>
           </Box>
         </Box>

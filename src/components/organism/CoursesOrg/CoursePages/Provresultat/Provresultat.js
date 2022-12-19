@@ -25,7 +25,8 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
-import ExamResults from "../../../../../assets/Static/ExamResults.json";
+import ExamResults from '../../../../../assets/Static/ExamResults.json'
+import { appColors } from "../../../../service/commonService";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -64,28 +65,28 @@ const Provresultat = () => {
   const setVerbalQuantitativeStates = (data) => {
     setCorrectAnswersOfKvantitative(
       data.correctQuestions_of_XYZ +
-        data.correctQuestions_of_KVA +
-        data.correctQuestions_of_NOG +
-        data.correctQuestions_of_DTK
+      data.correctQuestions_of_KVA +
+      data.correctQuestions_of_NOG +
+      data.correctQuestions_of_DTK
     );
     setTotalQuestionsOfKvantitative(
       data.totalQuestion_of_XYZ +
-        data.totalQuestion_of_KVA +
-        data.totalQuestion_of_NOG +
-        data.totalQuestion_of_DTK
+      data.totalQuestion_of_KVA +
+      data.totalQuestion_of_NOG +
+      data.totalQuestion_of_DTK
     );
 
     setCorrectAnswersOfVerbal(
       data.correctQuestions_of_ORD +
-        data.correctQuestions_of_LAS +
-        data.correctQuestions_of_MEK +
-        data.correctQuestions_of_ELF
+      data.correctQuestions_of_LAS +
+      data.correctQuestions_of_MEK +
+      data.correctQuestions_of_ELF
     );
     setTotalQuestionsOfVerbal(
       data.totalQuestion_of_ORD +
-        data.totalQuestion_of_LAS +
-        data.totalQuestion_of_MEK +
-        data.totalQuestion_of_ELF
+      data.totalQuestion_of_LAS +
+      data.totalQuestion_of_MEK +
+      data.totalQuestion_of_ELF
     );
   };
 
@@ -101,7 +102,7 @@ const Provresultat = () => {
           return (
             examName === response.data.simuleraSeason.title ||
             examName ===
-              `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+            `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
           );
         });
         const normalizedPointsExam = ExamResults.normalizedPoints.find(
@@ -110,7 +111,7 @@ const Provresultat = () => {
             return (
               examName === response.data.simuleraSeason.title ||
               examName ===
-                `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+              `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
             );
           }
         );
@@ -177,10 +178,10 @@ const Provresultat = () => {
       totalQuestionsOfKvantitative,
       participantsAverage?.KVANT,
       correctAnswersOfKvantitative &&
-        totalQuestionsOfKvantitative &&
-        ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
-          ?.toFixed(1)
-          .replace(/\.0+$/, "")
+      totalQuestionsOfKvantitative &&
+      ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
+        ?.toFixed(1)
+        .replace(/\.0+$/, "")
     ),
   ];
 
@@ -215,10 +216,10 @@ const Provresultat = () => {
       totalQuestionsOfVerbal,
       participantsAverage?.VERB,
       correctAnswersOfVerbal &&
-        totalQuestionsOfVerbal &&
-        ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
-          ?.toFixed(1)
-          .replace(/\.0+$/, "")
+      totalQuestionsOfVerbal &&
+      ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
+        ?.toFixed(1)
+        .replace(/\.0+$/, "")
     ),
   ];
 
@@ -468,17 +469,17 @@ const Provresultat = () => {
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -505,17 +506,17 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -571,17 +572,17 @@ const Provresultat = () => {
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -610,18 +611,18 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.5rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.5rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -664,7 +665,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
+              // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
               >
                 <Typography variant="h5" component="h5">
                   Kvantitativ del resultat
@@ -731,7 +732,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Verbal del resultat
@@ -797,7 +798,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Hela provet
@@ -852,7 +853,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Resultat per provpass
@@ -916,8 +917,8 @@ const Provresultat = () => {
                           <Button
                             style={{
                               backgroundColor: "#fff",
-                              color: "#0A1596",
-                              border: "1px solid #0A1596",
+                              color: appColors.blueColor,
+                              border: `1px solid ${appColors.blueColor}`,
                             }}
                           >
                             SE RATTNING
@@ -987,7 +988,7 @@ const Provresultat = () => {
                     display: "flex",
                     cursor: "pointer",
                   }}
-                  // onClick={() => openInNewTab('https://stackoverflow.com')}
+                // onClick={() => openInNewTab('https://stackoverflow.com')}
                 >
                   {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
                   {" "} */}
@@ -1019,9 +1020,9 @@ const Provresultat = () => {
                 sx={{
                   // width: width > 1025 ? "91%" : "92%",
                   width: "100%",
-                  border: "1px solid #0A1596",
+                  border: `1px solid ${appColors.blueColor}`,
                   margin: "1rem 0",
-                  color: "#0A1596",
+                  color: appColors.blueColor,
                   display: "flex",
                 }}
                 onClick={() => navigate("/courses")}

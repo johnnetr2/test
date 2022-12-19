@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
+import { appColors } from "../../../../service/commonService";
 import Backdrop from "@mui/material/Backdrop";
 import BootstrapDialogTitle from "../../../../molecule/TestSubmitPopup/TestSubmitPopup";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -516,8 +517,8 @@ const OverBlick = () => {
             style={{
               width: 600,
               textTransform: "capitalize",
-              color: "#0A1596",
-              border: "1px solid #0A1596",
+              color: appColors.blueColor,
+              border: `1px solid ${appColors.blueColor}`,
             }}
             onClick={() => setTestSubmitPopUp(true)}
           >

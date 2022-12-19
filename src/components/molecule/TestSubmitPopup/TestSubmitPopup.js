@@ -9,6 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
+import { appColors } from "../../service/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -89,7 +90,7 @@ export default function TestSubmitPopup(props) {
             autoFocus
             // onClick={handleClose}
             style={{
-              backgroundColor: "#0A1596",
+              backgroundColor: appColors.blueColor,
               color: "#fff",
               textTransform: "capitalize",
               fontWeight: "regular",

@@ -7,6 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { Box } from "@mui/material";
+import { appColors } from "../../service/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -75,8 +76,8 @@ export default function AlertDialogSlide(props) {
               variant="outlined"
               style={{
                 width: "10rem",
-                color: "#0A1596",
-                border: "1px solid #0A1596",
+                color: appColors.blueColor,
+                border: `1px solid ${appColors.blueColor}`,
               }}
             >
               {props.cancelBtnName}
@@ -86,8 +87,8 @@ export default function AlertDialogSlide(props) {
               variant="contained"
               style={{
                 width: "10rem",
-                color: "#0A1596",
-                backgroundColor: "#0A1596",
+                color: appColors.blueColor,
+                backgroundColor: appColors.blueColor,
                 color: "#fff",
               }}
             >
