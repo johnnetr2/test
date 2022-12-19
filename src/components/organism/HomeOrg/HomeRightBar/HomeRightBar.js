@@ -22,7 +22,7 @@ const HomeRightBar = (props) => {
     if (localStorage.getItem("userId")) {
 
       instance2.get(EndPoints.allCategoriesResultByUserForHomeGraph).then((response) => {
-        console.log(response, 'response')
+        // console.log(response, 'response')
         const { allCategoriesSolvedQuizes, isAttemptedMoreThenTwenty } = response.data;
         const weekNames = getWeekNumbers().reverse();
         const verbalQuantitativesevenWeeksProgress = []
@@ -62,6 +62,26 @@ const HomeRightBar = (props) => {
             for (let index = 0; index < hundredQuestionsPerWeekData.length; index++) {
               const element = hundredQuestionsPerWeekData[index];
               const categorywWeekData = element.hundredQuestionsPerWeek.find(weekData => weekData.name === weekNumber)
+              if (!categorywWeekData) {
+                for (let index = weekNameIndex - 1; index >= 0; index--) {
+                  const previousWeekName = weekNames[index];
+                  const categorywWeekData = element.hundredQuestionsPerWeek.find(weekData => weekData.name === previousWeekName)
+                  if (categorywWeekData) {
+                    if (element.isQuantitative) {
+                      perWeekQuantitativeCorrected += categorywWeekData.correctAnswers
+                      perWeekQuantitativeAttempted += categorywWeekData.attemptQuestions
+                    } else {
+                      perWeekVerbalCorrected += categorywWeekData.correctAnswers
+                      perWeekVerbalAttempted += categorywWeekData.attemptQuestions
+                    }
+
+                    break
+
+                  } else {
+                    continue
+                  }
+                }
+              }
               if (categorywWeekData) {
                 if (element.isQuantitative) {
                   perWeekQuantitativeCorrected += categorywWeekData.correctAnswers
@@ -72,10 +92,14 @@ const HomeRightBar = (props) => {
                 }
               }
             }
+            console.log("perWeekQuantitativeCorrected", perWeekQuantitativeCorrected, perWeekQuantitativeAttempted)
+            // console.log("perWeekQuantitativeAttempted", perWeekQuantitativeAttempted)
+            console.log("perWeekQuantitativeCorrected", perWeekVerbalCorrected, perWeekVerbalAttempted)
+            // console.log("perWeekQuantitativeAttempted", perWeekQuantitativeAttempted)
             let quantitativePercentageForNormring = perWeekQuantitativeAttempted < 1 ? null : (perWeekQuantitativeCorrected / perWeekQuantitativeAttempted) * 100;
             let verbalPercentageForNormring = perWeekVerbalAttempted < 1 ? null : (perWeekVerbalCorrected / perWeekVerbalAttempted) * 100;
-            console.log("verbalPercentageForNormring", verbalPercentageForNormring)
-            console.log("quantitativePercentageForNormring", quantitativePercentageForNormring)
+            // console.log("verbalPercentageForNormring", verbalPercentageForNormring)
+            // console.log("quantitativePercentageForNormring", quantitativePercentageForNormring)
             // getting normring values from verbal normring tables
             const verbalNormring = verbalPercentageForNormring ? verbalPercentageCalculator(
               verbalPercentageForNormring.toFixed(2)
@@ -86,8 +110,8 @@ const HomeRightBar = (props) => {
               quantitativePercentageForNormring.toFixed(2)
             ) : quantitativePercentageForNormring;
 
-            console.log("quantitativeNormring", quantitativeNormring)
-            console.log("verbalNormring", verbalNormring)
+            // console.log("quantitativeNormring", quantitativeNormring)
+            // console.log("verbalNormring", verbalNormring)
 
 
             let verbalQuantitativePerWeekNormringAverage = null

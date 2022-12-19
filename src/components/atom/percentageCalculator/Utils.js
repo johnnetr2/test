@@ -30,6 +30,8 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
   const weeklyProgressArr = [];
   let noOfEmptyWeek = 0;
 
+  const currentWeek = getCurrentWeekNumber()
+
   //set default values for empty weeks 
   if (Object.keys(weekWiseData).length < 7) {
     const weekKeys = Object.keys(weekWiseData); //35,36
@@ -115,6 +117,8 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
       calculationForTerminate = 0;
       weeklyProgressArr.push({ ...weekWiseProgress, name: week });
     });
+
+
 
   return weeklyProgressArr;
 };
