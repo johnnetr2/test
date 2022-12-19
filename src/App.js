@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { Routes, Route } from "react-router-dom";
 import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
@@ -30,6 +29,7 @@ import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/Rattad
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
 import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
 require("dotenv").config();
+
 
 function App() {
   const [toggleIcon, setToggleIcon] = useState({

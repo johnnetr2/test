@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { appColors } from "../../service/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -80,13 +81,13 @@ export default function QuestionBackButtonPopup(props) {
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={props.closePopup}
-          style={{textAlign: "right"}}
+          style={{ textAlign: "right" }}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-          <Typography gutterTop variant="h4" style={{width: "50%"}}>
+          <Typography gutterTop variant="h4" style={{ width: "50%" }}>
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%"}}>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%" }}>
             {props.description}
           </Typography>
         </DialogContent>
@@ -96,8 +97,8 @@ export default function QuestionBackButtonPopup(props) {
             onClick={props.closePopup}
             style={{
               backgroundColor: "transparent",
-              color: "#0A1596",
-              border: "1px solid #0A1596",
+              color: appColors.blueColor,
+              border: `1px solid ${appColors.blueColor}`,
               textTransform: "capitalize",
               fontWeight: "regular",
               padding: ".60rem 3rem",
@@ -110,14 +111,14 @@ export default function QuestionBackButtonPopup(props) {
             autoFocus
             onClick={() => props.redirect()}
             style={{
-              backgroundColor: "#0A1596",
+              backgroundColor: appColors.blueColor,
               color: "#fff",
               textTransform: "capitalize",
               fontWeight: "regular",
               padding: ".60rem 3rem",
               marginBottom: "2rem",
             }}
-            >
+          >
             {props.agreeBtnName}
           </Button>
         </DialogActions>
