@@ -72,7 +72,6 @@ const HomeFeedContent = (props) => {
       instance2.get(NormeringValueOfBothMainCategories).then((response) => {
         if (response?.data?.success) {
           setLoading(true);
-          console.log("jha akjsdh kajshd kajsd", response.data.Data)
           setPreviousRecordProgress(response.data.Data);
         }
       });
@@ -155,8 +154,6 @@ const HomeFeedContent = (props) => {
         }
       });
 
-    console.log("quantitativeCorrected 1", quantitativeCorrected, quantitativeAttempted)
-    console.log("verbalCorrected 1", verbalCorrected, verbalAttempted)
     quantitativeTotalNormValue = (quantitativeCorrected / quantitativeAttempted) * 100;
     verbalTotalNormValue = (verbalCorrected / verbalAttempted) * 100;
     quantitativeTotalNormValue = quantitativePercentageCalculator(

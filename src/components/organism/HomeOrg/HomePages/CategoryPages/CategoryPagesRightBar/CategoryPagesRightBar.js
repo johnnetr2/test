@@ -35,15 +35,12 @@ const CategoryPagesRightBar = (props) => {
       const data = datesGroupByComponent(response.data.sevenWeekData, "W");
       const weekWiseCorrectedArray = [];
       const weekWiseProgressArray = [];
-      // console.log("ashgajsg ajksh", data)
       let weekWiseNormingofCategory = calculateWeekWiseNormingForCategory(
         data,
         isDesplayProgress,
         setIsDesplayProgress,
         props?.item.title
       );
-      console.log("ashgajsg ajksh weekWiseNormingofCategory", weekWiseNormingofCategory)
-
       weeknameArray.forEach((weekKeyName, index) => {
         const weekPogress = weekWiseNormingofCategory.find(
           (weekWiseProgress) => weekWiseProgress.name === weekKeyName
