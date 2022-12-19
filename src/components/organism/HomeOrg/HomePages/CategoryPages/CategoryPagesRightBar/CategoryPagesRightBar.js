@@ -42,7 +42,7 @@ const CategoryPagesRightBar = (props) => {
         setIsDesplayProgress,
         props?.item.title
       );
-      // console.log("ashgajsg ajksh weekWiseNormingofCategory", weekWiseNormingofCategory)
+      console.log("ashgajsg ajksh weekWiseNormingofCategory", weekWiseNormingofCategory)
 
       weeknameArray.forEach((weekKeyName, index) => {
         const weekPogress = weekWiseNormingofCategory.find(

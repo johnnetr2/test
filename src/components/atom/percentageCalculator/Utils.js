@@ -201,7 +201,7 @@ export const calculateWeekWiseNormingForCategory = (
               attemptQuestions += solvedQuizOfWeek.attemptedQuestion
             } else {
               let answers = solvedQuizOfWeek.answer
-              answers = answers.reverse()
+              // answers = answers.reverse()
               const loopterminater = 100 - attemptQuestions
               let remainingCorrected = 0
               for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
