@@ -134,6 +134,7 @@ const HomeCard = (props) => {
             variant="body1"
             style={{
               fontSize: ".75rem",
+              marginTop: '.75rem'
             }}
           >
             Prognos
