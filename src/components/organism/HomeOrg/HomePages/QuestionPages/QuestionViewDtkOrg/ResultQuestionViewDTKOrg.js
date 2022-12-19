@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 const ResultQuestionViewDtkOrg = (props) => {
 
 
+
   const useStyles = makeStyles((theme) => ({
     root: {
       minHeight: "100vh",
@@ -63,6 +64,7 @@ const ResultQuestionViewDtkOrg = (props) => {
   const classes = useStyles(10);
   const [paragraph, setParagraph] = useState();
   const [showLoader, setShowLoader] = useState(false);
+  const [enterSubmitted, setEnterSubmitted] = useState(false)
   const { user, token } = useSelector((state) => state.value);
 
   const scrollTop = () => {
@@ -71,6 +73,20 @@ const ResultQuestionViewDtkOrg = (props) => {
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if (e.keyCode === 13) {
+        changeQuestion();
+        setEnterSubmitted(true)
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [enterSubmitted])
+
 
   const changeQuestion = () => {
     scrollTop();
@@ -95,7 +111,7 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const showResult = (index) => {

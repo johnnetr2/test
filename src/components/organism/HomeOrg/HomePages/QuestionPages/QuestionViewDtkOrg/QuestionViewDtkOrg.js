@@ -40,6 +40,7 @@ const QuestionViewDTKOrg = (props) => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const { user, token } = useSelector((state) => state.value);
+  const [enterSubmitted, setEnterSubmitted] = useState(true)
   const headers = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
@@ -126,6 +127,18 @@ const QuestionViewDTKOrg = (props) => {
       setQuiz(props.question);
     }
   }, []);
+
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if (e.keyCode === 13 && enterSubmitted && answerExistance) {
+        submitAnswer();
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [enterSubmitted, answerExistance])
 
   const Button = (question) => {
     if (props.paragraphIndex !== undefined) {
@@ -308,6 +321,7 @@ const QuestionViewDTKOrg = (props) => {
   };
 
   const submitAnswer = async () => {
+    setEnterSubmitted(true)
     const Quiz = { ...quiz };
 
     const data = {
@@ -345,8 +359,10 @@ const QuestionViewDTKOrg = (props) => {
 
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj, { headers }).then((response) => {
+
         dataSubmit = [];
         setShowResult(true);
+        setEnterSubmitted(false)
       });
 
       const Quiz = [...props?.quiz];
@@ -527,11 +543,10 @@ const QuestionViewDTKOrg = (props) => {
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
-                      columnCount: `${
-                        quiz.title === "DTK" || quiz?.description.length < 2000
-                          ? "1"
-                          : "2"
-                      }`,
+                      columnCount: `${quiz.title === "DTK" || quiz?.description.length < 2000
+                        ? "1"
+                        : "2"
+                        }`,
                       padding: "0 5rem 2rem",
                     }}
                   >
@@ -618,6 +633,7 @@ const QuestionViewDTKOrg = (props) => {
           </Box>
           {showResult ? (
             <ResultQuestionViewDtkOrg
+              isAnswerExist={answerExistance}
               paragraphIndex={props.paragraphIndex}
               onRightClick={() => props.onRightClick()}
               onLeftClick={() => props.onLeftClick()}
@@ -686,18 +702,18 @@ const QuestionViewDTKOrg = (props) => {
                           </Typography>
                           {
                             quiz &&
-                              selectedIndex < quiz?.question?.length - 1 &&
-                              quiz?.question.length > 1 &&
-                              quiz?.question[0].selectedOptionIndex !=
-                                undefined && (
-                                <img
-                                  onClick={handleRightArrowFunction}
-                                  src={BlueRightIcon}
-                                  style={{ cursor: "pointer" }}
-                                  className={classes.size}
-                                  alt=""
-                                />
-                              )
+                            selectedIndex < quiz?.question?.length - 1 &&
+                            quiz?.question.length > 1 &&
+                            quiz?.question[0].selectedOptionIndex !=
+                            undefined && (
+                              <img
+                                onClick={handleRightArrowFunction}
+                                src={BlueRightIcon}
+                                style={{ cursor: "pointer" }}
+                                className={classes.size}
+                                alt=""
+                              />
+                            )
                             // : (
                             //   <img
                             //     src={Righticon}
@@ -834,7 +850,7 @@ const QuestionViewDTKOrg = (props) => {
                             width: "3rem",
                           }}
                         >
-                          svara
+                          Svara
                         </Typography>
                       </Box>
                     )}
