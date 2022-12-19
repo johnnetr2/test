@@ -60,19 +60,19 @@ const HomeRightBar = (props) => {
             const weekNumber = weekNames[weekNameIndex];
 
             for (let index = 0; index < hundredQuestionsPerWeekData.length; index++) {
-              const element = hundredQuestionsPerWeekData[index];
-              const categorywWeekData = element.hundredQuestionsPerWeek.find(weekData => weekData.name === weekNumber)
-              if (!categorywWeekData) {
-                for (let index = weekNameIndex - 1; index >= 0; index--) {
-                  const previousWeekName = weekNames[index];
-                  const categorywWeekData = element.hundredQuestionsPerWeek.find(weekData => weekData.name === previousWeekName)
-                  if (categorywWeekData) {
-                    if (element.isQuantitative) {
-                      perWeekQuantitativeCorrected += categorywWeekData.correctAnswers
-                      perWeekQuantitativeAttempted += categorywWeekData.attemptQuestions
+              const categoryWeekWiseData = hundredQuestionsPerWeekData[index];
+              const categoryWeeksData = categoryWeekWiseData.hundredQuestionsPerWeek.find(weekData => weekData.name === weekNumber)
+              if (!categoryWeeksData) {
+                for (let pickPrevious = weekNameIndex - 1; pickPrevious >= 0; pickPrevious--) {
+                  const previousWeekName = weekNames[pickPrevious];
+                  const categoryWeeksData = categoryWeekWiseData.hundredQuestionsPerWeek.find(weekData => weekData.name === previousWeekName)
+                  if (categoryWeeksData) {
+                    if (categoryWeekWiseData.isQuantitative) {
+                      perWeekQuantitativeCorrected += categoryWeeksData.correctAnswers
+                      perWeekQuantitativeAttempted += categoryWeeksData.attemptQuestions
                     } else {
-                      perWeekVerbalCorrected += categorywWeekData.correctAnswers
-                      perWeekVerbalAttempted += categorywWeekData.attemptQuestions
+                      perWeekVerbalCorrected += categoryWeeksData.correctAnswers
+                      perWeekVerbalAttempted += categoryWeeksData.attemptQuestions
                     }
 
                     break
@@ -81,14 +81,13 @@ const HomeRightBar = (props) => {
                     continue
                   }
                 }
-              }
-              if (categorywWeekData) {
-                if (element.isQuantitative) {
-                  perWeekQuantitativeCorrected += categorywWeekData.correctAnswers
-                  perWeekQuantitativeAttempted += categorywWeekData.attemptQuestions
+              } else {
+                if (categoryWeekWiseData.isQuantitative) {
+                  perWeekQuantitativeCorrected += categoryWeeksData.correctAnswers
+                  perWeekQuantitativeAttempted += categoryWeeksData.attemptQuestions
                 } else {
-                  perWeekVerbalCorrected += categorywWeekData.correctAnswers
-                  perWeekVerbalAttempted += categorywWeekData.attemptQuestions
+                  perWeekVerbalCorrected += categoryWeeksData.correctAnswers
+                  perWeekVerbalAttempted += categoryWeeksData.attemptQuestions
                 }
               }
             }
