@@ -213,6 +213,9 @@ export const calculateWeekWiseNormingForCategory = (
             }
           }
         }
+        if (calculationForTerminate > 100) {
+          break
+        }
       }
       if (attemptQuestions >= 20) {
         if (!isDesplayProgress) {
