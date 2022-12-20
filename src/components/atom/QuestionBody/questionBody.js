@@ -214,15 +214,7 @@ const QuestionBody = (props) => {
                 alignItems: "center",
               }}
             >
-              <Typography
-                variant="p"
-                sx={{
-                  fontWeight: "bold",
-                  marginLeft: { xs: "1rem", sm: "50px" },
-                }}
-              >
-                Tillräckligt information för lösningen erhålls
-              </Typography>
+              <p style={{marginLeft: "50px", fontSize: "16px", fontWeight: "bold" }}>Tillräckligt information för lösningen erhålls</p>
             </Box>
           ) : null}
           {question?.options[0]?.options?.map((item, optionIndex) => {
