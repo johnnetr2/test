@@ -7,6 +7,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import { appColors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -174,7 +175,7 @@ const CoursesCard = (props) => {
                         style={{
                           backgroundColor:
                             props.quizzes &&
-                            item <= props?.quizzes.simuleraQuizResult?.length
+                              item <= props?.quizzes.simuleraQuizResult?.length
                               ? "#6FCF97"
                               : "#E1E1E1",
                           color: "#505050",
@@ -190,7 +191,7 @@ const CoursesCard = (props) => {
               </Box>
             </Box>
             {props.quizzes !== undefined &&
-            props?.quizzes?.simuleraQuizResult.length > 3 ? (
+              props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
@@ -219,8 +220,8 @@ const CoursesCard = (props) => {
                     style={{
                       width: "12rem",
                       textTransform: "capitalize",
-                      border: "2px solid #0A1596",
-                      color: "#0A1596",
+                      border: `2px solid ${appColors.blueColor}`,
+                      color: appColors.blueColor,
                     }}
                     onClick={() => restartQuiz()}
                   >

@@ -28,6 +28,7 @@ import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import { appColors } from "../../../../../service/commonService";
 
 let dataSubmit = [];
 
@@ -307,14 +308,14 @@ const QuestionViewDTKOrg = (props) => {
   const Options = (question, option, optionIndex) => {
     if (optionIndex === question.selectedOptionIndex) {
       return (
-        <Radio color="primary" checked={true} style={{ color: "#0A1596" }} />
+        <Radio color="primary" checked={true} style={{ color: appColors.blueColor }} />
       );
     } else {
       return (
         <Radio
           color="primary"
           checked={false}
-          style={{ color: option._id === onHover && "#0A1596" }}
+          style={{ color: option._id === onHover && appColors.hoverBlue }}
         />
       );
     }
@@ -756,10 +757,10 @@ const QuestionViewDTKOrg = (props) => {
                             // marginLeft: ".5rem",
                             color:
                               optionIndex === question.selectedOptionIndex &&
-                              "#0A1596",
+                              appColors.blueColor,
                             "&:hover": {
                               cursor: !option.answer && "pointer",
-                              color: !option.answer && "#0A1596",
+                              color: !option.answer && appColors.hoverBlue,
                             },
                             display: "flex",
                             flexDirection: "row",

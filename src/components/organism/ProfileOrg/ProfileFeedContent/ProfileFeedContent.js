@@ -8,6 +8,7 @@ import InputField from "../../../atom/InputField/InputField";
 import PasswordUpdationDialog from "../../../molecule/PasswordUpdationDialog/PasswordUpdationDialog";
 import Snackbar from "../../../molecule/Snackbar/Snackbar";
 import swal from "sweetalert";
+import { appColors } from "../../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,9 +121,9 @@ const ProfileFeedContent = () => {
               onChange={(e) => setData(e.target.value)}
             />
             <Box sx={{
-              display: 'flex', 
+              display: 'flex',
               justifyContent: 'center',
-              backgroundColor: data.length > 0 ? '#0A1596' : '#E1E1E1', 
+              backgroundColor: data.length > 0 ? appColors.blueColor : '#E1E1E1',
               height: '3rem',
               alignItems: 'center',
               borderRadius: '7.5px',
@@ -157,9 +158,9 @@ const ProfileFeedContent = () => {
           <Button
             variant="outlined"
             style={{
-              border: "1px solid #0A1596",
+              border: `1px solid ${appColors.blueColor}`,
               textTransform: "initial",
-              color: "#0A1596",
+              color: appColors.blueColor,
               fontWeight: 400,
             }}
             onClick={() => setIsOpen(true)}

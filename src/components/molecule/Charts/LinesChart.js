@@ -10,6 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import { appColors } from "../../service/commonService";
 const LinesChart = (props) => {
   // const progressOfUserAllCategories = []
   const CustomTooltip = ({ active, payload }) => {
@@ -17,7 +18,7 @@ const LinesChart = (props) => {
       return (
         <div
           style={{
-            backgroundColor: "#fff",
+            backgroundColor: appColors.whiteColor,
             border: "1px solid #e1e1e1",
             borderRadius: "5px",
             padding: ".65rem .75rem",
@@ -82,17 +83,17 @@ const LinesChart = (props) => {
         <Line
           type="monotone"
           dataKey="Prognos"
-          stroke="#0A1596"
+          stroke={appColors.blueColor}
           strokeWidth="3"
           isAnimationActive={false}
           activeDot={{
-            fill: "#0A1596",
-            stroke: "#0A1596",
+            fill: appColors.blueColor,
+            stroke: appColors.blueColor,
             strokeWidth: 2,
             r: 6,
           }}
           align="center"
-          dot={{ fill: "#0A1596", stroke: "#0A1596", strokeWidth: 2, r: 6 }}
+          dot={{ fill: appColors.blueColor, stroke: appColors.blueColor, strokeWidth: 2, r: 6 }}
         />
       </LineChart>
     </Box>
