@@ -527,19 +527,17 @@ const QuestionViewDTKOrg = (props) => {
             >
               {quiz?.description && (
                 <>
-                  <DialogTitle style={{ padding: "2rem 5rem 2rem" }}>
+                  <DialogTitle style={{ padding: "2rem 5rem 0rem" }}>
                     <Typography
                       variant="subtitle1"
                       style={{
                         textTransform: "uppercase",
-                        fontSize: ".7rem",
-                        fontWeight: "500",
+                        fontSize: ".85rem",
+                        maxWidth: "650px",
+                        margin: "auto",
                       }}
                     >
-                      {quiz && quiz.question.length + " uppgifter:"}
-                    </Typography>
-                    <Typography variant="h3" component="h3">
-                      {!quiz?.title === "DTK" ? quiz?.title : ""}
+                      {quiz && quiz.question.length + " uppgifter"}
                     </Typography>
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
@@ -548,7 +546,7 @@ const QuestionViewDTKOrg = (props) => {
                         ? "1"
                         : "2"
                         }`,
-                      padding: "0 5rem 2rem",
+                      padding: "0rem 5rem 2rem",
                     }}
                   >
                     <Typography
@@ -559,6 +557,7 @@ const QuestionViewDTKOrg = (props) => {
                         margin: "auto",
                       }}
                     >
+                      <h1 style={{fontSize: "28px"}}>{quiz?.title}</h1>
                       <MarkLatex content={quiz?.description} />
                     </Typography>
                   </DialogContent>
