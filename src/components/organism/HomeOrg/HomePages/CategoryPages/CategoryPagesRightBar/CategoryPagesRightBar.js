@@ -41,7 +41,6 @@ const CategoryPagesRightBar = (props) => {
         setIsDesplayProgress,
         props?.item.title
       );
-
       weeknameArray.forEach((weekKeyName, index) => {
         const weekPogress = weekWiseNormingofCategory.find(
           (weekWiseProgress) => weekWiseProgress.name === weekKeyName

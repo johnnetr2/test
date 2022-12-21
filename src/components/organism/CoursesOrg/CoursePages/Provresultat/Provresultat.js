@@ -26,6 +26,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import ExamResults from '../../../../../assets/Static/ExamResults.json'
+import { appColors } from "../../../../service/commonService";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -49,19 +50,17 @@ const Provresultat = () => {
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data)
+        setVerbalQuantitativeStates(response.data);
       });
     } else {
       const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data)
-
+        setVerbalQuantitativeStates(response.data);
       });
     }
   }, []);
-
 
   const setVerbalQuantitativeStates = (data) => {
     setCorrectAnswersOfKvantitative(
@@ -89,36 +88,63 @@ const Provresultat = () => {
       data.totalQuestion_of_MEK +
       data.totalQuestion_of_ELF
     );
-  }
+  };
 
   useEffect(() => {
     if (params.state.seasonId) {
       const URL = `${EndPoints.getPreviousExams}/${params.state.seasonId}`;
       instance2.get(URL).then((response) => {
         setSeason(response.data.simuleraSeason);
-        const simuleraSeasonYear = response.data.simuleraSeason.title.split(' ')[1];
+        const simuleraSeasonYear =
+          response.data.simuleraSeason.title.split(" ")[1];
         const rawPointsExam = ExamResults.rawPoints.find((item) => {
           const examName = `${item.season} ${item.year}`;
-          return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
-        })
-        const normalizedPointsExam = ExamResults.normalizedPoints.find((item) => {
-          const examName = `${item.season} ${item.year}`;
-          return (examName === response.data.simuleraSeason.title || examName === `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`);
-        })
-        console.log(rawPointsExam, normalizedPointsExam)
+          return (
+            examName === response.data.simuleraSeason.title ||
+            examName ===
+            `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+          );
+        });
+        const normalizedPointsExam = ExamResults.normalizedPoints.find(
+          (item) => {
+            const examName = `${item.season} ${item.year}`;
+            return (
+              examName === response.data.simuleraSeason.title ||
+              examName ===
+              `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+            );
+          }
+        );
+        console.log(rawPointsExam, normalizedPointsExam);
         setParticipantsAverage(rawPointsExam);
         setParticipantsNormalized(normalizedPointsExam);
       });
-
     }
-  }, [])
+  }, []);
 
-  function createSummaryData(rowName, totalCorrectAnswers, totalQuestions, averagePoints) {
+  function createSummaryData(
+    rowName,
+    totalCorrectAnswers,
+    totalQuestions,
+    averagePoints
+  ) {
     return { rowName, totalCorrectAnswers, totalQuestions, averagePoints };
   }
 
-  function createExamPartData(examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints) {
-    return { examPart, correctAnswers, totalQuestions, averageOtherParticipants, normalizedPoints };
+  function createExamPartData(
+    examPart,
+    correctAnswers,
+    totalQuestions,
+    averageOtherParticipants,
+    normalizedPoints
+  ) {
+    return {
+      examPart,
+      correctAnswers,
+      totalQuestions,
+      averageOtherParticipants,
+      normalizedPoints,
+    };
   }
 
   const kvantPartRows = [
@@ -151,7 +177,8 @@ const Provresultat = () => {
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
       participantsAverage?.KVANT,
-      correctAnswersOfKvantitative && totalQuestionsOfKvantitative &&
+      correctAnswersOfKvantitative &&
+      totalQuestionsOfKvantitative &&
       ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
         ?.toFixed(1)
         .replace(/\.0+$/, "")
@@ -188,7 +215,8 @@ const Provresultat = () => {
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
       participantsAverage?.VERB,
-      correctAnswersOfVerbal && totalQuestionsOfVerbal &&
+      correctAnswersOfVerbal &&
+      totalQuestionsOfVerbal &&
       ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
         ?.toFixed(1)
         .replace(/\.0+$/, "")
@@ -200,7 +228,7 @@ const Provresultat = () => {
       "SAMMANFATTNING",
       correctAnswersOfKvantitative + correctAnswersOfVerbal,
       totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
-      participantsAverage?.Total,
+      participantsAverage?.Total
     ),
   ];
 
@@ -238,13 +266,12 @@ const Provresultat = () => {
 
     cards: {
       [theme.breakpoints.up(1025)]: {
-        width: "23vw",
         // width: "49%",
         height: "15vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "#fff",
+        backgroundColor: "#fff",
         border: "1px solid #e1e1e1",
         borderRadius: "0.3rem",
         boxShadow: "0px 5px 10px #f2f2f2",
@@ -370,12 +397,13 @@ const Provresultat = () => {
         }}
       >
         <Box className={classes.main}>
-          <Box sx={{ backgroundColor: "transparent" }}>
+          <Box sx={{ backgroundColor: "transparent", width: "100%" }}>
             <Box
               className={classes.info}
               style={{
                 display: "flex",
                 flexDirection: "column",
+
                 // paddingLeft: width > 1025 ? "3.5rem" : "1rem",
               }}
             >
@@ -436,6 +464,7 @@ const Provresultat = () => {
                   dispaly: "flex",
                   flexDirection: "column",
                   paddingRight: "1rem",
+                  flexBasis: "50%",
                 }}
               >
                 <Box
@@ -538,6 +567,7 @@ const Provresultat = () => {
                   dispaly: "flex",
                   flexDirection: "column",
                   paddingLeft: "1rem",
+                  flexBasis: "50%",
                 }}
               >
                 <Box
@@ -689,7 +719,9 @@ const Provresultat = () => {
                       </TableCell>
                       <TableCell align="left">{row.correctAnswers}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
-                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">
+                        {row.averageOtherParticipants}
+                      </TableCell>
                       <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
@@ -754,7 +786,9 @@ const Provresultat = () => {
                       </TableCell>
                       <TableCell align="left">{row.correctAnswers}</TableCell>
                       <TableCell align="left">{row.totalQuestions}</TableCell>
-                      <TableCell align="left">{row.averageOtherParticipants}</TableCell>
+                      <TableCell align="left">
+                        {row.averageOtherParticipants}
+                      </TableCell>
                       <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
@@ -883,8 +917,8 @@ const Provresultat = () => {
                           <Button
                             style={{
                               backgroundColor: "#fff",
-                              color: "#0A1596",
-                              border: "1px solid #0A1596",
+                              color: appColors.blueColor,
+                              border: `1px solid ${appColors.blueColor}`,
                             }}
                           >
                             SE RATTNING
@@ -986,9 +1020,9 @@ const Provresultat = () => {
                 sx={{
                   // width: width > 1025 ? "91%" : "92%",
                   width: "100%",
-                  border: "1px solid #0A1596",
+                  border: `1px solid ${appColors.blueColor}`,
                   margin: "1rem 0",
-                  color: "#0A1596",
+                  color: appColors.blueColor,
                   display: "flex",
                 }}
                 onClick={() => navigate("/courses")}

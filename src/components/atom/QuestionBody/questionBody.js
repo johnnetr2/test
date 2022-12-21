@@ -15,6 +15,7 @@ import ReactMarkdown from "react-markdown";
 
 import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
 import AnswerStatement from "../../molecule/AnswerStatement/AnswerStatement";
+import { appColors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -213,15 +214,7 @@ const QuestionBody = (props) => {
                 alignItems: "center",
               }}
             >
-              <Typography
-                variant="p"
-                sx={{
-                  fontWeight: "bold",
-                  marginLeft: { xs: "1rem", sm: "50px" },
-                }}
-              >
-                Tillräckligt information för lösningen erhålls
-              </Typography>
+              <p style={{marginLeft: "50px", fontSize: "16px", fontWeight: "bold" }}>Tillräckligt information för lösningen erhålls</p>
             </Box>
           ) : null}
           {question?.options[0]?.options?.map((item, optionIndex) => {
@@ -232,35 +225,35 @@ const QuestionBody = (props) => {
                     sx={{
                       height:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 60
                           : 150,
                       padding:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 0
                           : 10,
                       border: "1px solid #e1e1e1",
                       maxWidth:
                         question?.options[0].options.length > 4 ||
-                        !item.value.includes(
-                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                        )
+                          !item.value.includes(
+                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                          )
                           ? 600
                           : 300,
                       display: "flex",
                       color:
                         !question.answer &&
-                        optionIndex == question.selectedIndex
-                          ? "#0A1596"
+                          optionIndex == question.selectedIndex
+                          ? appColors.blueColor
                           : "",
                       "&:hover": {
                         cursor: !question.answer && "pointer",
-                        color: !question.answer && "#0A1596",
+                        color: !question.answer && appColors.hoverBlue,
                       },
                     }}
                     onMouseOver={() => props.onhover(item._id)}
@@ -319,7 +312,7 @@ const QuestionBody = (props) => {
                         display: "flex",
                         marginLeft:
                           question?.options[0].options.length > 4 ||
-                          item.image === ""
+                            item.image === ""
                             ? "1rem"
                             : "0",
                         width: !item.value.includes(
@@ -329,9 +322,9 @@ const QuestionBody = (props) => {
                           : 300,
                         justifyContent:
                           question?.options[0].options.length > 4 ||
-                          !item.value.includes(
-                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                          )
+                            !item.value.includes(
+                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                            )
                             ? "flex-start"
                             : "center",
                         alignItems: "center",

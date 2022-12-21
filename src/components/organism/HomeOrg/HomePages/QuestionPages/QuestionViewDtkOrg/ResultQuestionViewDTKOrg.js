@@ -13,10 +13,13 @@ import DownArrow from "../../../../../../assets/Icons/DownArrow.svg";
 import MultiAnswer from "../../../../../molecule/MultiAnswer/MultiAnswer";
 import TopArrow from "../../../../../../assets/Icons/TopArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import { appColors } from "../../../../../service/commonService";
 
 const ResultQuestionViewDtkOrg = (props) => {
+
 
 
   const useStyles = makeStyles((theme) => ({
@@ -62,6 +65,7 @@ const ResultQuestionViewDtkOrg = (props) => {
   const classes = useStyles(10);
   const [paragraph, setParagraph] = useState();
   const [showLoader, setShowLoader] = useState(false);
+  const [enterSubmitted, setEnterSubmitted] = useState(false)
   const { user, token } = useSelector((state) => state.value);
 
   const scrollTop = () => {
@@ -70,6 +74,20 @@ const ResultQuestionViewDtkOrg = (props) => {
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if (e.keyCode === 13) {
+        changeQuestion();
+        setEnterSubmitted(true)
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [enterSubmitted])
+
 
   const changeQuestion = () => {
     scrollTop();
@@ -94,7 +112,7 @@ const ResultQuestionViewDtkOrg = (props) => {
         setShowLoader(false);
         setParagraph(response.data.question);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const showResult = (index) => {
@@ -175,7 +193,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                           component="h6"
                           style={{ fontSize: "1rem", fontWeight: "600" }}
                         >
-                          {item.questionStatement}
+                          <MarkLatex content={item.questionStatement} />
                         </Typography>
                         <Box
                           style={{
@@ -224,7 +242,7 @@ const ResultQuestionViewDtkOrg = (props) => {
               padding={1}
               mt={2}
               style={{
-                backgroundColor: "#0A1596",
+                backgroundColor: appColors.blueColor,
                 color: "#FFFFFF",
                 height: "2.7rem",
                 borderRadius: ".4rem",

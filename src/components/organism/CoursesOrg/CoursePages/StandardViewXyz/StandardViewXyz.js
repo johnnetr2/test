@@ -35,6 +35,7 @@ import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
+import { appColors } from "../../../../service/commonService";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -83,6 +84,7 @@ const StandardViewXyz = () => {
           timeLeft,
           currentQuestion: currentIndex,
           provpass: params?.state?.provpass,
+          session: params?.state?.session,
         },
       });
     }
@@ -239,7 +241,7 @@ const StandardViewXyz = () => {
           color="primary"
           checked={true}
           style={{
-            marginRight: "0.5rem",
+            marginRight: "0.5rem", color: appColors.blueColor
           }}
         />
       );
@@ -250,7 +252,7 @@ const StandardViewXyz = () => {
           checked={false}
           style={{
             marginRight: "0.5rem",
-            color: option._id == onHover && "#0A1596",
+            color: option._id == onHover && appColors.hoverBlue,
           }}
         />
       );
@@ -339,10 +341,10 @@ const StandardViewXyz = () => {
             onClick={() => {
               quiz && quiz.question[currentIndex].questionAnswer
                 ? navigate("/provresultat", {
-                    state: {
-                      seasonId: params.state.seasonId,
-                    },
-                  })
+                  state: {
+                    seasonId: params.state.seasonId,
+                  },
+                })
                 : setBackPressPopup(true);
             }}
           >
@@ -403,19 +405,19 @@ const StandardViewXyz = () => {
               {quiz && quiz.question[currentIndex].questionAnswer
                 ? "Slutfört"
                 : time && (
-                    <Timer
-                      continueStatus={status}
-                      time={time}
-                      timeleft={(timer) => {
-                        setTimeLeft(timer);
-                      }}
-                      onCloseTimer={() => {
-                        setTimeLeft(0);
-                        setShouldNavigate(true);
-                      }}
-                      callBackForTimer={(value) => setTimeLeft(value)}
-                    />
-                  )}
+                  <Timer
+                    continueStatus={status}
+                    time={time}
+                    timeleft={(timer) => {
+                      setTimeLeft(timer);
+                    }}
+                    onCloseTimer={() => {
+                      setTimeLeft(0);
+                      setShouldNavigate(true);
+                    }}
+                    callBackForTimer={(value) => setTimeLeft(value)}
+                  />
+                )}
             </Box>
           </Box>
           <Box
@@ -458,14 +460,14 @@ const StandardViewXyz = () => {
         <Container
           maxWidth="md"
           className={classes.questionComponent}
-          // style={{
-          //   marginTop: 0,
-          //   backgroundColor: "#f9f9f9",
-          //   height: "fit-content",
-          //   display: "flex",
-          //   justifyContent: "flex-end",
-          //   flexDirection: "row",
-          // }}
+        // style={{
+        //   marginTop: 0,
+        //   backgroundColor: "#f9f9f9",
+        //   height: "fit-content",
+        //   display: "flex",
+        //   justifyContent: "flex-end",
+        //   flexDirection: "row",
+        // }}
         >
           {/* start of question component */}
 
@@ -520,8 +522,8 @@ const StandardViewXyz = () => {
                             height: isReadingComprehension
                               ? "auto"
                               : question.images[0]
-                              ? 380
-                              : 330,
+                                ? 380
+                                : 330,
                             // border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
@@ -606,7 +608,7 @@ const StandardViewXyz = () => {
                                         : 300,
                                     "&:hover": {
                                       cursor: !option.answer && "pointer",
-                                      color: !option.answer && "#0A1596",
+                                      color: !option.answer && appColors.hoverBlue,
                                     },
                                   }}
                                 >
@@ -866,25 +868,25 @@ const StandardViewXyz = () => {
 
           <Box
             className={classes.spara}
-            // style={{
-            //   width: "10rem",
-            //   height: 'fit-content',
-            //   display: "flex",
-            //   justifyContent: "center",
-            //   marginTop: '2.7rem',
-            //   // marginLeft: '-10rem'
-            // }}
+          // style={{
+          //   width: "10rem",
+          //   height: 'fit-content',
+          //   display: "flex",
+          //   justifyContent: "center",
+          //   marginTop: '2.7rem',
+          //   // marginLeft: '-10rem'
+          // }}
           >
             {quiz && !quiz.question[currentIndex].questionAnswer && (
               <Button
                 style={{
                   width: "6rem",
-                  border: "1px solid #0A1596",
+                  border: `1px solid ${appColors.blueColor}`,
                   color: quiz.question[currentIndex].isFlaged
                     ? "#fff"
-                    : "#0A1596",
+                    : appColors.blueColor,
                   backgroundColor: quiz.question[currentIndex].isFlaged
-                    ? "#0A1596"
+                    ? appColors.blueColor
                     : "",
                 }}
                 onClick={() => flagQuestion()}

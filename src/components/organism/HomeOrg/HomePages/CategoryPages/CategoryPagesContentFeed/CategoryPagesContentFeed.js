@@ -15,7 +15,9 @@ import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
 import OutlineField from "../../../../../atom/OutlineField/OutlineField";
 import swal from "sweetalert";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
+import categoryDescription from "../../../../../../assets/Static/CategoryDescription.json"
 import { useSelector } from "react-redux";
+import { appColors } from "../../../../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -310,7 +312,7 @@ const CategoryPagesFeedContent = (props) => {
     <Container maxWidth="md" className={classes.root}>
       <Box>
         <Heading title={categoryTitle + " - " + categoryName} />
-        <BodyText title="Prövar din förmåga att göra kvantitativa jämförelser inom aritmetik, algebra, geometri, funktionslära och statistik." />
+        <BodyText title={categoryDescription[categoryName]} />
       </Box>
       <Box
         sx={{ marginBottom: "1rem", marginTop: "4rem", marginLeft: "0.1rem" }}
@@ -541,8 +543,8 @@ const CategoryPagesFeedContent = (props) => {
       <Box
         sx={{
           marginTop: "2rem",
-          backgroundColor: "#0A1596",
-          color: "#fff",
+          backgroundColor: appColors.blueColor,
+          color: appColors.whiteColor,
           borderRadius: "6px",
           height: "3rem",
           display: "flex",
@@ -559,7 +561,7 @@ const CategoryPagesFeedContent = (props) => {
         <Tabs
           className={classes.hideStatistics}
           TabIndicatorProps={{
-            style: { backgroundColor: "#0A1596", height: "4px" },
+            style: { backgroundColor: appColors.blueColor, height: "4px" },
           }}
           value={tabValue}
           onChange={handelChange}

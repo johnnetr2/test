@@ -18,6 +18,7 @@ import Heading from "../../../atom/Heading/Heading";
 import { Input } from "reactstrap";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
+import { appColors } from "../../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,8 +91,8 @@ const CoursesFeedContent = (props) => {
               aria-label="scrollable prevent tabs example"
               TabIndicatorProps={{
                 style: {
-                  background: "#0A1596",
-                  border: "4px solid #0A1596",
+                  background: appColors.blueColor,
+                  border: `4px solid ${appColors.blueColor}`,
                 },
               }}
             >
@@ -166,7 +167,7 @@ const CoursesFeedContent = (props) => {
         <Box>
           <Box
             sx={{ marginBottom: "1rem", gap: "5rem" }}
-            // onClick={() => navigate("/provpassinfo")}
+          // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
               previousExams.map((item) => {
@@ -189,12 +190,12 @@ const CoursesFeedContent = (props) => {
             marginTop: "1rem",
             display: "flex",
             justifyContent: "center",
-            maxWidth: "48rem",
+            maxWidth: { xs: "unset", lg: "48rem" },
           }}
         >
           <Button
             variant="contained"
-            style={{ backgroundColor: "#0A1596", color: "#fff" }}
+            style={{ backgroundColor: appColors.blueColor, color: appColors.whiteColor }}
             onClick={() => props.loadMore()}
           >
             Fler prov
@@ -243,7 +244,7 @@ const CoursesFeedContent = (props) => {
         >
           <Button
             variant="contained"
-            style={{ backgroundColor: "#0A1596", color: "#fff" }}
+            style={{ backgroundColor: appColors.blueColor, color: appColors.whiteColor }}
           >
             Fler prov
           </Button>

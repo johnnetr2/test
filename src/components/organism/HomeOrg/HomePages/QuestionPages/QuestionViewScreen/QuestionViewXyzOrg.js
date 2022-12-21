@@ -30,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
 import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
+import { appColors } from "../../../../../service/commonService";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -307,7 +308,7 @@ const QuestionViewXyzOrg = () => {
       width: "90vw",
     },
     radio: {
-      color: onHover && "#0A1596",
+      color: onHover && appColors.hoverBlue,
     },
   }));
 
@@ -473,7 +474,7 @@ const QuestionViewXyzOrg = () => {
         <Radio
           color="blue"
           checked={true}
-          style={{ marginRight: "0.5rem", color: "#0A1596" }}
+          style={{ marginRight: "0.5rem", color: appColors.blueColor }}
         />
       );
     } else {
@@ -484,7 +485,7 @@ const QuestionViewXyzOrg = () => {
           style={{
             marginRight: "0.5rem",
             color:
-              !question.answer && curentOption._id === onHover && "#0A1596",
+              !question.answer && curentOption._id === onHover && appColors.hoverBlue,
           }}
         />
       );
@@ -529,7 +530,7 @@ const QuestionViewXyzOrg = () => {
             maxWidth: 600,
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "#0A1596",
+            backgroundColor: appColors.blueColor,
             borderRadius: ".3rem",
             cursor: "pointer",
             marginBottom: "2.2rem",

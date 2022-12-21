@@ -74,9 +74,6 @@ function MultiQuestionSummary(props) {
         />
       );
     }
-    // else {
-    //     return <Radio color="primary" checked={false} style={{ marginBottom: '.5rem' }} />;
-    // }
     if (optionIndex == question.selectedIndex) {
       return (
         <Radio
@@ -150,7 +147,11 @@ function MultiQuestionSummary(props) {
         />
       </Box>
 
-      <Box>
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: '600px'
+        }}>
         <Box
           paddingX={4}
           mt={5}
@@ -161,14 +162,6 @@ function MultiQuestionSummary(props) {
             border: "1px solid #e1e1e1",
           }}
         >
-          {/* <Box
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              marginTop: 10,
-            }}
-          ></Box> */}
           <Typography
             variant="h6"
             component="h6"
@@ -183,9 +176,6 @@ function MultiQuestionSummary(props) {
           >
             <MarkLatex content={question?.questionStatement} />
 
-            {/* {question?.images[0] && (
-              <img src={question.images[0]} style={{ marginBottom: ".4rem" }} />
-            )} */}
           </Typography>
         </Box>
         {question?.options[0].options.map((curentOption, optionIndex) => {
@@ -200,7 +190,7 @@ function MultiQuestionSummary(props) {
               }}
             >
               <FormControlLabel
-                onClick={(e) => {}}
+                onClick={(e) => { }}
                 value={curentOption._id}
                 style={{ marginLeft: ".5rem", marginTop: ".3rem" }}
                 control={Options(question, curentOption, optionIndex)}
@@ -213,7 +203,6 @@ function MultiQuestionSummary(props) {
             </Box>
           );
         })}
-        {/* {Button(question) } */}
       </Box>
       {question?.optionId && (
         <Box
@@ -223,11 +212,7 @@ function MultiQuestionSummary(props) {
             backgroundColor: "#fff",
             width: "100%",
             maxWidth: 600,
-            height: 220,
             border: "1px solid #e1e1e1",
-            overflow: "auto",
-            "&::-webkit-scrollbar": { display: "none" },
-            //   '&::-webkit-scrollbar': { width : 0 },
           }}
         >
           {question.answer && (
@@ -240,7 +225,6 @@ function MultiQuestionSummary(props) {
         </Box>
       )}
 
-      {/* <ResultFooter/> */}
       <ResultFooter
         questionLength={props.quiz.length}
         questionIndex={props.selectedIndex}

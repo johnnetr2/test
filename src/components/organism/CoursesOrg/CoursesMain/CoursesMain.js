@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("1200")]: {
       display: "none",
     },
-    padding: '0 1rem'
+    padding: "0 1rem",
   },
   main: {
     minHeight: "100vh",
@@ -47,7 +47,6 @@ const CoursesMain = () => {
     };
     const getPreviosExams = EndPoints.getPreviousExams;
     instance2.get(getPreviosExams, data).then((response) => {
-      console.log(response, "get previous exams");
       setPreviousExams(response.data.data);
     });
 
@@ -119,7 +118,7 @@ const CoursesMain = () => {
           {/* <CoursesLeftBar /> */}
           <HomeLeftBar currentPage="course" />
         </Grid>
-        <Grid item xs={12} sm={12} md={7} lg={7} xl={7}>
+        <Grid item xs={12} sm={10} lg={7} xl={7} style={{ margin: "0 auto" }}>
           <CoursesFeedContent
             previousExams={previousExams}
             data={provHistoryData}
