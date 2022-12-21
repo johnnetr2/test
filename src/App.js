@@ -71,7 +71,7 @@ function App() {
           ""
         )}
         <Route path="profile" element={<Profile />} />
-        <Route path="message" element={<Message />} />
+        <Route path="feedback" element={<Message />} />
         <Route path="logout" element={<Logout />} />
         <Route path="/category" element={<CategoryPagesMain />} />
         <Route path="/question" element={<QuestionViewXyzOrg />} />
