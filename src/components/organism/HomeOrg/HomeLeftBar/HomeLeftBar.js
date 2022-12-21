@@ -179,15 +179,7 @@ const HomeLeftBar = (props) => {
               display: "flex",
               justifyContent: "center",
             }}
-          // onClick={() =>
-          // navigate("/home", {
-          //   state: {
-          //     popUpStatus: true,
-          //   },
-          // })
-          // }
           >
-            {/* <img src={HomeC} alt="" srcset="" /> */}
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <img
                 src={props.currentPage === "course" ? CourseC : Course}
@@ -298,27 +290,30 @@ const HomeLeftBar = (props) => {
       </NavLink> */}
 
       {/* Courses Nav */}
-      <Box
-        // to="/message"
-        to="#"
-        className={classes.disabledNavStyle}
-      // style={({ isActive }) => {
-      //   return {
-      //     backgroundColor: isActive ? appColors.blueColor : "none",
-      //     color: isActive ? appColors.whiteColor : "none",
-      //   };
-      // }}
+
+      <NavLink
+        to="/feedback"
+        className={classes.navStyle}
+        style={({ isActive }) => {
+          return {
+            backgroundColor: isActive ? appColors.blueColor : "none",
+            color: isActive ? appColors.whiteColor : "none",
+          };
+        }}
       >
         <Box
-          className={classes.Disableitem}
-          style={{ display: "flex", justifyContent: "center" }}
+          className={classes.item}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {/* <img
+            <img
               src={props.currentPage === "feedback" ? FeedbackC : Feedback}
               className={classes.icon}
-            /> */}
-            <img src={MsgGrey} alt="" className={classes.icon} />
+            />
+
           </Box>
           <Typography
             variant="body1"
@@ -328,7 +323,8 @@ const HomeLeftBar = (props) => {
             Feedback
           </Typography>
         </Box>
-      </Box>
+      </NavLink>
+
       <Box
         to="#"
         className={classes.disabledNavStyle}
