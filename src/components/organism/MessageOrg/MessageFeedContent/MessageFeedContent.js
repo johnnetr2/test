@@ -196,7 +196,7 @@ const MessageFeedContent = () => {
             disabled={!value}
             onClick={clickHandler}
           >
-            Fler prov
+            Skicka in
           </Button>
         </Box>
       </Box>
