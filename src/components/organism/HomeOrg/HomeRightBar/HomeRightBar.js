@@ -49,6 +49,7 @@ const HomeRightBar = (props) => {
             hundredQuestionsPerWeekData.push({ hundredQuestionsPerWeek, isQuantitative })
           }
 
+          console.log("hs has shs ahs ", hundredQuestionsPerWeekData)
           // add same weeks data of verbal and quantitative categorgries
           // get normring for quantitative and calculate average of both categories.
           let perWeekVerbalCorrected = 0
@@ -80,6 +81,12 @@ const HomeRightBar = (props) => {
                   }
                 }
               } else {
+                // add check to skip week's progress when not have done enough progress. 
+                if (categoryWeeksData.attemptQuestions > 0 && categoryWeeksData.attemptQuestions < 20) {
+                  perWeekQuantitativeAttempted = 0
+                  perWeekVerbalAttempted = 0
+                  break
+                }
                 if (categoryWeekWiseData.isQuantitative) {
                   perWeekQuantitativeCorrected += categoryWeeksData.correctAnswers
                   perWeekQuantitativeAttempted += categoryWeeksData.attemptQuestions
@@ -87,7 +94,9 @@ const HomeRightBar = (props) => {
                   perWeekVerbalCorrected += categoryWeeksData.correctAnswers
                   perWeekVerbalAttempted += categoryWeeksData.attemptQuestions
                 }
+
               }
+
             }
             // calculate percentage for retrive normring from the table
             let quantitativePercentageForNormring = perWeekQuantitativeAttempted < 1 ? null : (perWeekQuantitativeCorrected / perWeekQuantitativeAttempted) * 100;
