@@ -7,3 +7,10 @@ export const datesGroupByComponent = (dates, token) => {
         return val;
     }, {});
 }
+
+export const appColors = {
+    blueColor: "#5263EB",
+    blackColor: "#000000",
+    whiteColor: "#FFFFFF",
+    hoverBlue: "#4754f3"
+};

@@ -16,7 +16,7 @@ import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
 import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
 import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
-
+import { appColors } from "../../../service/commonService";
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navBelowBarColor: {
     "& .PrivateTabIndicator-colorSecondary-19": {
-      backgroundColor: "#0A1596",
+      backgroundColor: appColors.blueColor,
     },
   },
   tabIndicatorWidth: {
@@ -136,31 +136,30 @@ const HomeFeedContent = (props) => {
       "62627df17a4f7b3068eaa82f",
       "62627dfe7a4f7b3068eaa834",
     ];
-    let correctedLastHundred = 0;
-    let attemptedLastHundred = 0;
+    let verbalCorrected = 0;
+    let quantitativeCorrected = 0;
+    let verbalAttempted = 0;
+    let quantitativeAttempted = 0;
     let verbalTotalNormValue = 0;
     let quantitativeTotalNormValue = 0;
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        const isVerbal = verbalCategories.find(
-          (sectionCategoryId) => sectionCategoryId === item._id
-        );
-        correctedLastHundred =
-          correctedLastHundred + item.correctedFromLastHundred;
-        attemptedLastHundred =
-          attemptedLastHundred + item.totalAttemptedHundred;
-        const percentageForGetNormValue =
-          (item.correctedFromLastHundred / item.totalAttemptedHundred) * 100;
+        const isVerbal = verbalCategories.find(sectionCategoryId => sectionCategoryId === item._id);
         if (isVerbal) {
-          verbalTotalNormValue += percentageForGetNormValue;
+          verbalCorrected += item.correctedFromLastHundred;
+          verbalAttempted += item.totalAttemptedHundred
         } else {
-          quantitativeTotalNormValue += percentageForGetNormValue;
+          quantitativeCorrected += item.correctedFromLastHundred;
+          quantitativeAttempted += item.totalAttemptedHundred
         }
       });
+
+    quantitativeTotalNormValue = (quantitativeCorrected / quantitativeAttempted) * 100;
+    verbalTotalNormValue = (verbalCorrected / verbalAttempted) * 100;
     quantitativeTotalNormValue = quantitativePercentageCalculator(
-      quantitativeTotalNormValue / 4
+      quantitativeTotalNormValue?.toFixed(2)
     );
-    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue / 4);
+    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue?.toFixed(2));
     let avgProgressQuantitativeAndVerbal =
       (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
 
@@ -212,8 +211,8 @@ const HomeFeedContent = (props) => {
                 aria-label="scrollable prevent tabs example"
                 TabIndicatorProps={{
                   style: {
-                    background: "#0A1596",
-                    border: "4px solid #0A1596",
+                    background: appColors.blueColor,
+                    border: `4px solid ${appColors.blueColor}`,
                   },
                 }}
               >

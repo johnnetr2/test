@@ -38,6 +38,7 @@ const HelpPopup = () => {
           alignItems: "center",
           borderRadius: "10px",
           position: "absolute",
+          zIndex: 10,
           top: 70,
           right: 0,
         }}

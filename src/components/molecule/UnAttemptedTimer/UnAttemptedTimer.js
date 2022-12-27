@@ -9,6 +9,7 @@ import Slide from "@mui/material/Slide";
 import { Box, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
+import { appColors } from "../../service/commonService";
 
 
 
@@ -48,7 +49,7 @@ const BootstrapDialogTitle = (props) => {
         </IconButton>
       ) : null}
       {children}
-      
+
     </DialogTitle>
   );
 };
@@ -84,14 +85,14 @@ export default function UnAttemptedTimer(props) {
               textAlign: "center",
             }}
           >
-            <Typography style={{marginTop: "3rem", fontSize: "2rem"}}>
+            <Typography style={{ marginTop: "3rem", fontSize: "2rem" }}>
               {props.title}
             </Typography>
           </BootstrapDialogTitle>
-          <DialogContent style={{ paddingRight: "5rem", paddingLeft: "5rem", paddingBottom: "2rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
-          <Typography gutterBottom variant="body2">
-            {props.description}
-          </Typography>
+          <DialogContent style={{ paddingRight: "5rem", paddingLeft: "5rem", paddingBottom: "2rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+            <Typography gutterBottom variant="body2">
+              {props.description}
+            </Typography>
           </DialogContent>
           <DialogActions
             style={{
@@ -105,7 +106,7 @@ export default function UnAttemptedTimer(props) {
               onClick={props.redirect}
               autoFocus
               style={{
-                backgroundColor: "#0A1596",
+                backgroundColor: appColors.blueColor,
                 color: "#fff",
                 textTransform: "capitalize",
                 fontWeight: "regular",

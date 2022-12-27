@@ -9,6 +9,7 @@ import Slide from "@mui/material/Slide";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
+import { appColors } from "../../service/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -77,7 +78,7 @@ export default function DropPenPopup(props) {
             <Button
               onClick={props?.redirect}
               style={{
-                backgroundColor: "#0A1596",
+                backgroundColor: appColors.blueColor,
                 color: "#fff",
                 textTransform: "capitalize",
                 fontWeight: "regular",

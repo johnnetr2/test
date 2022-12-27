@@ -444,115 +444,116 @@ export const DTKNormeringValueFor = (percentage) => {
   return valueFor(percentage, DTKRanges);
 };
 
-export const ORDNormeringValueFor = (percentage) => {
-  const ORDRanges = [
+
+export const ELFNormeringValueFor = (percentage) => {
+  const ELFRanges = [
     {
       min: 0.0,
-      max: 25.2,
+      max: 25.5,
       value: 0,
     },
     {
-      min: 25.3,
-      max: 28.1,
+      min: 25.6,
+      max: 28.4,
       value: 0.1,
     },
     {
-      min: 28.2,
-      max: 31.5,
+      min: 28.5,
+      max: 31.7,
       value: 0.2,
     },
     {
-      min: 31.6,
-      max: 35.3,
+      min: 31.8,
+      max: 35.6,
       value: 0.3,
     },
     {
-      min: 35.4,
-      max: 39.0,
+      min: 35.7,
+      max: 39.4,
       value: 0.4,
     },
     {
-      min: 39.1,
-      max: 43.2,
+      min: 39.5,
+      max: 43.6,
       value: 0.5,
     },
     {
-      min: 43.3,
-      max: 47.6,
+      min: 43.7,
+      max: 48.0,
       value: 0.6,
     },
     {
-      min: 47.7,
-      max: 51.4,
+      min: 48.1,
+      max: 51.9,
       value: 0.7,
     },
     {
-      min: 51.5,
-      max: 55.6,
+      min: 52.0,
+      max: 56.2,
       value: 0.8,
     },
     {
-      min: 55.7,
-      max: 59.7,
+      min: 56.3,
+      max: 60.2,
       value: 0.9,
     },
     {
-      min: 59.8,
-      max: 64.5,
+      min: 60.3,
+      max: 65.1,
       value: 1,
     },
     {
-      min: 64.6,
-      max: 68.5,
+      min: 65.2,
+      max: 69.1,
       value: 1.1,
     },
     {
-      min: 68.6,
-      max: 72.3,
+      min: 69.2,
+      max: 72.9,
       value: 1.2,
     },
     {
-      min: 72.4,
-      max: 76.0,
+      min: 73.0,
+      max: 76.7,
       value: 1.3,
     },
     {
-      min: 76.1,
-      max: 79.7,
+      min: 76.8,
+      max: 80.5,
       value: 1.4,
     },
     {
-      min: 79.8,
-      max: 83.3,
+      min: 80.6,
+      max: 84.0,
       value: 1.5,
     },
     {
-      min: 83.4,
-      max: 86.5,
+      min: 84.1,
+      max: 87.3,
       value: 1.6,
     },
     {
-      min: 86.6,
-      max: 89.2,
+      min: 87.4,
+      max: 90.0,
       value: 1.7,
     },
     {
-      min: 89.3,
-      max: 91.8,
+      min: 90.1,
+      max: 92.6,
       value: 1.8,
     },
     {
-      min: 91.9,
-      max: 94.3,
+      min: 92.7,
+      max: 95.1,
       value: 1.9,
     },
     {
-      min: 94.4,
+      min: 95.2,
       max: 100,
       value: 2,
     },
   ];
-  return valueFor(percentage, ORDRanges);
+  return valueFor(percentage, ELFRanges);
 };
 
 export const LASNormeringValueFor = (percentage) => {
@@ -666,6 +667,117 @@ export const LASNormeringValueFor = (percentage) => {
   return valueFor(percentage, LASRanges);
 };
 
+export const ORDNormeringValueFor = (percentage) => {
+  const ORDRanges = [
+    {
+      min: 0.0,
+      max: 25.2,
+      value: 0,
+    },
+    {
+      min: 25.3,
+      max: 28.1,
+      value: 0.1,
+    },
+    {
+      min: 28.2,
+      max: 31.5,
+      value: 0.2,
+    },
+    {
+      min: 31.6,
+      max: 35.3,
+      value: 0.3,
+    },
+    {
+      min: 35.4,
+      max: 39.0,
+      value: 0.4,
+    },
+    {
+      min: 39.1,
+      max: 43.2,
+      value: 0.5,
+    },
+    {
+      min: 43.3,
+      max: 47.6,
+      value: 0.6,
+    },
+    {
+      min: 47.7,
+      max: 51.4,
+      value: 0.7,
+    },
+    {
+      min: 51.5,
+      max: 55.6,
+      value: 0.8,
+    },
+    {
+      min: 55.7,
+      max: 59.7,
+      value: 0.9,
+    },
+    {
+      min: 59.8,
+      max: 64.5,
+      value: 1,
+    },
+    {
+      min: 64.6,
+      max: 68.5,
+      value: 1.1,
+    },
+    {
+      min: 68.6,
+      max: 72.3,
+      value: 1.2,
+    },
+    {
+      min: 72.4,
+      max: 76.0,
+      value: 1.3,
+    },
+    {
+      min: 76.1,
+      max: 79.7,
+      value: 1.4,
+    },
+    {
+      min: 79.8,
+      max: 83.3,
+      value: 1.5,
+    },
+    {
+      min: 83.4,
+      max: 86.5,
+      value: 1.6,
+    },
+    {
+      min: 86.6,
+      max: 89.2,
+      value: 1.7,
+    },
+    {
+      min: 89.3,
+      max: 91.8,
+      value: 1.8,
+    },
+    {
+      min: 91.9,
+      max: 94.3,
+      value: 1.9,
+    },
+    {
+      min: 94.4,
+      max: 100,
+      value: 2,
+    },
+  ];
+  return valueFor(percentage, ORDRanges);
+};
+
 export const MEKNormeringValueFor = (percentage) => {
   const MEKRanges = [
     {
@@ -775,337 +887,4 @@ export const MEKNormeringValueFor = (percentage) => {
     },
   ];
   return valueFor(percentage, MEKRanges);
-};
-
-export const ELFNormeringValueFor = (percentage) => {
-  const ELFRanges = [
-    {
-      min: 0.0,
-      max: 25.5,
-      value: 0,
-    },
-    {
-      min: 25.6,
-      max: 28.4,
-      value: 0.1,
-    },
-    {
-      min: 28.5,
-      max: 31.7,
-      value: 0.2,
-    },
-    {
-      min: 31.8,
-      max: 35.6,
-      value: 0.3,
-    },
-    {
-      min: 35.7,
-      max: 39.4,
-      value: 0.4,
-    },
-    {
-      min: 39.5,
-      max: 43.6,
-      value: 0.5,
-    },
-    {
-      min: 43.7,
-      max: 48.0,
-      value: 0.6,
-    },
-    {
-      min: 48.1,
-      max: 51.9,
-      value: 0.7,
-    },
-    {
-      min: 52.0,
-      max: 56.2,
-      value: 0.8,
-    },
-    {
-      min: 56.3,
-      max: 60.2,
-      value: 0.9,
-    },
-    {
-      min: 60.3,
-      max: 65.1,
-      value: 1,
-    },
-    {
-      min: 65.2,
-      max: 69.1,
-      value: 1.1,
-    },
-    {
-      min: 69.2,
-      max: 72.9,
-      value: 1.2,
-    },
-    {
-      min: 73.0,
-      max: 76.7,
-      value: 1.3,
-    },
-    {
-      min: 76.8,
-      max: 80.5,
-      value: 1.4,
-    },
-    {
-      min: 80.6,
-      max: 84.0,
-      value: 1.5,
-    },
-    {
-      min: 84.1,
-      max: 87.3,
-      value: 1.6,
-    },
-    {
-      min: 87.4,
-      max: 90.0,
-      value: 1.7,
-    },
-    {
-      min: 90.1,
-      max: 92.6,
-      value: 1.8,
-    },
-    {
-      min: 92.7,
-      max: 95.1,
-      value: 1.9,
-    },
-    {
-      min: 95.2,
-      max: 100,
-      value: 2,
-    },
-  ];
-  return valueFor(percentage, ELFRanges);
-};
-
-export const KvantitativNormeringValueFor = (percentage) => {
-  const kvantitativeRanges = [
-    {
-      min: 0.0,
-      max: 24.6,
-      value: 0,
-    },
-    {
-      min: 24.7,
-      max: 27.7,
-      value: 0.1,
-    },
-    {
-      min: 27.8,
-      max: 30.4,
-      value: 0.2,
-    },
-    {
-      min: 30.5,
-      max: 33.2,
-      value: 0.3,
-    },
-    {
-      min: 33.3,
-      max: 36.2,
-      value: 0.4,
-    },
-    {
-      min: 36.3,
-      max: 39.9,
-      value: 0.5,
-    },
-    {
-      min: 40.0,
-      max: 43.8,
-      value: 0.6,
-    },
-    {
-      min: 43.9,
-      max: 47.9,
-      value: 0.7,
-    },
-    {
-      min: 48.0,
-      max: 52.7,
-      value: 0.8,
-    },
-    {
-      min: 52.8,
-      max: 57.2,
-      value: 0.9,
-    },
-    {
-      min: 57.3,
-      max: 61.4,
-      value: 1,
-    },
-    {
-      min: 61.5,
-      max: 66.2,
-      value: 1.1,
-    },
-    {
-      min: 66.3,
-      max: 70.3,
-      value: 1.2,
-    },
-    {
-      min: 70.4,
-      max: 74.3,
-      value: 1.3,
-    },
-    {
-      min: 74.4,
-      max: 78.2,
-      value: 1.4,
-    },
-    {
-      min: 78.3,
-      max: 82.0,
-      value: 1.5,
-    },
-    {
-      min: 82.1,
-      max: 85.3,
-      value: 1.6,
-    },
-    {
-      min: 85.4,
-      max: 88.2,
-      value: 1.7,
-    },
-    {
-      min: 88.3,
-      max: 90.8,
-      value: 1.8,
-    },
-    {
-      min: 90.9,
-      max: 93.3,
-      value: 1.9,
-    },
-    {
-      min: 93.4,
-      max: 100,
-      value: 2,
-    },
-  ];
-  return valueFor(percentage, kvantitativeRanges);
-};
-
-export const VerbalNormeringValueFor = (percentage) => {
-  const verbelRanges = [
-    {
-      min: 0.0,
-      max: 25.41,
-      value: 0,
-    },
-    {
-      min: 25.42,
-      max: 28.32,
-      value: 0.1,
-    },
-    {
-      min: 28.33,
-      max: 31.66,
-      value: 0.2,
-    },
-    {
-      min: 31.67,
-      max: 35.51,
-      value: 0.3,
-    },
-    {
-      min: 35.52,
-      max: 39.26,
-      value: 0.4,
-    },
-    {
-      min: 39.27,
-      max: 43.43,
-      value: 0.5,
-    },
-    {
-      min: 43.44,
-      max: 47.8,
-      value: 0.6,
-    },
-    {
-      min: 47.81,
-      max: 51.66,
-      value: 0.7,
-    },
-    {
-      min: 51.67,
-      max: 55.93,
-      value: 0.8,
-    },
-    {
-      min: 55.94,
-      max: 59.9,
-      value: 0.9,
-    },
-    {
-      min: 60.0,
-      max: 64.78,
-      value: 1,
-    },
-    {
-      min: 64.79,
-      max: 68.84,
-      value: 1.1,
-    },
-    {
-      min: 68.85,
-      max: 72.59,
-      value: 1.2,
-    },
-    {
-      min: 72.6,
-      max: 76.34,
-      value: 1.3,
-    },
-    {
-      min: 76.35,
-      max: 80.09,
-      value: 1.4,
-    },
-    {
-      min: 80.1,
-      max: 83.64,
-      value: 1.5,
-    },
-    {
-      min: 83.65,
-      max: 86.87,
-      value: 1.6,
-    },
-    {
-      min: 86.88,
-      max: 89.57,
-      value: 1.7,
-    },
-    {
-      min: 89.58,
-      max: 92.18,
-      value: 1.8,
-    },
-    {
-      min: 92.19,
-      max: 94.68,
-      value: 1.9,
-    },
-    {
-      min: 94.69,
-      max: 100,
-      value: 2,
-    },
-  ];
-  return valueFor(percentage, verbelRanges);
 };
