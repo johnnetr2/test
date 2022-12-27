@@ -285,7 +285,7 @@ const ResultSummaryOrg = () => {
                 >
                   {responseCollection?.totalQuestion &&
                   responseCollection?.correctAnswer != null ? (
-                    <Typography variant="h4">
+                    <Typography variant="h4" style={{marginRight: "0.8rem"}}>
                       {responseCollection &&
                         responseCollection.correctAnswer +
                           " /" +
@@ -322,7 +322,12 @@ const ResultSummaryOrg = () => {
                     }}
                   >
                     {responseCollection ? (
-                      <Typography variant="h4">
+                      <Typography variant="h4" style={{marginLeft: percentageCalculation(
+                        params,
+                        (responseCollection.correctAnswer /
+                          responseCollection.question.length) *
+                          100
+                     ).toString().length > 1 ? "3.2rem" : "0rem"}}>
                         {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
                         {percentageCalculation(
                           params,

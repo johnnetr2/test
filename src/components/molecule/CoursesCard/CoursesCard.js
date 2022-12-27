@@ -90,6 +90,24 @@ const CoursesCard = (props) => {
       >
         <Box
           sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
+          onClick={() => {
+            if (props?.quizzes.simuleraQuizResult.length < 4) {
+              navigate("/testInformation", {
+                state: {
+                  id: props.id,
+                  session: props?.item,
+                  provpass: props?.quizzes,
+                },
+              });
+            } else {
+              navigate("/provresultat", {
+                state: {
+                  seasonId: props?.quizzes.simuleraSeason._id,
+                  simuleraQuizResultId: props?.quizzes._id,
+                },
+              });
+            }
+          }}
         >
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
@@ -106,7 +124,10 @@ const CoursesCard = (props) => {
                   color: "grey",
                   marginRight: "0.5px",
                 }}
-                onClick={() => setShowPopup(!showPopup)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowPopup(!showPopup)
+                }}
               />
 
               {showPopup && (
@@ -126,6 +147,7 @@ const CoursesCard = (props) => {
               alignItems: "center",
               flexWrap: "wrap",
             }}
+            
           >
             <Box
               onClick={() => {
