@@ -91,7 +91,7 @@ const CoursesCard = (props) => {
         <Box
           sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
-            if (props?.quizzes.simuleraQuizResult.length < 4) {
+            if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
               navigate("/testInformation", {
                 state: {
                   id: props.id,
@@ -102,8 +102,8 @@ const CoursesCard = (props) => {
             } else {
               navigate("/provresultat", {
                 state: {
-                  seasonId: props?.quizzes.simuleraSeason._id,
-                  simuleraQuizResultId: props?.quizzes._id,
+                  seasonId: props?.quizzes?.simuleraSeason?._id,
+                  simuleraQuizResultId: props?.quizzes?._id,
                 },
               });
             }
