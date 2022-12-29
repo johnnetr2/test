@@ -7,9 +7,9 @@ import { Button } from "@material-ui/core";
 import axios from "axios";
 import { EndPoints, instance2 } from "../../service/Route";
 
-const PayButton = (price, pricingSwitch) => {
+const PayButton = ({ price, pricingSwitch, setHtmlSnippet }) => {
   //Dummy JSON for Klarna Checkout POST request
-  const goPayment = (price, pricingSwitch) => {
+  const goPayment = () => {
     const orderData = JSON.stringify({
       purchase_country: "SE",
       purchase_currency: "SEK",
@@ -40,11 +40,14 @@ const PayButton = (price, pricingSwitch) => {
 
     const url = EndPoints.createOrder;
 
-    instance2.post(url, {orderData}).then(res => console.log(res.data)).catch(err => console.log(err))
+    instance2
+      .post(url, { orderData })
+      .then((res) => setHtmlSnippet(res.data.orderData.html_snippet))
+      .catch((err) => console.log(err));
   };
   return (
     <button
-      onClick={() => goPayment(price, pricingSwitch)}
+      onClick={() => goPayment()}
       style={{
         color: "white",
         backgroundColor: "#5263EB",
@@ -54,7 +57,7 @@ const PayButton = (price, pricingSwitch) => {
         paddingRight: "50px",
         paddingLeft: "50px",
         maxWidth: "100%",
-        fontSize: '25px'
+        fontSize: "25px",
       }}
     >
       Uppgradera
@@ -65,6 +68,7 @@ const PayButton = (price, pricingSwitch) => {
 const Pricing = () => {
   const [price, setPrice] = useState(90);
   const [pricingSwitch, setPricingSwitch] = useState(true);
+  const [htmlSnippet, setHtmlSnippet] = useState("<h1>Hello, wwworld!</h1>");
 
   const switchPricing = (e) => {
     setPricingSwitch(!pricingSwitch);
@@ -185,10 +189,14 @@ const Pricing = () => {
           }}
         >
           <Grid item>
-            <PayButton price={price} pricingSwitch={pricingSwitch} />
+            <PayButton
+              price={price}
+              pricingSwitch={pricingSwitch}
+              setHtmlSnippet={setHtmlSnippet}
+            />
           </Grid>
           <Grid item>
-            Render Klarna Checkout iframe below on this GRID after "Clicking"
+            <div dangerouslySetInnerHTML={{ __html: htmlSnippet }} />
           </Grid>
         </Grid>
       </Grid>
