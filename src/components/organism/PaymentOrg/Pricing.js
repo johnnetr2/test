@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Grid } from "@material-ui/core";
 import { Stack, Typography } from "@mui/material";
 import PricingSwitch from "./PricingSwitch";
@@ -7,8 +7,42 @@ import { Button } from "@material-ui/core";
 import axios from "axios";
 import { EndPoints, instance2 } from "../../service/Route";
 
-const PayButton = ({ price, pricingSwitch, setHtmlSnippet }) => {
+const PayButton = ({ price, pricingSwitch, setHtmlSnippet, checkoutRef, goPayment }) => {
   //Dummy JSON for Klarna Checkout POST request
+  
+  return (
+    <button
+      onClick={() => goPayment()}
+      style={{
+        color: "white",
+        backgroundColor: "#5263EB",
+        height: "50px",
+        border: 0,
+        borderRadius: "14px",
+        paddingRight: "50px",
+        paddingLeft: "50px",
+        maxWidth: "100%",
+        fontSize: "25px",
+      }}
+    >
+      Uppgradera
+    </button>
+  );
+};
+
+
+const Pricing = () => {
+  const [price, setPrice] = useState(90);
+  const [pricingSwitch, setPricingSwitch] = useState(true);
+  const [htmlSnippet, setHtmlSnippet] = useState("<h1>Hello, wwworld!</h1>");
+
+  const switchPricing = (e) => {
+    setPricingSwitch(!pricingSwitch);
+    setPrice(e.target.checked ? 90 : 540);
+  };
+
+  const checkoutContainer = useRef(null);
+
   const goPayment = () => {
     const orderData = JSON.stringify({
       purchase_country: "SE",
@@ -42,38 +76,25 @@ const PayButton = ({ price, pricingSwitch, setHtmlSnippet }) => {
 
     instance2
       .post(url, { orderData })
-      .then((res) => setHtmlSnippet(res.data.orderData.html_snippet))
+      .then((res) => {
+        setHtmlSnippet(res.data.orderData.html_snippet)
+        checkoutContainer.current.innerHTML = res.data.orderData.html_snippet;
+
+        const scriptsTags = checkoutContainer.current.getElementsByTagName('script')
+  // This is necessary otherwise the scripts tags are not going to be evaluated
+        for (var i = 0; i < scriptsTags.length; i++) {
+            const parentNode = scriptsTags[i].parentNode
+            const newScriptTag = document.createElement('script')
+            newScriptTag.type = 'text/javascript'
+            newScriptTag.text = scriptsTags[i].text
+            parentNode.removeChild(scriptsTags[i])
+            parentNode.appendChild(newScriptTag)
+        }
+      })
       .catch((err) => console.log(err));
   };
-  return (
-    <button
-      onClick={() => goPayment()}
-      style={{
-        color: "white",
-        backgroundColor: "#5263EB",
-        height: "50px",
-        border: 0,
-        borderRadius: "14px",
-        paddingRight: "50px",
-        paddingLeft: "50px",
-        maxWidth: "100%",
-        fontSize: "25px",
-      }}
-    >
-      Uppgradera
-    </button>
-  );
-};
 
-const Pricing = () => {
-  const [price, setPrice] = useState(90);
-  const [pricingSwitch, setPricingSwitch] = useState(true);
-  const [htmlSnippet, setHtmlSnippet] = useState("<h1>Hello, wwworld!</h1>");
-
-  const switchPricing = (e) => {
-    setPricingSwitch(!pricingSwitch);
-    setPrice(e.target.checked ? 90 : 540);
-  };
+ 
 
   return (
     <Grid //Mother container
@@ -193,10 +214,12 @@ const Pricing = () => {
               price={price}
               pricingSwitch={pricingSwitch}
               setHtmlSnippet={setHtmlSnippet}
+              checkoutRef={checkoutContainer}
+              goPayment={goPayment}
             />
           </Grid>
           <Grid item>
-            <div dangerouslySetInnerHTML={{ __html: htmlSnippet }} />
+            <div style={{width: "200px"}} ref={checkoutContainer} />
           </Grid>
         </Grid>
       </Grid>
