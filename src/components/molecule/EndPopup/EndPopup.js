@@ -7,8 +7,7 @@ import { Box, Typography, Button } from "@mui/material";
 import Slide from "@material-ui/core/Slide";
 import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router-dom";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Cross from "../../../assets/Icons/Cross.svg";
+import { appColors } from "../../service/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -127,8 +126,8 @@ export default function EndPopup({
                 variant="outlined"
                 style={{
                   backgroundColor: "none",
-                  border: "1px solid #0A1596",
-                  color: "#0A1596",
+                  border: `1px solid ${appColors.blueColor}`,
+                  color: appColors.blueColor,
                   textTransform: "capitalize",
                   width: "30%",
                 }}

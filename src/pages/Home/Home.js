@@ -18,19 +18,13 @@ const Home = () => {
     season: "",
     gpa: "",
     StudentPreference: "",
-    userId: user._id,
+    userId: localStorage.getItem("userId"),
   });
 
-  const location = useLocation();
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-
   useEffect(async () => {
-    const userId = await user._id;
+    const userId = await localStorage.getItem("userId");
     const URL = EndPoints.getStudentPreference + userId;
-    instance2.get(URL, { headers }).then((response) => {
+    instance2.get(URL).then((response) => {
       if (response?.data?.StudentPreference) {
         setCollection({
           ...collection,
@@ -47,10 +41,10 @@ const Home = () => {
     const payLoad = {
       season: collection.season,
       point: collection.gpa ? collection.gpa : 1,
-      user: user._id,
+      user: localStorage.getItem("userId"),
     };
     const URL = EndPoints.testDate;
-    await instance2.post(URL, payLoad, { headers }).then((response) => {
+    await instance2.post(URL, payLoad).then((response) => {
       if (response?.data?.StudentPreference) {
         setCollection({ StudentPreference: response.data.StudentPreference });
         setSecondPopup(false);

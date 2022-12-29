@@ -6,16 +6,11 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-import { Rating, TextareaAutosize } from "@mui/material";
-import { Link } from "react-router-dom";
-import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
-import Heading from "../../../atom/Heading/Heading";
+import { Rating } from "@mui/material";
 import BodyText from "../../../atom/BodyText/BodyText";
-import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
-import { Input } from "reactstrap";
-import { width } from "@mui/system";
 import FeedbackPopup from "../../../molecule/FeedbackPopup/FeedbackPopup";
 import { EndPoints, instance2 } from "../../../service/Route";
+import { appColors } from "../../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
   iconFilled: {
     "& .MuiRating-iconFilled": {
-      color: "#0A1596",
+      color: appColors.blueColor,
     },
     "& .MuiRating-iconHover": {
-      color: "#0A1596",
+      color: appColors.blueColor,
     },
   },
   enableButton: {
-    backgroundColor: "#0A1596",
+    backgroundColor: appColors.blueColor,
     color: "#fff",
     textTransform: "capitalize",
     fontWeight: "regular",
@@ -41,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2rem",
     "&:hover": {
       cursor: "pointer",
-      backgroundColor: "#0A1596",
+      backgroundColor: appColors.hoverBlue,
     },
   },
   disableButton: {
@@ -201,7 +196,7 @@ const MessageFeedContent = () => {
             disabled={!value}
             onClick={clickHandler}
           >
-            Fler prov
+            Skicka in
           </Button>
         </Box>
       </Box>

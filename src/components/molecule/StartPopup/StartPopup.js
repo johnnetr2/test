@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { Input } from "reactstrap";
 import Cross from "../../../assets/Icons/Cross.svg";
+import { appColors } from "../../service/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -72,7 +73,7 @@ export default function StartPopup({
                 <option hidden selected>
                   Välj prov...
                 </option>
-                {["Hösten 2022", "Våren 2023", "Hösten 2023"].map((item) => {
+                {["Våren 2023", "Hösten 2023"].map((item) => {
                   return (
                     <>
                       <option>{item}</option>
@@ -118,8 +119,8 @@ export default function StartPopup({
                     variant="outlined"
                     style={{
                       backgroundColor: "none",
-                      border: "1px solid #0A1596",
-                      color: "#0A1596",
+                      border: `1px solid ${appColors.blueColor}`,
+                      color: appColors.blueColor,
                       textTransform: "capitalize",
                       width: "30%",
                     }}

@@ -1,13 +1,13 @@
-import { Box, Button, Chip, Container, IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
 import { EndPoints, instance2 } from "../../service/Route";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import useWindowDimensions from "../WindowDimensions/dimension";
+import { appColors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -25,65 +25,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const MenuIcon = (props) => {
-//   const options = "STARTA OM";
-//   const ITEM_HEIGHT = 48;
-//   const [anchorEl, setAnchorEl] = useState(null);
-
-//   const open = Boolean(anchorEl);
-
-//   const handleClick = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-
-//   return (
-//     <div>
-//       <IconButton
-//         aria-label="more"
-//         id="long-button"
-//         aria-controls={open ? "long-menu" : undefined}
-//         aria-expanded={open ? "true" : undefined}
-//         aria-haspopup="true"
-//         onClick={handleClick}
-//       >
-//         <MoreVertIcon />
-//       </IconButton>
-//       <Menu
-//         id="long-menu"
-//         MenuListProps={{
-//           "aria-labelledby": "long-button",
-//         }}
-//         anchorEl={anchorEl}
-//         open={open}
-//         onClose={handleClose}
-//         PaperProps={{
-//           style: {
-//             maxHeight: ITEM_HEIGHT * 4.5,
-//             width: "12ch",
-//             display: "flex",
-//             justifyContent: "center",
-//             alignItems: "center",
-//           },
-//         }}
-//       >
-//         <MenuItem
-//           onClick={() => props.onClick()}
-//         >{options}</MenuItem>
-//       </Menu>
-//     </div>
-//   );
-// };
-
 const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
   const percentage = () => {
-    switch (props?.quizzes?.length) {
+    switch (props?.quizzes?.simuleraQuizResult?.length) {
       case 1:
         return 25;
       case 2:
@@ -107,18 +55,20 @@ const CoursesCard = (props) => {
       navigate("/provpassinfo", {
         state: {
           id: props.id,
-          session: props.item,
-          provpass: props?.quizzes,
+          session: props?.item,
+          provpass: response.data.simuleraSeasonResult,
         },
       });
     });
   };
 
-  function Dropdown(props) {
-    const { height, width } = useWindowDimensions();
-
+  function Dropdown(prop) {
     return (
-      <div className="result_popup" onClick={() => props.onClick()} style={{ marginTop: "70px" }}>
+      <div
+        className="result_popup"
+        onClick={() => prop.onClick()}
+        style={{ marginTop: "70px" }}
+      >
         STARTA OM
         <div className="popup"></div>
       </div>
@@ -135,10 +85,30 @@ const CoursesCard = (props) => {
           boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
           cursor: "pointer",
-          maxWidth: "48rem",
+          maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
-        <Box sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}>
+        <Box
+          sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
+          onClick={() => {
+            if (props?.quizzes.simuleraQuizResult.length < 4) {
+              navigate("/testInformation", {
+                state: {
+                  id: props.id,
+                  session: props?.item,
+                  provpass: props?.quizzes,
+                },
+              });
+            } else {
+              navigate("/provresultat", {
+                state: {
+                  seasonId: props?.quizzes.simuleraSeason._id,
+                  simuleraQuizResultId: props?.quizzes._id,
+                },
+              });
+            }
+          }}
+        >
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
               style={{
@@ -154,7 +124,10 @@ const CoursesCard = (props) => {
                   color: "grey",
                   marginRight: "0.5px",
                 }}
-                onClick={() => setShowPopup(!showPopup)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowPopup(!showPopup)
+                }}
               />
 
               {showPopup && (
@@ -174,18 +147,9 @@ const CoursesCard = (props) => {
               alignItems: "center",
               flexWrap: "wrap",
             }}
+            
           >
-            <Box
-              onClick={() =>
-                navigate("/provpassinfo", {
-                  state: {
-                    id: props.id,
-                    session: props.item,
-                    provpass: props?.quizzes,
-                  },
-                })
-              }
-            >
+            <Box>
               <Box
                 style={{
                   display: "flex",
@@ -202,13 +166,21 @@ const CoursesCard = (props) => {
                   {" "}
                   {props?.item?.month}{" "}
                 </Typography>
-                <Stack direction="row" spacing={1} style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}
+                >
                   {[1, 2, 3, 4].map((item) => {
                     return (
                       <Chip
                         label={"Provpass " + item}
                         style={{
-                          backgroundColor: props.quizzes && item <= props?.quizzes.simuleraQuizResult?.length ? "#6FCF97" : "#E1E1E1",
+                          backgroundColor:
+                            props.quizzes &&
+                              item <= props?.quizzes.simuleraQuizResult?.length
+                              ? "#6FCF97"
+                              : "#E1E1E1",
                           color: "#505050",
                         }}
                         size="small"
@@ -221,14 +193,14 @@ const CoursesCard = (props) => {
                 </Stack>
               </Box>
             </Box>
-            {props.quizzes === undefined && props?.quizzes?.simuleraQuizResult.length > 3 ? (
+            {props.quizzes !== undefined &&
+              props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   flexDirection: "column",
                   marginRight: "1.5rem",
-                  // backgroundColor: 'blue'
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -236,7 +208,11 @@ const CoursesCard = (props) => {
                     {" "}
                     {props.progress}{" "}
                   </Typography>
-                  <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem" }}>
+                  <Typography
+                    variant="body2"
+                    component="body2"
+                    style={{ marginLeft: ".5rem", marginTop: ".5rem" }}
+                  >
                     {" "}
                     {"Poäng"}{" "}
                   </Typography>
@@ -245,10 +221,10 @@ const CoursesCard = (props) => {
                   <Button
                     variant="outlined"
                     style={{
-                      width: "10rem",
+                      width: "12rem",
                       textTransform: "capitalize",
-                      border: "2px solid #0A1596",
-                      color: "#0A1596",
+                      border: `2px solid ${appColors.blueColor}`,
+                      color: appColors.blueColor,
                     }}
                     onClick={() => restartQuiz()}
                   >
@@ -284,10 +260,30 @@ const CoursesCard = (props) => {
                       width: "3.5rem",
                     }}
                   >
-                    <CustomizedTooltip title="Du behöver göra klart hela provet för att få poängprognos" placement="top">
-                      <img src={informationIcon} style={{ display: "flex", height: "0.625em", width: "0.625rem", alignSelf: "flex-end" }} />
+                    <CustomizedTooltip
+                      title="Du behöver göra klart hela provet för att få poängprognos"
+                      placement="top"
+                    >
+                      <img
+                        src={informationIcon}
+                        style={{
+                          display: "flex",
+                          height: "14px",
+                          width: "14px",
+                          alignSelf: "flex-end",
+                        }}
+                        alt="info"
+                      />
                     </CustomizedTooltip>
-                    <Typography variant="body2" component="body2" style={{ marginLeft: ".5rem", marginTop: ".5rem", color: "#505050" }}>
+                    <Typography
+                      variant="body2"
+                      component="body2"
+                      style={{
+                        marginLeft: ".5rem",
+                        marginTop: ".5rem",
+                        color: "#505050",
+                      }}
+                    >
                       {"Poäng"}
                     </Typography>
                   </Box>

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import Clock from "../../../../../assets/Icons/Clock.svg";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
-import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   AppBar,
-  Paper,
   Box,
   CssBaseline,
   Toolbar,
@@ -24,11 +21,6 @@ import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 const ProvPassInformation = () => {
   const navigate = useNavigate();
   const params = useLocation();
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,7 +53,6 @@ const ProvPassInformation = () => {
       color: "#6FCF97",
     },
     content: {
-      height: "95vh",
       backgroundColor: "#fff",
       display: "flex",
       alignItems: "center",
@@ -72,10 +63,6 @@ const ProvPassInformation = () => {
 
   const classes = useStyles(10);
   const [helpPopup, setHelpPopup] = useState(false);
-
-  useEffect(() => {
-    console.log(params?.provpass, "this is");
-  }, []);
 
   return (
     <div>
@@ -130,10 +117,9 @@ const ProvPassInformation = () => {
       >
         <Container
           style={{
-            marginTop: 65,
+            marginTop: 24,
             backgroundColor: "#f9f9f9",
             width: "80%",
-            height: "75%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -142,11 +128,16 @@ const ProvPassInformation = () => {
         >
           <Box
             mt={3}
-            sx={{ display: "flex", width: 600, flexDirection: "column" }}
+            sx={{
+              display: "flex",
+              width: "100%",
+              maxWidth: 600,
+              flexDirection: "column",
+            }}
           >
             <Typography variant="h6" component="h6">
               Kvantitativt provpass - Provpass{" "}
-              {params?.state.provpass == undefined
+              {params?.state.provpass === undefined
                 ? 1
                 : params?.state.provpass.simuleraQuizResult.length + 1}
             </Typography>
@@ -170,8 +161,6 @@ const ProvPassInformation = () => {
             sx={{
               backgroundColor: "#fff",
               maxWidth: 600,
-              // width: 600,
-              height: 800,
               overflow: "auto",
               border: "1px solid #e1e1e1",
               top: 0,
@@ -196,8 +185,8 @@ const ProvPassInformation = () => {
               variant="subtitle1"
               style={{
                 marginTop: "1rem",
-                fontSize: ".7rem",
-                fontWeight: "500",
+                fontSize: ".875rem",
+                fontWeight: "400",
               }}
             >
               Här följer anvisningar till de kvantitativa delproven XYZ, KVA,
@@ -215,14 +204,14 @@ const ProvPassInformation = () => {
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               12 uppgifter. Rekommenderad provtid: 12 minuter
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               Delprovet XYZ handlar om matematisk problemlösning. Varje uppgift
               består av en fråga som följs av fyra svarsalternativ, varav endast
@@ -238,14 +227,14 @@ const ProvPassInformation = () => {
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               10 uppgifter. Rekommenderad provtid: 10 minuter
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               Delprovet KVA innehåller uppgifter med beskrivningar av två
               kvantiteter, I och II. Din uppgift är att jämföra de två
@@ -264,14 +253,14 @@ const ProvPassInformation = () => {
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               6 uppgifter. Rekommenderad provtid: 10 minuter
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               Delprovet NOG består av uppgifter med en fråga följd av två
               påståenden, (1) och (2), som innehåller information. Frågan kan
@@ -292,14 +281,14 @@ const ProvPassInformation = () => {
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               12 uppgifter. Rekommenderad provtid: 23 minuter
             </Typography>
             <Typography
               mt={3}
               variant="subtitle1"
-              style={{ fontSize: ".7rem", fontWeight: "500" }}
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
             >
               Delprovet DTK innehåller diagram, tabeller, kartor och andra
               grafiska framställningar. Uppgifterna ska lösas med hjälp av den
@@ -307,7 +296,7 @@ const ProvPassInformation = () => {
               finns det fyra svarsförslag. Välj det som bäst besvarar frågan.
             </Typography>
           </Box>
-          <Box padding={1} m={2} sx={{ width: 615 }}>
+          <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             {/* <Link to="#"> */}
             <ExerciseBtn
               title="Starta delprov"
@@ -315,6 +304,8 @@ const ProvPassInformation = () => {
                 navigate("/simuleraprov", {
                   state: {
                     id: params.state.id,
+                    session: params.state.session,
+                    provpass: params.state.provpass,
                   },
                 })
               }

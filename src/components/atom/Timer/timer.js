@@ -11,7 +11,6 @@ const Timer = (props) => {
   const tick = useRef();
 
   const clearAll = () => {
-    console.log("clear All");
     props.onCloseTimer();
     clearInterval(tick.current);
     return 0;

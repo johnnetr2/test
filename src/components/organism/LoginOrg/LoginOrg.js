@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { login } from "../../../redux/reducers";
 import { useDispatch } from "react-redux";
+import { appColors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -44,7 +45,6 @@ const LoginOrg = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [enterPressed, setEnterPressed] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -57,17 +57,6 @@ const LoginOrg = () => {
     setUser({ ...user, [name]: value });
   };
 
-  useEffect(() => {
-    const keyDownHandler = (event) => {
-      if (event.key === "Enter") {
-        setEnterPressed(true);
-      }
-    };
-    window.addEventListener("keydown", keyDownHandler);
-    return () => {
-      window.removeEventListener("keydown", keyDownHandler);
-    };
-  }, []);
 
   const loginFunc = (e) => {
     e && e.preventDefault();
@@ -108,7 +97,7 @@ const LoginOrg = () => {
                 response.data.user.createdAt
               );
             if (window.innerWidth < 600) {
-              document.getElementById("link").click();
+              window.location.replace('https://www.hpappen.se/mobil')
             } else {
               window.location.href = "/home";
             }
@@ -122,9 +111,6 @@ const LoginOrg = () => {
     }
   };
 
-  if (enterPressed) {
-    loginFunc();
-  }
 
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
@@ -148,14 +134,6 @@ const LoginOrg = () => {
         display: "flex",
       }}
     >
-      <a
-        style={{ display: "none" }}
-        target="_blank"
-        href="https://www.hpappen.se/mobil"
-        id="link"
-      >
-        link
-      </a>
       <Container
         maxWidth="false"
         disableGutters
@@ -165,7 +143,7 @@ const LoginOrg = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#0A1596",
+          backgroundColor: appColors.blueColor,
         }}
         className={classes.hideOnMobile}
       >
@@ -229,6 +207,7 @@ const LoginOrg = () => {
                 marginBottom: "1rem",
                 outline: "none",
                 WebkitBoxShadow: "0 0 0 1000px white inset",
+                fontFamily: "Poppins"
               }}
             />
             <Label for="password" style={{ color: "#B5B5B5" }}>
@@ -268,6 +247,7 @@ const LoginOrg = () => {
                     outline: "none",
                     border: "none",
                     WebkitBoxShadow: "0 0 0 1000px white inset",
+                    fontFamily: "Poppins"
                   }}
                 />
               </Box>
@@ -294,7 +274,7 @@ const LoginOrg = () => {
               Glömt lösenord?
             </Link>
             <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-              <Filled_btn title="Logga in" onClick={loginFunc} />
+              <Filled_btn type="submit" title="Logga in" onClick={loginFunc} />
             </Box>
           </form>
           <Box sx={{ marginTop: "1rem", marginBottom: "1rem" }}></Box>
@@ -306,7 +286,7 @@ const LoginOrg = () => {
             }}
           >
             <Typography variant="body1">
-              Har du inget konto? <Link to="/">Skapa konto här</Link>
+              Har du inget konto? <Link style={{ textDecoration: 'none', color: appColors.blueColor }} to="/">Skapa konto här</Link>
             </Typography>
           </Box>
         </Box>

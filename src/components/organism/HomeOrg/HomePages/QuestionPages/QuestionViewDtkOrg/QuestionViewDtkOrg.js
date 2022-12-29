@@ -20,6 +20,7 @@ import Draggable from "react-draggable";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import { PositionableContainer } from "re-position";
+import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
@@ -28,6 +29,7 @@ import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import { appColors } from "../../../../../service/commonService";
 
 let dataSubmit = [];
 
@@ -51,6 +53,7 @@ const QuestionViewDTKOrg = (props) => {
   const handleUpdate = (position) => setPosition({ position });
   const handleShowRuler = () => setShowRuler(() => !showRuler);
   const { user, token } = useSelector((state) => state.value);
+  const [enterSubmitted, setEnterSubmitted] = useState(true)
   const headers = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
@@ -130,7 +133,7 @@ const QuestionViewDTKOrg = (props) => {
 
   useEffect(() => {
     scrollTop();
-    if (props.paragraphIndex != undefined) {
+    if (props.paragraphIndex !== undefined) {
       setSelectedIndex(props.questionIndex);
       setQuiz(props.question);
     } else {
@@ -138,8 +141,20 @@ const QuestionViewDTKOrg = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if (e.keyCode === 13 && enterSubmitted && answerExistance) {
+        submitAnswer();
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [enterSubmitted, answerExistance])
+
   const Button = (question) => {
-    if (props.paragraphIndex != undefined) {
+    if (props.paragraphIndex !== undefined) {
       return (
         <ResultFooter
           questionLength={props.quiz.length}
@@ -212,11 +227,11 @@ const QuestionViewDTKOrg = (props) => {
 
     // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
-      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
     if (ifExists) {
       const index = dataSubmit.findIndex(
-        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+        (obj) => obj.questionId === quiz.question[selectedIndex]._id
       );
       dataSubmit.splice(index, 1, data);
     } else {
@@ -249,11 +264,11 @@ const QuestionViewDTKOrg = (props) => {
     };
     // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
-      (obj) => obj.questionId == quiz.question[selectedIndex]._id
+      (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
     if (ifExists) {
       const index = dataSubmit.findIndex(
-        (obj) => obj.questionId == quiz.question[selectedIndex]._id
+        (obj) => obj.questionId === quiz.question[selectedIndex]._id
       );
       dataSubmit.splice(index, 1, data);
     } else {
@@ -297,28 +312,29 @@ const QuestionViewDTKOrg = (props) => {
     // }
 
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
-    if (answerLenght == quiz.question.length) {
+    if (answerLenght === quiz.question.length) {
       setAnswerExistance(true);
     }
   };
 
   const Options = (question, option, optionIndex) => {
-    if (optionIndex == question.selectedOptionIndex) {
+    if (optionIndex === question.selectedOptionIndex) {
       return (
-        <Radio color="primary" checked={true} style={{ color: "#0A1596" }} />
+        <Radio color="primary" checked={true} style={{ color: appColors.blueColor }} />
       );
     } else {
       return (
         <Radio
           color="primary"
           checked={false}
-          style={{ color: option._id == onHover && "#0A1596" }}
+          style={{ color: option._id === onHover && appColors.hoverBlue }}
         />
       );
     }
   };
 
   const submitAnswer = async () => {
+    setEnterSubmitted(true)
     const Quiz = { ...quiz };
 
     const data = {
@@ -356,8 +372,10 @@ const QuestionViewDTKOrg = (props) => {
 
       const URL = EndPoints.submitMultiquestionParagragh;
       await instance2.post(URL, obj, { headers }).then((response) => {
+
         dataSubmit = [];
         setShowResult(true);
+        setEnterSubmitted(false)
       });
 
       const Quiz = [...props?.quiz];
@@ -441,16 +459,13 @@ const QuestionViewDTKOrg = (props) => {
             className={classes.scrollbar}
             style={{ position: "relative" }}
           >
-            <Typography
-              variant="subtitle1"
-              style={{
-                fontSize: ".7rem",
-                fontWeight: "500",
-                marginBottom: ".25rem",
-              }}
-            >
-              {quiz && quiz.question.length + " uppgifter:"}
-            </Typography>
+            {quiz && (
+              <QuestionStatement
+                numberOfQuestions={quiz?.question.length}
+                title={quiz?.title}
+                description={quiz?.description}
+              />
+            )}
             <img
               onClick={openExtended}
               style={{
@@ -461,22 +476,6 @@ const QuestionViewDTKOrg = (props) => {
               }}
               src={ArrowSalt}
             />
-            <Typography variant="h6" component="h6">
-              {!quiz?.title === "DTK" ? quiz?.title : ""}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              style={{
-                fontSize: ".875rem",
-                fontWeight: "400",
-              }}
-            >
-              <div className="DTK">
-                {" "}
-                {/* DTK styling on ./styles/QuestionBody.css */}
-                <MarkLatex content={quiz?.description} />
-              </div>
-            </Typography>
             {quiz?.image && (
               <>
                 <DialogTitle
@@ -488,20 +487,15 @@ const QuestionViewDTKOrg = (props) => {
                     alignItems: "center",
                   }}
                 >
+                  {quiz && (
+                    <QuestionStatement
+                      numberOfQuestions={quiz?.question.length}
+                      title={quiz?.title === "DTK" && quiz?.title}
+                      description={quiz?.description}
+                    />
+                  )}
                   <Box>
-                    <Typography
-                      variant="subtitle1"
-                      style={{
-                        textTransform: "uppercase",
-                        fontSize: ".7rem",
-                        fontWeight: "500",
-                      }}
-                    >
-                      {quiz && quiz.question.length + " uppgifter:"}
-                    </Typography>
-                    <Typography variant="h3" component="h3">
-                      {quiz?.title !== "DTK" ? quiz?.title : ""}
-                    </Typography>
+                    <RulerButton></RulerButton>
                   </Box>
                 </DialogTitle>
                 <DialogContent
@@ -517,34 +511,34 @@ const QuestionViewDTKOrg = (props) => {
                 </DialogContent>
               </>
             )}
-
             <Dialog
               open={extendedView}
               onClose={closeExtended}
-              maxWidth={"xl"}
+              maxWidth={"lg"}
               fullWidth={true}
             >
               {quiz?.description && (
                 <>
-                  <DialogTitle style={{ padding: "2rem 5rem 2rem" }}>
+                  <DialogTitle style={{ padding: "2rem 5rem 0rem" }}>
                     <Typography
                       variant="subtitle1"
                       style={{
                         textTransform: "uppercase",
-                        fontSize: ".7rem",
-                        fontWeight: "500",
+                        fontSize: ".85rem",
+                        maxWidth: "650px",
+                        margin: "auto",
                       }}
                     >
-                      {quiz && quiz.question.length + " uppgifter:"}
-                    </Typography>
-                    <Typography variant="h3" component="h3">
-                      {!quiz?.title === "DTK" ? quiz?.title : ""}
+                      {quiz && quiz.question.length + " uppgifter"}
                     </Typography>
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
-                      columnCount: `${quiz.title === "DTK" ? "1" : "2"}`,
-                      padding: "0 5rem 2rem",
+                      columnCount: `${quiz.title === "DTK" || quiz?.description.length < 2000
+                        ? "1"
+                        : "2"
+                        }`,
+                      padding: "0rem 5rem 2rem",
                     }}
                   >
                     {quiz.title === "DTK" && (
@@ -559,8 +553,11 @@ const QuestionViewDTKOrg = (props) => {
                       variant="subtitle1"
                       style={{
                         fontSize: ".85rem",
+                        maxWidth: "650px",
+                        margin: "auto",
                       }}
                     >
+                      <h1 style={{ fontSize: "28px" }}>{quiz?.title}</h1>
                       <MarkLatex content={quiz?.description} />
                     </Typography>
                     {quiz.title === "DTK" && showRuler && (
@@ -635,6 +632,7 @@ const QuestionViewDTKOrg = (props) => {
           </Box>
           {showResult ? (
             <ResultQuestionViewDtkOrg
+              isAnswerExist={answerExistance}
               paragraphIndex={props.paragraphIndex}
               onRightClick={() => props.onRightClick()}
               onLeftClick={() => props.onLeftClick()}
@@ -650,7 +648,7 @@ const QuestionViewDTKOrg = (props) => {
           ) : (
             quiz &&
             quiz?.question?.map((question, index) => {
-              if (index == selectedIndex) {
+              if (index === selectedIndex) {
                 return (
                   <Box sx={{ maxWidth: 600, width: "100%" }}>
                     <Box
@@ -703,18 +701,18 @@ const QuestionViewDTKOrg = (props) => {
                           </Typography>
                           {
                             quiz &&
-                              selectedIndex < quiz?.question?.length - 1 &&
-                              quiz?.question.length > 1 &&
-                              quiz?.question[0].selectedOptionIndex !=
-                                undefined && (
-                                <img
-                                  onClick={handleRightArrowFunction}
-                                  src={BlueRightIcon}
-                                  style={{ cursor: "pointer" }}
-                                  className={classes.size}
-                                  alt=""
-                                />
-                              )
+                            selectedIndex < quiz?.question?.length - 1 &&
+                            quiz?.question.length > 1 &&
+                            quiz?.question[0].selectedOptionIndex !=
+                            undefined && (
+                              <img
+                                onClick={handleRightArrowFunction}
+                                src={BlueRightIcon}
+                                style={{ cursor: "pointer" }}
+                                className={classes.size}
+                                alt=""
+                              />
+                            )
                             // : (
                             //   <img
                             //     src={Righticon}
@@ -756,11 +754,11 @@ const QuestionViewDTKOrg = (props) => {
                             border: "1px solid #e1e1e1",
                             // marginLeft: ".5rem",
                             color:
-                              optionIndex == question.selectedOptionIndex &&
-                              "#0A1596",
+                              optionIndex === question.selectedOptionIndex &&
+                              appColors.blueColor,
                             "&:hover": {
                               cursor: !option.answer && "pointer",
-                              color: !option.answer && "#0A1596",
+                              color: !option.answer && appColors.hoverBlue,
                             },
                             display: "flex",
                             flexDirection: "row",
@@ -851,7 +849,7 @@ const QuestionViewDTKOrg = (props) => {
                             width: "3rem",
                           }}
                         >
-                          svara
+                          Svara
                         </Typography>
                       </Box>
                     )}

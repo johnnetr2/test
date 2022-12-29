@@ -23,10 +23,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../service/Route";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { styled } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
-import useWindowDimensions from "../../../../molecule/WindowDimensions/dimension";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import ExamResults from '../../../../../assets/Static/ExamResults.json'
+import { appColors } from "../../../../service/commonService";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -39,8 +39,10 @@ const Provresultat = () => {
   const [totalQuestionsOfVerbal, setTotalQuestionsOfVerbal] = useState();
   const [correctAnswersOfVerbal, setCorrectAnswersOfVerbal] = useState();
   const [open, setOpen] = useState(true);
-  const { height, width } = useWindowDimensions();
   const [helpPopup, setHelpPopup] = useState(false);
+  const [participantsAverage, setParticipantsAverage] = useState(null);
+  const [participantsNormalized, setParticipantsNormalized] = useState(null);
+  const [season, setSeason] = useState(null);
 
   useEffect(() => {
     if (params.state.seasonId) {
@@ -48,154 +50,185 @@ const Provresultat = () => {
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setCorrectAnswersOfKvantitative(
-          response.data.correctQuestions_of_XYZ +
-            response.data.correctQuestions_of_KVA +
-            response.data.correctQuestions_of_NOG +
-            response.data.correctQuestions_of_DTK
-        );
-        setTotalQuestionsOfKvantitative(
-          response.data.totalQuestion_of_XYZ +
-            response.data.totalQuestion_of_KVA +
-            response.data.totalQuestion_of_NOG +
-            response.data.totalQuestion_of_DTK
-        );
-
-        setCorrectAnswersOfVerbal(
-          response.data.correctQuestions_of_ORD +
-            response.data.correctQuestions_of_LAS +
-            response.data.correctQuestions_of_MEK +
-            response.data.correctQuestions_of_ELF
-        );
-        setTotalQuestionsOfVerbal(
-          response.data.totalQuestion_of_ORD +
-            response.data.totalQuestion_of_LAS +
-            response.data.totalQuestion_of_MEK +
-            response.data.totalQuestion_of_ELF
-        );
+        setVerbalQuantitativeStates(response.data);
       });
     } else {
       const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
       instance2.get(URL).then((response) => {
         setOpen(false);
         setTestSummary(response.data);
-        setCorrectAnswersOfKvantitative(
-          response.data.correctQuestions_of_XYZ +
-            response.data.correctQuestions_of_KVA +
-            response.data.correctQuestions_of_NOG +
-            response.data.correctQuestions_of_DTK
-        );
-        setTotalQuestionsOfKvantitative(
-          response.data.totalQuestion_of_XYZ +
-            response.data.totalQuestion_of_KVA +
-            response.data.totalQuestion_of_NOG +
-            response.data.totalQuestion_of_DTK
-        );
-
-        setCorrectAnswersOfVerbal(
-          response.data.correctQuestions_of_ORD +
-            response.data.correctQuestions_of_LAS +
-            response.data.correctQuestions_of_MEK +
-            response.data.correctQuestions_of_ELF
-        );
-        setTotalQuestionsOfVerbal(
-          response.data.totalQuestion_of_ORD +
-            response.data.totalQuestion_of_LAS +
-            response.data.totalQuestion_of_MEK +
-            response.data.totalQuestion_of_ELF
-        );
+        setVerbalQuantitativeStates(response.data);
       });
     }
   }, []);
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  const setVerbalQuantitativeStates = (data) => {
+    setCorrectAnswersOfKvantitative(
+      data.correctQuestions_of_XYZ +
+      data.correctQuestions_of_KVA +
+      data.correctQuestions_of_NOG +
+      data.correctQuestions_of_DTK
+    );
+    setTotalQuestionsOfKvantitative(
+      data.totalQuestion_of_XYZ +
+      data.totalQuestion_of_KVA +
+      data.totalQuestion_of_NOG +
+      data.totalQuestion_of_DTK
+    );
+
+    setCorrectAnswersOfVerbal(
+      data.correctQuestions_of_ORD +
+      data.correctQuestions_of_LAS +
+      data.correctQuestions_of_MEK +
+      data.correctQuestions_of_ELF
+    );
+    setTotalQuestionsOfVerbal(
+      data.totalQuestion_of_ORD +
+      data.totalQuestion_of_LAS +
+      data.totalQuestion_of_MEK +
+      data.totalQuestion_of_ELF
+    );
+  };
+
+  useEffect(() => {
+    if (params.state.seasonId) {
+      const URL = `${EndPoints.getPreviousExams}/${params.state.seasonId}`;
+      instance2.get(URL).then((response) => {
+        setSeason(response.data.simuleraSeason);
+        const simuleraSeasonYear =
+          response.data.simuleraSeason.title.split(" ")[1];
+        const rawPointsExam = ExamResults.rawPoints.find((item) => {
+          const examName = `${item.season} ${item.year}`;
+          return (
+            examName === response.data.simuleraSeason.title ||
+            examName ===
+            `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+          );
+        });
+        const normalizedPointsExam = ExamResults.normalizedPoints.find(
+          (item) => {
+            const examName = `${item.season} ${item.year}`;
+            return (
+              examName === response.data.simuleraSeason.title ||
+              examName ===
+              `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+            );
+          }
+        );
+        console.log(rawPointsExam, normalizedPointsExam);
+        setParticipantsAverage(rawPointsExam);
+        setParticipantsNormalized(normalizedPointsExam);
+      });
+    }
+  }, []);
+
+  function createSummaryData(
+    rowName,
+    totalCorrectAnswers,
+    totalQuestions,
+    averagePoints
+  ) {
+    return { rowName, totalCorrectAnswers, totalQuestions, averagePoints };
   }
 
-  const rows = [
-    createData(
+  function createExamPartData(
+    examPart,
+    correctAnswers,
+    totalQuestions,
+    averageOtherParticipants,
+    normalizedPoints
+  ) {
+    return {
+      examPart,
+      correctAnswers,
+      totalQuestions,
+      averageOtherParticipants,
+      normalizedPoints,
+    };
+  }
+
+  const kvantPartRows = [
+    createExamPartData(
       "XYZ",
       testSummary?.correctQuestions_of_XYZ,
       testSummary?.totalQuestion_of_XYZ,
-      12.1
+      participantsAverage?.XYZ
     ),
-    createData(
-      "KYA",
+    createExamPartData(
+      "KVA",
       testSummary?.correctQuestions_of_KVA,
       testSummary?.totalQuestion_of_KVA,
-      10.1
+      participantsAverage?.KVA
     ),
-    createData(
+    createExamPartData(
       "NOG",
       testSummary?.correctQuestions_of_NOG,
       testSummary?.totalQuestion_of_NOG,
-      6.3
+      participantsAverage?.NOG
     ),
-    createData(
-      "DRK",
+    createExamPartData(
+      "DTK",
       testSummary?.correctQuestions_of_DTK,
       testSummary?.totalQuestion_of_DTK,
-      12.7
+      participantsAverage?.DTK
     ),
-    createData(
+    createExamPartData(
       "SAMMANFATTNING",
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
-      41.2,
+      participantsAverage?.KVANT,
+      correctAnswersOfKvantitative &&
+      totalQuestionsOfKvantitative &&
       ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
-        .toFixed(1)
+        ?.toFixed(1)
         .replace(/\.0+$/, "")
     ),
   ];
 
-  const row = [
-    createData(
+  const verbalPartRows = [
+    createExamPartData(
       "ORD",
       testSummary?.correctQuestions_of_ORD,
       testSummary?.totalQuestion_of_ORD,
-      12.1
+      participantsAverage?.ORD
     ),
-    createData(
+    createExamPartData(
       "LAS",
       testSummary?.correctQuestions_of_LAS,
       testSummary?.totalQuestion_of_LAS,
-      10.1
+      participantsAverage?.LÄS
     ),
-    createData(
+    createExamPartData(
       "MEK",
       testSummary?.correctQuestions_of_MEK,
       testSummary?.totalQuestion_of_MEK,
-      6.3
+      participantsAverage?.MEK
     ),
-    createData(
+    createExamPartData(
       "ELF",
       testSummary?.correctQuestions_of_ELF,
       testSummary?.totalQuestion_of_ELF,
-      12.7
+      participantsAverage?.ELF
     ),
-    createData(
+    createExamPartData(
       "SAMMANFATTNING",
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
-      41.2,
+      participantsAverage?.VERB,
       correctAnswersOfVerbal &&
-        ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
-          .toFixed(1)
-          .replace(/\.0+$/, "")
+      totalQuestionsOfVerbal &&
+      ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
+        ?.toFixed(1)
+        .replace(/\.0+$/, "")
     ),
   ];
-  const its = [
-    createData(
+
+  const wholeExamRows = [
+    createSummaryData(
       "SAMMANFATTNING",
       correctAnswersOfKvantitative + correctAnswersOfVerbal,
       totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
-      (
-        ((correctAnswersOfKvantitative + correctAnswersOfVerbal) /
-          (totalQuestionsOfKvantitative + totalQuestionsOfVerbal)) *
-        100
-      )
-        .toFixed(1)
-        .replace(/\.0+$/, "")
+      participantsAverage?.Total
     ),
   ];
 
@@ -233,13 +266,12 @@ const Provresultat = () => {
 
     cards: {
       [theme.breakpoints.up(1025)]: {
-        width: "23vw",
         // width: "49%",
         height: "15vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: "#fff",
+        backgroundColor: "#fff",
         border: "1px solid #e1e1e1",
         borderRadius: "0.3rem",
         boxShadow: "0px 5px 10px #f2f2f2",
@@ -365,12 +397,13 @@ const Provresultat = () => {
         }}
       >
         <Box className={classes.main}>
-          <Box sx={{ backgroundColor: "transparent" }}>
+          <Box sx={{ backgroundColor: "transparent", width: "100%" }}>
             <Box
               className={classes.info}
               style={{
                 display: "flex",
                 flexDirection: "column",
+
                 // paddingLeft: width > 1025 ? "3.5rem" : "1rem",
               }}
             >
@@ -379,7 +412,7 @@ const Provresultat = () => {
                 variant="h4"
                 component="h4"
               >
-                Provresultat - Hösten 2021, Oktober
+                Provresultat - {season?.title}, {season?.month}
               </Typography>
               <Typography style={{ fontWeight: "300", marginTop: "3%" }}>
                 <Typography>
@@ -431,21 +464,22 @@ const Provresultat = () => {
                   dispaly: "flex",
                   flexDirection: "column",
                   paddingRight: "1rem",
+                  flexBasis: "50%",
                 }}
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -472,17 +506,17 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -492,7 +526,7 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      82.4
+                      {participantsAverage?.Total}
                     </Typography>
                     <Box
                       sx={{
@@ -533,21 +567,22 @@ const Provresultat = () => {
                   dispaly: "flex",
                   flexDirection: "column",
                   paddingLeft: "1rem",
+                  flexBasis: "50%",
                 }}
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -576,18 +611,18 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.5rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.5rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -597,7 +632,7 @@ const Provresultat = () => {
                     }}
                   >
                     <Typography variant="h3" component="h3">
-                      0.86
+                      {participantsNormalized?.average}
                     </Typography>
                     <Box sx={{ marginLeft: "0.5rem" }}>
                       <Typography
@@ -630,7 +665,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
+              // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
               >
                 <Typography variant="h5" component="h5">
                   Kvantitativ del resultat
@@ -669,9 +704,9 @@ const Provresultat = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {kvantPartRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.examPart}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: 0,
@@ -680,12 +715,14 @@ const Provresultat = () => {
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.examPart}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.correctAnswers}</TableCell>
+                      <TableCell align="left">{row.totalQuestions}</TableCell>
+                      <TableCell align="left">
+                        {row.averageOtherParticipants}
+                      </TableCell>
+                      <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -695,7 +732,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Verbal del resultat
@@ -734,9 +771,9 @@ const Provresultat = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.map((row) => (
+                  {verbalPartRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.examPart}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: 0,
@@ -745,12 +782,14 @@ const Provresultat = () => {
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.examPart}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.correctAnswers}</TableCell>
+                      <TableCell align="left">{row.totalQuestions}</TableCell>
+                      <TableCell align="left">
+                        {row.averageOtherParticipants}
+                      </TableCell>
+                      <TableCell align="left">{row.normalizedPoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -759,7 +798,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Hela provet
@@ -782,9 +821,9 @@ const Provresultat = () => {
                                     </TableRow> */}
                 </TableHead>
                 <TableBody>
-                  {its.map((row) => (
+                  {wholeExamRows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.rowName}
                       sx={{
                         "&:last-child td, &:last-child th": {
                           border: "0",
@@ -797,15 +836,15 @@ const Provresultat = () => {
                         scope="row"
                         sx={{ width: "5rem" }}
                       >
-                        {row.name}
+                        {row.rowName}
                       </TableCell>
                       <TableCell style={{ width: "10rem" }} align="left">
-                        {row.calories}
+                        {row.totalCorrectAnswers}
                       </TableCell>
                       <TableCell style={{ width: "7rem" }} align="left">
-                        {row.fat}
+                        {row.totalQuestions}
                       </TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
+                      <TableCell align="left">{row.averagePoints}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -814,7 +853,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Resultat per provpass
@@ -878,8 +917,8 @@ const Provresultat = () => {
                           <Button
                             style={{
                               backgroundColor: "#fff",
-                              color: "#0A1596",
-                              border: "1px solid #0A1596",
+                              color: appColors.blueColor,
+                              border: `1px solid ${appColors.blueColor}`,
                             }}
                           >
                             SE RATTNING
@@ -949,7 +988,7 @@ const Provresultat = () => {
                     display: "flex",
                     cursor: "pointer",
                   }}
-                  // onClick={() => openInNewTab('https://stackoverflow.com')}
+                // onClick={() => openInNewTab('https://stackoverflow.com')}
                 >
                   {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
                   {" "} */}
@@ -981,9 +1020,9 @@ const Provresultat = () => {
                 sx={{
                   // width: width > 1025 ? "91%" : "92%",
                   width: "100%",
-                  border: "1px solid #0A1596",
+                  border: `1px solid ${appColors.blueColor}`,
                   margin: "1rem 0",
-                  color: "#0A1596",
+                  color: appColors.blueColor,
                   display: "flex",
                 }}
                 onClick={() => navigate("/courses")}

@@ -7,17 +7,31 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
-import BarChart from "../../../../../../assets/Icons/BarChart.svg";
-import Clock from "../../../../../../assets/Icons/Clock.svg";
 import Correct from "../../../../../../assets/Imgs/correct.png";
-import Decrement from "../../../../../../assets/Icons/Decrement.svg";
-import Increment from "../../../../../../assets/Icons/Increment.svg";
+import FeedbackButtons from "../../../../../atom/FeedbackButtons/FeedbackButtons";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
+import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
-import Timer from "../../../../../atom/Timer/timer";
+import WarningIcon from "../../../../../../assets/Icons/WarningIcon.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
+import { makeStyles } from "@material-ui/core/styles";
+import AnswerStatement from "../../../../../molecule/AnswerStatement/AnswerStatement";
+
+const useStyles = makeStyles((theme) => ({
+  unAttemptedQuestion: {
+    padding: "2rem 4rem",
+    marginTop: "1rem",
+    border: "1px solid #e1e1e1",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
+}));
 
 function MultiQuestionSummary(props) {
+  const classes = useStyles();
   const [question, setQuestion] = useState();
 
   useEffect(() => {
@@ -36,7 +50,11 @@ function MultiQuestionSummary(props) {
           }}
         />
       );
-    } else if (question.answer && curentOption._id === question.answer.option) {
+    } else if (
+      question.answer &&
+      curentOption._id === question.answer.option &&
+      question?.optionId
+    ) {
       return (
         <img
           src={Wrong}
@@ -47,10 +65,15 @@ function MultiQuestionSummary(props) {
           }}
         />
       );
+    } else if (question.answer && curentOption._id !== question?.optionId) {
+      return (
+        <Radio
+          disabled
+          checked={false}
+          style={{ marginRight: "0.5rem", color: "#E1E1E1" }}
+        />
+      );
     }
-    // else {
-    //     return <Radio color="primary" checked={false} style={{ marginBottom: '.5rem' }} />;
-    // }
     if (optionIndex == question.selectedIndex) {
       return (
         <Radio
@@ -83,6 +106,23 @@ function MultiQuestionSummary(props) {
         flexDirection: "column",
       }}
     >
+      {!question?.optionId && question?.answer && (
+        <Container maxWidth="sm" className={classes.unAttemptedQuestion}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={WarningIcon}
+              alt="warning-icon"
+              style={{ marginRight: "1rem" }}
+            />
+            <Typography
+              variant="body1"
+              style={{ fontSize: ".75rem", fontWeight: 500, margin: 0 }}
+            >
+              Tiden gick ut och du hann inte svara på denna fråga.
+            </Typography>
+          </Box>
+        </Container>
+      )}
       <Box
         mt={5}
         paddingX={6}
@@ -99,36 +139,19 @@ function MultiQuestionSummary(props) {
           },
         }}
       >
-        <Typography
-          variant="subtitle1"
-          style={{
-            fontSize: ".7rem",
-            fontWeight: "500",
-          }}
-        >
-          {props.selectedIndex + 1 + " uppgifter:"}
-        </Typography>
-        <Typography variant="h6" component="h6">
-          {question?.multipartQuestion.title}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          style={{ fontSize: ".7rem", fontWeight: "500" }}
-        >
-          <MarkLatex content={question?.multipartQuestion.description} />
-        </Typography>
-        {question?.multipartQuestion.image && (
-          <Box>
-            <img
-              src={question?.multipartQuestion.image}
-              style={{ width: "100%" }}
-              alt=""
-            />
-          </Box>
-        )}
+        <QuestionStatement
+          numberOfQuestions={props.selectedIndex + 1}
+          title={question?.multipartQuestion.title}
+          description={question?.multipartQuestion.description}
+          image={question?.multipartQuestion.image}
+        />
       </Box>
 
-      <Box>
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: '600px'
+        }}>
         <Box
           paddingX={4}
           mt={5}
@@ -139,14 +162,6 @@ function MultiQuestionSummary(props) {
             border: "1px solid #e1e1e1",
           }}
         >
-          {/* <Box
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              marginTop: 10,
-            }}
-          ></Box> */}
           <Typography
             variant="h6"
             component="h6"
@@ -161,9 +176,6 @@ function MultiQuestionSummary(props) {
           >
             <MarkLatex content={question?.questionStatement} />
 
-            {/* {question?.images[0] && (
-              <img src={question.images[0]} style={{ marginBottom: ".4rem" }} />
-            )} */}
           </Typography>
         </Box>
         {question?.options[0].options.map((curentOption, optionIndex) => {
@@ -178,7 +190,7 @@ function MultiQuestionSummary(props) {
               }}
             >
               <FormControlLabel
-                onClick={(e) => {}}
+                onClick={(e) => { }}
                 value={curentOption._id}
                 style={{ marginLeft: ".5rem", marginTop: ".3rem" }}
                 control={Options(question, curentOption, optionIndex)}
@@ -191,95 +203,28 @@ function MultiQuestionSummary(props) {
             </Box>
           );
         })}
-        {/* {Button(question) } */}
       </Box>
-      <Box
-        paddingX={4}
-        mt={3}
-        sx={{
-          backgroundColor: "#fff",
-          width: "100%",
-          maxWidth: 600,
-          height: 220,
-          border: "1px solid #e1e1e1",
-          overflow: "auto",
-          "&::-webkit-scrollbar": { display: "none" },
-          //   '&::-webkit-scrollbar': { width : 0 },
-        }}
-      >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box>
-            <Typography
-              variant="h5"
-              component="h5"
-              style={{
-                fontSize: ".75rem",
-                fontWeight: "600",
-                marginTop: 20,
-              }}
-            >
-              Förklaring:
-            </Typography>
-            <Typography
-              variant="body1"
-              component="div"
-              style={{
-                fontSize: ".75rem",
-                fontWeight: "500",
-                marginTop: 10,
-                width: "100%",
-                maxWidth: question?.answer.image ? "auto" : 540,
-              }}
-            >
-              <MarkLatex content={question?.answer.answer} />
-            </Typography>
-          </Box>
-          <Box
-            mt={2}
-            style={{
-              //   marginLeft: "15rem",
-              marginTop: "2rem",
-            }}
-          >
-            {question?.answer.image && (
-              <img
-                style={{ height: 110 }}
-                src={question?.answer.image}
-                alt=""
-              />
-            )}
-          </Box>
-        </Box>
+      {question?.optionId && (
         <Box
+          paddingX={4}
+          mt={3}
           sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            height: 60,
+            backgroundColor: "#fff",
+            width: "100%",
+            maxWidth: 600,
+            border: "1px solid #e1e1e1",
           }}
         >
-          <Typography
-            variant="body1"
-            component="body1"
-            style={{
-              fontSize: ".75rem",
-              fontWeight: "500",
-              marginTop: 10,
-              //   width: "32rem",
-            }}
-          >
-            Berätta för oss om du var nöjd med lösningen
-          </Typography>
-          <Box ml={1} mr={0.5}>
-            <img src={Increment} alt="" />
-          </Box>
-          <Box mr={1}>
-            <img src={Decrement} alt="" />
-          </Box>
+          {question.answer && (
+            <AnswerStatement
+              answer={question?.answer?.answer}
+              image={question?.answer?.image}
+            />
+          )}
+          <FeedbackButtons />
         </Box>
-      </Box>
+      )}
 
-      {/* <ResultFooter/> */}
       <ResultFooter
         questionLength={props.quiz.length}
         questionIndex={props.selectedIndex}

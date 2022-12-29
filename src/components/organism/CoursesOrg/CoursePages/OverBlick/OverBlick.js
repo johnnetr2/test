@@ -1,45 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import BarChart from "../../../../../assets/Icons/BarChart.svg";
-import Timer from "../../../../atom/Timer/timer";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
-import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
-import Tick from "../../../../../assets/Icons/Tick.svg";
-import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
-import Warning from "../../../../../assets/Icons/Warning.svg";
-import { styled } from "@mui/material/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Typography,
   AppBar,
-  Paper,
   Box,
+  Button,
+  Container,
   CssBaseline,
   Toolbar,
-  Container,
-  Button,
+  Typography,
 } from "@material-ui/core";
-import { useLocation, useNavigate } from "react-router-dom";
-import BootstrapDialogTitle from "../../../../molecule/TestSubmitPopup/TestSubmitPopup";
 import { EndPoints, instance2 } from "../../../../service/Route";
-import TestOverPopup from "../../../../molecule/TestOverPopup/TestOverPopup";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
+import { appColors } from "../../../../service/commonService";
 import Backdrop from "@mui/material/Backdrop";
+import BootstrapDialogTitle from "../../../../molecule/TestSubmitPopup/TestSubmitPopup";
 import CircularProgress from "@mui/material/CircularProgress";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
+import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
+import TestOverPopup from "../../../../molecule/TestOverPopup/TestOverPopup";
+import Tick from "../../../../../assets/Icons/Tick.svg";
+import Warning from "../../../../../assets/Icons/Warning.svg";
+import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
+import { makeStyles } from "@material-ui/core/styles";
+import swal from "sweetalert";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
   const [testSubmitPopUp, setTestSubmitPopUp] = useState(false);
   const [timeOverPopUp, setTimeOverPopUp] = useState(false);
-  const [time, setTime] = useState();
-
   const params = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [helpPopup, setHelpPopup] = useState(false);
-
-  console.log(params, "Overblick data");
+  const [backPressPopup, setBackPressPopup] = useState(false);
 
   useEffect(() => {
     setQuiz(params.state.quiz);
@@ -48,6 +44,7 @@ const OverBlick = () => {
 
   const submitQuiz = () => {
     setTimeOverPopUp(false);
+    setTestSubmitPopUp(false);
     setOpen(true);
     const data = {
       simuleraQuiz: params.state.simuleraQuiz,
@@ -57,7 +54,7 @@ const OverBlick = () => {
 
     const URL = EndPoints.submitSimuleraTest;
     instance2.post(URL, data).then((response) => {
-      console.log(response.data, ";this is api response");
+      // console.log(response.data, ";this is api response");
       if (response.status == 200) {
         const updatePreviosExam = EndPoints.updatePreviousExam;
         const examData = {
@@ -65,27 +62,34 @@ const OverBlick = () => {
           user: localStorage.getItem("userId"),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
-        console.log(examData, "exam data");
+        const provpassNumber = params.state.provpass?.simuleraQuizResult?.length;
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
+          if(provpassNumber < 3){
+            const currentSeason = params.state.simuleraSeason;
+            navigate("/provpassinfo", {
+              state: {
+                id: currentSeason,
+                session: params?.state?.session,
+                provpass: res.data.simuleraSeasonResult,
+              }
+            })
+          } else if(provpassNumber === 3){
+              navigate("/provresultat", {
+                state: {
+                  seasonId: response.data.simuleraQuizResult.simuleraSeason,
+                  simuleraQuizResultId: response.data.simuleraQuizResult._id,
+                },
+              });
+            }
         });
-        navigate("/provresultat", {
-          state: {
-            seasonId: response.data.simuleraQuizResult.simuleraSeason,
-            simuleraQuizResultId: response.data.simuleraQuizResult._id,
-          },
-        });
+
+        
       } else {
-        console.log("Fail to submit questions");
+        swal("Fail to submit questions");
       }
     });
   };
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -150,17 +154,17 @@ const OverBlick = () => {
   const classes = useStyles(10);
 
   const ShowImage = (item) => {
-    if (item.optionId) {
-      return (
-        <img style={{ width: "1rem", marginRight: "1rem" }} src={Tick} alt="" />
-      );
-    } else if (item.isFlaged) {
+    if (item.isFlaged) {
       return (
         <img
           style={{ width: "1rem", marginRight: "1rem" }}
           src={YellowStar}
           alt=""
         />
+      );
+    } else if (item.optionId) {
+      return (
+        <img style={{ width: "1rem", marginRight: "1rem" }} src={Tick} alt="" />
       );
     } else {
       return (
@@ -198,18 +202,8 @@ const OverBlick = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
-
             onClick={() => {
-              navigate("/simuleraprov", {
-                state: {
-                  quiz,
-                  SubmitedQuestions: params?.state?.SubmitedQuestions,
-                  simuleraQuiz: quiz?._id,
-                  simuleraSeason: quiz?.season,
-                  timeLeft: params?.state.timeLeft,
-                  questionIndex: params?.state?.currentQuestion, 
-                }
-              })
+              setBackPressPopup(true);
             }}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
@@ -242,16 +236,13 @@ const OverBlick = () => {
         style={{
           backgroundColor: "#fff",
           border: "1px solid #fff",
-          height: "96vh",
-          width: "100%"
-          // minHeight: "100vh",
+          width: "100%",
         }}
-        >
+      >
         <Container
           disableGutters
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
-          
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             {/* <Box mt={2} width={100} sx={{ color: "#222" }}>
@@ -321,7 +312,7 @@ const OverBlick = () => {
         <Container
           maxWidth="md"
           style={{
-            marginTop: 65,
+            margin: "24px auto 80px",
             backgroundColor: "#f9f9f9",
             // backgroundColor: "#999",
             border: "1px solid #fff",
@@ -329,8 +320,8 @@ const OverBlick = () => {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
-            height: "92.5%",
-            width: "80%"
+            width: "80%",
+            paddingBottom: 24,
           }}
         >
           <Box
@@ -338,16 +329,18 @@ const OverBlick = () => {
             sx={{ display: "flex", width: 600, flexDirection: "column" }}
           >
             <Typography variant="h6" component="h6">
-              Överblick Provpass 5
+              Överblick Provpass{" "}
+              {params?.state?.provpass?.simuleraQuizResult.length + 1}
             </Typography>
             <Typography variant="body2" component="body2">
-              Innan du lämnar in se över vilka frågor du har missat, sparat samt
-              gjort klart
+              Innan du lämnar in, kontrollera vilka frågor du har <b>missat</b>,
+              <b>sparat</b> samt <b>gjort klart</b>
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 marginTop: "1rem",
+                gap: 16,
               }}
             >
               <Box
@@ -364,7 +357,7 @@ const OverBlick = () => {
                   src={Tick}
                   alt=""
                 />
-                <Typography variant="body2">Gjord uppgit</Typography>
+                <Typography variant="body2">Gjord uppgift</Typography>
               </Box>
               <Box
                 mt={1}
@@ -408,7 +401,6 @@ const OverBlick = () => {
               backgroundColor: "#fff",
               width: 600,
               padding: "2rem",
-              height: 450,
               overflow: "auto",
               display: "flex",
               justifyContent: "center",
@@ -446,6 +438,9 @@ const OverBlick = () => {
                               questionIndex: index,
                               quiz: quiz,
                               timeLeft: params.state.timeLeft,
+                              SubmittedQuestions:
+                                params?.state?.SubmitedQuestions,
+                              provpass: params?.state?.provpass,
                             },
                           })
                         }
@@ -515,7 +510,6 @@ const OverBlick = () => {
             bottom: 0,
             left: 0,
             right: 0,
-            
           }}
         >
           <Button
@@ -523,8 +517,8 @@ const OverBlick = () => {
             style={{
               width: 600,
               textTransform: "capitalize",
-              color: "#0A1596",
-              border: "1px solid #0A1596",
+              color: appColors.blueColor,
+              border: `1px solid ${appColors.blueColor}`,
             }}
             onClick={() => setTestSubmitPopUp(true)}
           >
@@ -532,6 +526,10 @@ const OverBlick = () => {
           </Button>
         </Box>
       </Container>
+      <BackButtonPopup
+        status={backPressPopup}
+        closePopup={() => setBackPressPopup(false)}
+      />
     </div>
   );
 };

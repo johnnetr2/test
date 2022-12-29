@@ -9,6 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
+import { appColors } from "../../service/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -63,7 +64,7 @@ export default function TestSubmitPopup(props) {
         Open dialog
       </Button> */}
       <BootstrapDialog
-        onClose={() => props.closePopUp() }
+        onClose={() => props.closePopUp()}
         aria-labelledby="customized-dialog-title"
         open={props.status}
         style={{
@@ -73,6 +74,7 @@ export default function TestSubmitPopup(props) {
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={() => props.closePopUp()}
+          sx={{ textAlign: "end" }}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "1.5rem 5rem" }}>
           <Typography gutterTop variant="h4">
@@ -88,7 +90,7 @@ export default function TestSubmitPopup(props) {
             autoFocus
             // onClick={handleClose}
             style={{
-              backgroundColor: "#0A1596",
+              backgroundColor: appColors.blueColor,
               color: "#fff",
               textTransform: "capitalize",
               fontWeight: "regular",

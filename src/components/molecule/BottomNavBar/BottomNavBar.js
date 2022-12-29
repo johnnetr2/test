@@ -1,18 +1,12 @@
 import { Box, Container, Typography, makeStyles } from "@material-ui/core";
 import { NavLink, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-
-import Course from "../../../assets/Icons/Courses.svg";
-import CourseC from "../../../assets/Icons/CoursesC.svg";
+import React from "react";
 import CoursesGrey from "../../../assets/Icons/CoursesGrey.svg";
-import Feedback from "../../../assets/Icons/Msg.svg";
-import FeedbackC from "../../../assets/Icons/FeedbackC.svg";
 import Home from "../../../assets/Icons/Home.svg";
 import HomeC from "../../../assets/Icons/HomeC.svg";
 import MsgGrey from "../../../assets/Icons/MsgGrey.svg";
-import Profile from "../../../assets/Icons/Profile.svg";
-import ProfileC from "../../../assets/Icons/ProfileC.svg";
 import ProfileGrey from "../../../assets/Icons/ProfileGrey.svg";
+import { appColors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -37,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
 
     "&:hover": {
-      backgroundColor: "#0A1596",
+      backgroundColor: appColors.blueColor,
       color: "#fff",
     },
   },
@@ -109,7 +103,7 @@ const BottomNavBar = (props) => {
         className={classes.navStyle}
         style={({ isActive }) => {
           return {
-            backgroundColor: isActive ? "#0A1596" : "none",
+            backgroundColor: isActive ? appColors.blueColor : "none",
             color: isActive ? "#fff" : "none",
           };
         }}
@@ -120,13 +114,13 @@ const BottomNavBar = (props) => {
             display: "flex",
             justifyContent: "center",
           }}
-          // onClick={() =>
-          // navigate("/home", {
-          //   state: {
-          //     popUpStatus: true,
-          //   },
-          // })
-          // }
+        // onClick={() =>
+        // navigate("/home", {
+        //   state: {
+        //     popUpStatus: true,
+        //   },
+        // })
+        // }
         >
           {/* <img src={HomeC} alt="" srcset="" /> */}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -148,12 +142,12 @@ const BottomNavBar = (props) => {
         // to="/courses"
         to="#"
         className={classes.disabledNavStyle}
-        // style={({ isActive }) => {
-        //   return {
-        //     backgroundColor: isActive ? "#0A1596" : "none",
-        //     color: isActive ? "#fff" : "none",
-        //   };
-        // }}
+      // style={({ isActive }) => {
+      //   return {
+      //     backgroundColor: isActive ? appColors.blueColor : "none",
+      //     color: isActive ? "#fff" : "none",
+      //   };
+      // }}
       >
         <Box
           className={classes.DisableItem}
@@ -182,12 +176,12 @@ const BottomNavBar = (props) => {
         // to="/message"
         to="#"
         className={classes.disabledNavStyle}
-        // style={({ isActive }) => {
-        //   return {
-        //     backgroundColor: isActive ? "#0A1596" : "none",
-        //     color: isActive ? "#fff" : "none",
-        //   };
-        // }}
+      // style={({ isActive }) => {
+      //   return {
+      //     backgroundColor: isActive ? appColors.blueColor : "none",
+      //     color: isActive ? "#fff" : "none",
+      //   };
+      // }}
       >
         <Box
           className={classes.DisableItem}
@@ -212,12 +206,12 @@ const BottomNavBar = (props) => {
       <NavLink
         to="#"
         className={classes.disabledNavStyle}
-        // style={({ isActive }) => {
-        //   return {
-        //     backgroundColor: isActive ? "#0A1596" : "none",
-        //     color: isActive ? "#fff" : "none",
-        //   };
-        // }}
+      // style={({ isActive }) => {
+      //   return {
+      //     backgroundColor: isActive ? appColors.blueColor : "none",
+      //     color: isActive ? "#fff" : "none",
+      //   };
+      // }}
       >
         <Box
           className={classes.DisableItem}

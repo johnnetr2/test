@@ -10,10 +10,15 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { appColors } from "../../service/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
+  },
+  "& .MuiPaper-root": {
+    width: "60%",
+    maxWidth: "800px"
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
@@ -33,7 +38,6 @@ const BootstrapDialogTitle = (props) => {
           sx={{
             position: "absolute",
             right: 8,
-            top: 8,
             color: (theme) => theme.palette.grey[500],
           }}
         >
@@ -71,41 +75,42 @@ export default function BackButtonPopup(props) {
         style={{
           textAlign: "center",
         }}
+        maxWidth="xxl"
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={props.closePopup}
+          style={{ textAlign: "right" }}
         ></BootstrapDialogTitle>
-        <DialogContent style={{ padding: "2rem 5rem" }}>
-          <Typography gutterTop variant="h4">
-            Vill du avsluta provet?
+        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+          <Typography gutterTop variant="h4" style={{ width: "60%" }}>
+            {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0" }}>
-            Du måste göra klart provpasset för att få din poäng. Om du trycker
-            på avsluta, sparas inte dina svar.
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%" }}>
+            {props.description}
           </Typography>
         </DialogContent>
         <DialogActions style={{ display: "flex", justifyContent: "center" }}>
           <Button
             autoFocus
-            onClick={() => navigate('/courses')}
+            onClick={() => props.redirect()}
             style={{
               backgroundColor: "transparent",
-              color: "#0A1596",
-              border: "1px solid #0A1596",
+              color: appColors.blueColor,
+              border: `1px solid ${appColors.blueColor}`,
               textTransform: "capitalize",
               fontWeight: "regular",
               padding: ".60rem 3rem",
               marginBottom: "2rem",
             }}
           >
-            Avsluta prov
+            {props.agreeBtnName}
           </Button>
           <Button
             autoFocus
             onClick={props.closePopup}
             style={{
-              backgroundColor: "#0A1596",
+              backgroundColor: appColors.blueColor,
               color: "#fff",
               textTransform: "capitalize",
               fontWeight: "regular",
@@ -113,7 +118,7 @@ export default function BackButtonPopup(props) {
               marginBottom: "2rem",
             }}
           >
-            Gör klart provpass
+            {props.cancelBtnName}
           </Button>
         </DialogActions>
       </BootstrapDialog>

@@ -1,5 +1,5 @@
-import { Box, LinearProgress, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import React from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
@@ -14,8 +14,6 @@ import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
 import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
-import { EndPoints, instance2 } from "../../service/Route";
-import { useSelector } from "react-redux";
 
 const HomeCard = (props) => {
   const data = props?.item;
@@ -52,7 +50,7 @@ const HomeCard = (props) => {
     <Box
       sx={{
         height: "20%",
-        maxWidth: "41rem",
+        maxWidth: { md: "unset", lg: "41rem" },
         display: "flex",
         justifyContent: "space-between",
         border: "1px solid #e1e1e1",
@@ -69,8 +67,7 @@ const HomeCard = (props) => {
       onClick={() =>
         navigate("/category", {
           state: {
-            item: data,
-            progress: percentageCalculation(),
+            item: data
           },
         })
       }
@@ -88,8 +85,8 @@ const HomeCard = (props) => {
               average={
                 props?.previousRecord
                   ? (props?.previousRecord.totalCorrectQuestion /
-                      props?.previousRecord.totalQuestionPerCategory) *
-                    100
+                    props?.previousRecord.totalQuestionPerCategory) *
+                  100
                   : 0
               }
             />
@@ -105,7 +102,7 @@ const HomeCard = (props) => {
         }}
       >
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
-          {props?.previousRecord?.totalAttemptedQuestions >= 20
+          {props?.previousRecord?.totalAttemptedHundred >= 20
             ? percentageCalculation()
             : "-"}
         </Typography>
@@ -116,7 +113,7 @@ const HomeCard = (props) => {
             width: "3.5rem",
           }}
         >
-          {props?.previousRecord?.TotalQuestion < 20 && (
+          {props?.previousRecord?.totalAttemptedHundred < 20 && (
             <CustomizedTooltip
               title="Gör minst 20 frågor på tid för att få poängprognos"
               placement="top"
@@ -125,10 +122,11 @@ const HomeCard = (props) => {
                 src={informationIcon}
                 style={{
                   display: "flex",
-                  height: "0.625rem",
-                  width: "0.625rem",
+                  height: "14px",
+                  width: "14px",
                   alignSelf: "flex-end",
                 }}
+                alt="info"
               />
             </CustomizedTooltip>
           )}
@@ -136,6 +134,7 @@ const HomeCard = (props) => {
             variant="body1"
             style={{
               fontSize: ".75rem",
+              marginTop: '.75rem'
             }}
           >
             Prognos

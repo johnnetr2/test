@@ -28,6 +28,9 @@ import { styled } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
+import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
+import { appColors } from "../../../../../service/commonService";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -46,9 +49,9 @@ const QuestionViewXyzOrg = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [answerSubmittedState, setAnsSubmittedState] = useState();
   const [seconds, setSeconds] = useState(0);
+  const [paragraphResponse, setParagraphResponse] = useState(false)
   const [startTimer, setStartTimer] = useState(true);
   const { user, token } = useSelector((state) => state.value);
-  let [remainingTime, setRemainingTime] = useState(0);
   var timer;
   const myRef = useRef(null);
 
@@ -87,7 +90,7 @@ const QuestionViewXyzOrg = () => {
             }
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime(50);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -113,7 +116,7 @@ const QuestionViewXyzOrg = () => {
             }
           });
         setTime((params.state.sectionCategory.time * totalQ * 60).toFixed(0));
-        // setTime(30);
+        // setTime(50);
         setStatus(true);
         if (localStorage.getItem("quiz")) {
           setQuiz(JSON.parse(localStorage.getItem("quiz")));
@@ -138,7 +141,6 @@ const QuestionViewXyzOrg = () => {
       quiz?.length > 0 &&
       (timeLeft || (!params?.state?.data.value && !timeLeft))
     ) {
-      setRemainingTime((remainingTime) => remainingTime + (time - timeLeft));
       const questions = [...quiz];
       let question = questions[selectedIndex];
 
@@ -171,6 +173,23 @@ const QuestionViewXyzOrg = () => {
     }
   }, [nextPress, timeLeft && !quiz[0]?.type == "multiple"]);
 
+
+
+
+
+  useEffect(() => {
+    const handleEnterClick = (e) => {
+      if (e.keyCode === 13) {
+        Next(quiz[selectedIndex], quiz[selectedIndex].answer ? "Nästa" : "Svara")
+      }
+    }
+    document.addEventListener("keydown", handleEnterClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEnterClick);
+    }
+  }, [quiz, selectedIndex])
+
   useEffect(() => {
     timer = setInterval(() => {
       setSeconds((seconds) => seconds + 1);
@@ -180,9 +199,7 @@ const QuestionViewXyzOrg = () => {
   }, [!params.state.time && startTimer]);
 
   const scrollBottom = () => {
-    setTimeout(() => {
-      myRef.current.scrollIntoView();
-    }, 500);
+    myRef.current.scrollIntoView();
   };
 
   const scrollTop = () => {
@@ -192,11 +209,12 @@ const QuestionViewXyzOrg = () => {
     });
   };
 
+
+
   const Next = (question, buttonText) => {
     setStartTimer(false);
     if (buttonText === "Svara") {
-      console.log("scroll bottom 12122");
-      scrollBottom();
+      // scrollBottom();
     } else {
       scrollTop(0);
     }
@@ -241,6 +259,7 @@ const QuestionViewXyzOrg = () => {
           !params?.state?.data?.value && setNextPress(!nextPress);
           localStorage.setItem("quiz", JSON.stringify(questions));
           setQuiz(questions);
+          scrollBottom();
           setStatus(false);
         });
       }
@@ -289,7 +308,7 @@ const QuestionViewXyzOrg = () => {
       width: "90vw",
     },
     radio: {
-      color: onHover && "#0A1596",
+      color: onHover && appColors.hoverBlue,
     },
   }));
 
@@ -367,30 +386,33 @@ const QuestionViewXyzOrg = () => {
   };
 
   const CloseTimerFunc = async () => {
-    // console.log("close timer function");
     setTimeEnd(true);
     try {
-      const payload = {
-        quiz: params?.state?.quizId,
-        user: user._id,
-        sectionCategory: params?.state?.sectionCategory?._id,
-        answer: AnswerArrayPayloadForCloseTimerFunc(),
-      };
-      // console.log(payload, "popup function call");
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-      const URL = EndPoints.submitMultiquestionParagragh;
-      instance2
-        .post(URL, payload, { headers })
-        .then((response) => {})
-        .catch((error) => {
-          console.log("this is the consnole of error", error);
-        });
+      if (localStorage.getItem("quiz")) {
+        const payload = {
+          quiz: params?.state?.quizId,
+          user: user._id,
+          sectionCategory: params?.state?.sectionCategory?._id,
+          answer: AnswerArrayPayloadForCloseTimerFunc(),
+        };
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        };
+        const URL = EndPoints.submitMultiquestionParagragh;
+        instance2
+          .post(URL, payload, { headers })
+          .then((response) => { setParagraphResponse(true) })
+          .catch((error) => {
+            console.log("this is the consnole of error", error);
+          });
+      } else {
+        console.log("no need to call api ")
+      }
     } catch (error) {
       console.log("in catch block: ", error);
     }
+
   };
 
   const SelectFunc = (item, optionIndex) => {
@@ -452,7 +474,7 @@ const QuestionViewXyzOrg = () => {
         <Radio
           color="blue"
           checked={true}
-          style={{ marginRight: "0.5rem", color: "#0A1596" }}
+          style={{ marginRight: "0.5rem", color: appColors.blueColor }}
         />
       );
     } else {
@@ -463,7 +485,7 @@ const QuestionViewXyzOrg = () => {
           style={{
             marginRight: "0.5rem",
             color:
-              !question.answer && curentOption._id === onHover && "#0A1596",
+              !question.answer && curentOption._id === onHover && appColors.hoverBlue,
           }}
         />
       );
@@ -508,7 +530,7 @@ const QuestionViewXyzOrg = () => {
             maxWidth: 600,
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "#0A1596",
+            backgroundColor: appColors.blueColor,
             borderRadius: ".3rem",
             cursor: "pointer",
             marginBottom: "2.2rem",
@@ -526,6 +548,7 @@ const QuestionViewXyzOrg = () => {
             {question.answer ? "Nästa" : "Svara"}
           </Typography>
         </Box>
+
       ) : (
         <Box
           padding={1}
@@ -677,34 +700,34 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
-          <AlertDialogSlide
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          <QuestionBackButtonPopup
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
             cancelBtnName={"Fortsätt öva"}
             agreeBtnName={"Avsluta"}
-            popUpstatus={open}
-            handleClose={() => setOpen(false)}
+            status={open}
+            closePopup={() => setOpen(false)}
             redirect={() => handleAlertDialogPopup()}
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
-          <AlertDialogSlide
+          <QuestionBackButtonPopup
             title={"Vill du avsluta?"}
             description={"Ingen fråga är besvarad."}
             cancelBtnName={"Fortsätt öva"}
             agreeBtnName={"Avsluta"}
-            popUpstatus={open}
-            handleClose={() => setOpen(false)}
+            status={open}
+            closePopup={() => setOpen(false)}
             redirect={() => handleAlertDialogPopup()}
           />
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <DropPenPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
@@ -715,7 +738,7 @@ const QuestionViewXyzOrg = () => {
               localStorage.removeItem("quiz");
               localStorage.removeItem("time");
 
-              setTimeout(() => {
+              paragraphResponse &&
                 navigate("/resultsummary", {
                   state: {
                     sectionCategory: params?.state?.sectionCategory,
@@ -723,7 +746,7 @@ const QuestionViewXyzOrg = () => {
                     time: params?.state?.time,
                   },
                 });
-              }, 2000);
+
             }}
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (

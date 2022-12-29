@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
+import UnAttemptedCheckBox from "../../../../../../assets/Icons/UnAttemptedCheckBox.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
 import Correct from "../../../../../../assets/Imgs/correct.png";
@@ -32,6 +33,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import swal from "sweetalert";
 import { useSelector } from "react-redux";
+import { appColors } from "../../../../../service/commonService";
+import CirculerLoader from '../../../../../molecule/CircularLoader'
 
 export const dispSecondsAsMins = (seconds) => {
   // 25:00
@@ -70,13 +73,13 @@ export const percentageCalculation = (params, value) => {
     return MEKNormeringValueFor(value);
   }
 };
-const ResultSummaryOrg = (props) => {
+const ResultSummaryOrg = () => {
   const params = useLocation();
   const [timePerQues, setTimePerQues] = useState();
   const [progress, setProgress] = useState(0);
   const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
-  const { user, token } = useSelector((state) => state.value);
+  const { token } = useSelector((state) => state.value);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -125,7 +128,6 @@ const ResultSummaryOrg = (props) => {
   }));
 
   const classes = useStyles(10);
-
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
@@ -133,18 +135,21 @@ const ResultSummaryOrg = (props) => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
+    let attemptedQuestion = 0;
+
     instance2
       .get(URL, { headers })
       .then((response) => {
         response.data.question.map((item) => {
-          return (sumOfTimeSpent = sumOfTimeSpent + item.spendTime);
+          sumOfTimeSpent = sumOfTimeSpent + item.spendTime;
+          if (item.spendTime !== 0) {
+            attemptedQuestion++;
+          }
+          return sumOfTimeSpent;
         });
 
-        let lengthOfQuestions = response.data.question.length;
-        let timePerQuestion;
-        timePerQuestion = sumOfTimeSpent / lengthOfQuestions;
-
         if (sumOfTimeSpent) {
+          let timePerQuestion = sumOfTimeSpent / attemptedQuestion;
           setTimePerQues(timePerQuestion);
         } else {
           setTimePerQues(false);
@@ -280,7 +285,7 @@ const ResultSummaryOrg = (props) => {
                 >
                   {responseCollection?.totalQuestion &&
                   responseCollection?.correctAnswer != null ? (
-                    <Typography variant="h4">
+                    <Typography variant="h4" style={{marginRight: "0.8rem"}}>
                       {responseCollection &&
                         responseCollection.correctAnswer +
                           " /" +
@@ -288,7 +293,7 @@ const ResultSummaryOrg = (props) => {
                     </Typography>
                   ) : (
                     <Box sx={{ display: "flex" }}>
-                      <CircularProgress />
+                      <CirculerLoader />
                     </Box>
                   )}
                   <Typography
@@ -317,7 +322,12 @@ const ResultSummaryOrg = (props) => {
                     }}
                   >
                     {responseCollection ? (
-                      <Typography variant="h4">
+                      <Typography variant="h4" style={{marginLeft: percentageCalculation(
+                        params,
+                        (responseCollection.correctAnswer /
+                          responseCollection.question.length) *
+                          100
+                     ).toString().length > 1 ? "3.2rem" : "0rem"}}>
                         {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
                         {percentageCalculation(
                           params,
@@ -328,7 +338,7 @@ const ResultSummaryOrg = (props) => {
                       </Typography>
                     ) : (
                       <Box sx={{ display: "flex" }}>
-                        <CircularProgress />
+                        <CirculerLoader />
                       </Box>
                     )}
                     <Typography
@@ -375,7 +385,7 @@ const ResultSummaryOrg = (props) => {
                         dispSecondsAsMins(timePerQues?.toFixed(0))
                       ) : (
                         <Box sx={{ display: "flex" }}>
-                          <CircularProgress />
+                          <CirculerLoader />
                         </Box>
                       )}
                     </Typography>
@@ -412,7 +422,7 @@ const ResultSummaryOrg = (props) => {
                           )
                         ) : (
                           <Box sx={{ display: "flex" }}>
-                            <CircularProgress />
+                            <CirculerLoader />
                           </Box>
                         )}
                       </Typography>
@@ -498,6 +508,11 @@ const ResultSummaryOrg = (props) => {
                               style={{ height: "1.5rem", marginLeft: "1.5rem" }}
                               src={Correct}
                             />
+                          ) : item.optionId === null ? (
+                            <img
+                              src={UnAttemptedCheckBox}
+                              style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                            />
                           ) : (
                             <img
                               src={Wrong}
@@ -536,6 +551,7 @@ const ResultSummaryOrg = (props) => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          marginLeft: "1.2rem",
                         }}
                       >
                         <img src={RightArrow} className={classes.size} alt="" />
@@ -558,8 +574,8 @@ const ResultSummaryOrg = (props) => {
               style={{
                 width: "100%",
                 maxWidth: 600,
-                color: "#000DAB",
-                borderColor: "#000DAB",
+                color: appColors.blueColor,
+                borderColor: appColors.blueColor,
                 borderRadius: "8px",
               }}
             >
