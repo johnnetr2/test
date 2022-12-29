@@ -4,6 +4,7 @@ import { Stack, Typography } from "@mui/material";
 import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
 import axios from "axios";
+import { EndPoints, instance2 } from "../../service/Route";
 
 const PayButton = (price, pricingSwitch) => {
   //Dummy JSON for Klarna Checkout POST request
@@ -35,20 +36,10 @@ const PayButton = (price, pricingSwitch) => {
         push: "https://www.example.com/api/push",
       },
     });
-    const token = localStorage.getItem("token");
-    //POST request - Klarna block POST request from, it has to go through a Proxy server. Instructions
-    axios
-      .post("http://localhost:2000/api/payments/createOrder", orderData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        // handle success
-        console.log(response);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
+
+    const url = EndPoints.createOrder;
+
+    instance2.post(url, {orderData}).then(res => console.log(res.data)).catch(err => console.log(err))
   };
   return (
     <button onClick={() => goPayment(price, pricingSwitch)}>Uppgradera</button>
