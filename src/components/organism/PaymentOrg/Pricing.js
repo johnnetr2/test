@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 import { Stack, Typography } from "@mui/material";
 import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
+import { Button } from "@material-ui/core";
 import axios from "axios";
 
 const PayButton = (price, pricingSwitch) => {
@@ -51,7 +52,22 @@ const PayButton = (price, pricingSwitch) => {
       });
   };
   return (
-    <button onClick={() => goPayment(price, pricingSwitch)}>Uppgradera</button>
+    <button
+      onClick={() => goPayment(price, pricingSwitch)}
+      style={{
+        color: "white",
+        backgroundColor: "#5263EB",
+        height: "50px",
+        border: 0,
+        borderRadius: "14px",
+        paddingRight: "50px",
+        paddingLeft: "50px",
+        maxWidth: "100%",
+        fontSize: '25px'
+      }}
+    >
+      Uppgradera
+    </button>
   );
 };
 
