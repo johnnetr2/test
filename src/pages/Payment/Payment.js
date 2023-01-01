@@ -1,12 +1,8 @@
-import React from 'react'
-import PaymentMain from '../../components/organism/PaymentOrg/PaymentMain'
+import React from "react";
+import PaymentMain from "../../components/organism/PaymentOrg/PaymentMain";
 
 const Payment = () => {
-    return (
-        <div>
-            <PaymentMain/>
-        </div>
-    )
-}
+  return <PaymentMain />;
+};
 
-export default Payment
+export default Payment;

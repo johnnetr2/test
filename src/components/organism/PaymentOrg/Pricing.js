@@ -3,43 +3,13 @@ import { Grid } from "@material-ui/core";
 import { Stack, Typography } from "@mui/material";
 import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
-import { Button } from "@material-ui/core";
-import axios from "axios";
 import { EndPoints, instance2 } from "../../service/Route";
-
-const PayButton = ({ price, pricingSwitch, setHtmlSnippet, checkoutRef, goPayment }) => {
-  //Dummy JSON for Klarna Checkout POST request
-  
-  return (
-    <button
-      onClick={() => goPayment()}
-      style={{
-        color: "white",
-        backgroundColor: "#5263EB",
-        height: "50px",
-        border: 0,
-        borderRadius: "14px",
-        paddingRight: "50px",
-        paddingLeft: "50px",
-        maxWidth: "100%",
-        fontSize: "25px",
-      }}
-    >
-      Uppgradera
-    </button>
-  );
-};
-
+import PayButton from "./PayButton";
 
 const Pricing = () => {
   const [price, setPrice] = useState(90);
   const [pricingSwitch, setPricingSwitch] = useState(true);
-  const [htmlSnippet, setHtmlSnippet] = useState("<h1>Hello, wwworld!</h1>");
-
-  const switchPricing = (e) => {
-    setPricingSwitch(!pricingSwitch);
-    setPrice(e.target.checked ? 90 : 540);
-  };
+  const [htmlSnippet, setHtmlSnippet] = useState();
 
   const checkoutContainer = useRef(null);
 
@@ -48,27 +18,27 @@ const Pricing = () => {
       purchase_country: "SE",
       purchase_currency: "SEK",
       locale: "sv-se",
-      order_amount: 50000,
-      order_tax_amount: 4545,
+      order_amount: 100,
+      order_tax_amount: 20,
       order_lines: [
         {
-          type: "physical",
-          reference: "19-402-USA",
-          name: "Red T-Shirt",
-          quantity: 5,
+          type: "digital",
+          reference: "Premium",
+          name: "Premium",
+          quantity: 1,
           quantity_unit: "pcs",
-          unit_price: 10000,
-          tax_rate: 1000,
-          total_amount: 50000,
+          unit_price: 100,
+          tax_rate: 2500,
+          total_amount: 100,
           total_discount_amount: 0,
-          total_tax_amount: 4545,
+          total_tax_amount: 20,
         },
       ],
       merchant_urls: {
-        terms: "https://www.example.com/terms.html",
-        checkout: "https://www.example.com/checkout.html",
+        terms: "https://www.example.com/terms.html", // Johnny edit this later
+        checkout: "http://localhost:3000/checkout", // We go for localhost url in DEV mode.
         confirmation: "http://localhost:3000/payment-confirmation", // We go for localhost url in DEV mode.
-        push: "https://www.example.com/api/push",
+        push: "https://www.example.com/api/push", //We need to respond to Klarna with a 200 status.
       },
     });
 
@@ -77,24 +47,35 @@ const Pricing = () => {
     instance2
       .post(url, { orderData })
       .then((res) => {
-        setHtmlSnippet(res.data.orderData.html_snippet)
+        setHtmlSnippet(res.data.orderData.html_snippet);
         checkoutContainer.current.innerHTML = res.data.orderData.html_snippet;
 
-        const scriptsTags = checkoutContainer.current.getElementsByTagName('script')
-  // This is necessary otherwise the scripts tags are not going to be evaluated
+        console.log(res.data.orderData.order_id); // Pass this order_id to user - use localStorage or database?
+        localStorage.setItem("order_id", res.data.orderData.order_id);
+
+        const scriptsTags =
+          checkoutContainer.current.getElementsByTagName("script");
+        // This is necessary otherwise the scripts tags are not going to be evaluated
         for (var i = 0; i < scriptsTags.length; i++) {
-            const parentNode = scriptsTags[i].parentNode
-            const newScriptTag = document.createElement('script')
-            newScriptTag.type = 'text/javascript'
-            newScriptTag.text = scriptsTags[i].text
-            parentNode.removeChild(scriptsTags[i])
-            parentNode.appendChild(newScriptTag)
+          const parentNode = scriptsTags[i].parentNode;
+          const newScriptTag = document.createElement("script");
+          newScriptTag.type = "text/javascript";
+          newScriptTag.text = scriptsTags[i].text;
+          parentNode.removeChild(scriptsTags[i]);
+          parentNode.appendChild(newScriptTag);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); // handle error here
   };
 
- 
+  const scrollDown = () => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 1000);
+  };
 
   return (
     <Grid //Mother container
@@ -102,10 +83,8 @@ const Pricing = () => {
       alignItems="center"
       direction="column"
       style={{
-        padding: 10,
-        borderColor: "black",
-        borderRadius: "20px", // add smooth border radius
-        backgroundColor: "#FAFAFA", // set background color to white
+        padding: 50,
+        backgroundColor: "#FAFAFA",
       }}
     >
       <Grid // Wrapper of each section
@@ -116,8 +95,8 @@ const Pricing = () => {
           padding: 100,
           border: "1px",
           borderColor: "B5B5B5",
-          borderRadius: "20px", // add smooth border radius
-          backgroundColor: "white", // set background color to white
+          borderRadius: "20px",
+          backgroundColor: "white",
         }}
       >
         <Grid // Section CTA1
@@ -140,7 +119,10 @@ const Pricing = () => {
               </Typography>
               <PricingSwitch
                 checked={pricingSwitch}
-                onChange={(e) => switchPricing(e)}
+                onChange={(e) => {
+                  setPricingSwitch(!pricingSwitch);
+                  setPrice(e.target.checked ? 90 : 540);
+                }}
                 inputProps={{ "aria-label": "ant design" }}
               />
               <Typography
@@ -161,8 +143,8 @@ const Pricing = () => {
           direction="column"
           style={{
             width: "100%",
-            borderRadius: "20px", // add smooth border radius
-            backgroundColor: "white", // set background color to white
+            borderRadius: "20px",
+            backgroundColor: "white",
             marginTop: "50px",
           }}
         >
@@ -209,17 +191,24 @@ const Pricing = () => {
             marginTop: "50px",
           }}
         >
+          {htmlSnippet ? (
+            scrollDown()
+          ) : (
+            <Grid item>
+              <PayButton
+                price={price}
+                pricingSwitch={pricingSwitch}
+                setHtmlSnippet={setHtmlSnippet}
+                checkoutRef={checkoutContainer}
+                goPayment={goPayment}
+              />
+            </Grid>
+          )}
           <Grid item>
-            <PayButton
-              price={price}
-              pricingSwitch={pricingSwitch}
-              setHtmlSnippet={setHtmlSnippet}
-              checkoutRef={checkoutContainer}
-              goPayment={goPayment}
+            <div
+              style={{ width: "100%", minWidth: "35rem" }}
+              ref={checkoutContainer}
             />
-          </Grid>
-          <Grid item>
-            <div style={{width: "200px"}} ref={checkoutContainer} />
           </Grid>
         </Grid>
       </Grid>
