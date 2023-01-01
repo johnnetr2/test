@@ -429,22 +429,22 @@ const StandardViewXyz = () => {
               flexDirection: "row",
             }}
           >
-            {quiz &&
+            { quiz &&
               quiz?.question.map((item, index) => {
                 return (
                   <Box
                     key={index}
                     style={{
                       backgroundColor:
-                        numberOfAttemptedQuestions > index
+                        currentIndex > index
                           ? "#6fcf97"
                           : "#B4B4B4",
-                      marginLeft: "2px",
                       flex: "1",
                     }}
                   ></Box>
                 );
-              })}
+              }) }
+              
             <Box
               mt={2}
               sx={{
