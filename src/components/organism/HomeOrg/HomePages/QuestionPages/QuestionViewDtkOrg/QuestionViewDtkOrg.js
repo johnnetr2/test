@@ -19,7 +19,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Draggable from "react-draggable";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
-import { PositionableContainer } from "re-position";
+import { PositionableContainer, Position } from "re-position";
 import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
@@ -45,13 +45,24 @@ const QuestionViewDTKOrg = (props) => {
   const [position, setPosition] = useState({
     left: "85%",
     top: "37.5%",
-    width: "115px",
-    height: "796px",
+    width: "75px",
+    height: "450px",
     rotation: "0deg",
   });
 
-  const handleUpdate = (position) => setPosition({ position });
-  const handleShowRuler = () => setShowRuler(() => !showRuler);
+  const handleUpdate = (position) => {
+    setPosition(position)
+  };
+  const handleShowRuler = () => {
+    setShowRuler((prevState) => !prevState)
+    setPosition({
+      left: "85%",
+      top: "37.5%",
+      width: "75px",
+      height: "450px",
+      rotation: "0deg",
+    })
+  };
   const { user, token } = useSelector((state) => state.value);
   const [enterSubmitted, setEnterSubmitted] = useState(true)
   const headers = {
@@ -560,10 +571,10 @@ const QuestionViewDTKOrg = (props) => {
                       <h1 style={{ fontSize: "28px" }}>{quiz?.title}</h1>
                       <MarkLatex content={quiz?.description} />
                     </Typography>
-                    {quiz.title === "DTK" && showRuler && (
+                    {quiz?.title === "DTK" && showRuler && (
                       <PositionableContainer
-                        resizable
                         movable
+                        resizable
                         rotatable
                         position={position}
                         onUpdate={handleUpdate}
@@ -573,7 +584,7 @@ const QuestionViewDTKOrg = (props) => {
                           style={{
                             background: "#fff",
                             width: "100%",
-                            border: "1px solid #f00",
+                            // border: "1px solid #f00",
                           }}
                         ></img>
                       </PositionableContainer>
