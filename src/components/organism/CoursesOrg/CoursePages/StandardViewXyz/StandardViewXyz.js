@@ -396,11 +396,11 @@ const StandardViewXyz = () => {
           style={{ backgroundColor: "#fff" }}
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} width={100} sx={{ color: "#222" }}>
+            {!open && <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />
               {currentIndex + 1} av {quiz?.question.length}
-            </Box>
-            <Box mt={2} sx={{ color: "#222", display: "flex" }}>
+            </Box>}
+            {!open &&<Box mt={2} sx={{ color: "#222", display: "flex" }}>
               <img src={Clock} alt="" />
               {quiz && quiz.question[currentIndex].questionAnswer
                 ? "Slutfört"
@@ -418,9 +418,9 @@ const StandardViewXyz = () => {
                     callBackForTimer={(value) => setTimeLeft(value)}
                   />
                 )}
-            </Box>
+            </Box>}
           </Box>
-          <Box
+         {!open && <Box
             mt={2}
             sx={{
               backgroundColor: "#b4b4b4",
@@ -454,7 +454,7 @@ const StandardViewXyz = () => {
                 flexDirection: "row",
               }}
             ></Box>
-          </Box>
+          </Box>}
         </Container>
 
         <Container
@@ -734,7 +734,7 @@ const StandardViewXyz = () => {
                 }
               })}
 
-            <Box
+            {!open && <Box
               padding={1}
               mt={2}
               mb={2}
@@ -863,7 +863,7 @@ const StandardViewXyz = () => {
                   <img src={RightArrow} alt="" />
                 </Box>
               )}
-            </Box>
+            </Box>}
           </Box>
 
           <Box
