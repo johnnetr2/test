@@ -28,7 +28,6 @@ import WhiteStar from "../../../../../assets/Imgs/whiteStar.png";
 import { instance2, EndPoints } from "../../../../service/Route";
 import Timer from "../../../../atom/Timer/timer";
 import ProvPassDtk from "../ProvPassDtk/ProvPassDtk";
-import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
@@ -36,6 +35,7 @@ import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
 import { appColors } from "../../../../service/commonService";
+import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -241,7 +241,8 @@ const StandardViewXyz = () => {
           color="primary"
           checked={true}
           style={{
-            marginRight: "0.5rem", color: appColors.blueColor
+            marginRight: "0.5rem",
+            color: appColors.blueColor,
           }}
         />
       );
@@ -341,10 +342,10 @@ const StandardViewXyz = () => {
             onClick={() => {
               quiz && quiz.question[currentIndex].questionAnswer
                 ? navigate("/provresultat", {
-                  state: {
-                    seasonId: params.state.seasonId,
-                  },
-                })
+                    state: {
+                      seasonId: params.state.seasonId,
+                    },
+                  })
                 : setBackPressPopup(true);
             }}
           >
@@ -380,7 +381,7 @@ const StandardViewXyz = () => {
         style={{ backgroundColor: "#fff" }}
         className={classes.content}
       >
-        <BackButtonPopup
+        <CommonPopup
           status={backPressPopup}
           closePopup={() => setBackPressPopup(false)}
           title="Vill du avsluta provpasset?"
@@ -405,19 +406,19 @@ const StandardViewXyz = () => {
               {quiz && quiz.question[currentIndex].questionAnswer
                 ? "Slutfört"
                 : time && (
-                  <Timer
-                    continueStatus={status}
-                    time={time}
-                    timeleft={(timer) => {
-                      setTimeLeft(timer);
-                    }}
-                    onCloseTimer={() => {
-                      setTimeLeft(0);
-                      setShouldNavigate(true);
-                    }}
-                    callBackForTimer={(value) => setTimeLeft(value)}
-                  />
-                )}
+                    <Timer
+                      continueStatus={status}
+                      time={time}
+                      timeleft={(timer) => {
+                        setTimeLeft(timer);
+                      }}
+                      onCloseTimer={() => {
+                        setTimeLeft(0);
+                        setShouldNavigate(true);
+                      }}
+                      callBackForTimer={(value) => setTimeLeft(value)}
+                    />
+                  )}
             </Box>
           </Box>
           <Box
@@ -460,14 +461,14 @@ const StandardViewXyz = () => {
         <Container
           maxWidth="md"
           className={classes.questionComponent}
-        // style={{
-        //   marginTop: 0,
-        //   backgroundColor: "#f9f9f9",
-        //   height: "fit-content",
-        //   display: "flex",
-        //   justifyContent: "flex-end",
-        //   flexDirection: "row",
-        // }}
+          // style={{
+          //   marginTop: 0,
+          //   backgroundColor: "#f9f9f9",
+          //   height: "fit-content",
+          //   display: "flex",
+          //   justifyContent: "flex-end",
+          //   flexDirection: "row",
+          // }}
         >
           {/* start of question component */}
 
@@ -522,8 +523,8 @@ const StandardViewXyz = () => {
                             height: isReadingComprehension
                               ? "auto"
                               : question.images[0]
-                                ? 380
-                                : 330,
+                              ? 380
+                              : 330,
                             // border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
@@ -608,7 +609,8 @@ const StandardViewXyz = () => {
                                         : 300,
                                     "&:hover": {
                                       cursor: !option.answer && "pointer",
-                                      color: !option.answer && appColors.hoverBlue,
+                                      color:
+                                        !option.answer && appColors.hoverBlue,
                                     },
                                   }}
                                 >
@@ -868,14 +870,14 @@ const StandardViewXyz = () => {
 
           <Box
             className={classes.spara}
-          // style={{
-          //   width: "10rem",
-          //   height: 'fit-content',
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   marginTop: '2.7rem',
-          //   // marginLeft: '-10rem'
-          // }}
+            // style={{
+            //   width: "10rem",
+            //   height: 'fit-content',
+            //   display: "flex",
+            //   justifyContent: "center",
+            //   marginTop: '2.7rem',
+            //   // marginLeft: '-10rem'
+            // }}
           >
             {quiz && !quiz.question[currentIndex].questionAnswer && (
               <Button

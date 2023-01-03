@@ -26,6 +26,7 @@ import Warning from "../../../../../assets/Icons/Warning.svg";
 import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
+import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -62,29 +63,28 @@ const OverBlick = () => {
           user: localStorage.getItem("userId"),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
-        const provpassNumber = params.state.provpass?.simuleraQuizResult?.length;
+        const provpassNumber =
+          params.state.provpass?.simuleraQuizResult?.length;
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
-          if(provpassNumber < 3){
+          if (provpassNumber < 3) {
             const currentSeason = params.state.simuleraSeason;
             navigate("/provpassinfo", {
               state: {
                 id: currentSeason,
                 session: params?.state?.session,
                 provpass: res.data.simuleraSeasonResult,
-              }
-            })
-          } else if(provpassNumber === 3){
-              navigate("/provresultat", {
-                state: {
-                  seasonId: response.data.simuleraQuizResult.simuleraSeason,
-                  simuleraQuizResultId: response.data.simuleraQuizResult._id,
-                },
-              });
-            }
+              },
+            });
+          } else if (provpassNumber === 3) {
+            navigate("/provresultat", {
+              state: {
+                seasonId: response.data.simuleraQuizResult.simuleraSeason,
+                simuleraQuizResultId: response.data.simuleraQuizResult._id,
+              },
+            });
+          }
         });
-
-        
       } else {
         swal("Fail to submit questions");
       }
@@ -472,6 +472,16 @@ const OverBlick = () => {
                     );
                   })}
               </Box>
+              <CommonPopup
+                status={timeOverPopUp}
+                closePopUp={() => setTimeOverPopUp(false)}
+                redirect={() => submitQuiz()}
+                title="Provpasset är över"
+                description="Efter att du lämnat in kan du ta en paus innan du börjar nästa
+                provpass. Ditt resultat sparas."
+                oneButtonPopup
+                agreeBtnName="Lämna in provpasset"
+              />
               <TestOverPopup
                 status={timeOverPopUp}
                 closePopUp={() => setTimeOverPopUp(false)}
@@ -526,7 +536,7 @@ const OverBlick = () => {
           </Button>
         </Box>
       </Container>
-      <BackButtonPopup
+      <CommonPopup
         status={backPressPopup}
         closePopup={() => setBackPressPopup(false)}
         title="Vill du avsluta provpasset?"
@@ -535,6 +545,15 @@ const OverBlick = () => {
         agreeBtnName="Avsluta prov"
         redirect={() => navigate("/courses")}
       />
+      {/* <BackButtonPopup
+        status={backPressPopup}
+        closePopup={() => setBackPressPopup(false)}
+        title="Vill du avsluta provpasset?"
+        description="Du måste göra klart provpasset för att få din poäng. Om du trycker på avsluta, sparas inte dina svar."
+        cancelBtnName="Gör klart provpass"
+        agreeBtnName="Avsluta prov"
+        redirect={() => navigate("/courses")}
+      /> */}
     </div>
   );
 };
