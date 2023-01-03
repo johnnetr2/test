@@ -86,6 +86,7 @@ const TestInformation = (props) => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => navigate("/courses")}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
