@@ -474,7 +474,6 @@ const OverBlick = () => {
               </Box>
               <CommonPopup
                 status={timeOverPopUp}
-                closePopUp={() => setTimeOverPopUp(false)}
                 redirect={() => submitQuiz()}
                 title="Provpasset är över"
                 description="Efter att du lämnat in kan du ta en paus innan du börjar nästa
@@ -482,19 +481,20 @@ const OverBlick = () => {
                 oneButtonPopup
                 agreeBtnName="Lämna in provpasset"
               />
-              <TestOverPopup
-                status={timeOverPopUp}
-                closePopUp={() => setTimeOverPopUp(false)}
-                onClick={() => submitQuiz()}
+              <CommonPopup
+                status={testSubmitPopUp}
+                redirect={() => submitQuiz()}
+                closePopup={() => setTestSubmitPopUp(false)}
+                title="Vill du lämna in?"
+                description="Efter att du lämnat in kan du ta en paus innan du börjar nästa
+                provpass. Ditt resultat sparas."
+                oneButtonPopup
+                agreeBtnName="Lämna in provpasset"
               />
+             
             </Box>
           </Box>
         </Container>
-        <BootstrapDialogTitle
-          status={testSubmitPopUp}
-          closePopUp={() => setTestSubmitPopUp(false)}
-          testSubmit={() => submitQuiz()}
-        />
 
         {/* <Box
           sx={{
@@ -534,7 +534,7 @@ const OverBlick = () => {
           >
             Lämna in provpass
           </Button>
-        </Box>
+        </Box> 
       </Container>
       <CommonPopup
         status={backPressPopup}
