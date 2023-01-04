@@ -52,7 +52,7 @@ const CoursesCard = (props) => {
       user: localStorage.getItem("userId"),
     };
     instance2.post(URL, data).then((response) => {
-      navigate("/provpassinfo", {
+      navigate("/testInformation", {
         state: {
           id: props.id,
           session: props?.item,
