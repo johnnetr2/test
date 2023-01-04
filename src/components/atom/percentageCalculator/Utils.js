@@ -28,27 +28,24 @@ function inRange(x, min, max) {
 
 export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
   const weeklyProgressArr = [];
-  let noOfEmptyWeek = 0;
-
-  const currentWeek = getCurrentWeekNumber()
+  // let noOfEmptyWeek = 0;
 
   //set default values for empty weeks 
-  if (Object.keys(weekWiseData).length < 7) {
-    const weekKeys = Object.keys(weekWiseData); //35,36
-    const firstWeekKey = weekKeys[0]; //35
-    noOfEmptyWeek = 7 - weekKeys.length; //5
-    const startIndexOfLoop = firstWeekKey - noOfEmptyWeek; //30 //first = 35
+  // if (Object.keys(weekWiseData).length < 7) {
+  //   const weekKeys = Object.keys(weekWiseData); //35,36
+  //   const firstWeekKey = weekKeys[0]; //35
+  //   noOfEmptyWeek = 7 - weekKeys.length; //5
+  //   const startIndexOfLoop = firstWeekKey - noOfEmptyWeek; //30 //first = 35
 
-    for (let index = startIndexOfLoop; index < firstWeekKey; index++) {
+  //   for (let index = startIndexOfLoop; index < firstWeekKey; index++) {
 
-      weeklyProgressArr.push({
-        correctAnswers: 0,
-        attemptQuestions: 0,
-        eachCategoryPrognos: null,
-        name: "V." + index,
-      });
-    }
-  }
+  //     weeklyProgressArr.push({
+  //       correctAnswers: 0,
+  //       attemptQuestions: 0,
+  //       name: "V." + index,
+  //     });
+  //   }
+  // }
 
   let weekWiseProgress = {};
   let totalCorrecteted = 0;
@@ -124,15 +121,28 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
 
 export const getWeekNumbers = () => {
   const weeksArray = [];
-  const currentWeek = getCurrentWeekNumber();
-  for (let index = currentWeek; index > currentWeek - 7; index--) {
+  const todayDate = new Date();
+  const currentWeek = getCurrentWeekNumber(todayDate);
+
+  for (let index = currentWeek; index > (currentWeek > 7 ? currentWeek - 7 : 0); index--) {
     weeksArray.push("V." + index);
+  }
+
+  if (weeksArray.length < 7) {
+    const currentYear = new Date().getFullYear()
+    const previousYear = new Date((currentYear - 1) + "/12/31")
+    const lastYearWeekNumber = getCurrentWeekNumber(previousYear);
+    const whenTerminateLoop = lastYearWeekNumber - (7 - weeksArray.length)
+
+    for (let index = lastYearWeekNumber; index > whenTerminateLoop; index--) {
+      weeksArray.push("V." + index);
+    }
   }
   return weeksArray;
 };
 
-export const getCurrentWeekNumber = () => {
-  const currentDate = new Date();
+export const getCurrentWeekNumber = (date) => {
+  const currentDate = new Date(date);
   const yearStartDate = new Date(currentDate.getFullYear(), 0, 1);
   const noOfDaysFromCurrentDate = Math.floor(
     (currentDate - yearStartDate) / (24 * 60 * 60 * 1000)
