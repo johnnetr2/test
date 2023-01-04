@@ -110,13 +110,13 @@ const CoursesFeedContent = (props) => {
                 }}
                 label="Tidigare högskoleprov"
               />
-              <Tab
+              {/* <Tab
                 style={{
                   textTransform: "initial",
                   color: tabValue === 2 ? "black" : "#B5B5B5",
                 }}
                 label="Slumpmässigt prov"
-              />
+              /> */}
               <Tab
                 style={{
                   textTransform: "initial",
@@ -202,7 +202,7 @@ const CoursesFeedContent = (props) => {
             <KeyboardArrowDownIcon />
           </Button>
         </Box>
-        <Box sx={{ marginBottom: "2rem" }}>
+        {/* <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
             Slumpmässigt prov
           </Typography>
@@ -214,7 +214,7 @@ const CoursesFeedContent = (props) => {
             Genererar ett prov endast med frågor du inte tidigare stött på i
             övningsdelen.
           </Typography>
-        </Box>
+        </Box> */}
         <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
@@ -250,7 +250,7 @@ const CoursesFeedContent = (props) => {
           </Button>
         </Box>
       </TabPanel>
-      <TabPanel value={tabValue} index={2}>
+      {/* <TabPanel value={tabValue} index={2}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
             Slumpmässigt prov
@@ -264,7 +264,7 @@ const CoursesFeedContent = (props) => {
             övningsdelen.
           </Typography>
         </Box>
-      </TabPanel>
+      </TabPanel> */}
       <TabPanel value={tabValue} index={3}>
         <Box sx={{ marginTop: "-9.5rem" }}>
           <CoursesRightBar

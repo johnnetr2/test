@@ -93,7 +93,8 @@ const StandardViewXyz = () => {
   const isReadingComprehension = useMemo(
     () =>
       quiz?.question[currentIndex].sectionCategories.title === "ELF" ||
-      quiz?.question[currentIndex].sectionCategories.title === "LÄS",
+      quiz?.question[currentIndex].sectionCategories.title === "LÄS" ||
+      quiz?.question[currentIndex].sectionCategories.title === "DTK",
     [currentIndex, quiz?.question]
   );
 
