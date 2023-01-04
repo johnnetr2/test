@@ -654,8 +654,8 @@ const StandardViewXyz = () => {
                                               width:
                                                 question?.options.options
                                                   .length >= 4
-                                                  ? "20rem"
-                                                  : "16rem",
+                                                  ? "25rem"
+                                                  : "20rem",
                                               display: "flex",
                                               marginLeft:
                                                 question?.options.options
