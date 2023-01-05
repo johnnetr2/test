@@ -130,7 +130,7 @@ const TestInformation = (props) => {
           >
             <Typography variant="h6" component="h6">
               Högskoleprov {params.state.session.title}{" "}
-            {params.state.session.month}
+              {params.state.session.month}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>
@@ -281,7 +281,7 @@ const TestInformation = (props) => {
           </Box>
           <Box py={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             <ExerciseBtn
-              title="Nasta"
+              title="Nästa"
               onClick={() =>
                 navigate("/provpassinfo", {
                   state: {
