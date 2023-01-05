@@ -146,7 +146,7 @@ const StandardViewXyz = () => {
       backgroundColor: "#fff",
       display: "flex",
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "flex-start",
       flexDirection: "column",
       width: "100%",
     },
@@ -242,7 +242,8 @@ const StandardViewXyz = () => {
           color="primary"
           checked={true}
           style={{
-            marginRight: "0.5rem", color: appColors.blueColor
+            marginRight: "0.5rem",
+            color: appColors.blueColor,
           }}
         />
       );
@@ -342,10 +343,10 @@ const StandardViewXyz = () => {
             onClick={() => {
               quiz && quiz.question[currentIndex].questionAnswer
                 ? navigate("/provresultat", {
-                  state: {
-                    seasonId: params.state.seasonId,
-                  },
-                })
+                    state: {
+                      seasonId: params.state.seasonId,
+                    },
+                  })
                 : setBackPressPopup(true);
             }}
           >
@@ -397,28 +398,39 @@ const StandardViewXyz = () => {
           style={{ backgroundColor: "#fff" }}
         >
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} width={100} sx={{ color: "#222" }}>
+            <Box
+              mt={2}
+              width={100}
+              sx={{
+                color: "#222",
+                display: "flex",
+                alignItems: "center",
+                marginRight: "0.4rem",
+              }}
+            >
               <img src={BarChart} alt="" />
-              {currentIndex + 1} av {quiz?.question.length}
+              <Typography variant="body1" style={{ marginLeft: "0.4rem" }}>
+                {currentIndex + 1} av {quiz?.question.length}
+              </Typography>
             </Box>
             <Box mt={2} sx={{ color: "#222", display: "flex" }}>
               <img src={Clock} alt="" />
               {quiz && quiz.question[currentIndex].questionAnswer
                 ? "Slutfört"
                 : time && (
-                  <Timer
-                    continueStatus={status}
-                    time={time}
-                    timeleft={(timer) => {
-                      setTimeLeft(timer);
-                    }}
-                    onCloseTimer={() => {
-                      setTimeLeft(0);
-                      setShouldNavigate(true);
-                    }}
-                    callBackForTimer={(value) => setTimeLeft(value)}
-                  />
-                )}
+                    <Timer
+                      continueStatus={status}
+                      time={time}
+                      timeleft={(timer) => {
+                        setTimeLeft(timer);
+                      }}
+                      onCloseTimer={() => {
+                        setTimeLeft(0);
+                        setShouldNavigate(true);
+                      }}
+                      callBackForTimer={(value) => setTimeLeft(value)}
+                    />
+                  )}
             </Box>
           </Box>
           <Box
@@ -430,22 +442,20 @@ const StandardViewXyz = () => {
               flexDirection: "row",
             }}
           >
-            { quiz &&
+            {quiz &&
               quiz?.question.map((item, index) => {
                 return (
                   <Box
                     key={index}
                     style={{
                       backgroundColor:
-                        currentIndex > index
-                          ? "#6fcf97"
-                          : "#B4B4B4",
+                        currentIndex > index ? "#6fcf97" : "#B4B4B4",
                       flex: "1",
                     }}
                   ></Box>
                 );
-              }) }
-              
+              })}
+
             <Box
               mt={2}
               sx={{
@@ -461,14 +471,14 @@ const StandardViewXyz = () => {
         <Container
           maxWidth="md"
           className={classes.questionComponent}
-        // style={{
-        //   marginTop: 0,
-        //   backgroundColor: "#f9f9f9",
-        //   height: "fit-content",
-        //   display: "flex",
-        //   justifyContent: "flex-end",
-        //   flexDirection: "row",
-        // }}
+          // style={{
+          //   marginTop: 0,
+          //   backgroundColor: "#f9f9f9",
+          //   height: "fit-content",
+          //   display: "flex",
+          //   justifyContent: "flex-end",
+          //   flexDirection: "row",
+          // }}
         >
           {/* start of question component */}
 
@@ -523,8 +533,8 @@ const StandardViewXyz = () => {
                             height: isReadingComprehension
                               ? "auto"
                               : question.images[0]
-                                ? 380
-                                : 330,
+                              ? 380
+                              : 330,
                             // border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
@@ -609,7 +619,8 @@ const StandardViewXyz = () => {
                                         : 300,
                                     "&:hover": {
                                       cursor: !option.answer && "pointer",
-                                      color: !option.answer && appColors.hoverBlue,
+                                      color:
+                                        !option.answer && appColors.hoverBlue,
                                     },
                                   }}
                                 >
@@ -869,14 +880,14 @@ const StandardViewXyz = () => {
 
           <Box
             className={classes.spara}
-          // style={{
-          //   width: "10rem",
-          //   height: 'fit-content',
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   marginTop: '2.7rem',
-          //   // marginLeft: '-10rem'
-          // }}
+            // style={{
+            //   width: "10rem",
+            //   height: 'fit-content',
+            //   display: "flex",
+            //   justifyContent: "center",
+            //   marginTop: '2.7rem',
+            //   // marginLeft: '-10rem'
+            // }}
           >
             {quiz && !quiz.question[currentIndex].questionAnswer && (
               <Button
