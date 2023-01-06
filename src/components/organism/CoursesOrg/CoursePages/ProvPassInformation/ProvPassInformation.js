@@ -38,6 +38,7 @@ const ProvPassInformation = () => {
     appbar: {
       border: "1px solid #E1E1E1",
       backgroundColor: "#f9f9f9",
+      maxHeight: "80px",
     },
     size: {
       width: 15,
@@ -55,7 +56,7 @@ const ProvPassInformation = () => {
     content: {
       backgroundColor: "#fff",
       display: "flex",
-      alignItems: "center",
+      alignItems: "flex-start",
       justifyContent: "center",
       width: "100%",
     },
@@ -65,7 +66,7 @@ const ProvPassInformation = () => {
   const [helpPopup, setHelpPopup] = useState(false);
 
   return (
-    <div>
+    <div className={classes.root}>
       <CssBaseline />
       {helpPopup && <HelpPopup />}
       <AppBar
@@ -84,6 +85,7 @@ const ProvPassInformation = () => {
           <Box
             sx={{
               height: "5rem",
+              maxHeight: "80px",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
@@ -99,8 +101,8 @@ const ProvPassInformation = () => {
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
-            Högskoleprov {params.state.session.title}{" "}
-            {params.state.session.month}
+            Högskoleprov {params.state?.session?.title}{" "}
+            {params?.state?.session?.month}
           </Typography>
           <Box onClick={() => setHelpPopup(!helpPopup)}>
             <HelpOutlineIcon />
@@ -114,6 +116,7 @@ const ProvPassInformation = () => {
         style={{
           backgroundColor: "#fff",
           border: "1px solid #fff",
+          height: "100vh",
         }}
       >
         <Container
@@ -121,6 +124,8 @@ const ProvPassInformation = () => {
             marginTop: 24,
             backgroundColor: "#f9f9f9",
             width: "80%",
+            height: "85%",
+            maxHeight: "1200px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

@@ -33,6 +33,7 @@ const TestInformation = (props) => {
     appbar: {
       border: "1px solid #E1E1E1",
       backgroundColor: "#f9f9f9",
+      maxHeight: "80px",
     },
     size: {
       width: 15,
@@ -80,6 +81,7 @@ const TestInformation = (props) => {
           <Box
             sx={{
               height: "8vh",
+              maxHeight: "80px",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
@@ -90,7 +92,11 @@ const TestInformation = (props) => {
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
-          <Typography variant="body1" className={classes.center_align}>
+          <Typography
+            variant="body1"
+            className={classes.center_align}
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+          >
             Högskoleprov {params.state.session.title}{" "}
             {params.state.session.month}
           </Typography>
@@ -103,8 +109,8 @@ const TestInformation = (props) => {
         disableGutters
         style={{
           backgroundColor: "#fff",
-          height: "fit-content",
-          paddingTop: 24,
+          height: "100vh",
+          paddingTop: 48,
         }}
       >
         <Container
@@ -112,9 +118,10 @@ const TestInformation = (props) => {
           style={{
             marginTop: 65,
             backgroundColor: "#f9f9f9",
-            height: "fit-content",
+            height: "85%",
+            maxHeight: "950px",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignItems: "center",
             flexDirection: "column",
           }}
@@ -123,7 +130,7 @@ const TestInformation = (props) => {
             mt={3}
             sx={{
               display: "flex",
-              width: "100%",
+              width: "90%",
               maxWidth: 600,
               flexDirection: "column",
             }}

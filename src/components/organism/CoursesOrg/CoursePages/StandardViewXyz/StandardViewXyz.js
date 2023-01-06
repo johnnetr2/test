@@ -550,6 +550,7 @@ const StandardViewXyz = () => {
                               padding: isReadingComprehension ? "3rem 0rem" : 0,
                               display: "flex",
                               justifyContent: "center",
+                              flexDirection: "column",
                             }}
                           >
                             <MarkLatex content={question.questionStatement} />
@@ -562,25 +563,25 @@ const StandardViewXyz = () => {
                               />
                             </Box>
                           )}
-                          {question.information_1 && (
+                          {question.information1 && (
                             <Typography
                               variant="h6"
                               component="h6"
                               style={{ fontSize: "0.75rem", fontWeight: "600" }}
                             >
                               <MarkLatex
-                                content={"(1)" + " " + question.information_1}
+                                content={"(1)" + " " + question.information1}
                               />
                             </Typography>
                           )}
-                          {question.information_2 && (
+                          {question.information2 && (
                             <Typography
                               variant="h6"
                               component="h6"
                               style={{ fontSize: "0.75rem", fontWeight: "600" }}
                             >
                               <MarkLatex
-                                content={"(2)" + " " + question.information_2}
+                                content={"(2)" + " " + question.information2}
                               />
                             </Typography>
                           )}
