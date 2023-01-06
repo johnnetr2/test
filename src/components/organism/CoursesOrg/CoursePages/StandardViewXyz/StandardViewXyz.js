@@ -400,7 +400,7 @@ const StandardViewXyz = () => {
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box
               mt={2}
-              width={100}
+              width={120}
               sx={{
                 color: "#222",
                 display: "flex",
@@ -524,22 +524,19 @@ const StandardViewXyz = () => {
                     return (
                       <Box>
                         <Box
-                          mt={5}
-                          paddingX={6}
+                          /* mt={5}
+                          paddingX={6} */
                           /* paddingY={2} */
                           sx={{
-                            backgroundColor: "#fff",
-                            width: 600,
-                            height: isReadingComprehension
-                              ? "auto"
-                              : question.images[0]
-                              ? 380
-                              : 330,
-                            // border: "1px solid #e1e1e1",
+                            padding: "4rem",
+                            marginTop: "1rem",
+                            border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
-                            justifyContent: "center",
-                            paddingLeft: "5rem",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            backgroundColor: "#fff",
+                            width: 600,
                           }}
                         >
                           <Typography
