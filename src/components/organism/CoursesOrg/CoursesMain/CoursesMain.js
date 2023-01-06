@@ -36,17 +36,14 @@ const useStyles = makeStyles((theme) => ({
 const CoursesMain = () => {
   const classes = useStyles();
   const [previousExams, setPreviousExams] = useState();
-  const [limit, setLimit] = useState(7);
+  const [limit, setLimit] = useState(5);
   const [provHistoryData, setProvHistoryData] = useState("");
   const [provpassSeasons, setProvpassSeasons] = useState();
   const userId = useSelector((state) => state.value.user._id);
 
   useEffect(() => {
-    const data = {
-      limit,
-    };
-    const getPreviosExams = EndPoints.getPreviousExams;
-    instance2.get(getPreviosExams, data).then((response) => {
+    const getPreviosExams = EndPoints.getPreviousExams + `?size=${limit}`;
+    instance2.get(getPreviosExams).then((response) => {
       setPreviousExams(response.data.data);
     });
 
@@ -96,10 +93,10 @@ const CoursesMain = () => {
         setProvpassSeasons(provPassArray);
       }
     });
-  }, []);
+  }, [limit]);
 
   const LoadMore = () => {
-    const limit = setLimit((lim) => lim + 10);
+    setLimit((lim) => lim + 3);
   };
 
   return (

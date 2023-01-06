@@ -86,11 +86,13 @@ const TestInformation = (props) => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => navigate("/courses")}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
           <Typography variant="body1" className={classes.center_align}>
-            Högskoleprov 2021 vår mars
+            Högskoleprov {params.state.session.title}{" "}
+            {params.state.session.month}
           </Typography>
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
@@ -127,7 +129,8 @@ const TestInformation = (props) => {
             }}
           >
             <Typography variant="h6" component="h6">
-              Högskoleprov 2021 vår mars
+              Högskoleprov {params.state.session.title}{" "}
+            {params.state.session.month}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>

@@ -93,7 +93,8 @@ const StandardViewXyz = () => {
   const isReadingComprehension = useMemo(
     () =>
       quiz?.question[currentIndex].sectionCategories.title === "ELF" ||
-      quiz?.question[currentIndex].sectionCategories.title === "LÄS",
+      quiz?.question[currentIndex].sectionCategories.title === "LÄS" ||
+      quiz?.question[currentIndex].sectionCategories.title === "DTK",
     [currentIndex, quiz?.question]
   );
 
@@ -442,24 +443,48 @@ const StandardViewXyz = () => {
                       key={index}
                       style={{
                         backgroundColor:
-                          numberOfAttemptedQuestions > index
-                            ? "#6fcf97"
-                            : "#B4B4B4",
-                        marginLeft: "2px",
+                          currentIndex > index ? "#6fcf97" : "#B4B4B4",
                         flex: "1",
                       }}
                     ></Box>
                   );
                 })}
+
               <Box
                 mt={2}
                 sx={{
-                  backgroundColor: "#6fcf97",
+                  backgroundColor: "#b4b4b4",
                   height: "8px",
                   display: "flex",
                   flexDirection: "row",
                 }}
-              ></Box>
+              >
+                {quiz &&
+                  quiz?.question.map((item, index) => {
+                    return (
+                      <Box
+                        key={index}
+                        style={{
+                          backgroundColor:
+                            numberOfAttemptedQuestions > index
+                              ? "#6fcf97"
+                              : "#B4B4B4",
+                          marginLeft: "2px",
+                          flex: "1",
+                        }}
+                      ></Box>
+                    );
+                  })}
+                <Box
+                  mt={2}
+                  sx={{
+                    backgroundColor: "#6fcf97",
+                    height: "8px",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                ></Box>
+              </Box>
             </Box>
           )}
         </Container>
@@ -670,8 +695,8 @@ const StandardViewXyz = () => {
                                                 width:
                                                   question?.options.options
                                                     .length >= 4
-                                                    ? "20rem"
-                                                    : "16rem",
+                                                    ? "25rem"
+                                                    : "20rem",
                                                 display: "flex",
                                                 marginLeft:
                                                   question?.options.options
@@ -705,15 +730,6 @@ const StandardViewXyz = () => {
                                             </Box>
                                           }
                                         />
-                                        <Typography
-                                          style={{
-                                            marginTop: "2rem",
-                                            color: "#717274",
-                                          }}
-                                          variant="body2"
-                                        >
-                                          {OptionIndex(optionIndex)}
-                                        </Typography>
                                       </Box>
                                     </Box>
                                   </Box>
