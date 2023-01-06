@@ -24,7 +24,7 @@ import QuestionStatement from "../../../../../molecule/QuestionStatement/Questio
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import Righticon from "../../../../../../assets/Imgs/Righticon.png";
-import Ruler from "../../../../../../assets/Imgs/ruler.png";
+import Ruler from "../../../../../../assets/Icons/ruler.svg";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
