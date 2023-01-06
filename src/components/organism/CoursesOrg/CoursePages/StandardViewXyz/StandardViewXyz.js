@@ -524,19 +524,25 @@ const StandardViewXyz = () => {
                     return (
                       <Box>
                         <Box
-                          /* mt={5}
-                          paddingX={6} */
+                          mt={5}
+                          paddingX={6}
                           /* paddingY={2} */
                           sx={{
-                            padding: "4rem",
-                            marginTop: "1rem",
-                            border: "1px solid #e1e1e1",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "flex-start",
-                            alignItems: "center",
                             backgroundColor: "#fff",
                             width: 600,
+                            height: isReadingComprehension
+                              ? "auto"
+                              : question.images[0] ||
+                                question.questionStatement?.includes(
+                                  "hp-appen.s3.eu-north-1.amazonaws.com"
+                                )
+                              ? "fit-content"
+                              : 330,
+                            // border: "1px solid #e1e1e1",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            paddingLeft: "5rem",
                           }}
                         >
                           <Typography
