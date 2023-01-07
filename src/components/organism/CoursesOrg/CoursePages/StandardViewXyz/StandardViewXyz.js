@@ -36,6 +36,8 @@ import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
 import { appColors } from "../../../../service/commonService";
+import QuestionBody from "../../../../atom/QuestionBody/questionBody";
+import QuestionStatement from "../../../../molecule/QuestionStatement/QuestionStatement";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -167,6 +169,17 @@ const StandardViewXyz = () => {
         display: "flex",
         justifyContent: "center",
         marginTop: "2.7rem",
+      },
+    },
+    questionContainer: {
+      border: "1px solid #e1e1e1",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      backgroundColor: "#fff",
+      [theme.breakpoints.down("sm")]: {
+        padding: "1.5rem",
+        overflow: "scroll",
       },
     },
 
@@ -523,79 +536,29 @@ const StandardViewXyz = () => {
                   } else {
                     return (
                       <Box>
-                        <Box
-                          mt={5}
-                          paddingX={6}
-                          /* paddingY={2} */
-                          sx={{
-                            backgroundColor: "#fff",
-                            width: 600,
-                            height: isReadingComprehension
-                              ? "auto"
-                              : question.images[0] ||
-                                question.questionStatement?.includes(
-                                  "hp-appen.s3.eu-north-1.amazonaws.com"
-                                )
-                              ? "fit-content"
-                              : 330,
-                            // border: "1px solid #e1e1e1",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            paddingLeft: "5rem",
+                        <Container
+                          maxWidth="sm"
+                          className={classes.questionContainer}
+                          style={{
+                            padding: isReadingComprehension
+                              ? "2rem 64px"
+                              : "4rem",
+                            alignItems: isReadingComprehension ? "center" : "",
+                            marginTop: isReadingComprehension ? "40px" : "1rem",
                           }}
                         >
-                          <Typography
-                            variant="subtitle1"
-                            style={{
-                              fontSize: "1rem",
-                              fontWeight: "500",
-                              padding: isReadingComprehension ? "3rem 0rem" : 0,
-                              display: "flex",
-                              justifyContent: "center",
-                              flexDirection: "column",
-                            }}
-                          >
-                            <MarkLatex content={question.questionStatement} />
-                          </Typography>
-                          {question.images[0] && (
-                            <Box>
-                              <img
-                                style={{ height: "15rem" }}
-                                src={question.images[0]}
-                              />
-                            </Box>
-                          )}
-                          {question.information1 && (
-                            <Typography
-                              variant="h6"
-                              component="h6"
-                              style={{ fontSize: "0.75rem", fontWeight: "600" }}
-                            >
-                              <MarkLatex
-                                content={"(1)" + " " + question.information1}
-                              />
-                            </Typography>
-                          )}
-                          {question.information2 && (
-                            <Typography
-                              variant="h6"
-                              component="h6"
-                              style={{ fontSize: "0.75rem", fontWeight: "600" }}
-                            >
-                              <MarkLatex
-                                content={"(2)" + " " + question.information2}
-                              />
-                            </Typography>
-                          )}
-                          <Typography
-                            variant="h6"
-                            component="h6"
-                            style={{ fontSize: "0.75rem", fontWeight: "600" }}
-                          >
-                            <MarkLatex content={question.questionStatment} />
-                          </Typography>
-                        </Box>
+                          <QuestionStatement
+                            description={question?.questionStatement}
+                            indications={[
+                              question?.information1,
+                              question?.information2,
+                            ]}
+                            type={
+                              quiz?.question[currentIndex].sectionCategories
+                                .title
+                            }
+                          />
+                        </Container>
                         <Box
                           mt={isReadingComprehension ? 0 : 5}
                           sx={{
