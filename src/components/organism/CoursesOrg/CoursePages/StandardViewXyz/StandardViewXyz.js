@@ -108,11 +108,8 @@ const StandardViewXyz = () => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      minHeight: "100vh",
-      backgroundColor: "#fff",
-      margin: 0,
+      width: 30,
       padding: 0,
-      boxSizing: "border-box",
     },
     optionStyle: {
       width: 30,
@@ -203,6 +200,22 @@ const StandardViewXyz = () => {
       },
     },
   }));
+
+  const changeOptionsColor = (option, question) => {
+    if (
+      question.answer &&
+      question.answer.option == option._id &&
+      question.optionId
+    ) {
+      return "#27AE60";
+    } else if (question.answer && option._id === question?.optionId) {
+      return "#EB5757";
+    } else if (question.answer && option._id !== question?.optionId) {
+      return "#E1E1E1";
+    } else {
+      return "";
+    }
+  };
 
   const classes = useStyles();
 
@@ -573,109 +586,151 @@ const StandardViewXyz = () => {
                           {question.options.options.map(
                             (option, optionIndex) => {
                               return (
-                                <Box
-                                  sx={{
-                                    height:
-                                      question.options.options.length >= 4
-                                        ? 60
-                                        : 120,
-                                    border: "1px solid #e1e1e1",
-                                    width:
-                                      question.options.options.length >= 4
-                                        ? 600
-                                        : 300,
-                                    "&:hover": {
-                                      cursor: !option.answer && "pointer",
-                                      color:
-                                        !option.answer && appColors.hoverBlue,
-                                    },
-                                  }}
-                                >
+                                <Box sx={{ display: "flex" }}>
                                   <Box
                                     sx={{
+                                      height:
+                                        question.options.options.length > 4 ||
+                                        !option.value.includes(
+                                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                                        )
+                                          ? 60
+                                          : 120,
+                                      border: "1px solid #e1e1e1",
+                                      width:
+                                        question.options.options.length > 4 ||
+                                        !option.value.includes(
+                                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                                        )
+                                          ? 600
+                                          : 300,
+                                      /*  padding:
+                                        question?.options.options.length > 4 ||
+                                        !option.value.includes(
+                                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                                        )
+                                          ? 0
+                                          : 10, */
                                       display: "flex",
-                                      height: 120,
+                                      color:
+                                        !question.answer &&
+                                        optionIndex == question.selectedIndex
+                                          ? appColors.blueColor
+                                          : "",
                                       "&:hover": {
-                                        cursor: "pointer",
+                                        cursor: !question.answer && "pointer",
+                                        color:
+                                          !question.answer &&
+                                          appColors.hoverBlue,
                                       },
                                     }}
+                                    onMouseOver={() => setOnhover(option._id)}
+                                    onMouseLeave={() => setOnhover(null)}
                                     onClick={(e) => {
                                       !question?.questionAnswer &&
                                         SelectFunc(e, optionIndex);
                                     }}
-                                    onMouseOver={() => setOnhover(option._id)}
-                                    onMouseLeave={() => setOnhover(null)}
                                   >
                                     <Box
                                       sx={{
                                         display: "flex",
-                                        justifyContent: "flex-start",
+                                        justifyContent: "center",
                                         alignItems: "flex-start",
+                                        height: 120,
                                       }}
                                     >
-                                      <FormControlLabel
-                                        style={{
-                                          margin: 0,
-                                          size: "0.5rem",
+                                      <Box
+                                        sx={{
+                                          display: "flex",
+                                          justifyContent: "flex-end",
                                         }}
-                                        value={option?._id}
-                                        // control={<Radio color="primary" />}
-                                        control={Options(
-                                          question,
-                                          option,
-                                          optionIndex
-                                        )}
-                                        className={classes.optionStyle}
-                                        label={
-                                          <Box
-                                            sx={{
-                                              width:
-                                                question?.options.options
-                                                  .length >= 4
-                                                  ? "25rem"
-                                                  : "20rem",
-                                              display: "flex",
-                                              marginLeft:
-                                                question?.options.options
-                                                  .length >= 4
-                                                  ? "1rem"
-                                                  : "0",
-                                              justifyContent:
-                                                question?.options.options
-                                                  .length >= 4
-                                                  ? "flex-start"
-                                                  : "center",
-                                              alignItems: "center",
-                                              height:
-                                                question?.options.options
-                                                  .length >= 4 && "4rem",
-                                            }}
-                                          >
-                                            {option.image ? (
-                                              <img
-                                                className={
-                                                  classes.piechart_size
-                                                }
-                                                src={option.image}
-                                                alt=""
-                                              />
-                                            ) : (
-                                              <MarkLatex
-                                                content={option.value}
-                                              />
-                                            )}
-                                          </Box>
-                                        }
-                                      />
-                                      <Typography
-                                        style={{
-                                          marginTop: "2rem",
-                                          color: "#717274",
-                                        }}
-                                        variant="body2"
                                       >
-                                        {OptionIndex(optionIndex)}
+                                        <FormControlLabel
+                                          style={{
+                                            margin: 0,
+                                            size: "0.5rem",
+                                          }}
+                                          value={option?._id}
+                                          // control={<Radio color="primary" />}
+                                          control={Options(
+                                            question,
+                                            option,
+                                            optionIndex
+                                          )}
+                                          className={classes.root}
+                                        />
+                                        <Typography
+                                          style={{
+                                            marginTop: "1.25rem",
+                                            paddingLeft: "1px",
+                                            fontSize: "0.6rem",
+                                            color: changeOptionsColor(
+                                              option,
+                                              question
+                                            ),
+                                          }}
+                                          variant="body2"
+                                        >
+                                          {OptionIndex(optionIndex)}
+                                        </Typography>
+                                      </Box>
+                                    </Box>
+
+                                    <Box
+                                      sx={{
+                                        width:
+                                          question?.options.options.length > 4
+                                            ? "25rem"
+                                            : "20rem",
+                                        display: "flex",
+                                        marginLeft:
+                                          question?.options.options.length >
+                                            4 || option.image === ""
+                                            ? "1rem"
+                                            : "0",
+                                        justifyContent:
+                                          question?.options.options.length >
+                                            4 ||
+                                          !option.value.includes(
+                                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                                          )
+                                            ? "flex-start"
+                                            : "center",
+                                        alignItems: "center",
+                                        height:
+                                          question?.options.options.length >
+                                            4 && "4rem",
+                                      }}
+                                    >
+                                      <Typography
+                                        className={
+                                          option.value.includes(
+                                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                                          )
+                                            ? "optionImage"
+                                            : ""
+                                        }
+                                      >
+                                        <MarkLatex
+                                          content={option.value.replace(
+                                            "\f",
+                                            "\\f"
+                                          )}
+                                        />
                                       </Typography>
+                                      {/* {option.image ? (
+                                                <img
+                                                  className={
+                                                    classes.piechart_size
+                                                  }
+                                                  src={option.image}
+                                                  alt=""
+                                                />
+                                              ) : (
+                                                <MarkLatex
+                                                  content={option.value}
+                                                />
+                                              )} */}
                                     </Box>
                                   </Box>
                                 </Box>
