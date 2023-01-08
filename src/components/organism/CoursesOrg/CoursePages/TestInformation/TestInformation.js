@@ -56,6 +56,22 @@ const TestInformation = (props) => {
       justifyContent: "center",
       width: "90vw",
     },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
+    },
   }));
 
   const classes = useStyles(10);
@@ -160,6 +176,7 @@ const TestInformation = (props) => {
               overflow: "auto",
               border: "1px solid #e1e1e1",
             }}
+            className={classes.scrollbar}
           >
             <Typography variant="h5" component="h5">
               Instruktioner

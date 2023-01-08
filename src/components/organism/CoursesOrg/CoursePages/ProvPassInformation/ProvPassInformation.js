@@ -24,7 +24,7 @@ const ProvPassInformation = () => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      minHeight: "100vh",
+      height: "100vh",
       backgroundColor: "#fff",
       margin: 0,
       padding: 0,
@@ -59,6 +59,22 @@ const ProvPassInformation = () => {
       alignItems: "flex-start",
       justifyContent: "center",
       width: "100%",
+    },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
     },
   }));
 
@@ -116,7 +132,7 @@ const ProvPassInformation = () => {
         style={{
           backgroundColor: "#fff",
           border: "1px solid #fff",
-          height: "100vh",
+          height: "91%",
         }}
       >
         <Container
@@ -171,6 +187,7 @@ const ProvPassInformation = () => {
               border: "1px solid #e1e1e1",
               top: 0,
             }}
+            className={classes.scrollbar}
           >
             <Typography
               variant="h6"
