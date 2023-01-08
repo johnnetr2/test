@@ -167,7 +167,7 @@ const CoursesFeedContent = (props) => {
         <Box>
           <Box
             sx={{ marginBottom: "1rem", gap: "5rem" }}
-          // onClick={() => navigate("/provpassinfo")}
+            // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
               previousExams.map((item) => {
@@ -175,7 +175,10 @@ const CoursesFeedContent = (props) => {
                   <CoursesCard
                     id={item?._id}
                     item={item}
-                    progress={"1.5"}
+                    progress={props?.data?.find(
+                      (provHistory) =>
+                        provHistory?.simuleraSeason?._id === item?._id
+                    )}
                     quizzes={
                       props.seasons && getSeasonQuizzzes(props.seasons, item)
                     }
@@ -183,6 +186,7 @@ const CoursesFeedContent = (props) => {
                 );
               })}
           </Box>
+          {/*  */}
         </Box>
         <Box
           sx={{
@@ -195,7 +199,10 @@ const CoursesFeedContent = (props) => {
         >
           <Button
             variant="contained"
-            style={{ backgroundColor: appColors.blueColor, color: appColors.whiteColor }}
+            style={{
+              backgroundColor: appColors.blueColor,
+              color: appColors.whiteColor,
+            }}
             onClick={() => props.loadMore()}
           >
             Fler prov
@@ -244,7 +251,10 @@ const CoursesFeedContent = (props) => {
         >
           <Button
             variant="contained"
-            style={{ backgroundColor: appColors.blueColor, color: appColors.whiteColor }}
+            style={{
+              backgroundColor: appColors.blueColor,
+              color: appColors.whiteColor,
+            }}
           >
             Fler prov
           </Button>

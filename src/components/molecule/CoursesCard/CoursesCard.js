@@ -91,7 +91,15 @@ const CoursesCard = (props) => {
         <Box
           sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
-            if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
+            if (
+              props?.quizzes?.simuleraQuizResult.length < 4 ||
+              !props?.quizzes?.simuleraQuizResult
+            ) {
+              console.log({
+                id: props.id,
+                session: props?.item,
+                provpass: props?.quizzes,
+              });
               navigate("/testInformation", {
                 state: {
                   id: props.id,
@@ -126,7 +134,7 @@ const CoursesCard = (props) => {
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setShowPopup(!showPopup)
+                  setShowPopup(!showPopup);
                 }}
               />
 
@@ -147,7 +155,6 @@ const CoursesCard = (props) => {
               alignItems: "center",
               flexWrap: "wrap",
             }}
-            
           >
             <Box>
               <Box
@@ -178,7 +185,7 @@ const CoursesCard = (props) => {
                         style={{
                           backgroundColor:
                             props.quizzes &&
-                              item <= props?.quizzes.simuleraQuizResult?.length
+                            item <= props?.quizzes.simuleraQuizResult?.length
                               ? "#6FCF97"
                               : "#E1E1E1",
                           color: "#505050",
@@ -194,7 +201,7 @@ const CoursesCard = (props) => {
               </Box>
             </Box>
             {props.quizzes !== undefined &&
-              props?.quizzes?.simuleraQuizResult.length > 3 ? (
+            props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
@@ -206,7 +213,15 @@ const CoursesCard = (props) => {
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Typography variant="h4" component="h4">
                     {" "}
-                    {props.progress}{" "}
+                    {props?.progress.totalAnswer
+                      ? (
+                          (props?.progress?.totalAnswer /
+                            props?.progress?.totalQuestions) *
+                          2
+                        )
+                          .toFixed(1)
+                          .replace(/\.0+$/, "")
+                      : 0}
                   </Typography>
                   <Typography
                     variant="body2"
