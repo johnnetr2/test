@@ -287,18 +287,18 @@ const StandardViewXyz = () => {
     }
   };
 
-  const SelectFunc = (e, optionIndex) => {
+  const SelectFunc = (e, optionId, optionIndex) => {
     let allQuiz = { ...quiz };
     const qz = allQuiz?.question;
     let question = qz[currentIndex];
     question.selectedOptionIndex = optionIndex;
-    question.optionId = e.target.value;
+    question.optionId = optionId;
     allQuiz.question = qz;
     setQuiz(allQuiz);
 
     let data = {
       question: question._id,
-      optionId: e.target.value,
+      optionId: optionId,
       sectionCategories: question.sectionCategories,
       timeleft: timeLeft,
       totaltime: time,
@@ -628,7 +628,7 @@ const StandardViewXyz = () => {
                                     onMouseLeave={() => setOnhover(null)}
                                     onClick={(e) => {
                                       !question?.questionAnswer &&
-                                        SelectFunc(e, optionIndex);
+                                        SelectFunc(e, option?._id, optionIndex);
                                     }}
                                   >
                                     <Box
