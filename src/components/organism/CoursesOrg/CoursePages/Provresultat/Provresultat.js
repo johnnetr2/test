@@ -939,7 +939,7 @@ const Provresultat = () => {
                   paddingRight: "1.5rem",
                 }}
               >
-                <Typography
+                {/* <Typography
                   variant="body2"
                   style={{ fontSize: ".75rem", marginTop: "0.3rem" }}
                 >
@@ -983,8 +983,7 @@ const Provresultat = () => {
                   }}
                   // onClick={() => openInNewTab('https://stackoverflow.com')}
                 >
-                  {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
-                  {" "} */}
+                  
                   <img src={LinkIcon} />
                   <Typography
                     sx={{
@@ -1001,8 +1000,8 @@ const Provresultat = () => {
                   >
                     https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh
                   </Typography>
-                  {/* </a> */}
-                </Box>
+                 
+                </Box> */}
               </Box>
 
               {/* </Box> */}
