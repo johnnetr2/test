@@ -27,6 +27,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../service/commonService";
+import RulerComponent from "../../../../../molecule/RulerComponent/index1";
 
 let dataSubmit = [];
 
@@ -554,21 +555,22 @@ const QuestionViewDTKOrg = (props) => {
 
                     </Typography>
                     {quiz?.title === "DTK" && showRuler && (
-                      <PositionableContainer
-                        movable
-                        resizable
-                        rotatable
-                        position={position}
-                        onUpdate={handleUpdate}
-                      >
-                        <img
-                          src={Ruler}
-                          style={{
-                            background: "#fff",
-                            width: "100%",
-                          }}
-                        ></img>
-                      </PositionableContainer>
+                      // <PositionableContainer
+                      //   movable
+                      //   resizable
+                      //   rotatable
+                      //   position={position}
+                      //   onUpdate={handleUpdate}
+                      // >
+                      //   <img
+                      //     src={Ruler}
+                      //     style={{
+                      //       background: "#fff",
+                      //       width: "100%",
+                      //     }}
+                      //   ></img>
+                      // </PositionableContainer>
+                      <RulerComponent></RulerComponent>
                     )}
                   </DialogContent>
                 </>
