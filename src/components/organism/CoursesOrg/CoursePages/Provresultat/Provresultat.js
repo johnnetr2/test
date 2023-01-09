@@ -45,21 +45,12 @@ const Provresultat = () => {
   const [season, setSeason] = useState(null);
 
   useEffect(() => {
-    if (params.state.seasonId) {
-      const URL = EndPoints.testSummary + params.state.seasonId;
-      instance2.get(URL).then((response) => {
-        setOpen(false);
-        setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data);
-      });
-    } else {
-      const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
-      instance2.get(URL).then((response) => {
-        setOpen(false);
-        setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data);
-      });
-    }
+    const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
+    instance2.get(URL).then((response) => {
+      setOpen(false);
+      setTestSummary(response.data);
+      setVerbalQuantitativeStates(response.data);
+    });
   }, []);
 
   const setVerbalQuantitativeStates = (data) => {

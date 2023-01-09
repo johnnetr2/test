@@ -170,6 +170,7 @@ const CoursesFeedContent = (props) => {
             // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
+              props?.data &&
               previousExams.map((item) => {
                 return (
                   <CoursesCard

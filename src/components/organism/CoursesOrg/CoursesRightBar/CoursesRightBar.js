@@ -169,6 +169,7 @@ const RightBar = (props) => {
               <TableBody>
                 {resultHistory &&
                   resultHistory?.map((row, index) => {
+                    console.log(row, index);
                     return (
                       <TableRow key={row.createdAt}>
                         <TableCell component="th" scope="row">
