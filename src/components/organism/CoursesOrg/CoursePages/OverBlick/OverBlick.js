@@ -112,6 +112,21 @@ const OverBlick = () => {
       //   height: '5rem'
       // },
     },
+    questionItem: {
+      border: "1px solid #e1e1e1",
+      width: "14rem",
+      height: "3rem",
+      display: "flex",
+      justifyContent: "space-between",
+      cursor: "pointer",
+      backgroundColor: "#fff",
+      "&:hover": {
+        backgroundColor: "#E1E1E1"
+      },
+      "&:hover img#rightArrow": {
+        filter: "invert(10%) sepia(66%) saturate(4604%) hue-rotate(231deg) brightness(110%) contrast(122%)"
+      }
+    },
     size: {
       width: 15,
       height: 15,
@@ -334,7 +349,7 @@ const OverBlick = () => {
             </Typography>
             <Typography variant="body2" component="body2">
               Innan du lämnar in, kontrollera vilka frågor du har <b>missat</b>,
-              <b>sparat</b> samt <b>gjort klart</b>
+              <b> sparat</b> samt <b>gjort klart</b>
             </Typography>
             <Box
               sx={{
@@ -425,13 +440,9 @@ const OverBlick = () => {
                     return (
                       <Box
                         sx={{
-                          border: "1px solid #e1e1e1",
-                          width: "14rem",
-                          height: "3rem",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          cursor: "pointer",
+                          
                         }}
+                        className={classes.questionItem}
                         onClick={() =>
                           navigate("/simuleraprov", {
                             state: {
@@ -463,7 +474,8 @@ const OverBlick = () => {
                         </Box>
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
                           <img
-                            style={{ marginRight: "1rem", width: ".75rem" }}
+                            id="rightArrow"
+                            style={{ marginRight: "1rem", width: ".75rem"}}
                             src={RightArrow}
                             alt=""
                           />

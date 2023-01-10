@@ -93,7 +93,8 @@ const StandardViewXyz = () => {
   const isReadingComprehension = useMemo(
     () =>
       quiz?.question[currentIndex].sectionCategories.title === "ELF" ||
-      quiz?.question[currentIndex].sectionCategories.title === "LÄS",
+      quiz?.question[currentIndex].sectionCategories.title === "LÄS" ||
+      quiz?.question[currentIndex].sectionCategories.title === "DTK",
     [currentIndex, quiz?.question]
   );
 
@@ -429,22 +430,22 @@ const StandardViewXyz = () => {
               flexDirection: "row",
             }}
           >
-            {quiz &&
+            { quiz &&
               quiz?.question.map((item, index) => {
                 return (
                   <Box
                     key={index}
                     style={{
                       backgroundColor:
-                        numberOfAttemptedQuestions > index
+                        currentIndex > index
                           ? "#6fcf97"
                           : "#B4B4B4",
-                      marginLeft: "2px",
                       flex: "1",
                     }}
                   ></Box>
                 );
-              })}
+              }) }
+              
             <Box
               mt={2}
               sx={{
@@ -653,8 +654,8 @@ const StandardViewXyz = () => {
                                               width:
                                                 question?.options.options
                                                   .length >= 4
-                                                  ? "20rem"
-                                                  : "16rem",
+                                                  ? "25rem"
+                                                  : "20rem",
                                               display: "flex",
                                               marginLeft:
                                                 question?.options.options
