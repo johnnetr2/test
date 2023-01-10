@@ -27,7 +27,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../service/commonService";
-import RulerComponent from "../../../../../molecule/RulerComponent/index1";
+import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];
 
@@ -486,7 +486,7 @@ const QuestionViewDTKOrg = (props) => {
                     />
                   )}
                   <Box>
-                    <RulerButton></RulerButton>
+                    <RulerButton />
                   </Box>
                 </DialogTitle>
                 <div
