@@ -76,15 +76,17 @@ const LoginOrg = () => {
         .post(URL, data)
         .then((response) => {
           const { user, token } = response.data;
-          if (!response.data.user.is_verified) {
+          if (!user.is_verified) {
             swal("Warning!", "User is not verfied", "warning");
           } else if (response.data.token) {
             dispatch(login({ user, token }));
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("userId", response.data.user._id);
-            localStorage.setItem("role", response.data.user.role);
-            localStorage.setItem("fullName", response.data.user.fullName);
-            localStorage.setItem("email", response.data.user.email);
+            console.log("user after login", user)
+            localStorage.setItem("token", token);
+            localStorage.setItem("userId", user._id);
+            localStorage.setItem("role", user.role);
+            localStorage.setItem("fullName", user.fullName);
+            localStorage.setItem("email", user.email);
+            localStorage.setItem("createdAt", user.createdAt);
             MixpanelTracking.getInstance().login(
               "success",
               response.data.user?._id

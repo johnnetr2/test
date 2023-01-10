@@ -1,5 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import { createTheme } from "@mui/material/styles";
 import { EndPoints, instance2 } from "../../../service/Route";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
@@ -11,11 +12,25 @@ import { getWeekNumbers, getCurrentWeekNumber } from "../../../atom/percentageCa
 import { datesGroupByComponent } from '../../../service/commonService'
 import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
 import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
+import PaymentCard from "../../../molecule/PaymentCard";
 
 const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
+  const [isInTrial, setIsInTrial] = useState(true)
+
+  useEffect(() => {
+    const createdAtDate = localStorage.getItem("createdAt")
+    const trialDate = moment(createdAtDate).add(31, 'days').format('YYYY-MM-DD')
+    console.log("createdAtDate", createdAtDate)
+    console.log("trialDate", trialDate)
+    const currentDate = moment(new Date).format('YYYY-MM-DD')
+    const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
+    console.log("isGreaterCurrentData", isGreaterCurrentData)
+    setIsInTrial(isGreaterCurrentData)
+
+  })
 
   useEffect(() => {
 
@@ -181,6 +196,13 @@ const HomeRightBar = (props) => {
           marginTop: "6rem",
         }}
       >
+        {!isInTrial &&
+          <PaymentCard
+            title={"Lär dig ännu mer!"}
+            subTitle={"Uppgradera till premium för endast 450 SEK. "}
+            isInTrial={isInTrial}
+          ></PaymentCard>
+        }
         <Box style={{ marginTop: "10.5rem" }}>
           <Typography
             variant="h6"
@@ -290,6 +312,13 @@ const HomeRightBar = (props) => {
             </Box>
           </Box>
         </Box>
+        {isInTrial &&
+          <PaymentCard
+            title={"Lär dig ännu mer!"}
+            subTitle={"Uppgradera till premium för endast 450 SEK. "}
+            isInTrial={isInTrial}
+          ></PaymentCard>
+        }
       </Box>
     </Box>
   );
