@@ -5,11 +5,12 @@ import { ref } from "framework-utils";
 import { Frame } from "scenejs";
 import "./moveable.css";
 import Ruller from '../../../assets/Icons/ruler.svg'
+import Ruler from "../../../assets/Imgs/ruler.png"
 
 class ReactMoveable extends React.Component {
     frame = new Frame({
-        width: "75px",
-        height: "500px",
+        width: "108px",
+        height: "535px",
         left: "0px",
         top: "0px",
         transform: {
@@ -23,13 +24,13 @@ class ReactMoveable extends React.Component {
         target: null,
         container: null,
         scalable: true,
-        resizable: false,
+        resizable: true,
         warpable: false
     };
     render() {
         const { scalable, warpable, resizable, target } = this.state;
         return (
-            <div className="page main">
+            <div >
                 <Moveable
                     ref={ref(this, "moveable")}
                     target={target}
@@ -61,56 +62,11 @@ class ReactMoveable extends React.Component {
                 />
                 <div className="container">
                     <div className="moveable">
-                        <img src={Ruller} alt="Ruller" ></img>
+                        <img src={Ruler} alt="Ruller" ></img>
                     </div>
-                    {/* <div className="buttons able">
-            <button
-              className={scalable ? "selected" : ""}
-              data-able="scalable"
-              onClick={this.clickScalable}
-            >
-              Scalable
-            </button>
-            <button
-              className={resizable ? "selected" : ""}
-              data-able="resizable"
-              onClick={this.clickResizable}
-            >
-              Resizable
-            </button>
-            <button
-              className={warpable ? "selected" : ""}
-              data-able="warpable"
-              onClick={this.clickWarpable}
-            >
-              Warpable
-            </button>
-          </div> */}
-                    {/* <p align="middle">
-            Moveable is Draggable, Resizable, Scalable, Rotatable, Warpable,
-            Pinchable
-          </p>
-          <p align="middle">
-            <a href="https://github.com/daybrush/moveable" target="_blank">
-              <strong>About Moveable</strong>
-            </a>{" "}
-            /
-            <a
-              href="https://daybrush.com/moveable/release/latest/doc/"
-              target="_blank"
-            >
-              <strong>API</strong>
-            </a>{" "}
-            /
-            <a
-              href="https://github.com/daybrush/scenejs-timeline"
-              target="_blank"
-            >
-              <strong>Main Project</strong>
-            </a>
-          </p> */}
+                    <div className="label" ref={ref(this, "label")} />
+
                 </div>
-                <div className="label" ref={ref(this, "label")} />
             </div>
         );
     }
