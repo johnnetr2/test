@@ -36,6 +36,7 @@ import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
 import { appColors } from "../../../../service/commonService";
+import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -242,7 +243,8 @@ const StandardViewXyz = () => {
           color="primary"
           checked={true}
           style={{
-            marginRight: "0.5rem", color: appColors.blueColor
+            marginRight: "0.5rem",
+            color: appColors.blueColor,
           }}
         />
       );
@@ -342,10 +344,10 @@ const StandardViewXyz = () => {
             onClick={() => {
               quiz && quiz.question[currentIndex].questionAnswer
                 ? navigate("/provresultat", {
-                  state: {
-                    seasonId: params.state.seasonId,
-                  },
-                })
+                    state: {
+                      seasonId: params.state.seasonId,
+                    },
+                  })
                 : setBackPressPopup(true);
             }}
           >
@@ -391,7 +393,15 @@ const StandardViewXyz = () => {
           agreeBtnName="Avsluta prov"
           redirect={() => navigate("/courses")}
         />
-        <Container
+        <ExamTopBar
+          time={time}
+          setShouldNavigate={setShouldNavigate}
+          setTimeLeft={setTimeLeft}
+          currentIndex={currentIndex}
+          quiz={quiz}
+          status={status}
+        />
+        {/* <Container
           disableGutters
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
@@ -456,19 +466,19 @@ const StandardViewXyz = () => {
               }}
             ></Box>
           </Box>
-        </Container>
+        </Container> */}
 
         <Container
           maxWidth="md"
           className={classes.questionComponent}
-        // style={{
-        //   marginTop: 0,
-        //   backgroundColor: "#f9f9f9",
-        //   height: "fit-content",
-        //   display: "flex",
-        //   justifyContent: "flex-end",
-        //   flexDirection: "row",
-        // }}
+          // style={{
+          //   marginTop: 0,
+          //   backgroundColor: "#f9f9f9",
+          //   height: "fit-content",
+          //   display: "flex",
+          //   justifyContent: "flex-end",
+          //   flexDirection: "row",
+          // }}
         >
           {/* start of question component */}
 
@@ -523,8 +533,8 @@ const StandardViewXyz = () => {
                             height: isReadingComprehension
                               ? "auto"
                               : question.images[0]
-                                ? 380
-                                : 330,
+                              ? 380
+                              : 330,
                             // border: "1px solid #e1e1e1",
                             display: "flex",
                             flexDirection: "column",
@@ -609,7 +619,8 @@ const StandardViewXyz = () => {
                                         : 300,
                                     "&:hover": {
                                       cursor: !option.answer && "pointer",
-                                      color: !option.answer && appColors.hoverBlue,
+                                      color:
+                                        !option.answer && appColors.hoverBlue,
                                     },
                                   }}
                                 >
@@ -869,14 +880,14 @@ const StandardViewXyz = () => {
 
           <Box
             className={classes.spara}
-          // style={{
-          //   width: "10rem",
-          //   height: 'fit-content',
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   marginTop: '2.7rem',
-          //   // marginLeft: '-10rem'
-          // }}
+            // style={{
+            //   width: "10rem",
+            //   height: 'fit-content',
+            //   display: "flex",
+            //   justifyContent: "center",
+            //   marginTop: '2.7rem',
+            //   // marginLeft: '-10rem'
+            // }}
           >
             {quiz && !quiz.question[currentIndex].questionAnswer && (
               <Button
