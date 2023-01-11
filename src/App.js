@@ -6,6 +6,8 @@ import Message from "./pages/Message/Message";
 import Logout from "./pages/Logout/Logout";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+import Payment from "./pages/Payment/Payment";
+import PayConfirm from "./pages/PayConfirmation/PayConfirnmation";
 
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
@@ -30,7 +32,6 @@ import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
 import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
 require("dotenv").config();
 
-
 function App() {
   const [toggleIcon, setToggleIcon] = useState({
     dasboard: true,
@@ -54,6 +55,8 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/helppopup" element={<HelpPopup />} />
         <Route path="login" element={<Login />} />
+        <Route path="/checkout" element={<Payment />} />
+        <Route path="/payment-confirmation" element={<PayConfirm />} />
         <Route
           path="home"
           element={

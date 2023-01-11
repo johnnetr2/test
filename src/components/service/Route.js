@@ -74,4 +74,5 @@ export const EndPoints = {
   OverAllNormeringValue: "/api/tableHistory/ProgressOfHundred/",
   getParagraphQuestionAnswer: "/api/quizResult/paragraphQuestionResult/",
   emailVerified: "/auth/verify/",
+  createOrder: "/api/payments/createOrder"
 };

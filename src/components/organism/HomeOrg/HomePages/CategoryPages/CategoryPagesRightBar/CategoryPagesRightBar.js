@@ -11,6 +11,7 @@ import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimens
 import { datesGroupByComponent } from "../../../../../service/commonService";
 import { calculateWeekWiseNormingForCategory, calculateWeekWiseNormingForCategorynewlessthen7weekNumber } from "../../../../../atom/percentageCalculator/Utils";
 import { getWeekNumbers, getCurrentWeekNumber } from "../../../../../atom/percentageCalculator/Utils";
+import PaymentCard from "../../../../../molecule/PaymentCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .css-5xe99f-MuiLinearProgress-bar1": {
@@ -28,6 +29,8 @@ const CategoryPagesRightBar = (props) => {
   const [weeklyProgress, setWeeklyProgress] = useState(0);
   const [isDesplayProgress, setIsDesplayProgress] = useState(false);
   const currentWeekNumber = getCurrentWeekNumber(new Date())
+  const [isInTrial, setIsInTrial] = useState(JSON.parse(localStorage.getItem("isInTrial")))
+  const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
 
 
   useEffect(() => {
@@ -129,7 +132,14 @@ const CategoryPagesRightBar = (props) => {
           marginTop: width < 1280 ? "2rem" : "11.7rem",
         }}
       >
-        <Box>
+        {!isInTrial && !isPremium &&
+          <PaymentCard
+            title={"Lär dig ännu mer!"}
+            subTitle={"Uppgradera till premium för endast 450 SEK. "}
+            isInTrial={isInTrial}
+          ></PaymentCard>
+        }
+        <Box sx={{ marginTop: isInTrial ? "10.5rem" : "3rem" }}>
           {width > 900 && (
             <Typography variant="h5">Statistik - {props.item.title}</Typography>
           )}

@@ -4,8 +4,6 @@ import Logo from "../../../../assets/Icons/Logo.svg";
 import Home from "../../../../assets/Icons/Home.svg";
 import HomeC from "../../../../assets/Icons/HomeC.svg";
 import Course from "../../../../assets/Icons/Courses.svg";
-import CoursesGrey from "../../../../assets/Icons/CoursesGrey.svg";
-import MsgGrey from "../../../../assets/Icons/MsgGrey.svg";
 import ProfileGrey from "../../../../assets/Icons/ProfileGrey.svg";
 import CourseC from "../../../../assets/Icons/CoursesC.svg";
 import Feedback from "../../../../assets/Icons/Msg.svg";
@@ -26,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     borderRight: "1px solid #e1e1e1",
     height: "100vh",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#FFFFFF",
     color: "white",
     paddingRight: theme.spacing(0),
     paddingLeft: theme.spacing(0),
@@ -34,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     [theme.breakpoints.down("sm")]: {
       padding: 0,
-      backgroundColor: "#FAFAFA",
+      backgroundColor: "#FFFFFF",
     },
     [theme.breakpoints.up("sm")]: {
-      backgroundColor: "#FAFAFA",
-      color: "#555",
+      backgroundColor: "#FFFFFF",
+      color: "#FFFFFF",
     },
   },
   item: {
@@ -136,15 +134,7 @@ const HomeLeftBar = (props) => {
             display: "flex",
             justifyContent: "center",
           }}
-        // onClick={() =>
-        // navigate("/home", {
-        //   state: {
-        //     popUpStatus: true,
-        //   },
-        // })
-        // }
         >
-          {/* <img src={HomeC} alt="" srcset="" /> */}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <img
               src={props.currentPage === "home" ? HomeC : Home}
@@ -199,12 +189,6 @@ const HomeLeftBar = (props) => {
         <Box
           to="/#"
           className={classes.disabledNavStyle}
-        // style={({ isActive }) => {
-        //   return {
-        //     backgroundColor: isActive ? appColors.blueColor : "none",
-        //     color: isActive ? appColors.whiteColor : "none",
-        //   };
-        // }}
         >
           <Box
             className={classes.Disableitem}
@@ -212,15 +196,7 @@ const HomeLeftBar = (props) => {
               display: "flex",
               justifyContent: "center",
             }}
-          // onClick={() =>
-          // navigate("/home", {
-          //   state: {
-          //     popUpStatus: true,
-          //   },
-          // })
-          // }
           >
-            {/* <img src={HomeC} alt="" srcset="" /> */}
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <img
                 src={props.currentPage === "course" ? CourseC : Course}
@@ -237,59 +213,6 @@ const HomeLeftBar = (props) => {
           </Box>
         </Box>
       }
-
-      {/* <NavLink
-        to="/courses"
-        // to="#"
-        className={classes.navStyle}
-        style={({ isActive }) => {
-          return {
-            backgroundColor: isActive ? appColors.blueColor : "none",
-            color: isActive ? appColors.whiteColor : "none",
-          };
-        }}
-      >
-        <Box
-          // to="/courses"
-          // // to="#"
-          className={classes.item}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-          // style={({ isActive }) => {
-          //   return {
-          //     backgroundColor: isActive ? appColors.blueColor : "none",
-          //     color: isActive ? appColors.whiteColor : "none",
-          //   };
-          // }}
-        >
-          <Box
-            // className={classes.Disableitem}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <img
-                src={props.currentPage === "course" ? CourseC : Course}
-                // src={CoursesGrey}
-                className={classes.icon}
-              />
-            </Box>
-            <Typography
-              variant="body1"
-              component="body1"
-              className={classes.text}
-            >
-              prov
-            </Typography>
-          </Box>
-        </Box>
-      </NavLink> */}
-
-      {/* Courses Nav */}
 
       <NavLink
         to="/feedback"
@@ -328,12 +251,6 @@ const HomeLeftBar = (props) => {
       <Box
         to="#"
         className={classes.disabledNavStyle}
-      // style={({ isActive }) => {
-      //   return {
-      //     backgroundColor: isActive ? appColors.blueColor : "none",
-      //     color: isActive ? appColors.whiteColor : "none",
-      //   };
-      // }}
       >
         <Box
           className={classes.Disableitem}

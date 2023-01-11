@@ -24,7 +24,7 @@ const ProvPassInformation = () => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      minHeight: "100vh",
+      height: "100vh",
       backgroundColor: "#fff",
       margin: 0,
       padding: 0,
@@ -38,6 +38,7 @@ const ProvPassInformation = () => {
     appbar: {
       border: "1px solid #E1E1E1",
       backgroundColor: "#f9f9f9",
+      maxHeight: "80px",
     },
     size: {
       width: 15,
@@ -55,9 +56,25 @@ const ProvPassInformation = () => {
     content: {
       backgroundColor: "#fff",
       display: "flex",
-      alignItems: "center",
+      alignItems: "flex-start",
       justifyContent: "center",
       width: "100%",
+    },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
     },
   }));
 
@@ -65,7 +82,7 @@ const ProvPassInformation = () => {
   const [helpPopup, setHelpPopup] = useState(false);
 
   return (
-    <div>
+    <div className={classes.root}>
       <CssBaseline />
       {helpPopup && <HelpPopup />}
       <AppBar
@@ -84,6 +101,7 @@ const ProvPassInformation = () => {
           <Box
             sx={{
               height: "5rem",
+              maxHeight: "80px",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
@@ -99,8 +117,8 @@ const ProvPassInformation = () => {
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
-            Högskoleprov {params.state.session.title}{" "}
-            {params.state.session.month}
+            Högskoleprov {params.state?.session?.title}{" "}
+            {params?.state?.session?.month}
           </Typography>
           <Box onClick={() => setHelpPopup(!helpPopup)}>
             <HelpOutlineIcon />
@@ -114,6 +132,7 @@ const ProvPassInformation = () => {
         style={{
           backgroundColor: "#fff",
           border: "1px solid #fff",
+          height: "91%",
         }}
       >
         <Container
@@ -121,6 +140,8 @@ const ProvPassInformation = () => {
             marginTop: 24,
             backgroundColor: "#f9f9f9",
             width: "80%",
+            height: "85%",
+            maxHeight: "1200px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -166,6 +187,7 @@ const ProvPassInformation = () => {
               border: "1px solid #e1e1e1",
               top: 0,
             }}
+            className={classes.scrollbar}
           >
             <Typography
               variant="h6"
