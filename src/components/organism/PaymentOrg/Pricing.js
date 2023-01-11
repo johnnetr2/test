@@ -7,7 +7,7 @@ import { EndPoints, instance2 } from "../../service/Route";
 import PayButton from "./PayButton";
 
 const Pricing = () => {
-  const [price, setPrice] = useState(90);
+  const [price, setPrice] = useState(75);
   const [pricingSwitch, setPricingSwitch] = useState(true);
   const [htmlSnippet, setHtmlSnippet] = useState();
 
@@ -121,7 +121,7 @@ const Pricing = () => {
                 checked={pricingSwitch}
                 onChange={(e) => {
                   setPricingSwitch(!pricingSwitch);
-                  setPrice(e.target.checked ? 90 : 540);
+                  setPrice(e.target.checked ? 90 : 450);
                 }}
                 inputProps={{ "aria-label": "ant design" }}
               />
