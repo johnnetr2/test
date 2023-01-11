@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
-
+import moment from "moment";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
@@ -86,7 +86,11 @@ const LoginOrg = () => {
             localStorage.setItem("role", user.role);
             localStorage.setItem("fullName", user.fullName);
             localStorage.setItem("email", user.email);
-            localStorage.setItem("createdAt", user.createdAt);
+            const createdAtDate = user.createdAt
+            const trialDate = moment(createdAtDate).add(100, 'days').format('YYYY-MM-DD')
+            const currentDate = moment(new Date).format('YYYY-MM-DD')
+            const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
+            localStorage.setItem("isInTrial", isGreaterCurrentData);
             MixpanelTracking.getInstance().login(
               "success",
               response.data.user?._id

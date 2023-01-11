@@ -18,19 +18,9 @@ const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
-  const [isInTrial, setIsInTrial] = useState(true)
+  const [isInTrial, setIsInTrial] = useState(localStorage.getItem("isInTrial"))
 
-  useEffect(() => {
-    const createdAtDate = localStorage.getItem("createdAt")
-    const trialDate = moment(createdAtDate).add(31, 'days').format('YYYY-MM-DD')
-    console.log("createdAtDate", createdAtDate)
-    console.log("trialDate", trialDate)
-    const currentDate = moment(new Date).format('YYYY-MM-DD')
-    const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
-    console.log("isGreaterCurrentData", isGreaterCurrentData)
-    setIsInTrial(isGreaterCurrentData)
 
-  })
 
   useEffect(() => {
 
@@ -203,7 +193,7 @@ const HomeRightBar = (props) => {
             isInTrial={isInTrial}
           ></PaymentCard>
         }
-        <Box style={{ marginTop: "10.5rem" }}>
+        <Box style={{ marginTop: isInTrial ? "10.5rem" : "3rem" }}>
           <Typography
             variant="h6"
             component="h6"
