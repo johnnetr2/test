@@ -140,7 +140,7 @@ const CoursesFeedContent = (props) => {
           >
             <Input
               type="search"
-              placeholder="Sök prov mellan 2015-2021"
+              placeholder="Sök prov mellan 2011-2022"
               style={{ border: "none" }}
             />
             <Box>
@@ -167,7 +167,7 @@ const CoursesFeedContent = (props) => {
         <Box>
           <Box
             sx={{ marginBottom: "1rem", gap: "5rem" }}
-          // onClick={() => navigate("/provpassinfo")}
+            // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
               previousExams.map((item) => {
@@ -195,7 +195,10 @@ const CoursesFeedContent = (props) => {
         >
           <Button
             variant="contained"
-            style={{ backgroundColor: appColors.blueColor, color: appColors.whiteColor }}
+            style={{
+              backgroundColor: appColors.blueColor,
+              color: appColors.whiteColor,
+            }}
             onClick={() => props.loadMore()}
           >
             Fler prov
@@ -244,7 +247,10 @@ const CoursesFeedContent = (props) => {
         >
           <Button
             variant="contained"
-            style={{ backgroundColor: appColors.blueColor, color: appColors.whiteColor }}
+            style={{
+              backgroundColor: appColors.blueColor,
+              color: appColors.whiteColor,
+            }}
           >
             Fler prov
           </Button>
