@@ -80,16 +80,17 @@ const LoginOrg = () => {
             swal("Warning!", "User is not verfied", "warning");
           } else if (response.data.token) {
             dispatch(login({ user, token }));
-            console.log("user after login", user)
             localStorage.setItem("token", token);
             localStorage.setItem("userId", user._id);
             localStorage.setItem("role", user.role);
             localStorage.setItem("fullName", user.fullName);
             localStorage.setItem("email", user.email);
             const createdAtDate = user.createdAt
-            const trialDate = moment(createdAtDate).add(100, 'days').format('YYYY-MM-DD')
+            const trialDate = moment(createdAtDate).add(30, 'days').format('YYYY-MM-DD')
+
             const currentDate = moment(new Date).format('YYYY-MM-DD')
             const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
+            localStorage.setItem("isPremium", user.isPremium ? true : false);
             localStorage.setItem("isInTrial", isGreaterCurrentData);
             MixpanelTracking.getInstance().login(
               "success",

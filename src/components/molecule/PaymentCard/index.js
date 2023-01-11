@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { appColors } from "../../service/commonService";
+import { useNavigate } from "react-router-dom";
 
 const PaymentCard = (props) => {
+    const navigate = useNavigate()
     const onClick = () => {
-        console.log("paymentButton is clicked")
+        navigate('/checkout')
     }
 
     return (

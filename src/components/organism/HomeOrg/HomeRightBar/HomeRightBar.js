@@ -18,7 +18,9 @@ const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
-  const [isInTrial, setIsInTrial] = useState(localStorage.getItem("isInTrial"))
+  const [isInTrial, setIsInTrial] = useState(JSON.parse(localStorage.getItem("isInTrial")))
+  const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
+
 
 
 
@@ -186,7 +188,7 @@ const HomeRightBar = (props) => {
           marginTop: "6rem",
         }}
       >
-        {!isInTrial &&
+        {!isPremium && !isInTrial &&
           <PaymentCard
             title={"Lär dig ännu mer!"}
             subTitle={"Uppgradera till premium för endast 450 SEK. "}
@@ -302,7 +304,7 @@ const HomeRightBar = (props) => {
             </Box>
           </Box>
         </Box>
-        {isInTrial &&
+        {!isPremium && isInTrial &&
           <PaymentCard
             title={"Lär dig ännu mer!"}
             subTitle={"Uppgradera till premium för endast 450 SEK. "}
