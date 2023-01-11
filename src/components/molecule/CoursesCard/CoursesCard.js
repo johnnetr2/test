@@ -112,6 +112,7 @@ const CoursesCard = (props) => {
                 state: {
                   seasonId: props?.quizzes?.simuleraSeason?._id,
                   simuleraQuizResultId: props?.quizzes?._id,
+                  quizId: props?.quizzes?._id,
                 },
               });
             }

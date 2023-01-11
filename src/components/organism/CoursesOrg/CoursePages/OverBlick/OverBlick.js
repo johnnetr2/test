@@ -62,29 +62,28 @@ const OverBlick = () => {
           user: localStorage.getItem("userId"),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
-        const provpassNumber = params.state.provpass?.simuleraQuizResult?.length;
+        const provpassNumber =
+          params.state.provpass?.simuleraQuizResult?.length;
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
-          if(provpassNumber < 3){
+          if (provpassNumber < 3) {
             const currentSeason = params.state.simuleraSeason;
             navigate("/provpassinfo", {
               state: {
                 id: currentSeason,
                 session: params?.state?.session,
                 provpass: res.data.simuleraSeasonResult,
-              }
-            })
-          } else if(provpassNumber === 3){
-              navigate("/provresultat", {
-                state: {
-                  seasonId: response.data.simuleraQuizResult.simuleraSeason,
-                  simuleraQuizResultId: response.data.simuleraQuizResult._id,
-                },
-              });
-            }
+              },
+            });
+          } else if (provpassNumber === 3) {
+            navigate("/provresultat", {
+              state: {
+                seasonId: params?.state?.simuleraSeason,
+                quizId: params?.state?.provpass?._id,
+              },
+            });
+          }
         });
-
-        
       } else {
         swal("Fail to submit questions");
       }
@@ -121,11 +120,12 @@ const OverBlick = () => {
       cursor: "pointer",
       backgroundColor: "#fff",
       "&:hover": {
-        backgroundColor: "#E1E1E1"
+        backgroundColor: "#E1E1E1",
       },
       "&:hover img#rightArrow": {
-        filter: "invert(10%) sepia(66%) saturate(4604%) hue-rotate(231deg) brightness(110%) contrast(122%)"
-      }
+        filter:
+          "invert(10%) sepia(66%) saturate(4604%) hue-rotate(231deg) brightness(110%) contrast(122%)",
+      },
     },
     size: {
       width: 15,
@@ -439,9 +439,7 @@ const OverBlick = () => {
                   quiz.question.map((item, index) => {
                     return (
                       <Box
-                        sx={{
-                          
-                        }}
+                        sx={{}}
                         className={classes.questionItem}
                         onClick={() =>
                           navigate("/simuleraprov", {
@@ -475,7 +473,7 @@ const OverBlick = () => {
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
                           <img
                             id="rightArrow"
-                            style={{ marginRight: "1rem", width: ".75rem"}}
+                            style={{ marginRight: "1rem", width: ".75rem" }}
                             src={RightArrow}
                             alt=""
                           />

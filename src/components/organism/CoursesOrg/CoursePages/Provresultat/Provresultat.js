@@ -106,7 +106,6 @@ const Provresultat = () => {
             );
           }
         );
-        console.log(rawPointsExam, normalizedPointsExam);
         setParticipantsAverage(rawPointsExam);
         setParticipantsNormalized(normalizedPointsExam);
       });
