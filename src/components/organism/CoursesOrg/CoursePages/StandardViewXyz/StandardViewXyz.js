@@ -78,10 +78,14 @@ const StandardViewXyz = () => {
 
   useEffect(() => {
     if (shouldNavigate) {
+      const allSubmittedQuestions = fillInMissingQuestions(
+        SubmitedQuestions,
+        quiz?.question
+      );
       navigate("/overblick", {
         state: {
           quiz: quiz,
-          SubmitedQuestions,
+          SubmitedQuestions: allSubmittedQuestions,
           simuleraQuiz: quiz?._id,
           simuleraSeason: quiz?.season,
           timeLeft,
@@ -319,6 +323,25 @@ const StandardViewXyz = () => {
       // console.log("question submited");
       setTime(timeLeft);
     }
+  };
+
+  const fillInMissingQuestions = (submittedQuestions, allQuestions) => {
+    let questions = [...submittedQuestions];
+    allQuestions.forEach((question) => {
+      const exist = questions.some((obj) => obj.question === question._id);
+      if (!exist) {
+        let data = {
+          question: question._id,
+          optionId: null,
+          sectionCategories: question.sectionCategories,
+          timeleft: timeLeft,
+          totaltime: 0,
+          spendtime: 0,
+        };
+        questions.push(data);
+      }
+    });
+    return questions;
   };
 
   const flagQuestion = () => {
