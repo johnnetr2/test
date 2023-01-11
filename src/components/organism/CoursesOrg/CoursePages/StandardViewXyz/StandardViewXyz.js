@@ -419,14 +419,16 @@ const StandardViewXyz = () => {
           agreeBtnName="Avsluta prov"
           redirect={() => navigate("/courses")}
         />
-        <ExamTopBar
-          time={time}
-          setShouldNavigate={setShouldNavigate}
-          setTimeLeft={setTimeLeft}
-          currentIndex={currentIndex}
-          quiz={quiz}
-          status={status}
-        />
+        {!open && (
+          <ExamTopBar
+            time={time}
+            setShouldNavigate={setShouldNavigate}
+            setTimeLeft={setTimeLeft}
+            currentIndex={currentIndex}
+            quiz={quiz}
+            status={status}
+          />
+        )}
         {/* <Container
           disableGutters
           maxWidth="md"
@@ -502,449 +504,460 @@ const StandardViewXyz = () => {
             ></Box>
           </Box>
         </Container> */}
-
-        <Container
-          maxWidth="md"
-          className={classes.questionComponent}
-          // style={{
-          //   marginTop: 0,
-          //   backgroundColor: "#f9f9f9",
-          //   height: "fit-content",
-          //   display: "flex",
-          //   justifyContent: "flex-end",
-          //   flexDirection: "row",
-          // }}
-        >
-          {/* start of question component */}
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+        {!open && (
+          <Container
+            maxWidth="md"
+            className={classes.questionComponent}
+            // style={{
+            //   marginTop: 0,
+            //   backgroundColor: "#f9f9f9",
+            //   height: "fit-content",
+            //   display: "flex",
+            //   justifyContent: "flex-end",
+            //   flexDirection: "row",
+            // }}
           >
-            {isReadingComprehension && (
-              <ExamTextView
-                text={
-                  quiz?.question[currentIndex]?.multipartQuestion?.description
-                }
-                title={quiz?.question[currentIndex]?.multipartQuestion?.title}
-                questionLength={
-                  quiz?.question[currentIndex]?.multipartQuestion?.question
-                    .length
-                }
-              />
-            )}
+            {/* start of question component */}
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {isReadingComprehension && (
+                <ExamTextView
+                  text={
+                    quiz?.question[currentIndex]?.multipartQuestion?.description
+                  }
+                  title={quiz?.question[currentIndex]?.multipartQuestion?.title}
+                  questionLength={
+                    quiz?.question[currentIndex]?.multipartQuestion?.question
+                      .length
+                  }
+                />
+              )}
 
-            {quiz &&
-              quiz.question.map((question, questionIndex) => {
-                if (questionIndex === currentIndex) {
-                  if (question.type === "multiple") {
-                    return (
-                      <Box>
-                        <ProvPassDtk
-                          Options={(question, option, optionIndex) =>
-                            Options((question, option, optionIndex))
-                          }
-                          index={questionIndex}
-                          question={question}
-                          backPressPopup={() => setBackPressPopup(true)}
-                          SelectOption={(e, optionIndex) =>
-                            SelectFunc(e, optionIndex)
-                          }
-                        />
-                      </Box>
-                    );
-                  } else {
-                    return (
-                      <Box>
-                        <Container
-                          maxWidth="sm"
-                          className={classes.questionContainer}
-                          style={{
-                            padding: isReadingComprehension
-                              ? "2rem 64px"
-                              : "4rem",
-                            alignItems: isReadingComprehension ? "center" : "",
-                            marginTop: isReadingComprehension ? "40px" : "1rem",
-                          }}
-                        >
-                          <QuestionStatement
-                            description={question?.questionStatement}
-                            indications={[
-                              question?.information1,
-                              question?.information2,
-                            ]}
-                            type={
-                              quiz?.question[currentIndex].sectionCategories
-                                .title
+              {quiz &&
+                quiz.question.map((question, questionIndex) => {
+                  if (questionIndex === currentIndex) {
+                    if (question.type === "multiple") {
+                      return (
+                        <Box>
+                          <ProvPassDtk
+                            Options={(question, option, optionIndex) =>
+                              Options((question, option, optionIndex))
+                            }
+                            index={questionIndex}
+                            question={question}
+                            backPressPopup={() => setBackPressPopup(true)}
+                            SelectOption={(e, optionIndex) =>
+                              SelectFunc(e, optionIndex)
                             }
                           />
-                        </Container>
-                        <Box
-                          mt={isReadingComprehension ? 0 : 5}
-                          sx={{
-                            backgroundColor: "#fff",
-                            width: 600,
-                            // height: 240,
-                            display: "flex",
-                            flexWrap: "wrap",
-                            // gridTemplateColumns: "1fr 1fr",
-                          }}
-                        >
-                          {question.options.options.map(
-                            (option, optionIndex) => {
-                              return (
-                                <Box sx={{ display: "flex" }}>
-                                  <Box
-                                    sx={{
-                                      height:
-                                        question.options.options.length > 4 ||
-                                        !option.value.includes(
-                                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                                        )
-                                          ? 60
-                                          : 120,
-                                      border: "1px solid #e1e1e1",
-                                      width:
-                                        question.options.options.length > 4 ||
-                                        !option.value.includes(
-                                          "hp-appen.s3.eu-north-1.amazonaws.com"
-                                        )
-                                          ? 600
-                                          : 300,
-                                      /*  padding:
+                        </Box>
+                      );
+                    } else {
+                      return (
+                        <Box>
+                          <Container
+                            maxWidth="sm"
+                            className={classes.questionContainer}
+                            style={{
+                              padding: isReadingComprehension
+                                ? "2rem 64px"
+                                : "4rem",
+                              alignItems: isReadingComprehension
+                                ? "center"
+                                : "",
+                              marginTop: isReadingComprehension
+                                ? "40px"
+                                : "1rem",
+                            }}
+                          >
+                            <QuestionStatement
+                              description={question?.questionStatement}
+                              indications={[
+                                question?.information1,
+                                question?.information2,
+                              ]}
+                              type={
+                                quiz?.question[currentIndex].sectionCategories
+                                  .title
+                              }
+                            />
+                          </Container>
+                          <Box
+                            mt={isReadingComprehension ? 0 : 5}
+                            sx={{
+                              backgroundColor: "#fff",
+                              width: 600,
+                              // height: 240,
+                              display: "flex",
+                              flexWrap: "wrap",
+                              // gridTemplateColumns: "1fr 1fr",
+                            }}
+                          >
+                            {question.options.options.map(
+                              (option, optionIndex) => {
+                                return (
+                                  <Box sx={{ display: "flex" }}>
+                                    <Box
+                                      sx={{
+                                        height:
+                                          question.options.options.length > 4 ||
+                                          !option.value.includes(
+                                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                                          )
+                                            ? 60
+                                            : 120,
+                                        border: "1px solid #e1e1e1",
+                                        width:
+                                          question.options.options.length > 4 ||
+                                          !option.value.includes(
+                                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                                          )
+                                            ? 600
+                                            : 300,
+                                        /*  padding:
                                         question?.options.options.length > 4 ||
                                         !option.value.includes(
                                           "hp-appen.s3.eu-north-1.amazonaws.com"
                                         )
                                           ? 0
                                           : 10, */
-                                      display: "flex",
-                                      color:
-                                        !question.answer &&
-                                        optionIndex == question.selectedIndex
-                                          ? appColors.blueColor
-                                          : "",
-                                      "&:hover": {
-                                        cursor: !question.answer && "pointer",
+                                        display: "flex",
                                         color:
                                           !question.answer &&
-                                          appColors.hoverBlue,
-                                      },
-                                    }}
-                                    onMouseOver={() => setOnhover(option._id)}
-                                    onMouseLeave={() => setOnhover(null)}
-                                    onClick={(e) => {
-                                      !question?.questionAnswer &&
-                                        SelectFunc(e, option?._id, optionIndex);
-                                    }}
-                                  >
-                                    <Box
-                                      sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "flex-start",
-                                        height: 120,
+                                          optionIndex == question.selectedIndex
+                                            ? appColors.blueColor
+                                            : "",
+                                        "&:hover": {
+                                          cursor: !question.answer && "pointer",
+                                          color:
+                                            !question.answer &&
+                                            appColors.hoverBlue,
+                                        },
                                       }}
                                       onMouseOver={() => setOnhover(option._id)}
                                       onMouseLeave={() => setOnhover(null)}
+                                      onClick={(e) => {
+                                        !question?.questionAnswer &&
+                                          SelectFunc(
+                                            e,
+                                            option?._id,
+                                            optionIndex
+                                          );
+                                      }}
                                     >
                                       <Box
                                         sx={{
                                           display: "flex",
-                                          justifyContent: "flex-end",
+                                          justifyContent: "center",
+                                          alignItems: "flex-start",
+                                          height: 120,
+                                        }}
+                                        onMouseOver={() =>
+                                          setOnhover(option._id)
+                                        }
+                                        onMouseLeave={() => setOnhover(null)}
+                                      >
+                                        <Box
+                                          sx={{
+                                            display: "flex",
+                                            justifyContent: "flex-end",
+                                          }}
+                                        >
+                                          <FormControlLabel
+                                            style={{
+                                              margin: 0,
+                                              size: "0.5rem",
+                                            }}
+                                            value={option?._id}
+                                            // control={<Radio color="primary" />}
+                                            control={Options(
+                                              question,
+                                              option,
+                                              optionIndex
+                                            )}
+                                            className={classes.root}
+                                          />
+                                          <Typography
+                                            style={{
+                                              marginTop: "1.25rem",
+                                              paddingLeft: "1px",
+                                              fontSize: "0.6rem",
+                                              color: changeOptionsColor(
+                                                option,
+                                                question
+                                              ),
+                                            }}
+                                            variant="body2"
+                                          >
+                                            {OptionIndex(optionIndex)}
+                                          </Typography>
+                                        </Box>
+                                      </Box>
+
+                                      <Box
+                                        sx={{
+                                          width:
+                                            question?.options.options.length > 4
+                                              ? "25rem"
+                                              : "20rem",
+                                          display: "flex",
+                                          marginLeft:
+                                            question?.options.options.length >
+                                              4 || option.image === ""
+                                              ? "1rem"
+                                              : "0",
+                                          justifyContent:
+                                            question?.options.options.length >
+                                              4 ||
+                                            !option.value.includes(
+                                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                                            )
+                                              ? "flex-start"
+                                              : "center",
+                                          alignItems: "center",
+                                          height:
+                                            question?.options.options.length >
+                                              4 && "4rem",
                                         }}
                                       >
-                                        <FormControlLabel
-                                          style={{
-                                            margin: 0,
-                                            size: "0.5rem",
-                                          }}
-                                          value={option?._id}
-                                          // control={<Radio color="primary" />}
-                                          control={Options(
-                                            question,
-                                            option,
-                                            optionIndex
-                                          )}
-                                          className={classes.root}
-                                        />
                                         <Typography
-                                          style={{
-                                            marginTop: "1.25rem",
-                                            paddingLeft: "1px",
-                                            fontSize: "0.6rem",
-                                            color: changeOptionsColor(
-                                              option,
-                                              question
-                                            ),
-                                          }}
-                                          variant="body2"
+                                          className={
+                                            option.value.includes(
+                                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                                            )
+                                              ? "optionImage"
+                                              : ""
+                                          }
                                         >
-                                          {OptionIndex(optionIndex)}
+                                          <MarkLatex
+                                            content={option.value.replace(
+                                              "\f",
+                                              "\\f"
+                                            )}
+                                          />
                                         </Typography>
                                       </Box>
                                     </Box>
-
-                                    <Box
-                                      sx={{
-                                        width:
-                                          question?.options.options.length > 4
-                                            ? "25rem"
-                                            : "20rem",
-                                        display: "flex",
-                                        marginLeft:
-                                          question?.options.options.length >
-                                            4 || option.image === ""
-                                            ? "1rem"
-                                            : "0",
-                                        justifyContent:
-                                          question?.options.options.length >
-                                            4 ||
-                                          !option.value.includes(
-                                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                                          )
-                                            ? "flex-start"
-                                            : "center",
-                                        alignItems: "center",
-                                        height:
-                                          question?.options.options.length >
-                                            4 && "4rem",
-                                      }}
-                                    >
-                                      <Typography
-                                        className={
-                                          option.value.includes(
-                                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                                          )
-                                            ? "optionImage"
-                                            : ""
-                                        }
-                                      >
-                                        <MarkLatex
-                                          content={option.value.replace(
-                                            "\f",
-                                            "\\f"
-                                          )}
-                                        />
-                                      </Typography>
-                                    </Box>
                                   </Box>
-                                </Box>
-                              );
-                            }
+                                );
+                              }
+                            )}
+                          </Box>
+                          {question.questionAnswer && (
+                            <Box
+                              paddingX={4}
+                              mt={3}
+                              sx={{
+                                backgroundColor: "#fff",
+                                width: 600,
+                                height: 220,
+                                border: "1px solid #e1e1e1",
+                                overflow: "auto",
+                                "&::-webkit-scrollbar": { display: "none" },
+                                //   '&::-webkit-scrollbar': { width : 0 },
+                              }}
+                            >
+                              {question.questionAnswer && (
+                                <AnswerStatement
+                                  answer={question.questionAnswer.answer}
+                                  image={question?.questionAnswer.image}
+                                />
+                              )}
+
+                              <FeedbackButtons />
+                            </Box>
                           )}
                         </Box>
-                        {question.questionAnswer && (
-                          <Box
-                            paddingX={4}
-                            mt={3}
-                            sx={{
-                              backgroundColor: "#fff",
-                              width: 600,
-                              height: 220,
-                              border: "1px solid #e1e1e1",
-                              overflow: "auto",
-                              "&::-webkit-scrollbar": { display: "none" },
-                              //   '&::-webkit-scrollbar': { width : 0 },
-                            }}
-                          >
-                            {question.questionAnswer && (
-                              <AnswerStatement
-                                answer={question.questionAnswer.answer}
-                                image={question?.questionAnswer.image}
-                              />
-                            )}
-
-                            <FeedbackButtons />
-                          </Box>
-                        )}
-                      </Box>
-                    );
+                      );
+                    }
                   }
-                }
-              })}
+                })}
 
-            {!open && (
-              <Box
-                padding={1}
-                mt={2}
-                mb={2}
-                sx={{
-                  width: 615,
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
+              {!open && (
                 <Box
+                  padding={1}
+                  mt={2}
+                  mb={2}
                   sx={{
+                    width: 615,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
+                    justifyContent: "space-between",
                   }}
-                  onClick={() =>
-                    currentIndex > 0 && setCurrentIndex(currentIndex - 1)
-                  }
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      cursor: "pointer",
+                    }}
+                    onClick={() =>
+                      currentIndex > 0 && setCurrentIndex(currentIndex - 1)
+                    }
+                  >
+                    {" "}
+                    <img src={LeftArrow} alt="" />
+                    <Typography
+                      variant="h6"
+                      style={{
+                        fontSize: "0.75rem",
+                        textTransform: "uppercase",
+                        marginLeft: "0.5rem",
+                      }}
+                    >
+                      Föregående
+                    </Typography>
+                  </Box>
+                  {ifAnswerExist ? (
+                    <Box
+                      onClick={() =>
+                        navigate("/rattadoverblick", {
+                          state: {
+                            quizId: params.state.quizId,
+                            seasonId: params.state.seasonId,
+                          },
+                        })
+                      }
+                    >
+                      <Typography
+                        variant="h6"
+                        style={{
+                          fontSize: "0.75rem",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Rättad Överblick
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <Box
+                      onClick={() => {
+                        setStatus(false);
+                        setShouldNavigate(true);
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        style={{
+                          fontSize: "0.75rem",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {currentIndex + 1 === quiz?.question.length
+                          ? ""
+                          : "överblick"}
+                      </Typography>
+                    </Box>
+                  )}
+
+                  {!ifAnswerExist &&
+                  currentIndex + 1 === quiz?.question.length ? (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        setStatus(false);
+                        setShouldNavigate(true);
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        style={{
+                          fontSize: "0.75rem",
+                          textTransform: "uppercase",
+                          marginRight: "0.5rem",
+                        }}
+                      >
+                        se Överblick
+                      </Typography>
+                      <img src={RightArrow} alt="" />
+                    </Box>
+                  ) : (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        cursor: "pointer",
+                      }}
+                      onClick={() =>
+                        currentIndex + 1 < quiz.question.length &&
+                        setCurrentIndex(currentIndex + 1)
+                      }
+                    >
+                      <Typography
+                        variant="h6"
+                        style={{
+                          fontSize: "0.75rem",
+                          textTransform: "uppercase",
+                          marginRight: "0.5rem",
+                        }}
+                      >
+                        Nästa
+                      </Typography>
+                      <img src={RightArrow} alt="" />
+                    </Box>
+                  )}
+                </Box>
+              )}
+            </Box>
+
+            <Box
+              className={classes.spara}
+              // style={{
+              //   width: "10rem",
+              //   height: 'fit-content',
+              //   display: "flex",
+              //   justifyContent: "center",
+              //   marginTop: '2.7rem',
+              //   // marginLeft: '-10rem'
+              // }}
+            >
+              {quiz && !quiz.question[currentIndex].questionAnswer && (
+                <Button
+                  style={{
+                    width: "6rem",
+                    border: `1px solid ${appColors.blueColor}`,
+                    color: quiz.question[currentIndex].isFlaged
+                      ? "#fff"
+                      : appColors.blueColor,
+                    backgroundColor: quiz.question[currentIndex].isFlaged
+                      ? appColors.blueColor
+                      : "",
+                  }}
+                  onClick={() => flagQuestion()}
                 >
                   {" "}
-                  <img src={LeftArrow} alt="" />
-                  <Typography
-                    variant="h6"
-                    style={{
-                      fontSize: "0.75rem",
-                      textTransform: "uppercase",
-                      marginLeft: "0.5rem",
-                    }}
-                  >
-                    Föregående
-                  </Typography>
-                </Box>
-                {ifAnswerExist ? (
-                  <Box
-                    onClick={() =>
-                      navigate("/rattadoverblick", {
-                        state: {
-                          quizId: params.state.quizId,
-                          seasonId: params.state.seasonId,
-                        },
-                      })
-                    }
-                  >
-                    <Typography
-                      variant="h6"
-                      style={{
-                        fontSize: "0.75rem",
-                        textTransform: "uppercase",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Rättad Överblick
-                    </Typography>
-                  </Box>
-                ) : (
-                  <Box
-                    onClick={() => {
-                      setStatus(false);
-                      setShouldNavigate(true);
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      style={{
-                        fontSize: "0.75rem",
-                        textTransform: "uppercase",
-                        cursor: "pointer",
-                      }}
-                    >
-                      {currentIndex + 1 === quiz?.question.length
-                        ? ""
-                        : "överblick"}
-                    </Typography>
-                  </Box>
-                )}
-
-                {!ifAnswerExist &&
-                currentIndex + 1 === quiz?.question.length ? (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      setStatus(false);
-                      setShouldNavigate(true);
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      style={{
-                        fontSize: "0.75rem",
-                        textTransform: "uppercase",
-                        marginRight: "0.5rem",
-                      }}
-                    >
-                      se Överblick
-                    </Typography>
-                    <img src={RightArrow} alt="" />
-                  </Box>
-                ) : (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      cursor: "pointer",
-                    }}
-                    onClick={() =>
-                      currentIndex + 1 < quiz.question.length &&
-                      setCurrentIndex(currentIndex + 1)
-                    }
-                  >
-                    <Typography
-                      variant="h6"
-                      style={{
-                        fontSize: "0.75rem",
-                        textTransform: "uppercase",
-                        marginRight: "0.5rem",
-                      }}
-                    >
-                      Nästa
-                    </Typography>
-                    <img src={RightArrow} alt="" />
-                  </Box>
-                )}
-              </Box>
-            )}
-          </Box>
-
-          <Box
-            className={classes.spara}
-            // style={{
-            //   width: "10rem",
-            //   height: 'fit-content',
-            //   display: "flex",
-            //   justifyContent: "center",
-            //   marginTop: '2.7rem',
-            //   // marginLeft: '-10rem'
-            // }}
-          >
-            {quiz && !quiz.question[currentIndex].questionAnswer && (
-              <Button
-                style={{
-                  width: "6rem",
-                  border: `1px solid ${appColors.blueColor}`,
-                  color: quiz.question[currentIndex].isFlaged
-                    ? "#fff"
-                    : appColors.blueColor,
-                  backgroundColor: quiz.question[currentIndex].isFlaged
-                    ? appColors.blueColor
-                    : "",
-                }}
-                onClick={() => flagQuestion()}
-              >
-                {" "}
-                {quiz.question[currentIndex].isFlaged ? (
-                  <img
-                    src={WhiteStar}
-                    style={{ width: "1rem", marginRight: ".5rem" }}
-                    alt=""
-                  />
-                ) : (
-                  <img
-                    style={{ width: "1rem", marginRight: ".5rem" }}
-                    src={StarIcon}
-                    alt=""
-                  />
-                )}{" "}
-                Spara
-              </Button>
-            )}
-          </Box>
-        </Container>
+                  {quiz.question[currentIndex].isFlaged ? (
+                    <img
+                      src={WhiteStar}
+                      style={{ width: "1rem", marginRight: ".5rem" }}
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      style={{ width: "1rem", marginRight: ".5rem" }}
+                      src={StarIcon}
+                      alt=""
+                    />
+                  )}{" "}
+                  Spara
+                </Button>
+              )}
+            </Box>
+          </Container>
+        )}
       </Container>
     </div>
   );
