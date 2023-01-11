@@ -72,6 +72,9 @@ const CategoryPagesFeedContent = (props) => {
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
+  const [isInTrial, setIsInTrial] = useState(JSON.parse(localStorage.getItem("isInTrial")))
+  const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
+
   const { user } = useSelector((state) => state.value);
   const scrollTop = () => {
     window.scrollTo({
@@ -543,19 +546,19 @@ const CategoryPagesFeedContent = (props) => {
       <Box
         sx={{
           marginTop: "2rem",
-          backgroundColor: appColors.blueColor,
-          color: appColors.whiteColor,
+          backgroundColor: !isInTrial && !isPremium ? '#E0E0E0' : appColors.blueColor,
+          color: !isInTrial && !isPremium ? '#A6A6A6' : appColors.whiteColor,
           borderRadius: "6px",
           height: "3rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          cursor: "pointer",
+          cursor: !isInTrial && !isPremium ? "not-allowed" : "pointer",
           width: "99.35%",
         }}
-        onClick={checkedData.length > 0 && onSubmit}
+        onClick={(isPremium || isInTrial) && checkedData.length > 0 && onSubmit}
       >
-        <FilledBtn title="Starta övningar" />
+        <FilledBtn disabled={!(isInTrial || isPremium)} title="Starta övningar" />
       </Box>
       <Box className={classes.tabsSection}>
         <Tabs

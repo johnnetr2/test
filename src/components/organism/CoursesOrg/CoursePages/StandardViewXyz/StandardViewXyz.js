@@ -485,7 +485,7 @@ const StandardViewXyz = () => {
             <Box
               mt={2}
               sx={{
-                backgroundColor: "#6fcf97",
+                backgroundColor: "#b4b4b4",
                 height: "8px",
                 display: "flex",
                 flexDirection: "row",
@@ -507,7 +507,6 @@ const StandardViewXyz = () => {
           // }}
         >
           {/* start of question component */}
-
           <Box
             style={{
               display: "flex",
@@ -527,6 +526,7 @@ const StandardViewXyz = () => {
                 }
               />
             )}
+
             {quiz &&
               quiz.question.map((question, questionIndex) => {
                 if (questionIndex === currentIndex) {
@@ -638,6 +638,8 @@ const StandardViewXyz = () => {
                                         alignItems: "flex-start",
                                         height: 120,
                                       }}
+                                      onMouseOver={() => setOnhover(option._id)}
+                                      onMouseLeave={() => setOnhover(null)}
                                     >
                                       <Box
                                         sx={{
@@ -718,19 +720,6 @@ const StandardViewXyz = () => {
                                           )}
                                         />
                                       </Typography>
-                                      {/* {option.image ? (
-                                                <img
-                                                  className={
-                                                    classes.piechart_size
-                                                  }
-                                                  src={option.image}
-                                                  alt=""
-                                                />
-                                              ) : (
-                                                <MarkLatex
-                                                  content={option.value}
-                                                />
-                                              )} */}
                                     </Box>
                                   </Box>
                                 </Box>
@@ -768,136 +757,139 @@ const StandardViewXyz = () => {
                 }
               })}
 
-            <Box
-              padding={1}
-              mt={2}
-              mb={2}
-              sx={{
-                width: 615,
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
+            {!open && (
               <Box
+                padding={1}
+                mt={2}
+                mb={2}
                 sx={{
+                  width: 615,
                   display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cursor: "pointer",
+                  justifyContent: "space-between",
                 }}
-                onClick={() =>
-                  currentIndex > 0 && setCurrentIndex(currentIndex - 1)
-                }
               >
-                {" "}
-                <img src={LeftArrow} alt="" />
-                <Typography
-                  variant="h6"
-                  style={{
-                    fontSize: "0.75rem",
-                    textTransform: "uppercase",
-                    marginLeft: "0.5rem",
-                  }}
-                >
-                  Föregående
-                </Typography>
-              </Box>
-              {ifAnswerExist ? (
                 <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
                   onClick={() =>
-                    navigate("/rattadoverblick", {
-                      state: {
-                        quizId: params.state.quizId,
-                        seasonId: params.state.seasonId,
-                      },
-                    })
+                    currentIndex > 0 && setCurrentIndex(currentIndex - 1)
                   }
                 >
+                  {" "}
+                  <img src={LeftArrow} alt="" />
                   <Typography
                     variant="h6"
                     style={{
                       fontSize: "0.75rem",
                       textTransform: "uppercase",
-                      cursor: "pointer",
+                      marginLeft: "0.5rem",
                     }}
                   >
-                    Rättad Överblick
+                    Föregående
                   </Typography>
                 </Box>
-              ) : (
-                <Box
-                  onClick={() => {
-                    setStatus(false);
-                    setShouldNavigate(true);
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    style={{
-                      fontSize: "0.75rem",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
+                {ifAnswerExist ? (
+                  <Box
+                    onClick={() =>
+                      navigate("/rattadoverblick", {
+                        state: {
+                          quizId: params.state.quizId,
+                          seasonId: params.state.seasonId,
+                        },
+                      })
+                    }
+                  >
+                    <Typography
+                      variant="h6"
+                      style={{
+                        fontSize: "0.75rem",
+                        textTransform: "uppercase",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Rättad Överblick
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Box
+                    onClick={() => {
+                      setStatus(false);
+                      setShouldNavigate(true);
                     }}
                   >
-                    {currentIndex + 1 === quiz?.question.length
-                      ? ""
-                      : "överblick"}
-                  </Typography>
-                </Box>
-              )}
+                    <Typography
+                      variant="h6"
+                      style={{
+                        fontSize: "0.75rem",
+                        textTransform: "uppercase",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {currentIndex + 1 === quiz?.question.length
+                        ? ""
+                        : "överblick"}
+                    </Typography>
+                  </Box>
+                )}
 
-              {!ifAnswerExist && currentIndex + 1 === quiz?.question.length ? (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    setStatus(false);
-                    setShouldNavigate(true);
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    style={{
-                      fontSize: "0.75rem",
-                      textTransform: "uppercase",
-                      marginRight: "0.5rem",
+                {!ifAnswerExist &&
+                currentIndex + 1 === quiz?.question.length ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setStatus(false);
+                      setShouldNavigate(true);
                     }}
                   >
-                    se Överblick
-                  </Typography>
-                  <img src={RightArrow} alt="" />
-                </Box>
-              ) : (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                  onClick={() =>
-                    currentIndex + 1 < quiz.question.length &&
-                    setCurrentIndex(currentIndex + 1)
-                  }
-                >
-                  <Typography
-                    variant="h6"
-                    style={{
-                      fontSize: "0.75rem",
-                      textTransform: "uppercase",
-                      marginRight: "0.5rem",
+                    <Typography
+                      variant="h6"
+                      style={{
+                        fontSize: "0.75rem",
+                        textTransform: "uppercase",
+                        marginRight: "0.5rem",
+                      }}
+                    >
+                      se Överblick
+                    </Typography>
+                    <img src={RightArrow} alt="" />
+                  </Box>
+                ) : (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      cursor: "pointer",
                     }}
+                    onClick={() =>
+                      currentIndex + 1 < quiz.question.length &&
+                      setCurrentIndex(currentIndex + 1)
+                    }
                   >
-                    Nästa
-                  </Typography>
-                  <img src={RightArrow} alt="" />
-                </Box>
-              )}
-            </Box>
+                    <Typography
+                      variant="h6"
+                      style={{
+                        fontSize: "0.75rem",
+                        textTransform: "uppercase",
+                        marginRight: "0.5rem",
+                      }}
+                    >
+                      Nästa
+                    </Typography>
+                    <img src={RightArrow} alt="" />
+                  </Box>
+                )}
+              </Box>
+            )}
           </Box>
 
           <Box

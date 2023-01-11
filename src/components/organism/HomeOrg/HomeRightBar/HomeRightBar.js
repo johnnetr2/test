@@ -1,5 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import { createTheme } from "@mui/material/styles";
 import { EndPoints, instance2 } from "../../../service/Route";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
@@ -11,11 +12,17 @@ import { getWeekNumbers, getCurrentWeekNumber } from "../../../atom/percentageCa
 import { datesGroupByComponent } from '../../../service/commonService'
 import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
 import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
+import PaymentCard from "../../../molecule/PaymentCard";
 
 const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
+  const [isInTrial, setIsInTrial] = useState(JSON.parse(localStorage.getItem("isInTrial")))
+  const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
+
+
+
 
   useEffect(() => {
 
@@ -181,7 +188,14 @@ const HomeRightBar = (props) => {
           marginTop: "6rem",
         }}
       >
-        <Box style={{ marginTop: "10.5rem" }}>
+        {!isPremium && !isInTrial &&
+          <PaymentCard
+            title={"Lär dig ännu mer!"}
+            subTitle={"Uppgradera till premium för endast 450 SEK. "}
+            isInTrial={isInTrial}
+          ></PaymentCard>
+        }
+        <Box style={{ marginTop: isInTrial ? "10.5rem" : "3rem" }}>
           <Typography
             variant="h6"
             component="h6"
@@ -290,6 +304,13 @@ const HomeRightBar = (props) => {
             </Box>
           </Box>
         </Box>
+        {!isPremium && isInTrial &&
+          <PaymentCard
+            title={"Lär dig ännu mer!"}
+            subTitle={"Uppgradera till premium för endast 450 SEK. "}
+            isInTrial={isInTrial}
+          ></PaymentCard>
+        }
       </Box>
     </Box>
   );
