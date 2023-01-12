@@ -26,6 +26,7 @@ import Warning from "../../../../../assets/Icons/Warning.svg";
 import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
+import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -36,9 +37,11 @@ const OverBlick = () => {
   const [open, setOpen] = useState(false);
   const [helpPopup, setHelpPopup] = useState(false);
   const [backPressPopup, setBackPressPopup] = useState(false);
+  const [time, setTime] = useState();
 
   useEffect(() => {
     setQuiz(params.state.quiz);
+    setTime(params.state.timeLeft);
     params.state.timeLeft === 0 && setTimeOverPopUp(true);
   }, []);
 
@@ -324,6 +327,15 @@ const OverBlick = () => {
             ></Box>
           </Box> */}
         </Container>
+        <ExamTopBar
+          currentIndex={params?.state?.currentQuestion}
+          quiz={params.state.quiz}
+          time={time}
+          status={!timeOverPopUp}
+          setTimeLeft={setTime}
+          setShouldNavigate={() => {}}
+          width={"80%"}
+        />
         <Container
           maxWidth="md"
           style={{
@@ -337,6 +349,7 @@ const OverBlick = () => {
             flexDirection: "column",
             width: "80%",
             paddingBottom: 24,
+            marginTop: "0",
           }}
         >
           <Box

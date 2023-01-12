@@ -140,7 +140,7 @@ const CoursesFeedContent = (props) => {
           >
             <Input
               type="search"
-              placeholder="Sök prov mellan 2015-2021"
+              placeholder="Sök prov mellan 2011-2022"
               style={{ border: "none" }}
             />
             <Box>

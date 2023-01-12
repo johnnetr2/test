@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
-
+import moment from "moment";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
@@ -76,15 +76,22 @@ const LoginOrg = () => {
         .post(URL, data)
         .then((response) => {
           const { user, token } = response.data;
-          if (!response.data.user.is_verified) {
+          if (!user.is_verified) {
             swal("Warning!", "User is not verfied", "warning");
           } else if (response.data.token) {
             dispatch(login({ user, token }));
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("userId", response.data.user._id);
-            localStorage.setItem("role", response.data.user.role);
-            localStorage.setItem("fullName", response.data.user.fullName);
-            localStorage.setItem("email", response.data.user.email);
+            localStorage.setItem("token", token);
+            localStorage.setItem("userId", user._id);
+            localStorage.setItem("role", user.role);
+            localStorage.setItem("fullName", user.fullName);
+            localStorage.setItem("email", user.email);
+            const createdAtDate = user.createdAt
+            const trialDate = moment(createdAtDate).add(30, 'days').format('YYYY-MM-DD')
+
+            const currentDate = moment(new Date).format('YYYY-MM-DD')
+            const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
+            localStorage.setItem("isPremium", user.isPremium ? true : false);
+            localStorage.setItem("isInTrial", isGreaterCurrentData);
             MixpanelTracking.getInstance().login(
               "success",
               response.data.user?._id
