@@ -724,10 +724,15 @@ const StandardViewXyz = () => {
 
                                       <Box
                                         sx={{
-                                          width:
+                                          width: !option.value.includes(
+                                            "hp-appen.s3.eu-north-1.amazonaws.com"
+                                          )
+                                            ? 600
+                                            : 300,
+                                          /* width:
                                             question?.options.options.length > 4
                                               ? "25rem"
-                                              : "20rem",
+                                              : "31rem", */
                                           display: "flex",
                                           marginLeft:
                                             question?.options.options.length >
