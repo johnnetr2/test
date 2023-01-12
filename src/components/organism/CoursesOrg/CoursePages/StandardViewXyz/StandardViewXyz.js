@@ -635,7 +635,9 @@ const StandardViewXyz = () => {
                                             ? 60
                                             : 120,
                                         border: "1px solid #e1e1e1",
-                                        width:
+                                        width: "100%",
+                                        paddingRight: "12px",
+                                        maxWidth:
                                           question.options.options.length > 4 ||
                                           !option.value.includes(
                                             "hp-appen.s3.eu-north-1.amazonaws.com"
@@ -724,11 +726,14 @@ const StandardViewXyz = () => {
 
                                       <Box
                                         sx={{
-                                          width: !option.value.includes(
-                                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                                          )
-                                            ? 600
-                                            : 300,
+                                          width:
+                                            question?.options.options.length >
+                                              4 ||
+                                            !option.value.includes(
+                                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                                            )
+                                              ? 600
+                                              : 300,
                                           /* width:
                                             question?.options.options.length > 4
                                               ? "25rem"
