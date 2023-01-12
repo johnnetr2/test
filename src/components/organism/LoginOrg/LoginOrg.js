@@ -90,9 +90,9 @@ const LoginOrg = () => {
             localStorage.setItem("role", user.role);
             localStorage.setItem("fullName", user.fullName);
             localStorage.setItem("email", user.email);
-            const createdAtDate = user.createdAt;
+            const createdAtDate = user.verified_date ? user.verified_date : new Date();
             const trialDate = moment(createdAtDate)
-              .add(30, "days")
+              .add(300, "days")
               .format("YYYY-MM-DD");
 
             const currentDate = moment(new Date()).format("YYYY-MM-DD");

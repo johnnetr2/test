@@ -57,6 +57,7 @@ const PaymentCard = (props) => {
                 {props.subTitle}
             </Typography>
             <Button
+                disableRipple={true}
                 autoFocus
                 onClick={onClick}
                 style={{

@@ -15,11 +15,12 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../../molecule/WindowDimensions/dimension";
+import PaymentCard from "../../../molecule/PaymentCard";
 
 const useStyles = makeStyles((theme) => ({
-  topspace: {
-    paddingTop: theme.spacing(18),
-  },
+  // topspace: {
+  //   paddingTop: theme.spacing(18),
+  // },
   tableHeadBackgroundColor: {
     backgroundColor: "transparent",
   },
@@ -46,7 +47,8 @@ const RightBar = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { height, width } = useWindowDimensions();
-
+  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
   useEffect(() => {
     setResultHistory(props?.data);
   }, [props?.data]);
@@ -121,11 +123,19 @@ const RightBar = (props) => {
           flexDirection: "column",
         }}
       >
+        {!isPremium && !isInTrial &&
+          <Box sx={{ marginTop: '4rem' }}>
+            <PaymentCard
+              title={"Din testperiod är över."}
+              subTitle={"Lås upp alla premiumfunktioner för endast 450 SEK."}
+              isInTrial={isInTrial}
+            ></PaymentCard>
+          </Box>
+        }
         <Box
-          className={classes.topspace}
           style={{
             marginBottom: "2rem",
-            marginTop: "1.3rem",
+            marginTop: !isPremium && !isInTrial ? "6rem" : "11rem",
           }}
         >
           <Typography variant="h6" component="h6">
@@ -169,7 +179,6 @@ const RightBar = (props) => {
               <TableBody>
                 {resultHistory &&
                   resultHistory?.map((row, index) => {
-                    console.log(row, index);
                     return (
                       <TableRow key={row.createdAt}>
                         <TableCell component="th" scope="row">
@@ -190,8 +199,8 @@ const RightBar = (props) => {
                         <TableCell align="left">
                           {row?.totalAnswer
                             ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                                .toFixed(1)
-                                .replace(/\.0+$/, "")
+                              .toFixed(1)
+                              .replace(/\.0+$/, "")
                             : 0}
                         </TableCell>
                         <TableCell
@@ -280,6 +289,16 @@ const RightBar = (props) => {
             </Box>
           </Box> */}
         </Box>
+
+        {!isPremium && isInTrial &&
+          <Box sx={{ marginTop: "6rem" }}>
+            <PaymentCard
+              title={"Lär dig ännu mer!"}
+              subTitle={"Uppgradera till premium för endast 450 SEK. "}
+              isInTrial={isInTrial}
+            ></PaymentCard>
+          </Box>
+        }
       </Box>
     </Container>
   );

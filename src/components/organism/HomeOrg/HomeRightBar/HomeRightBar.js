@@ -190,8 +190,8 @@ const HomeRightBar = (props) => {
       >
         {!isPremium && !isInTrial &&
           <PaymentCard
-            title={"Lär dig ännu mer!"}
-            subTitle={"Uppgradera till premium för endast 450 SEK. "}
+            title={"Din testperiod är över."}
+            subTitle={"Lås upp alla premiumfunktioner för endast 450 SEK."}
             isInTrial={isInTrial}
           ></PaymentCard>
         }
