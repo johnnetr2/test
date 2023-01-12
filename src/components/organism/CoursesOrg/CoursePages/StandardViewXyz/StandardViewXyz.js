@@ -636,7 +636,7 @@ const StandardViewXyz = () => {
                                             : 120,
                                         border: "1px solid #e1e1e1",
                                         width: "100%",
-                                        paddingRight: "12px",
+                                        paddingRight: "14px",
                                         maxWidth:
                                           question.options.options.length > 4 ||
                                           !option.value.includes(
