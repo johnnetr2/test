@@ -170,12 +170,16 @@ const CoursesFeedContent = (props) => {
             // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
+              props?.data &&
               previousExams.map((item) => {
                 return (
                   <CoursesCard
                     id={item?._id}
                     item={item}
-                    progress={"1.5"}
+                    progress={props?.data?.find(
+                      (provHistory) =>
+                        provHistory?.simuleraSeason?._id === item?._id
+                    )}
                     quizzes={
                       props.seasons && getSeasonQuizzzes(props.seasons, item)
                     }
@@ -183,6 +187,7 @@ const CoursesFeedContent = (props) => {
                 );
               })}
           </Box>
+          {/*  */}
         </Box>
         <Box
           sx={{

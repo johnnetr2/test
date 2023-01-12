@@ -81,8 +81,8 @@ const OverBlick = () => {
           } else if (provpassNumber === 3) {
             navigate("/provresultat", {
               state: {
-                seasonId: response.data.simuleraQuizResult.simuleraSeason,
-                simuleraQuizResultId: response.data.simuleraQuizResult._id,
+                seasonId: params?.state?.simuleraSeason,
+                quizId: params?.state?.provpass?._id,
               },
             });
           }

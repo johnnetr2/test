@@ -9,7 +9,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TableCell
+  TableCell,
 } from "@material-ui/core";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(18),
   },
   tableHeadBackgroundColor: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   scrollbar: {
     "&::-webkit-scrollbar": {
@@ -40,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-
 
 const RightBar = (props) => {
   const [resultHistory, setResultHistory] = useState();
@@ -69,37 +67,38 @@ const RightBar = (props) => {
     navigate("/provresultat", {
       state: {
         quizId: row?._id,
+        seasonId: row?.simuleraSeason?._id,
       },
     });
   };
   const columns = [
-    { id: 'datum', label: 'Datum', minWidth: 150 },
+    { id: "datum", label: "Datum", minWidth: 150 },
     {
-      id: 'prov',
-      label: 'Prov',
+      id: "prov",
+      label: "Prov",
       minWidth: 115,
-      align: 'left',
-      format: (value) => value.toLocaleString('en-US'),
+      align: "left",
+      format: (value) => value.toLocaleString("en-US"),
     },
     {
-      id: 'Antal poäng',
-      label: 'Antal Poäng',
+      id: "Antal poäng",
+      label: "Antal Poäng",
       minWidth: 100,
-      align: 'left',
-      format: (value) => value.toLocaleString('en-US'),
+      align: "left",
+      format: (value) => value.toLocaleString("en-US"),
     },
     {
-      id: 'Normerad Poäng',
-      label: 'Normerad Poäng',
+      id: "Normerad Poäng",
+      label: "Normerad Poäng",
       minWidth: 15,
-      align: 'left',
+      align: "left",
       format: (value) => value.toFixed(2),
     },
     {
-      id: '',
-      label: '',
+      id: "",
+      label: "",
       minWidth: 5,
-      align: 'left',
+      align: "left",
       format: (value) => value.toFixed(2),
     },
   ];
@@ -114,9 +113,7 @@ const RightBar = (props) => {
   }
 
   return (
-    <Container
-      maxWidth={false}
-    >
+    <Container maxWidth={false}>
       <Box
         sx={{
           backgroundColor: width < 900 ? "#fff" : "#fafafa",
@@ -136,15 +133,21 @@ const RightBar = (props) => {
           </Typography>
         </Box>
         <Box style={{ marginBottom: "2rem" }}>
-
           <TableHead className={classes.tableHeadBackgroundColor}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, fontWeight: 500, margin: 0, border: 0 }}
-                > {column.label}
+                  style={{
+                    minWidth: column.minWidth,
+                    fontWeight: 500,
+                    margin: 0,
+                    border: 0,
+                  }}
+                >
+                  {" "}
+                  {column.label}
                 </TableCell>
               ))}
             </TableRow>
@@ -156,22 +159,19 @@ const RightBar = (props) => {
               overflowY: "auto",
               overflowX: "hidden",
               maxHeight: "60vh",
-              border: '1px solid #e1e1e1',
-              borderRadius: '5px',
+              border: "1px solid #e1e1e1",
+              borderRadius: "5px",
               boxShadow: "0px 5px 10px #f2f2f2",
             }}
             className={classes.scrollbar}
           >
-            <Table aria-label="simple table" >
-
-              <TableBody
-              >
+            <Table aria-label="simple table">
+              <TableBody>
                 {resultHistory &&
                   resultHistory?.map((row, index) => {
+                    console.log(row, index);
                     return (
-                      <TableRow
-                        key={row.createdAt}
-                      >
+                      <TableRow key={row.createdAt}>
                         <TableCell component="th" scope="row">
                           {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
                         </TableCell>
@@ -190,8 +190,8 @@ const RightBar = (props) => {
                         <TableCell align="left">
                           {row?.totalAnswer
                             ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                              .toFixed(1)
-                              .replace(/\.0+$/, "")
+                                .toFixed(1)
+                                .replace(/\.0+$/, "")
                             : 0}
                         </TableCell>
                         <TableCell
