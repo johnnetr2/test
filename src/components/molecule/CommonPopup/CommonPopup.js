@@ -90,7 +90,7 @@ export default function CommonPopup({
             <Typography
               gutterBottom
               variant="body2"
-              style={{ marginTop: "1rem", width: "70%" }}
+              style={{ marginTop: "1rem", width: "100%" }}
             >
               {description}
             </Typography>
