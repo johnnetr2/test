@@ -621,6 +621,30 @@ const StandardViewXyz = () => {
                               // gridTemplateColumns: "1fr 1fr",
                             }}
                           >
+                            {quiz?.question[currentIndex].sectionCategories
+                              .title === "NOG" ? (
+                              <Box
+                                sx={{
+                                  width: "100%",
+                                  maxWidth: 600,
+                                  height: 100,
+                                  border: "1px solid #e1e1e1",
+                                  display: "flex",
+                                  justifyContent: "flex-start",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <p
+                                  style={{
+                                    marginLeft: "50px",
+                                    fontSize: "16px",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  Tillräckligt information för lösningen erhålls
+                                </p>
+                              </Box>
+                            ) : null}
                             {question.options.options.map(
                               (option, optionIndex) => {
                                 return (
