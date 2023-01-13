@@ -105,6 +105,7 @@ const CoursesCard = (props) => {
                   id: props.id,
                   session: props?.item,
                   provpass: props?.quizzes,
+                  provpassOrder: props.provpassOrder,
                 },
               });
             } else {

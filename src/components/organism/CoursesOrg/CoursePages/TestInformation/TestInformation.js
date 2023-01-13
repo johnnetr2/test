@@ -312,6 +312,7 @@ const TestInformation = (props) => {
                     id: params.state.id,
                     session: params.state.session,
                     provpass: params.state?.provpass,
+                    provpassOrder: params?.state?.provpassOrder,
                   },
                 })
               }
