@@ -29,6 +29,8 @@ const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
+  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
   const percentage = () => {
     switch (props?.quizzes?.simuleraQuizResult?.length) {
@@ -52,7 +54,7 @@ const CoursesCard = (props) => {
       user: localStorage.getItem("userId"),
     };
     instance2.post(URL, data).then((response) => {
-      navigate("/provpassinfo", {
+      navigate("/testInformation", {
         state: {
           id: props.id,
           session: props?.item,
@@ -89,9 +91,12 @@ const CoursesCard = (props) => {
         }}
       >
         <Box
-          sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
+          sx={{ paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
-            if (props?.quizzes.simuleraQuizResult.length < 4) {
+            if (
+              props?.quizzes?.simuleraQuizResult.length < 4 ||
+              !props?.quizzes?.simuleraQuizResult
+            ) {
               navigate("/testInformation", {
                 state: {
                   id: props.id,
@@ -102,8 +107,9 @@ const CoursesCard = (props) => {
             } else {
               navigate("/provresultat", {
                 state: {
-                  seasonId: props?.quizzes.simuleraSeason._id,
-                  simuleraQuizResultId: props?.quizzes._id,
+                  seasonId: props?.quizzes?.simuleraSeason?._id,
+                  simuleraQuizResultId: props?.quizzes?._id,
+                  quizId: props?.quizzes?._id,
                 },
               });
             }
@@ -119,16 +125,27 @@ const CoursesCard = (props) => {
                 width: "1.1rem",
               }}
             >
-              <MoreVertIcon
-                style={{
-                  color: "grey",
-                  marginRight: "0.5px",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowPopup(!showPopup)
-                }}
-              />
+              {!(isPremium || isInTrial) && percentage() === 100 ?
+                (
+                  <Box sx={{
+                    borderRadius: '0px 4px 0px 0px',
+                    textAlign: 'center', width: '63px', height: '23px', backgroundColor: '#FFE482', color: appColors.blackColor
+                  }}>
+                    LÅST
+                  </Box>
+
+                ) : (
+                  <MoreVertIcon
+                    style={{
+                      color: "grey",
+                      marginRight: "0.5px",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPopup(!showPopup);
+                    }}
+                  />
+                )}
 
               {showPopup && (
                 <Dropdown
@@ -147,7 +164,6 @@ const CoursesCard = (props) => {
               alignItems: "center",
               flexWrap: "wrap",
             }}
-            
           >
             <Box
               onClick={() => {
@@ -219,13 +235,22 @@ const CoursesCard = (props) => {
                   display: "flex",
                   alignItems: "center",
                   flexDirection: "column",
-                  marginRight: "1.5rem",
+                  textAlign: 'center',
+                  marginRight: (isPremium || isInTrial) ? "1.3rem" : "6rem",
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Typography variant="h4" component="h4">
                     {" "}
-                    {props.progress}{" "}
+                    {props?.progress.totalAnswer
+                      ? (
+                        (props?.progress?.totalAnswer /
+                          props?.progress?.totalQuestions) *
+                        2
+                      )
+                        .toFixed(1)
+                        .replace(/\.0+$/, "")
+                      : 0}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -237,18 +262,20 @@ const CoursesCard = (props) => {
                   </Typography>
                 </Box>
                 <Box>
-                  <Button
-                    variant="outlined"
-                    style={{
-                      width: "12rem",
-                      textTransform: "capitalize",
-                      border: `2px solid ${appColors.blueColor}`,
-                      color: appColors.blueColor,
-                    }}
-                    onClick={() => restartQuiz()}
-                  >
-                    Gör om prov
-                  </Button>
+                  {(isPremium || isInTrial) &&
+                    <Button
+                      variant="outlined"
+                      style={{
+                        width: "12rem",
+                        textTransform: "capitalize",
+                        border: `2px solid ${appColors.blueColor}`,
+                        color: appColors.blueColor,
+                      }}
+                      onClick={() => restartQuiz()}
+                    >
+                      Gör om prov
+                    </Button>
+                  }
                 </Box>
               </Box>
             ) : (

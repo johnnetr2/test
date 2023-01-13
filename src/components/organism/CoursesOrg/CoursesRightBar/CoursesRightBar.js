@@ -9,19 +9,20 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TableCell
+  TableCell,
 } from "@material-ui/core";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../../molecule/WindowDimensions/dimension";
+import PaymentCard from "../../../molecule/PaymentCard";
 
 const useStyles = makeStyles((theme) => ({
-  topspace: {
-    paddingTop: theme.spacing(18),
-  },
+  // topspace: {
+  //   paddingTop: theme.spacing(18),
+  // },
   tableHeadBackgroundColor: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   scrollbar: {
     "&::-webkit-scrollbar": {
@@ -41,14 +42,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 const RightBar = (props) => {
   const [resultHistory, setResultHistory] = useState();
   const classes = useStyles();
   const navigate = useNavigate();
   const { height, width } = useWindowDimensions();
-
+  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
   useEffect(() => {
     setResultHistory(props?.data);
   }, [props?.data]);
@@ -69,37 +69,38 @@ const RightBar = (props) => {
     navigate("/provresultat", {
       state: {
         quizId: row?._id,
+        seasonId: row?.simuleraSeason?._id,
       },
     });
   };
   const columns = [
-    { id: 'datum', label: 'Datum', minWidth: 150 },
+    { id: "datum", label: "Datum", minWidth: 150 },
     {
-      id: 'prov',
-      label: 'Prov',
+      id: "prov",
+      label: "Prov",
       minWidth: 115,
-      align: 'left',
-      format: (value) => value.toLocaleString('en-US'),
+      align: "left",
+      format: (value) => value.toLocaleString("en-US"),
     },
     {
-      id: 'Antal poäng',
-      label: 'Antal Poäng',
+      id: "Antal poäng",
+      label: "Antal Poäng",
       minWidth: 100,
-      align: 'left',
-      format: (value) => value.toLocaleString('en-US'),
+      align: "left",
+      format: (value) => value.toLocaleString("en-US"),
     },
     {
-      id: 'Normerad Poäng',
-      label: 'Normerad Poäng',
+      id: "Normerad Poäng",
+      label: "Normerad Poäng",
       minWidth: 15,
-      align: 'left',
+      align: "left",
       format: (value) => value.toFixed(2),
     },
     {
-      id: '',
-      label: '',
+      id: "",
+      label: "",
       minWidth: 5,
-      align: 'left',
+      align: "left",
       format: (value) => value.toFixed(2),
     },
   ];
@@ -114,9 +115,7 @@ const RightBar = (props) => {
   }
 
   return (
-    <Container
-      maxWidth={false}
-    >
+    <Container maxWidth={false}>
       <Box
         sx={{
           backgroundColor: width < 900 ? "#fff" : "#fafafa",
@@ -124,11 +123,19 @@ const RightBar = (props) => {
           flexDirection: "column",
         }}
       >
+        {!isPremium && !isInTrial &&
+          <Box sx={{ marginTop: '4rem' }}>
+            <PaymentCard
+              title={"Din testperiod är över."}
+              subTitle={"Lås upp alla premiumfunktioner för endast 450 SEK."}
+              isInTrial={isInTrial}
+            ></PaymentCard>
+          </Box>
+        }
         <Box
-          className={classes.topspace}
           style={{
             marginBottom: "2rem",
-            marginTop: "1.3rem",
+            marginTop: !isPremium && !isInTrial ? "6rem" : "11rem",
           }}
         >
           <Typography variant="h6" component="h6">
@@ -136,15 +143,21 @@ const RightBar = (props) => {
           </Typography>
         </Box>
         <Box style={{ marginBottom: "2rem" }}>
-
           <TableHead className={classes.tableHeadBackgroundColor}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, fontWeight: 500, margin: 0, border: 0 }}
-                > {column.label}
+                  style={{
+                    minWidth: column.minWidth,
+                    fontWeight: 500,
+                    margin: 0,
+                    border: 0,
+                  }}
+                >
+                  {" "}
+                  {column.label}
                 </TableCell>
               ))}
             </TableRow>
@@ -156,22 +169,18 @@ const RightBar = (props) => {
               overflowY: "auto",
               overflowX: "hidden",
               maxHeight: "60vh",
-              border: '1px solid #e1e1e1',
-              borderRadius: '5px',
+              border: "1px solid #e1e1e1",
+              borderRadius: "5px",
               boxShadow: "0px 5px 10px #f2f2f2",
             }}
             className={classes.scrollbar}
           >
-            <Table aria-label="simple table" >
-
-              <TableBody
-              >
+            <Table aria-label="simple table">
+              <TableBody>
                 {resultHistory &&
                   resultHistory?.map((row, index) => {
                     return (
-                      <TableRow
-                        key={row.createdAt}
-                      >
+                      <TableRow key={row.createdAt}>
                         <TableCell component="th" scope="row">
                           {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
                         </TableCell>
@@ -280,6 +289,16 @@ const RightBar = (props) => {
             </Box>
           </Box> */}
         </Box>
+
+        {!isPremium && isInTrial &&
+          <Box sx={{ marginTop: "6rem" }}>
+            <PaymentCard
+              title={"Lär dig ännu mer!"}
+              subTitle={"Uppgradera till premium för endast 450 SEK. "}
+              isInTrial={isInTrial}
+            ></PaymentCard>
+          </Box>
+        }
       </Box>
     </Container>
   );

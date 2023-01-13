@@ -59,12 +59,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignupOrg = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     MixpanelTracking.getInstance().visitedPage("SignUp");
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
   }, []);
 
   const classes = useStyles();
-  const navigate = useNavigate();
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
@@ -227,7 +232,7 @@ const SignupOrg = () => {
                 borderRadius: "8px",
                 marginBottom: "1rem",
                 outline: "none",
-                fontFamily: "Poppins"
+                fontFamily: "Poppins",
               }}
             />
             <LabelField
@@ -329,7 +334,13 @@ const SignupOrg = () => {
           >
             <Typography variant="body1" style={{ textTransform: "uppercase" }}>
               Har du redan ett konto?
-              <Link to="/login" style={{ textDecorationLine: "none", color: appColors.blueColor }}>
+              <Link
+                to="/login"
+                style={{
+                  textDecorationLine: "none",
+                  color: appColors.blueColor,
+                }}
+              >
                 {" "}
                 Logga in
               </Link>

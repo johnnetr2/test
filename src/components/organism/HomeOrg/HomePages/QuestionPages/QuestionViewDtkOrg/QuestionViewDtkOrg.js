@@ -15,20 +15,19 @@ import React, { useEffect, useRef, useState } from "react";
 import ArrowSalt from "../../../../../../assets/Icons/ArrowSalt.svg";
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
-import CircularProgress from "@mui/material/CircularProgress";
-import Draggable from "react-draggable";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
+import { PositionableContainer, Position } from "re-position";
 import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
-import Righticon from "../../../../../../assets/Imgs/Righticon.png";
-import Ruler from "../../../../../../assets/Imgs/ruler.png";
+import Ruler from "../../../../../../assets/Icons/ruler.svg";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../service/commonService";
+import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];
 
@@ -40,6 +39,28 @@ const QuestionViewDTKOrg = (props) => {
   const [onHover, setOnHover] = useState();
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [showRuler, setShowRuler] = useState(false);
+  const [position, setPosition] = useState({
+    left: "85%",
+    top: "37.5%",
+    width: "75px",
+    height: "450px",
+    rotation: "0deg",
+  });
+
+  const handleUpdate = (position) => {
+    setPosition(position)
+  };
+  const handleShowRuler = () => {
+    setShowRuler((prevState) => !prevState)
+    setPosition({
+      left: "85%",
+      top: "37.5%",
+      width: "75px",
+      height: "450px",
+      rotation: "0deg",
+    })
+  };
   const { user, token } = useSelector((state) => state.value);
   const [enterSubmitted, setEnterSubmitted] = useState(true)
   const headers = {
@@ -109,6 +130,9 @@ const QuestionViewDTKOrg = (props) => {
       justifyContent: "center",
       width: "90vw",
     },
+    ruler: {
+      display: 'flex'
+    }
   }));
 
   const classes = useStyles(10);
@@ -277,27 +301,6 @@ const QuestionViewDTKOrg = (props) => {
     question.optionId = item._id;
     allQuiz.question = qz;
     setQuiz(allQuiz);
-
-    // const data = {
-    //   questionId: quiz.question[selectedIndex]._id,
-    //   optionId: quiz.question[selectedIndex].optionId,
-    //   MultipartQuestion: quiz._id,
-    // timeleft: props?.timeLeft ? props?.timeLeft : null,
-    // totaltime: props?.totalTime ? props?.totalTime : null,
-    // spendtime: getSpendTime(props?.timeLeft, props?.totalTime, selectedIndex),
-    // };
-
-    // const ifExists = dataSubmit.some(
-    //   (obj) => obj.questionId == quiz.question[selectedIndex]._id
-    // );
-    // if (ifExists) {
-    //   const index = dataSubmit.findIndex(
-    //     (obj) => obj.questionId == quiz.question[selectedIndex]._id
-    //   );
-    //   dataSubmit.splice(index, 1, data);
-    // } else {
-    //   dataSubmit.push(data);
-    // }
 
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
     if (answerLenght === quiz.question.length) {
@@ -483,10 +486,10 @@ const QuestionViewDTKOrg = (props) => {
                     />
                   )}
                   <Box>
-                    <RulerButton></RulerButton>
+                    <RulerButton />
                   </Box>
                 </DialogTitle>
-                <DialogContent
+                <div
                   style={{
                     padding: "0 5rem 2rem",
                     display: "flex",
@@ -496,27 +499,7 @@ const QuestionViewDTKOrg = (props) => {
                   <Box style={{ width: "90%" }}>
                     <img src={quiz?.image} style={{ width: "100%" }} alt="" />
                   </Box>
-                  <Box
-                    style={{
-                      width: "10%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Draggable>
-                      <img
-                        src={Ruler}
-                        style={{
-                          background: "#fff",
-                          width: "75%",
-                          border: "1px solid #f00",
-                        }}
-                        alt=""
-                      />
-                    </Draggable>
-                  </Box>
-                </DialogContent>
+                </div>
               </>
             )}
             <Dialog
@@ -542,6 +525,7 @@ const QuestionViewDTKOrg = (props) => {
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
+                      position: 'relative',
                       columnCount: `${quiz.title === "DTK" || quiz?.description.length < 2000
                         ? "1"
                         : "2"
@@ -549,17 +533,45 @@ const QuestionViewDTKOrg = (props) => {
                       padding: "0rem 5rem 2rem",
                     }}
                   >
+                    {quiz.title === "DTK" && (
+                      <Box display={"flex"} justifyContent="flex-end">
+                        <RulerButton
+                          onClick={handleShowRuler}
+                          isRulerOppened={showRuler}
+                        ></RulerButton>
+                      </Box>
+                    )}
                     <Typography
                       variant="subtitle1"
                       style={{
                         fontSize: ".85rem",
                         maxWidth: "650px",
                         margin: "auto",
+                        position: 'relative'
                       }}
                     >
-                      <h1 style={{fontSize: "28px"}}>{quiz?.title}</h1>
+                      <h1 style={{ fontSize: "28px" }}>{quiz?.title}</h1>
                       <MarkLatex content={quiz?.description} />
+
                     </Typography>
+                    {quiz?.title === "DTK" && showRuler && (
+                      // <PositionableContainer
+                      //   movable
+                      //   resizable
+                      //   rotatable
+                      //   position={position}
+                      //   onUpdate={handleUpdate}
+                      // >
+                      //   <img
+                      //     src={Ruler}
+                      //     style={{
+                      //       background: "#fff",
+                      //       width: "100%",
+                      //     }}
+                      //   ></img>
+                      // </PositionableContainer>
+                      <RulerComponent></RulerComponent>
+                    )}
                   </DialogContent>
                 </>
               )}
@@ -589,31 +601,12 @@ const QuestionViewDTKOrg = (props) => {
                         {quiz?.title}
                       </Typography>
                     </Box>
-                    <Box>
-                      <RulerButton></RulerButton>
-                    </Box>
                   </DialogTitle>
                   <DialogContent
                     style={{ padding: "0 5rem 2rem", display: "flex" }}
                   >
                     <Box style={{ width: "90%" }}>
                       <img src={quiz?.image} style={{ width: "100%" }} alt="" />
-                    </Box>
-                    <Box
-                      style={{
-                        width: "10%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Draggable>
-                        <img
-                          src={Ruler}
-                          style={{ background: "#fff", width: "75%" }}
-                          alt=""
-                        />
-                      </Draggable>
                     </Box>
                   </DialogContent>
                 </>

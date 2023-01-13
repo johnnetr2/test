@@ -27,6 +27,7 @@ import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
+import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -37,9 +38,11 @@ const OverBlick = () => {
   const [open, setOpen] = useState(false);
   const [helpPopup, setHelpPopup] = useState(false);
   const [backPressPopup, setBackPressPopup] = useState(false);
+  const [time, setTime] = useState();
 
   useEffect(() => {
     setQuiz(params.state.quiz);
+    setTime(params.state.timeLeft);
     params.state.timeLeft === 0 && setTimeOverPopUp(true);
   }, []);
 
@@ -79,8 +82,8 @@ const OverBlick = () => {
           } else if (provpassNumber === 3) {
             navigate("/provresultat", {
               state: {
-                seasonId: response.data.simuleraQuizResult.simuleraSeason,
-                simuleraQuizResultId: response.data.simuleraQuizResult._id,
+                seasonId: params?.state?.simuleraSeason,
+                quizId: params?.state?.provpass?._id,
               },
             });
           }
@@ -111,6 +114,22 @@ const OverBlick = () => {
       //   // display: 'block'
       //   height: '5rem'
       // },
+    },
+    questionItem: {
+      border: "1px solid #e1e1e1",
+      width: "14rem",
+      height: "3rem",
+      display: "flex",
+      justifyContent: "space-between",
+      cursor: "pointer",
+      backgroundColor: "#fff",
+      "&:hover": {
+        backgroundColor: "#E1E1E1",
+      },
+      "&:hover img#rightArrow": {
+        filter:
+          "invert(10%) sepia(66%) saturate(4604%) hue-rotate(231deg) brightness(110%) contrast(122%)",
+      },
     },
     size: {
       width: 15,
@@ -309,6 +328,15 @@ const OverBlick = () => {
             ></Box>
           </Box> */}
         </Container>
+        <ExamTopBar
+          currentIndex={params?.state?.currentQuestion}
+          quiz={params.state.quiz}
+          time={time}
+          status={!timeOverPopUp}
+          setTimeLeft={setTime}
+          setShouldNavigate={() => {}}
+          width={"80%"}
+        />
         <Container
           maxWidth="md"
           style={{
@@ -322,6 +350,7 @@ const OverBlick = () => {
             flexDirection: "column",
             width: "80%",
             paddingBottom: 24,
+            marginTop: "0",
           }}
         >
           <Box
@@ -334,7 +363,7 @@ const OverBlick = () => {
             </Typography>
             <Typography variant="body2" component="body2">
               Innan du lämnar in, kontrollera vilka frågor du har <b>missat</b>,
-              <b>sparat</b> samt <b>gjort klart</b>
+              <b> sparat</b> samt <b>gjort klart</b>
             </Typography>
             <Box
               sx={{
@@ -424,14 +453,8 @@ const OverBlick = () => {
                   quiz.question.map((item, index) => {
                     return (
                       <Box
-                        sx={{
-                          border: "1px solid #e1e1e1",
-                          width: "14rem",
-                          height: "3rem",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          cursor: "pointer",
-                        }}
+                        sx={{}}
+                        className={classes.questionItem}
                         onClick={() =>
                           navigate("/simuleraprov", {
                             state: {
@@ -463,6 +486,7 @@ const OverBlick = () => {
                         </Box>
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
                           <img
+                            id="rightArrow"
                             style={{ marginRight: "1rem", width: ".75rem" }}
                             src={RightArrow}
                             alt=""
@@ -491,7 +515,6 @@ const OverBlick = () => {
                 oneButtonPopup
                 agreeBtnName="Lämna in provpasset"
               />
-             
             </Box>
           </Box>
         </Container>
@@ -534,7 +557,7 @@ const OverBlick = () => {
           >
             Lämna in provpass
           </Button>
-        </Box> 
+        </Box>
       </Container>
       <CommonPopup
         status={backPressPopup}

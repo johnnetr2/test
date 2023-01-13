@@ -33,6 +33,7 @@ const TestInformation = (props) => {
     appbar: {
       border: "1px solid #E1E1E1",
       backgroundColor: "#f9f9f9",
+      maxHeight: "80px",
     },
     size: {
       width: 15,
@@ -54,6 +55,22 @@ const TestInformation = (props) => {
       alignItems: "center",
       justifyContent: "center",
       width: "90vw",
+    },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
     },
   }));
 
@@ -80,17 +97,24 @@ const TestInformation = (props) => {
           <Box
             sx={{
               height: "8vh",
+              maxHeight: "80px",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => navigate("/courses")}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
-          <Typography variant="body1" className={classes.center_align}>
-            Högskoleprov 2021 vår mars
+          <Typography
+            variant="body1"
+            className={classes.center_align}
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+          >
+            Högskoleprov {params.state.session.title}{" "}
+            {params.state.session.month}
           </Typography>
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
@@ -101,8 +125,8 @@ const TestInformation = (props) => {
         disableGutters
         style={{
           backgroundColor: "#fff",
-          height: "fit-content",
-          paddingTop: 24,
+          height: "100vh",
+          paddingTop: 48,
         }}
       >
         <Container
@@ -110,9 +134,10 @@ const TestInformation = (props) => {
           style={{
             marginTop: 65,
             backgroundColor: "#f9f9f9",
-            height: "fit-content",
+            height: "85%",
+            maxHeight: "950px",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignItems: "center",
             flexDirection: "column",
           }}
@@ -121,13 +146,14 @@ const TestInformation = (props) => {
             mt={3}
             sx={{
               display: "flex",
-              width: "100%",
+              width: "90%",
               maxWidth: 600,
               flexDirection: "column",
             }}
           >
             <Typography variant="h6" component="h6">
-              Högskoleprov 2021 vår mars
+              Högskoleprov {params.state.session.title}{" "}
+              {params.state.session.month}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>
@@ -150,6 +176,7 @@ const TestInformation = (props) => {
               overflow: "auto",
               border: "1px solid #e1e1e1",
             }}
+            className={classes.scrollbar}
           >
             <Typography variant="h5" component="h5">
               Instruktioner
@@ -278,7 +305,7 @@ const TestInformation = (props) => {
           </Box>
           <Box py={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             <ExerciseBtn
-              title="Nasta"
+              title="Nästa"
               onClick={() =>
                 navigate("/provpassinfo", {
                   state: {
