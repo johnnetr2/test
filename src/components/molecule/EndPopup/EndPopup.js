@@ -104,7 +104,7 @@ export default function EndPopup({
               value={slider}
               valueLabelDisplay="auto"
               name="slider"
-              step={0.2}
+              step={0.1}
               marks={marks}
               min={0.0}
               max={2.0}
