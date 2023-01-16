@@ -57,6 +57,7 @@ const CoursesCard = (props) => {
           id: props.id,
           session: props?.item,
           provpass: response.data.simuleraSeasonResult,
+          provpassOrder: props?.provpassOrder ?? null,
         },
       });
     });
@@ -95,11 +96,6 @@ const CoursesCard = (props) => {
               props?.quizzes?.simuleraQuizResult.length < 4 ||
               !props?.quizzes?.simuleraQuizResult
             ) {
-              console.log({
-                id: props.id,
-                session: props?.item,
-                provpass: props?.quizzes,
-              });
               navigate("/testInformation", {
                 state: {
                   id: props.id,

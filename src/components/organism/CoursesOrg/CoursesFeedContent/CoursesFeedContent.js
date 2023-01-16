@@ -184,8 +184,7 @@ const CoursesFeedContent = (props) => {
                       props.seasons && getSeasonQuizzzes(props.seasons, item)
                     }
                     provpassOrder={
-                      props.provpassOrderBySeason[item?.simuleraSeason?._id] ??
-                      null
+                      props?.provpassOrderBySeason[item?._id] ?? null
                     }
                   />
                 );

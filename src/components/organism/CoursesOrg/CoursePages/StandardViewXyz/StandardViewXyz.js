@@ -92,6 +92,7 @@ const StandardViewXyz = () => {
           currentQuestion: currentIndex,
           provpass: params?.state?.provpass,
           session: params?.state?.session,
+          provpassOrder: params?.state?.provpassOrder,
         },
       });
     }

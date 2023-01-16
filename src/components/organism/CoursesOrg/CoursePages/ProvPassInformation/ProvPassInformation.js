@@ -158,7 +158,12 @@ const ProvPassInformation = () => {
             }}
           >
             <Typography variant="h6" component="h6">
-              Kvantitativt provpass - Provpass{" "}
+              {params?.state?.provpassOrder[
+                params?.state.provpass.simuleraQuizResult.length
+              ].includes("KVA")
+                ? "Kvantitativt"
+                : "Verbalt"}{" "}
+              provpass - Provpass{" "}
               {params?.state.provpass === undefined
                 ? 1
                 : params?.state.provpass.simuleraQuizResult.length + 1}
@@ -329,6 +334,7 @@ const ProvPassInformation = () => {
                     id: params.state.id,
                     session: params.state.session,
                     provpass: params.state.provpass,
+                    provpassOrder: params?.state?.provpassOrder,
                   },
                 })
               }

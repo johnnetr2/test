@@ -39,7 +39,7 @@ const CoursesMain = () => {
   const [limit, setLimit] = useState(5);
   const [provHistoryData, setProvHistoryData] = useState("");
   const [provpassSeasons, setProvpassSeasons] = useState();
-  const [provpassOrderBySeason, setProvpassOrderBySeason] = useState(null);
+  const [provpassOrderBySeason, setProvpassOrderBySeason] = useState({});
   const userId = useSelector((state) => state.value.user._id);
 
   useEffect(() => {
