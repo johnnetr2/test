@@ -16,8 +16,6 @@ const Timer = (props) => {
     return 0;
   };
 
-
-
   useEffect(() => {
     // console.log(props.continueStatus, 'continue status')
     setStart(props.continueStatus);
@@ -42,7 +40,6 @@ const Timer = (props) => {
       }, 1000);
 
       // console.log(tick.current, 'tick current use ref')
-
     }
     return () => clearInterval(tick.current);
   }, [start]);
@@ -73,7 +70,15 @@ const Timer = (props) => {
     // const minute =
     const mins = Math.floor(seconds / 60);
     const seconds_ = Math.floor(seconds % 60);
-    return mins.toString() + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
+    return (
+      (mins.toString().length === 1 ? "0" + mins.toString() : mins.toString()) +
+      ":" +
+      (seconds_ == 0
+        ? "00"
+        : seconds_.toString().length == 1
+        ? "0" + seconds_.toString()
+        : seconds_.toString())
+    );
   };
 
   return (
