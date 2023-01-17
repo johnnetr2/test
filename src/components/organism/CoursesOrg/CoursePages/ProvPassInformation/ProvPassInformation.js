@@ -17,6 +17,8 @@ import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PanoramaSharp } from "@mui/icons-material";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import KvantitativProvpassInfo from "../../../../molecule/KvantitativProvpasInfo/KvantitativProvpassInfo";
+import VerbalProvpassInfo from "../../../../molecule/VerbalProvpassInfo/VerbalProvpassInfo";
 
 const ProvPassInformation = () => {
   const navigate = useNavigate();
@@ -179,7 +181,14 @@ const ProvPassInformation = () => {
               </Box>
             </Box>
           </Box>
-          <Box
+          {params?.state?.provpassOrder[
+            params?.state.provpass.simuleraQuizResult.length
+          ].includes("KVA") ? (
+            <KvantitativProvpassInfo classes={classes} />
+          ) : (
+            <VerbalProvpassInfo classes={classes} />
+          )}
+          {/* <Box
             mt={3}
             // padding={6}
             paddingLeft={6}
@@ -323,7 +332,7 @@ const ProvPassInformation = () => {
               information som finns på respektive uppslag. Till varje uppgift
               finns det fyra svarsförslag. Välj det som bäst besvarar frågan.
             </Typography>
-          </Box>
+          </Box> */}
           <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             {/* <Link to="#"> */}
             <ExerciseBtn
