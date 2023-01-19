@@ -17,15 +17,15 @@ const PayConfirmation = () => {
         if (res.data.status === 200) {
           setIsComplete(true)
         } else {
-          swal("Error", "Something went wrong!", "error")
+          console.log("Error", "Something went wrong!")
         }
       }).catch(err => {
         console.log("error", err)
-        swal("Error", "Something went wrong!", "error")
+        console.log("Error", "Something went wrong from backend!")
 
       })
     } else {
-      swal("Error", "Something went wrong!", "error")
+      console.log("Error", "Order id not found")
       //Handle error and set isComplete to false
     }
   };
