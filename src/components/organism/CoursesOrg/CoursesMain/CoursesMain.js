@@ -39,12 +39,14 @@ const CoursesMain = () => {
   const [limit, setLimit] = useState(5);
   const [provHistoryData, setProvHistoryData] = useState("");
   const [provpassSeasons, setProvpassSeasons] = useState();
+  const [provpassOrderBySeason, setProvpassOrderBySeason] = useState({});
   const userId = useSelector((state) => state.value.user._id);
 
   useEffect(() => {
     const getPreviosExams = EndPoints.getPreviousExams + `?size=${limit}`;
     instance2.get(getPreviosExams).then((response) => {
       setPreviousExams(response.data.data);
+      setProvpassOrderBySeason(response.data.provPassOrder);
     });
 
     const URL = EndPoints.simuleraQuizHistory + userId;
@@ -121,6 +123,7 @@ const CoursesMain = () => {
             data={provHistoryData}
             loadMore={() => LoadMore()}
             seasons={provpassSeasons}
+            provpassOrderBySeason={provpassOrderBySeason}
           />
         </Grid>
         <Grid

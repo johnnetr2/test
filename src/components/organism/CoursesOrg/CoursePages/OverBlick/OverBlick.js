@@ -76,6 +76,7 @@ const OverBlick = () => {
                 id: currentSeason,
                 session: params?.state?.session,
                 provpass: res.data.simuleraSeasonResult,
+                provpassOrder: params?.state?.provpassOrder,
               },
             });
           } else if (provpassNumber === 3) {

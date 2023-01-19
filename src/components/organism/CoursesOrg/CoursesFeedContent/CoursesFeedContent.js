@@ -183,6 +183,9 @@ const CoursesFeedContent = (props) => {
                     quizzes={
                       props.seasons && getSeasonQuizzzes(props.seasons, item)
                     }
+                    provpassOrder={
+                      props?.provpassOrderBySeason[item?._id] ?? null
+                    }
                   />
                 );
               })}

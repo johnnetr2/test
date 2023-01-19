@@ -59,6 +59,7 @@ const CoursesCard = (props) => {
           id: props.id,
           session: props?.item,
           provpass: response.data.simuleraSeasonResult,
+          provpassOrder: props?.provpassOrder ?? null,
         },
       });
     });
@@ -102,6 +103,7 @@ const CoursesCard = (props) => {
                   id: props.id,
                   session: props?.item,
                   provpass: props?.quizzes,
+                  provpassOrder: props.provpassOrder,
                 },
               });
             } else {
