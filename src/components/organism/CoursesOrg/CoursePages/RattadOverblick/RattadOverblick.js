@@ -126,7 +126,8 @@ const RattedOverblick = () => {
             }}
             onClick={() => navigate('/provresultat', {
               state: {
-                seasonId: params.state.seasonId
+                seasonId: params.state.seasonId,
+                quizId: params.state.quizId
               }
             })}
           >
@@ -245,8 +246,8 @@ const RattedOverblick = () => {
                     onClick={() =>
                       navigate('/simuleraprov', {
                         state: {
-                          quiz: result,
-                          questionIndex: index,
+                          quiz: result?.simuleraQuiz,
+                          questionIndex: index, 
                           seasonId: params.state.seasonId,
                           quizId: params.state.quizId
                         }
