@@ -46,6 +46,7 @@ const Provresultat = () => {
 
   useEffect(() => {
     const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
+    console.log(URL)
     instance2.get(URL).then((response) => {
       setOpen(false);
       setTestSummary(response.data);
@@ -901,6 +902,10 @@ const Provresultat = () => {
                               state: {
                                 quizId: row._id,
                                 seasonId: row.simuleraSeason,
+                                examResultData: {
+                                  quizId: params?.state?.quizId,
+                                  seasonId: params?.state?.seasonId,
+                                }
                               },
                             })
                           }
