@@ -608,6 +608,7 @@ const StandardViewXyz = () => {
                                 quiz?.question[currentIndex].sectionCategories
                                   .title
                               }
+                              image={question?.questionStatement.includes("hp-appen.s3.eu-north-1.amazonaws.com")}
                             />
                           </Container>
                           <Box
