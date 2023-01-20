@@ -725,10 +725,19 @@ const QuestionViewDTKOrg = (props) => {
                           padding: "3rem 0rem",
                           display: "flex",
                           flexDirection: "column",
+                          alignItems: "center"
                         }}
                       >
-                        <MarkLatex content={question.questionStatement} />
-
+                        <QuestionStatement 
+                          description={question?.questionStatement}
+                          indications={[
+                            question?.information1,
+                            question?.information2,
+                          ]}
+                          type={quiz?.title}
+                        />
+{/*                         <MarkLatex content={question.questionStatement} />
+ */}
                         {question.image && (
                           <img
                             src={question.image[0]}

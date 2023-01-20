@@ -27,9 +27,9 @@ const QuestionStatement = ({
       </Typography>
       <Typography
         variant="subtitle1"
-        style={{ fontSize: ".875rem", fontWeight: "400" }}
+        style={{ fontSize: ".875rem", fontWeight: "400", width: "100%" }}
       >
-        <MarkLatex content={description} />
+        <MarkLatex content={description}/>
       </Typography>
       {image && (
         <Box>

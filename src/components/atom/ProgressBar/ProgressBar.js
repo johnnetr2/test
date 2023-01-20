@@ -95,6 +95,8 @@ const ProgressBar = (props) => {
                 textTransform: "uppercase",
                 fontSize: "0.65rem",
                 color: "#0A5B2D",
+                position: "absolute",
+                marginTop: 3,
               }}
             >
               GJORDA UPPGIFTER
