@@ -48,9 +48,7 @@ const QuestionViewDTKOrg = (props) => {
     rotation: "0deg",
   });
 
-  const handleUpdate = (position) => {
-    setPosition(position)
-  };
+
   const handleShowRuler = () => {
     setShowRuler((prevState) => !prevState)
     setPosition({
@@ -205,18 +203,6 @@ const QuestionViewDTKOrg = (props) => {
     return () => clearInterval(tymer);
   }, []);
 
-  // quiz?.[0]?.question?.[0]?.answer &&
-
-  const getTimeForUnattemptedQuestions = (quiz, index) => {
-    const ans = quiz[index].question.map((item) => {
-      if (item.answer) {
-        return true;
-      } else if (!item.answer) {
-        return false;
-      }
-    });
-    return ans;
-  };
 
   const handleRightArrowFunction = () => {
     const Quiz = { ...quiz };
