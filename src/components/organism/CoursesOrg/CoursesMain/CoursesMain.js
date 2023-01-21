@@ -2,10 +2,11 @@ import { Container, Grid, makeStyles } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../service/Route";
 import React, { useEffect, useState } from "react";
 
+import GridLayout from "../../GridOrg/GridLayout";
 import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
 import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
+import LeftBar from "../../LeftBarOrg/LeftBar";
 import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -100,45 +101,21 @@ const CoursesMain = () => {
   };
 
   return (
-    <Container maxWidth="false" disableGutters>
-      <Grid container wrap="nowrap" className={classes.main}>
-        <Grid
-          item
-          className={classes.leftBarHide}
-          style={{ maxWidth: "6rem" }}
-          sm={1}
-          xs={1}
-          md={1}
-          lg={1}
-          xl={1}
-        >
-          {/* <CoursesLeftBar /> */}
-          <HomeLeftBar currentPage="course" />
-        </Grid>
-        <Grid item xs={12} sm={10} lg={7} xl={7} style={{ margin: "0 auto" }}>
-          <CoursesFeedContent
-            previousExams={previousExams}
-            data={provHistoryData}
-            loadMore={() => LoadMore()}
-            seasons={provpassSeasons}
-          />
-        </Grid>
-        <Grid
-          item
-          style={{
-            width: "35rem",
-            backgroundColor: "#fafafa",
-          }}
-          className={classes.right}
-        >
-          <CoursesRightBar
-            data={provHistoryData}
-            previousExams={previousExams}
-          />
-        </Grid>
-      </Grid>
-      <BottomNavBar currentPage="course" />
-    </Container>
+    <GridLayout
+      leftBar={<LeftBar currentPage="home" />}
+      middle={
+        <CoursesFeedContent
+          previousExams={previousExams}
+          data={provHistoryData}
+          loadMore={() => LoadMore()}
+          seasons={provpassSeasons}
+        />
+      }
+      rightBar={
+        <CoursesRightBar data={provHistoryData} previousExams={previousExams} />
+      }
+      bottomNav={<BottomNavBar currentPage="course" />}
+    />
   );
 };
 

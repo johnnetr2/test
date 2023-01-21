@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import PremiumCTA from "./PremiumCTA";
-import Logo from "../../../../assets/Icons/Logo.svg";
-import LogoIcon from "../../../../assets/Icons/LogoIcon.svg";
+import Logo from "../../../assets/Icons/Logo.svg";
+import LogoIcon from "../../../assets/Icons/LogoIcon.svg";
 import Menus from "./Menus";
 import {
   Container,
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeLeftBar = (props) => {
+const LeftBar = (props) => {
   const classes = useStyles();
   const currentPage = useLocation().pathname;
   const theme = useTheme();
@@ -78,4 +78,4 @@ const HomeLeftBar = (props) => {
   );
 };
 
-export default HomeLeftBar;
+export default LeftBar;
