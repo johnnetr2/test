@@ -129,6 +129,7 @@ const ResultSummaryOrg = () => {
 
   const classes = useStyles(10);
   useEffect(() => {
+    console.log("params?.state?.quizId", params?.state?.quizId)
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
     const headers = {
@@ -214,10 +215,10 @@ const ResultSummaryOrg = () => {
                   <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
                   {responseCollection
                     ? dispSecondsAsMins(
-                        responseCollection?.question[
-                          responseCollection.question.length - 1
-                        ].timeleft?.toFixed(0)
-                      )
+                      responseCollection?.question[
+                        responseCollection.question.length - 1
+                      ].timeleft?.toFixed(0)
+                    )
                     : "00:00"}
                 </Box>
               )
@@ -284,12 +285,12 @@ const ResultSummaryOrg = () => {
                   }}
                 >
                   {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
-                    <Typography variant="h4" style={{marginRight: "0.8rem"}}>
+                    responseCollection?.correctAnswer != null ? (
+                    <Typography variant="h4" style={{ marginRight: "0.8rem" }}>
                       {responseCollection &&
                         responseCollection.correctAnswer +
-                          " /" +
-                          responseCollection.question.length}
+                        " /" +
+                        responseCollection.question.length}
                     </Typography>
                   ) : (
                     <Box sx={{ display: "flex" }}>
@@ -322,18 +323,20 @@ const ResultSummaryOrg = () => {
                     }}
                   >
                     {responseCollection ? (
-                      <Typography variant="h4" style={{marginLeft: percentageCalculation(
-                        params,
-                        (responseCollection.correctAnswer /
-                          responseCollection.question.length) *
+                      <Typography variant="h4" style={{
+                        marginLeft: percentageCalculation(
+                          params,
+                          (responseCollection.correctAnswer /
+                            responseCollection.question.length) *
                           100
-                     ).toString().length > 1 ? "3.2rem" : "0rem"}}>
+                        ).toString().length > 1 ? "3.2rem" : "0rem"
+                      }}>
                         {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
                         {percentageCalculation(
                           params,
                           (responseCollection.correctAnswer /
                             responseCollection.question.length) *
-                            100
+                          100
                         )}
                       </Typography>
                     ) : (

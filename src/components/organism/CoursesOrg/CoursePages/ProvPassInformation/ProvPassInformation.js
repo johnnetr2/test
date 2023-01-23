@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
@@ -17,6 +17,8 @@ import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PanoramaSharp } from "@mui/icons-material";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import KvantitativProvpassInfo from "../../../../molecule/KvantitativProvpasInfo/KvantitativProvpassInfo";
+import VerbalProvpassInfo from "../../../../molecule/VerbalProvpassInfo/VerbalProvpassInfo";
 
 const ProvPassInformation = () => {
   const navigate = useNavigate();
@@ -158,7 +160,12 @@ const ProvPassInformation = () => {
             }}
           >
             <Typography variant="h6" component="h6">
-              Kvantitativt provpass - Provpass{" "}
+              {params?.state?.provpassOrder[
+                params?.state.provpass.simuleraQuizResult.length
+              ].includes("KVA")
+                ? "Kvantitativt"
+                : "Verbalt"}{" "}
+              provpass - Provpass{" "}
               {params?.state.provpass === undefined
                 ? 1
                 : params?.state.provpass.simuleraQuizResult.length + 1}
@@ -174,7 +181,14 @@ const ProvPassInformation = () => {
               </Box>
             </Box>
           </Box>
-          <Box
+          {params?.state?.provpassOrder[
+            params?.state.provpass.simuleraQuizResult.length
+          ].includes("KVA") ? (
+            <KvantitativProvpassInfo classes={classes} />
+          ) : (
+            <VerbalProvpassInfo classes={classes} />
+          )}
+          {/* <Box
             mt={3}
             // padding={6}
             paddingLeft={6}
@@ -318,7 +332,7 @@ const ProvPassInformation = () => {
               information som finns på respektive uppslag. Till varje uppgift
               finns det fyra svarsförslag. Välj det som bäst besvarar frågan.
             </Typography>
-          </Box>
+          </Box> */}
           <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             {/* <Link to="#"> */}
             <ExerciseBtn
@@ -329,6 +343,7 @@ const ProvPassInformation = () => {
                     id: params.state.id,
                     session: params.state.session,
                     provpass: params.state.provpass,
+                    provpassOrder: params?.state?.provpassOrder,
                   },
                 })
               }

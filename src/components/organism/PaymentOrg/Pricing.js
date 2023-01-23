@@ -5,6 +5,7 @@ import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
 import { EndPoints, instance2 } from "../../service/Route";
 import PayButton from "./PayButton";
+require("dotenv").config();
 
 const Pricing = () => {
   const [price, setPrice] = useState(75);
@@ -36,8 +37,8 @@ const Pricing = () => {
       ],
       merchant_urls: {
         terms: "https://www.example.com/terms.html", // Johnny edit this later
-        checkout: "http://localhost:3000/checkout", // We go for localhost url in DEV mode.
-        confirmation: "http://localhost:3000/payment-confirmation", // We go for localhost url in DEV mode.
+        checkout: process.env.REACT_APP_BASE_URL + "/checkout", // We go for localhost url in DEV mode.
+        confirmation: process.env.REACT_APP_BASE_URL + "/payment-confirmation", // We go for localhost url in DEV mode.
         push: "https://www.example.com/api/push", //We need to respond to Klarna with a 200 status.
       },
     });
