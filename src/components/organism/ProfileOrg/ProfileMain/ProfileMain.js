@@ -1,7 +1,7 @@
 import { Container, Grid, makeStyles } from "@material-ui/core";
 
 import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
+import LeftBar from "../../LeftBarOrg/LeftBar";
 import ProfileFeedContent from "../ProfileFeedContent/ProfileFeedContent";
 import ProfileRightBar from "../ProfileRightBar/ProfileRightBar";
 import React from "react";
@@ -45,14 +45,14 @@ const ProfileMain = () => {
         <Grid
           className={classes.leftBarHide}
           item
-          style={{ maxWidth: "6rem" }}
-          sm={1}
-          xs={1}
-          md={1}
-          lg={1}
-          xl={1}
+          style={{ maxWidth: "13rem" }}
+          sm={2}
+          xs={2}
+          md={2}
+          lg={2}
+          xl={2}
         >
-          <HomeLeftBar currentPage="profile" />
+          <LeftBar currentPage="profile" />
         </Grid>
         <Grid
           item
