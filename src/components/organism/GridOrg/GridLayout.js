@@ -3,13 +3,12 @@ import {
   gridStyling,
   leftBarGridSizes,
   middleGridSizes,
-  feedbackMiddleGridSizes,
 } from "../../../styles/GridSystem";
 import { useLocation } from "react-router-dom";
 
 const GridLayout = (props) => {
   const location = useLocation().pathname;
-  console.log(location.pathname);
+  console.log("h1", location);
   const classes = gridStyling();
   return (
     <Container maxWidth="false" disableGutters>
@@ -20,10 +19,18 @@ const GridLayout = (props) => {
         <Grid item {...middleGridSizes} className={classes.middleGrid}>
           {props.middle}
         </Grid>
-        {/* //hide if it is feeback page */}
-        <Grid item className={classes.rightBarGrid}>
-          {props.rightBar}
-        </Grid>
+        {!props.rightBar ? null : (
+          <Grid
+            item
+            className={`${
+              location === "/category"
+                ? classes.rightBarGridCategory
+                : classes.rightBarGrid
+            }`}
+          >
+            {props.rightBar}
+          </Grid>
+        )}
       </Grid>
       {props.bottomNav}
     </Container>

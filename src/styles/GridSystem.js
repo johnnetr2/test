@@ -29,6 +29,14 @@ export const gridStyling = makeStyles((theme) => ({
       display: "none",
     },
   },
+  //Special size for RightBarGrid on category
+  rightBarGridCategory: {
+    width: "35rem",
+    paddingRight: "1rem",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  },
 
   //Below is for middleGrid
   middleGrid: {
@@ -50,4 +58,3 @@ export const middleGridSizes = {
   lg: 7,
   xl: 7,
 };
-
