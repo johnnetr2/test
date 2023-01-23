@@ -72,7 +72,7 @@ const ExamTextView = ({text, title, questionLength}) => {
             <Typography variant="h6" component="h6">
               {title ? title : ""}
             </Typography>
-            <MarkLatex content={text}/>
+            <MarkLatex content={text} />
             <Dialog
               open={extendedView}
               onClose={closeExtended}
