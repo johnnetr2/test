@@ -75,6 +75,6 @@ export const EndPoints = {
   getParagraphQuestionAnswer: "/api/quizResult/paragraphQuestionResult/",
   emailVerified: "/auth/verify/",
   createOrder: "/api/payments/createOrder",
-  getOrder: "/api/payments/order",
+  getOrder: "/api/payments/order/",
   makePremium: "/api/payments/order/setToPremium"
 };
