@@ -76,5 +76,4 @@ export const EndPoints = {
   emailVerified: "/auth/verify/",
   createOrder: "/api/payments/createOrder",
   getOrder: "/api/payments/order/",
-  makePremium: "/api/payments/order/setToPremium"
 };
