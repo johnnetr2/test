@@ -58,6 +58,8 @@ const CoursesFeedContent = (props) => {
     setTabValue(val);
   };
 
+  console.log(props?.data)
+
   const getSeasonQuizzzes = (seasons, item) => {
     return seasons.find((elem) => item?._id === elem.simuleraSeason?._id);
   };
@@ -180,9 +182,15 @@ const CoursesFeedContent = (props) => {
                     <CoursesCard
                       id={item?._id}
                       item={item}
-                      progress={"1.5"}
+                      progress={props?.data && props?.data?.find(
+                        (provHistory) =>
+                          provHistory?.simuleraSeason?._id === item?._id
+                      )}
                       quizzes={
                         props.seasons && getSeasonQuizzzes(props.seasons, item)
+                      }
+                      provpassOrder={
+                        props?.provpassOrderBySeason[item?._id] ?? null
                       }
                     />
                   );
