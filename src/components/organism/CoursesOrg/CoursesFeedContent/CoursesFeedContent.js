@@ -49,6 +49,8 @@ const CoursesFeedContent = (props) => {
   const navigate = useNavigate();
 
   const [tabValue, setTabValue] = useState(0);
+  //Search query
+  const [query, setQuery] = useState("");
 
   let previousExams = props.previousExams;
 
@@ -140,11 +142,12 @@ const CoursesFeedContent = (props) => {
           >
             <Input
               type="search"
-              placeholder="Sök prov mellan 2011-2022"
+              placeholder="Sök prov här..."
               style={{ border: "none" }}
+              onChange={(e) => setQuery(e.target.value)}
             />
             <Box>
-              <img style={{ marginLeft: ".5rem" }} src={SearchIcon} alt="" />
+              <img src={SearchIcon} alt="" />
             </Box>
             {/* {console.log(props?.seasons, "seasons")} */}
           </Box>
@@ -170,25 +173,20 @@ const CoursesFeedContent = (props) => {
             // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
-              props?.data &&
-              previousExams.map((item) => {
-                return (
-                  <CoursesCard
-                    id={item?._id}
-                    item={item}
-                    progress={props?.data?.find(
-                      (provHistory) =>
-                        provHistory?.simuleraSeason?._id === item?._id
-                    )}
-                    quizzes={
-                      props.seasons && getSeasonQuizzzes(props.seasons, item)
-                    }
-                    provpassOrder={
-                      props?.provpassOrderBySeason[item?._id] ?? null
-                    }
-                  />
-                );
-              })}
+              previousExams
+                .filter((exam) => exam.title.toLowerCase().includes(query))
+                .map((item) => {
+                  return (
+                    <CoursesCard
+                      id={item?._id}
+                      item={item}
+                      progress={"1.5"}
+                      quizzes={
+                        props.seasons && getSeasonQuizzzes(props.seasons, item)
+                      }
+                    />
+                  );
+                })}
           </Box>
           {/*  */}
         </Box>

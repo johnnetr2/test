@@ -166,6 +166,25 @@ const CoursesCard = (props) => {
               alignItems: "center",
               flexWrap: "wrap",
             }}
+            onClick={() => {
+              console.log("this");
+              if (props?.quizzes.simuleraQuizResult.length < 4) {
+                navigate("/testInformation", {
+                  state: {
+                    id: props.id,
+                    session: props?.item,
+                    provpass: props?.quizzes,
+                  },
+                });
+              } else {
+                navigate("/provresultat", {
+                  state: {
+                    seasonId: props?.quizzes.simuleraSeason._id,
+                    simuleraQuizResultId: props?.quizzes._id,
+                  },
+                });
+              }
+            }}
           >
             <Box>
               <Box

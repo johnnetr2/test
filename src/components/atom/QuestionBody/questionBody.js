@@ -188,7 +188,7 @@ const QuestionBody = (props) => {
             description={question?.questionStatement}
             indications={[question?.information1, question?.information2]}
             type={props.questionTypeTitle}
-          />
+            />
         </Container>
 
         <Container

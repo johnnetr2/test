@@ -1,13 +1,12 @@
 import React from "react";
-import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PremiumCTA from "./PremiumCTA";
-import Logo from "../../../../assets/Icons/Logo.svg";
-import LogoIcon from "../../../../assets/Icons/LogoIcon.svg";
+import Logo from "../../../assets/Icons/Logo.svg";
+import LogoIcon from "../../../assets/Icons/LogoIcon.svg";
 import Menus from "./Menus";
 import {
   Container,
   makeStyles,
-  TableContainer,
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
@@ -45,9 +44,17 @@ const useStyles = makeStyles((theme) => ({
       width: "5rem",
     },
   },
+  premiumCTAStyling: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "0.5rem",
+    [theme.breakpoints.down("sm")]: {
+      padding: "0.5rem",
+    },
+  },
 }));
 
-const HomeLeftBar = (props) => {
+const LeftBar = (props) => {
   const classes = useStyles();
   const currentPage = useLocation().pathname;
   const theme = useTheme();
@@ -61,21 +68,25 @@ const HomeLeftBar = (props) => {
       style={{ width: "100%" }}
       className={classes.container}
     >
-      <TableContainer //Logo container
+      <Container //Logo container
         className={classes.logoContainer}
       >
         <Link to="/home">
-          <img src={logoSrc} className={classes.logoStyling} />
+          <img src={logoSrc} alt="logo" className={classes.logoStyling} />
         </Link>
-      </TableContainer>
+      </Container>
       <Menus
         currentPage={currentPage}
         toggleIcon={props.toggleIcon}
         setToggleIcon={props.setToggleIcon}
       />
-      <PremiumCTA />
+      <Container //Change to PremiumCTA later
+        className={classes.premiumCTAStyling}
+      >
+        <PremiumCTA />
+      </Container>
     </Container>
   );
 };
 
-export default HomeLeftBar;
+export default LeftBar;
