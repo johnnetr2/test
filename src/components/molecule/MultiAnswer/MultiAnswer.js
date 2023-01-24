@@ -1,19 +1,16 @@
-import { FormControlLabel, Radio, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import { FormControlLabel } from "@material-ui/core";
+import React, { useState } from "react";
 
 import { Box } from "@mui/material";
-import Correct from "../../../assets/Imgs/correct.png";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
-import MarkLatex from "../../atom/Marklatex/MarkLatex";
-import Wrong from "../../../assets/Imgs/wrong.png";
 import FeedbackButtons from "../../atom/FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import AnswerStatement from "../AnswerStatement/AnswerStatement";
+import RadioButtonOptions from "../RadioButtonsOptions";
 
 const MultiAnswer = (props) => {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
   const [count, setCount] = useState();
-
   const PlusPoint = () => {
     setCount(1);
     MixpanelTracking.getInstance().feedbackButtonClicked(
@@ -36,42 +33,6 @@ const MultiAnswer = (props) => {
       "negative"
     );
     setFeedbackPopup(true);
-  };
-  const options = (item, index) => {
-    if (
-      props?.question?.answer &&
-      props?.question?.answer?.option === item._id
-    ) {
-      return (
-        <img
-          src={Correct}
-          style={{
-            height: "28px",
-            width: '28px',
-            marginRight: ".5rem",
-            marginLeft: ".8rem",
-            marginTop: ".5rem",
-            marginBottom: ".5rem",
-          }}
-        />
-      );
-    } else if (props?.question.optionId == item._id) {
-      return (
-        <img
-          src={Wrong}
-          style={{
-            height: "28px",
-            width: '28px',
-            marginRight: ".5rem",
-            marginLeft: ".8rem",
-            marginTop: ".5rem",
-            marginBottom: ".5rem",
-          }}
-        />
-      );
-    } else {
-      return <Radio checked={false} />;
-    }
   };
 
   return (
@@ -96,10 +57,10 @@ const MultiAnswer = (props) => {
               >
                 <FormControlLabel
                   style={{
-                    marginLeft: ".5rem", color: !props?.question?.answer && props?.question.optionId === item._id ? "#EB5757" : props?.question?.answer &&
+                    marginLeft: ".5rem", color: props?.question?.answer.option !== item._id && props?.question.optionId === item._id ? "#EB5757" : props?.question?.answer &&
                       props?.question?.answer?.option === item._id ? "#27AE60" : "#505050"
                   }}
-                  control={options(item, index)}
+                  control={RadioButtonOptions(item, props?.question, index)}
                   label={item.value}
                 />
               </Box>

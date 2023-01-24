@@ -12,7 +12,8 @@ export const appColors = {
     blueColor: "#5263EB",
     blackColor: "#000000",
     whiteColor: "#FFFFFF",
-    hoverBlue: "#4754f3"
+    hoverBlue: "#4754f3",
+    leftBarHover: "#F2F2F2"
 };
 
 export const setInitialUserState = (user) => {

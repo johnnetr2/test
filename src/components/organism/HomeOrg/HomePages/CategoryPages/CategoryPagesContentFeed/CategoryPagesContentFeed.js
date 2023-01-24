@@ -558,7 +558,8 @@ const CategoryPagesFeedContent = (props) => {
         }}
         onClick={(isPremium || isInTrial) && checkedData.length > 0 && onSubmit}
       >
-        <FilledBtn disabled={!(isInTrial || isPremium)} title="Starta övningar" />
+        Starta övningar
+        {/* <FilledBtn disabled={!(isInTrial || isPremium)} title="Starta övningar" /> */}
       </Box>
       <Box className={classes.tabsSection}>
         <Tabs

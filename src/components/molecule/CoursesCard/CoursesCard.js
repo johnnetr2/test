@@ -59,6 +59,7 @@ const CoursesCard = (props) => {
           id: props.id,
           session: props?.item,
           provpass: response.data.simuleraSeasonResult,
+          provpassOrder: props?.provpassOrder ?? null,
         },
       });
     });
@@ -86,32 +87,35 @@ const CoursesCard = (props) => {
           borderRadius: ".25rem",
           boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
-          cursor: "pointer",
+          cursor: (isPremium || isInTrial) ? "pointer" : "",
           maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
         <Box
           sx={{ paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
-            if (
-              props?.quizzes?.simuleraQuizResult.length < 4 ||
-              !props?.quizzes?.simuleraQuizResult
-            ) {
-              navigate("/testInformation", {
-                state: {
-                  id: props.id,
-                  session: props?.item,
-                  provpass: props?.quizzes,
-                },
-              });
-            } else {
-              navigate("/provresultat", {
-                state: {
-                  seasonId: props?.quizzes?.simuleraSeason?._id,
-                  simuleraQuizResultId: props?.quizzes?._id,
-                  quizId: props?.quizzes?._id,
-                },
-              });
+            if (isPremium || isInTrial) {
+              if (
+                props?.quizzes?.simuleraQuizResult.length < 4 ||
+                !props?.quizzes?.simuleraQuizResult
+              ) {
+                navigate("/testInformation", {
+                  state: {
+                    id: props.id,
+                    session: props?.item,
+                    provpass: props?.quizzes,
+                    provpassOrder: props.provpassOrder,
+                  },
+                });
+              } else {
+                navigate("/provresultat", {
+                  state: {
+                    seasonId: props?.quizzes?.simuleraSeason?._id,
+                    simuleraQuizResultId: props?.quizzes?._id,
+                    quizId: props?.quizzes?._id,
+                  },
+                });
+              }
             }
           }}
         >
@@ -125,7 +129,7 @@ const CoursesCard = (props) => {
                 width: "1.1rem",
               }}
             >
-              {!(isPremium || isInTrial) && percentage() === 100 ?
+              {!(isPremium || isInTrial) ?
                 (
                   <Box sx={{
                     borderRadius: '0px 4px 0px 0px',
@@ -163,6 +167,27 @@ const CoursesCard = (props) => {
               justifyContent: "space-between",
               alignItems: "center",
               flexWrap: "wrap",
+            }}
+            onClick={() => {
+              console.log("this");
+              if (isInTrial || isPremium) {
+                if (props?.quizzes.simuleraQuizResult.length < 4) {
+                  navigate("/testInformation", {
+                    state: {
+                      id: props.id,
+                      session: props?.item,
+                      provpass: props?.quizzes,
+                    },
+                  });
+                } else {
+                  navigate("/provresultat", {
+                    state: {
+                      seasonId: props?.quizzes.simuleraSeason._id,
+                      simuleraQuizResultId: props?.quizzes._id,
+                    },
+                  });
+                }
+              }
             }}
           >
             <Box>

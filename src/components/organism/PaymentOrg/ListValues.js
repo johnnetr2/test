@@ -12,7 +12,7 @@ const ListValues = () => {
               <span style={{ marginRight: "8px" }}>
                 <img width={"30px"} src={CheckmarkPurple} alt="" />
               </span>
-              <span>+4000 uppgifter på alla 8 delar</span>
+              <span>3500+ uppgifter på alla 8 delar</span>
             </div>
           </ListItem>
         </Grid>
@@ -22,7 +22,7 @@ const ListValues = () => {
               <span style={{ marginRight: "8px" }}>
                 <img width={"30px"} src={CheckmarkPurple} alt="" />
               </span>
-              <span>+4000 detaljerade lösningar</span>
+              <span>1300+ detaljerade lösningar</span>
             </div>
           </ListItem>
         </Grid>
@@ -32,7 +32,7 @@ const ListValues = () => {
               <span style={{ marginRight: "8px" }}>
                 <img width={"30px"} src={CheckmarkPurple} alt="" />
               </span>
-              <span>Alla prov mellan 2011-2022</span>
+              <span>Gamla prov mellan 2011-2022 <br></br>med automatisk rättning och poäng</span>
             </div>
           </ListItem>
         </Grid>

@@ -48,9 +48,7 @@ const QuestionViewDTKOrg = (props) => {
     rotation: "0deg",
   });
 
-  const handleUpdate = (position) => {
-    setPosition(position)
-  };
+
   const handleShowRuler = () => {
     setShowRuler((prevState) => !prevState)
     setPosition({
@@ -205,18 +203,6 @@ const QuestionViewDTKOrg = (props) => {
     return () => clearInterval(tymer);
   }, []);
 
-  // quiz?.[0]?.question?.[0]?.answer &&
-
-  const getTimeForUnattemptedQuestions = (quiz, index) => {
-    const ans = quiz[index].question.map((item) => {
-      if (item.answer) {
-        return true;
-      } else if (!item.answer) {
-        return false;
-      }
-    });
-    return ans;
-  };
 
   const handleRightArrowFunction = () => {
     const Quiz = { ...quiz };
@@ -725,10 +711,19 @@ const QuestionViewDTKOrg = (props) => {
                           padding: "3rem 0rem",
                           display: "flex",
                           flexDirection: "column",
+                          alignItems: "center"
                         }}
                       >
-                        <MarkLatex content={question.questionStatement} />
-
+                        <QuestionStatement 
+                          description={question?.questionStatement}
+                          indications={[
+                            question?.information1,
+                            question?.information2,
+                          ]}
+                          type={quiz?.title}
+                        />
+{/*                         <MarkLatex content={question.questionStatement} />
+ */}
                         {question.image && (
                           <img
                             src={question.image[0]}

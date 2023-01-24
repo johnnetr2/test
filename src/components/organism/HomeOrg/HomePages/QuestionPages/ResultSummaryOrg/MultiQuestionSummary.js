@@ -2,20 +2,18 @@ import {
   Box,
   Container,
   FormControlLabel,
-  Radio,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
-import Correct from "../../../../../../assets/Imgs/correct.png";
 import FeedbackButtons from "../../../../../atom/FeedbackButtons/FeedbackButtons";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import WarningIcon from "../../../../../../assets/Icons/WarningIcon.svg";
-import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
 import AnswerStatement from "../../../../../molecule/AnswerStatement/AnswerStatement";
+import RadioButtonOptions from "../../../../../molecule/RadioButtonsOptions";
 
 const useStyles = makeStyles((theme) => ({
   unAttemptedQuestion: {
@@ -37,61 +35,6 @@ function MultiQuestionSummary(props) {
   useEffect(() => {
     setQuestion(props.question);
   }, []);
-
-  const Options = (question, curentOption, optionIndex) => {
-    if (question.answer && question.optionId == curentOption._id) {
-      return (
-        <img
-          src={Correct}
-          style={{
-            marginRight: "0.5rem",
-            marginLeft: ".5rem",
-            marginBottom: ".6rem",
-          }}
-        />
-      );
-    } else if (
-      question.answer &&
-      curentOption._id === question.answer.option &&
-      question?.optionId
-    ) {
-      return (
-        <img
-          src={Wrong}
-          style={{
-            marginRight: "0.5rem",
-            marginLeft: ".5rem",
-            marginBottom: ".6rem",
-          }}
-        />
-      );
-    } else if (question.answer && curentOption._id !== question?.optionId) {
-      return (
-        <Radio
-          disabled
-          checked={false}
-          style={{ marginRight: "0.5rem", color: "#E1E1E1" }}
-        />
-      );
-    }
-    if (optionIndex == question.selectedIndex) {
-      return (
-        <Radio
-          color="primary"
-          checked={true}
-          style={{ marginBottom: ".5rem" }}
-        />
-      );
-    } else {
-      return (
-        <Radio
-          color="primary"
-          checked={false}
-          style={{ marginBottom: ".5rem" }}
-        />
-      );
-    }
-  };
 
   return (
     <Container
@@ -192,8 +135,11 @@ function MultiQuestionSummary(props) {
               <FormControlLabel
                 onClick={(e) => { }}
                 value={curentOption._id}
-                style={{ marginLeft: ".5rem", marginTop: ".3rem" }}
-                control={Options(question, curentOption, optionIndex)}
+                style={{
+                  marginLeft: ".5rem", marginTop: ".3rem", color: question?.answer.option !== curentOption._id && question.optionId === curentOption._id ? "#EB5757" : question?.answer &&
+                    question?.answer?.option === curentOption._id ? "#27AE60" : "#505050"
+                }}
+                control={RadioButtonOptions(curentOption, question, optionIndex)}
                 label={
                   <MarkLatex
                     content={curentOption.value.replace("\f", "\\f")}
