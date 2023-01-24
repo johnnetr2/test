@@ -162,7 +162,7 @@ const ProvPassInformation = () => {
             <Typography variant="h6" component="h6">
               {params?.state?.provpassOrder[
                 params?.state.provpass.simuleraQuizResult.length
-              ].includes("KVA")
+              ]?.includes("KVA")
                 ? "Kvantitativt"
                 : "Verbalt"}{" "}
               provpass - Provpass{" "}
@@ -183,7 +183,7 @@ const ProvPassInformation = () => {
           </Box>
           {params?.state?.provpassOrder[
             params?.state.provpass.simuleraQuizResult.length
-          ].includes("KVA") ? (
+          ]?.includes("KVA") ? (
             <KvantitativProvpassInfo classes={classes} />
           ) : (
             <VerbalProvpassInfo classes={classes} />
