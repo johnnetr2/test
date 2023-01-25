@@ -122,7 +122,7 @@ const Pricing = () => {
                 checked={pricingSwitch}
                 onChange={(e) => {
                   setPricingSwitch(!pricingSwitch);
-                  setPrice(e.target.checked ? 90 : 450);
+                  setPrice(e.target.checked ? 75 : 450);
                 }}
                 inputProps={{ "aria-label": "ant design" }}
               />
