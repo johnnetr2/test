@@ -1,4 +1,4 @@
-import { Container, Grid, makeStyles } from "@material-ui/core";
+
 import { EndPoints, instance2 } from "../../../service/Route";
 import React, { useEffect, useState } from "react";
 
@@ -6,48 +6,25 @@ import GridLayout from "../../GridOrg/GridLayout";
 import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
 import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
+import AppLoader from "../../../molecule/AppLoader";
 import LeftBar from "../../LeftBarOrg/LeftBar";
 import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  right: {
-    [theme.breakpoints.down("1200")]: {
-      display: "none",
-    },
-    padding: "0 1rem",
-  },
-  main: {
-    minHeight: "100vh",
-    [theme.breakpoints.up("1300")]: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    [theme.breakpoints.down("1280")]: {
-      display: "flex",
-      justifyContent: "flex-start",
-    },
-  },
-  leftBarHide: {
-    [theme.breakpoints.down("600")]: {
-      display: "none",
-    },
-  },
-}));
-
 const CoursesMain = () => {
-  const classes = useStyles();
   const [previousExams, setPreviousExams] = useState();
   const [limit, setLimit] = useState(5);
   const [provHistoryData, setProvHistoryData] = useState("");
   const [provpassSeasons, setProvpassSeasons] = useState();
   const [provpassOrderBySeason, setProvpassOrderBySeason] = useState({});
+  const [isLoading, setIsLoading] = useState(true)
   const userId = useSelector((state) => state.value.user._id);
 
-  useEffect(() => {
+  useEffect(async () => {
     const getPreviosExams = EndPoints.getPreviousExams + `?size=${limit}`;
     instance2.get(getPreviosExams).then((response) => {
       setPreviousExams(response.data.data);
       setProvpassOrderBySeason(response.data.provPassOrder);
+      setIsLoading(false)
     });
 
     const URL = EndPoints.simuleraQuizHistory + userId;
@@ -103,9 +80,11 @@ const CoursesMain = () => {
   };
 
   return (
-    <GridLayout
-      leftBar={<LeftBar />}
-      middle={
+    <>
+      <AppLoader isLoading={isLoading} />
+      <GridLayout
+        leftBar={<LeftBar />}
+        middle={
           <CoursesFeedContent
             previousExams={previousExams}
             data={provHistoryData}
@@ -113,15 +92,16 @@ const CoursesMain = () => {
             seasons={provpassSeasons}
             provpassOrderBySeason={provpassOrderBySeason}
           />
-      }
-      rightBar={
+        }
+        rightBar={
           <CoursesRightBar
             data={provHistoryData}
             previousExams={previousExams}
           />
-      }
-      bottomNav={<BottomNavBar currentPage="course" />}
-    />
+        }
+        bottomNav={<BottomNavBar currentPage="course" />}
+      />
+    </>
 
   );
 };
