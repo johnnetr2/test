@@ -58,7 +58,6 @@ const CoursesFeedContent = (props) => {
     setTabValue(val);
   };
 
-  console.log(props?.data)
 
   const getSeasonQuizzzes = (seasons, item) => {
     return seasons.find((elem) => item?._id === elem.simuleraSeason?._id);
