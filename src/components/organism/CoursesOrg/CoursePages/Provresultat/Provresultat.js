@@ -477,9 +477,10 @@ const Provresultat = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "flex-end",
+                      marginRight: testSummary?.correctQuestion.toString().length === 2 ? "6.2rem" : testSummary?.correctQuestion.toString().length === 1 ? "6.4rem" : "4.5rem",
                     }}
                   >
-                    <Typography variant="h3" component="h3">
+                    <Typography variant="h3" component="h3" >
                       {testSummary?.correctQuestion}
                     </Typography>
                     <Typography
@@ -580,6 +581,7 @@ const Provresultat = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "flex-end",
+                      marginRight: testSummary?.normering.toFixed(1).replace(/\.0+$/, "").length === 3 ? "3.1rem" : "5rem"
                     }}
                   >
                     <Typography variant="h3" component="h3">
