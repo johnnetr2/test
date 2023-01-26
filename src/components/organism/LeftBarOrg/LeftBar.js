@@ -60,7 +60,7 @@ const LeftBar = (props) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const logoSrc = isSmallScreen ? LogoIcon : Logo;
-
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
   return (
     //Mother container
     <Container
@@ -80,11 +80,13 @@ const LeftBar = (props) => {
         toggleIcon={props.toggleIcon}
         setToggleIcon={props.setToggleIcon}
       />
-      <Container //Change to PremiumCTA later
-        className={classes.premiumCTAStyling}
-      >
-        <PremiumCTA />
-      </Container>
+      {!isPremium &&
+        <Container //Change to PremiumCTA later
+          className={classes.premiumCTAStyling}
+        >
+          <PremiumCTA />
+        </Container>
+      }
     </Container>
   );
 };
