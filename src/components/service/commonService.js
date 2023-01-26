@@ -19,7 +19,7 @@ export const appColors = {
 export const setInitialUserState = (user) => {
     const verifiedAtDate = user.verified_date ? user.verified_date : new Date();
     const trialDate = moment(verifiedAtDate)
-        .add(300, "days")
+        .add(5, "days")
         .format("YYYY-MM-DD");
     const currentDate = moment(new Date()).format("YYYY-MM-DD");
     const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);

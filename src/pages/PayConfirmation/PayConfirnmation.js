@@ -17,6 +17,7 @@ const PayConfirmation = () => {
 
       instance2.get(EndPoints.getOrder + order_id).then(res => {
         setIsComplete(true)
+        localStorage.setItem("isPremium", true)
         setIsLoading(false)
       }).catch(err => {
         console.log("error", err)

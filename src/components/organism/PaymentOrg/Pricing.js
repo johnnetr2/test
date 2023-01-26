@@ -15,11 +15,12 @@ const Pricing = () => {
   const checkoutContainer = useRef(null);
 
   const goPayment = () => {
+
     const orderData = JSON.stringify({
       purchase_country: "SE",
       purchase_currency: "SEK",
       locale: "sv-se",
-      order_amount: 100,
+      order_amount: price,
       order_tax_amount: 20,
       order_lines: [
         {
@@ -30,7 +31,7 @@ const Pricing = () => {
           quantity_unit: "pcs",
           unit_price: 100,
           tax_rate: 2500,
-          total_amount: 100,
+          total_amount: price,
           total_discount_amount: 0,
           total_tax_amount: 20,
         },
