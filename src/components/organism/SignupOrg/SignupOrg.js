@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
-import { EndPoints, instance } from "../../service/Route";
+import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
 
 import FilledBtn from "../../atom/FilledBtn/FilledBtn";
@@ -9,13 +9,12 @@ import LabelField from "../../molecule/LabelField/LabelField";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
-import OutlineBtn from "../../atom/OutlineBtn/OutlineBtn";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
-import { appColors } from "../../service/commonService";
+import { appColors, setInitialUserState } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -65,7 +64,12 @@ const SignupOrg = () => {
 
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/home");
+      instance2.get(EndPoints.getUser).then(response => {
+        setInitialUserState(response.data)
+        navigate("/home");
+      }).catch(error => {
+        console.log("error", error)
+      })
     }
   }, []);
 
