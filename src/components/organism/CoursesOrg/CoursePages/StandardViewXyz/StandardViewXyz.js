@@ -609,7 +609,7 @@ const StandardViewXyz = () => {
                                 quiz?.question[currentIndex].sectionCategories
                                   .title
                               }
-                              image={question?.questionStatement.includes("hp-appen.s3.eu-north-1.amazonaws.com")}
+                              image={question?.questionStatement?.includes("hp-appen.s3.eu-north-1.amazonaws.com")}
                             />
                           </Container>
                           <Box
@@ -655,7 +655,7 @@ const StandardViewXyz = () => {
                                       sx={{
                                         height:
                                           question.options.options.length > 4 ||
-                                          !option.value.includes(
+                                          !option.value?.includes(
                                             "hp-appen.s3.eu-north-1.amazonaws.com"
                                           )
                                             ? 60
@@ -665,7 +665,7 @@ const StandardViewXyz = () => {
                                         paddingRight: "14px",
                                         maxWidth:
                                           question.options.options.length > 4 ||
-                                          !option.value.includes(
+                                          !option.value?.includes(
                                             "hp-appen.s3.eu-north-1.amazonaws.com"
                                           )
                                             ? 600
@@ -755,7 +755,7 @@ const StandardViewXyz = () => {
                                           width:
                                             question?.options.options.length >
                                               4 ||
-                                            !option.value.includes(
+                                            !option.value?.includes(
                                               "hp-appen.s3.eu-north-1.amazonaws.com"
                                             )
                                               ? 600
@@ -773,7 +773,7 @@ const StandardViewXyz = () => {
                                           justifyContent:
                                             question?.options.options.length >
                                               4 ||
-                                            !option.value.includes(
+                                            !option.value?.includes(
                                               "hp-appen.s3.eu-north-1.amazonaws.com"
                                             )
                                               ? "flex-start"
@@ -786,7 +786,7 @@ const StandardViewXyz = () => {
                                       >
                                         <Typography
                                           className={
-                                            option.value.includes(
+                                            option.value?.includes(
                                               "hp-appen.s3.eu-north-1.amazonaws.com"
                                             )
                                               ? "optionImage"

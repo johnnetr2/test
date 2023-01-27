@@ -503,7 +503,7 @@ const QuestionViewDTKOrg = (props) => {
                         textTransform: "uppercase",
                         fontSize: ".85rem",
                         maxWidth: "650px",
-                        margin: "auto",
+                        margin: quiz?.description.length < 2000 ? "auto": "0",                      
                       }}
                     >
                       {quiz && quiz.question.length + " uppgifter"}
