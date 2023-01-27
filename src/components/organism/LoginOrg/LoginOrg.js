@@ -45,7 +45,12 @@ const LoginOrg = () => {
 
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/home");
+      instance2.get(EndPoints.getUser).then(response => {
+        setInitialUserState(response.data)
+        navigate("/home");
+      }).catch(error => {
+        console.log("error", error)
+      })
     }
   }, []);
 
