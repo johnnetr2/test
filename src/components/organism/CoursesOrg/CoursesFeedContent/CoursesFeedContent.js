@@ -58,7 +58,6 @@ const CoursesFeedContent = (props) => {
     setTabValue(val);
   };
 
-
   const getSeasonQuizzzes = (seasons, item) => {
     return seasons.find((elem) => item?._id === elem.simuleraSeason?._id);
   };
@@ -106,13 +105,13 @@ const CoursesFeedContent = (props) => {
                 }}
                 label="Alla"
               />
-              <Tab
+              {/* <Tab
                 style={{
                   textTransform: "initial",
                   color: tabValue === 1 ? "black" : "#B5B5B5",
                 }}
                 label="Tidigare högskoleprov"
-              />
+              />  */}
               {/* <Tab
                 style={{
                   textTransform: "initial",
@@ -157,15 +156,17 @@ const CoursesFeedContent = (props) => {
       <TabPanel value={tabValue} index={0}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
-            Tidigare högskoleprov
+            Högskoleprov från tidigare år
           </Typography>
           <Typography
             variant="body2"
             component="body2"
             style={{ fontSize: "0.75rem", lineHeight: "1.5" }}
           >
-            Välj ett specifikt prov och gör samma frågor som kom på just det
-            provet.
+            Gör prov från ett tidigare år och jämför ditt resultat med
+            provdeltagarna från det året.
+            <br />
+            Utprövningspasset är exkluderat från proven.
           </Typography>
         </Box>
         <Box>
@@ -181,10 +182,13 @@ const CoursesFeedContent = (props) => {
                     <CoursesCard
                       id={item?._id}
                       item={item}
-                      progress={props?.data && props?.data?.find(
-                        (provHistory) =>
-                          provHistory?.simuleraSeason?._id === item?._id
-                      )}
+                      progress={
+                        props?.data &&
+                        props?.data?.find(
+                          (provHistory) =>
+                            provHistory?.simuleraSeason?._id === item?._id
+                        )
+                      }
                       quizzes={
                         props.seasons && getSeasonQuizzzes(props.seasons, item)
                       }
@@ -233,10 +237,11 @@ const CoursesFeedContent = (props) => {
         </Box> */}
         <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
       </TabPanel>
+
       <TabPanel value={tabValue} index={1}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
-            Tidigare högskoleprov
+            Högskoleprov från tidigare år
           </Typography>
           <Typography
             variant="body2"
@@ -248,25 +253,52 @@ const CoursesFeedContent = (props) => {
           </Typography>
         </Box>
         <Box>
-          <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
-        </Box>
-        <Box
-          sx={{
-            marginBottom: "3rem",
-            marginTop: "1rem",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            style={{
-              backgroundColor: appColors.blueColor,
-              color: appColors.whiteColor,
-            }}
-          >
-            Fler prov
-          </Button>
+          <Box sx={{ marginBottom: "1rem" }}>
+            {/* <CoursesCard /> */}
+            {previousExams &&
+              previousExams
+                .filter((exam) => exam.title.toLowerCase().includes(query))
+                .map((item) => {
+                  return (
+                    <CoursesCard
+                      id={item?._id}
+                      item={item}
+                      progress={
+                        props?.data &&
+                        props?.data?.find(
+                          (provHistory) =>
+                            provHistory?.simuleraSeason?._id === item?._id
+                        )
+                      }
+                      quizzes={
+                        props.seasons && getSeasonQuizzzes(props.seasons, item)
+                      }
+                      provpassOrder={
+                        props?.provpassOrderBySeason[item?._id] ?? null
+                      }
+                    />
+                  );
+                })}
+            <Box
+              sx={{
+                marginBottom: "3rem",
+                marginTop: "1rem",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: appColors.blueColor,
+                  color: appColors.whiteColor,
+                }}
+              >
+                Fler prov
+                <KeyboardArrowDownIcon />
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </TabPanel>
       {/* <TabPanel value={tabValue} index={2}>
