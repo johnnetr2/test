@@ -135,7 +135,7 @@ const CoursesFeedContent = (props) => {
               alignItems: "center",
               border: "1px solid #e5e5e5",
               borderRadius: ".5rem",
-              width: "15rem",
+              width: "16rem",
               padding: ".5rem",
             }}
             className={classes.hideSearch}
