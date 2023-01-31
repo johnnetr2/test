@@ -100,7 +100,7 @@ const RattedOverblick = () => {
   const classes = useStyles(10);
 
   return (
-    <div>
+    <div style={{backgroundColor: "#fff"}}>
       <CssBaseline />
       <AppBar
         color="#fff"
@@ -140,18 +140,27 @@ const RattedOverblick = () => {
         </Toolbar>
       </AppBar>
 
-      <Container
+      <Box>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" size="5rem" />
+        </Backdrop>
+      </Box>
+
+      {!open && <Container
         maxWidth="lg"
         disableGutters
         style={{
           backgroundColor: "#fff",
-          height: "100vh",
+          paddingBottom: 24
         }}
       >
         <Container
           maxWidth="md"
           disableGutters
-          style={{ backgroundColor: "#fff" }}
+          style={{ backgroundColor: "#fff"}}
         >
           <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box mt={2} sx={{ color: "#222" }}>
@@ -168,6 +177,9 @@ const RattedOverblick = () => {
             sx={{ width: "100%", height: ".65rem", backgroundColor: "#6FCF97" }}
           ></Box>
         </Container>
+
+        
+
         <Container
           maxWidth="md"
           style={{
@@ -182,7 +194,9 @@ const RattedOverblick = () => {
             mt={5}
             paddingY={2}
             paddingX={10}
-            sx={{ backgroundColor: "#f9f9f9" }}
+            sx={{ 
+              backgroundColor: "#f9f9f9",               
+          }}
           >
             <Typography variant="h5" component="h5">
               Provpass 1 Kvantitativ del
@@ -195,14 +209,7 @@ const RattedOverblick = () => {
               Har kan du titta närmre på din resultat för varje uppgift
             </Typography>
           </Box>
-          <Box>
-            <Backdrop
-              sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={open}
-            >
-              <CircularProgress color="inherit" size="5rem" />
-            </Backdrop>
-          </Box>
+          
 
           <Box
             mt={2}
@@ -302,7 +309,7 @@ const RattedOverblick = () => {
             </Box>
           </Box>
         </Container>
-      </Container>
+      </Container>}
     </div>
   );
 };
