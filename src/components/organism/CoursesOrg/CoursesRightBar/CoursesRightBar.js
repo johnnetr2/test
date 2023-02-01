@@ -74,18 +74,18 @@ const RightBar = (props) => {
     });
   };
   const columns = [
-    { id: "datum", label: "Datum", minWidth: 150 },
+    { id: "datum", label: "Datum", minWidth: 165 },
     {
       id: "prov",
       label: "Prov",
-      minWidth: 115,
+      minWidth: 200,
       align: "left",
       format: (value) => value.toLocaleString("en-US"),
     },
     {
       id: "Antal poäng",
       label: "Antal Poäng",
-      minWidth: 100,
+      minWidth: 90,
       align: "left",
       format: (value) => value.toLocaleString("en-US"),
     },
@@ -115,7 +115,7 @@ const RightBar = (props) => {
   }
 
   return (
-    <Container maxWidth={false}>
+    <Container maxWidth={false} style={{maxWidth: "800px"}}>
       <Box
         sx={{
           backgroundColor: width < 900 ? "#fff" : "#fafafa",
@@ -186,10 +186,10 @@ const RightBar = (props) => {
                         </TableCell>
                         <TableCell align="left">
                           <Typography style={{ fontSize: "14px" }}>
-                            {row?.simuleraSeason?.title},
+                            {row?.simuleraSeason?.title}, {row?.simuleraSeason?.month}
                           </Typography>
                           <Typography style={{ fontSize: "14px" }}>
-                            {row?.simuleraSeason?.month}
+                            
                           </Typography>
                         </TableCell>
                         <TableCell style={{ width: "6rem" }} align="left">
