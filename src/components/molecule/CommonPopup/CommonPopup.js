@@ -27,7 +27,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
-
   return (
     <DialogTitle sx={{ m: 0, p: 1 }} {...other}>
       {children}
@@ -57,6 +56,7 @@ export default function CommonPopup({
   agreeBtnName,
   cancelBtnName,
   oneButtonPopup = false,
+  questionPopup = false
 }) {
   return (
     <div>
@@ -77,7 +77,7 @@ export default function CommonPopup({
           ></BootstrapDialogTitle>
           <DialogContent
             style={{
-              padding: "2rem 5rem",
+              padding: "2rem 5rem 1rem 5rem",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -95,7 +95,7 @@ export default function CommonPopup({
               {description}
             </Typography>
           </DialogContent>
-          <DialogActions style={{ display: "flex", justifyContent: "center" }}>
+          <DialogActions style={{ display: "flex", justifyContent: "center", gap: questionPopup ? "40px" : !oneButtonPopup ? "9px" : null }}>
             {oneButtonPopup ? (
               <Button
                 onClick={() => redirect()}
@@ -106,8 +106,9 @@ export default function CommonPopup({
                   fontWeight: "regular",
                   padding: ".60rem 3rem",
                   marginBottom: "2rem",
-                  border: `1px solid ${appColors.blueColor}`,
-                  borderRadius: "3px",
+                  border: `2px solid ${appColors.blueColor}`,
+                  borderRadius: "8px",
+                  height: "40px"
                 }}
               >
                 {agreeBtnName}
@@ -119,12 +120,13 @@ export default function CommonPopup({
                   style={{
                     backgroundColor: "transparent",
                     color: appColors.blueColor,
-                    border: `1px solid ${appColors.blueColor}`,
+                    border: `2px solid ${appColors.blueColor}`,
                     textTransform: "capitalize",
                     fontWeight: "regular",
                     padding: ".60rem 3rem",
                     marginBottom: "2rem",
-                    borderRadius: "3px",
+                    borderRadius: "8px",
+                    height: "40px"
                   }}
                 >
                   {cancelBtnName}
@@ -138,8 +140,9 @@ export default function CommonPopup({
                     fontWeight: "regular",
                     padding: ".60rem 3rem",
                     marginBottom: "2rem",
-                    border: `1px solid ${appColors.blueColor}`,
-                    borderRadius: "3px",
+                    border: `2px solid ${appColors.blueColor}`,
+                    borderRadius: "8px",
+                    height: "40px"
                   }}
                 >
                   {agreeBtnName}

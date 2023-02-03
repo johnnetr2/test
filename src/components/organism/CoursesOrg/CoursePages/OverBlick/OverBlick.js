@@ -510,8 +510,7 @@ const OverBlick = () => {
                 redirect={() => submitQuiz()}
                 closePopup={() => setTestSubmitPopUp(false)}
                 title="Vill du lämna in?"
-                description="Efter att du lämnat in kan du ta en paus innan du börjar nästa
-                provpass. Ditt resultat sparas."
+                description={params.state.provpass?.simuleraQuizResult?.length < 3 ? "Efter att du lämnat in kan du ta en paus innan du börjar nästa provpass. Ditt resultat sparas." : "Efter att du lämnat in detta provpass är provet klart. "}
                 oneButtonPopup
                 agreeBtnName="Lämna in provpasset"
               />

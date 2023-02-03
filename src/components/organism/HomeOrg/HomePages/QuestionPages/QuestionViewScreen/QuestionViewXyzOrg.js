@@ -711,6 +711,7 @@ const QuestionViewXyzOrg = () => {
             status={open}
             closePopup={() => setOpen(false)}
             redirect={() => handleAlertDialogPopup()}
+            questionPopup
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
           <CommonPopup
