@@ -35,6 +35,8 @@ import swal from "sweetalert";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../service/commonService";
 import CirculerLoader from '../../../../../molecule/CircularLoader'
+import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
+
 
 export const dispSecondsAsMins = (seconds) => {
   // 25:00
@@ -80,12 +82,6 @@ const ResultSummaryOrg = () => {
   const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.value);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -166,6 +162,14 @@ const ResultSummaryOrg = () => {
     };
   }, []);
 
+  const navigationHandler = () => {
+    navigate("/category", {
+      state: {
+        item: params?.state?.sectionCategory,
+      },
+    })
+  }
+
   return (
     <div>
       <CssBaseline />
@@ -174,14 +178,31 @@ const ResultSummaryOrg = () => {
         className={classes.appbar}
         style={{
           boxShadow: "none",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
         }}
         position="static"
       >
-        <Toolbar>
+
+        <Toolbar
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
+          <Box
+            onClick={navigationHandler}
+            sx={{
+              height: "8vh",
+              width: "2.3rem",
+              display: "flex",
+              alignItems: "center",
+              borderRight: "1px solid #E1E1E1",
+              cursor: "pointer",
+            }}
+          >
+            <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
+          </Box>
           <Typography
             variant="body1"
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
@@ -189,6 +210,7 @@ const ResultSummaryOrg = () => {
           >
             Sammanfattning - {params?.state?.sectionCategory?.title}
           </Typography>
+          <Typography></Typography>
         </Toolbar>
       </AppBar>
 
@@ -567,13 +589,7 @@ const ResultSummaryOrg = () => {
           <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 615 }}>
             <Button
               variant="outlined"
-              onClick={() =>
-                navigate("/category", {
-                  state: {
-                    item: params?.state?.sectionCategory,
-                  },
-                })
-              }
+              onClick={navigationHandler}
               style={{
                 width: "100%",
                 maxWidth: 600,
