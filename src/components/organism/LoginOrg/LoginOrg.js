@@ -78,7 +78,7 @@ const LoginOrg = () => {
       });
     } else {
       const data = {
-        email: user.email,
+        email: user.email.trim(),
         password: user.password,
       };
       const URL = EndPoints.Login;
