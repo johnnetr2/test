@@ -16,37 +16,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
 import UnAttemptedCheckBox from "../../../../../../assets/Icons/UnAttemptedCheckBox.svg";
-import CircularProgress from "@mui/material/CircularProgress";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
 import Correct from "../../../../../../assets/Imgs/correct.png";
-import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
-import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
-import swal from "sweetalert";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../service/commonService";
 import CirculerLoader from '../../../../../molecule/CircularLoader'
+import { percentageCalculation } from "../../../../../atom/percentageCalculator/Utils";
 
 export const dispSecondsAsMins = (seconds) => {
   // 25:00
   const mins = Math.floor(seconds / 60);
   const seconds_ = seconds % 60;
-  /*
-  return (
-    Math.floor(mins?.toString()) +
-    ":" +
-    (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
-  ); 
-  */
   return (
     (mins < 10 ? "0" + mins : mins) +
     ":" +
@@ -54,25 +38,6 @@ export const dispSecondsAsMins = (seconds) => {
   );
 };
 
-export const percentageCalculation = (params, value) => {
-  if (params?.state?.sectionCategory?.title == "XYZ") {
-    return XYZNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "KVA") {
-    return KVANormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "NOG") {
-    return NOGNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "DTK") {
-    return DTKNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "ELF") {
-    return ELFNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "LÄS") {
-    return LASNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "ORD") {
-    return ORDNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "MEK") {
-    return MEKNormeringValueFor(value);
-  }
-};
 const ResultSummaryOrg = () => {
   const params = useLocation();
   const [timePerQues, setTimePerQues] = useState();
@@ -80,6 +45,7 @@ const ResultSummaryOrg = () => {
   const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.value);
+  const categoryName = params?.state?.sectionCategory?.title
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -129,7 +95,6 @@ const ResultSummaryOrg = () => {
 
   const classes = useStyles(10);
   useEffect(() => {
-    console.log("params?.state?.quizId", params?.state?.quizId)
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
     let sumOfTimeSpent = 0;
     const headers = {
@@ -181,13 +146,12 @@ const ResultSummaryOrg = () => {
         position="static"
       >
         <Toolbar>
-          {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
           <Typography
             variant="body1"
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
-            Sammanfattning - {params?.state?.sectionCategory?.title}
+            Sammanfattning - {categoryName}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -209,7 +173,6 @@ const ResultSummaryOrg = () => {
               {responseCollection?.question.length}
             </Box>
             {
-              // responseCollection && responseCollection?.question[0].timeleft != 0
               params?.state?.time && (
                 <Box mt={2} sx={{ color: "#222" }}>
                   <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
@@ -325,18 +288,18 @@ const ResultSummaryOrg = () => {
                     {responseCollection ? (
                       <Typography variant="h4" style={{
                         marginLeft: percentageCalculation(
-                          params,
                           (responseCollection.correctAnswer /
                             responseCollection.question.length) *
-                          100
+                          100,
+                          categoryName
                         ).toString().length > 1 ? "3.2rem" : "0rem"
                       }}>
-                        {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
+
                         {percentageCalculation(
-                          params,
                           (responseCollection.correctAnswer /
                             responseCollection.question.length) *
-                          100
+                          100,
+                          categoryName
                         )}
                       </Typography>
                     ) : (
@@ -359,8 +322,6 @@ const ResultSummaryOrg = () => {
               </Box>
 
               {
-                // responseCollection && responseCollection?.question[0].timeleft != 0
-                // params?.state?.time && (
                 <Box
                   sx={{
                     display: "flex",
