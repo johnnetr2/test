@@ -17,6 +17,7 @@ import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import Heading from "../../../atom/Heading/Heading";
 import { Input } from "reactstrap";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 import { appColors } from "../../../service/commonService";
 
@@ -216,10 +217,21 @@ const CoursesFeedContent = (props) => {
               backgroundColor: appColors.blueColor,
               color: appColors.whiteColor,
             }}
-            onClick={() => props.loadMore()}
+            onClick={() =>
+              previousExams?.length < 6 ? props.loadMore() : props.loadLess()
+            }
           >
-            Fler prov
-            <KeyboardArrowDownIcon />
+            {previousExams?.length < 6 ? (
+              <>
+                Fler prov
+                <KeyboardArrowDownIcon />
+              </>
+            ) : (
+              <>
+                Färre prov
+                <KeyboardArrowUpIcon />
+              </>
+            )}
           </Button>
         </Box>
         {/* <Box sx={{ marginBottom: "2rem" }}>

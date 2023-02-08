@@ -171,7 +171,7 @@ const CoursesCard = (props) => {
             onClick={() => {
               console.log("this");
               if (isInTrial || isPremium) {
-                if (props?.quizzes.simuleraQuizResult.length < 4) {
+                if (props?.quizzes?.simuleraQuizResult && props?.quizzes?.simuleraQuizResult?.length < 4) {
                   navigate("/testInformation", {
                     state: {
                       id: props.id,
@@ -182,8 +182,8 @@ const CoursesCard = (props) => {
                 } else {
                   navigate("/provresultat", {
                     state: {
-                      seasonId: props?.quizzes.simuleraSeason._id,
-                      simuleraQuizResultId: props?.quizzes._id,
+                      seasonId: props?.quizzes?.simuleraSeason?._id,
+                      simuleraQuizResultId: props?.quizzes?._id,
                     },
                   });
                 }
