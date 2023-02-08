@@ -82,7 +82,7 @@ const SignupOrg = () => {
   const [showPassword, setShowPassword] = useState(true);
 
   let isValidPassword =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/;
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=äöåÄÖÅ.`|{}:;!.?\"()\[\]-]{7,}$/;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
