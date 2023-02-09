@@ -23,7 +23,7 @@ export const gridStyling = makeStyles((theme) => ({
 
   //Below is for RightBarGrid
   rightBarGrid: {
-    maxWidth: "40rem",
+    maxWidth: "38rem",
     backgroundColor: "#fafafa",
     [theme.breakpoints.down("1200")]: {
       display: "none",
