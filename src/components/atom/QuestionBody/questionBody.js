@@ -10,7 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../../../styles/QuestionBody.css";
 import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
-import ReactMarkdown from "react-markdown";
 
 
 import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
@@ -135,6 +134,7 @@ const QuestionBody = (props) => {
   } else if (props.question.multipartQuestion) {
     return (
       <MultiQuestionSummary
+        sectionCategory={props?.sectionCategory}
         question={props?.question}
         totalQuestions={props.totalQuestions}
         selectedIndex={props.selectedIndex}
@@ -188,7 +188,7 @@ const QuestionBody = (props) => {
             description={question?.questionStatement}
             indications={[question?.information1, question?.information2]}
             type={props.questionTypeTitle}
-            />
+          />
         </Container>
 
         <Container
@@ -214,7 +214,7 @@ const QuestionBody = (props) => {
                 alignItems: "center",
               }}
             >
-              <p style={{marginLeft: "50px", fontSize: "16px", fontWeight: "bold" }}>Tillräckligt information för lösningen erhålls</p>
+              <p style={{ marginLeft: "50px", fontSize: "16px", fontWeight: "bold" }}>Tillräckligt information för lösningen erhålls</p>
             </Box>
           ) : null}
           {question?.options[0]?.options?.map((item, optionIndex) => {
