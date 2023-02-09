@@ -449,7 +449,7 @@ export const calculateWeekWiseNormingForCategorynewlessthen7weekNumber = (
   return weeklyProgressArr;
 };
 
-const percentageCalculation = (prognos, categoryname) => {
+export const percentageCalculation = (prognos, categoryname) => {
   switch (categoryname) {
     case "XYZ":
       return XYZNormeringValueFor(prognos);
