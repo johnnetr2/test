@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import Home from "../../../assets/Icons/Home.svg";
 import HomeC from "../../../assets/Icons/HomeC.svg";
 import Course from "../../../assets/Icons/Course.svg";
@@ -88,15 +88,6 @@ const navigationLinks = [
   },
 ];
 
-const NavigateFunction = (to) => {
-  const navigate = useNavigate();
-  if (to !== "/profile") {
-    navigate(to);
-  } else {
-    //For clicking on Profile icon, open
-  }
-};
-
 const Menus = (props) => {
   const classes = useStyles();
   const location = useLocation();
@@ -107,7 +98,6 @@ const Menus = (props) => {
         <NavLink
           key={to}
           to={to}
-          onClick={() => NavigateFunction(to)}
           className={classes.item}
           style={({ isActive }) => {
             return {

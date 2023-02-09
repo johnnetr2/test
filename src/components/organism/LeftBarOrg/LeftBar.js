@@ -65,7 +65,7 @@ const LeftBar = (props) => {
     //Mother container
     <Container
       maxWidth="false"
-      style={{ width: "100%" }}
+      style={{ width: "100%", minWidth: "13rem" }}
       className={classes.container}
     >
       <Container //Logo container
