@@ -109,7 +109,7 @@ const HomeLeftBar = (props) => {
                 }}
             >
                 <Link to="/home">
-                    <img width={150} src={hpLogo} />
+                    <img src={hpLogo} />
                 </Link>
             </TableContainer>
             <NavLink
