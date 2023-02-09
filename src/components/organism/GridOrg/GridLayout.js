@@ -16,7 +16,7 @@ const GridLayout = (props) => {
         <Grid item className={classes.leftBarGrid} {...leftBarGridSizes}>
           {props.leftBar}
         </Grid>
-        <Grid item {...middleGridSizes} className={classes.middleGrid}>
+        <Grid item {...(location === "/checkout" ? {xs: 12} : middleGridSizes)} className={classes.middleGrid}>
           {props.middle}
         </Grid>
         {!props.rightBar ? null : (
