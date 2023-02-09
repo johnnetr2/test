@@ -1,16 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Moveable from "react-moveable";
 import { ref } from "framework-utils";
 import { Frame } from "scenejs";
 import "./moveable.css";
 import Ruler from '../../../assets/Icons/ruler.svg'
-// import Ruler from "../../../assets/Imgs/ruler.png"
 
 class ReactMoveable extends React.Component {
     frame = new Frame({
         width: "108px",
-        height: "535px",
+        height: "736px",
         left: "0px",
         top: "0px",
         transform: {
@@ -61,7 +59,7 @@ class ReactMoveable extends React.Component {
                     onPinchEnd={this.onEnd}
                 />
                 <div className="container">
-                    <div className="moveable">
+                    <div className="moveable" style={{ width: this.frame.get("width"), height: this.frame.get("height") }}>
                         <img src={Ruler} alt="Ruler" ></img>
                     </div>
                     <div className="label" ref={ref(this, "label")} />
@@ -81,28 +79,6 @@ class ReactMoveable extends React.Component {
     onWindowReisze = () => {
         this.moveable.updateRect();
     };
-    //   clickScalable = () => {
-    //     this.setState({
-    //       scalable: true,
-    //       resizable: false,
-    //       warpable: false
-    //     });
-    //   };
-    //   clickResizable = () => {
-    //     this.setState({
-    //       scalable: false,
-    //       resizable: true,
-    //       warpable: false
-    //     });
-    //   };
-    //   clickWarpable = () => {
-    //     this.setState({
-    //       scalable: false,
-    //       resizable: false,
-    //       warpable: true
-    //     });
-    //   };
-
     setTransform(target) {
         target.style.cssText = this.frame.toCSS();
     }
@@ -162,7 +138,7 @@ display: block; transform: translate(${clientX}px, ${clientY -
     };
     onResize = ({ target, clientX, clientY, width, height, isPinch }) => {
         this.frame.set("width", `${width}px`);
-        this.frame.set("height", `${height}px`);
+        this.frame.set("height", `auto`);
         this.setTransform(target);
         if (!isPinch) {
             this.setLabel(clientX, clientY, `W: ${width}px<br/>H: ${height}px`);
