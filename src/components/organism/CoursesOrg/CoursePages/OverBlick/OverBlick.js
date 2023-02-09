@@ -66,7 +66,7 @@ const OverBlick = () => {
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
         const provpassNumber =
-          params.state.provpass?.simuleraQuizResult?.length;
+          params.state.provpass?.simuleraQuizResult?.length || 0;
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
           if (provpassNumber < 3) {
@@ -359,7 +359,7 @@ const OverBlick = () => {
           >
             <Typography variant="h6" component="h6">
               Överblick Provpass{" "}
-              {params?.state?.provpass?.simuleraQuizResult.length + 1}
+              {(params?.state?.provpass?.simuleraQuizResult.length + 1) || 1}
             </Typography>
             <Typography variant="body2" component="body2">
               Innan du lämnar in, kontrollera vilka frågor du har <b>missat</b>,

@@ -1,4 +1,3 @@
-
 import { EndPoints, instance2 } from "../../../service/Route";
 import React, { useEffect, useState } from "react";
 
@@ -16,7 +15,7 @@ const CoursesMain = () => {
   const [provHistoryData, setProvHistoryData] = useState("");
   const [provpassSeasons, setProvpassSeasons] = useState();
   const [provpassOrderBySeason, setProvpassOrderBySeason] = useState({});
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const userId = useSelector((state) => state.value.user._id);
 
   useEffect(async () => {
@@ -24,7 +23,7 @@ const CoursesMain = () => {
     instance2.get(getPreviosExams).then((response) => {
       setPreviousExams(response.data.data);
       setProvpassOrderBySeason(response.data.provPassOrder);
-      setIsLoading(false)
+      setIsLoading(false);
     });
 
     const URL = EndPoints.simuleraQuizHistory + userId;
@@ -76,7 +75,11 @@ const CoursesMain = () => {
   }, [limit]);
 
   const LoadMore = () => {
-    setLimit((lim) => lim + 3);
+    setLimit((lim) => lim + 30);
+  };
+
+  const loadLess = () => {
+    setLimit(5);
   };
 
   return (
@@ -89,6 +92,7 @@ const CoursesMain = () => {
             previousExams={previousExams}
             data={provHistoryData}
             loadMore={() => LoadMore()}
+            loadLess={() => loadLess()}
             seasons={provpassSeasons}
             provpassOrderBySeason={provpassOrderBySeason}
           />
@@ -102,7 +106,6 @@ const CoursesMain = () => {
         bottomNav={<BottomNavBar currentPage="course" />}
       />
     </>
-
   );
 };
 
