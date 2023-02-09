@@ -15,7 +15,7 @@ require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    paddingTop: "2rem",
+    paddingTop: "1rem",
     paddingLeft: "0.5rem",
     [theme.breakpoints.down("sm")]: {
       paddingLeft: "1rem",
@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "1rem",
     textDecoration: "none",
     color: "#b4b4b4",
-    marginBottom: "10px",
+    marginBottom: "1rem",
+    marginTop: "0.5rem",
     "&:hover": {
       backgroundColor: appColors.leftBarHover,
     },
@@ -84,7 +85,7 @@ const navigationLinks = [
     to: "/profile",
     icon: Profile,
     iconActive: ProfileC,
-    label: "Profile",
+    label: "Profil",
   },
 ];
 

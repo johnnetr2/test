@@ -14,6 +14,7 @@ require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    minWidth: "13rem",
     borderRight: "1px solid #e1e1e1",
     height: "100vh",
     backgroundColor: "#FFFFFF",
@@ -24,10 +25,7 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     [theme.breakpoints.down("sm")]: {
       padding: 0,
-      backgroundColor: "#FFFFFF",
-    },
-    [theme.breakpoints.up("sm")]: {
-      backgroundColor: "#FFFFFF",
+      minWidth: "0rem",
     },
   },
   logoContainer: {
@@ -40,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logoStyling: {
     width: "90%",
+    marginTop: "1rem",
     [theme.breakpoints.down("sm")]: {
       width: "5rem",
     },
@@ -64,8 +63,6 @@ const LeftBar = (props) => {
   return (
     //Mother container
     <Container
-      maxWidth="false"
-      style={{ width: "100%", minWidth: "13rem" }}
       className={classes.container}
     >
       <Container //Logo container
