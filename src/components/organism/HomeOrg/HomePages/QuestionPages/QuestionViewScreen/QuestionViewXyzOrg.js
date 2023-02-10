@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
 import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
-import { appColors } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../service/commonService";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -54,12 +54,6 @@ const QuestionViewXyzOrg = () => {
   const { user, token } = useSelector((state) => state.value);
   var timer;
   const myRef = useRef(null);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
@@ -199,27 +193,14 @@ const QuestionViewXyzOrg = () => {
   }, [!params.state.time && startTimer]);
 
   const scrollBottom = () => {
-    myRef.current.scrollIntoView();
+    setTimeout(() => {
+      myRef.current.scrollIntoView();
+    }, 100);
   };
-
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-
 
   const Next = (question, buttonText) => {
     setStartTimer(false);
-    if (buttonText === "Svara") {
-      // scrollBottom();
-    } else {
-      scrollTop(0);
-    }
     if (question.answer) {
-      // ref.current?.offsetTop({behavior: 'smooth'});
       if (selectedIndex + 1 == quiz.length) {
         if (
           answerSubmittedState.answer.length ===
@@ -243,6 +224,7 @@ const QuestionViewXyzOrg = () => {
         setStartTimer(true);
         selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
         setCurrentQuestion(currentQuestion + 1);
+        scrollTop();
       }
     } else {
       if (question.selectedIndex + 1) {
