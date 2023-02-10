@@ -8,7 +8,6 @@ import BodyText from "../../../../../atom/BodyText/BodyText";
 import CategoryPagesRightBar from "../CategoryPagesRightBar/CategoryPagesRightBar";
 import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
 import CircularProgress from "@mui/material/CircularProgress";
-import FilledBtn from "../../../../../atom/FilledBtn/FilledBtn";
 import Heading from "../../../../../atom/Heading/Heading";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
@@ -17,7 +16,7 @@ import swal from "sweetalert";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 import categoryDescription from "../../../../../../assets/Static/CategoryDescription.json"
 import { useSelector } from "react-redux";
-import { appColors } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,12 +75,6 @@ const CategoryPagesFeedContent = (props) => {
   const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
 
   const { user } = useSelector((state) => state.value);
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -513,13 +506,6 @@ const CategoryPagesFeedContent = (props) => {
                       />
                     )}
                   </>
-                  // <OutlineField
-                  //   title={item.title !== 'others'}
-                  //   onClickCheck={(e) => {
-                  //     selectedItem(e, item);
-                  //   }}
-                  //   checked={isChecked(item._id)}
-                  // />
                 );
               })}
           </Box>
@@ -559,7 +545,6 @@ const CategoryPagesFeedContent = (props) => {
         onClick={(isPremium || isInTrial) && checkedData.length > 0 && onSubmit}
       >
         Starta övningar
-        {/* <FilledBtn disabled={!(isInTrial || isPremium)} title="Starta övningar" /> */}
       </Box>
       <Box className={classes.tabsSection}>
         <Tabs

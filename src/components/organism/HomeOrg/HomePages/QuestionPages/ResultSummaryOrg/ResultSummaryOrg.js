@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 import { appColors } from "../../../../../service/commonService";
 import CirculerLoader from '../../../../../molecule/CircularLoader'
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
+import { scrollTop } from "../../../../../service/commonService";
 
 import { percentageCalculation } from "../../../../../atom/percentageCalculator/Utils";
 
@@ -121,6 +122,8 @@ const ResultSummaryOrg = () => {
       .catch((error) => {
         console.log(error, "this is the console of error ");
       });
+
+    scrollTop()
 
     return () => {
       // clearInterval(timer);

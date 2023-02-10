@@ -25,4 +25,13 @@ export const setInitialUserState = (user) => {
     const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
     localStorage.setItem("isPremium", user?.isPremium ? true : false);
     localStorage.setItem("isInTrial", isGreaterCurrentData);
-}
+};
+
+export const scrollTop = () => {
+    setTimeout(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, 200);
+};
