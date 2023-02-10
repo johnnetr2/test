@@ -50,14 +50,14 @@ const KvantitativProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".9rem", fontWeight: "600" }}
       >
-        XYZ - Matematisk problemlösning
+       XYZ - Matematisk problemlösning
       </Typography>
       <Typography
         mt={3}
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        12 uppgifter. Rekommenderad provtid: 12 minuter
+        <em style={{margin: "0"}}>12 uppgifter. Rekommenderad provtid: 12 minuter</em>
       </Typography>
       <Typography
         mt={3}
@@ -79,7 +79,7 @@ const KvantitativProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        10 uppgifter. Rekommenderad provtid: 10 minuter
+        <em style={{margin: "0"}}>10 uppgifter. Rekommenderad provtid: 10 minuter</em>
       </Typography>
       <Typography
         mt={3}
@@ -104,7 +104,7 @@ const KvantitativProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        6 uppgifter. Rekommenderad provtid: 10 minuter
+        <em style={{margin: "0px"}}>6 uppgifter. Rekommenderad provtid: 10 minuter</em>
       </Typography>
       <Typography
         mt={3}
@@ -131,7 +131,7 @@ const KvantitativProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        12 uppgifter. Rekommenderad provtid: 23 minuter
+        <em style={{margin: "0px"}}>12 uppgifter. Rekommenderad provtid: 23 minuter</em>
       </Typography>
       <Typography
         mt={3}

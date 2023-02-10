@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
@@ -54,6 +54,7 @@ const StandardViewXyz = () => {
   const [open, setOpen] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
+  const saveButtonRef = useRef(null);
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
@@ -246,7 +247,7 @@ const StandardViewXyz = () => {
     const handleEnterClick = (e) => {
       if (e.keyCode === 13) {
         currentIndex + 1 < quiz.question.length &&
-          setCurrentIndex((oldIndex) => oldIndex + 1);
+          setCurrentIndex(currentIndex + 1);
       }
     };
     document.addEventListener("keydown", handleEnterClick);
@@ -356,6 +357,7 @@ const StandardViewXyz = () => {
       question.isFlaged = true;
       setQuiz(allQuiz);
     }
+    saveButtonRef?.current.blur();
   };
 
   const numberOfAttemptedQuestions = quiz?.question.filter(
@@ -416,7 +418,7 @@ const StandardViewXyz = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      {helpPopup && <HelpPopup />}
+      {helpPopup && <HelpPopup examMode/>}
       <Backdrop
         sx={{
           color: "#fff",
@@ -995,6 +997,7 @@ const StandardViewXyz = () => {
                       ? appColors.blueColor
                       : "",
                   }}
+                  ref={saveButtonRef}
                   onClick={() => flagQuestion()}
                 >
                   {" "}

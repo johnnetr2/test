@@ -57,7 +57,7 @@ const VerbalProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        10 uppgifter. Rekommenderad provtid: 3 minuter
+        <em style={{margin: "0"}}>10 uppgifter. Rekommenderad provtid: 3 minuter</em>
       </Typography>
       <Typography
         mt={3}
@@ -80,7 +80,7 @@ const VerbalProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        10 uppgifter. Rekommenderad provtid: 22 minuter
+        <em style={{margin: "0"}}>10 uppgifter. Rekommenderad provtid: 22 minuter</em>
       </Typography>
       <Typography
         mt={3}
@@ -113,7 +113,7 @@ const VerbalProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        10 uppgifter. Rekommenderad provtid: 8 minuter
+        <em style={{margin: "0"}}>10 uppgifter. Rekommenderad provtid: 8 minuter</em>
       </Typography>
       <Typography
         mt={3}
@@ -138,7 +138,7 @@ const VerbalProvpassInfo = ({ classes }) => {
         variant="subtitle1"
         style={{ fontSize: ".875rem", fontWeight: "400" }}
       >
-        10 uppgifter. Rekommenderad provtid: 22 minuter
+        <em style={{margin: "0"}}>10 uppgifter. Rekommenderad provtid: 22 minuter</em>
       </Typography>
       <Typography
         mt={3}
