@@ -336,7 +336,7 @@ const ProvPassInformation = () => {
           <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             {/* <Link to="#"> */}
             <ExerciseBtn
-              title="Starta delprov"
+              title="Starta provpass"
               onClick={() =>
                 navigate("/simuleraprov", {
                   state: {
