@@ -261,9 +261,19 @@ const StandardViewXyz = () => {
       question.questionAnswer &&
       question.questionAnswer.option == option._id
     ) {
-      return <img src={Correct} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img
+          src={Correct}
+          style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}
+        />
+      );
     } else if (question.questionAnswer && option._id === question?.optionId) {
-      return <img src={Wrong} style={{ marginRight: "0.5rem" }} />;
+      return (
+        <img
+          src={Wrong}
+          style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}
+        />
+      );
     }
     // else {
     //   return <Radio color="primary" checked={false} />;
@@ -609,7 +619,9 @@ const StandardViewXyz = () => {
                                 quiz?.question[currentIndex].sectionCategories
                                   .title
                               }
-                              image={question?.questionStatement?.includes("hp-appen.s3.eu-north-1.amazonaws.com")}
+                              image={question?.questionStatement?.includes(
+                                "hp-appen.s3.eu-north-1.amazonaws.com"
+                              )}
                             />
                           </Container>
                           <Box

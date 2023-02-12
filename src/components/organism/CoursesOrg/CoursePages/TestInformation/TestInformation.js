@@ -162,7 +162,7 @@ const TestInformation = (props) => {
               </Box>
               <Box mt={1} ml={1} sx={{ color: "#222" }}>
                 <img style={{ marginRight: ".25rem" }} src={Clock} alt="" />
-                55min per provass
+                55 min per provpass
               </Box>
             </Box>
           </Box>

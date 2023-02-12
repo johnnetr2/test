@@ -29,8 +29,8 @@ const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
-  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
+  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"));
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"));
 
   const percentage = () => {
     switch (props?.quizzes?.simuleraQuizResult?.length) {
@@ -87,7 +87,7 @@ const CoursesCard = (props) => {
           borderRadius: ".25rem",
           boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
-          cursor: (isPremium || isInTrial) ? "pointer" : "",
+          cursor: isPremium || isInTrial ? "pointer" : "",
           maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
@@ -129,27 +129,32 @@ const CoursesCard = (props) => {
                 width: "1.1rem",
               }}
             >
-              {!(isPremium || isInTrial) ?
-                (
-                  <Box sx={{
-                    borderRadius: '0px 4px 0px 0px',
-                    textAlign: 'center', width: '63px', height: '23px', backgroundColor: '#FFE482', color: appColors.blackColor
-                  }}>
-                    LÅST
-                  </Box>
-
-                ) : (
-                  <MoreVertIcon
-                    style={{
-                      color: "grey",
-                      marginRight: "0.5px",
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowPopup(!showPopup);
-                    }}
-                  />
-                )}
+              {!(isPremium || isInTrial) ? (
+                <Box
+                  sx={{
+                    borderRadius: "0px 4px 0px 0px",
+                    textAlign: "center",
+                    width: "63px",
+                    height: "23px",
+                    backgroundColor: "#FFE482",
+                    color: appColors.blackColor,
+                  }}
+                >
+                  LÅST
+                </Box>
+              ) : (
+                <MoreVertIcon
+                  style={{
+                    color: "grey",
+                    marginRight: "0.5px",
+                    marginTop: "2px",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowPopup(!showPopup);
+                  }}
+                />
+              )}
 
               {showPopup && (
                 <Dropdown
@@ -171,7 +176,10 @@ const CoursesCard = (props) => {
             onClick={() => {
               console.log("this");
               if (isInTrial || isPremium) {
-                if (props?.quizzes?.simuleraQuizResult && props?.quizzes?.simuleraQuizResult?.length < 4) {
+                if (
+                  props?.quizzes?.simuleraQuizResult &&
+                  props?.quizzes?.simuleraQuizResult?.length < 4
+                ) {
                   navigate("/testInformation", {
                     state: {
                       id: props.id,
@@ -219,7 +227,7 @@ const CoursesCard = (props) => {
                         style={{
                           backgroundColor:
                             props.quizzes &&
-                              item <= props?.quizzes.simuleraQuizResult?.length
+                            item <= props?.quizzes.simuleraQuizResult?.length
                               ? "#6FCF97"
                               : "#E1E1E1",
                           color: "#505050",
@@ -235,14 +243,14 @@ const CoursesCard = (props) => {
               </Box>
             </Box>
             {props.quizzes !== undefined &&
-              props?.quizzes?.simuleraQuizResult.length > 3 ? (
+            props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   flexDirection: "column",
-                  textAlign: 'center',
-                  marginRight: (isPremium || isInTrial) ? "1.3rem" : "6rem",
+                  textAlign: "center",
+                  marginRight: isPremium || isInTrial ? "1.3rem" : "6rem",
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -250,12 +258,12 @@ const CoursesCard = (props) => {
                     {" "}
                     {props?.progress.totalAnswer
                       ? (
-                        (props?.progress?.totalAnswer /
-                          props?.progress?.totalQuestions) *
-                        2
-                      )
-                        .toFixed(1)
-                        .replace(/\.0+$/, "")
+                          (props?.progress?.totalAnswer /
+                            props?.progress?.totalQuestions) *
+                          2
+                        )
+                          .toFixed(1)
+                          .replace(/\.0+$/, "")
                       : 0}
                   </Typography>
                   <Typography
@@ -268,7 +276,7 @@ const CoursesCard = (props) => {
                   </Typography>
                 </Box>
                 <Box>
-                  {(isPremium || isInTrial) &&
+                  {(isPremium || isInTrial) && (
                     <Button
                       variant="outlined"
                       style={{
@@ -281,7 +289,7 @@ const CoursesCard = (props) => {
                     >
                       Gör om prov
                     </Button>
-                  }
+                  )}
                 </Box>
               </Box>
             ) : (
