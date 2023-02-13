@@ -7,7 +7,6 @@ import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import AppLoader from "../../../molecule/AppLoader";
 import LeftBar from "../../LeftBarOrg/LeftBar";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBarV0";
 import { useSelector } from "react-redux";
 
 const CoursesMain = () => {
@@ -87,7 +86,7 @@ const CoursesMain = () => {
     <>
       <AppLoader isLoading={isLoading} />
       <GridLayout
-        leftBar={<HomeLeftBar />}
+        leftBar={<LeftBar />}
         middle={
           <CoursesFeedContent
             previousExams={previousExams}

@@ -13,19 +13,20 @@ const GridLayout = (props) => {
   return (
     <Container maxWidth="false" disableGutters>
       <Grid container wrap="nowrap" className={classes.main}>
-        <Grid item >
+        <Grid item className={classes.leftBarGrid} {...leftBarGridSizes}>
           {props.leftBar}
         </Grid>
-        <Grid item {...(location === "/checkout" ? { xs: 12 } : middleGridSizes)} className={classes.middleGrid}>
+        <Grid item {...(location === "/checkout" ? {xs: 12} : middleGridSizes)} className={classes.middleGrid}>
           {props.middle}
         </Grid>
         {!props.rightBar ? null : (
           <Grid
             item
-            className={`${location === "/category"
-              ? classes.rightBarGridCategory
-              : classes.rightBarGrid
-              }`}
+            className={`${
+              location === "/category"
+                ? classes.rightBarGridCategory
+                : classes.rightBarGrid
+            }`}
           >
             {props.rightBar}
           </Grid>

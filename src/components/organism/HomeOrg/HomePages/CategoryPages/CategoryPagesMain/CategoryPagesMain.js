@@ -1,6 +1,5 @@
 import GridLayout from "../../../../GridOrg/GridLayout";
 import LeftBar from "../../../../LeftBarOrg/LeftBar";
-import HomeLeftBar from "../../../HomeLeftBar/HomeLeftBarV0";
 import BottomNavBar from "../../../../../molecule/BottomNavBar/BottomNavBar";
 import CategoryPagesFeedContent from "../../CategoryPages/CategoryPagesContentFeed/CategoryPagesContentFeed";
 import CategoryPagesRightBar from "../../CategoryPages/CategoryPagesRightBar/CategoryPagesRightBar";
@@ -11,7 +10,7 @@ const CategoryPagesMain = () => {
 
   return (
     <GridLayout
-      leftBar={<HomeLeftBar />}
+      leftBar={<LeftBar />}
       middle={<CategoryPagesFeedContent item={params?.state?.item} />}
       rightBar={
         <CategoryPagesRightBar

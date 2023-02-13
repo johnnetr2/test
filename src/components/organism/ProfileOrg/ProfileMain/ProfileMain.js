@@ -2,7 +2,6 @@ import { Container, Grid, makeStyles } from "@material-ui/core";
 
 import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
 import LeftBar from "../../LeftBarOrg/LeftBar";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBarV0";
 import ProfileFeedContent from "../ProfileFeedContent/ProfileFeedContent";
 import ProfileRightBar from "../ProfileRightBar/ProfileRightBar";
 import React from "react";
@@ -53,7 +52,7 @@ const ProfileMain = () => {
           lg={2}
           xl={2}
         >
-          <HomeLeftBar currentPage="profile" />
+          <LeftBar currentPage="profile" />
         </Grid>
         <Grid
           item
