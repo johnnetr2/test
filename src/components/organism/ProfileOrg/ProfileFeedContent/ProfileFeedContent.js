@@ -108,7 +108,7 @@ const ProfileFeedContent = () => {
           <Box flexBasis={"80%"}>
             <InputField
               type="email"
-              placeholder="magnusbest@hotmail.com"
+              placeholder=""
               name="email"
               style={{
                 width: "100%",
