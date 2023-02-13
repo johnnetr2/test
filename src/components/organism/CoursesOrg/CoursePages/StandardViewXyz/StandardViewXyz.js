@@ -748,7 +748,13 @@ const StandardViewXyz = () => {
                                           <Typography
                                             style={{
                                               marginTop: "1.25rem",
-                                              paddingLeft: "1px",
+                                              paddingLeft:
+                                                changeOptionsColor(
+                                                  option,
+                                                  question
+                                                ) === "#27AE60"
+                                                  ? "4px"
+                                                  : "1px",
                                               fontSize: "0.6rem",
                                               color: changeOptionsColor(
                                                 option,
