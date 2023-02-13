@@ -749,10 +749,15 @@ const StandardViewXyz = () => {
                                             style={{
                                               marginTop: "1.25rem",
                                               paddingLeft:
-                                                changeOptionsColor(
-                                                  option,
-                                                  question
-                                                ) === "#27AE60"
+                                                (question.questionAnswer &&
+                                                  question.questionAnswer
+                                                    .option == option._id &&
+                                                  question.optionId) ||
+                                                (question.questionAnswer &&
+                                                  option._id ===
+                                                    question?.optionId) ||
+                                                option._id ===
+                                                  question.questionAnswer.option
                                                   ? "4px"
                                                   : "1px",
                                               fontSize: "0.6rem",
