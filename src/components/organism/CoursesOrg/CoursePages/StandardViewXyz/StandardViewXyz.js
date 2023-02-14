@@ -396,10 +396,11 @@ const StandardViewXyz = () => {
             onClick={() => {
               quiz && quiz.question[currentIndex].questionAnswer
                 ? navigate("/provresultat", {
-                    state: {
-                      seasonId: params.state.seasonId,
-                    },
-                  })
+                  state: {
+                    seasonId: params.state?.examResultData?.seasonId,
+                    quizId: params.state?.examResultData?.quizId,
+                  },
+                })
                 : setBackPressPopup(true);
             }}
           >
