@@ -31,7 +31,7 @@ const LineDemo = (props) => {
             padding: ".65rem .75rem",
           }}
         >
-          <p>{`Klarade: ${payload[0].value}`}</p>
+          <p>{`Antal rätt: ${payload[0].value}`}</p>
         </div>
       );
     }
