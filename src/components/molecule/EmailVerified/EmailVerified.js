@@ -2,7 +2,7 @@ import { Box, Typography } from "@material-ui/core";
 import { Backdrop, Button, CircularProgress } from "@mui/material";
 import React, { useState } from "react";
 import CheckIcon from "../../../assets/Icons/check.png";
-import { Container } from "reactstrap";
+import { Container } from "@mui/material";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../service/Route";

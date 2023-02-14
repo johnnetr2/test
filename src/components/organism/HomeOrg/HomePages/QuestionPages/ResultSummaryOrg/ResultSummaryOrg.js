@@ -16,37 +16,24 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
 import UnAttemptedCheckBox from "../../../../../../assets/Icons/UnAttemptedCheckBox.svg";
-import CircularProgress from "@mui/material/CircularProgress";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
 import Correct from "../../../../../../assets/Imgs/correct.png";
-import { DTKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
-import { XYZNormeringValueFor } from "../../../../../atom/percentageCalculator/PercentageCalculator";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
-import swal from "sweetalert";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../service/commonService";
 import CirculerLoader from '../../../../../molecule/CircularLoader'
+import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
+import { scrollTop } from "../../../../../service/commonService";
+
+import { percentageCalculation } from "../../../../../atom/percentageCalculator/Utils";
 
 export const dispSecondsAsMins = (seconds) => {
   // 25:00
   const mins = Math.floor(seconds / 60);
   const seconds_ = seconds % 60;
-  /*
-  return (
-    Math.floor(mins?.toString()) +
-    ":" +
-    (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
-  ); 
-  */
   return (
     (mins < 10 ? "0" + mins : mins) +
     ":" +
@@ -54,25 +41,6 @@ export const dispSecondsAsMins = (seconds) => {
   );
 };
 
-export const percentageCalculation = (params, value) => {
-  if (params?.state?.sectionCategory?.title == "XYZ") {
-    return XYZNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "KVA") {
-    return KVANormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "NOG") {
-    return NOGNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "DTK") {
-    return DTKNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "ELF") {
-    return ELFNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "LÄS") {
-    return LASNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "ORD") {
-    return ORDNormeringValueFor(value);
-  } else if (params?.state?.sectionCategory?.title == "MEK") {
-    return MEKNormeringValueFor(value);
-  }
-};
 const ResultSummaryOrg = () => {
   const params = useLocation();
   const [timePerQues, setTimePerQues] = useState();
@@ -80,12 +48,7 @@ const ResultSummaryOrg = () => {
   const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.value);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
+  const categoryName = params?.state?.sectionCategory?.title
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -160,10 +123,20 @@ const ResultSummaryOrg = () => {
         console.log(error, "this is the console of error ");
       });
 
+    scrollTop()
+
     return () => {
       // clearInterval(timer);
     };
   }, []);
+
+  const navigationHandler = () => {
+    navigate("/category", {
+      state: {
+        item: params?.state?.sectionCategory,
+      },
+    })
+  }
 
   return (
     <div>
@@ -173,21 +146,39 @@ const ResultSummaryOrg = () => {
         className={classes.appbar}
         style={{
           boxShadow: "none",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
         }}
         position="static"
       >
-        <Toolbar>
+
+        <Toolbar
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           {/* <ArrowBackIosIcon color='black' sx={{ width: 100 }} /> */}
+          <Box
+            onClick={navigationHandler}
+            sx={{
+              height: "8vh",
+              width: "2.3rem",
+              display: "flex",
+              alignItems: "center",
+              borderRight: "1px solid #E1E1E1",
+              cursor: "pointer",
+            }}
+          >
+            <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
+          </Box>
           <Typography
             variant="body1"
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
-            Sammanfattning - {params?.state?.sectionCategory?.title}
+            Sammanfattning - {categoryName}
           </Typography>
+          <Typography></Typography>
         </Toolbar>
       </AppBar>
 
@@ -208,16 +199,15 @@ const ResultSummaryOrg = () => {
               {responseCollection?.question.length}
             </Box>
             {
-              // responseCollection && responseCollection?.question[0].timeleft != 0
               params?.state?.time && (
                 <Box mt={2} sx={{ color: "#222" }}>
                   <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
                   {responseCollection
                     ? dispSecondsAsMins(
-                        responseCollection?.question[
-                          responseCollection.question.length - 1
-                        ].timeleft?.toFixed(0)
-                      )
+                      responseCollection?.question[
+                        responseCollection.question.length - 1
+                      ].timeleft?.toFixed(0)
+                    )
                     : "00:00"}
                 </Box>
               )
@@ -284,12 +274,12 @@ const ResultSummaryOrg = () => {
                   }}
                 >
                   {responseCollection?.totalQuestion &&
-                  responseCollection?.correctAnswer != null ? (
-                    <Typography variant="h4" style={{marginRight: "0.8rem"}}>
+                    responseCollection?.correctAnswer != null ? (
+                    <Typography variant="h4" style={{ marginRight: "0.8rem" }}>
                       {responseCollection &&
                         responseCollection.correctAnswer +
-                          " /" +
-                          responseCollection.question.length}
+                        " /" +
+                        responseCollection.question.length}
                     </Typography>
                   ) : (
                     <Box sx={{ display: "flex" }}>
@@ -322,18 +312,20 @@ const ResultSummaryOrg = () => {
                     }}
                   >
                     {responseCollection ? (
-                      <Typography variant="h4" style={{marginLeft: percentageCalculation(
-                        params,
-                        (responseCollection.correctAnswer /
-                          responseCollection.question.length) *
-                          100
-                     ).toString().length > 1 ? "3.2rem" : "0rem"}}>
-                        {/* <KantitativePercentageCalculator percentage={(responseCollection.correctAnswer / responseCollection.question.length) * 100} /> */}
-                        {percentageCalculation(
-                          params,
+                      <Typography variant="h4" style={{
+                        marginLeft: percentageCalculation(
                           (responseCollection.correctAnswer /
                             responseCollection.question.length) *
-                            100
+                          100,
+                          categoryName
+                        ).toString().length > 1 ? "3.2rem" : "0rem"
+                      }}>
+
+                        {percentageCalculation(
+                          (responseCollection.correctAnswer /
+                            responseCollection.question.length) *
+                          100,
+                          categoryName
                         )}
                       </Typography>
                     ) : (
@@ -356,8 +348,6 @@ const ResultSummaryOrg = () => {
               </Box>
 
               {
-                // responseCollection && responseCollection?.question[0].timeleft != 0
-                // params?.state?.time && (
                 <Box
                   sx={{
                     display: "flex",
@@ -564,13 +554,7 @@ const ResultSummaryOrg = () => {
           <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 615 }}>
             <Button
               variant="outlined"
-              onClick={() =>
-                navigate("/category", {
-                  state: {
-                    item: params?.state?.sectionCategory,
-                  },
-                })
-              }
+              onClick={navigationHandler}
               style={{
                 width: "100%",
                 maxWidth: 600,
@@ -584,7 +568,7 @@ const ResultSummaryOrg = () => {
           </Box>
         </Container>
       </Container>
-    </div>
+    </div >
   );
 };
 

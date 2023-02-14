@@ -3,30 +3,26 @@ import {
   Container,
   CssBaseline,
   FormControlLabel,
-  Paper,
   Radio,
   Typography,
 } from "@material-ui/core";
-import { Close, OpenInFull } from "@mui/icons-material/";
+import { Close } from "@mui/icons-material/";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import { EndPoints, instance, instance2 } from "../../../../../service/Route";
-import React, { useEffect, useRef, useState } from "react";
+import { EndPoints, instance2 } from "../../../../../service/Route";
+import React, { useEffect, useState } from "react";
 
 import ArrowSalt from "../../../../../../assets/Icons/ArrowSalt.svg";
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
-import { PositionableContainer, Position } from "re-position";
 import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
-import Ruler from "../../../../../../assets/Icons/ruler.svg";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
-import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import { appColors } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../service/commonService";
 import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];
@@ -38,28 +34,10 @@ const QuestionViewDTKOrg = (props) => {
   const [answerExistance, setAnswerExistance] = useState();
   const [onHover, setOnHover] = useState();
   const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
   const [showRuler, setShowRuler] = useState(false);
-  const [position, setPosition] = useState({
-    left: "85%",
-    top: "37.5%",
-    width: "75px",
-    height: "450px",
-    rotation: "0deg",
-  });
 
-  const handleUpdate = (position) => {
-    setPosition(position)
-  };
   const handleShowRuler = () => {
     setShowRuler((prevState) => !prevState)
-    setPosition({
-      left: "85%",
-      top: "37.5%",
-      width: "75px",
-      height: "450px",
-      rotation: "0deg",
-    })
   };
   const { user, token } = useSelector((state) => state.value);
   const [enterSubmitted, setEnterSubmitted] = useState(true)
@@ -67,14 +45,6 @@ const QuestionViewDTKOrg = (props) => {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
-  // let minutes = 0;
-  // let seconds = 0;
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -136,12 +106,6 @@ const QuestionViewDTKOrg = (props) => {
   }));
 
   const classes = useStyles(10);
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   useEffect(() => {
     scrollTop();
@@ -205,18 +169,6 @@ const QuestionViewDTKOrg = (props) => {
     return () => clearInterval(tymer);
   }, []);
 
-  // quiz?.[0]?.question?.[0]?.answer &&
-
-  const getTimeForUnattemptedQuestions = (quiz, index) => {
-    const ans = quiz[index].question.map((item) => {
-      if (item.answer) {
-        return true;
-      } else if (!item.answer) {
-        return false;
-      }
-    });
-    return ans;
-  };
 
   const handleRightArrowFunction = () => {
     const Quiz = { ...quiz };
@@ -230,14 +182,8 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : seconds,
-      // Boolean(
-      //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-      // )
-      //   ? seconds
-      //   : 0,
     };
 
-    // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
       (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
@@ -254,7 +200,6 @@ const QuestionViewDTKOrg = (props) => {
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
     selectedIndex + 1 < quiz?.question.length && props.changeIndex();
     setSeconds(0);
-    setMinutes(0);
   };
 
   const handleLeftArrowFunction = () => {
@@ -268,13 +213,7 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : seconds,
-      // Boolean(
-      //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-      // )
-      //   ? seconds
-      //   : 0,
     };
-    // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
       (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
@@ -290,7 +229,6 @@ const QuestionViewDTKOrg = (props) => {
     setSelectedIndex(selectedIndex - 1);
     props.previosQuestion();
     setSeconds(0);
-    setMinutes(0);
   };
 
   const SelectFunc = (item, optionIndex) => {
@@ -517,7 +455,7 @@ const QuestionViewDTKOrg = (props) => {
                         textTransform: "uppercase",
                         fontSize: ".85rem",
                         maxWidth: "650px",
-                        margin: "auto",
+                        margin: quiz?.description.length < 2000 ? "auto" : "0",
                       }}
                     >
                       {quiz && quiz.question.length + " uppgifter"}
@@ -725,10 +663,19 @@ const QuestionViewDTKOrg = (props) => {
                           padding: "3rem 0rem",
                           display: "flex",
                           flexDirection: "column",
+                          alignItems: "center"
                         }}
                       >
-                        <MarkLatex content={question.questionStatement} />
-
+                        <QuestionStatement
+                          description={question?.questionStatement}
+                          indications={[
+                            question?.information1,
+                            question?.information2,
+                          ]}
+                          type={quiz?.title}
+                        />
+                        {/*                         <MarkLatex content={question.questionStatement} />
+ */}
                         {question.image && (
                           <img
                             src={question.image[0]}

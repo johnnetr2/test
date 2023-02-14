@@ -1,50 +1,29 @@
-import { Container, Grid, makeStyles } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../service/Route";
 import React, { useEffect, useState } from "react";
 
+import GridLayout from "../../GridOrg/GridLayout";
 import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
 import CoursesFeedContent from "../CoursesFeedContent/CoursesFeedContent";
 import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
-import HomeLeftBar from "../../HomeOrg/HomeLeftBar/HomeLeftBar";
+import AppLoader from "../../../molecule/AppLoader";
+import LeftBar from "../../LeftBarOrg/LeftBar";
 import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  right: {
-    [theme.breakpoints.down("1200")]: {
-      display: "none",
-    },
-    padding: "0 1rem",
-  },
-  main: {
-    minHeight: "100vh",
-    [theme.breakpoints.up("1300")]: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    [theme.breakpoints.down("1280")]: {
-      display: "flex",
-      justifyContent: "flex-start",
-    },
-  },
-  leftBarHide: {
-    [theme.breakpoints.down("600")]: {
-      display: "none",
-    },
-  },
-}));
-
 const CoursesMain = () => {
-  const classes = useStyles();
   const [previousExams, setPreviousExams] = useState();
   const [limit, setLimit] = useState(5);
   const [provHistoryData, setProvHistoryData] = useState("");
   const [provpassSeasons, setProvpassSeasons] = useState();
+  const [provpassOrderBySeason, setProvpassOrderBySeason] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const userId = useSelector((state) => state.value.user._id);
 
-  useEffect(() => {
+  useEffect(async () => {
     const getPreviosExams = EndPoints.getPreviousExams + `?size=${limit}`;
     instance2.get(getPreviosExams).then((response) => {
       setPreviousExams(response.data.data);
+      setProvpassOrderBySeason(response.data.provPassOrder);
+      setIsLoading(false);
     });
 
     const URL = EndPoints.simuleraQuizHistory + userId;
@@ -96,49 +75,37 @@ const CoursesMain = () => {
   }, [limit]);
 
   const LoadMore = () => {
-    setLimit((lim) => lim + 3);
+    setLimit((lim) => lim + 30);
+  };
+
+  const loadLess = () => {
+    setLimit(5);
   };
 
   return (
-    <Container maxWidth="false" disableGutters>
-      <Grid container wrap="nowrap" className={classes.main}>
-        <Grid
-          item
-          className={classes.leftBarHide}
-          style={{ maxWidth: "6rem" }}
-          sm={1}
-          xs={1}
-          md={1}
-          lg={1}
-          xl={1}
-        >
-          {/* <CoursesLeftBar /> */}
-          <HomeLeftBar currentPage="course" />
-        </Grid>
-        <Grid item xs={12} sm={10} lg={7} xl={7} style={{ margin: "0 auto" }}>
+    <>
+      <AppLoader isLoading={isLoading} />
+      <GridLayout
+        leftBar={<LeftBar />}
+        middle={
           <CoursesFeedContent
             previousExams={previousExams}
             data={provHistoryData}
             loadMore={() => LoadMore()}
+            loadLess={() => loadLess()}
             seasons={provpassSeasons}
+            provpassOrderBySeason={provpassOrderBySeason}
           />
-        </Grid>
-        <Grid
-          item
-          style={{
-            width: "35rem",
-            backgroundColor: "#fafafa",
-          }}
-          className={classes.right}
-        >
+        }
+        rightBar={
           <CoursesRightBar
             data={provHistoryData}
             previousExams={previousExams}
           />
-        </Grid>
-      </Grid>
-      <BottomNavBar currentPage="course" />
-    </Container>
+        }
+        bottomNav={<BottomNavBar currentPage="course" />}
+      />
+    </>
   );
 };
 

@@ -17,6 +17,7 @@ import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import Heading from "../../../atom/Heading/Heading";
 import { Input } from "reactstrap";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
 import { appColors } from "../../../service/commonService";
 
@@ -49,6 +50,8 @@ const CoursesFeedContent = (props) => {
   const navigate = useNavigate();
 
   const [tabValue, setTabValue] = useState(0);
+  //Search query
+  const [query, setQuery] = useState("");
 
   let previousExams = props.previousExams;
 
@@ -103,13 +106,13 @@ const CoursesFeedContent = (props) => {
                 }}
                 label="Alla"
               />
-              <Tab
+              {/* <Tab
                 style={{
                   textTransform: "initial",
                   color: tabValue === 1 ? "black" : "#B5B5B5",
                 }}
                 label="Tidigare högskoleprov"
-              />
+              />  */}
               {/* <Tab
                 style={{
                   textTransform: "initial",
@@ -133,18 +136,19 @@ const CoursesFeedContent = (props) => {
               alignItems: "center",
               border: "1px solid #e5e5e5",
               borderRadius: ".5rem",
-              width: "15rem",
+              width: "16rem",
               padding: ".5rem",
             }}
             className={classes.hideSearch}
           >
             <Input
               type="search"
-              placeholder="Sök prov mellan 2011-2022"
+              placeholder="Sök prov här..."
               style={{ border: "none" }}
+              onChange={(e) => setQuery(e.target.value)}
             />
             <Box>
-              <img style={{ marginLeft: ".5rem" }} src={SearchIcon} alt="" />
+              <img src={SearchIcon} alt="" />
             </Box>
             {/* {console.log(props?.seasons, "seasons")} */}
           </Box>
@@ -153,15 +157,17 @@ const CoursesFeedContent = (props) => {
       <TabPanel value={tabValue} index={0}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
-            Tidigare högskoleprov
+            Högskoleprov från tidigare år
           </Typography>
           <Typography
             variant="body2"
             component="body2"
             style={{ fontSize: "0.75rem", lineHeight: "1.5" }}
           >
-            Välj ett specifikt prov och gör samma frågor som kom på just det
-            provet.
+            Gör prov från ett tidigare år och jämför ditt resultat med
+            provdeltagarna från det året.
+            <br />
+            Utprövningspasset är exkluderat från proven.
           </Typography>
         </Box>
         <Box>
@@ -170,22 +176,29 @@ const CoursesFeedContent = (props) => {
             // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
-              props?.data &&
-              previousExams.map((item) => {
-                return (
-                  <CoursesCard
-                    id={item?._id}
-                    item={item}
-                    progress={props?.data?.find(
-                      (provHistory) =>
-                        provHistory?.simuleraSeason?._id === item?._id
-                    )}
-                    quizzes={
-                      props.seasons && getSeasonQuizzzes(props.seasons, item)
-                    }
-                  />
-                );
-              })}
+              previousExams
+                .filter((exam) => exam.title.toLowerCase().includes(query))
+                .map((item) => {
+                  return (
+                    <CoursesCard
+                      id={item?._id}
+                      item={item}
+                      progress={
+                        props?.data &&
+                        props?.data?.find(
+                          (provHistory) =>
+                            provHistory?.simuleraSeason?._id === item?._id
+                        )
+                      }
+                      quizzes={
+                        props.seasons && getSeasonQuizzzes(props.seasons, item)
+                      }
+                      provpassOrder={
+                        props?.provpassOrderBySeason[item?._id] ?? null
+                      }
+                    />
+                  );
+                })}
           </Box>
           {/*  */}
         </Box>
@@ -204,10 +217,21 @@ const CoursesFeedContent = (props) => {
               backgroundColor: appColors.blueColor,
               color: appColors.whiteColor,
             }}
-            onClick={() => props.loadMore()}
+            onClick={() =>
+              previousExams?.length < 6 ? props.loadMore() : props.loadLess()
+            }
           >
-            Fler prov
-            <KeyboardArrowDownIcon />
+            {previousExams?.length < 6 ? (
+              <>
+                Fler prov
+                <KeyboardArrowDownIcon />
+              </>
+            ) : (
+              <>
+                Färre prov
+                <KeyboardArrowUpIcon />
+              </>
+            )}
           </Button>
         </Box>
         {/* <Box sx={{ marginBottom: "2rem" }}>
@@ -225,10 +249,11 @@ const CoursesFeedContent = (props) => {
         </Box> */}
         <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
       </TabPanel>
+
       <TabPanel value={tabValue} index={1}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
-            Tidigare högskoleprov
+            Högskoleprov från tidigare år
           </Typography>
           <Typography
             variant="body2"
@@ -240,25 +265,52 @@ const CoursesFeedContent = (props) => {
           </Typography>
         </Box>
         <Box>
-          <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
-        </Box>
-        <Box
-          sx={{
-            marginBottom: "3rem",
-            marginTop: "1rem",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            style={{
-              backgroundColor: appColors.blueColor,
-              color: appColors.whiteColor,
-            }}
-          >
-            Fler prov
-          </Button>
+          <Box sx={{ marginBottom: "1rem" }}>
+            {/* <CoursesCard /> */}
+            {previousExams &&
+              previousExams
+                .filter((exam) => exam.title.toLowerCase().includes(query))
+                .map((item) => {
+                  return (
+                    <CoursesCard
+                      id={item?._id}
+                      item={item}
+                      progress={
+                        props?.data &&
+                        props?.data?.find(
+                          (provHistory) =>
+                            provHistory?.simuleraSeason?._id === item?._id
+                        )
+                      }
+                      quizzes={
+                        props.seasons && getSeasonQuizzzes(props.seasons, item)
+                      }
+                      provpassOrder={
+                        props?.provpassOrderBySeason[item?._id] ?? null
+                      }
+                    />
+                  );
+                })}
+            <Box
+              sx={{
+                marginBottom: "3rem",
+                marginTop: "1rem",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: appColors.blueColor,
+                  color: appColors.whiteColor,
+                }}
+              >
+                Fler prov
+                <KeyboardArrowDownIcon />
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </TabPanel>
       {/* <TabPanel value={tabValue} index={2}>

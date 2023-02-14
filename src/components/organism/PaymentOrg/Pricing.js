@@ -5,6 +5,7 @@ import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
 import { EndPoints, instance2 } from "../../service/Route";
 import PayButton from "./PayButton";
+require("dotenv").config();
 
 const Pricing = () => {
   const [price, setPrice] = useState(75);
@@ -14,30 +15,37 @@ const Pricing = () => {
   const checkoutContainer = useRef(null);
 
   const goPayment = () => {
+    //Make orderData dynamic when we implement discount code. Tech DEBT - refactor ordeData
+    let quantity = 1;
+    let unit_price = 45000;
+    let total_amount = quantity * unit_price;
+    let tax_rate = 2500;
+    let total_tax_amount = total_amount - (total_amount * 10000) / (10000 + tax_rate);
+
     const orderData = JSON.stringify({
       purchase_country: "SE",
       purchase_currency: "SEK",
       locale: "sv-se",
-      order_amount: 100,
-      order_tax_amount: 20,
+      order_amount: total_amount,
+      order_tax_amount: total_tax_amount,
       order_lines: [
         {
           type: "digital",
           reference: "Premium",
           name: "Premium",
-          quantity: 1,
+          quantity: quantity,
           quantity_unit: "pcs",
-          unit_price: 100,
-          tax_rate: 2500,
-          total_amount: 100,
+          unit_price: unit_price,
+          tax_rate: tax_rate,
+          total_amount: total_amount,
           total_discount_amount: 0,
-          total_tax_amount: 20,
+          total_tax_amount: total_tax_amount,
         },
       ],
       merchant_urls: {
-        terms: "https://www.example.com/terms.html", // Johnny edit this later
-        checkout: "http://localhost:3000/checkout", // We go for localhost url in DEV mode.
-        confirmation: "http://localhost:3000/payment-confirmation", // We go for localhost url in DEV mode.
+        terms: "https://www.hpappen.se/villkoren", // Johnny edit this later
+        checkout: process.env.REACT_APP_BASE_URL + "/checkout", // We go for localhost url in DEV mode.
+        confirmation: process.env.REACT_APP_BASE_URL + "/payment-confirmation", // We go for localhost url in DEV mode.
         push: "https://www.example.com/api/push", //We need to respond to Klarna with a 200 status.
       },
     });
@@ -121,7 +129,7 @@ const Pricing = () => {
                 checked={pricingSwitch}
                 onChange={(e) => {
                   setPricingSwitch(!pricingSwitch);
-                  setPrice(e.target.checked ? 90 : 450);
+                  setPrice(e.target.checked ? 75 : 450);
                 }}
                 inputProps={{ "aria-label": "ant design" }}
               />

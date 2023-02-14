@@ -1,7 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
@@ -15,7 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { login } from "../../../redux/reducers";
 import { useDispatch } from "react-redux";
-import { appColors } from "../../service/commonService";
+import { appColors, setInitialUserState } from "../../service/commonService";
+
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -45,7 +45,12 @@ const LoginOrg = () => {
 
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/home");
+      instance2.get(EndPoints.getUser).then(response => {
+        setInitialUserState(response.data)
+        navigate("/home");
+      }).catch(error => {
+        console.log("error", error)
+      })
     }
   }, []);
 
@@ -73,7 +78,7 @@ const LoginOrg = () => {
       });
     } else {
       const data = {
-        email: user.email,
+        email: user.email.trim(),
         password: user.password,
       };
       const URL = EndPoints.Login;
@@ -90,15 +95,24 @@ const LoginOrg = () => {
             localStorage.setItem("role", user.role);
             localStorage.setItem("fullName", user.fullName);
             localStorage.setItem("email", user.email);
-            const createdAtDate = user.verified_date ? user.verified_date : new Date();
-            const trialDate = moment(createdAtDate)
-              .add(300, "days")
-              .format("YYYY-MM-DD");
+            setInitialUserState(user)
+            // const verifiedAtDate = user.verified_date ? user.verified_date : new Date();
+            // const trialDate = moment(verifiedAtDate)
+            //   .add(300, "days")
+            //   .format("YYYY-MM-DD");
+            // let isPremium = user.isPremium
+            // const currentDate = moment(new Date()).format("YYYY-MM-DD");
 
-            const currentDate = moment(new Date()).format("YYYY-MM-DD");
-            const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
-            localStorage.setItem("isPremium", user.isPremium ? true : false);
-            localStorage.setItem("isInTrial", isGreaterCurrentData);
+            // if (user.nextExpiry && user.nextExpiry !== "no expiry") {
+            //   let nextExpiry = moment(user.nextExpiry).isAfter(currentDate)
+            //   if(!nextExpiry) {
+            //     isPremium = nextExpiry
+            //   }
+            // }
+
+            // const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
+            // localStorage.setItem("isPremium", user.isPremium ? true : false);
+            // localStorage.setItem("isInTrial", isGreaterCurrentData);
             MixpanelTracking.getInstance().login(
               "success",
               response.data.user?._id

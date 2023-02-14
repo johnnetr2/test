@@ -4,6 +4,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 import ArrowSalt from "../../../assets/Icons/ArrowSalt.svg";
+import QuestionStatement from "../QuestionStatement/QuestionStatement";
+import RulerButton from "../../atom/RulerButton/RulerButton";
+import RulerComponent from "../../molecule/RulerComponent";
+import ExpansionDialog from "../../atom/ExpansionDialog/ExpansionDialog";
+
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
@@ -26,6 +31,25 @@ const useStyles = makeStyles((theme) => ({
 
 const ExamTextView = ({text, title, questionLength}) => {
   const [extendedView, setExtendView] = useState(false);
+  const [showRuler, setShowRuler] = useState(false);
+  const [position, setPosition] = useState({
+    left: "85%",
+    top: "37.5%",
+    width: "75px",
+    height: "450px",
+    rotation: "0deg",
+  });
+
+  const handleShowRuler = () => {
+    setShowRuler((prevState) => !prevState)
+    setPosition({
+      left: "85%",
+      top: "37.5%",
+      width: "75px",
+      height: "450px",
+      rotation: "0deg",
+    })
+  };
   
   const classes = useStyles();
   
@@ -49,7 +73,12 @@ const ExamTextView = ({text, title, questionLength}) => {
         className={classes.scrollbar}
         style={{ position: "relative" }}
         >
-            <Typography
+          <QuestionStatement
+            numberOfQuestions={questionLength}
+            title={title}
+            description={text}
+          />
+            {/* <Typography
               variant="subtitle1"
               style={{
                 fontSize: ".7rem",
@@ -58,7 +87,7 @@ const ExamTextView = ({text, title, questionLength}) => {
               }}
             >
               {(questionLength ? questionLength : 0) + " uppgifter:"}
-            </Typography>
+            </Typography> */}
             <img
               onClick={() => setExtendView(true)}
               style={{
@@ -69,67 +98,15 @@ const ExamTextView = ({text, title, questionLength}) => {
               }}
               src={ArrowSalt}
             />
-            <Typography variant="h6" component="h6">
-              {title ? title : ""}
-            </Typography>
-            <MarkLatex content={text}/>
-            <Dialog
-              open={extendedView}
-              onClose={closeExtended}
-              maxWidth={"lg"}
-              fullWidth={true}
-            >
-              {text && (
-                <>
-                  <DialogTitle style={{ padding: "2rem 5rem 2rem" }}>
-                    <Typography
-                      variant="subtitle1"
-                      style={{
-                        textTransform: "uppercase",
-                        fontSize: ".7rem",
-                        fontWeight: "500",
-                      }}
-                    >
-                      {(questionLength ? questionLength : 0) + " uppgifter:"}
-                    </Typography>
-                    <Typography variant="h3" component="h3">
-                      {!title === "DTK" ? title : ""}
-                    </Typography>
-                  </DialogTitle>
-                  <DialogContent 
-                    style={{
-                      columnCount: `${title === "DTK" || text.length < 2000
-                        ? "1"
-                        : "2"
-                        }`,
-                      padding: "0 5rem 2rem",
-                    }}
-                  >
-                    <Typography
-                      variant="subtitle1"
-                      style={{
-                        fontSize: ".85rem",
-                        maxWidth: "650px",
-                        margin: "auto",
-                      }}
-                    >
-                      <MarkLatex content={text} />
-                    </Typography>
-                  </DialogContent>
-                </>
-              )}
-              <Close
-                onClick={() => {
-                  setExtendView(false);
-                }}
-                style={{
-                  position: "absolute",
-                  top: "20",
-                  right: "20",
-                  cursor: "pointer",
-                }}
-              />
-            </Dialog>
+           <ExpansionDialog
+            open={extendedView}
+            onClose={closeExtended}
+            title={title}
+            text={text}
+            questionLength={questionLength}
+            handleShowRuler={handleShowRuler}
+            showRuler={showRuler}
+           />
         </Box>
     )
 }

@@ -302,6 +302,56 @@ const TestInformation = (props) => {
             >
               Lämna in provpass efter 55 minuter
             </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
+            >
+              När 55 minuter har gått avbryts provpasset automatiskt och du 
+              behöver lämna in för att få poäng (poängen redovisas först efter att 
+              hela provet är klart). Mellan provpassen har du möjlighet att ta paus. 
+              Om du avbryter provpasset får du ingen poäng, men du kan göra om 
+              provpasset senare.
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{
+                fontSize: ".875rem",
+                fontWeight: "600",
+                marginTop: "20px",
+              }}
+            >
+              Hjälpmedel
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
+            >
+              Du får inte använda miniräknare eller några andra digitala hjälpmedel 
+              på provet. Kladdpapper får du däremot använda!
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{
+                fontSize: ".875rem",
+                fontWeight: "600",
+                marginTop: "20px",
+              }}
+            >
+              Rekommendationer
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
+            >
+              Stressa inte men stanna inte heller länge på en uppgift du fastnat på. 
+              Tidsbegränsningen är en utmaning på Högskoleprovet, men det är 
+              precis därför det är så bra att träna på! Lycka till!
+            </Typography>
           </Box>
           <Box py={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             <ExerciseBtn
@@ -312,6 +362,7 @@ const TestInformation = (props) => {
                     id: params.state.id,
                     session: params.state.session,
                     provpass: params.state?.provpass,
+                    provpassOrder: params?.state?.provpassOrder,
                   },
                 })
               }

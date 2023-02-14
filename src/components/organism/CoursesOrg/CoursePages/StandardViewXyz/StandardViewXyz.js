@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import BarChart from "../../../../../assets/Icons/BarChart.svg";
 import RightArrow from "../../../../../assets/Icons/RightArrow.svg";
@@ -54,6 +54,7 @@ const StandardViewXyz = () => {
   const [open, setOpen] = useState(true);
   const [helpPopup, setHelpPopup] = useState(false);
   const [onHover, setOnhover] = useState();
+  const saveButtonRef = useRef(null);
 
   useEffect(() => {
     if (params?.state?.questionIndex != undefined) {
@@ -92,6 +93,7 @@ const StandardViewXyz = () => {
           currentQuestion: currentIndex,
           provpass: params?.state?.provpass,
           session: params?.state?.session,
+          provpassOrder: params?.state?.provpassOrder,
         },
       });
     }
@@ -245,7 +247,7 @@ const StandardViewXyz = () => {
     const handleEnterClick = (e) => {
       if (e.keyCode === 13) {
         currentIndex + 1 < quiz.question.length &&
-          setCurrentIndex((oldIndex) => oldIndex + 1);
+          setCurrentIndex(currentIndex + 1);
       }
     };
     document.addEventListener("keydown", handleEnterClick);
@@ -355,6 +357,7 @@ const StandardViewXyz = () => {
       question.isFlaged = true;
       setQuiz(allQuiz);
     }
+    saveButtonRef?.current.blur();
   };
 
   const numberOfAttemptedQuestions = quiz?.question.filter(
@@ -415,7 +418,7 @@ const StandardViewXyz = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      {helpPopup && <HelpPopup />}
+      {helpPopup && <HelpPopup examMode/>}
       <Backdrop
         sx={{
           color: "#fff",
@@ -608,6 +611,7 @@ const StandardViewXyz = () => {
                                 quiz?.question[currentIndex].sectionCategories
                                   .title
                               }
+                              image={question?.questionStatement?.includes("hp-appen.s3.eu-north-1.amazonaws.com")}
                             />
                           </Container>
                           <Box
@@ -653,7 +657,7 @@ const StandardViewXyz = () => {
                                       sx={{
                                         height:
                                           question.options.options.length > 4 ||
-                                          !option.value.includes(
+                                          !option.value?.includes(
                                             "hp-appen.s3.eu-north-1.amazonaws.com"
                                           )
                                             ? 60
@@ -663,7 +667,7 @@ const StandardViewXyz = () => {
                                         paddingRight: "14px",
                                         maxWidth:
                                           question.options.options.length > 4 ||
-                                          !option.value.includes(
+                                          !option.value?.includes(
                                             "hp-appen.s3.eu-north-1.amazonaws.com"
                                           )
                                             ? 600
@@ -753,7 +757,7 @@ const StandardViewXyz = () => {
                                           width:
                                             question?.options.options.length >
                                               4 ||
-                                            !option.value.includes(
+                                            !option.value?.includes(
                                               "hp-appen.s3.eu-north-1.amazonaws.com"
                                             )
                                               ? 600
@@ -771,7 +775,7 @@ const StandardViewXyz = () => {
                                           justifyContent:
                                             question?.options.options.length >
                                               4 ||
-                                            !option.value.includes(
+                                            !option.value?.includes(
                                               "hp-appen.s3.eu-north-1.amazonaws.com"
                                             )
                                               ? "flex-start"
@@ -784,7 +788,7 @@ const StandardViewXyz = () => {
                                       >
                                         <Typography
                                           className={
-                                            option.value.includes(
+                                            option.value?.includes(
                                               "hp-appen.s3.eu-north-1.amazonaws.com"
                                             )
                                               ? "optionImage"
@@ -993,6 +997,7 @@ const StandardViewXyz = () => {
                       ? appColors.blueColor
                       : "",
                   }}
+                  ref={saveButtonRef}
                   onClick={() => flagQuestion()}
                 >
                   {" "}

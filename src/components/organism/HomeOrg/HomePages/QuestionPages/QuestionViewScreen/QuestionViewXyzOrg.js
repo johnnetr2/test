@@ -56,12 +56,6 @@ const QuestionViewXyzOrg = () => {
   var timer;
   const myRef = useRef(null);
 
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
-
   useEffect(() => {
     const questionToShow = params?.state?.questionIndex;
     if (questionToShow != undefined) {
@@ -199,25 +193,14 @@ const QuestionViewXyzOrg = () => {
   }, [!params.state.time && startTimer]);
 
   const scrollBottom = () => {
-    myRef.current.scrollIntoView();
-  };
-
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    setTimeout(() => {
+      myRef.current.scrollIntoView();
+    }, 100);
   };
 
   const Next = (question, buttonText) => {
     setStartTimer(false);
-    if (buttonText === "Svara") {
-      // scrollBottom();
-    } else {
-      scrollTop(0);
-    }
     if (question.answer) {
-      // ref.current?.offsetTop({behavior: 'smooth'});
       if (selectedIndex + 1 == quiz.length) {
         if (
           answerSubmittedState.answer.length ===
@@ -241,6 +224,7 @@ const QuestionViewXyzOrg = () => {
         setStartTimer(true);
         selectedIndex + 1 < quiz.length && setSelectedIndex(selectedIndex + 1);
         setCurrentQuestion(currentQuestion + 1);
+        scrollTop();
       }
     } else {
       if (question.selectedIndex + 1) {
