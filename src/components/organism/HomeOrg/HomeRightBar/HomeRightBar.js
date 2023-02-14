@@ -1,13 +1,12 @@
 import { Box, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 import { createTheme } from "@mui/material/styles";
 import { EndPoints, instance2 } from "../../../service/Route";
 import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
-import { calculateWeekWiseNorming, calculateWeekWiseNormingForHomePageGraph } from "../../../atom/percentageCalculator/Utils";
+import { calculateWeekWiseNormingForHomePageGraph } from "../../../atom/percentageCalculator/Utils";
 import { getWeekNumbers } from "../../../atom/percentageCalculator/Utils";
 import { datesGroupByComponent } from '../../../service/commonService'
 import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
@@ -18,11 +17,8 @@ const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
-  const [isInTrial, setIsInTrial] = useState(JSON.parse(localStorage.getItem("isInTrial")))
-  const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
-
-
-
+  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
   useEffect(() => {
 
