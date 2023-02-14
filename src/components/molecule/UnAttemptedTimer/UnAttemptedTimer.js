@@ -22,8 +22,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
   "& .MuiPaper-root": {
-    width: "60%",
-    maxWidth: "800px",
+    width: "50%",
+    maxWidth: "700px",
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
@@ -34,7 +34,7 @@ const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ m: 0, p: 1 }} {...other}>
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -111,7 +111,7 @@ export default function UnAttemptedTimer(props) {
                 textTransform: "capitalize",
                 fontWeight: "regular",
                 padding: ".60rem 3rem",
-                marginBottom: "2rem",
+                marginBottom: "1rem",
               }}
             >
               {props.btnName}

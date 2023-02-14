@@ -18,7 +18,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
   "& .MuiPaper-root": {
     width: "60%",
-    maxWidth: "800px"
+    maxWidth: "700px"
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
@@ -29,7 +29,7 @@ const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ m: 0, p: 1 }} {...other}>
       {children}
       {onClose ? (
         <IconButton
@@ -82,15 +82,15 @@ export default function BackButtonPopup(props) {
           onClose={props.closePopup}
           style={{ textAlign: "right" }}
         ></BootstrapDialogTitle>
-        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-          <Typography gutterTop variant="h4" style={{ width: "60%" }}>
+        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
+          <Typography gutterTop variant="h4" style={{width: "100%"}}>
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%" }}>
+          <Typography gutterBottom variant="body2" style={{ marginTop: "1rem", width: "70%"}}>
             {props.description}
           </Typography>
         </DialogContent>
-        <DialogActions style={{ display: "flex", justifyContent: "center" }}>
+        <DialogActions style={{ display: "flex", justifyContent: "center"}}>
           <Button
             autoFocus
             onClick={() => props.redirect()}
@@ -116,6 +116,8 @@ export default function BackButtonPopup(props) {
               fontWeight: "regular",
               padding: ".60rem 3rem",
               marginBottom: "2rem",
+              border: "2px solid #0A1596",
+
             }}
           >
             {props.cancelBtnName}

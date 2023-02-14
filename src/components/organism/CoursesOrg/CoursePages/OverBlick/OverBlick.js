@@ -26,6 +26,7 @@ import Warning from "../../../../../assets/Icons/Warning.svg";
 import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
+import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
 import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 
 const OverBlick = () => {
@@ -498,19 +499,27 @@ const OverBlick = () => {
                     );
                   })}
               </Box>
-              <TestOverPopup
+              <CommonPopup
                 status={timeOverPopUp}
-                closePopUp={() => setTimeOverPopUp(false)}
-                onClick={() => submitQuiz()}
+                redirect={() => submitQuiz()}
+                title="Provpasset är över"
+                description="Efter att du lämnat in kan du ta en paus innan du börjar nästa
+                provpass. Ditt resultat sparas."
+                oneButtonPopup
+                agreeBtnName="Lämna in provpasset"
+              />
+              <CommonPopup
+                status={testSubmitPopUp}
+                redirect={() => submitQuiz()}
+                closePopup={() => setTestSubmitPopUp(false)}
+                title="Vill du lämna in?"
+                description={params.state.provpass?.simuleraQuizResult?.length < 3 ? "Efter att du lämnat in kan du ta en paus innan du börjar nästa provpass. Ditt resultat sparas." : "Efter att du lämnat in detta provpass är provet klart. "}
+                oneButtonPopup
+                agreeBtnName="Lämna in provpasset"
               />
             </Box>
           </Box>
         </Container>
-        <BootstrapDialogTitle
-          status={testSubmitPopUp}
-          closePopUp={() => setTestSubmitPopUp(false)}
-          testSubmit={() => submitQuiz()}
-        />
 
         {/* <Box
           sx={{
@@ -552,10 +561,24 @@ const OverBlick = () => {
           </Button>
         </Box>
       </Container>
-      <BackButtonPopup
+      <CommonPopup
         status={backPressPopup}
         closePopup={() => setBackPressPopup(false)}
+        title="Vill du avsluta provpasset?"
+        description="Du måste göra klart provpasset för att få din poäng. Om du trycker på avsluta, sparas inte dina svar."
+        cancelBtnName="Gör klart provpass"
+        agreeBtnName="Avsluta prov"
+        redirect={() => navigate("/courses")}
       />
+      {/* <BackButtonPopup
+        status={backPressPopup}
+        closePopup={() => setBackPressPopup(false)}
+        title="Vill du avsluta provpasset?"
+        description="Du måste göra klart provpasset för att få din poäng. Om du trycker på avsluta, sparas inte dina svar."
+        cancelBtnName="Gör klart provpass"
+        agreeBtnName="Avsluta prov"
+        redirect={() => navigate("/courses")}
+      /> */}
     </div>
   );
 };

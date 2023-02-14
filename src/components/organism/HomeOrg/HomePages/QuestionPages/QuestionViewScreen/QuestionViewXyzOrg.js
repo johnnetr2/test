@@ -30,7 +30,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
 import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
-import { appColors, scrollTop } from "../../../../../service/commonService";
+import { appColors } from "../../../../../service/commonService";
+import CommonPopup from "../../../../../molecule/CommonPopup/CommonPopup";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -49,7 +50,7 @@ const QuestionViewXyzOrg = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [answerSubmittedState, setAnsSubmittedState] = useState();
   const [seconds, setSeconds] = useState(0);
-  const [paragraphResponse, setParagraphResponse] = useState(false)
+  const [paragraphResponse, setParagraphResponse] = useState(false);
   const [startTimer, setStartTimer] = useState(true);
   const { user, token } = useSelector((state) => state.value);
   var timer;
@@ -167,22 +168,21 @@ const QuestionViewXyzOrg = () => {
     }
   }, [nextPress, timeLeft && !quiz[0]?.type == "multiple"]);
 
-
-
-
-
   useEffect(() => {
     const handleEnterClick = (e) => {
       if (e.keyCode === 13) {
-        Next(quiz[selectedIndex], quiz[selectedIndex].answer ? "Nästa" : "Svara")
+        Next(
+          quiz[selectedIndex],
+          quiz[selectedIndex].answer ? "Nästa" : "Svara"
+        );
       }
-    }
+    };
     document.addEventListener("keydown", handleEnterClick);
 
     return () => {
       document.removeEventListener("keydown", handleEnterClick);
-    }
-  }, [quiz, selectedIndex])
+    };
+  }, [quiz, selectedIndex]);
 
   useEffect(() => {
     timer = setInterval(() => {
@@ -384,17 +384,18 @@ const QuestionViewXyzOrg = () => {
         const URL = EndPoints.submitMultiquestionParagragh;
         instance2
           .post(URL, payload, { headers })
-          .then((response) => { setParagraphResponse(true) })
+          .then((response) => {
+            setParagraphResponse(true);
+          })
           .catch((error) => {
             console.log("this is the consnole of error", error);
           });
       } else {
-        console.log("no need to call api ")
+        console.log("no need to call api ");
       }
     } catch (error) {
       console.log("in catch block: ", error);
     }
-
   };
 
   const SelectFunc = (item, optionIndex) => {
@@ -467,7 +468,9 @@ const QuestionViewXyzOrg = () => {
           style={{
             marginRight: "0.5rem",
             color:
-              !question.answer && curentOption._id === onHover && appColors.hoverBlue,
+              !question.answer &&
+              curentOption._id === onHover &&
+              appColors.hoverBlue,
           }}
         />
       );
@@ -530,7 +533,6 @@ const QuestionViewXyzOrg = () => {
             {question.answer ? "Nästa" : "Svara"}
           </Typography>
         </Box>
-
       ) : (
         <Box
           padding={1}
@@ -682,10 +684,10 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
-          <QuestionBackButtonPopup
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          <CommonPopup
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
             cancelBtnName={"Fortsätt öva"}
@@ -693,9 +695,10 @@ const QuestionViewXyzOrg = () => {
             status={open}
             closePopup={() => setOpen(false)}
             redirect={() => handleAlertDialogPopup()}
+            questionPopup
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
-          <QuestionBackButtonPopup
+          <CommonPopup
             title={"Vill du avsluta?"}
             description={"Ingen fråga är besvarad."}
             cancelBtnName={"Fortsätt öva"}
@@ -707,14 +710,15 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-          (quiz &&
-            quiz?.[0]?.question?.[0]?.answer &&
-            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
-          <DropPenPopup
+        (quiz &&
+          quiz?.[0]?.question?.[0]?.answer &&
+          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          <CommonPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
-            btnName={"Se resultat"}
-            popUpstatus={timeEnd}
+            agreeBtnName={"Se resultat"}
+            status={timeEnd}
+            oneButtonPopup
             redirect={() => {
               // trackEndTest();
               localStorage.removeItem("quiz");
@@ -728,17 +732,25 @@ const QuestionViewXyzOrg = () => {
                     time: params?.state?.time,
                   },
                 });
-
             }}
           />
         ) : !quiz?.[0]?.answer || !quiz?.[0]?.question?.[0]?.answer ? (
-          <UnAttemptedTimer
+          <CommonPopup
             title={"Tiden är över."}
             description={
               "Ingen fråga är besvarad så du tas direkt tillbaka till övningssidan."
             }
-            btnName={"Avsluta"}
-            popUpstatus={timeEnd}
+            agreeBtnName={"Avsluta"}
+            status={timeEnd}
+            oneButtonPopup
+            closePopup={() => {
+              navigate("/category", {
+                state: {
+                  item: params?.state?.sectionCategory,
+                },
+              });
+              localStorage.removeItem("quiz");
+            }}
             redirect={() => {
               navigate("/category", {
                 state: {

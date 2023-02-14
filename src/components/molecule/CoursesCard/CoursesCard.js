@@ -190,7 +190,26 @@ const CoursesCard = (props) => {
               }
             }}
           >
-            <Box>
+            <Box
+              onClick={() => {
+                if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
+                  navigate("/testInformation", {
+                    state: {
+                      id: props.id,
+                      session: props?.item,
+                      provpass: props?.quizzes,
+                    },
+                  });
+                } else {
+                  navigate("/provresultat", {
+                    state: {
+                      seasonId: props?.quizzes?.simuleraSeason?._id,
+                      simuleraQuizResultId: props?.quizzes?._id,
+                    },
+                  });
+                }
+              }}
+            >
               <Box
                 style={{
                   display: "flex",

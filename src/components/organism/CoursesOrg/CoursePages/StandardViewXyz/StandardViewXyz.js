@@ -28,7 +28,6 @@ import WhiteStar from "../../../../../assets/Imgs/whiteStar.png";
 import { instance2, EndPoints } from "../../../../service/Route";
 import Timer from "../../../../atom/Timer/timer";
 import ProvPassDtk from "../ProvPassDtk/ProvPassDtk";
-import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
@@ -36,6 +35,7 @@ import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
 import { appColors } from "../../../../service/commonService";
+import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
 import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 import QuestionBody from "../../../../atom/QuestionBody/questionBody";
 import QuestionStatement from "../../../../molecule/QuestionStatement/QuestionStatement";
@@ -435,10 +435,10 @@ const StandardViewXyz = () => {
         style={{ backgroundColor: "#fff" }}
         className={classes.content}
       >
-        <BackButtonPopup
+        <CommonPopup
           status={backPressPopup}
           closePopup={() => setBackPressPopup(false)}
-          title="Vill du avsluta provet?"
+          title="Vill du avsluta provpasset?"
           description="Du måste göra klart provpasset för att få din poäng. Om du trycker
                 på avsluta, sparas inte dina svar."
           cancelBtnName="Gör klart provpass"

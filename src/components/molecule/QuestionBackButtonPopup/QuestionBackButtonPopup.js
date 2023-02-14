@@ -18,7 +18,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
   "& .MuiPaper-root": {
     width: "50%",
-    maxWidth: "800px"
+    maxWidth: "700px"
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
@@ -29,7 +29,7 @@ const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ m: 0, p: 1 }} {...other}>
       {children}
       {onClose ? (
         <IconButton
@@ -84,16 +84,15 @@ export default function QuestionBackButtonPopup(props) {
           style={{ textAlign: "right" }}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-          <Typography gutterTop variant="h4" style={{ width: "50%" }}>
+          <Typography gutterTop variant="h4" style={{width: "100%"}}>
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "50%" }}>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "100%"}}>
             {props.description}
           </Typography>
         </DialogContent>
-        <DialogActions style={{ display: "flex", justifyContent: "center", gap: "3rem" }}>
+        <DialogActions style={{ display: "flex", justifyContent: "center", gap: "6%" }}>
           <Button
-            autoFocus
             onClick={props.closePopup}
             style={{
               backgroundColor: "transparent",
@@ -103,20 +102,22 @@ export default function QuestionBackButtonPopup(props) {
               fontWeight: "regular",
               padding: ".60rem 3rem",
               marginBottom: "2rem",
+              borderRadius: "5px",
             }}
           >
             {props.cancelBtnName}
           </Button>
           <Button
-            autoFocus
             onClick={() => props.redirect()}
             style={{
               backgroundColor: appColors.blueColor,
               color: "#fff",
               textTransform: "capitalize",
               fontWeight: "regular",
-              padding: ".60rem 3rem",
+              border: "2px solid #0A1596",
+              padding: ".6rem 3rem",
               marginBottom: "2rem",
+              borderRadius: "5px",
             }}
           >
             {props.agreeBtnName}

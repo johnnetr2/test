@@ -7,11 +7,20 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { Box, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
 import { appColors } from "../../service/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiPaper-root": {
+    width: "50%",
+    maxWidth: "700px"
+  },
+}));
 
 export default function DropPenPopup(props) {
   const [open, setOpen] = React.useState(false);
@@ -27,7 +36,7 @@ export default function DropPenPopup(props) {
   return (
     <>
       <Box>
-        <Dialog
+        <BootstrapDialog
           open={props?.popUpstatus}
           TransitionComponent={Transition}
           keepMounted
@@ -35,7 +44,6 @@ export default function DropPenPopup(props) {
           aria-describedby="alert-dialog-slide-description"
           fullWidth
           maxWidth="md"
-
         >
           <DialogTitle
             style={{
@@ -64,7 +72,7 @@ export default function DropPenPopup(props) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              marginBottom: "2rem",
+              marginBottom: "1rem",
             }}
           >
             <Button
@@ -75,14 +83,14 @@ export default function DropPenPopup(props) {
                 textTransform: "capitalize",
                 fontWeight: "regular",
                 padding: ".60rem 3rem",
-                marginBottom: "2rem",
+                marginBottom: "1rem",
               }}
             >
               {/* Se resultat */}
               {props?.btnName}
             </Button>
           </DialogActions>
-        </Dialog>
+        </BootstrapDialog>
       </Box>
     </>
   );
