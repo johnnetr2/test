@@ -7,8 +7,8 @@ import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
-import { calculateWeekWiseNorming, calculateWeekWiseNormingtest } from "../../../atom/percentageCalculator/Utils";
-import { getWeekNumbers, getCurrentWeekNumber } from "../../../atom/percentageCalculator/Utils";
+import { calculateWeekWiseNorming, calculateWeekWiseNormingForHomePageGraph } from "../../../atom/percentageCalculator/Utils";
+import { getWeekNumbers } from "../../../atom/percentageCalculator/Utils";
 import { datesGroupByComponent } from '../../../service/commonService'
 import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
 import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
@@ -49,34 +49,28 @@ const HomeRightBar = (props) => {
           })
 
           let weekWiseAllCategoryDataFormater = weekWiseAllCategoryData
-          const currentWeekNumber = getCurrentWeekNumber(new Date())
+          weekWiseAllCategoryDataFormater = weekWiseAllCategoryDataFormater.map(({ weekWisePerCategoryData, isQuantitative }) => {
+            let sortable = [];
+            for (var key in weekWisePerCategoryData) {
+              sortable.push([key, weekWisePerCategoryData[key]]);
+            }
 
-          if (currentWeekNumber < 7) {
-            weekWiseAllCategoryDataFormater = weekWiseAllCategoryDataFormater.map(({ weekWisePerCategoryData, isQuantitative }) => {
-              let sortable = [];
-              for (var key in weekWisePerCategoryData) {
-                sortable.push([key, weekWisePerCategoryData[key]]);
-              }
+            sortable.sort(function (a, b) {
+              return new Date(a[1][0].createdAt) - new Date(b[1][0].createdAt);
+            });
+            let obj = new Map();
+            sortable.forEach((innerArray) => {
+              obj.set(innerArray[0], innerArray[1]);
+            });
+            return { weekWisePerCategoryData: obj, isQuantitative }
 
-              sortable.sort(function (a, b) {
-                return new Date(a[1][0].createdAt) - new Date(b[1][0].createdAt);
-              });
-              // console.log("ask jh", sortable);
-
-              let obj = new Map();
-              sortable.forEach((innerArray) => {
-                obj.set(innerArray[0], innerArray[1]);
-              });
-              return { weekWisePerCategoryData: obj, isQuantitative }
-
-            })
-          }
+          })
 
           // pick last hundred questions for week for every category
           const hundredQuestionsPerWeekData = []
           for (let index = 0; index < weekWiseAllCategoryDataFormater.length; index++) {
             const { weekWisePerCategoryData, isQuantitative } = weekWiseAllCategoryDataFormater[index];
-            const hundredQuestionsPerWeek = currentWeekNumber < 7 ? calculateWeekWiseNormingtest(weekWisePerCategoryData) : calculateWeekWiseNorming(weekWisePerCategoryData)
+            const hundredQuestionsPerWeek = calculateWeekWiseNormingForHomePageGraph(weekWisePerCategoryData)
             hundredQuestionsPerWeekData.push({ hundredQuestionsPerWeek, isQuantitative })
           }
 
@@ -97,22 +91,22 @@ const HomeRightBar = (props) => {
                 // for pick previous week's data if any category is missing on week
                 for (let pickPrevious = weekNameIndex - 1; pickPrevious >= 0; pickPrevious--) {
                   const previousWeekName = weekNames[pickPrevious];
+                  const categoryWeeksDataPrev = categoryWeekWiseData.hundredQuestionsPerWeek.find(weekData => weekData.name === previousWeekName)
 
-                  const categoryWeeksData = categoryWeekWiseData.hundredQuestionsPerWeek.find(weekData => weekData.name === previousWeekName)
-
-                  if (categoryWeeksData) {
+                  if (categoryWeeksDataPrev) {
                     if (categoryWeekWiseData.isQuantitative) {
-                      perWeekQuantitativeCorrected += categoryWeeksData.correctAnswers
-                      perWeekQuantitativeAttempted += categoryWeeksData.attemptQuestions
+                      perWeekQuantitativeCorrected += categoryWeeksDataPrev.correctAnswers
+                      perWeekQuantitativeAttempted += categoryWeeksDataPrev.attemptQuestions
                     } else {
-                      perWeekVerbalCorrected += categoryWeeksData.correctAnswers
-                      perWeekVerbalAttempted += categoryWeeksData.attemptQuestions
+                      perWeekVerbalCorrected += categoryWeeksDataPrev.correctAnswers
+                      perWeekVerbalAttempted += categoryWeeksDataPrev.attemptQuestions
                     }
                     break
                   }
                 }
               } else {
                 // add check to skip week's progress when not have done enough progress. 
+
                 if (categoryWeeksData.attemptQuestions > 0 && categoryWeeksData.attemptQuestions < 20) {
                   perWeekQuantitativeAttempted = 0
                   perWeekVerbalAttempted = 0
