@@ -44,6 +44,9 @@ const Provresultat = () => {
   const [participantsNormalized, setParticipantsNormalized] = useState(null);
   const [season, setSeason] = useState(null);
 
+  const quantitativeParts = ['XYZ', 'NOG', 'KVA', 'DTK'];
+  const verbalParts = ['ELF', 'LÄS', 'ORD', 'MEK'];
+
   useEffect(() => {
     const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
     console.log(URL);
@@ -164,7 +167,7 @@ const Provresultat = () => {
       participantsAverage?.DTK
     ),
     createExamPartData(
-      "SAMMANFATTNING",
+      "Kvantitativ del",
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
       participantsAverage?.KVANT,
@@ -202,7 +205,7 @@ const Provresultat = () => {
       participantsAverage?.ELF
     ),
     createExamPartData(
-      "SAMMANFATTNING",
+      "Verbal del",
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
       participantsAverage?.VERB,
@@ -216,7 +219,7 @@ const Provresultat = () => {
 
   const wholeExamRows = [
     createSummaryData(
-      "SAMMANFATTNING",
+      "Hela Provet",
       correctAnswersOfKvantitative + correctAnswersOfVerbal,
       totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
       participantsAverage?.Total
@@ -838,7 +841,7 @@ const Provresultat = () => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ width: "5rem" }}
+                        sx={{ width: "8rem" }}
                       >
                         {row.rowName}
                       </TableCell>
@@ -913,6 +916,8 @@ const Provresultat = () => {
                               state: {
                                 quizId: row._id,
                                 seasonId: row.simuleraSeason,
+                                provpassNumber: index + 1,
+                                provpassType: quantitativeParts.includes(row.quiz[0].sectionCategories.title) ? "Kvantitativ" : "Verbal",
                                 examResultData: {
                                   quizId: params?.state?.quizId,
                                   seasonId: params?.state?.seasonId,
