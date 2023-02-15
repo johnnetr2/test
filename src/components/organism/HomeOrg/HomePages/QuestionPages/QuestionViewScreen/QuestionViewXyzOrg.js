@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
 import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
-import { appColors } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../service/commonService";
 import CommonPopup from "../../../../../molecule/CommonPopup/CommonPopup";
 
 const QuestionViewXyzOrg = () => {
@@ -684,9 +684,9 @@ const QuestionViewXyzOrg = () => {
           />
         )}
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <CommonPopup
             title={"Vill du avsluta?"}
             description={"Du tas nu till summeringssidan."}
@@ -710,9 +710,9 @@ const QuestionViewXyzOrg = () => {
         ) : null}
 
         {(quiz && quiz?.[0]?.answer && quiz?.[0]?.multipartQuestion === null) ||
-        (quiz &&
-          quiz?.[0]?.question?.[0]?.answer &&
-          quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
+          (quiz &&
+            quiz?.[0]?.question?.[0]?.answer &&
+            quiz?.[0]?.question?.[0]?.multipartQuestion !== null) ? (
           <CommonPopup
             title={"Tiden är över."}
             description={"Bra kämpat! Gå vidare och checka ditt resultat."}
