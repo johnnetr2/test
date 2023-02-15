@@ -116,7 +116,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
   return weeklyProgressArr;
 };
 
-export const calculateWeekWiseNormingtest = (weekWiseData, testTypes) => {
+export const calculateWeekWiseNormingForHomePageGraph = (weekWiseData, testTypes) => {
   const weeklyProgressArr = [];
   const mapData = new Map(weekWiseData)
   let keys = []
@@ -215,7 +215,7 @@ export const getCurrentWeekNumber = (date) => {
   return currentWeek;
 };
 
-export const calculateWeekWiseNormingForCategory = (
+export const calculateWeekWiseNormingForCategorynewlessthen7weekNumber = (
   sevenWeekWiseData,
   isDesplayProgress,
   setIsDesplayProgress,
@@ -322,7 +322,7 @@ export const calculateWeekWiseNormingForCategory = (
   return weeklyProgressArr;
 };
 
-export const calculateWeekWiseNormingForCategorynewlessthen7weekNumber = (
+export const calculateWeekWiseNormingForCategory = (
   sevenWeekWiseData,
   isDesplayProgress,
   setIsDesplayProgress,
