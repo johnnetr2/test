@@ -74,7 +74,7 @@ const RightBar = (props) => {
     });
   };
   const columns = [
-    { id: "datum", label: "Datum", minWidth: 165 },
+    { id: "datum", label: "Datum", minWidth: 165},
     {
       id: "prov",
       label: "Prov",
@@ -134,7 +134,7 @@ const RightBar = (props) => {
         }
         <Box
           style={{
-            marginBottom: "2rem",
+            marginBottom: "1rem",
             marginTop: !isPremium && !isInTrial ? "6rem" : "11rem",
           }}
         >
@@ -182,7 +182,7 @@ const RightBar = (props) => {
                     return (
                       <TableRow key={row.createdAt}>
                         <TableCell component="th" scope="row">
-                          {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
+                          {moment(row?.createdAt).format("YYYY.MM.DD hh:mm")}
                         </TableCell>
                         <TableCell align="left">
                           <Typography style={{ fontSize: "14px" }}>

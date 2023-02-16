@@ -44,8 +44,8 @@ const RattedOverblick = () => {
       (seconds_ == 0
         ? "00"
         : seconds_.toString().length == 1
-        ? "0" + seconds_.toString()
-        : seconds_.toString())
+          ? "0" + seconds_.toString()
+          : seconds_.toString())
     );
   };
 
@@ -130,6 +130,7 @@ const RattedOverblick = () => {
                 state: {
                   seasonId: params.state?.examResultData?.seasonId,
                   quizId: params.state?.examResultData?.quizId,
+                  provpassOrder: params.state?.examResultData?.provpassOrder,
                 },
               })
             }
@@ -231,6 +232,7 @@ const RattedOverblick = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 flexDirection: "column",
+                marginBottom: "2rem"
               }}
             >
               <Box
