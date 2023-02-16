@@ -70,11 +70,12 @@ const RightBar = (props) => {
       state: {
         quizId: row?._id,
         seasonId: row?.simuleraSeason?._id,
+        provpassOrder: props?.provpassOrderBySeason[row?.simuleraSeason?._id] ?? [],
       },
     });
   };
   const columns = [
-    { id: "datum", label: "Datum", minWidth: 165},
+    { id: "datum", label: "Datum", minWidth: 165 },
     {
       id: "prov",
       label: "Prov",
@@ -115,7 +116,7 @@ const RightBar = (props) => {
   }
 
   return (
-    <Container maxWidth={false} style={{maxWidth: "800px"}}>
+    <Container maxWidth={false} style={{ maxWidth: "800px" }}>
       <Box
         sx={{
           backgroundColor: width < 900 ? "#fff" : "#fafafa",
@@ -189,7 +190,7 @@ const RightBar = (props) => {
                             {row?.simuleraSeason?.title}, {row?.simuleraSeason?.month}
                           </Typography>
                           <Typography style={{ fontSize: "14px" }}>
-                            
+
                           </Typography>
                         </TableCell>
                         <TableCell style={{ width: "6rem" }} align="left">

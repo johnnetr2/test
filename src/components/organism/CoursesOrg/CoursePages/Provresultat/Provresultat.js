@@ -916,7 +916,7 @@ const Provresultat = () => {
                               state: {
                                 quizId: row._id,
                                 seasonId: row.simuleraSeason,
-                                provpassNumber: params?.state?.provpassOrder[index].split("-")[2].replace(/[^0-9]/g, ""),
+                                provpassNumber: params?.state?.provpassOrder[index]?.split("-")[2]?.replace(/[^0-9]/g, ""),
                                 provpassType: quantitativeParts.includes(row.quiz[0].sectionCategories.title) ? "Kvantitativ" : "Verbal",
                                 examResultData: {
                                   quizId: params?.state?.quizId,

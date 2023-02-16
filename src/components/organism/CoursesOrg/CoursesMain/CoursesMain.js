@@ -27,7 +27,7 @@ const CoursesMain = () => {
         setProvpassOrderBySeason(response.data.provPassOrder);
         setIsLoading(false);
       });
-  
+
       const URL = EndPoints.simuleraQuizHistory + userId;
       instance2.get(URL).then((response) => {
         if (response.data.length > 0) {
@@ -38,18 +38,18 @@ const CoursesMain = () => {
               let totalQuestions = 0;
               let totalAnswer = 0;
               let date;
-  
+
               item.simuleraQuizResult.map((result) => {
                 totalQuestions = totalQuestions + result.totalQuestions;
                 totalAnswer = totalAnswer + result.correctAnswerCounter;
               });
               obj["totalQuestions"] = totalQuestions;
               obj["totalAnswer"] = totalAnswer;
-  
+
               newArray.push(obj);
             });
           setProvHistoryData(newArray);
-  
+
           let provPassArray = [];
           newArray?.map((item) => {
             const exist = provPassArray.some(
@@ -88,7 +88,7 @@ const CoursesMain = () => {
 
 
   const seachExams = (query) => {
-    if(query === '') return setPreviousExams(allPreviousExams.slice(0, 5));
+    if (query === '') return setPreviousExams(allPreviousExams.slice(0, 5));
     const searchedExams = [...allPreviousExams].filter((exam) => exam.title.toLowerCase().includes(query))
     setPreviousExams(searchedExams)
   }
@@ -113,6 +113,7 @@ const CoursesMain = () => {
           <CoursesRightBar
             data={provHistoryData}
             previousExams={previousExams}
+            provpassOrderBySeason={provpassOrderBySeason}
           />
         }
         bottomNav={<BottomNavBar currentPage="course" />}
