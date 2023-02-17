@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Grid } from "@material-ui/core";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, makeStyles } from "@mui/material";
 import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
 import { EndPoints, instance2 } from "../../service/Route";
@@ -20,7 +20,8 @@ const Pricing = () => {
     let unit_price = 45000;
     let total_amount = quantity * unit_price;
     let tax_rate = 2500;
-    let total_tax_amount = total_amount - (total_amount * 10000) / (10000 + tax_rate);
+    let total_tax_amount =
+      total_amount - (total_amount * 10000) / (10000 + tax_rate);
 
     const orderData = JSON.stringify({
       purchase_country: "SE",
@@ -85,6 +86,8 @@ const Pricing = () => {
     }, 1000);
   };
 
+  const marginRight = window.innerWidth > 820 ? "5rem" : 0;
+
   return (
     <Grid //Mother container
       container
@@ -93,6 +96,7 @@ const Pricing = () => {
       style={{
         padding: 50,
         backgroundColor: "#FAFAFA",
+        height: "100%",
       }}
     >
       <Grid // Wrapper of each section
@@ -179,7 +183,7 @@ const Pricing = () => {
             marginTop: "50px",
           }}
         >
-          <Grid item style={{ marginRight: "10rem" }}>
+          <Grid item style={{ marginRight }}>
             <ListValues />
           </Grid>
           <Grid item>
