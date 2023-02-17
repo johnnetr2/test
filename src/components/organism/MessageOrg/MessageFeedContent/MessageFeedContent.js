@@ -79,10 +79,9 @@ const MessageFeedContent = () => {
   };
 
   const handleClose = () => {
-    setFeedbackPopup(false)
+    setFeedbackPopup(false);
     setValue(0);
-
-  }
+  };
 
   return (
     <Container className={classes.root} disableGutters>
@@ -95,10 +94,7 @@ const MessageFeedContent = () => {
           height: "20rem",
         }}
       >
-        <FeedbackPopup
-          show={feedbackPopup}
-          onClose={() => handleClose()}
-        />
+        <FeedbackPopup show={feedbackPopup} onClose={() => handleClose()} />
         <Typography variant="h5" component="h5" style={{ textAlign: "center" }}>
           Berätta för oss vad du tycker! Prov
         </Typography>
@@ -112,7 +108,7 @@ const MessageFeedContent = () => {
             // justifyContent: "center",
           }}
         >
-          <BodyText title="Hur nöjd är du med HP-Appen just nu?" />
+          <BodyText title="Hur nöjd är du med HP-appen just nu?" />
         </Box>
         <Box sx={{ display: "flex" }}>
           <Rating
@@ -123,9 +119,9 @@ const MessageFeedContent = () => {
             color="primary"
             precision={1}
             style={{
-              fontSize: '3rem',
+              fontSize: "3rem",
               display: "flex",
-              WebkitInitialLetter: '2rem'
+              WebkitInitialLetter: "2rem",
             }}
             onChange={(e) => {
               setValue(e.target.value);
@@ -164,7 +160,7 @@ const MessageFeedContent = () => {
         </Box>
         <textarea
           aria-label="empty textarea"
-          placeholder="Hej Beta-användare! Din feedback är jättevärdefull för oss. Vi kollar nogrannt igenom all feedback och använder det sen för att förbättra vår app. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
+          placeholder="Hejsan! Din feedback är väldigt värdefull för oss. Vi går noggrant igenom all feedback och använder den sen för att förbättra tjänsten. Du kan ge feedback hur många gånger du vill, vi läser alltid!"
           style={{
             backgroundColor: "#f2f2f2",
             border: "none",
@@ -175,7 +171,7 @@ const MessageFeedContent = () => {
             minHeight: "45vh",
             minWidth: "40vw",
             resize: "none",
-            outline: 'none'
+            outline: "none",
           }}
           onChange={changeHandler}
           value={feedback}
