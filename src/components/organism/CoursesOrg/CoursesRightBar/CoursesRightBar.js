@@ -70,6 +70,7 @@ const RightBar = (props) => {
       state: {
         quizId: row?._id,
         seasonId: row?.simuleraSeason?._id,
+        provpassOrder: props?.provpassOrderBySeason[row?.simuleraSeason?._id] ?? [],
       },
     });
   };
@@ -115,7 +116,7 @@ const RightBar = (props) => {
   }
 
   return (
-    <Container maxWidth={false} style={{maxWidth: "800px"}}>
+    <Container maxWidth={false} style={{ maxWidth: "800px" }}>
       <Box
         sx={{
           backgroundColor: width < 900 ? "#fff" : "#fafafa",
@@ -134,7 +135,7 @@ const RightBar = (props) => {
         }
         <Box
           style={{
-            marginBottom: "2rem",
+            marginBottom: "1rem",
             marginTop: !isPremium && !isInTrial ? "6rem" : "11rem",
           }}
         >
@@ -182,14 +183,14 @@ const RightBar = (props) => {
                     return (
                       <TableRow key={row.createdAt}>
                         <TableCell component="th" scope="row">
-                          {moment(row?.createdAt).format("YYYY.MM.D hh:m")}
+                          {moment(row?.createdAt).format("YYYY.MM.DD hh:mm")}
                         </TableCell>
                         <TableCell align="left">
                           <Typography style={{ fontSize: "14px" }}>
                             {row?.simuleraSeason?.title}, {row?.simuleraSeason?.month}
                           </Typography>
                           <Typography style={{ fontSize: "14px" }}>
-                            
+
                           </Typography>
                         </TableCell>
                         <TableCell style={{ width: "6rem" }} align="left">

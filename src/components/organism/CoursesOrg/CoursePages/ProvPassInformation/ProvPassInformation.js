@@ -24,6 +24,10 @@ const ProvPassInformation = () => {
   const navigate = useNavigate();
   const params = useLocation();
 
+  const provpassNumber = useMemo(() => params?.state?.provpassOrder[
+    (params?.state?.provpass?.simuleraQuizResult?.length) || 0
+  ].split("-")[2].replace(/[^0-9]/g, ""), [params]);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       height: "100vh",
@@ -166,9 +170,7 @@ const ProvPassInformation = () => {
                 ? "Kvantitativt"
                 : "Verbalt"}{" "}
               provpass - Provpass{" "}
-              {params?.state.provpass === undefined
-                ? 1
-                : (params?.state.provpass?.simuleraQuizResult?.length || 0) + 1}
+              {provpassNumber}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>

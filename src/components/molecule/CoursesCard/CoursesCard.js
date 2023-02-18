@@ -104,7 +104,7 @@ const CoursesCard = (props) => {
                     id: props.id,
                     session: props?.item,
                     provpass: props?.quizzes,
-                    provpassOrder: props.provpassOrder,
+                    provpassOrder: props?.provpassOrder,
                   },
                 });
               } else {
@@ -113,6 +113,7 @@ const CoursesCard = (props) => {
                     seasonId: props?.quizzes?.simuleraSeason?._id,
                     simuleraQuizResultId: props?.quizzes?._id,
                     quizId: props?.quizzes?._id,
+                    provpassOrder: props?.provpassOrder,
                   },
                 });
               }
@@ -239,14 +240,14 @@ const CoursesCard = (props) => {
                   spacing={1}
                   style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}
                 >
-                  {[1, 2, 3, 4].map((item) => {
+                  {props?.provpassOrder?.map(year => year.split("-")[2].replace(/[^0-9]/g, "")).map((item, index) => {
                     return (
                       <Chip
                         label={"Provpass " + item}
                         style={{
                           backgroundColor:
                             props.quizzes &&
-                            item <= props?.quizzes.simuleraQuizResult?.length
+                              (index + 1) <= props?.quizzes.simuleraQuizResult?.length
                               ? "#6FCF97"
                               : "#E1E1E1",
                           color: "#505050",
@@ -262,7 +263,7 @@ const CoursesCard = (props) => {
               </Box>
             </Box>
             {props.quizzes !== undefined &&
-            props?.quizzes?.simuleraQuizResult.length > 3 ? (
+              props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
@@ -277,12 +278,12 @@ const CoursesCard = (props) => {
                     {" "}
                     {props?.progress.totalAnswer
                       ? (
-                          (props?.progress?.totalAnswer /
-                            props?.progress?.totalQuestions) *
-                          2
-                        )
-                          .toFixed(1)
-                          .replace(/\.0+$/, "")
+                        (props?.progress?.totalAnswer /
+                          props?.progress?.totalQuestions) *
+                        2
+                      )
+                        .toFixed(1)
+                        .replace(/\.0+$/, "")
                       : 0}
                   </Typography>
                   <Typography
