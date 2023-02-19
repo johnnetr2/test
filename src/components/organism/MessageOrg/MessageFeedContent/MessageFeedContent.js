@@ -96,7 +96,7 @@ const MessageFeedContent = () => {
       >
         <FeedbackPopup show={feedbackPopup} onClose={() => handleClose()} />
         <Typography variant="h5" component="h5" style={{ textAlign: "center" }}>
-          Berätta för oss vad du tycker! Prov
+          Berätta för oss vad du tycker!
         </Typography>
         <Box
           sx={{
