@@ -186,6 +186,7 @@ const CoursesCard = (props) => {
                       id: props.id,
                       session: props?.item,
                       provpass: props?.quizzes,
+                      provpassOrder: props?.provpassOrder,
                     },
                   });
                 } else {
@@ -193,6 +194,7 @@ const CoursesCard = (props) => {
                     state: {
                       seasonId: props?.quizzes?.simuleraSeason?._id,
                       simuleraQuizResultId: props?.quizzes?._id,
+
                     },
                   });
                 }
@@ -207,6 +209,8 @@ const CoursesCard = (props) => {
                       id: props.id,
                       session: props?.item,
                       provpass: props?.quizzes,
+                      provpassOrder: props?.provpassOrder,
+
                     },
                   });
                 } else {
