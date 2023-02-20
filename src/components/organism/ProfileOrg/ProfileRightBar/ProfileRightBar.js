@@ -47,9 +47,10 @@ const ProfileRightBar = () => {
           Du har 4 inbjudningar
         </Typography>
         <Typography variant="body2" style={{ textAlign: "center" }}>
-          Känner du någon som du tror skulle gilla HP-appen? Endast ett
-          begränsat antal användare kan få tillgång till Beta-versionen av
-          HP-appen, så välj nogrannt vilka du bjuder in!
+          Känner du någon som studerar till Högskoleprovet? Bjud in dem till att
+          använda HP-appen tillsammans med dig för att upptäcka nya sätt att
+          lära och förbereda er inför provet! Gör er resa mot högre resultat
+          roligare och mer effektiv.
         </Typography>
       </Box>
       <Box className={classes.tablespace} sx={{ width: "100%" }}>

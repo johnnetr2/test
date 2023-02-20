@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../service/Route";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
@@ -39,6 +39,9 @@ const OverBlick = () => {
   const [helpPopup, setHelpPopup] = useState(false);
   const [backPressPopup, setBackPressPopup] = useState(false);
   const [time, setTime] = useState();
+  const provpassNumber = useMemo(() => params?.state?.provpassOrder[
+    (params?.state?.provpass?.simuleraQuizResult?.length) || 0
+  ].split("-")[2].replace(/[^0-9]/g, ""), [params]);
 
   useEffect(() => {
     setQuiz(params.state.quiz);
@@ -85,6 +88,7 @@ const OverBlick = () => {
               state: {
                 seasonId: params?.state?.simuleraSeason,
                 quizId: params?.state?.provpass?._id,
+                provpassOrder: params?.state?.provpassOrder,
               },
             });
           }
@@ -335,7 +339,7 @@ const OverBlick = () => {
           time={time}
           status={!timeOverPopUp}
           setTimeLeft={setTime}
-          setShouldNavigate={() => {}}
+          setShouldNavigate={() => { }}
           width={"80%"}
         />
         <Container
@@ -360,7 +364,7 @@ const OverBlick = () => {
           >
             <Typography variant="h6" component="h6">
               Överblick Provpass{" "}
-              {(params?.state?.provpass?.simuleraQuizResult.length + 1) || 1}
+              {provpassNumber}
             </Typography>
             <Typography variant="body2" component="body2">
               Innan du lämnar in, kontrollera vilka frågor du har <b>missat</b>,
@@ -513,7 +517,7 @@ const OverBlick = () => {
                 redirect={() => submitQuiz()}
                 closePopup={() => setTestSubmitPopUp(false)}
                 title="Vill du lämna in?"
-                description={params.state.provpass?.simuleraQuizResult?.length < 3 ? "Efter att du lämnat in kan du ta en paus innan du börjar nästa provpass. Ditt resultat sparas." : "Efter att du lämnat in detta provpass är provet klart. "}
+                description={(params.state.provpass?.simuleraQuizResult?.length || 0) < 3 ? "Efter att du lämnat in kan du ta en paus innan du börjar nästa provpass. Ditt resultat sparas." : "Efter att du lämnat in detta provpass är provet klart. "}
                 oneButtonPopup
                 agreeBtnName="Lämna in provpasset"
               />

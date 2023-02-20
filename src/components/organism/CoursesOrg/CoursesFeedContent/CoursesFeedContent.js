@@ -71,8 +71,8 @@ const CoursesFeedContent = (props) => {
   return (
     <Container className={classes.root} maxWidth="false">
       <Box>
-        <Heading title="Simulera Prov" />
-        <BodyText title="Gör prov från tidigare år eller välj att slumpa ett helt prov med uppgifter från gamla prov du inte stött på tidigare. " />
+        <Heading title="Övningsprov" />
+        <BodyText title="Här kan du testa dig på riktiga högskoleprov och se hur du mäter dig med provdeltagarna från tidigare år.  " />
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
             style={{
@@ -136,16 +136,16 @@ const CoursesFeedContent = (props) => {
               alignItems: "center",
               border: "1px solid #e5e5e5",
               borderRadius: ".5rem",
-              width: "16rem",
+              width: "19rem",
               padding: ".5rem",
             }}
             className={classes.hideSearch}
           >
             <Input
               type="search"
-              placeholder="Sök prov här..."
+              placeholder="Sök prov mellan 2011-2022"
               style={{ border: "none" }}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => props.searchExams(e.target.value)}
             />
             <Box>
               <img src={SearchIcon} alt="" />
@@ -164,8 +164,7 @@ const CoursesFeedContent = (props) => {
             component="body2"
             style={{ fontSize: "0.75rem", lineHeight: "1.5" }}
           >
-            Gör prov från ett tidigare år och jämför ditt resultat med
-            provdeltagarna från det året.
+            Gör prov från ett tidigare år och jämför ditt resultat med provdeltagarna från det året.
             <br />
             Utprövningspasset är exkluderat från proven.
           </Typography>
@@ -173,11 +172,10 @@ const CoursesFeedContent = (props) => {
         <Box>
           <Box
             sx={{ marginBottom: "1rem", gap: "5rem" }}
-            // onClick={() => navigate("/provpassinfo")}
+          // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
               previousExams
-                .filter((exam) => exam.title.toLowerCase().includes(query))
                 .map((item) => {
                   return (
                     <CoursesCard

@@ -409,6 +409,7 @@ const StandardViewXyz = () => {
                   state: {
                     seasonId: params.state?.examResultData?.seasonId,
                     quizId: params.state?.examResultData?.quizId,
+                    provpassOrder: params.state?.examResultData?.provpassOrder,
                   },
                 })
                 : setBackPressPopup(true);
@@ -429,7 +430,7 @@ const StandardViewXyz = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      {helpPopup && <HelpPopup examMode/>}
+      {helpPopup && <HelpPopup examMode />}
       <Backdrop
         sx={{
           color: "#fff",
@@ -545,14 +546,14 @@ const StandardViewXyz = () => {
           <Container
             maxWidth="md"
             className={classes.questionComponent}
-            // style={{
-            //   marginTop: 0,
-            //   backgroundColor: "#f9f9f9",
-            //   height: "fit-content",
-            //   display: "flex",
-            //   justifyContent: "flex-end",
-            //   flexDirection: "row",
-            // }}
+          // style={{
+          //   marginTop: 0,
+          //   backgroundColor: "#f9f9f9",
+          //   height: "fit-content",
+          //   display: "flex",
+          //   justifyContent: "flex-end",
+          //   flexDirection: "row",
+          // }}
           >
             {/* start of question component */}
             <Box
@@ -670,9 +671,9 @@ const StandardViewXyz = () => {
                                       sx={{
                                         height:
                                           question.options.options.length > 4 ||
-                                          !option.value?.includes(
-                                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                                          )
+                                            !option.value?.includes(
+                                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                                            )
                                             ? 60
                                             : 120,
                                         border: "1px solid #e1e1e1",
@@ -680,9 +681,9 @@ const StandardViewXyz = () => {
                                         paddingRight: "14px",
                                         maxWidth:
                                           question.options.options.length > 4 ||
-                                          !option.value?.includes(
-                                            "hp-appen.s3.eu-north-1.amazonaws.com"
-                                          )
+                                            !option.value?.includes(
+                                              "hp-appen.s3.eu-north-1.amazonaws.com"
+                                            )
                                             ? 600
                                             : 300,
                                         /*  padding:
@@ -695,7 +696,7 @@ const StandardViewXyz = () => {
                                         display: "flex",
                                         color:
                                           !question.answer &&
-                                          optionIndex == question.selectedIndex
+                                            optionIndex == question.selectedIndex
                                             ? appColors.blueColor
                                             : "",
                                         "&:hover": {
@@ -753,14 +754,13 @@ const StandardViewXyz = () => {
                                               marginTop: "1.25rem",
                                               paddingLeft:
                                                 (question.questionAnswer &&
-                                                  question.questionAnswer
-                                                    .option == option._id &&
+                                                  question?.questionAnswer?.option === option._id &&
                                                   question.optionId) ||
-                                                (question.questionAnswer &&
-                                                  option._id ===
+                                                  (question.questionAnswer &&
+                                                    option._id ===
                                                     question?.optionId) ||
-                                                option._id ===
-                                                  question.questionAnswer.option
+                                                  option._id ===
+                                                  question?.questionAnswer?.option
                                                   ? "4px"
                                                   : "1px",
                                               fontSize: "0.6rem",
@@ -781,9 +781,9 @@ const StandardViewXyz = () => {
                                           width:
                                             question?.options.options.length >
                                               4 ||
-                                            !option.value?.includes(
-                                              "hp-appen.s3.eu-north-1.amazonaws.com"
-                                            )
+                                              !option.value?.includes(
+                                                "hp-appen.s3.eu-north-1.amazonaws.com"
+                                              )
                                               ? 600
                                               : 300,
                                           /* width:
@@ -799,15 +799,15 @@ const StandardViewXyz = () => {
                                           justifyContent:
                                             question?.options.options.length >
                                               4 ||
-                                            !option.value?.includes(
-                                              "hp-appen.s3.eu-north-1.amazonaws.com"
-                                            )
+                                              !option.value?.includes(
+                                                "hp-appen.s3.eu-north-1.amazonaws.com"
+                                              )
                                               ? "flex-start"
                                               : "center",
                                           alignItems: "center",
                                           height:
                                             question?.options.options.length >
-                                              4 && "4rem",
+                                            4 && "4rem",
                                         }}
                                       >
                                         <Typography
@@ -943,7 +943,7 @@ const StandardViewXyz = () => {
                   )}
 
                   {!ifAnswerExist &&
-                  currentIndex + 1 === quiz?.question.length ? (
+                    currentIndex + 1 === quiz?.question.length ? (
                     <Box
                       sx={{
                         display: "flex",
@@ -1000,14 +1000,14 @@ const StandardViewXyz = () => {
 
             <Box
               className={classes.spara}
-              // style={{
-              //   width: "10rem",
-              //   height: 'fit-content',
-              //   display: "flex",
-              //   justifyContent: "center",
-              //   marginTop: '2.7rem',
-              //   // marginLeft: '-10rem'
-              // }}
+            // style={{
+            //   width: "10rem",
+            //   height: 'fit-content',
+            //   display: "flex",
+            //   justifyContent: "center",
+            //   marginTop: '2.7rem',
+            //   // marginLeft: '-10rem'
+            // }}
             >
               {quiz && !quiz.question[currentIndex].questionAnswer && (
                 <Button
