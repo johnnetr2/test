@@ -45,3 +45,12 @@ input::placeholder {
   text-align: center;
   width: 100%;
 }
+
+.questionImage p {
+  text-align: center;
+  width: 100%;
+}
+
+.questionImage p img {
+  width: 100%;
+}

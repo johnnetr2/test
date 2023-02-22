@@ -191,6 +191,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                         <Typography
                           variant="h6"
                           component="h6"
+                          className={item?.questionStatement?.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
                           style={{ fontSize: "1rem", fontWeight: "600" }}
                         >
                           <MarkLatex content={item.questionStatement} />

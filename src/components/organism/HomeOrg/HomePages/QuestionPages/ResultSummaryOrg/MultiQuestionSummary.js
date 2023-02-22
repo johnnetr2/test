@@ -16,7 +16,7 @@ import AnswerStatement from "../../../../../molecule/AnswerStatement/AnswerState
 import RadioButtonOptions from "../../../../../molecule/RadioButtonsOptions";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 import FeedbackCard from "../../../../../molecule/FeedbackCard/FeedbackCard";
-
+import OptionsComponent from "../../../../../molecule/OptionsComponents";
 
 const useStyles = makeStyles((theme) => ({
   unAttemptedQuestion: {
@@ -145,6 +145,7 @@ function MultiQuestionSummary(props) {
             <Typography
               variant="h6"
               component="h6"
+              className={question?.questionStatement?.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
               style={{
                 fontSize: "14px",
                 fontWeight: "600",
@@ -158,7 +159,8 @@ function MultiQuestionSummary(props) {
 
             </Typography>
           </Box>
-          {question?.options[0].options.map((curentOption, optionIndex) => {
+          <OptionsComponent question={question} resultComponent={true} />
+          {/* {question?.options[0].options.map((curentOption, optionIndex) => {
             return (
               <Box
                 padding={1}
@@ -185,7 +187,7 @@ function MultiQuestionSummary(props) {
                 />
               </Box>
             );
-          })}
+          })} */}
         </Box>
         {question?.optionId && (
           <Box
