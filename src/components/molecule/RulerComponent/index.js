@@ -46,7 +46,7 @@ class ReactMoveable extends React.Component {
                     throttleResize={1}
                     throttleScale={0.01}
                     onDrag={this.onDrag}
-                    onResize={this.onResize}
+                    // onResize={this.onResize}
                     onScale={this.onScale}
                     onWarp={this.onWarp}
                     onRotate={this.onRotate}
@@ -136,14 +136,14 @@ display: block; transform: translate(${clientX}px, ${clientY -
             this.setLabel(clientX, clientY, `R: ${deg.toFixed(1)}`);
         }
     };
-    onResize = ({ target, clientX, clientY, width, height, isPinch }) => {
-        this.frame.set("width", `${width}px`);
-        this.frame.set("height", `auto`);
-        this.setTransform(target);
-        if (!isPinch) {
-            this.setLabel(clientX, clientY, `W: ${width}px<br/>H: ${height}px`);
-        }
-    };
+    // onResize = ({ target, clientX, clientY, width, height, isPinch }) => {
+    //     this.frame.set("width", `${width}px`);
+    //     this.frame.set("height", `auto`);
+    //     this.setTransform(target);
+    //     if (!isPinch) {
+    //         this.setLabel(clientX, clientY, `W: ${width}px<br/>H: ${height}px`);
+    //     }
+    // };
     onWarp = ({ target, clientX, clientY, delta, multiply }) => {
         this.frame.set(
             "transform",
