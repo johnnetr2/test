@@ -36,7 +36,7 @@ export const scrollTop = () => {
     }, 200);
 };
 
-export const optionsCharectors = (index) => {
+export const optionsCharacters = (index) => {
     switch (index) {
         case 0:
             return "A";

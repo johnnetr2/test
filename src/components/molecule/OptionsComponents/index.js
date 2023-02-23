@@ -2,11 +2,10 @@ import React from "react";
 import { Typography, Container, FormControlLabel } from "@material-ui/core";
 import { Box } from "@mui/material";
 import RadioButtonOptions from "../RadioButtonsOptions";
-import { optionsCharectors } from "../../service/commonService";
+import { optionsCharacters } from "../../service/commonService";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 
 const OptionsComponent = (props) => {
-    console.log("questions", props)
     const options = props.resultComponent ? props?.question?.options[0]?.options : props?.question?.option[0]?.options
     return (
         <Container
@@ -87,7 +86,7 @@ const OptionsComponent = (props) => {
                                     }}
                                     variant="body2"
                                 >
-                                    {optionsCharectors(index)}
+                                    {optionsCharacters(index)}
                                 </Typography>
                             </Box>
                         </Box>

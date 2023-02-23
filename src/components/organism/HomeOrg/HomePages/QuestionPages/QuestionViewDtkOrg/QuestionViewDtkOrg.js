@@ -22,7 +22,7 @@ import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { appColors, scrollTop, optionsCharectors } from "../../../../../service/commonService";
+import { appColors, scrollTop, optionsCharacters } from "../../../../../service/commonService";
 import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];
@@ -327,21 +327,6 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-  // function OptionIndex(index) {
-  //   switch (index) {
-  //     case 0:
-  //       return "A";
-  //     case 1:
-  //       return "B";
-  //     case 2:
-  //       return "C";
-  //     case 3:
-  //       return "D";
-  //     default:
-  //       return "";
-  //   }
-  // }
-
   const [extendedView, setExtendView] = useState(false);
   const openExtended = () => {
     setExtendView(true);
@@ -645,12 +630,6 @@ const QuestionViewDTKOrg = (props) => {
                                 alt=""
                               />
                             )
-                            // : (
-                            //   <img
-                            //     src={Righticon}
-                            //     alt=""
-                            //     style={{ height: 15 }}
-                            //   />
                           }
                         </Box>
                       </Box>
@@ -772,7 +751,7 @@ const QuestionViewDTKOrg = (props) => {
                                     }}
                                     variant="body2"
                                   >
-                                    {optionsCharectors(optionIndex)}
+                                    {optionsCharacters(optionIndex)}
                                   </Typography>
                                 </Box>
                               </Box>
