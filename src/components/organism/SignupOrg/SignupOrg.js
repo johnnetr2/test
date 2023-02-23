@@ -123,7 +123,7 @@ const SignupOrg = () => {
               response?.data?.user?._id,
               response?.data?.user?.fullName,
               response?.data?.user?.email,
-              response?.data?.user?.createdAt
+              "Free"
             );
             // setRegister({ ...register, fullName: "", email: "", password: "" });
             // window.reload()

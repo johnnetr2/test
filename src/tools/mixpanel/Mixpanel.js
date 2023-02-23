@@ -41,6 +41,7 @@ export class MixpanelTracking {
     });
   }
 
+
   registration(
     status,
     userId,
@@ -66,6 +67,12 @@ export class MixpanelTracking {
           "Registration method": registrationMethod,
         });
     }
+  }
+
+  updateUserToPremium() {
+    this.#setPoeple({
+      "Plan type": "Paid",
+    });
   }
 
   login(status, userId) {
