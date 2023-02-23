@@ -12,7 +12,7 @@ import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
 import AnswerStatement from "../../molecule/AnswerStatement/AnswerStatement";
-import { appColors } from "../../service/commonService";
+import { appColors, optionsCharectors } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -303,7 +303,7 @@ const QuestionBody = (props) => {
                           }}
                           variant="body2"
                         >
-                          {props.OptionValue(optionIndex)}
+                          {optionsCharectors(optionIndex)}
                         </Typography>
                       </Box>
                     </Box>

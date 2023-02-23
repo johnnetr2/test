@@ -16,11 +16,9 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { appColors } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../service/commonService";
 
 const ResultQuestionViewDtkOrg = (props) => {
-
-
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,14 +64,7 @@ const ResultQuestionViewDtkOrg = (props) => {
   const [paragraph, setParagraph] = useState();
   const [showLoader, setShowLoader] = useState(false);
   const [enterSubmitted, setEnterSubmitted] = useState(false)
-  const { user, token } = useSelector((state) => state.value);
-
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  const { token } = useSelector((state) => state.value);
 
   useEffect(() => {
     const handleEnterClick = (e) => {

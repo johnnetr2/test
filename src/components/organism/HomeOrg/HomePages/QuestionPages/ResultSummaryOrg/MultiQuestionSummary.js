@@ -1,7 +1,6 @@
 import {
   Box,
   Container,
-  FormControlLabel,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
@@ -13,7 +12,6 @@ import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import WarningIcon from "../../../../../../assets/Icons/WarningIcon.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import AnswerStatement from "../../../../../molecule/AnswerStatement/AnswerStatement";
-import RadioButtonOptions from "../../../../../molecule/RadioButtonsOptions";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 import FeedbackCard from "../../../../../molecule/FeedbackCard/FeedbackCard";
 import OptionsComponent from "../../../../../molecule/OptionsComponents";
@@ -159,35 +157,7 @@ function MultiQuestionSummary(props) {
 
             </Typography>
           </Box>
-          <OptionsComponent question={question} resultComponent={true} />
-          {/* {question?.options[0].options.map((curentOption, optionIndex) => {
-            return (
-              <Box
-                padding={1}
-                sx={{
-                  backgroundColor: "#fff",
-                  width: "100%",
-                  maxWidth: 600,
-                  border: "1px solid #e1e1e1",
-                }}
-              >
-                <FormControlLabel
-                  onClick={(e) => { }}
-                  value={curentOption._id}
-                  style={{
-                    marginLeft: ".5rem", marginTop: ".3rem", color: question?.answer.option !== curentOption._id && question.optionId === curentOption._id ? "#EB5757" : question?.answer &&
-                      question?.answer?.option === curentOption._id ? "#27AE60" : "#505050"
-                  }}
-                  control={RadioButtonOptions(curentOption, question, optionIndex)}
-                  label={
-                    <MarkLatex
-                      content={curentOption.value.replace("\f", "\\f")}
-                    />
-                  }
-                />
-              </Box>
-            );
-          })} */}
+          <OptionsComponent question={props.question} resultComponent={true} />
         </Box>
         {question?.optionId && (
           <Box
