@@ -53,16 +53,18 @@ const CoursesCard = (props) => {
       simuleraSeason: props.item._id,
       user: localStorage.getItem("userId"),
     };
-    instance2.post(URL, data).then((response) => {
-      navigate("/testInformation", {
-        state: {
-          id: props.id,
-          session: props?.item,
-          provpass: response.data.simuleraSeasonResult,
-          provpassOrder: props?.provpassOrder ?? null,
-        },
+    if (isPremium || isInTrial) {
+      instance2.post(URL, data).then((response) => {
+        navigate("/testInformation", {
+          state: {
+            id: props.id,
+            session: props?.item,
+            provpass: response.data.simuleraSeasonResult,
+            provpassOrder: props?.provpassOrder ?? null,
+          },
+        });
       });
-    });
+    }
   };
 
   function Dropdown(prop) {
@@ -203,25 +205,28 @@ const CoursesCard = (props) => {
           >
             <Box
               onClick={() => {
-                if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
-                  navigate("/testInformation", {
-                    state: {
-                      id: props.id,
-                      session: props?.item,
-                      provpass: props?.quizzes,
-                      provpassOrder: props?.provpassOrder,
+                if (isPremium || isInTrial) {
+                  if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
+                    navigate("/testInformation", {
+                      state: {
+                        id: props.id,
+                        session: props?.item,
+                        provpass: props?.quizzes,
+                        provpassOrder: props?.provpassOrder,
 
-                    },
-                  });
-                } else {
-                  navigate("/provresultat", {
-                    state: {
-                      seasonId: props?.quizzes?.simuleraSeason?._id,
-                      simuleraQuizResultId: props?.quizzes?._id,
-                    },
-                  });
+                      },
+                    });
+                  } else {
+                    navigate("/provresultat", {
+                      state: {
+                        seasonId: props?.quizzes?.simuleraSeason?._id,
+                        simuleraQuizResultId: props?.quizzes?._id,
+                      },
+                    });
+                  }
                 }
-              }}
+              }
+              }
             >
               <Box
                 style={{
