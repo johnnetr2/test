@@ -6,7 +6,7 @@ export class MixpanelTracking {
     if (MixpanelTracking._instance)
       throw new Error("Error: Instance ceration of Mixpanel is not allowed");
     this._instance = mixpanel.init("b8b92353db27b153a0e23b561331f1bf", {
-      debug: false,
+      debug: true,
     });
   }
 
@@ -76,8 +76,9 @@ export class MixpanelTracking {
   }
 
   login(status, userId) {
-    this.#identify(userId || "");
-    this.#track("Login", {
+    console.log("this ran right here")
+/*     this.#identify(userId || "");
+ */    this.#track("Login", {
       status: status,
     });
   }
