@@ -6,7 +6,7 @@ import FilledBtn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
 import LabelField from "../../molecule/LabelField/LabelField";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useMatch, useParams, useSearchParams } from "react-router-dom";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -59,9 +59,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SignupOrg = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   useEffect(() => {
     MixpanelTracking.getInstance().visitedPage("SignUp");
-
     const token = localStorage.getItem("token");
     if (token) {
       instance2.get(EndPoints.getUser).then(response => {
@@ -123,7 +123,12 @@ const SignupOrg = () => {
               response?.data?.user?._id,
               response?.data?.user?.fullName,
               response?.data?.user?.email,
-              "Free"
+              "Free",
+              "Email",
+              null,
+              params.get("utm_medium"),
+              params.get("utm_source"),
+              params.get("utm_campaign"),
             );
             // setRegister({ ...register, fullName: "", email: "", password: "" });
             // window.reload()

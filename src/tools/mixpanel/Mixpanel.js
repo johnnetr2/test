@@ -28,7 +28,7 @@ export class MixpanelTracking {
     mixpanel.identify(userId);
   }
 
-  #setPoeple(props) {
+  #setPeople(props) {
     mixpanel.people.set({
       ...props,
     });
@@ -48,29 +48,35 @@ export class MixpanelTracking {
     userName,
     userEmail,
     planType = "Free",
-    registrationMethod = "Email"
+    registrationMethod = "Email",
+    failureReason = null,
+    medium = null,
+    source = null,
+    campaign = null
   ) {
     this.#alias(userId || "");
     this.#track("Registration", {
       status: status,
+      "Failure reason": failureReason,
     });
-    {
-      status === "Success" &&
-        this.#setPoeple({
-          "User Id": userId,
-          // prettier-ignore
-          "$name": userName,
-          // prettier-ignore
-          "$email": userEmail,
-          "Plan type": planType,
-          "Registration date": new Date().toDateString(),
-          "Registration method": registrationMethod,
-        });
-    }
+    status === "Success" &&
+      this.#setPeople({
+        "User Id": userId,
+        // prettier-ignore
+        "$name": userName,
+        // prettier-ignore
+        "$email": userEmail,
+        "Plan type": planType,
+        "Registration date": new Date().toDateString(),
+        "Registration method": registrationMethod,
+        "Campaign": campaign,
+        "Medium": medium,
+        "Source": source,
+      });
   }
 
   updateUserToPremium() {
-    this.#setPoeple({
+    this.#setPeople({
       "Plan type": "Paid",
     });
   }
@@ -91,7 +97,7 @@ export class MixpanelTracking {
     planType = "Free",
     registrationMethod = "Email"
   ) {
-    this.#setPoeple({
+    this.#setPeople({
       "User Id": userId,
       // prettier-ignore
       "$name": userName,
