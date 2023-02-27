@@ -27,9 +27,10 @@ const QuestionStatement = ({
       </Typography>
       <Typography
         variant="subtitle1"
-        style={{ fontSize: ".875rem", fontWeight: "400", width: image ? "100%" : "auto"}}
+        className={description?.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
+        style={{ fontSize: ".875rem", fontWeight: "400", width: image ? "100%" : "auto" }}
       >
-        <MarkLatex content={description}/>
+        <MarkLatex content={description} />
       </Typography>
       {image && (
         <Box>

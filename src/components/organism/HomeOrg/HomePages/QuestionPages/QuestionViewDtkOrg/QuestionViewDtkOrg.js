@@ -22,7 +22,7 @@ import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { appColors, scrollTop } from "../../../../../service/commonService";
+import { appColors, scrollTop, optionsCharacters } from "../../../../../service/commonService";
 import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];
@@ -327,21 +327,6 @@ const QuestionViewDTKOrg = (props) => {
     }
   };
 
-  function OptionIndex(index) {
-    switch (index) {
-      case 0:
-        return "A";
-      case 1:
-        return "B";
-      case 2:
-        return "C";
-      case 3:
-        return "D";
-      default:
-        return "";
-    }
-  }
-
   const [extendedView, setExtendView] = useState(false);
   const openExtended = () => {
     setExtendView(true);
@@ -645,12 +630,6 @@ const QuestionViewDTKOrg = (props) => {
                                 alt=""
                               />
                             )
-                            // : (
-                            //   <img
-                            //     src={Righticon}
-                            //     alt=""
-                            //     style={{ height: 15 }}
-                            //   />
                           }
                         </Box>
                       </Box>
@@ -684,86 +663,134 @@ const QuestionViewDTKOrg = (props) => {
                         )}
                       </Typography>
                     </Box>
-                    {question.options[0].options.map((option, optionIndex) => {
-                      return (
-                        <Box
-                          padding={1}
-                          sx={{
-                            backgroundColor: "#fff",
-                            width: "100%",
-                            maxWidth: 600,
-                            border: "1px solid #e1e1e1",
-                            // marginLeft: ".5rem",
-                            color:
-                              optionIndex === question.selectedOptionIndex &&
-                              appColors.blueColor,
-                            "&:hover": {
-                              cursor: !option.answer && "pointer",
-                              color: !option.answer && appColors.hoverBlue,
-                            },
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                          onClick={(e) => {
-                            !question.answerSubmited &&
-                              SelectFunc(option, optionIndex);
-                          }}
-                          onMouseOver={() => setOnHover(option._id)}
-                          onMouseLeave={() => setOnHover()}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "flex-start",
-                            }}
-                          >
+                    <Container
+                      disableGutters
+                      maxWidth="sm"
+                      style={{
+                        // marginTop: "1rem",
+                        display: "flex",
+                        flexWrap: "wrap",
+                        backgroundColor: "#fff",
+                      }}
+                    // ref={props.onScrollBottom}
+                    >
+                      {question.options[0].options.map((option, optionIndex) => {
+                        return (
+                          <Box sx={{ display: 'flex' }}>
                             <Box
+                              padding={1}
                               sx={{
+                                height:
+                                  question?.options[0].options.length > 4 ||
+                                    !option.value.includes(
+                                      "hp-appen.s3.eu-north-1.amazonaws.com"
+                                    )
+                                    ? 60
+                                    : 150,
+                                padding:
+                                  question?.options[0].options.length > 4 ||
+                                    !option.value.includes(
+                                      "hp-appen.s3.eu-north-1.amazonaws.com"
+                                    )
+                                    ? 0
+                                    : 10,
+                                border: "1px solid #e1e1e1",
+                                maxWidth:
+                                  question?.options[0].options.length > 4 ||
+                                    !option.value.includes(
+                                      "hp-appen.s3.eu-north-1.amazonaws.com"
+                                    )
+                                    ? 600
+                                    : 300,
+                                color:
+                                  optionIndex === question.selectedOptionIndex &&
+                                  appColors.blueColor,
+                                "&:hover": {
+                                  cursor: !option.answer && "pointer",
+                                  color: !option.answer && appColors.hoverBlue,
+                                },
                                 display: "flex",
-                                flexDirection: "row",
+                                // flexDirection: "row",
+                                alignItems: "center",
+                                backgroundColor: '#FFF',
+                                paddingRight: '10px'
+
                               }}
+                              onClick={(e) => {
+                                !question.answerSubmited &&
+                                  SelectFunc(option, optionIndex);
+                              }}
+                              onMouseOver={() => setOnHover(option._id)}
+                              onMouseLeave={() => setOnHover()}
                             >
-                              <FormControlLabel
-                                value={option._id}
-                                style={{
-                                  marginLeft: ".5rem",
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "flex-start",
                                 }}
-                                control={Options(question, option, optionIndex)}
-                              />
-                              <Typography
-                                style={{
-                                  marginTop: "1.25rem",
-                                  marginLeft: "-1.7rem",
-                                  fontSize: "0.6rem",
-                                }}
-                                variant="body2"
                               >
-                                {OptionIndex(optionIndex)}
-                              </Typography>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  <FormControlLabel
+                                    value={option._id}
+                                    style={{
+                                      marginLeft: ".5rem",
+                                    }}
+                                    control={Options(question, option, optionIndex)}
+                                  />
+                                  <Typography
+                                    style={{
+                                      marginTop: "1.25rem",
+                                      marginLeft: "-1.7rem",
+                                      fontSize: "0.6rem",
+                                    }}
+                                    variant="body2"
+                                  >
+                                    {optionsCharacters(optionIndex)}
+                                  </Typography>
+                                </Box>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  marginLeft:
+                                    question?.options[0].options.length > 4 ||
+                                      option.image === ""
+                                      ? "1rem"
+                                      : "0",
+                                  width: !option.value.includes(
+                                    "hp-appen.s3.eu-north-1.amazonaws.com"
+                                  )
+                                    ? 600
+                                    : 300,
+                                  justifyContent:
+                                    question?.options[0].options.length > 4 ||
+                                      !option.value.includes(
+                                        "hp-appen.s3.eu-north-1.amazonaws.com"
+                                      )
+                                      ? "flex-start"
+                                      : "center",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Typography className={option.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""} style={{ fontSize: "0.9rem" }}>
+                                  {option?.value && (
+                                    <MarkLatex
+                                      content={option?.value.replace("\f", "\\f")}
+                                    />
+                                  )}{" "}
+                                </Typography>
+                              </Box>
                             </Box>
                           </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              marginLeft: "1rem",
-                            }}
-                          >
-                            <Typography style={{ fontSize: "0.9rem" }}>
-                              {option?.value && (
-                                <MarkLatex
-                                  content={option?.value.replace("\f", "\\f")}
-                                />
-                              )}{" "}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      );
-                    })}
+                        );
+                      })}
+                    </Container>
 
                     {answerExistance ? (
                       Button(question)

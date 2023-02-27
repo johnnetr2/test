@@ -814,7 +814,7 @@ const QuestionViewXyzOrg = () => {
                   previosQuestion={() =>
                     setCurrentQuestion(currentQuestion - 1)
                   }
-                  OptionValue={(optionIndex) => OptionIndex(optionIndex)}
+                  // OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
                   // changeTime={(time) => setTime(time)}
                   quizId={params?.state?.quizId}
