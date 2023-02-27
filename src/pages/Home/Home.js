@@ -9,6 +9,7 @@ import {
 } from "../../components/service/Route";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { MixpanelTracking } from "../../tools/mixpanel/Mixpanel";
 
 const Home = () => {
   const [firstPopup, setFirstPopup] = useState("");
@@ -22,6 +23,7 @@ const Home = () => {
   });
 
   useEffect(async () => {
+    MixpanelTracking.getInstance().login("success", localStorage.getItem("userId"));
     const userId = await localStorage.getItem("userId");
     const URL = EndPoints.getStudentPreference + userId;
     instance2.get(URL).then((response) => {
