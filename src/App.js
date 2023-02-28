@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
 import Message from "./pages/Message/Message";
@@ -8,7 +8,8 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Payment from "./pages/Payment/Payment";
 import PayConfirm from "./pages/PayConfirmation/PayConfirnmation";
-
+import { instance2, EndPoints } from "./components/service/Route";
+import { setInitialUserState } from "./components/service/commonService";
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import TestInformation from "./components/organism/CoursesOrg/CoursePages/TestInformation/TestInformation";
@@ -39,6 +40,27 @@ function App() {
     feedback: false,
     profile: false,
   });
+  const location = useLocation().pathname;
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    console.log("in the main useEffect", token)
+    if (token) {
+      instance2.get(EndPoints.getUser).then(response => {
+        console.log("in the if statement", response.data)
+        // setInitialUserState(response.data)
+      }).catch(error => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('isPremium')
+        localStorage.removeItem('isInTrial')
+        localStorage.removeItem('email')
+        navigate('/login')
+        console.log("error", error.status)
+      })
+    }
+  }, [location])
 
   return (
     <div className="App">
