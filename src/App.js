@@ -9,6 +9,7 @@ import Signup from "./pages/Signup/Signup";
 import Payment from "./pages/Payment/Payment";
 import PayConfirm from "./pages/PayConfirmation/PayConfirnmation";
 import { instance2, EndPoints } from "./components/service/Route";
+import swal from "sweetalert";
 import { setInitialUserState } from "./components/service/commonService";
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
@@ -50,14 +51,20 @@ function App() {
     if (token) {
       instance2.get(EndPoints.getUser).then(response => {
         console.log("in the if statement", response.data)
-        // setInitialUserState(response.data)
+        setInitialUserState(response.data)
       }).catch(error => {
         localStorage.removeItem('token')
         localStorage.removeItem('isPremium')
         localStorage.removeItem('isInTrial')
         localStorage.removeItem('email')
-        navigate('/login')
-        console.log("error", error.status)
+        swal({
+          title: "Please login to continue",
+          icon: "warning",
+          dangerMode: true,
+        }).then((willDelete) => {
+          navigate('/login')
+        });
+        console.log("error", error)
       })
     }
   }, [location])
