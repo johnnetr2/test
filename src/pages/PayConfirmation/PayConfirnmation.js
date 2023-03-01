@@ -4,6 +4,7 @@ import CustomModal from "./Modal";
 import { EndPoints, instance2 } from "../../components/service/Route";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { MixpanelTracking } from "../../tools/mixpanel/Mixpanel";
 
 const PayConfirmation = () => {
   const order_id = localStorage.getItem("order_id");
@@ -18,6 +19,7 @@ const PayConfirmation = () => {
       instance2.get(EndPoints.getOrder + order_id).then(res => {
         setIsComplete(true)
         localStorage.setItem("isPremium", true)
+        MixpanelTracking.getInstance().updateUserToPremium();
         setIsLoading(false)
       }).catch(err => {
         console.log("error", err)

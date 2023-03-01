@@ -1,12 +1,10 @@
-import { FormControlLabel } from "@material-ui/core";
 import React, { useState } from "react";
-
 import { Box } from "@mui/material";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
 import FeedbackButtons from "../../atom/FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import AnswerStatement from "../AnswerStatement/AnswerStatement";
-import RadioButtonOptions from "../RadioButtonsOptions";
+import OptionsComponent from "../OptionsComponents";
 
 const MultiAnswer = (props) => {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
@@ -37,39 +35,7 @@ const MultiAnswer = (props) => {
 
   return (
     <>
-      <Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          {props?.question.option[0]?.options.map((item, index) => {
-            return (
-              <Box
-                style={{
-                  border: "1px solid #e1e1e1",
-                  padding: "1rem",
-                  width: "100%",
-                  maxWidth: 565,
-                }}
-              >
-                <FormControlLabel
-                  style={{
-                    marginLeft: ".5rem", color: props?.question?.answer.option !== item._id && props?.question.optionId === item._id ? "#EB5757" : props?.question?.answer &&
-                      props?.question?.answer?.option === item._id ? "#27AE60" : "#505050"
-                  }}
-                  control={RadioButtonOptions(item, props?.question, index)}
-                  label={item.value}
-                />
-              </Box>
-            );
-          })}
-        </Box>
-
-        {/* <Box mt={2} ml={5}></Box> */}
-      </Box>
+      <OptionsComponent question={props?.question} />
       <Box
         sx={{
           border: "1px solid #e1e1e1",

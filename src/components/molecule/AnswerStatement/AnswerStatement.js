@@ -3,6 +3,8 @@ import { Box, Typography } from "@mui/material";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 
 const AnswerStatement = ({ answer, image }) => {
+  //Frontend fix, maybe move to backend later? Trello ticket about the problem: https://trello.com/c/F7i6zYry
+  const addLineBreaker = answer.replace(/\n\s*\n/g, "\n \n&nbsp;\n\n");
   return (
     <>
       <Box
@@ -32,7 +34,7 @@ const AnswerStatement = ({ answer, image }) => {
         >
           <div className="Explaination">
             {" "}
-            <MarkLatex content={answer} />
+            <MarkLatex content={addLineBreaker} />
           </div>
         </Typography>
       </Box>

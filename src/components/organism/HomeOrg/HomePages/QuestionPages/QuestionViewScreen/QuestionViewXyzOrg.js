@@ -32,6 +32,7 @@ import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonP
 import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
 import { appColors, scrollTop } from "../../../../../service/commonService";
 import CommonPopup from "../../../../../molecule/CommonPopup/CommonPopup";
+import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 
 const QuestionViewXyzOrg = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -814,7 +815,7 @@ const QuestionViewXyzOrg = () => {
                   previosQuestion={() =>
                     setCurrentQuestion(currentQuestion - 1)
                   }
-                  OptionValue={(optionIndex) => OptionIndex(optionIndex)}
+                  // OptionValue={(optionIndex) => OptionIndex(optionIndex)}
                   submitButton={(question) => getSubmitButton(question)}
                   // changeTime={(time) => setTime(time)}
                   quizId={params?.state?.quizId}

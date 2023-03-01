@@ -113,10 +113,10 @@ const LoginOrg = () => {
             // const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
             // localStorage.setItem("isPremium", user.isPremium ? true : false);
             // localStorage.setItem("isInTrial", isGreaterCurrentData);
-            MixpanelTracking.getInstance().login(
+            /* MixpanelTracking.getInstance().login(
               "success",
               response.data.user?._id
-            );
+            ); */
             new Date(response.data.user.createdAt) < new Date("2022-10-7") &&
               MixpanelTracking.getInstance().oldUsersRegistration(
                 response.data.user._id,

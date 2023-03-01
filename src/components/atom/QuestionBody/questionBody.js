@@ -10,11 +10,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../../../styles/QuestionBody.css";
 import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
-
-
 import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
 import AnswerStatement from "../../molecule/AnswerStatement/AnswerStatement";
-import { appColors } from "../../service/commonService";
+import { appColors, optionsCharacters } from "../../service/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -217,6 +215,13 @@ const QuestionBody = (props) => {
               <p style={{ marginLeft: "50px", fontSize: "16px", fontWeight: "bold" }}>Tillräckligt information för lösningen erhålls</p>
             </Box>
           ) : null}
+          {/* <OptionsComponent question={question}
+            onMouseOver={(optionId) => props.onhover(optionId)}
+            onMouseLeave={() => props.onHoverLeave()}
+            SelectOption={(item, optionIndex) => {
+              props.SelectOption(item, optionIndex);
+            }}
+          /> */}
           {question?.options[0]?.options?.map((item, optionIndex) => {
             if (item?.value) {
               return (
@@ -298,7 +303,7 @@ const QuestionBody = (props) => {
                           }}
                           variant="body2"
                         >
-                          {props.OptionValue(optionIndex)}
+                          {optionsCharacters(optionIndex)}
                         </Typography>
                       </Box>
                     </Box>

@@ -29,6 +29,7 @@ import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
 import { scrollTop } from "../../../../../service/commonService";
 
 import { percentageCalculation } from "../../../../../atom/percentageCalculator/Utils";
+import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 
 export const dispSecondsAsMins = (seconds) => {
   // 25:00
@@ -118,6 +119,7 @@ const ResultSummaryOrg = () => {
           setTimePerQues(false);
         }
         setresponseCollection(response.data);
+        MixpanelTracking.getInstance().endTest(categoryName, [], true, null)
       })
       .catch((error) => {
         console.log(error, "this is the console of error ");
