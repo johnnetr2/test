@@ -90,12 +90,12 @@ const LoginOrg = () => {
             swal("Warning!", "User is not verfied", "warning");
           } else if (response.data.token) {
             dispatch(login({ user, token }));
-            localStorage.setItem("token", token);
+            // localStorage.setItem("token", token);
             localStorage.setItem("userId", user._id);
             localStorage.setItem("role", user.role);
             localStorage.setItem("fullName", user.fullName);
             localStorage.setItem("email", user.email);
-            setInitialUserState(user)
+            setInitialUserState({ user, token })
             // const verifiedAtDate = user.verified_date ? user.verified_date : new Date();
             // const trialDate = moment(verifiedAtDate)
             //   .add(300, "days")
