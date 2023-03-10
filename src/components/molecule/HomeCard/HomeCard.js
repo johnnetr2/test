@@ -79,7 +79,7 @@ const HomeCard = (props) => {
       }}
     >
       <Box sx={{ width: "60%" }}>
-        {data.title !== "XYZ" && !props?.isPremium && (
+        {(!props?.isPremium && data.title !== "XYZ") && (
           <Box
             sx={{
               borderRadius: "0px 4px 0px 0px",

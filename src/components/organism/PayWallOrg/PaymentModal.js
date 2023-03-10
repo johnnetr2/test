@@ -73,7 +73,7 @@ export default function PaymentModal({ open, handleClose }) {
             direction="column"
             spacing={2}
             xs={6}
-            style={{ paddingLeft: 50 }}
+            style={{ paddingLeft: 50, justifyContent: "center", alignItems: "center" }}
           >
             <Grid
               item
@@ -105,8 +105,8 @@ export default function PaymentModal({ open, handleClose }) {
                 height: "50px",
                 border: 0,
                 borderRadius: "6.62px",
-                paddingRight: "50px",
-                paddingLeft: "50px",
+                paddingRight: "75px",
+                paddingLeft: "75px",
                 maxWidth: "250px",
                 fontSize: "20px",
                 marginTop: "20px",

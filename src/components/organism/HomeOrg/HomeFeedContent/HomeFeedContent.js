@@ -294,7 +294,7 @@ const HomeFeedContent = (props) => {
                           : ""
                       }
                       isLoading={loading}
-                      isPremium={isInTrial && isPremium}
+                      isPremium={isInTrial || isPremium}
                       handleOpen={() => setPaymentModalPopup(true)}
                       // data={previousRecordProgress}
                     />

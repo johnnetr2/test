@@ -8,6 +8,7 @@ import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { appColors } from "../../service/commonService";
+import PaymentModal from "../../organism/PayWallOrg/PaymentModal";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -31,6 +32,7 @@ const CoursesCard = (props) => {
   const [showPopup, setShowPopup] = useState(false);
   const isInTrial = JSON.parse(localStorage.getItem("isInTrial"));
   const isPremium = JSON.parse(localStorage.getItem("isPremium"));
+  const [showPaywallPopup, setShowPaywallPopup] = useState(false);
 
   const isFirstQuiz = useMemo(() => props.index === 0, [props.index])
 
@@ -91,10 +93,17 @@ const CoursesCard = (props) => {
           borderRadius: ".25rem",
           boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
-           cursor: isFirstQuiz || isPremium || isInTrial ? "pointer" : "",
+           cursor:  "pointer",
            maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
+        <PaymentModal
+            open={showPaywallPopup}
+            handleClose={() => {
+                setShowPaywallPopup(false);
+              }
+            }
+          />
         <Box
           sx={{ paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
@@ -122,10 +131,11 @@ const CoursesCard = (props) => {
                 });
               }
             } else {
-              alert("Du måste vara premium för att göra detta prov")
+              setShowPaywallPopup(true);
             }
           }}
         >
+          
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
               style={{
@@ -205,7 +215,7 @@ const CoursesCard = (props) => {
                   });
                 }
               } else {
-                alert("Du måste vara premium för att göra detta prov")
+                setShowPaywallPopup(true);
               }
             }}
           >
@@ -231,7 +241,7 @@ const CoursesCard = (props) => {
                     });
                   }
                 } else {
-                  alert("Du måste vara premium för att göra detta prov")
+                  setShowPaywallPopup(true);
                 }
               }
               }
