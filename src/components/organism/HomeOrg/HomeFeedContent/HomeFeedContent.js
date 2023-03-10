@@ -70,6 +70,11 @@ const HomeFeedContent = (props) => {
   const [isPremium, setIsPremium] = useState(
     JSON.parse(localStorage.getItem("isPremium"))
   );
+  const [paymentModalPopup, setPaymentModalPopup] = useState(false);
+
+  const handlePaymentModalPopupClose = () => {
+    setPaymentModalPopup(false);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -198,7 +203,10 @@ const HomeFeedContent = (props) => {
     <Container className={classes.root} maxWidth="false">
       <Box>
         <Heading title="Övningar" />
-        <PaymentModal />
+        <PaymentModal
+          open={paymentModalPopup}
+          handleClose={handlePaymentModalPopupClose}
+        />
         <Box
           sx={{
             display: "flex",
@@ -287,6 +295,7 @@ const HomeFeedContent = (props) => {
                       }
                       isLoading={loading}
                       isPremium={isInTrial && isPremium}
+                      handleOpen={() => setPaymentModalPopup(true)}
                       // data={previousRecordProgress}
                     />
                   );
@@ -315,7 +324,8 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
-                      isPremium={isInTrial && isPremium}
+                      isPremium={isInTrial || isPremium}
+                      handleOpen={() => setPaymentModalPopup(true)}
                     />
                   );
                 }

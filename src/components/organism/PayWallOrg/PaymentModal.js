@@ -22,13 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaymentModal() {
+export default function PaymentModal({ open, handleClose }) {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const navigate = useNavigate();
 

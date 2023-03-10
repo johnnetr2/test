@@ -65,41 +65,39 @@ const HomeCard = (props) => {
           backgroundColor: "#f9f9f9",
         },
       }}
-      onClick={() =>{
-        if(data.title !== "XYZ" && !props?.isPremium){ 
+      onClick={() => {
+        if (data.title !== "XYZ" && !props?.isPremium) {
           // TEMPORARY
-          alert("Du måste ha premium för att få tillgång till denna kategori")
+          props?.handleOpen();
         } else {
-            navigate("/category", {
-              state: {
-                item: data
-              },
-            })
-          }
+          navigate("/category", {
+            state: {
+              item: data,
+            },
+          });
         }
-      }
+      }}
     >
-      
-      
       <Box sx={{ width: "60%" }}>
-      {data.title !== "XYZ" && !props?.isPremium && 
-            <Box
-              sx={{
-                  borderRadius: "0px 4px 0px 0px",
-                  textAlign: "center",
-                  width: "70px",
-                  height: "23px",
-                  backgroundColor: "#FFE482",
-                  color: appColors.blackColor,
-                  position: "relative",
-                  right: "-560px",
-                  top: "-24px",
-                  margin: "0px",
-                  padding: "0px",
-                }}
-              >
-              PREMIUM
-            </Box>}
+        {data.title !== "XYZ" && !props?.isPremium && (
+          <Box
+            sx={{
+              borderRadius: "0px 4px 0px 0px",
+              textAlign: "center",
+              width: "70px",
+              height: "23px",
+              backgroundColor: "#FFE482",
+              color: appColors.blackColor,
+              position: "relative",
+              right: "-560px",
+              top: "-24px",
+              margin: "0px",
+              padding: "0px",
+            }}
+          >
+            PREMIUM
+          </Box>
+        )}
         <Typography variant="h5">{data.title}</Typography>
         <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
           {data?.information}
@@ -112,8 +110,8 @@ const HomeCard = (props) => {
               average={
                 props?.previousRecord
                   ? (props?.previousRecord.totalCorrectQuestion /
-                    props?.previousRecord.totalQuestionPerCategory) *
-                  100
+                      props?.previousRecord.totalQuestionPerCategory) *
+                    100
                   : 0
               }
             />
@@ -128,13 +126,12 @@ const HomeCard = (props) => {
           width: "20%",
         }}
       >
-        
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
           {props?.previousRecord?.totalAttemptedHundred >= 20
             ? percentageCalculation()
             : "-"}
         </Typography>
-        
+
         <Box
           sx={{
             display: "flex",
@@ -142,7 +139,6 @@ const HomeCard = (props) => {
             width: "3.5rem",
           }}
         >
-          
           {props?.previousRecord?.totalAttemptedHundred < 20 && (
             <CustomizedTooltip
               title="Gör minst 20 frågor på tid för att få poängprognos"
@@ -164,7 +160,7 @@ const HomeCard = (props) => {
             variant="body1"
             style={{
               fontSize: ".75rem",
-              marginTop: '.75rem'
+              marginTop: ".75rem",
             }}
           >
             Prognos
