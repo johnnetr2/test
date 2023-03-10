@@ -21,8 +21,8 @@ class ReactMoveable extends React.Component {
     state = {
         target: null,
         container: null,
-        scalable: true,
-        resizable: true,
+        scalable: false,
+        resizable: false,
         warpable: false
     };
     render() {
@@ -33,8 +33,10 @@ class ReactMoveable extends React.Component {
                     ref={ref(this, "moveable")}
                     target={target}
                     pinchThreshold={20}
+                    edge={false}
                     container={document.body}
                     draggable={true}
+                    // scaleable and resizeable disabled with false
                     scalable={scalable}
                     resizable={resizable}
                     warpable={warpable}
