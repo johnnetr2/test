@@ -62,6 +62,9 @@ const HomeFeedContent = (props) => {
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isInTrial, setIsInTrial] = useState(JSON.parse(localStorage.getItem("isInTrial")))
+  const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
+
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -273,6 +276,7 @@ const HomeFeedContent = (props) => {
                           : ""
                       }
                       isLoading={loading}
+                      isPremium={isInTrial && isPremium}
                     // data={previousRecordProgress}
                     />
                   );
@@ -301,6 +305,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isInTrial && isPremium}
                     />
                   );
                 }
@@ -328,6 +333,8 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isInTrial && isPremium}
+
                     />
                   );
                 }
@@ -353,6 +360,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isInTrial && isPremium}
                     />
                   );
                 }

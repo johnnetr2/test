@@ -14,6 +14,7 @@ import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
 import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
+import { appColors } from "../../service/commonService";
 
 const HomeCard = (props) => {
   const data = props?.item;
@@ -64,15 +65,41 @@ const HomeCard = (props) => {
           backgroundColor: "#f9f9f9",
         },
       }}
-      onClick={() =>
-        navigate("/category", {
-          state: {
-            item: data
-          },
-        })
+      onClick={() =>{
+        if(data.title !== "XYZ" && !props?.isPremium){ 
+          // TEMPORARY
+          alert("Du måste ha premium för att få tillgång till denna kategori")
+        } else {
+            navigate("/category", {
+              state: {
+                item: data
+              },
+            })
+          }
+        }
       }
     >
+      
+      
       <Box sx={{ width: "60%" }}>
+      {data.title !== "XYZ" && !props?.isPremium && 
+            <Box
+              sx={{
+                  borderRadius: "0px 4px 0px 0px",
+                  textAlign: "center",
+                  width: "70px",
+                  height: "23px",
+                  backgroundColor: "#FFE482",
+                  color: appColors.blackColor,
+                  position: "relative",
+                  right: "-560px",
+                  top: "-24px",
+                  margin: "0px",
+                  padding: "0px",
+                }}
+              >
+              PREMIUM
+            </Box>}
         <Typography variant="h5">{data.title}</Typography>
         <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
           {data?.information}
@@ -101,11 +128,13 @@ const HomeCard = (props) => {
           width: "20%",
         }}
       >
+        
         <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
           {props?.previousRecord?.totalAttemptedHundred >= 20
             ? percentageCalculation()
             : "-"}
         </Typography>
+        
         <Box
           sx={{
             display: "flex",
@@ -113,6 +142,7 @@ const HomeCard = (props) => {
             width: "3.5rem",
           }}
         >
+          
           {props?.previousRecord?.totalAttemptedHundred < 20 && (
             <CustomizedTooltip
               title="Gör minst 20 frågor på tid för att få poängprognos"
