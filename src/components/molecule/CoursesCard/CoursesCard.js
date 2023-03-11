@@ -149,15 +149,15 @@ const CoursesCard = (props) => {
               {!(isFirstQuiz || isPremium || isInTrial) ? (
                 <Box
                   sx={{
-                    borderRadius: "0px 4px 0px 0px",
+                    borderRadius: "0px 4px 0px 4px",
                     textAlign: "center",
-                    width: "63px",
+                    width: "100px",
                     height: "23px",
                     backgroundColor: "#FFE482",
                     color: appColors.blackColor,
                   }}
                 >
-                  LÅST
+                  Premium
                 </Box>
               ) : (
                 <MoreVertIcon

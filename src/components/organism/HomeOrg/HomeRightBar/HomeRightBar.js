@@ -179,9 +179,8 @@ const HomeRightBar = (props) => {
         }}
       >
         {!isPremium && !isInTrial &&
-          <PaymentCard
-            title={"Din testperiod är över."}
-            subTitle={"Lås upp alla premiumfunktioner för endast 450 SEK."}
+            <PaymentCard
+            title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet"}
             isInTrial={isInTrial}
           ></PaymentCard>
         }

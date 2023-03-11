@@ -87,15 +87,15 @@ const HomeCard = (props) => {
           <span style={{
             display: "flex",
             justifyContent: "flex-end",
-            padding: '0px 3px',
-            borderRadius: "0px 4px 0px 0px",
+            padding: '0px 10px',
+            borderRadius: "0px 4px 0px 4px",
             textAlign: "center",
-            width: "80px",
+            width: "100px",
             // height: "23px",
             backgroundColor: "#FFE482",
             color: appColors.blackColor
           }}>
-            PREMIUM
+            Premium
           </span>
         </Box>
       )}
