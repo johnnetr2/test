@@ -176,11 +176,12 @@ const CoursesFeedContent = (props) => {
           >
             {previousExams &&
               previousExams
-                .map((item) => {
+                .map((item, index) => {
                   return (
                     <CoursesCard
                       id={item?._id}
                       item={item}
+                      index={index}
                       progress={
                         props?.data &&
                         props?.data?.find(

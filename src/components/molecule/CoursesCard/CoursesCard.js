@@ -1,6 +1,6 @@
 import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
 import { EndPoints, instance2 } from "../../service/Route";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -8,6 +8,7 @@ import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { appColors } from "../../service/commonService";
+import PaymentModal from "../../organism/PayWallOrg/PaymentModal";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -31,6 +32,9 @@ const CoursesCard = (props) => {
   const [showPopup, setShowPopup] = useState(false);
   const isInTrial = JSON.parse(localStorage.getItem("isInTrial"));
   const isPremium = JSON.parse(localStorage.getItem("isPremium"));
+  const [showPaywallPopup, setShowPaywallPopup] = useState(false);
+
+  const isFirstQuiz = useMemo(() => props.index === 0, [props.index])
 
   const percentage = () => {
     switch (props?.quizzes?.simuleraQuizResult?.length) {
@@ -53,7 +57,7 @@ const CoursesCard = (props) => {
       simuleraSeason: props.item._id,
       user: localStorage.getItem("userId"),
     };
-    if (isPremium || isInTrial) {
+    if (isFirstQuiz || isPremium || isInTrial) {
       instance2.post(URL, data).then((response) => {
         navigate("/testInformation", {
           state: {
@@ -89,14 +93,21 @@ const CoursesCard = (props) => {
           borderRadius: ".25rem",
           boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
-          cursor: isPremium || isInTrial ? "pointer" : "",
-          maxWidth: { xs: "unset", lg: "48rem" },
+           cursor:  "pointer",
+           maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
+        <PaymentModal
+            open={showPaywallPopup}
+            handleClose={() => {
+                setShowPaywallPopup(false);
+              }
+            }
+          />
         <Box
           sx={{ paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
-            if (isPremium || isInTrial) {
+            if ( isFirstQuiz || isPremium || isInTrial) {
               if (
                 props?.quizzes?.simuleraQuizResult.length < 4 ||
                 !props?.quizzes?.simuleraQuizResult
@@ -119,9 +130,12 @@ const CoursesCard = (props) => {
                   },
                 });
               }
+            } else {
+              setShowPaywallPopup(true);
             }
           }}
         >
+          
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
               style={{
@@ -132,7 +146,7 @@ const CoursesCard = (props) => {
                 width: "1.1rem",
               }}
             >
-              {!(isPremium || isInTrial) ? (
+              {!(isFirstQuiz || isPremium || isInTrial) ? (
                 <Box
                   sx={{
                     borderRadius: "0px 4px 0px 0px",
@@ -178,7 +192,7 @@ const CoursesCard = (props) => {
             }}
             onClick={() => {
               console.log("this");
-              if (isInTrial || isPremium) {
+              if (isFirstQuiz || isInTrial || isPremium) {
                 if (
                   props?.quizzes?.simuleraQuizResult &&
                   props?.quizzes?.simuleraQuizResult?.length < 4
@@ -200,12 +214,14 @@ const CoursesCard = (props) => {
                     },
                   });
                 }
+              } else {
+                setShowPaywallPopup(true);
               }
             }}
           >
             <Box
               onClick={() => {
-                if (isPremium || isInTrial) {
+                if (isFirstQuiz || isPremium || isInTrial) {
                   if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
                     navigate("/testInformation", {
                       state: {
@@ -224,6 +240,8 @@ const CoursesCard = (props) => {
                       },
                     });
                   }
+                } else {
+                  setShowPaywallPopup(true);
                 }
               }
               }
@@ -305,7 +323,7 @@ const CoursesCard = (props) => {
                   </Typography>
                 </Box>
                 <Box>
-                  {(isPremium || isInTrial) && (
+                  {(isFirstQuiz || isPremium || isInTrial) && (
                     <Button
                       variant="outlined"
                       style={{

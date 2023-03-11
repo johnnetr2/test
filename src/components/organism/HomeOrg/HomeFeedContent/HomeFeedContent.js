@@ -5,6 +5,7 @@ import {
   Tabs,
   Typography,
   makeStyles,
+  Modal,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import swal from "sweetalert";
@@ -17,6 +18,7 @@ import HomeRightBar from "../HomeRightBar/HomeRightBar";
 import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
 import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
 import { appColors } from "../../../service/commonService";
+import PaymentModal from "../../PayWallOrg/PaymentModal";
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
@@ -62,6 +64,17 @@ const HomeFeedContent = (props) => {
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isInTrial, setIsInTrial] = useState(
+    JSON.parse(localStorage.getItem("isInTrial"))
+  );
+  const [isPremium, setIsPremium] = useState(
+    JSON.parse(localStorage.getItem("isPremium"))
+  );
+  const [paymentModalPopup, setPaymentModalPopup] = useState(false);
+
+  const handlePaymentModalPopupClose = () => {
+    setPaymentModalPopup(false);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -144,22 +157,27 @@ const HomeFeedContent = (props) => {
     let quantitativeTotalNormValue = 0;
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        const isVerbal = verbalCategories.find(sectionCategoryId => sectionCategoryId === item._id);
+        const isVerbal = verbalCategories.find(
+          (sectionCategoryId) => sectionCategoryId === item._id
+        );
         if (isVerbal) {
           verbalCorrected += item.correctedFromLastHundred;
-          verbalAttempted += item.totalAttemptedHundred
+          verbalAttempted += item.totalAttemptedHundred;
         } else {
           quantitativeCorrected += item.correctedFromLastHundred;
-          quantitativeAttempted += item.totalAttemptedHundred
+          quantitativeAttempted += item.totalAttemptedHundred;
         }
       });
 
-    quantitativeTotalNormValue = (quantitativeCorrected / quantitativeAttempted) * 100;
+    quantitativeTotalNormValue =
+      (quantitativeCorrected / quantitativeAttempted) * 100;
     verbalTotalNormValue = (verbalCorrected / verbalAttempted) * 100;
     quantitativeTotalNormValue = quantitativePercentageCalculator(
       quantitativeTotalNormValue?.toFixed(2)
     );
-    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue?.toFixed(2));
+    verbalTotalNormValue = verbalPercentageCalculator(
+      verbalTotalNormValue?.toFixed(2)
+    );
     let avgProgressQuantitativeAndVerbal =
       (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
 
@@ -167,7 +185,6 @@ const HomeFeedContent = (props) => {
       setTotalPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
       props.getPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
     }
-
   }, [previousRecordProgress]);
 
   function TabContainer(props) {
@@ -186,6 +203,10 @@ const HomeFeedContent = (props) => {
     <Container className={classes.root} maxWidth="false">
       <Box>
         <Heading title="Övningar" />
+        <PaymentModal
+          open={paymentModalPopup}
+          handleClose={handlePaymentModalPopupClose}
+        />
         <Box
           sx={{
             display: "flex",
@@ -268,12 +289,14 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                          previousRecordProgress[index]?._id == item._id
+                        previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }
                       isLoading={loading}
-                    // data={previousRecordProgress}
+                      isPremium={isInTrial || isPremium}
+                      handleOpen={() => setPaymentModalPopup(true)}
+                      // data={previousRecordProgress}
                     />
                   );
                 }
@@ -301,6 +324,8 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isInTrial || isPremium}
+                      handleOpen={() => setPaymentModalPopup(true)}
                     />
                   );
                 }
@@ -328,6 +353,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isInTrial && isPremium}
                     />
                   );
                 }
@@ -353,6 +379,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isInTrial && isPremium}
                     />
                   );
                 }
@@ -369,10 +396,9 @@ const HomeFeedContent = (props) => {
           }}
         >
           <HomeRightBar
-            studentPreference={
-              props?.studentPreference
-            }
-            totalPrognos={totalPrognos} />
+            studentPreference={props?.studentPreference}
+            totalPrognos={totalPrognos}
+          />
         </Box>
       </TabPanel>
     </Container>
