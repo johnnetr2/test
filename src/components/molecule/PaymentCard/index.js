@@ -21,6 +21,7 @@ const PaymentCard = (props) => {
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
+        maxWidth: "440px",
         width: "100%",
         height: "193px",
         padding: "23px",
@@ -35,10 +36,9 @@ const PaymentCard = (props) => {
           textAlign: "center",
           color: appColors.whiteColor,
           fontStyle: "normal",
-          fontWeight: 600,
           fontSize: "20px",
           lineHeight: "38px",
-          padding: isSmallScreen ? "0px 10px 0px 10px" : "0px 35px 0px 35px",
+          padding: isSmallScreen ? "0px 0px 0px 0px" : "0px 10px 0px 10px",
         }}
       >
         {props.title}

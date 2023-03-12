@@ -28,8 +28,7 @@ const PremiumCTA = () => {
     >
       <Typography
         style={{
-          fontSize: "12px",
-          fontWeight: "bold",
+          fontSize: "13px",
         }}
       >
         Uppgradera till Premium
@@ -51,12 +50,12 @@ const PremiumCTA = () => {
           width: "70%",
           padding: "0.5rem",
           marginTop: "0.25rem",
+          backgroundColor: "white"
         }}
       >
         <Typography
           style={{
-            fontSize: "12px",
-            fontWeight: "bold",
+            fontSize: "13px",
             color: "#5263EB",
           }}
         >
