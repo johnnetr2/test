@@ -99,6 +99,29 @@ const HomeCard = (props) => {
           </span>
         </Box>
       )}
+      {(!props?.isPremium && data.title === "XYZ") && (
+          <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
+          }}
+        >
+          <span style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: '0px 10px',
+            borderRadius: "0px 4px 0px 4px",
+            textAlign: "center",
+            width: "100px",
+            // height: "23px",
+            backgroundColor: "#E0E0E0",
+            color: appColors.blackColor
+          }}>
+            Gratis
+          </span>
+        </Box>
+      )}
       <Box
         sx={{
           display: 'flex',

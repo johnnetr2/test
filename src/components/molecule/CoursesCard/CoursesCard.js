@@ -30,7 +30,6 @@ const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"));
   const isPremium = JSON.parse(localStorage.getItem("isPremium"));
   const [showPaywallPopup, setShowPaywallPopup] = useState(false);
 
@@ -57,7 +56,7 @@ const CoursesCard = (props) => {
       simuleraSeason: props.item._id,
       user: localStorage.getItem("userId"),
     };
-    if (isFirstQuiz || isPremium || isInTrial) {
+    if (isFirstQuiz || isPremium) {
       instance2.post(URL, data).then((response) => {
         navigate("/testInformation", {
           state: {
@@ -76,7 +75,7 @@ const CoursesCard = (props) => {
       <div
         className="result_popup"
         onClick={() => prop.onClick()}
-        style={{ marginTop: "70px" }}
+        style={{ marginTop: isPremium ? "70px" : "35px" }}
       >
         STARTA OM
         <div className="popup"></div>
@@ -107,7 +106,7 @@ const CoursesCard = (props) => {
         <Box
           sx={{ paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
-            if ( isFirstQuiz || isPremium || isInTrial) {
+            if ( isFirstQuiz || isPremium) {
               if (
                 props?.quizzes?.simuleraQuizResult.length < 4 ||
                 !props?.quizzes?.simuleraQuizResult
@@ -146,7 +145,7 @@ const CoursesCard = (props) => {
                 width: "1.1rem",
               }}
             >
-              {!(isFirstQuiz || isPremium || isInTrial) ? (
+              {!(isFirstQuiz || isPremium) ? (
                 <Box
                   sx={{
                     borderRadius: "0px 4px 0px 4px",
@@ -160,20 +159,35 @@ const CoursesCard = (props) => {
                   Premium
                 </Box>
               ) : (
-                <MoreVertIcon
-                  style={{
-                    color: "grey",
-                    marginRight: "0.5px",
-                    marginTop: "2px",
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowPopup(!showPopup);
-                  }}
-                />
+                <div style={{ display: "flex" }}>
+                  {!isPremium && <span style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: '0px 10px',
+                    borderRadius: "0px 4px 0px 4px",
+                    textAlign: "center",
+                    width: "100px",
+                    // height: "23px",
+                    backgroundColor: "#E0E0E0",
+                    color: appColors.blackColor,
+                  }}>
+                    Gratis
+                  </span>}
+                  {(isPremium) && <MoreVertIcon
+                    style={{
+                      color: "grey",
+                      marginRight: "0.5px",
+                      marginTop: "2px",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPopup(!showPopup);
+                    }}
+                  />}
+                </div>
               )}
 
-              {showPopup && (
+              {(showPopup && isPremium) && (
                 <Dropdown
                   style={{
                     backgroundColor: "blue",
@@ -191,8 +205,7 @@ const CoursesCard = (props) => {
               flexWrap: "wrap",
             }}
             onClick={() => {
-              console.log("this");
-              if (isFirstQuiz || isInTrial || isPremium) {
+              if (isFirstQuiz || isPremium) {
                 if (
                   props?.quizzes?.simuleraQuizResult &&
                   props?.quizzes?.simuleraQuizResult?.length < 4
@@ -221,7 +234,7 @@ const CoursesCard = (props) => {
           >
             <Box
               onClick={() => {
-                if (isFirstQuiz || isPremium || isInTrial) {
+                if (isFirstQuiz || isPremium) {
                   if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
                     navigate("/testInformation", {
                       state: {
@@ -297,7 +310,7 @@ const CoursesCard = (props) => {
                   alignItems: "center",
                   flexDirection: "column",
                   textAlign: "center",
-                  marginRight: isPremium || isInTrial ? "1.3rem" : "6rem",
+                  marginRight: isPremium ? "1.3rem" : "6rem",
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -323,7 +336,7 @@ const CoursesCard = (props) => {
                   </Typography>
                 </Box>
                 <Box>
-                  {(isFirstQuiz || isPremium || isInTrial) && (
+                  {(isFirstQuiz || isPremium) && (
                     <Button
                       variant="outlined"
                       style={{
@@ -338,6 +351,17 @@ const CoursesCard = (props) => {
                     </Button>
                   )}
                 </Box>
+                {isFirstQuiz && <MoreVertIcon
+                    style={{
+                      color: "grey",
+                      marginRight: "0.5px",
+                      marginTop: "2px",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPopup(!showPopup);
+                    }}
+                  />}
               </Box>
             ) : (
               <Box
@@ -395,9 +419,32 @@ const CoursesCard = (props) => {
                     </Typography>
                   </Box>
                 </Box>
+                
               </Box>
             )}
           </Box>
+            {(isFirstQuiz && !isPremium)&& <div style={{display: "flex", justifyContent: "flex-end"}}>
+              {(showPopup && !isPremium) && (
+                  <Dropdown
+                    style={{
+                      backgroundColor: "blue",
+                    }}
+                    onClick={() => restartQuiz()}
+                  />
+                )}
+              <MoreVertIcon
+                style={{
+                  color: "grey",
+                  marginRight: "0.5px",
+                  marginTop: "2px",
+
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowPopup(!showPopup);
+                }}
+              />
+              </div>}
         </Box>
       </Box>
     </Container>
