@@ -353,7 +353,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
-                      isPremium={isInTrial && isPremium}
+                      isPremium={isPremium}
                     />
                   );
                 }
@@ -379,7 +379,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
-                      isPremium={isInTrial && isPremium}
+                      isPremium={isPremium}
                     />
                   );
                 }
