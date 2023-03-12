@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import React from "react";
+import { Box, Typography, Button, useMediaQuery } from "@mui/material";
 import { appColors } from "../../service/commonService";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,8 @@ const PaymentCard = (props) => {
   const onClick = () => {
     navigate("/checkout");
   };
+
+  const isSmallScreen = useMediaQuery("(max-width: 1380px)");
 
   return (
     <Box
@@ -23,42 +25,23 @@ const PaymentCard = (props) => {
         height: "193px",
         padding: "23px",
         borderRadius: "5px",
-        paddingLeft: 30,
-        paddingRight: 30,
         cursor: "pointer",
       }}
     >
       <Typography
         variant="body2"
         style={{
-          // fontSize: ".65rem",
           display: "flex",
           textAlign: "center",
           color: appColors.whiteColor,
           fontStyle: "normal",
           fontWeight: 600,
-          fontSize: "24px",
+          fontSize: "20px",
           lineHeight: "38px",
+          padding: isSmallScreen ? "0px 10px 0px 10px" : "0px 35px 0px 35px",
         }}
       >
-        {" "}
         {props.title}
-      </Typography>
-      <Typography
-        variant="body2"
-        style={{
-          display: "flex",
-          textAlign: "center",
-          color: appColors.whiteColor,
-          fontStyle: "normal",
-          fontWeight: 400,
-          fontSize: "14px",
-          lineHeight: "20px",
-          padding: "15px 0px",
-        }}
-      >
-        {" "}
-        {props.subTitle}
       </Typography>
       <Button
         disableRipple={true}
@@ -67,11 +50,11 @@ const PaymentCard = (props) => {
         style={{
           backgroundColor: appColors.whiteColor,
           color: appColors.blueColor,
-          //   border: `1px solid ${appColors.blueColor}`,
           textTransform: "capitalize",
           fontWeight: "regular",
           padding: ".60rem 3rem",
-          marginBottom: "2rem",
+          marginBottom: "1.5rem",
+          marginTop: "1.5rem",
           width: "168px",
           height: "37.93px",
         }}

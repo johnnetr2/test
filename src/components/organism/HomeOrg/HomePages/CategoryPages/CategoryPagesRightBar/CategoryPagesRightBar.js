@@ -124,7 +124,7 @@ const CategoryPagesRightBar = (props) => {
       >
         {!isInTrial && !isPremium &&
             <PaymentCard
-            title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet"}
+            title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
             isInTrial={isInTrial}
           ></PaymentCard>
         }
