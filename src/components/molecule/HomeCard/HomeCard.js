@@ -115,7 +115,7 @@ const HomeCard = (props) => {
             textAlign: "center",
             width: "100px",
             // height: "23px",
-            backgroundColor: "#E0E0E0",
+            backgroundColor: "#F2F2F2",
             color: appColors.blackColor
           }}>
             Gratis
