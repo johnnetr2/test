@@ -49,11 +49,14 @@ const CoursesFeedContent = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  /* const latestExam = props.previousExams. */
+
   const [tabValue, setTabValue] = useState(0);
   //Search query
   const [query, setQuery] = useState("");
 
   let previousExams = props.previousExams;
+  console.log(previousExams)
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -182,6 +185,7 @@ const CoursesFeedContent = (props) => {
                       id={item?._id}
                       item={item}
                       index={index}
+                      latestExam={props.latestExam._id === item._id}
                       progress={
                         props?.data &&
                         props?.data?.find(

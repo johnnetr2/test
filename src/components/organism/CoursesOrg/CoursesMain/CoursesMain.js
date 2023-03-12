@@ -1,5 +1,5 @@
 import { EndPoints, instance2 } from "../../../service/Route";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import GridLayout from "../../GridOrg/GridLayout";
 import BottomNavBar from "../../../molecule/BottomNavBar/BottomNavBar";
@@ -17,6 +17,10 @@ const CoursesMain = () => {
   const [provpassOrderBySeason, setProvpassOrderBySeason] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const userId = useSelector((state) => state.value.user._id);
+
+  const latestExam = useMemo(() => {
+    return allPreviousExams[0];
+  }, [allPreviousExams])
 
   useEffect(() => {
     async function fechData() {
@@ -107,6 +111,7 @@ const CoursesMain = () => {
             seasons={provpassSeasons}
             provpassOrderBySeason={provpassOrderBySeason}
             searchExams={seachExams}
+            latestExam={latestExam}
           />
         }
         rightBar={

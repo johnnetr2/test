@@ -33,7 +33,7 @@ const CoursesCard = (props) => {
   const isPremium = JSON.parse(localStorage.getItem("isPremium"));
   const [showPaywallPopup, setShowPaywallPopup] = useState(false);
 
-  const isFirstQuiz = useMemo(() => props.index === 0, [props.index])
+  const isFirstQuiz = useMemo(() => props.latestExam, [props.latestExam])
 
   const percentage = () => {
     switch (props?.quizzes?.simuleraQuizResult?.length) {
