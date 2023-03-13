@@ -127,8 +127,7 @@ const RightBar = (props) => {
         {!isPremium && !isInTrial &&
           <Box sx={{ marginTop: '4rem' }}>
             <PaymentCard
-              title={"Din testperiod är över."}
-              subTitle={"Lås upp alla premiumfunktioner för endast 450 SEK."}
+              title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
               isInTrial={isInTrial}
             ></PaymentCard>
           </Box>

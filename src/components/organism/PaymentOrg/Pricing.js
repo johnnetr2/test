@@ -122,7 +122,6 @@ const Pricing = () => {
             <Stack direction="row" spacing={1} alignItems="center">
               <Typography
                 style={{
-                  fontWeight: "800",
                   fontSize: "16px",
                   color: pricingSwitch ? "#B5B5B5" : "#5263EB",
                 }}
@@ -139,7 +138,6 @@ const Pricing = () => {
               />
               <Typography
                 style={{
-                  fontWeight: "800",
                   fontSize: "16px",
                   color: pricingSwitch ? "#5263EB" : "#B5B5B5",
                 }}

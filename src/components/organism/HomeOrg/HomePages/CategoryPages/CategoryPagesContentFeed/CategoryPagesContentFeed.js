@@ -532,17 +532,17 @@ const CategoryPagesFeedContent = (props) => {
       <Box
         sx={{
           marginTop: "2rem",
-          backgroundColor: !isInTrial && !isPremium ? '#E0E0E0' : appColors.blueColor,
-          color: !isInTrial && !isPremium ? '#A6A6A6' : appColors.whiteColor,
+          backgroundColor: (categoryName === "XYZ" || isInTrial || isPremium) ? appColors.blueColor : '#E0E0E0',
+          color: categoryName === "XYZ" || (isInTrial || isPremium) ? appColors.whiteColor : '#A6A6A6',
           borderRadius: "6px",
           height: "3rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          cursor: !isInTrial && !isPremium ? "not-allowed" : "pointer",
+          cursor: categoryName === "XYZ" || (isInTrial || isPremium) ? "pointer" : "not-allowed",
           width: "99.35%",
         }}
-        onClick={(isPremium || isInTrial) && checkedData.length > 0 && onSubmit}
+        onClick={(isPremium || isInTrial || categoryName === "XYZ") && checkedData.length > 0 && onSubmit}
       >
         Starta övningar
       </Box>

@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography, useMediaQuery } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 
 const PremiumCTA = () => {
@@ -7,6 +7,8 @@ const PremiumCTA = () => {
   const navigateCheckout = () => {
     navigate("/checkout");
   };
+
+  const isSmallScreen = useMediaQuery("(max-width: 960px)");
 
   return (
     <div
@@ -28,8 +30,8 @@ const PremiumCTA = () => {
     >
       <Typography
         style={{
-          fontSize: "12px",
-          fontWeight: "bold",
+          fontSize: "13px",
+          margin: "0px 10px 0px 10px"
         }}
       >
         Uppgradera till Premium
@@ -37,8 +39,7 @@ const PremiumCTA = () => {
       <Typography
         style={{
           fontSize: "8px",
-          marginTop: "10px",
-          marginBottom: "10px",
+          margin: "10px",
         }}
       >
         Få tillgång till allt för endast 450 SEK
@@ -51,12 +52,13 @@ const PremiumCTA = () => {
           width: "70%",
           padding: "0.5rem",
           marginTop: "0.25rem",
+          backgroundColor: "white",
+          overflow: "hidden",
         }}
       >
         <Typography
           style={{
-            fontSize: "12px",
-            fontWeight: "bold",
+            fontSize: isSmallScreen ? "10px" : "14px",
             color: "#5263EB",
           }}
         >

@@ -472,6 +472,7 @@ const QuestionViewDTKOrg = (props) => {
                         margin: "auto",
                         position: 'relative'
                       }}
+                      className={quiz?.description.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
                     >
                       <h1 style={{ fontSize: "28px" }}>{quiz?.title}</h1>
                       <MarkLatex content={quiz?.description} />

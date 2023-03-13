@@ -1,10 +1,11 @@
 import React from "react";
-import { Grid, List, ListItem, ListItemText } from "@material-ui/core";
+import { Grid, List, ListItem } from "@material-ui/core";
 import CheckmarkPurple from "../../../assets/Icons/CheckmarkPurple.png";
 
 const ListValues = () => {
   return (
     <Grid>
+      
       <List>
         <Grid style={{ display: "flex", gap: "0px" }}>
           <ListItem>
@@ -12,7 +13,7 @@ const ListValues = () => {
               <span style={{ marginRight: "8px" }}>
                 <img width={"30px"} src={CheckmarkPurple} alt="" />
               </span>
-              <span>Plugga på 3500+ övningsuppgifter</span>
+              <span>+3700 övningsuppgifter på alla 8 delar</span>
             </div>
           </ListItem>
         </Grid>
@@ -22,7 +23,7 @@ const ListValues = () => {
               <span style={{ marginRight: "8px" }}>
                 <img width={"30px"} src={CheckmarkPurple} alt="" />
               </span>
-              <span>Tillgång till 1300+ smarta lösningar</span>
+              <span>+1800 detaljerade lösningar </span>
             </div>
           </ListItem>
         </Grid>
@@ -32,7 +33,9 @@ const ListValues = () => {
               <span style={{ marginRight: "8px" }}>
                 <img width={"30px"} src={CheckmarkPurple} alt="" />
               </span>
-              <span>Gör gamla prov från 2011 och framåt</span>
+              <span>
+                Alla prov mellan 2011-2022 med automatisk rättning och poäng
+              </span>
             </div>
           </ListItem>
         </Grid>
@@ -42,7 +45,7 @@ const ListValues = () => {
               <span style={{ marginRight: "8px" }}>
                 <img width={"30px"} src={CheckmarkPurple} alt="" />
               </span>
-              <span>Få personlig normerad poängprognos</span>
+              <span>Personlig poängprognos på alla delar</span>
             </div>
           </ListItem>
         </Grid>
