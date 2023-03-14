@@ -42,7 +42,7 @@ const PremiumCTA = () => {
           margin: "10px",
         }}
       >
-        Få tillgång till allt för endast 450 SEK
+        Få tillgång till allt för endast 360 SEK
       </Typography>
       <button
         onClick={() => navigateCheckout()}
