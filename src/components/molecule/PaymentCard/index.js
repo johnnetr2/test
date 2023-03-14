@@ -15,7 +15,8 @@ const PaymentCard = (props) => {
     <Box
       onClick={onClick}
       style={{
-        margin: `${props.isInTrial ? "50px" : "0px"}  auto`,
+        margin: "auto",
+        marginBottom: "0px",
         backgroundColor: appColors.blueColor,
         display: "flex",
         flexDirection: "column",
@@ -57,6 +58,7 @@ const PaymentCard = (props) => {
           marginTop: "1.5rem",
           width: "168px",
           height: "37.93px",
+          borderRadius: "5px"
         }}
       >
         {"Läs mer"}

@@ -122,13 +122,13 @@ const CategoryPagesRightBar = (props) => {
           marginTop: width < 1280 ? "2rem" : "11.7rem",
         }}
       >
-        {!isInTrial && !isPremium &&
+        {!isPremium &&
             <PaymentCard
             title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
             isInTrial={isInTrial}
           ></PaymentCard>
         }
-        <Box sx={{ marginTop: isInTrial ? "10.5rem" : "3rem" }}>
+        <Box sx={{ marginTop: isPremium ? "10.5rem" : "3rem" }}>
           {width > 900 && (
             <Typography variant="h5">Statistik - {props.item.title}</Typography>
           )}

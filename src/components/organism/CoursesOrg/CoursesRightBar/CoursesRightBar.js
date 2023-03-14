@@ -124,7 +124,7 @@ const RightBar = (props) => {
           flexDirection: "column",
         }}
       >
-        {!isPremium && !isInTrial &&
+        {!isPremium &&
           <Box sx={{ marginTop: '4rem' }}>
             <PaymentCard
               title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
@@ -233,72 +233,7 @@ const RightBar = (props) => {
               </TableBody>
             </Table>
           </TableContainer>
-
-          {/* Hide unlock premium card */}
-          {/* <Box
-            sx={{
-              border: "1px solid #e1e1e1",
-              borderRadius: ".25rem",
-              boxShadow: "0px 5px 10px #f2f2f2",
-              backgroundColor: "#fff",
-              display: "flex",
-              justifyContent: "space-between",
-              // width: "33rem",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                height: "12rem",
-                marginLeft: "2rem",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <Box
-                style={{
-                  height: "5rem",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Typography variant="h5" component="h5">
-                  Lås upp fler prov
-                </Typography>
-                <Typography variant="body2" component="body2">
-                  Lås upp premiumfunktioner <br /> endast för 199 sek per
-                  sektion
-                </Typography>
-              </Box>
-
-              <Button
-                contained
-                style={{
-                  backgroundColor: appColors.blueColor,
-                  textTransform: "capitalize",
-                  color: "#fff",
-                  width: "12rem",
-                }}
-              >
-                Lås upp prov
-              </Button>
-            </Box>
-            <Box>
-              <img style={{ height: "10rem" }} src={Thumb} alt="" />
-            </Box>
-          </Box> */}
         </Box>
-
-        {!isPremium && isInTrial &&
-          <Box sx={{ marginTop: "6rem" }}>
-            <PaymentCard
-              title={"Lär dig ännu mer!"}
-              subTitle={"Uppgradera till premium för endast 450 SEK. "}
-              isInTrial={isInTrial}
-            ></PaymentCard>
-          </Box>
-        }
       </Box>
     </Container>
   );

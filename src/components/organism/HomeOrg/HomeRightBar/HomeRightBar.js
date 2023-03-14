@@ -178,13 +178,13 @@ const HomeRightBar = (props) => {
           marginTop: "6rem",
         }}
       >
-        {!isPremium && !isInTrial &&
+        {!isPremium &&
             <PaymentCard
             title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
             isInTrial={isInTrial}
           ></PaymentCard>
         }
-        <Box style={{ marginTop: isInTrial ? "10.5rem" : "3rem" }}>
+        <Box style={{ marginTop: isPremium ? "10.5rem" : "3rem" }}>
           <Typography
             variant="h6"
             component="h6"
@@ -293,13 +293,6 @@ const HomeRightBar = (props) => {
             </Box>
           </Box>
         </Box>
-        {!isPremium && isInTrial &&
-          <PaymentCard
-            title={"Lär dig ännu mer!"}
-            subTitle={"Uppgradera till premium för endast 450 SEK. "}
-            isInTrial={isInTrial}
-          ></PaymentCard>
-        }
       </Box>
     </Box>
   );
