@@ -24,9 +24,6 @@ const LearnMoreCard = () => {
         <Typography variant="body2">
           Lås upp premiumfunktioner endast för 199 sek per sektion
         </Typography>
-        <Button variant='contained' style={{ backgroundColor: appColors.blueColor, color: '#fff', marginTop: '1rem', marginBottom: '1rem' }}>
-          <Typography variant="body1" style={{ textTransform: 'capitalize', fontSize: '0.75rem' }}>Lås upp kategorier</Typography>
-        </Button>
       </Box>
       <Box style={{ display: 'flex', justifyContent: 'flex-end ' }}>
         <img src={Thumb} alt="" style={{ maxWidth: '80%' }} />
