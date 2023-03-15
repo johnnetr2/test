@@ -135,7 +135,7 @@ const SignupOrg = () => {
             swal({
               icon: "success",
               title: "Success",
-              text: `Please confirm your email! We sent an email to ${response.data.user.email}`,
+              text: `Registered successfully `,
             }).then(() => navigate("/login"));
           } else if (response?.data?.result == "fail") {
             swal({
