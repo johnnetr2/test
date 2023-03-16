@@ -88,6 +88,8 @@ const HomeFeedContent = (props) => {
           setPreviousRecordProgress(response.data.Data);
         }
       });
+      setIsPremium(localStorage.getItem('isPremium'))
+
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
         let newArr = [];
@@ -289,14 +291,14 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                        previousRecordProgress[index]?._id == item._id
+                          previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }
                       isLoading={loading}
                       isPremium={isPremium}
                       handleOpen={() => setPaymentModalPopup(true)}
-                      // data={previousRecordProgress}
+                    // data={previousRecordProgress}
                     />
                   );
                 }
