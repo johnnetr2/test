@@ -47,6 +47,7 @@ const PayConfirmation = () => {
       localStorage.setItem("isPremium", true)
 
       navigate("/home");
+      window.location.reload();
     } else {
       navigate("/checkout");
     }
