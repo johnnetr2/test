@@ -44,7 +44,10 @@ const PayConfirmation = () => {
   const handleClose = async () => {
     // If paymentCompleted, navigate user to dashboard/home page
     if (isComplete === true) {
+      localStorage.setItem("isPremium", true)
+
       navigate("/home");
+      window.location.reload();
     } else {
       navigate("/checkout");
     }

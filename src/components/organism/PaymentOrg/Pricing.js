@@ -8,7 +8,7 @@ import PayButton from "./PayButton";
 require("dotenv").config();
 
 const Pricing = () => {
-  const [price, setPrice] = useState(75);
+  const [price, setPrice] = useState(60);
   const [pricingSwitch, setPricingSwitch] = useState(true);
   const [htmlSnippet, setHtmlSnippet] = useState();
 
@@ -17,7 +17,7 @@ const Pricing = () => {
   const goPayment = () => {
     //Make orderData dynamic when we implement discount code. Tech DEBT - refactor ordeData
     let quantity = 1;
-    let unit_price = 45000;
+    let unit_price = 36000;
     let total_amount = quantity * unit_price;
     let tax_rate = 2500;
     let total_tax_amount =
@@ -132,7 +132,7 @@ const Pricing = () => {
                 checked={pricingSwitch}
                 onChange={(e) => {
                   setPricingSwitch(!pricingSwitch);
-                  setPrice(e.target.checked ? 75 : 450);
+                  setPrice(e.target.checked ? 60 : 360);
                 }}
                 inputProps={{ "aria-label": "ant design" }}
               />

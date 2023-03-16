@@ -5,7 +5,6 @@ import {
   Tabs,
   Typography,
   makeStyles,
-  Modal,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import swal from "sweetalert";
@@ -64,9 +63,6 @@ const HomeFeedContent = (props) => {
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [isInTrial, setIsInTrial] = useState(
-    JSON.parse(localStorage.getItem("isInTrial"))
-  );
   const [isPremium, setIsPremium] = useState(
     JSON.parse(localStorage.getItem("isPremium"))
   );
@@ -88,6 +84,7 @@ const HomeFeedContent = (props) => {
           setPreviousRecordProgress(response.data.Data);
         }
       });
+
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
         let newArr = [];
