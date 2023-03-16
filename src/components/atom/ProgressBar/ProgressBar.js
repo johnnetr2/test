@@ -45,7 +45,7 @@ const ProgressBar = (props) => {
             width: (props.average < 2) ? (props.average + 2 + "%") : props.average + "%",
             height: "1.25rem",
             borderRadius: "100px 0 0 100px",
-            backgroundColor: "#6FCF97",
+            backgroundColor: (props.average < 0.001) ? null : "#6FCF97",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
