@@ -1,18 +1,7 @@
-import React, { useEffect } from "react";
-import { LinearProgress, Box, Typography, Stack, Chip } from "@mui/material";
-import { makeStyles } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .css-5xe99f-MuiLinearProgress-bar1": {
-      backgroundColor: "#6FCF97",
-    },
-  },
-}));
+import React from "react";
+import { Box, Typography} from "@mui/material";
 
 const ProgressBar = (props) => {
-  const classes = useStyles();
-
   return (
     <Box
       sx={{
@@ -22,33 +11,6 @@ const ProgressBar = (props) => {
         marginTop: ".5rem",
       }}
     >
-      {/* <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress
-          className={classes.root}
-          sx={{
-            height: 18,
-            borderRadius: "5rem",
-            backgroundColor: "#e1e1e1",
-            color: "red",
-          }}
-          variant="determinate"
-          value={50}
-        />
-        <Chip
-          label="Copy här"
-          variant="outlined"
-          className={classes.root}
-          style={{
-            width: "100%",
-            height: "1.25rem",
-            borderRadius: "5rem",
-            textTransform: "uppercase",
-            backgroundColor: "#6FCF97",
-            color: "#0A5B2D",
-            border: "none",
-          }}
-        />
-      </Box> */}
       <Box
         sx={{
           width: "100%",
@@ -80,9 +42,9 @@ const ProgressBar = (props) => {
         </Box>
         <Box
           sx={{
-            width: props.average + "%",
+            width: (props.average < 2) ? (props.average + 2 + "%") : props.average + "%",
             height: "1.25rem",
-            borderRadius: "100px   0 0 100px",
+            borderRadius: "100px 0 0 100px",
             backgroundColor: "#6FCF97",
             display: "flex",
             justifyContent: "center",
