@@ -45,6 +45,7 @@ const PayConfirmation = () => {
     // If paymentCompleted, navigate user to dashboard/home page
     if (isComplete === true) {
       navigate("/home");
+      window.location.reload();
     } else {
       navigate("/checkout");
     }
