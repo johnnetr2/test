@@ -99,7 +99,7 @@ const CustomModal = ({ order_id, handleClose, isComplete }) => {
           </button>
         </Grid>
       </Modal>
-      <Payment />
+      <Payment/>
     </div>
   );
 };

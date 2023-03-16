@@ -5,7 +5,6 @@ import {
   Tabs,
   Typography,
   makeStyles,
-  Modal,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import swal from "sweetalert";
@@ -64,9 +63,6 @@ const HomeFeedContent = (props) => {
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [isInTrial, setIsInTrial] = useState(
-    JSON.parse(localStorage.getItem("isInTrial"))
-  );
   const [isPremium, setIsPremium] = useState(
     JSON.parse(localStorage.getItem("isPremium"))
   );
@@ -88,7 +84,6 @@ const HomeFeedContent = (props) => {
           setPreviousRecordProgress(response.data.Data);
         }
       });
-      setIsPremium(localStorage.getItem('isPremium'))
 
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
@@ -291,14 +286,14 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                          previousRecordProgress[index]?._id == item._id
+                        previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }
                       isLoading={loading}
                       isPremium={isPremium}
                       handleOpen={() => setPaymentModalPopup(true)}
-                    // data={previousRecordProgress}
+                      // data={previousRecordProgress}
                     />
                   );
                 }
