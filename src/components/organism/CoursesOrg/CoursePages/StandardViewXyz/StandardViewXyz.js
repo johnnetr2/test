@@ -820,10 +820,7 @@ const StandardViewXyz = () => {
                                           }
                                         >
                                           <MarkLatex
-                                            content={option.value.replace(
-                                              "\f",
-                                              "\\f"
-                                            )}
+                                            content={option.value}
                                           />
                                         </Typography>
                                       </Box>

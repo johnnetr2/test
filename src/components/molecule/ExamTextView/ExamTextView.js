@@ -1,12 +1,9 @@
-import { Close } from "@mui/icons-material";
+
 import { Box, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
-import MarkLatex from "../../atom/Marklatex/MarkLatex";
 import ArrowSalt from "../../../assets/Icons/ArrowSalt.svg";
 import QuestionStatement from "../QuestionStatement/QuestionStatement";
-import RulerButton from "../../atom/RulerButton/RulerButton";
-import RulerComponent from "../../molecule/RulerComponent";
 import ExpansionDialog from "../../atom/ExpansionDialog/ExpansionDialog";
 
 
