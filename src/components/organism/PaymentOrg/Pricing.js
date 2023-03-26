@@ -5,19 +5,20 @@ import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
 import { EndPoints, instance2 } from "../../service/Route";
 import PayButton from "./PayButton";
+import Prices from "../../../assets/Static/Prices";
 require("dotenv").config();
 
 const Pricing = () => {
-  const [price, setPrice] = useState(60);
+  const [price, setPrice] = useState(Prices.pricePerMonth);
   const [pricingSwitch, setPricingSwitch] = useState(true);
   const [htmlSnippet, setHtmlSnippet] = useState();
-
+  console.log("hello", Prices);
   const checkoutContainer = useRef(null);
 
   const goPayment = () => {
-    //Make orderData dynamic when we implement discount code. Tech DEBT - refactor ordeData
+    //This data goes to Klarna API
     let quantity = 1;
-    let unit_price = 36000;
+    let unit_price = Prices.price * 100;
     let total_amount = quantity * unit_price;
     let tax_rate = 2500;
     let total_tax_amount =
@@ -44,9 +45,9 @@ const Pricing = () => {
         },
       ],
       merchant_urls: {
-        terms: "https://www.hpappen.se/villkoren", // Johnny edit this later
-        checkout: process.env.REACT_APP_BASE_URL + "/checkout", // We go for localhost url in DEV mode.
-        confirmation: process.env.REACT_APP_BASE_URL + "/payment-confirmation", // We go for localhost url in DEV mode.
+        terms: "https://www.hpappen.se/villkoren",
+        checkout: process.env.REACT_APP_BASE_URL + "/checkout",
+        confirmation: process.env.REACT_APP_BASE_URL + "/payment-confirmation",
         push: "https://www.example.com/api/push", //We need to respond to Klarna with a 200 status.
       },
     });
@@ -132,7 +133,9 @@ const Pricing = () => {
                 checked={pricingSwitch}
                 onChange={(e) => {
                   setPricingSwitch(!pricingSwitch);
-                  setPrice(e.target.checked ? 60 : 360);
+                  setPrice(
+                    e.target.checked ? Prices.pricePerMonth : Prices.price
+                  );
                 }}
                 inputProps={{ "aria-label": "ant design" }}
               />
@@ -167,7 +170,7 @@ const Pricing = () => {
             <Typography
               style={{ fontSize: "16px", width: "420px", textAlign: "center" }}
             >
-              Få obegränsad tillgång i ett år till allt du behöver för att
+              Få obegränsad tillgång i 6 månader till allt du behöver för att
               förbereda dig inför Högskoleprovet.
             </Typography>
           </Grid>
