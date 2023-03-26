@@ -45,7 +45,6 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "rehype-katex": "^6.0.2",
-    "rehype-mathjax": "^4.0.2",
     "remark-math": "^5.1.1",
     "scenejs": "^1.9.4",
     "sweet-alert": "^2.0.5",

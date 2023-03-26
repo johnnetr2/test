@@ -6,7 +6,6 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
 const MarkLatex = ({ content }) => {
-  console.log("Raw response:", content);
 
   return (
     <ReactMarkdown
