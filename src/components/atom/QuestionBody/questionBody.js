@@ -337,7 +337,7 @@ const QuestionBody = (props) => {
                     >
                       <Typography className={item.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""}>
                         <MarkLatex
-                          content={item.value.replace("\f", "\\f")}
+                          content={item.value}
                         />
                       </Typography>
                     </Box>

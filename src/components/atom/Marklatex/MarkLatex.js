@@ -5,11 +5,11 @@ import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
-const MarkLatex = ({ content}) => {
+const MarkLatex = ({ content }) => {
 
   return (
     <ReactMarkdown
-      children={content?.replace("/n", "   /n")}
+      children={content}
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
       skipHtml

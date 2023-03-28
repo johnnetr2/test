@@ -114,7 +114,7 @@ const OptionsComponent = (props) => {
                             <Typography className={option.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""} style={{ fontSize: "0.9rem" }}>
                                 {option?.value && (
                                     <MarkLatex
-                                        content={option?.value.replace("\f", "\\f")}
+                                        content={option?.value}
                                     />
                                 )}{" "}
                             </Typography>
