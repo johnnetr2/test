@@ -71,7 +71,6 @@ const CategoryPagesFeedContent = (props) => {
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
-  const [isInTrial, setIsInTrial] = useState(JSON.parse(localStorage.getItem("isInTrial")))
   const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
 
   const { user } = useSelector((state) => state.value);
@@ -532,17 +531,17 @@ const CategoryPagesFeedContent = (props) => {
       <Box
         sx={{
           marginTop: "2rem",
-          backgroundColor: (categoryName === "XYZ" || isInTrial || isPremium) ? appColors.blueColor : '#E0E0E0',
-          color: categoryName === "XYZ" || (isInTrial || isPremium) ? appColors.whiteColor : '#A6A6A6',
+          backgroundColor: (categoryName === "XYZ" || isPremium) ? appColors.blueColor : '#E0E0E0',
+          color: categoryName === "XYZ" || isPremium ? appColors.whiteColor : '#A6A6A6',
           borderRadius: "6px",
           height: "3rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          cursor: categoryName === "XYZ" || (isInTrial || isPremium) ? "pointer" : "not-allowed",
+          cursor: categoryName === "XYZ" || isPremium ? "pointer" : "not-allowed",
           width: "99.35%",
         }}
-        onClick={(isPremium || isInTrial || categoryName === "XYZ") && checkedData.length > 0 && onSubmit}
+        onClick={(isPremium || categoryName === "XYZ") && checkedData.length > 0 && onSubmit}
       >
         Starta övningar
       </Box>

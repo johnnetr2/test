@@ -17,7 +17,6 @@ const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
-  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
   const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
   useEffect(() => {
@@ -179,9 +178,8 @@ const HomeRightBar = (props) => {
         }}
       >
         {!isPremium &&
-            <PaymentCard
+          <PaymentCard
             title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
-            isInTrial={isInTrial}
           ></PaymentCard>
         }
         <Box style={{ marginTop: isPremium ? "10.5rem" : "3rem" }}>
