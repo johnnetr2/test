@@ -17,14 +17,11 @@ export const appColors = {
 };
 
 export const setInitialUserState = (userData) => {
-    const verifiedAtDate = userData?.user?.verified_date ? userData?.user?.verified_date : new Date();
-    const trialDate = moment(verifiedAtDate)
-        .add(5, "days")
-        .format("YYYY-MM-DD");
+    const premiumExpiryDate = userData.user.premiumExpiryDate ? userData.user.premiumExpiryDate : new Date()
     const currentDate = moment(new Date()).format("YYYY-MM-DD");
-    const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
-    localStorage.setItem("isPremium", userData?.user?.isPremium ? true : false);
-    localStorage.setItem("isInTrial", isGreaterCurrentData);
+    const premiumExpiryDateFormat = moment(premiumExpiryDate).format('YYYY-MM-DD')
+    const isGreaterCurrentData = premiumExpiryDateFormat >= currentDate;
+    localStorage.setItem("isPremium", userData?.user?.isPremium && isGreaterCurrentData ? true : false);
     localStorage.setItem('token', userData?.token)
 };
 

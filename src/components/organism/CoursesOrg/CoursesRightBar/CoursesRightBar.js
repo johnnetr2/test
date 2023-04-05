@@ -47,7 +47,6 @@ const RightBar = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { height, width } = useWindowDimensions();
-  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
   const isPremium = JSON.parse(localStorage.getItem("isPremium"))
   useEffect(() => {
     setResultHistory(props?.data);
@@ -128,14 +127,13 @@ const RightBar = (props) => {
           <Box sx={{ marginTop: '4rem' }}>
             <PaymentCard
               title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
-              isInTrial={isInTrial}
             ></PaymentCard>
           </Box>
         }
         <Box
           style={{
             marginBottom: "1rem",
-            marginTop: !isPremium && !isInTrial ? "6rem" : "11rem",
+            marginTop: !isPremium ? "6rem" : "11rem",
           }}
         >
           <Typography variant="h6" component="h6">
