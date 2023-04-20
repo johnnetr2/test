@@ -19,6 +19,7 @@ import { appColors } from "../../service/commonService";
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
   const percentageCalculation = () => {
     const calculatePercentage =
@@ -50,7 +51,7 @@ const HomeCard = (props) => {
   return (
     <Box
       onClick={() => {
-        if (data.title !== "XYZ" && !props?.isPremium) {
+        if (data.title !== "XYZ" && !isPremium) {
           // TEMPORARY
           props?.handleOpen();
         } else {
@@ -76,7 +77,7 @@ const HomeCard = (props) => {
           backgroundColor: "#f9f9f9",
         },
       }}>
-      {(!props?.isPremium && data.title !== "XYZ") && (
+      {(!isPremium && data.title !== "XYZ") && (
         <Box
           sx={{
             display: "flex",
@@ -99,8 +100,8 @@ const HomeCard = (props) => {
           </span>
         </Box>
       )}
-      {(!props?.isPremium && data.title === "XYZ") && (
-          <Box
+      {(!isPremium && data.title === "XYZ") && (
+        <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
@@ -126,7 +127,7 @@ const HomeCard = (props) => {
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
-          padding: (!props?.isPremium && data.title !== "XYZ") ? '0px 24px 24px' : 3,
+          padding: (!isPremium && data.title !== "XYZ") ? '0px 24px 24px' : 3,
         }}
 
       >

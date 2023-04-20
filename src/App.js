@@ -68,15 +68,14 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    console.log("in the main useEffect", token)
-    if (token) {
+    console.log("in the main useEffect", location)
+    if (token && (location !== '/login' || location !== '/')) {
       instance2.get(EndPoints.getUser).then(response => {
         console.log("in the if statement", response.data)
         setInitialUserState(response.data)
       }).catch(error => {
         localStorage.removeItem('token')
         localStorage.removeItem('isPremium')
-        localStorage.removeItem('isInTrial')
         localStorage.removeItem('email')
         swal({
           title: "Please login to continue",
