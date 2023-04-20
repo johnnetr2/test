@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, useNavigationType, createRoutesFromChildren, matchRoutes } from "react-router-dom";
 import Courses from "./pages/Courses/Courses";
 import Profile from "./pages/Profile/Profile";
 import Message from "./pages/Message/Message";
@@ -32,7 +32,28 @@ import OverBlick from "./components/organism/CoursesOrg/CoursePages/OverBlick/Ov
 import RattadOverblick from "./components/organism/CoursesOrg/CoursePages/RattadOverblick/RattadOverblick";
 import HelpPopup from "./components/atom/HelpPopup/HelpPopup";
 import EmailVerified from "./components/molecule/EmailVerified/EmailVerified";
+import * as Sentry from "@sentry/react";
 require("dotenv").config();
+
+Sentry.init({
+  dsn: "https://d3f1d587e912423b91fda0d4d4742861@o4504945522180096.ingest.sentry.io/4504945526964224",
+  integrations: [
+    new Sentry.BrowserTracing({
+      routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+        React.useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes
+      ),
+    }),
+  ],
+  environment: process.env.REACT_APP_SERVER_NAME,
+  tracesSampleRate: 1.0,
+});
+
+const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
+
 
 function App() {
   const [toggleIcon, setToggleIcon] = useState({
@@ -71,7 +92,7 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
+      <SentryRoutes>
         <Route
           path="/resultquesviewdtkorg"
           element={<ResultQuestionViewDtkOrg />}
@@ -119,7 +140,7 @@ function App() {
         <Route path="/provresultat" element={<Provresultat />} />
         <Route path="/overblick" element={<OverBlick />} />
         <Route path="/rattadoverblick" element={<RattadOverblick />} />
-      </Routes>
+      </SentryRoutes>
     </div>
   );
 }
