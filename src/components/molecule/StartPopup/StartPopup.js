@@ -9,7 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { Input } from "reactstrap";
 import Cross from "../../../assets/Icons/Cross.svg";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

@@ -2,19 +2,19 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
-import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { DTKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { ELFNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { KVANormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { LASNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { MEKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { NOGNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { ORDNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
-import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { XYZNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const HomeCard = (props) => {
   const data = props?.item;

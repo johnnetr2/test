@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const Filled_btn = ({ title, onClick, disabled, type }) => {
   return (

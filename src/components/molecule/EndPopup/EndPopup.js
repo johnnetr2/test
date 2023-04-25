@@ -7,7 +7,7 @@ import { Box, Typography, Button } from "@mui/material";
 import Slide from "@material-ui/core/Slide";
 import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router-dom";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

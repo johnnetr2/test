@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
 import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
-import { appColors, scrollTop } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../../utils/commonService";
 import CommonPopup from "../../../../../molecule/CommonPopup/CommonPopup";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 
@@ -408,23 +408,6 @@ const QuestionViewXyzOrg = () => {
     // localStorage.setItem('quiz', JSON.stringify(questions))
     setQuiz(questions);
   };
-
-  function OptionIndex(index) {
-    switch (index) {
-      case 0:
-        return "A";
-      case 1:
-        return "B";
-      case 2:
-        return "C";
-      case 3:
-        return "D";
-      case 4:
-        return "E";
-      default:
-        return "";
-    }
-  }
 
   const Options = (question, curentOption, optionIndex) => {
     if (question.answer && question.answer.option === curentOption._id) {

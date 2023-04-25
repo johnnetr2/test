@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Box } from '@mui/material'
-import { appColors } from '../../service/commonService'
+import { appColors } from '../../../utils/commonService'
 
 const NextButton = (props) => {
     return (

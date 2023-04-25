@@ -14,9 +14,9 @@ import { EndPoints, instance2 } from "../../../service/Route";
 import Heading from "../../../atom/Heading/Heading";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
-import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
-import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
-import { appColors } from "../../../service/commonService";
+import { verbalPercentageCalculator } from "../../../../utils/normringCalculations/Verbal";
+import { quantitativePercentageCalculator } from "../../../../utils/normringCalculations/Quantitative";
+import { appColors } from "../../../../utils/commonService";
 import PaymentModal from "../../PayWallOrg/PaymentModal";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -286,14 +286,14 @@ const HomeFeedContent = (props) => {
                       item={item}
                       previousRecord={
                         previousRecordProgress &&
-                        previousRecordProgress[index]?._id == item._id
+                          previousRecordProgress[index]?._id == item._id
                           ? previousRecordProgress[index]
                           : ""
                       }
                       isLoading={loading}
                       isPremium={isPremium}
                       handleOpen={() => setPaymentModalPopup(true)}
-                      // data={previousRecordProgress}
+                    // data={previousRecordProgress}
                     />
                   );
                 }

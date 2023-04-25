@@ -12,7 +12,7 @@ import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
 import AnswerStatement from "../../molecule/AnswerStatement/AnswerStatement";
-import { appColors, optionsCharacters } from "../../service/commonService";
+import { appColors, optionsCharacters } from "../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {

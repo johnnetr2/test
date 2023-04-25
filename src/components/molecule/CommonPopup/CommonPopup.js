@@ -9,7 +9,7 @@ import {
   Button,
   styled,
 } from "@mui/material";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 import CloseIcon from "@mui/icons-material/Close";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({

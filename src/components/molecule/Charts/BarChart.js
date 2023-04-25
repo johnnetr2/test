@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { Box } from "@material-ui/core";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const LineDemo = (props) => {
   const [rangeOfGraph, setRangeOfGraph] = useState(4);

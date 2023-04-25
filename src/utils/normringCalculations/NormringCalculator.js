@@ -1,4 +1,4 @@
-import { valueFor } from "./Utils";
+import { valueFor } from "../Utils";
 
 export const XYZNormeringValueFor = (percentage) => {
   const XYZRanges = [
