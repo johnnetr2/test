@@ -9,16 +9,18 @@ import Prices from "../../../assets/Static/Prices";
 require("dotenv").config();
 
 const Pricing = () => {
-  const [price, setPrice] = useState(Prices.pricePerMonth);
+  //set initial with planOne premium
+  const [whichPlan, setWhichPlan] = useState(Prices.planOne);
+  //set price according to plan and pass to Klarna
+  const [price, setPrice] = useState(whichPlan.price);
   const [pricingSwitch, setPricingSwitch] = useState(true);
   const [htmlSnippet, setHtmlSnippet] = useState();
-  console.log("hello", Prices);
   const checkoutContainer = useRef(null);
 
   const goPayment = () => {
     //This data goes to Klarna API
     let quantity = 1;
-    let unit_price = Prices.price * 100;
+    let unit_price = price * 100;
     let total_amount = quantity * unit_price;
     let tax_rate = 2500;
     let total_tax_amount =
@@ -33,8 +35,7 @@ const Pricing = () => {
       order_lines: [
         {
           type: "digital",
-          reference: "Premium",
-          name: "Premium",
+          name: "Premium length: " + whichPlan.premiumLength + " months",
           quantity: quantity,
           quantity_unit: "pcs",
           unit_price: unit_price,
@@ -42,6 +43,7 @@ const Pricing = () => {
           total_amount: total_amount,
           total_discount_amount: 0,
           total_tax_amount: total_tax_amount,
+          merchant_data: "testing this prop to pass parameters",
         },
       ],
       merchant_urls: {
@@ -50,6 +52,7 @@ const Pricing = () => {
         confirmation: process.env.REACT_APP_BASE_URL + "/payment-confirmation",
         push: "https://www.example.com/api/push", //We need to respond to Klarna with a 200 status.
       },
+      merchant_refefrence1: "testing1thispropstopassparameters",
     });
 
     const url = EndPoints.createOrder;
@@ -133,9 +136,6 @@ const Pricing = () => {
                 checked={pricingSwitch}
                 onChange={(e) => {
                   setPricingSwitch(!pricingSwitch);
-                  setPrice(
-                    e.target.checked ? Prices.pricePerMonth : Prices.price
-                  );
                 }}
                 inputProps={{ "aria-label": "ant design" }}
               />
@@ -189,7 +189,7 @@ const Pricing = () => {
           </Grid>
           <Grid item>
             <Typography style={{ fontSize: "40px", color: "#5263EB" }}>
-              {price} SEK
+              {pricingSwitch ? whichPlan.pricePerMonth : whichPlan.price} SEK
             </Typography>
             <Typography style={{ textAlign: "right" }}>
               {pricingSwitch ? "Per månad" : "Betala direkt"}
