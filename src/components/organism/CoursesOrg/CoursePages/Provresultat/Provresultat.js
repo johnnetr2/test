@@ -26,7 +26,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import ExamResults from "../../../../../assets/Static/ExamResults.json";
-import { appColors } from "../../../../service/commonService";
+import { appColors } from "../../../../../utils/commonService";
 
 const Provresultat = () => {
   const navigate = useNavigate();

@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BackButtonPopup from "../../../../../molecule/BackButtonPopup/BackButtonPopup";
 import QuestionBackButtonPopup from "../../../../../molecule/QuestionBackButtonPopup/QuestionBackButtonPopup";
-import { appColors, scrollTop } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../../utils/commonService";
 import CommonPopup from "../../../../../molecule/CommonPopup/CommonPopup";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 

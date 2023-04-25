@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Container, FormControlLabel } from "@material-ui/core";
 import { Box } from "@mui/material";
 import RadioButtonOptions from "../RadioButtonsOptions";
-import { optionsCharacters } from "../../service/commonService";
+import { optionsCharacters } from "../../../utils/commonService";
 import MarkLatex from "../../atom/Marklatex/MarkLatex";
 
 const OptionsComponent = (props) => {

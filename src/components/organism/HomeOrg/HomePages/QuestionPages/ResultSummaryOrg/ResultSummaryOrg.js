@@ -23,12 +23,12 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import { appColors } from "../../../../../service/commonService";
+import { appColors } from "../../../../../../utils/commonService";
 import CirculerLoader from '../../../../../molecule/CircularLoader'
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
-import { scrollTop } from "../../../../../service/commonService";
+import { scrollTop } from "../../../../../../utils/commonService";
 
-import { percentageCalculation } from "../../../../../atom/percentageCalculator/Utils";
+import { percentageCalculation } from "../../../../../../utils/Utils";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 
 export const dispSecondsAsMins = (seconds) => {

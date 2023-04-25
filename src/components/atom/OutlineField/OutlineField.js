@@ -3,7 +3,7 @@ import { Box, label } from "@mui/material";
 import Checkbox from "@material-ui/core/Checkbox";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const useStyles = makeStyles({
   root: {

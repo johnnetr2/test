@@ -14,7 +14,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
-import { appColors, setInitialUserState } from "../../service/commonService";
+import { appColors, setInitialUserState } from "../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {

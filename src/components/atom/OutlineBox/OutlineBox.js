@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const OutlineBox = (props) => {
   return (

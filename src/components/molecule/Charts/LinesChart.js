@@ -1,6 +1,6 @@
 import react, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { getWeekNumbers } from "../../atom/percentageCalculator/Utils";
+import { getWeekNumbers } from "../../../utils/Utils";
 
 import {
   LineChart,
@@ -10,7 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 const LinesChart = (props) => {
   // const progressOfUserAllCategories = []
   const CustomTooltip = ({ active, payload }) => {

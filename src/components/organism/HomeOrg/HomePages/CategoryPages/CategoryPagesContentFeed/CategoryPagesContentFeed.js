@@ -16,7 +16,7 @@ import swal from "sweetalert";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 import categoryDescription from "../../../../../../assets/Static/CategoryDescription.json"
 import { useSelector } from "react-redux";
-import { appColors, scrollTop } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {

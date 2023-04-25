@@ -1,6 +1,6 @@
 
-import { valueFor } from "./Utils";
-export  const quantitativePercentageCalculator = (props) => {
+import { valueFor } from "../Utils";
+export const quantitativePercentageCalculator = (props) => {
     const quantitativeRanges = [
         {
             min: 0.0,

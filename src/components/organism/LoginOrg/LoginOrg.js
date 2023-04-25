@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { login } from "../../../redux/reducers";
 import { useDispatch } from "react-redux";
-import { appColors, setInitialUserState } from "../../service/commonService";
+import { appColors, setInitialUserState } from "../../../utils/commonService";
 
 
 const useStyles = makeStyles((theme) => ({

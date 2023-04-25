@@ -19,7 +19,7 @@ import { Input } from "reactstrap";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
-import { appColors } from "../../../service/commonService";
+import { appColors } from "../../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {

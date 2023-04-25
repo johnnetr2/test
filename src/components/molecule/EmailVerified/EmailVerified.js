@@ -6,7 +6,7 @@ import { Container } from "@mui/material";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../service/Route";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const EmailVerified = () => {
   const params = useParams();

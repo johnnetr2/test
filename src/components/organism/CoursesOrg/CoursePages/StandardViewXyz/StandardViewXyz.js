@@ -34,7 +34,7 @@ import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
-import { appColors } from "../../../../service/commonService";
+import { appColors } from "../../../../../utils/commonService";
 import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
 import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 import QuestionBody from "../../../../atom/QuestionBody/questionBody";
