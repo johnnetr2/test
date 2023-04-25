@@ -7,9 +7,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { EndPoints, instance, instance2 } from "../../../service/Route";
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
@@ -47,10 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CoursesFeedContent = (props) => {
   const classes = useStyles();
-  const navigate = useNavigate();
-
-  /* const latestExam = props.previousExams. */
-
   const [tabValue, setTabValue] = useState(0);
   //Search query
   const [query, setQuery] = useState("");

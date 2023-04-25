@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Modal, Grid, Typography, Divider, Button } from "@material-ui/core";
+import { Modal, Grid, Typography } from "@material-ui/core";
 import Payment from "../Payment/Payment";
 import CheckmarkStatic from "../../../src/assets/Icons/CheckmarkStatic.png";
 import errorMarkStatic from "../../../src/assets/Icons/errorMarkStatic.png";
@@ -99,7 +99,7 @@ const CustomModal = ({ order_id, handleClose, isComplete }) => {
           </button>
         </Grid>
       </Modal>
-      <Payment/>
+      <Payment />
     </div>
   );
 };

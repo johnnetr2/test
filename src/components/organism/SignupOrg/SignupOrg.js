@@ -6,7 +6,7 @@ import FilledBtn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
 import LabelField from "../../molecule/LabelField/LabelField";
-import { Link, useLocation, useMatch, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -44,17 +44,7 @@ const useStyles = makeStyles((theme) => ({
     "&:placeholder": {
       color: "#E1E1E1",
     },
-  },
-  // InputFieldPlaceholder: {
-  //   "&::placeholder": {
-  //     color: "#E1E1E1"
-  //   }
-  // }
-  // InputFieldPlaceholder: {
-  //   "&::placeholder": {
-  //     color: "#E1E1E1"
-  //   }
-  // }
+  }
 }));
 
 const SignupOrg = () => {
@@ -97,9 +87,9 @@ const SignupOrg = () => {
       password: register.password,
     };
     if (
-      register.fullName == "" ||
-      register.email == "" ||
-      register.password == ""
+      register.fullName === "" ||
+      register.email === "" ||
+      register.password === ""
     ) {
       swal({
         icon: "warning",
@@ -130,14 +120,12 @@ const SignupOrg = () => {
               params.get("utm_source"),
               params.get("utm_campaign"),
             );
-            // setRegister({ ...register, fullName: "", email: "", password: "" });
-            // window.reload()
             swal({
               icon: "success",
               title: "Success",
               text: `Please confirm your email! We sent an email to ${response.data.user.email}`,
             }).then(() => navigate("/login"));
-          } else if (response?.data?.result == "fail") {
+          } else if (response?.data?.result === "fail") {
             swal({
               icon: "warning",
               title: "Warning",
@@ -291,7 +279,6 @@ const SignupOrg = () => {
                 id="password"
                 style={{
                   flexBasis: "100%",
-                  backgroundColor: "coral",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",

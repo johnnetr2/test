@@ -74,6 +74,7 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
             totalAttempted = 0
             calculationForTerminate = 0;
             weeklyProgressArr.push({ ...weekWiseProgress, name: week });
+            return { ...weekWiseProgress, name: week }
         });
 
 
@@ -140,6 +141,7 @@ export const calculateWeekWiseNormingForHomePageGraph = (weekWiseData, testTypes
             totalAttempted = 0
             calculationForTerminate = 0;
             weeklyProgressArr.push({ ...weekWiseProgress, name: week });
+            return { ...weekWiseProgress, name: week }
         });
 
 

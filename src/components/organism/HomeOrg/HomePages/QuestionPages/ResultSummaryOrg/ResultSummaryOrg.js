@@ -6,14 +6,12 @@ import {
   CssBaseline,
   FormControlLabel,
   LinearProgress,
-  Paper,
   Toolbar,
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../../service/Route";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import BarChart from "../../../../../../assets/Icons/BarChart.svg";
 import UnAttemptedCheckBox from "../../../../../../assets/Icons/UnAttemptedCheckBox.svg";
 import Clock from "../../../../../../assets/Icons/Clock.svg";
@@ -21,13 +19,11 @@ import Correct from "../../../../../../assets/Imgs/correct.png";
 import RightArrow from "../../../../../../assets/Icons/RightArrow.svg";
 import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
-import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../../utils/commonService";
 import CirculerLoader from '../../../../../molecule/CircularLoader'
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
 import { scrollTop } from "../../../../../../utils/commonService";
-
 import { percentageCalculation } from "../../../../../../utils/Utils";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 
