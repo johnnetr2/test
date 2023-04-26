@@ -7,7 +7,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 import PaymentModal from "../../organism/PayWallOrg/PaymentModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -92,21 +92,21 @@ const CoursesCard = (props) => {
           borderRadius: ".25rem",
           boxShadow: "0px 5px 10px #f2f2f2",
           backgroundColor: "transparent",
-           cursor:  "pointer",
-           maxWidth: { xs: "unset", lg: "48rem" },
+          cursor: "pointer",
+          maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
         <PaymentModal
-            open={showPaywallPopup}
-            handleClose={() => {
-                setShowPaywallPopup(false);
-              }
-            }
-          />
+          open={showPaywallPopup}
+          handleClose={() => {
+            setShowPaywallPopup(false);
+          }
+          }
+        />
         <Box
           sx={{ paddingLeft: "1rem", paddingBottom: "1rem" }}
           onClick={() => {
-            if ( isFirstQuiz || isPremium) {
+            if (isFirstQuiz || isPremium) {
               if (
                 props?.quizzes?.simuleraQuizResult.length < 4 ||
                 !props?.quizzes?.simuleraQuizResult
@@ -134,7 +134,7 @@ const CoursesCard = (props) => {
             }
           }}
         >
-          
+
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
               style={{
@@ -352,16 +352,16 @@ const CoursesCard = (props) => {
                   )}
                 </Box>
                 {isFirstQuiz && <MoreVertIcon
-                    style={{
-                      color: "grey",
-                      marginRight: "0.5px",
-                      marginTop: "2px",
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowPopup(!showPopup);
-                    }}
-                  />}
+                  style={{
+                    color: "grey",
+                    marginRight: "0.5px",
+                    marginTop: "2px",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowPopup(!showPopup);
+                  }}
+                />}
               </Box>
             ) : (
               <Box
@@ -419,32 +419,32 @@ const CoursesCard = (props) => {
                     </Typography>
                   </Box>
                 </Box>
-                
+
               </Box>
             )}
           </Box>
-            {(isFirstQuiz && !isPremium)&& <div style={{display: "flex", justifyContent: "flex-end"}}>
-              {(showPopup && !isPremium) && (
-                  <Dropdown
-                    style={{
-                      backgroundColor: "blue",
-                    }}
-                    onClick={() => restartQuiz()}
-                  />
-                )}
-              <MoreVertIcon
+          {(isFirstQuiz && !isPremium) && <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            {(showPopup && !isPremium) && (
+              <Dropdown
                 style={{
-                  color: "grey",
-                  marginRight: "0.5px",
-                  marginTop: "2px",
-
+                  backgroundColor: "blue",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowPopup(!showPopup);
-                }}
+                onClick={() => restartQuiz()}
               />
-              </div>}
+            )}
+            <MoreVertIcon
+              style={{
+                color: "grey",
+                marginRight: "0.5px",
+                marginTop: "2px",
+
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowPopup(!showPopup);
+              }}
+            />
+          </div>}
         </Box>
       </Box>
     </Container>

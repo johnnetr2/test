@@ -9,7 +9,7 @@ import Slide from "@mui/material/Slide";
 import { Box, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 
 

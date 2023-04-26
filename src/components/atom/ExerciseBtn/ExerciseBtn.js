@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '@mui/material';
-import { appColors } from '../../service/commonService';
+import { appColors } from '../../../utils/commonService';
 
 const ExerciseBtn = (props) => {
     return (

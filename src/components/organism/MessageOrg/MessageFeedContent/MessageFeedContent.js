@@ -10,7 +10,7 @@ import { Rating } from "@mui/material";
 import BodyText from "../../../atom/BodyText/BodyText";
 import FeedbackPopup from "../../../molecule/FeedbackPopup/FeedbackPopup";
 import { EndPoints, instance2 } from "../../../service/Route";
-import { appColors } from "../../../service/commonService";
+import { appColors } from "../../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -5,16 +5,12 @@ import EndPopup from "../../components/molecule/EndPopup/EndPopup";
 import {
   EndPoints,
   instance2,
-  instance3,
 } from "../../components/service/Route";
-import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { MixpanelTracking } from "../../tools/mixpanel/Mixpanel";
 
 const Home = () => {
   const [firstPopup, setFirstPopup] = useState("");
   const [secondPopup, setSecondPopup] = useState("");
-  const { user, token } = useSelector((state) => state.value);
   const [collection, setCollection] = useState({
     season: "",
     gpa: "",

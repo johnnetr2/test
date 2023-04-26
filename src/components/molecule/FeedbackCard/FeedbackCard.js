@@ -14,7 +14,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {

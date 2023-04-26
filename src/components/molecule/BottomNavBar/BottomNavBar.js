@@ -6,7 +6,7 @@ import Home from "../../../assets/Icons/Home.svg";
 import HomeC from "../../../assets/Icons/HomeC.svg";
 import MsgGrey from "../../../assets/Icons/MsgGrey.svg";
 import ProfileGrey from "../../../assets/Icons/ProfileGrey.svg";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   container: {

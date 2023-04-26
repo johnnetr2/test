@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -84,10 +84,10 @@ export default function QuestionBackButtonPopup(props) {
           style={{ textAlign: "right" }}
         ></BootstrapDialogTitle>
         <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-          <Typography gutterTop variant="h4" style={{width: "100%"}}>
+          <Typography gutterTop variant="h4" style={{ width: "100%" }}>
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "100%"}}>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "100%" }}>
             {props.description}
           </Typography>
         </DialogContent>

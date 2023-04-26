@@ -8,7 +8,7 @@ import InputField from "../../../atom/InputField/InputField";
 import PasswordUpdationDialog from "../../../molecule/PasswordUpdationDialog/PasswordUpdationDialog";
 import Snackbar from "../../../molecule/Snackbar/Snackbar";
 import swal from "sweetalert";
-import { appColors } from "../../../service/commonService";
+import { appColors } from "../../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {

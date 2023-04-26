@@ -21,7 +21,7 @@ import {
   Container,
 } from "@material-ui/core";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import { appColors } from "../../../../service/commonService";
+import { appColors } from "../../../../../utils/commonService";
 
 const ProvPassNog = () => {
   const Item = styled(Paper)(({ theme }) => ({

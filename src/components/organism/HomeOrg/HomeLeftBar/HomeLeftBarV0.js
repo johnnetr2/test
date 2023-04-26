@@ -18,7 +18,7 @@ import {
     Box,
     TableContainer,
 } from "@material-ui/core";
-import { appColors } from "../../../service/commonService";
+import { appColors } from "../../../../utils/commonService";
 require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
