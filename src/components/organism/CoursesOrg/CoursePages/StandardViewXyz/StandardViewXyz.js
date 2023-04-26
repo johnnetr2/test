@@ -886,6 +886,7 @@ const StandardViewXyz = () => {
                           state: {
                             quizId: params.state.quizId,
                             seasonId: params.state.seasonId,
+                            examResultData: params?.state?.examResultData,
                           },
                         })
                       }

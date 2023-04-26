@@ -12,18 +12,6 @@ const QuestionStatement = ({
   type,
 }) => {
 
-  const c = `Vi löser denna med uträkning. För att kunna addera talen i täljaren behöver vi förlänga så att vi får samma nämnare. Det som i fetstil är våra förlängningar
-
-  $$ 
-  \begin{aligned} 
-  \frac{3}{4}+\frac{4}{3} &=\boldsymbol{{\frac{3}{3}}}\cdot\frac{3}{4}+\boldsymbol{\frac{4}{4}}\cdot\frac{4}{3} \\ \\
-  &=\frac{9}{12}+\frac{16}{12} \\ \\ &= \frac{25}{12}
-  \end{aligned} 
-  $$ 
-  
-  Talet i täljaren är alltså $\frac{25}{12}$, och hela divisionen ser ut på följande vis $$ \begin{aligned} \frac{\frac{25}{12}}{\frac{12}{5}}\end{aligned} $$ Det påminns om att division med ett bråktal är samma sak som multiplikation med bråktalets *invers*. Vi får således att $$ \begin{aligned} \frac{\frac{25}{12}}{\frac{12}{5}} &=\frac{25}{12}\cdot\frac{5}{12} \\ \\ &=\frac{125}{144}\end{aligned} $$`
-  
-
   return (
     <>
       <Typography
@@ -43,7 +31,7 @@ const QuestionStatement = ({
         className={description?.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
         style={{ fontSize: ".875rem", fontWeight: "400", width: image ? "100%" : "auto" }}
       >
-        <MarkLatex content={c} />
+        <MarkLatex content={description} />
       </Typography>
       {image && (
         <Box>
