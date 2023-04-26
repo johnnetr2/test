@@ -174,7 +174,7 @@ const ResultInformation = () => {
               variant="subtitle1"
               style={{ fontSize: ".7rem", fontWeight: "600" }}
             >
-              Kvantiativt provpass
+              Kvantitativt provpass
             </Typography>
             <Typography
               mt={3}
