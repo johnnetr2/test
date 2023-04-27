@@ -102,7 +102,7 @@ const ProfileFeedContent = () => {
           }}
         >
           <Box sx={{ padding: "1rem 0" }} flexBasis={"20%"}>
-            <BodyText title="E-MAIL :" />
+            <BodyText title="E-postadress :" />
           </Box>
           <Box flexBasis={"80%"}>
             <InputField
@@ -151,7 +151,7 @@ const ProfileFeedContent = () => {
         }}
       >
         <Box flexBasis={"20%"} >
-          <BodyText title="lösenord" />
+          <BodyText title="Lösenord" />
         </Box>
         <Box flexBasis={"80%"}>
           <Button
@@ -183,7 +183,7 @@ const ProfileFeedContent = () => {
           sx={{ marginTop: "1rem", color: "red", cursor: "pointer" }}
           onClick={() => LogoutFunc()}
         >
-          <BodyText title="logga ut" />
+          <BodyText title="Logga ut" />
         </Box>
       </Box>
     </Container>
