@@ -1,5 +1,5 @@
 import { CircularProgress } from "@material-ui/core";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const CirculerLoader = () => {
     return (

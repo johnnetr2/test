@@ -10,7 +10,7 @@ import Payment from "./pages/Payment/Payment";
 import PayConfirm from "./pages/PayConfirmation/PayConfirnmation";
 import { instance2, EndPoints } from "./components/service/Route";
 import swal from "sweetalert";
-import { setInitialUserState } from "./components/service/commonService";
+import { setInitialUserState } from "./utils/commonService";
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import TestInformation from "./components/organism/CoursesOrg/CoursePages/TestInformation/TestInformation";
@@ -47,15 +47,14 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    console.log("in the main useEffect", token)
-    if (token) {
+    console.log("in the main useEffect", location)
+    if (token && (location !== '/login' || location !== '/')) {
       instance2.get(EndPoints.getUser).then(response => {
         console.log("in the if statement", response.data)
         setInitialUserState(response.data)
       }).catch(error => {
         localStorage.removeItem('token')
         localStorage.removeItem('isPremium')
-        localStorage.removeItem('isInTrial')
         localStorage.removeItem('email')
         swal({
           title: "Please login to continue",

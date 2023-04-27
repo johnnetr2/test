@@ -1,7 +1,13 @@
 import { Typography, useMediaQuery } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import Prices from "../../../assets/Static/Prices";
 
 const PremiumCTA = () => {
+  const plansArray = Object.values(Prices);
+  const lowestPricePlan = plansArray.reduce((lowest, current) => {
+    return current.pricePerMonth < lowest.pricePerMonth ? current : lowest;
+  });
+
   const navigate = useNavigate();
 
   const navigateCheckout = () => {
@@ -31,7 +37,7 @@ const PremiumCTA = () => {
       <Typography
         style={{
           fontSize: "13px",
-          margin: "0px 10px 0px 10px"
+          margin: "0px 10px 0px 10px",
         }}
       >
         Uppgradera till Premium
@@ -42,7 +48,7 @@ const PremiumCTA = () => {
           margin: "10px",
         }}
       >
-        Få tillgång till allt för endast 360 SEK
+        Få tillgång till allt från {lowestPricePlan.pricePerMonth} kr/mån
       </Typography>
       <button
         onClick={() => navigateCheckout()}

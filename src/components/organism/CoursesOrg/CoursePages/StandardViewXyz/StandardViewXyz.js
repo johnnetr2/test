@@ -34,11 +34,12 @@ import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import ExamTextView from "../../../../molecule/ExamTextView/ExamTextView";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
-import { appColors } from "../../../../service/commonService";
+import { appColors } from "../../../../../utils/commonService";
 import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
 import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 import QuestionBody from "../../../../atom/QuestionBody/questionBody";
 import QuestionStatement from "../../../../molecule/QuestionStatement/QuestionStatement";
+import { optionsCharacters } from "../../../../../utils/commonService";
 
 const StandardViewXyz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -225,23 +226,6 @@ const StandardViewXyz = () => {
   };
 
   const classes = useStyles();
-
-  function OptionIndex(index) {
-    switch (index) {
-      case 0:
-        return "A";
-      case 1:
-        return "B";
-      case 2:
-        return "C";
-      case 3:
-        return "D";
-      case 4:
-        return "E";
-      default:
-        return "";
-    }
-  }
 
   useEffect(() => {
     const handleEnterClick = (e) => {
@@ -771,7 +755,7 @@ const StandardViewXyz = () => {
                                             }}
                                             variant="body2"
                                           >
-                                            {OptionIndex(optionIndex)}
+                                            {optionsCharacters(optionIndex)}
                                           </Typography>
                                         </Box>
                                       </Box>
@@ -820,10 +804,7 @@ const StandardViewXyz = () => {
                                           }
                                         >
                                           <MarkLatex
-                                            content={option.value.replace(
-                                              "\f",
-                                              "\\f"
-                                            )}
+                                            content={option.value}
                                           />
                                         </Typography>
                                       </Box>

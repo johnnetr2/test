@@ -2,23 +2,24 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
-import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { DTKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { ELFNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { KVANormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { LASNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { MEKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { NOGNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { ORDNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
-import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { XYZNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
   const percentageCalculation = () => {
     const calculatePercentage =
@@ -50,7 +51,7 @@ const HomeCard = (props) => {
   return (
     <Box
       onClick={() => {
-        if (data.title !== "XYZ" && !props?.isPremium) {
+        if (data.title !== "XYZ" && !isPremium) {
           // TEMPORARY
           props?.handleOpen();
         } else {
@@ -76,7 +77,7 @@ const HomeCard = (props) => {
           backgroundColor: "#f9f9f9",
         },
       }}>
-      {(!props?.isPremium && data.title !== "XYZ") && (
+      {(!isPremium && data.title !== "XYZ") && (
         <Box
           sx={{
             display: "flex",
@@ -99,8 +100,8 @@ const HomeCard = (props) => {
           </span>
         </Box>
       )}
-      {(!props?.isPremium && data.title === "XYZ") && (
-          <Box
+      {(!isPremium && data.title === "XYZ") && (
+        <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
@@ -126,7 +127,7 @@ const HomeCard = (props) => {
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
-          padding: (!props?.isPremium && data.title !== "XYZ") ? '0px 24px 24px' : 3,
+          padding: (!isPremium && data.title !== "XYZ") ? '0px 24px 24px' : 3,
         }}
 
       >

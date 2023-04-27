@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Button, useMediaQuery } from "@mui/material";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 import { useNavigate } from "react-router-dom";
 
 const PaymentCard = (props) => {

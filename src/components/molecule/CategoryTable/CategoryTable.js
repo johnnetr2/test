@@ -10,16 +10,16 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-import { DTKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { DTKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import Dropdown from "../../atom/ArrowDropDown/dropdown";
-import { ELFNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { KVANormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { LASNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { MEKNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { ELFNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { KVANormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { LASNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { MEKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { NOGNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { ORDNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
-import { XYZNormeringValueFor } from "../../atom/percentageCalculator/PercentageCalculator";
+import { NOGNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { ORDNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
+import { XYZNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import { makeStyles } from "@material-ui/core";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
@@ -177,8 +177,8 @@ export const CategoryTable = (props) => {
                     <TableCell align="right">
                       {row.quiz.isTimeRestricted
                         ? percentageCalculation(
-                            (row.correctAnswer / row.answer.length) * 100
-                          )
+                          (row.correctAnswer / row.answer.length) * 100
+                        )
                         : "-"}
                     </TableCell>
 

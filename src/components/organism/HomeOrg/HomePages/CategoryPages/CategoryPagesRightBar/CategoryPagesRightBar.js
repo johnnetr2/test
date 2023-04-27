@@ -8,9 +8,9 @@ import LineDemo from "../../../../../molecule/Charts/BarChart";
 import { LinearProgress } from "@mui/material";
 import LinesChart from "../../../../../molecule/Charts/LinesChart";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
-import { datesGroupByComponent } from "../../../../../service/commonService";
-import { calculateWeekWiseNormingForCategory } from "../../../../../atom/percentageCalculator/Utils";
-import { getWeekNumbers } from "../../../../../atom/percentageCalculator/Utils";
+import { datesGroupByComponent } from "../../../../../../utils/commonService";
+import { calculateWeekWiseNormingForCategory } from "../../../../../../utils/Utils";
+import { getWeekNumbers } from "../../../../../../utils/Utils";
 import PaymentCard from "../../../../../molecule/PaymentCard";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,12 +23,11 @@ const useStyles = makeStyles((theme) => ({
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
   const [lastWeekTasks, setLastWeekTasks] = useState("");
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [weeklyCoreectedGraph, setWeeklyCoreectedGraph] = useState([]);
   const [weekWiseProgressGraph, setWeekWiseProgressGraph] = useState([]);
   const [weeklyProgress, setWeeklyProgress] = useState(0);
   const [isDesplayProgress, setIsDesplayProgress] = useState(false);
-  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
   const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
 
@@ -122,13 +121,12 @@ const CategoryPagesRightBar = (props) => {
           marginTop: width < 1280 ? "2rem" : "11.7rem",
         }}
       >
-        {!isPremium &&
-            <PaymentCard
+        {!isPremium && props.item.title !== 'XYZ' &&
+          <PaymentCard
             title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
-            isInTrial={isInTrial}
           ></PaymentCard>
         }
-        <Box sx={{ marginTop: isPremium ? "10.5rem" : "3rem" }}>
+        <Box sx={{ marginTop: isPremium && props.item.title !== 'XYZ' ? "10.5rem" : "3rem" }}>
           {width > 900 && (
             <Typography variant="h5">Statistik - {props.item.title}</Typography>
           )}

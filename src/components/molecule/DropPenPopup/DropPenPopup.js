@@ -9,7 +9,7 @@ import Slide from "@mui/material/Slide";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

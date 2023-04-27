@@ -1,4 +1,4 @@
-import { valueFor } from "./Utils";
+import { valueFor } from "../Utils";
 
 export const verbalPercentageCalculator = (props) => {
     const verbalRanges = [
@@ -109,7 +109,7 @@ export const verbalPercentageCalculator = (props) => {
         },
 
     ]
-  const normValue = valueFor(props, verbalRanges);
-  return normValue
+    const normValue = valueFor(props, verbalRanges);
+    return normValue
 }
 

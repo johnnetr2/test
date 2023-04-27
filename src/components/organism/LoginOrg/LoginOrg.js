@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { login } from "../../../redux/reducers";
 import { useDispatch } from "react-redux";
-import { appColors, setInitialUserState } from "../../service/commonService";
+import { appColors, setInitialUserState } from "../../../utils/commonService";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -97,27 +97,7 @@ const LoginOrg = () => {
             localStorage.setItem("fullName", user.fullName);
             localStorage.setItem("email", user.email);
             setInitialUserState({ user, token })
-            // const verifiedAtDate = user.verified_date ? user.verified_date : new Date();
-            // const trialDate = moment(verifiedAtDate)
-            //   .add(300, "days")
-            //   .format("YYYY-MM-DD");
-            // let isPremium = user.isPremium
-            // const currentDate = moment(new Date()).format("YYYY-MM-DD");
 
-            // if (user.nextExpiry && user.nextExpiry !== "no expiry") {
-            //   let nextExpiry = moment(user.nextExpiry).isAfter(currentDate)
-            //   if(!nextExpiry) {
-            //     isPremium = nextExpiry
-            //   }
-            // }
-
-            // const isGreaterCurrentData = moment(trialDate).isAfter(currentDate);
-            // localStorage.setItem("isPremium", user.isPremium ? true : false);
-            // localStorage.setItem("isInTrial", isGreaterCurrentData);
-            /* MixpanelTracking.getInstance().login(
-              "success",
-              response.data.user?._id
-            ); */
             new Date(response.data.user.createdAt) < new Date("2022-10-7") &&
               MixpanelTracking.getInstance().oldUsersRegistration(
                 response.data.user._id,

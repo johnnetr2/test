@@ -12,7 +12,7 @@ import FeedbackButtons from "../FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import QuestionStatement from "../../molecule/QuestionStatement/QuestionStatement";
 import AnswerStatement from "../../molecule/AnswerStatement/AnswerStatement";
-import { appColors, optionsCharacters } from "../../service/commonService";
+import { appColors, optionsCharacters } from "../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -337,7 +337,7 @@ const QuestionBody = (props) => {
                     >
                       <Typography className={item.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""}>
                         <MarkLatex
-                          content={item.value.replace("\f", "\\f")}
+                          content={item.value}
                         />
                       </Typography>
                     </Box>

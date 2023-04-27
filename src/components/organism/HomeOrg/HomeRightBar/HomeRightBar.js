@@ -6,18 +6,17 @@ import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
-import { calculateWeekWiseNormingForHomePageGraph } from "../../../atom/percentageCalculator/Utils";
-import { getWeekNumbers } from "../../../atom/percentageCalculator/Utils";
-import { datesGroupByComponent } from '../../../service/commonService'
-import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
-import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
+import { calculateWeekWiseNormingForHomePageGraph } from "../../../../utils/Utils";
+import { getWeekNumbers } from "../../../../utils/Utils";
+import { datesGroupByComponent } from '../../../../utils/commonService'
+import { verbalPercentageCalculator } from "../../../../utils/normringCalculations/Verbal";
+import { quantitativePercentageCalculator } from "../../../../utils/normringCalculations/Quantitative";
 import PaymentCard from "../../../molecule/PaymentCard";
 
 const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
-  const isInTrial = JSON.parse(localStorage.getItem("isInTrial"))
   const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
   useEffect(() => {
@@ -179,9 +178,8 @@ const HomeRightBar = (props) => {
         }}
       >
         {!isPremium &&
-            <PaymentCard
+          <PaymentCard
             title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
-            isInTrial={isInTrial}
           ></PaymentCard>
         }
         <Box style={{ marginTop: isPremium ? "10.5rem" : "3rem" }}>

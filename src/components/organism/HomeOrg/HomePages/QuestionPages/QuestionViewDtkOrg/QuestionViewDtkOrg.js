@@ -22,7 +22,7 @@ import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { appColors, scrollTop, optionsCharacters } from "../../../../../service/commonService";
+import { appColors, scrollTop, optionsCharacters } from "../../../../../../utils/commonService";
 import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];
@@ -654,8 +654,6 @@ const QuestionViewDTKOrg = (props) => {
                           ]}
                           type={quiz?.title}
                         />
-                        {/*                         <MarkLatex content={question.questionStatement} />
- */}
                         {question.image && (
                           <img
                             src={question.image[0]}
@@ -782,7 +780,7 @@ const QuestionViewDTKOrg = (props) => {
                                 <Typography className={option.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""} style={{ fontSize: "0.9rem" }}>
                                   {option?.value && (
                                     <MarkLatex
-                                      content={option?.value.replace("\f", "\\f")}
+                                      content={option?.value}
                                     />
                                   )}{" "}
                                 </Typography>
