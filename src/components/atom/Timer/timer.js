@@ -31,7 +31,7 @@ const Timer = (props) => {
       firstStart.current = !firstStart.current;
       return;
     }
-
+    
     if (start === true) {
       // console.log("start if", start);
 
@@ -53,13 +53,12 @@ const Timer = (props) => {
     setTimeout(() => {
       localStorage.setItem("time", timer);
       // console.log(timer, 'localStorage setTimeout')
-    }, 2000);
+    }, 1000);
   }, [timer]);
 
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       if (localStorage.getItem("time")) {
-        // console.log('localStorage getTime', localStorage.getItem('time'))
         setTimer(localStorage.getItem("time"));
       }
     }
