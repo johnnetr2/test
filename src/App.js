@@ -36,7 +36,7 @@ import * as Sentry from "@sentry/react";
 require("dotenv").config();
 
 Sentry.init({
-  dsn: "https://d3f1d587e912423b91fda0d4d4742861@o4504945522180096.ingest.sentry.io/4504945526964224",
+  dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
     new Sentry.BrowserTracing({
       routingInstrumentation: Sentry.reactRouterV6Instrumentation(
@@ -47,9 +47,13 @@ Sentry.init({
         matchRoutes
       ),
     }),
+    new Sentry.Replay()
   ],
-  environment: process.env.REACT_APP_SERVER_NAME,
+  environment: process.env.REACT_APP_SERVER_NAME === "PROD" ? "production" : "DEV",
   tracesSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+
 });
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
