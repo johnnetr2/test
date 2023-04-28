@@ -11,6 +11,7 @@ const QuestionStatement = ({
   indications,
   type,
 }) => {
+
   return (
     <>
       <Typography

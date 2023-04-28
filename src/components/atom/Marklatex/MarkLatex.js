@@ -6,13 +6,13 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
 const MarkLatex = ({ content }) => {
-
   return (
     <ReactMarkdown
       children={content}
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
       skipHtml
+      
     />
   );
 };
