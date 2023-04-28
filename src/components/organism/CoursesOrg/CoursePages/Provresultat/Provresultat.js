@@ -418,7 +418,7 @@ const Provresultat = () => {
                   provdeltagarna det året.
                 </Typography>
                 <Typography>
-                  <b>Normerad poäng per del:</b> Poäng för kvantiativ och verbal
+                  <b>Normerad poäng per del:</b> Poäng för kvantitativ och verbal
                   del för sig.
                 </Typography>
                 <Typography>
