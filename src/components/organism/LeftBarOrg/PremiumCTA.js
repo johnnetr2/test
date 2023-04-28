@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Prices from "../../../assets/Static/Prices";
 
 const PremiumCTA = () => {
+  const plansArray = Object.values(Prices);
+  const lowestPricePlan = plansArray.reduce((lowest, current) => {
+    return current.pricePerMonth < lowest.pricePerMonth ? current : lowest;
+  });
+
   const navigate = useNavigate();
 
   const navigateCheckout = () => {
@@ -43,7 +48,7 @@ const PremiumCTA = () => {
           margin: "10px",
         }}
       >
-        Få tillgång till allt från {Prices.pricePerMonth}kr/mån
+        Få tillgång till allt från {lowestPricePlan.pricePerMonth} kr/mån
       </Typography>
       <button
         onClick={() => navigateCheckout()}

@@ -10,7 +10,7 @@ import FeedbackC from "../../../assets/Icons/FeedbackC.svg";
 import ProfileC from "../../../assets/Icons/ProfileC.svg";
 
 import { Container, makeStyles, Typography, Box } from "@material-ui/core";
-import { appColors } from "../../../components/service/commonService";
+import { appColors } from "../../../utils/commonService";
 require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({

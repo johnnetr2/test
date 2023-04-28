@@ -16,7 +16,7 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { appColors, scrollTop } from "../../../../../service/commonService";
+import { appColors, scrollTop } from "../../../../../../utils/commonService";
 
 const ResultQuestionViewDtkOrg = (props) => {
 

@@ -10,7 +10,7 @@ import Payment from "./pages/Payment/Payment";
 import PayConfirm from "./pages/PayConfirmation/PayConfirnmation";
 import { instance2, EndPoints } from "./components/service/Route";
 import swal from "sweetalert";
-import { setInitialUserState } from "./components/service/commonService";
+import { setInitialUserState } from "./utils/commonService";
 import "./App.css";
 import ResultInformation from "./components/organism/CoursesOrg/CoursePages/ResultInformation/ResultInformation";
 import TestInformation from "./components/organism/CoursesOrg/CoursePages/TestInformation/TestInformation";

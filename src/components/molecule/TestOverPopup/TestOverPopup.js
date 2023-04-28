@@ -9,7 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -81,7 +81,7 @@ export default function TestOverPopup(props) {
           <Typography gutterTop variant="h4" style={{ width: "50%" }}>
             Provpasset är över
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "70%"}}>
+          <Typography gutterBottom variant="body2" style={{ margin: "1rem 0", width: "70%" }}>
             Efter att du lämnat in kan du ta en paus innan du börjar nästa
             provpass. Ditt resultat sparas.
           </Typography>

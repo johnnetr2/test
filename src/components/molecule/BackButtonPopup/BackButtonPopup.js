@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { appColors } from "../../service/commonService";
+import { appColors } from "../../../utils/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -82,15 +82,15 @@ export default function BackButtonPopup(props) {
           onClose={props.closePopup}
           style={{ textAlign: "right" }}
         ></BootstrapDialogTitle>
-        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
-          <Typography gutterTop variant="h4" style={{width: "100%"}}>
+        <DialogContent style={{ padding: "2rem 5rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+          <Typography gutterTop variant="h4" style={{ width: "100%" }}>
             {props.title}
           </Typography>
-          <Typography gutterBottom variant="body2" style={{ marginTop: "1rem", width: "70%"}}>
+          <Typography gutterBottom variant="body2" style={{ marginTop: "1rem", width: "70%" }}>
             {props.description}
           </Typography>
         </DialogContent>
-        <DialogActions style={{ display: "flex", justifyContent: "center"}}>
+        <DialogActions style={{ display: "flex", justifyContent: "center" }}>
           <Button
             autoFocus
             onClick={() => props.redirect()}

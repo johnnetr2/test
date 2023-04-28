@@ -26,7 +26,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import ExamResults from "../../../../../assets/Static/ExamResults.json";
-import { appColors } from "../../../../service/commonService";
+import { appColors } from "../../../../../utils/commonService";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -418,7 +418,7 @@ const Provresultat = () => {
                   provdeltagarna det året.
                 </Typography>
                 <Typography>
-                  <b>Normerad poäng per del:</b> Poäng för kvantiativ och verbal
+                  <b>Normerad poäng per del:</b> Poäng för kvantitativ och verbal
                   del för sig.
                 </Typography>
                 <Typography>

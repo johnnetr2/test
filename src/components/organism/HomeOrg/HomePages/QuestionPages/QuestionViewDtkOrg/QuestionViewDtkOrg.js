@@ -22,7 +22,7 @@ import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { appColors, scrollTop, optionsCharacters } from "../../../../../service/commonService";
+import { appColors, scrollTop, optionsCharacters } from "../../../../../../utils/commonService";
 import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];

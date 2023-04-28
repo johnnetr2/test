@@ -8,9 +8,9 @@ import LineDemo from "../../../../../molecule/Charts/BarChart";
 import { LinearProgress } from "@mui/material";
 import LinesChart from "../../../../../molecule/Charts/LinesChart";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
-import { datesGroupByComponent } from "../../../../../service/commonService";
-import { calculateWeekWiseNormingForCategory } from "../../../../../atom/percentageCalculator/Utils";
-import { getWeekNumbers } from "../../../../../atom/percentageCalculator/Utils";
+import { datesGroupByComponent } from "../../../../../../utils/commonService";
+import { calculateWeekWiseNormingForCategory } from "../../../../../../utils/Utils";
+import { getWeekNumbers } from "../../../../../../utils/Utils";
 import PaymentCard from "../../../../../molecule/PaymentCard";
 const useStyles = makeStyles((theme) => ({
   root: {
