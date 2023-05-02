@@ -28,7 +28,7 @@ const ExamTopBar = ({
           <img src={Clock} alt="" />
           {quiz && quiz.question[currentIndex].questionAnswer
             ? "Slutfört"
-            : time && (
+            : time !== null && (
                 <Timer
                   continueStatus={status}
                   time={time}

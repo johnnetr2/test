@@ -333,15 +333,15 @@ const OverBlick = () => {
             ></Box>
           </Box> */}
         </Container>
-        <ExamTopBar
+        {time !== undefined && <ExamTopBar
           currentIndex={params?.state?.currentQuestion}
           quiz={params.state.quiz}
           time={time}
           status={!timeOverPopUp}
           setTimeLeft={setTime}
-          setShouldNavigate={() => { }}
+          setShouldNavigate={setTimeOverPopUp}
           width={"80%"}
-        />
+        />}
         <Container
           maxWidth="md"
           style={{
@@ -465,7 +465,7 @@ const OverBlick = () => {
                             state: {
                               questionIndex: index,
                               quiz: quiz,
-                              timeLeft: params.state.timeLeft,
+                              timeLeft: time,
                               SubmittedQuestions:
                                 params?.state?.SubmitedQuestions,
                               provpass: params?.state?.provpass,
