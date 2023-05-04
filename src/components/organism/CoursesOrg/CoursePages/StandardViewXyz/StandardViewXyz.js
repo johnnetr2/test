@@ -707,7 +707,7 @@ const StandardViewXyz = () => {
                                           display: "flex",
                                           justifyContent: "flex-start",
                                           alignItems: "center",
-                                          minHeight: 120,
+                                          minHeight: 60,
                                         }}
                                         onMouseOver={() =>
                                           setOnhover(option._id)
