@@ -535,7 +535,8 @@ const QuestionViewDTKOrg = (props) => {
                         fontWeight: "500",
                       }}
                     >
-                      {quiz && quiz.question.length + " uppgifter:"}
+                      {/*Lines 539 and 587 are changed for making " uppgift and uppgifter" dynamic to be grammarly correct */}
+                      {quiz.question.length} {quiz.question.length === 1 ? "uppgift" : "uppgifter"}:
                     </Typography>
                     <Typography variant="h3" component="h3">
                       {!quiz?.title === "DTK" ? quiz?.title : ""}
@@ -583,7 +584,7 @@ const QuestionViewDTKOrg = (props) => {
                           fontWeight: "500",
                         }}
                       >
-                        {quiz && quiz.question.length + " uppgifter:"}
+                        {quiz.question.length} {quiz.question.length === 1 ? "uppgift" : "uppgifter"}:
                       </Typography>
                       <Typography variant="h3" component="h3">
                         {quiz?.title}

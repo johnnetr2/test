@@ -57,7 +57,8 @@ const ExamTextView = ({text, title, questionLength}) => {
                 marginBottom: ".25rem",
               }}
             >
-              {(questionLength ? questionLength : 0) + " uppgifter:"}
+              {/* Lines 61 and 94 are changed for making " uppgift and uppgifter" dynamic to be grammarly correct*/}
+              {questionLength === 1 ? "1 uppgift" : (questionLength || 0) + " uppgifter"}
             </Typography>
             <img
               onClick={() => setExtendView(true)}
@@ -90,7 +91,7 @@ const ExamTextView = ({text, title, questionLength}) => {
                         fontWeight: "500",
                       }}
                     >
-                      {(questionLength ? questionLength : 0) + " uppgifter:"}
+                      {questionLength === 1 ? "1 uppgift" : (questionLength || 0) + " uppgifter"}
                     </Typography>
                     <Typography variant="h3" component="h3">
                       {!title === "DTK" ? title : ""}
