@@ -679,20 +679,13 @@ const QuestionViewDTKOrg = (props) => {
                             <Box
                               padding={1}
                               sx={{
-                                height:
+                                minHeight:
                                   question?.options[0].options.length > 4 ||
                                     !option.value.includes(
                                       "hp-appen.s3.eu-north-1.amazonaws.com"
                                     )
                                     ? 60
                                     : 150,
-                                padding:
-                                  question?.options[0].options.length > 4 ||
-                                    !option.value.includes(
-                                      "hp-appen.s3.eu-north-1.amazonaws.com"
-                                    )
-                                    ? 0
-                                    : 10,
                                 border: "1px solid #e1e1e1",
                                 maxWidth:
                                   question?.options[0].options.length > 4 ||

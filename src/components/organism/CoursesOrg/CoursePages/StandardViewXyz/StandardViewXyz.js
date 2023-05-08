@@ -652,8 +652,9 @@ const StandardViewXyz = () => {
                                 return (
                                   <Box sx={{ display: "flex" }}>
                                     <Box
+                                      padding={1}
                                       sx={{
-                                        height:
+                                        minHeight:
                                           question.options.options.length > 4 ||
                                             !option.value?.includes(
                                               "hp-appen.s3.eu-north-1.amazonaws.com"
@@ -704,9 +705,9 @@ const StandardViewXyz = () => {
                                       <Box
                                         sx={{
                                           display: "flex",
-                                          justifyContent: "center",
-                                          alignItems: "flex-start",
-                                          height: 120,
+                                          justifyContent: "flex-start",
+                                          alignItems: "center",
+                                          minHeight: 60,
                                         }}
                                         onMouseOver={() =>
                                           setOnhover(option._id)
@@ -789,9 +790,6 @@ const StandardViewXyz = () => {
                                               ? "flex-start"
                                               : "center",
                                           alignItems: "center",
-                                          height:
-                                            question?.options.options.length >
-                                            4 && "4rem",
                                         }}
                                       >
                                         <Typography
