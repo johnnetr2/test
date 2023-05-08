@@ -109,8 +109,8 @@ const Pricing = () => {
         direction="column"
         style={{
           padding: 100,
-          border: "1px",
-          borderColor: "B5B5B5",
+          border: "1px solid",
+          borderColor: "rgba(166, 166, 166, 0.5)",
           borderRadius: "20px",
           backgroundColor: "white",
         }}
@@ -162,7 +162,7 @@ const Pricing = () => {
           }}
         >
           <Grid item>
-            <Typography style={{ fontSize: "38px", textAlign: "center" }}>
+            <Typography style={{ fontSize: "38px", textAlign: "center", paddingBottom: "20px" }}>
               Uppgradera till Premium
             </Typography>
           </Grid>
