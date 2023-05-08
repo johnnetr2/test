@@ -117,7 +117,7 @@ const Pricing = () => {
       >
         <Grid // Section CTA1
           container
-          justify="flex-end"
+          justifyContent="flex-end"
           style={{
             marginTop: "-80px",
           }}
@@ -127,6 +127,7 @@ const Pricing = () => {
               <Typography
                 style={{
                   fontSize: "16px",
+                  fontWeight: "bold",
                   color: pricingSwitch ? "#B5B5B5" : "#5263EB",
                 }}
               >
@@ -142,6 +143,7 @@ const Pricing = () => {
               <Typography
                 style={{
                   fontSize: "16px",
+                  fontWeight: "bold",
                   color: pricingSwitch ? "#5263EB" : "#B5B5B5",
                 }}
               >
@@ -179,7 +181,7 @@ const Pricing = () => {
           container
           alignItems="center"
           direction="row"
-          justify="center"
+          justifyContent="center"
           style={{
             marginTop: "50px",
           }}
@@ -188,7 +190,7 @@ const Pricing = () => {
             <ListValues />
           </Grid>
           <Grid item>
-            <Typography style={{ fontSize: "40px", color: "#5263EB" }}>
+            <Typography style={{ fontSize: "40px", color: "#5263EB", fontWeight: "bold" }}>
               {pricingSwitch ? whichPlan.pricePerMonth : whichPlan.price} SEK
             </Typography>
             <Typography style={{ textAlign: "right" }}>
