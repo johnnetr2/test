@@ -185,10 +185,10 @@ const Pricing = () => {
             textAlign: "center",
           }}
         >
-          <Grid item xs={12} sm={12} md={12} lg={8} xl={8} style={{ paddingLeft: "3vw", maxWidth: "600px" }} >
+          <Grid item sm={12} lg={8} style={{ paddingLeft: "3vw", maxWidth: "600px" }} >
             <ListValues />
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={4} xl={4} >
+          <Grid item sm={12} lg={4} >
             <Typography style={{ fontSize: "40px", color: "#5263EB", fontWeight: "bold", }}>
               {pricingSwitch ? whichPlan.pricePerMonth : whichPlan.price} SEK
             </Typography>
@@ -202,7 +202,7 @@ const Pricing = () => {
           alignItems="center"
           direction="column"
           style={{
-            marginTop: "50px",
+            marginTop: "25px",
             marginBottom: "50px",
           }}
         >
