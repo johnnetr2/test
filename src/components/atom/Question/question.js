@@ -97,6 +97,7 @@ const Question = (props) => {
               }}
             >
               {/* {props.questions.length + 'uppgifter:'} */}
+              {props.questions.length} {props.questions.length === 1 ? "uppgift" : "uppgifter"}:
             </Typography>
             <Typography variant="h6" component="h6">
               Teater och dans i siffror

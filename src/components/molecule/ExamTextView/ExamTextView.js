@@ -83,6 +83,9 @@ const ExamTextView = ({text, title, questionLength}) => {
                 marginBottom: ".25rem",
               }}
             >
+              {/* Lines 61 and 94 are changed for making " uppgift and uppgifter" dynamic to be grammarly correct*/}
+              {questionLength === 1 ? "1 uppgift" : (questionLength || 0) + " uppgifter"}
+            </Typography>
               {(questionLength ? questionLength : 0) + " uppgifter:"}
             </Typography> */}
             <img
@@ -95,6 +98,67 @@ const ExamTextView = ({text, title, questionLength}) => {
               }}
               src={ArrowSalt}
             />
+            <Typography variant="h6" component="h6">
+              {title ? title : ""}
+            </Typography>
+            <MarkLatex content={text}/>
+            <Dialog
+              open={extendedView}
+              onClose={closeExtended}
+              maxWidth={"lg"}
+              fullWidth={true}
+            >
+              {text && (
+                <>
+                  <DialogTitle style={{ padding: "2rem 5rem 2rem" }}>
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        textTransform: "uppercase",
+                        fontSize: ".7rem",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {questionLength === 1 ? "1 uppgift" : (questionLength || 0) + " uppgifter"}
+                    </Typography>
+                    <Typography variant="h3" component="h3">
+                      {!title === "DTK" ? title : ""}
+                    </Typography>
+                  </DialogTitle>
+                  <DialogContent 
+                    style={{
+                      columnCount: `${title === "DTK" || text.length < 2000
+                        ? "1"
+                        : "2"
+                        }`,
+                      padding: "0 5rem 2rem",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        fontSize: ".85rem",
+                        maxWidth: "650px",
+                        margin: "auto",
+                      }}
+                    >
+                      <MarkLatex content={text} />
+                    </Typography>
+                  </DialogContent>
+                </>
+              )}
+              <Close
+                onClick={() => {
+                  setExtendView(false);
+                }}
+                style={{
+                  position: "absolute",
+                  top: "20",
+                  right: "20",
+                  cursor: "pointer",
+                }}
+              />
+            </Dialog>
            <ExpansionDialog
             open={extendedView}
             onClose={closeExtended}
