@@ -158,7 +158,7 @@ const Pricing = () => {
             width: "100%",
             borderRadius: "20px",
             backgroundColor: "white",
-            marginTop: "50px",
+            margin: "50px 0px",
           }}
         >
           <Grid item>
@@ -181,7 +181,6 @@ const Pricing = () => {
           direction="row"
           justifyContent="center"
           style={{
-            marginTop: "50px",
             textAlign: "center",
           }}
         >
@@ -189,7 +188,7 @@ const Pricing = () => {
             <ListValues />
           </Grid>
           <Grid item sm={12} lg={4} >
-            <Typography style={{ fontSize: "40px", color: "#5263EB", fontWeight: "bold", }}>
+            <Typography style={{ fontSize: "40px", color: "#5263EB", fontWeight: "600", }}>
               {pricingSwitch ? whichPlan.pricePerMonth : whichPlan.price} SEK
             </Typography>
             <Typography>
@@ -202,8 +201,7 @@ const Pricing = () => {
           alignItems="center"
           direction="column"
           style={{
-            marginTop: "25px",
-            marginBottom: "50px",
+            margin: "25px 0px",
           }}
         >
           {htmlSnippet ? (
@@ -224,6 +222,11 @@ const Pricing = () => {
               style={{ width: "100%" }}
               ref={checkoutContainer}
             />
+          </Grid>
+          <Grid item>
+            <Typography style={{ fontSize: "38px", textAlign: "center", paddingTop: "20px", fontWeight: "700" }}>
+              Klarna.
+            </Typography>
           </Grid>
         </Grid>
       </Grid>
