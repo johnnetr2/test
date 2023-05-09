@@ -8,7 +8,6 @@ import BodyText from "../../../../../atom/BodyText/BodyText";
 import CategoryPagesRightBar from "../CategoryPagesRightBar/CategoryPagesRightBar";
 import { CategoryTable } from "../../../../../molecule/CategoryTable/CategoryTable";
 import CircularProgress from "@mui/material/CircularProgress";
-import FilledBtn from "../../../../../atom/FilledBtn/FilledBtn";
 import Heading from "../../../../../atom/Heading/Heading";
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 import OutlineBox from "../../../../../atom/OutlineBox/OutlineBox";
@@ -17,6 +16,7 @@ import swal from "sweetalert";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
 import categoryDescription from "../../../../../../assets/Static/CategoryDescription.json"
 import { useSelector } from "react-redux";
+import { appColors, scrollTop } from "../../../../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,13 +71,9 @@ const CategoryPagesFeedContent = (props) => {
   const { height, width } = useWindowDimensions();
   const [alla, setAlla] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
+  const [isPremium, setIsPremium] = useState(JSON.parse(localStorage.getItem("isPremium")))
+
   const { user } = useSelector((state) => state.value);
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   useEffect(() => {
     const URL = EndPoints.questionCategoryBysectionCategory + props.item._id;
@@ -509,13 +505,6 @@ const CategoryPagesFeedContent = (props) => {
                       />
                     )}
                   </>
-                  // <OutlineField
-                  //   title={item.title !== 'others'}
-                  //   onClickCheck={(e) => {
-                  //     selectedItem(e, item);
-                  //   }}
-                  //   checked={isChecked(item._id)}
-                  // />
                 );
               })}
           </Box>
@@ -542,25 +531,25 @@ const CategoryPagesFeedContent = (props) => {
       <Box
         sx={{
           marginTop: "2rem",
-          backgroundColor: "#0A1596",
-          color: "#fff",
+          backgroundColor: (categoryName === "XYZ" || isPremium) ? appColors.blueColor : '#E0E0E0',
+          color: categoryName === "XYZ" || isPremium ? appColors.whiteColor : '#A6A6A6',
           borderRadius: "6px",
           height: "3rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          cursor: "pointer",
+          cursor: categoryName === "XYZ" || isPremium ? "pointer" : "not-allowed",
           width: "99.35%",
         }}
-        onClick={checkedData.length > 0 && onSubmit}
+        onClick={(isPremium || categoryName === "XYZ") && checkedData.length > 0 && onSubmit}
       >
-        <FilledBtn title="Starta övningar" />
+        Starta övningar
       </Box>
       <Box className={classes.tabsSection}>
         <Tabs
           className={classes.hideStatistics}
           TabIndicatorProps={{
-            style: { backgroundColor: "#0A1596", height: "4px" },
+            style: { backgroundColor: appColors.blueColor, height: "4px" },
           }}
           value={tabValue}
           onChange={handelChange}

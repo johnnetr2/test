@@ -15,18 +15,17 @@ import {
   Toolbar,
   Container,
 } from "@material-ui/core";
-import Correct from '../../../../../assets/Imgs/correct.png'
-import Wrong from '../../../../../assets/Imgs/wrong.png'
+import Correct from "../../../../../assets/Imgs/correct.png";
+import Wrong from "../../../../../assets/Imgs/wrong.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EndPoints, instance2 } from "../../../../service/Route";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const RattedOverblick = () => {
-
-  const params = useLocation()
-  const [result, setResult] = useState()
-  const navigate = useNavigate()
+  const params = useLocation();
+  const [result, setResult] = useState();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(true);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -38,11 +37,15 @@ const RattedOverblick = () => {
   const dispSecondsAsMins = (seconds) => {
     // 25:00
     const mins = Math.floor(seconds / 60);
-    const seconds_ = seconds % 60;
+    const seconds_ = Math.floor(seconds % 60);
     return (
-      Math.floor(mins?.toString()) +
+      (mins.toString().length === 1 ? "0" + mins.toString() : mins.toString()) +
       ":" +
-      (seconds_ == 0 ? "00" : Math.floor(seconds_?.toString()))
+      (seconds_ == 0
+        ? "00"
+        : seconds_.toString().length == 1
+          ? "0" + seconds_.toString()
+          : seconds_.toString())
     );
   };
 
@@ -84,23 +87,21 @@ const RattedOverblick = () => {
       justifyContent: "center",
       width: "90vw",
     },
-
   }));
 
   useEffect(() => {
-    const URL = EndPoints.getSimuleraQuizResult + params.state.quizId
-    instance2.get(URL).then(response => {
-      console.log(response.data.simuleraQuiz.question)
-      setOpen(false)
-      setResult(response.data)
-    })
-  }, [])
-
+    const URL = EndPoints.getSimuleraQuizResult + params.state.quizId;
+    instance2.get(URL).then((response) => {
+      console.log(response.data.simuleraQuiz.question);
+      setOpen(false);
+      setResult(response.data);
+    });
+  }, []);
 
   const classes = useStyles(10);
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#fff" }}>
       <CssBaseline />
       <AppBar
         color="#fff"
@@ -124,11 +125,15 @@ const RattedOverblick = () => {
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
-            onClick={() => navigate('/provresultat', {
-              state: {
-                seasonId: params.state.seasonId
-              }
-            })}
+            onClick={() =>
+              navigate("/provresultat", {
+                state: {
+                  seasonId: params.state?.examResultData?.seasonId,
+                  quizId: params.state?.examResultData?.quizId,
+                  provpassOrder: params.state?.examResultData?.provpassOrder,
+                },
+              })
+            }
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
@@ -139,169 +144,203 @@ const RattedOverblick = () => {
         </Toolbar>
       </AppBar>
 
-      <Container
-        maxWidth="lg"
-        disableGutters
-        style={{
-          backgroundColor: "#fff",
-          height: "100vh",
-        }}
-      >
-        <Container
-          maxWidth="md"
-          disableGutters
-          style={{ backgroundColor: "#fff" }}
+      <Box>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
         >
-          <Box mt={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box mt={2} sx={{ color: "#222" }}>
-              <img src={BarChart} alt="" />
-              {'1'} av {result?.simuleraQuiz.question.length}
-            </Box>
-            <Box mt={2} sx={{ color: "#222", marginRight: '0.3rem' }}>
-              <img src={Clock} alt="" />
-              Slutfört
-            </Box>
-          </Box>
-          <Box
-            mt={2}
-            sx={{ width: "100%", height: ".65rem", backgroundColor: "#6FCF97" }}
-          ></Box>
-        </Container>
+          <CircularProgress color="inherit" size="5rem" />
+        </Backdrop>
+      </Box>
+
+      {!open && (
         <Container
-          maxWidth="md"
+          maxWidth="lg"
+          disableGutters
           style={{
-            marginTop: 0,
-            backgroundColor: "#f9f9f9",
-            height: "fit-content",
-            display: "flex",
-            flexDirection: "column",
+            backgroundColor: "#fff",
+            paddingBottom: 24,
           }}
         >
-          <Box
-            mt={5}
-            paddingY={2}
-            paddingX={10}
-            sx={{ backgroundColor: "#f9f9f9" }}
+          <Container
+            maxWidth="md"
+            disableGutters
+            style={{ backgroundColor: "#fff" }}
           >
-            <Typography variant="h5" component="h5">
-              Provpass 1 Kvantitativ del
-            </Typography>
-            <Typography
-              variant="body1"
-              component="body1"
-              sx={{ fontSize: "0.5rem" }}
+            <Box
+              mt={8}
+              sx={{ display: "flex", justifyContent: "space-between" }}
             >
-              Har kan du titta närmre på din resultat för varje uppgift
-            </Typography>
-          </Box>
-          <Box>
-            <Backdrop
-              sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={open}
-            >
-              <CircularProgress color="inherit" size="5rem" />
-            </Backdrop>
-          </Box>
+              <Box mt={2} sx={{ color: "#222" }}>
+                <img src={BarChart} alt="" />
+                {"1"} av {result?.simuleraQuiz.question.length}
+              </Box>
+              <Box mt={2} sx={{ color: "#222", marginRight: "0.3rem" }}>
+                <img src={Clock} alt="" style={{ marginRight: "0.2rem" }} />
+                Slutfört
+              </Box>
+            </Box>
+            <Box
+              mt={2}
+              sx={{
+                width: "100%",
+                height: ".65rem",
+                backgroundColor: "#6FCF97",
+              }}
+            ></Box>
+          </Container>
 
-          <Box
-            mt={2}
-            marginX={10}
-            padding={1}
-            sx={{
-              backgroundColor: "#fff",
+          <Container
+            maxWidth="md"
+            style={{
+              marginTop: 0,
+              backgroundColor: "#f9f9f9",
               height: "fit-content",
-              // width: 'fit-content',
-              border: "1px solid #e1e1e1",
               display: "flex",
-              justifyContent: "space-between",
               flexDirection: "column",
             }}
           >
-
             <Box
+              mt={5}
+              paddingY={2}
+              paddingX={10}
               sx={{
-                display: "flex",
-                // width: "100%",
-                justifyContent: "space-around",
-                flexWrap: 'wrap',
+                backgroundColor: "#f9f9f9",
               }}
             >
-              {
-                result && result.simuleraQuiz.question.map((item, index) => {
-                  return <Box
-                    mt={2}
-                    mb={2}
-                    padding={1}
-                    style={{
-                      border: "1px solid #E3E3E3",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      flexDirection: 'row',
-                      width: "45%",
-                      height: '3.5rem',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() =>
-                      navigate('/simuleraprov', {
-                        state: {
-                          quiz: result,
-                          questionIndex: index,
-                          seasonId: params.state.seasonId,
-                          quizId: params.state.quizId
-                        }
-                      })
-                    }
-                  >
-                    <Box style={{ display: 'flex', alignItems: 'center' }} >
-                      {
-                        item.questionAnswer.option === item.optionId ? (
-                          <img src={Correct} style={{ height: '1.5rem', marginRight: '0.75rem' }} />
-                        ) : (
-                          <img src={Wrong} style={{ height: '1.5rem', marginRight: '0.75rem' }} />
-                        )
-                      }
-                      <Typography
-                        style={{
-                          textTransform: "uppercase",
-                          fontSize: "0.75rem",
-                          fontWeight: "600",
-                          display: 'flex',
-                          width: '7rem'
-                        }}
-                        variant="body1"
-                        component="body1"
-                      >
-                        Uppgift {index + 1} av {result?.simuleraQuiz.question.length}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", justifyContent: 'space-around' }}>
-                      <Typography
-                        variant="h6"
-                        component="h6"
-                        style={{ fontSize: ".75rem", fontWeight: "600" }}
-                      >
-                        TID: {dispSecondsAsMins(item.spendtime)}
-                      </Typography>
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          marginLeft: '0.2rem'
-                        }}
-                      >
-                        <img src={RightArrow} className={classes.size} alt="" />
-                      </Box>
-                    </Box>
-                  </Box>
-                })
-              }
-
+              <Typography variant="h5" component="h5">
+                Provpass {params?.state?.provpassNumber} {params?.state?.provpassType} del
+              </Typography>
+              <Typography
+                variant="body1"
+                component="body1"
+                sx={{ fontSize: "0.5rem" }}
+              >
+                Har kan du titta närmre på din resultat för varje uppgift
+              </Typography>
             </Box>
-          </Box>
+
+            <Box
+              mt={2}
+              marginX={10}
+              padding={1}
+              sx={{
+                backgroundColor: "#fff",
+                height: "fit-content",
+                // width: 'fit-content',
+                border: "1px solid #e1e1e1",
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "column",
+                marginBottom: "2rem"
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  // width: "100%",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                {result &&
+                  result.simuleraQuiz.question.map((item, index) => {
+                    return (
+                      <Box
+                        mt={2}
+                        mb={2}
+                        padding={1}
+                        style={{
+                          border: "1px solid #E3E3E3",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          flexDirection: "row",
+                          width: "45%",
+                          height: "3.5rem",
+                          cursor: "pointer",
+                        }}
+                        onClick={() =>
+                          navigate("/simuleraprov", {
+                            state: {
+                              quiz: result?.simuleraQuiz,
+                              questionIndex: index,
+                              seasonId: params.state.seasonId,
+                              quizId: params.state.quizId,
+                              examResultData: params?.state?.examResultData
+                            },
+                          })
+                        }
+                      >
+                        <Box style={{ display: "flex", alignItems: "center" }}>
+                          {item.questionAnswer.option === item.optionId ? (
+                            <img
+                              src={Correct}
+                              style={{
+                                height: "1.5rem",
+                                marginRight: "0.75rem",
+                              }}
+                            />
+                          ) : (
+                            <img
+                              src={Wrong}
+                              style={{
+                                height: "1.5rem",
+                                marginRight: "0.75rem",
+                              }}
+                            />
+                          )}
+                          <Typography
+                            style={{
+                              textTransform: "uppercase",
+                              fontSize: "0.75rem",
+                              fontWeight: "600",
+                              display: "flex",
+                              width: "7rem",
+                            }}
+                            variant="body1"
+                            component="body1"
+                          >
+                            Uppgift {index + 1} av{" "}
+                            {result?.simuleraQuiz.question.length}
+                          </Typography>
+                        </Box>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          <Typography
+                            variant="h6"
+                            component="h6"
+                            style={{ fontSize: ".75rem", fontWeight: "600" }}
+                          >
+                            TID: {dispSecondsAsMins(item.spendtime)}
+                          </Typography>
+                          <Box
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginLeft: "0.2rem",
+                            }}
+                          >
+                            <img
+                              src={RightArrow}
+                              className={classes.size}
+                              alt=""
+                            />
+                          </Box>
+                        </Box>
+                      </Box>
+                    );
+                  })}
+              </Box>
+            </Box>
+          </Container>
         </Container>
-      </Container>
+      )}
     </div>
   );
 };

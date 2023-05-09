@@ -42,6 +42,7 @@ export const EndPoints = {
   lastWeekTasks: "/api/task/resultByUser/",
   submitAnswer: "/api/quizResult",
   oneDayResult: "/api/task/resultOfDayByUser/",
+  allCategoriesResultByUserForHomeGraph: "/api/task/solvedQuizbyUserPerCategory/",
   resultBySectionCategory: "/api/task/resultOfDayBySecOrUser/",
   oneDayExercise: "/api/task/taskBySecOrUser/",
   getAllSections: "/admin/sectionCategories",
@@ -73,4 +74,7 @@ export const EndPoints = {
   OverAllNormeringValue: "/api/tableHistory/ProgressOfHundred/",
   getParagraphQuestionAnswer: "/api/quizResult/paragraphQuestionResult/",
   emailVerified: "/auth/verify/",
+  createOrder: "/api/payments/createOrder",
+  getOrder: "/api/payments/order/",
+  getUser: "/api/user/",
 };

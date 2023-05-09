@@ -2,7 +2,7 @@ import { Typography, Box } from "@mui/material";
 import React from "react";
 // import "./HelpPopup.css";
 
-const HelpPopup = () => {
+const HelpPopup = ({examMode = false}) => {
   return (
     <>
       <Box
@@ -31,7 +31,8 @@ const HelpPopup = () => {
           backgroundColor: "#252525",
           padding: "2rem 3rem",
           color: "#fff",
-          width: "30%",
+          width:  examMode ? "35%" :"30%",
+          maxWidth: examMode ? "600px" :"450px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -43,42 +44,44 @@ const HelpPopup = () => {
           right: 0,
         }}
       >
-      <Box>
-        <Typography variant="h5">Välkommen till övningsläget!</Typography>
-      </Box>
-      <Box>
-        <Typography
-          variant="body1"
-          style={{
-            lineHeight: "1.5rem",
-            marginTop: "1rem",
-            fontSize: "0.75rem",
-          }}
-        >
-        • Du kan se vilken fråga du är på uppe till vänster.
-        </Typography>
-        <Typography
-          variant="body1"
-          style={{
-            lineHeight: "1.5rem",
+        <Box>
+          <Typography variant="h5">Välkommen till {examMode ? "provpassvyn" : "övningsläget"}!</Typography>
+        </Box>
+        <Box>
+          <Typography
+            variant="body1"
+            style={{
+              lineHeight: "1.5rem",
+              marginTop: "1rem",
+              fontSize: "0.75rem",
+            }}
+          >
+            {examMode ? <>• Du kan fritt gå emellan uppgifter genom att trycka på nästa 
+                            och föregående längst ner. Facit visas efter att hela provet är inlämnat.</> 
+                          : <>• Du kan se vilken fråga du är på uppe till vänster.</>}
+          </Typography>
+          <Typography
+            variant="body1"
+            style={{
+              lineHeight: "1.5rem",
 
-            fontSize: "0.75rem",
-          }}
-        >
-        • Uppe till höger visas tid kvar om du valt att köra på tid.
-        </Typography>
-        <Typography
-          variant="body1"
-          style={{
-            lineHeight: "1.5rem",
+              fontSize: "0.75rem",
+            }}
+          >
+            {examMode ? <>• Trycker du på överblick får du se alla provpassets uppgifter.</>: <>• Uppe till höger visas tid kvar om du valt att köra på tid.</>}
+          </Typography>
+          <Typography
+            variant="body1"
+            style={{
+              lineHeight: "1.5rem",
 
-            fontSize: "0.75rem",
-          }}
-        >
-        • Vill du avbryta? Klicka då på pilen längst uppe till vänster.
-        </Typography>
-
-      </Box>
+              fontSize: "0.75rem",
+            }}
+          >
+           {examMode ? <>• Om du avbryter genom att klicka på pilen längst uppe till vänster 
+                           sparas inte provpasset, men du kan göra om det senare. </> : <>• Vill du avbryta? Klicka då på pilen längst uppe till vänster.</>}
+          </Typography>
+        </Box>
       </Box>
     </>
   );

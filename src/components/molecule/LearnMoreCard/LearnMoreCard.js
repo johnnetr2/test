@@ -16,7 +16,7 @@ const LearnMoreCard = () => {
       }}
     >
       <Box
-        sx={{ display: "flex", flexDirection:'column', width:'13rem' }}
+        sx={{ display: "flex", flexDirection: 'column', width: '13rem' }}
       >
         <Typography variant="h6">
           Lär dig ännu mer!
@@ -24,13 +24,10 @@ const LearnMoreCard = () => {
         <Typography variant="body2">
           Lås upp premiumfunktioner endast för 199 sek per sektion
         </Typography>
-        <Button variant='contained' style={{backgroundColor:'#0A1596', color:'#fff', marginTop:'1rem', marginBottom:'1rem'}}>
-        <Typography variant="body1" style={{textTransform:'capitalize', fontSize:'0.75rem'}}>Lås upp kategorier</Typography>  
-        </Button>
       </Box>
-      <Box style={{display:'flex', justifyContent:'flex-end '}}>
-            <img src={Thumb} alt="" style={{maxWidth:'80%'}} />
-        </Box>
+      <Box style={{ display: 'flex', justifyContent: 'flex-end ' }}>
+        <img src={Thumb} alt="" style={{ maxWidth: '80%' }} />
+      </Box>
     </Box>
   );
 };

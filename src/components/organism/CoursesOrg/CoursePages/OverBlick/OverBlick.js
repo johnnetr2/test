@@ -8,10 +8,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import { EndPoints, instance2 } from "../../../../service/Route";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import BackButtonPopup from "../../../../molecule/BackButtonPopup/BackButtonPopup";
+import { appColors } from "../../../../../utils/commonService";
 import Backdrop from "@mui/material/Backdrop";
 import BootstrapDialogTitle from "../../../../molecule/TestSubmitPopup/TestSubmitPopup";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -25,6 +26,8 @@ import Warning from "../../../../../assets/Icons/Warning.svg";
 import YellowStar from "../../../../../assets/Icons/YellowStar.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
+import CommonPopup from "../../../../molecule/CommonPopup/CommonPopup";
+import ExamTopBar from "../../../../atom/ExamTopBar/ExamTopBar";
 
 const OverBlick = () => {
   const [quiz, setQuiz] = useState();
@@ -35,9 +38,14 @@ const OverBlick = () => {
   const [open, setOpen] = useState(false);
   const [helpPopup, setHelpPopup] = useState(false);
   const [backPressPopup, setBackPressPopup] = useState(false);
+  const [time, setTime] = useState();
+  const provpassNumber = useMemo(() => params?.state?.provpassOrder[
+    (params?.state?.provpass?.simuleraQuizResult?.length) || 0
+  ].split("-")[2].replace(/[^0-9]/g, ""), [params]);
 
   useEffect(() => {
     setQuiz(params.state.quiz);
+    setTime(params.state.timeLeft);
     params.state.timeLeft === 0 && setTimeOverPopUp(true);
   }, []);
 
@@ -61,29 +69,30 @@ const OverBlick = () => {
           user: localStorage.getItem("userId"),
           simuleraQuizResult: response?.data?.simuleraQuizResult._id,
         };
-        const provpassNumber = params.state.provpass?.simuleraQuizResult?.length;
+        const provpassNumber =
+          params.state.provpass?.simuleraQuizResult?.length || 0;
         instance2.post(updatePreviosExam, examData).then((res) => {
           setOpen(false);
-          if(provpassNumber < 3){
+          if (provpassNumber < 3) {
             const currentSeason = params.state.simuleraSeason;
             navigate("/provpassinfo", {
               state: {
                 id: currentSeason,
                 session: params?.state?.session,
                 provpass: res.data.simuleraSeasonResult,
-              }
-            })
-          } else if(provpassNumber === 3){
-              navigate("/provresultat", {
-                state: {
-                  seasonId: response.data.simuleraQuizResult.simuleraSeason,
-                  simuleraQuizResultId: response.data.simuleraQuizResult._id,
-                },
-              });
-            }
+                provpassOrder: params?.state?.provpassOrder,
+              },
+            });
+          } else if (provpassNumber === 3) {
+            navigate("/provresultat", {
+              state: {
+                seasonId: params?.state?.simuleraSeason,
+                quizId: params?.state?.provpass?._id,
+                provpassOrder: params?.state?.provpassOrder,
+              },
+            });
+          }
         });
-
-        
       } else {
         swal("Fail to submit questions");
       }
@@ -110,6 +119,22 @@ const OverBlick = () => {
       //   // display: 'block'
       //   height: '5rem'
       // },
+    },
+    questionItem: {
+      border: "1px solid #e1e1e1",
+      width: "14rem",
+      height: "3rem",
+      display: "flex",
+      justifyContent: "space-between",
+      cursor: "pointer",
+      backgroundColor: "#fff",
+      "&:hover": {
+        backgroundColor: "#E1E1E1",
+      },
+      "&:hover img#rightArrow": {
+        filter:
+          "invert(10%) sepia(66%) saturate(4604%) hue-rotate(231deg) brightness(110%) contrast(122%)",
+      },
     },
     size: {
       width: 15,
@@ -308,6 +333,15 @@ const OverBlick = () => {
             ></Box>
           </Box> */}
         </Container>
+        {time !== undefined && <ExamTopBar
+          currentIndex={params?.state?.currentQuestion}
+          quiz={params.state.quiz}
+          time={time}
+          status={!timeOverPopUp}
+          setTimeLeft={setTime}
+          setShouldNavigate={setTimeOverPopUp}
+          width={"80%"}
+        />}
         <Container
           maxWidth="md"
           style={{
@@ -321,6 +355,7 @@ const OverBlick = () => {
             flexDirection: "column",
             width: "80%",
             paddingBottom: 24,
+            marginTop: "0",
           }}
         >
           <Box
@@ -329,11 +364,11 @@ const OverBlick = () => {
           >
             <Typography variant="h6" component="h6">
               Överblick Provpass{" "}
-              {params?.state?.provpass?.simuleraQuizResult.length + 1}
+              {provpassNumber}
             </Typography>
             <Typography variant="body2" component="body2">
               Innan du lämnar in, kontrollera vilka frågor du har <b>missat</b>,
-              <b>sparat</b> samt <b>gjort klart</b>
+              <b> sparat</b> samt <b>gjort klart</b>
             </Typography>
             <Box
               sx={{
@@ -423,23 +458,19 @@ const OverBlick = () => {
                   quiz.question.map((item, index) => {
                     return (
                       <Box
-                        sx={{
-                          border: "1px solid #e1e1e1",
-                          width: "14rem",
-                          height: "3rem",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          cursor: "pointer",
-                        }}
+                        sx={{}}
+                        className={classes.questionItem}
                         onClick={() =>
                           navigate("/simuleraprov", {
                             state: {
                               questionIndex: index,
                               quiz: quiz,
-                              timeLeft: params.state.timeLeft,
+                              timeLeft: time,
                               SubmittedQuestions:
                                 params?.state?.SubmitedQuestions,
                               provpass: params?.state?.provpass,
+                              provpassOrder: params?.state?.provpassOrder,
+                              session: params?.state?.session,
                             },
                           })
                         }
@@ -462,6 +493,7 @@ const OverBlick = () => {
                         </Box>
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
                           <img
+                            id="rightArrow"
                             style={{ marginRight: "1rem", width: ".75rem" }}
                             src={RightArrow}
                             alt=""
@@ -471,19 +503,27 @@ const OverBlick = () => {
                     );
                   })}
               </Box>
-              <TestOverPopup
+              <CommonPopup
                 status={timeOverPopUp}
-                closePopUp={() => setTimeOverPopUp(false)}
-                onClick={() => submitQuiz()}
+                redirect={() => submitQuiz()}
+                title="Provpasset är över"
+                description="Efter att du lämnat in kan du ta en paus innan du börjar nästa
+                provpass. Ditt resultat sparas."
+                oneButtonPopup
+                agreeBtnName="Lämna in provpasset"
+              />
+              <CommonPopup
+                status={testSubmitPopUp}
+                redirect={() => submitQuiz()}
+                closePopup={() => setTestSubmitPopUp(false)}
+                title="Vill du lämna in?"
+                description={(params.state.provpass?.simuleraQuizResult?.length || 0) < 3 ? "Efter att du lämnat in kan du ta en paus innan du börjar nästa provpass. Ditt resultat sparas." : "Efter att du lämnat in detta provpass är provet klart. "}
+                oneButtonPopup
+                agreeBtnName="Lämna in provpasset"
               />
             </Box>
           </Box>
         </Container>
-        <BootstrapDialogTitle
-          status={testSubmitPopUp}
-          closePopUp={() => setTestSubmitPopUp(false)}
-          testSubmit={() => submitQuiz()}
-        />
 
         {/* <Box
           sx={{
@@ -516,8 +556,8 @@ const OverBlick = () => {
             style={{
               width: 600,
               textTransform: "capitalize",
-              color: "#0A1596",
-              border: "1px solid #0A1596",
+              color: appColors.blueColor,
+              border: `1px solid ${appColors.blueColor}`,
             }}
             onClick={() => setTestSubmitPopUp(true)}
           >
@@ -525,10 +565,24 @@ const OverBlick = () => {
           </Button>
         </Box>
       </Container>
-      <BackButtonPopup
+      <CommonPopup
         status={backPressPopup}
         closePopup={() => setBackPressPopup(false)}
+        title="Vill du avsluta provpasset?"
+        description="Du måste göra klart provpasset för att få din poäng. Om du trycker på avsluta, sparas inte dina svar."
+        cancelBtnName="Gör klart provpass"
+        agreeBtnName="Avsluta prov"
+        redirect={() => navigate("/courses")}
       />
+      {/* <BackButtonPopup
+        status={backPressPopup}
+        closePopup={() => setBackPressPopup(false)}
+        title="Vill du avsluta provpasset?"
+        description="Du måste göra klart provpasset för att få din poäng. Om du trycker på avsluta, sparas inte dina svar."
+        cancelBtnName="Gör klart provpass"
+        agreeBtnName="Avsluta prov"
+        redirect={() => navigate("/courses")}
+      /> */}
     </div>
   );
 };

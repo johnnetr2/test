@@ -14,6 +14,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import { appColors } from "../../../utils/commonService";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -154,12 +155,10 @@ export default function CustomizedDialogs(props) {
               onClick={cardSubmittion}
               disabled={!questionFeedback}
               style={{
-                backgroundColor: `#${
-                  questionFeedback.length === 0 ? "E1E1E1" : "0A1596"
-                }`,
-                color: `#${
-                  questionFeedback.length === 0 ? "505050" : "FFFFFF"
-                }`,
+                backgroundColor: `${questionFeedback.length === 0 ? "#E1E1E1" : appColors.blueColor
+                  }`,
+                color: `#${questionFeedback.length === 0 ? "505050" : "FFFFFF"
+                  }`,
                 display: "block",
                 margin: "auto",
                 width: "100%",

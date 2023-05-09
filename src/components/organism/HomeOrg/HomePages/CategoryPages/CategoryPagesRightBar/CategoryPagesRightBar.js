@@ -8,9 +8,10 @@ import LineDemo from "../../../../../molecule/Charts/BarChart";
 import { LinearProgress } from "@mui/material";
 import LinesChart from "../../../../../molecule/Charts/LinesChart";
 import useWindowDimensions from "../../../../../molecule/WindowDimensions/dimension";
-import { datesGroupByComponent } from "../../../../../service/commonService";
-import { calculateWeekWiseNormingForCategory } from "../../../../../atom/percentageCalculator/Utils";
-import { getWeekNumbers } from "../../../../../atom/percentageCalculator/Utils";
+import { datesGroupByComponent } from "../../../../../../utils/commonService";
+import { calculateWeekWiseNormingForCategory } from "../../../../../../utils/Utils";
+import { getWeekNumbers } from "../../../../../../utils/Utils";
+import PaymentCard from "../../../../../molecule/PaymentCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .css-5xe99f-MuiLinearProgress-bar1": {
@@ -22,16 +23,19 @@ const useStyles = makeStyles((theme) => ({
 const CategoryPagesRightBar = (props) => {
   const classes = useStyles();
   const [lastWeekTasks, setLastWeekTasks] = useState("");
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [weeklyCoreectedGraph, setWeeklyCoreectedGraph] = useState([]);
   const [weekWiseProgressGraph, setWeekWiseProgressGraph] = useState([]);
   const [weeklyProgress, setWeeklyProgress] = useState(0);
   const [isDesplayProgress, setIsDesplayProgress] = useState(false);
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
+
 
   useEffect(() => {
     const weeknameArray = getWeekNumbers().reverse();
     const lastWeeksData = EndPoints.getLastSevenWeeksData + props.item._id;
     instance2.get(lastWeeksData).then((response) => {
+
       const data = datesGroupByComponent(response.data.sevenWeekData, "W");
       const weekWiseCorrectedArray = [];
       const weekWiseProgressArray = [];
@@ -46,6 +50,7 @@ const CategoryPagesRightBar = (props) => {
         const weekPogress = weekWiseNormingofCategory.find(
           (weekWiseProgress) => weekWiseProgress.name === weekKeyName
         );
+
         if (weekPogress) {
           weekWiseCorrectedArray.push({
             name: weekKeyName,
@@ -58,10 +63,33 @@ const CategoryPagesRightBar = (props) => {
 
         } else {
           weekWiseCorrectedArray.push({ name: weekKeyName, correct: "" });
-          weekWiseProgressArray.push({
-            name: weekKeyName,
-            Prognos: weekWiseProgressArray[weekWiseProgressArray.length - 1]?.Prognos,
-          });
+          if (index === 0) {
+            let weekNumber = weekKeyName.split('.')[1]
+            for (let previousindex = 0; previousindex <= 7; previousindex++) {
+              weekNumber = weekNumber - 1
+              const PreviousWeekPogress = weekWiseNormingofCategory.find(
+                (weekWiseProgress) => weekWiseProgress.name === 'V.' + weekNumber
+              );
+              if (PreviousWeekPogress) {
+                weekWiseProgressArray.push({
+                  name: weekKeyName,
+                  Prognos: PreviousWeekPogress.eachCategoryPrognos,
+                });
+                break;
+              }
+              if (previousindex === 7) {
+                weekWiseProgressArray.push({
+                  name: weekKeyName,
+                  Prognos: null,
+                });
+              }
+            }
+          } else {
+            weekWiseProgressArray.push({
+              name: weekKeyName,
+              Prognos: weekWiseProgressArray[weekWiseProgressArray.length - 1]?.Prognos,
+            });
+          }
         }
 
       });
@@ -93,12 +121,17 @@ const CategoryPagesRightBar = (props) => {
           marginTop: width < 1280 ? "2rem" : "11.7rem",
         }}
       >
-        <Box>
+        {!isPremium && props.item.title !== 'XYZ' &&
+          <PaymentCard
+            title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
+          ></PaymentCard>
+        }
+        <Box sx={{ marginTop: isPremium && props.item.title !== 'XYZ' ? "10.5rem" : "3rem" }}>
           {width > 900 && (
             <Typography variant="h5">Statistik - {props.item.title}</Typography>
           )}
           <Typography variant="body2" style={{ marginTop: "0.5rem" }}>
-            Du har klarat
+            Du har fått rätt på
             {` ${lastWeekTasks && lastWeekTasks?.correctedNoTimePressure} `} av
             {` ${lastWeekTasks && lastWeekTasks?.totalQuestions} `}
             uppgifter
@@ -145,14 +178,14 @@ const CategoryPagesRightBar = (props) => {
               {!lastWeekTasks ? "0" : lastWeekTasks.weeklyCorrectQuestions}
             </Typography>
             <Typography variant="body2">
-              Klarade uppgifter denna veckan
+              Rätt denna vecka
             </Typography>
           </Box>
           <Box sx={{ marginLeft: "1rem" }}>
             <Typography variant="h5">
               {!lastWeekTasks ? "0" : lastWeekTasks.correctedNoTimePressure}
             </Typography>
-            <Typography variant="body2">Klarade uppgifter totalt</Typography>
+            <Typography variant="body2">Rätt totalt</Typography>
           </Box>
         </Box>
         <Box

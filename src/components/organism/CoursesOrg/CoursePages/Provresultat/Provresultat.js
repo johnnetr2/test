@@ -26,6 +26,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import ExamResults from "../../../../../assets/Static/ExamResults.json";
+import { appColors } from "../../../../../utils/commonService";
 
 const Provresultat = () => {
   const navigate = useNavigate();
@@ -43,49 +44,44 @@ const Provresultat = () => {
   const [participantsNormalized, setParticipantsNormalized] = useState(null);
   const [season, setSeason] = useState(null);
 
+  const quantitativeParts = ['XYZ', 'NOG', 'KVA', 'DTK'];
+  const verbalParts = ['ELF', 'LÄS', 'ORD', 'MEK'];
+
   useEffect(() => {
-    if (params.state.seasonId) {
-      const URL = EndPoints.testSummary + params.state.seasonId;
-      instance2.get(URL).then((response) => {
-        setOpen(false);
-        setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data);
-      });
-    } else {
-      const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
-      instance2.get(URL).then((response) => {
-        setOpen(false);
-        setTestSummary(response.data);
-        setVerbalQuantitativeStates(response.data);
-      });
-    }
+    const URL = EndPoints.testSummaryByHistoryPage + params.state.quizId;
+    console.log(URL);
+    instance2.get(URL).then((response) => {
+      setOpen(false);
+      setTestSummary(response.data);
+      setVerbalQuantitativeStates(response.data);
+    });
   }, []);
 
   const setVerbalQuantitativeStates = (data) => {
     setCorrectAnswersOfKvantitative(
       data.correctQuestions_of_XYZ +
-        data.correctQuestions_of_KVA +
-        data.correctQuestions_of_NOG +
-        data.correctQuestions_of_DTK
+      data.correctQuestions_of_KVA +
+      data.correctQuestions_of_NOG +
+      data.correctQuestions_of_DTK
     );
     setTotalQuestionsOfKvantitative(
       data.totalQuestion_of_XYZ +
-        data.totalQuestion_of_KVA +
-        data.totalQuestion_of_NOG +
-        data.totalQuestion_of_DTK
+      data.totalQuestion_of_KVA +
+      data.totalQuestion_of_NOG +
+      data.totalQuestion_of_DTK
     );
 
     setCorrectAnswersOfVerbal(
       data.correctQuestions_of_ORD +
-        data.correctQuestions_of_LAS +
-        data.correctQuestions_of_MEK +
-        data.correctQuestions_of_ELF
+      data.correctQuestions_of_LAS +
+      data.correctQuestions_of_MEK +
+      data.correctQuestions_of_ELF
     );
     setTotalQuestionsOfVerbal(
       data.totalQuestion_of_ORD +
-        data.totalQuestion_of_LAS +
-        data.totalQuestion_of_MEK +
-        data.totalQuestion_of_ELF
+      data.totalQuestion_of_LAS +
+      data.totalQuestion_of_MEK +
+      data.totalQuestion_of_ELF
     );
   };
 
@@ -101,7 +97,7 @@ const Provresultat = () => {
           return (
             examName === response.data.simuleraSeason.title ||
             examName ===
-              `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+            `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
           );
         });
         const normalizedPointsExam = ExamResults.normalizedPoints.find(
@@ -110,11 +106,10 @@ const Provresultat = () => {
             return (
               examName === response.data.simuleraSeason.title ||
               examName ===
-                `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
+              `${response.data.simuleraSeason.month} ${simuleraSeasonYear}`
             );
           }
         );
-        console.log(rawPointsExam, normalizedPointsExam);
         setParticipantsAverage(rawPointsExam);
         setParticipantsNormalized(normalizedPointsExam);
       });
@@ -172,15 +167,15 @@ const Provresultat = () => {
       participantsAverage?.DTK
     ),
     createExamPartData(
-      "SAMMANFATTNING",
+      "Kvantitativ del",
       correctAnswersOfKvantitative,
       totalQuestionsOfKvantitative,
       participantsAverage?.KVANT,
       correctAnswersOfKvantitative &&
-        totalQuestionsOfKvantitative &&
-        ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
-          ?.toFixed(1)
-          .replace(/\.0+$/, "")
+      totalQuestionsOfKvantitative &&
+      ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
+        ?.toFixed(1)
+        .replace(/\.0+$/, "")
     ),
   ];
 
@@ -210,21 +205,21 @@ const Provresultat = () => {
       participantsAverage?.ELF
     ),
     createExamPartData(
-      "SAMMANFATTNING",
+      "Verbal del",
       correctAnswersOfVerbal,
       totalQuestionsOfVerbal,
       participantsAverage?.VERB,
       correctAnswersOfVerbal &&
-        totalQuestionsOfVerbal &&
-        ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
-          ?.toFixed(1)
-          .replace(/\.0+$/, "")
+      totalQuestionsOfVerbal &&
+      ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
+        ?.toFixed(1)
+        .replace(/\.0+$/, "")
     ),
   ];
 
   const wholeExamRows = [
     createSummaryData(
-      "SAMMANFATTNING",
+      "Hela Provet",
       correctAnswersOfKvantitative + correctAnswersOfVerbal,
       totalQuestionsOfKvantitative + totalQuestionsOfVerbal,
       participantsAverage?.Total
@@ -423,7 +418,7 @@ const Provresultat = () => {
                   provdeltagarna det året.
                 </Typography>
                 <Typography>
-                  <b>Normerad poäng per del:</b> Poäng för kvantiativ och verbal
+                  <b>Normerad poäng per del:</b> Poäng för kvantitativ och verbal
                   del för sig.
                 </Typography>
                 <Typography>
@@ -468,23 +463,29 @@ const Provresultat = () => {
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "flex-end",
+                      marginRight:
+                        testSummary?.correctQuestion.toString().length === 2
+                          ? "6.2rem"
+                          : testSummary?.correctQuestion.toString().length === 1
+                            ? "6.4rem"
+                            : "4.5rem",
                     }}
                   >
                     <Typography variant="h3" component="h3">
@@ -505,17 +506,17 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -571,28 +572,35 @@ const Provresultat = () => {
               >
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.3rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.3rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "flex-end",
+                      marginRight:
+                        testSummary?.normering.toFixed(1).replace(/\.0+$/, "")
+                          .length === 3
+                          ? "3.1rem"
+                          : "5rem",
                     }}
                   >
                     <Typography variant="h3" component="h3">
                       {testSummary
-                        ? testSummary?.normering.toFixed(1).replace(/\.0+$/, "")
+                        ? testSummary?.normering
+                          ?.toFixed(1)
+                          .replace(/\.0+$/, "")
                         : ""}
                     </Typography>
                     <Typography
@@ -610,18 +618,18 @@ const Provresultat = () => {
                 </Box>
                 <Box
                   className={classes.cards}
-                  // sx={{
-                  //   width: "24.5vw",
-                  //   height: "15vh",
-                  //   display: "flex",
-                  //   justifyContent: "center",
-                  //   alignItems: "center",
-                  //   backgroundColor: "#fff",
-                  //   marginTop: "5%",
-                  //   border: "1px solid #e1e1e1",
-                  //   borderRadius: "0.5rem",
-                  //   boxShadow: "0px 1px 1px #e1e1e1",
-                  // }}
+                // sx={{
+                //   width: "24.5vw",
+                //   height: "15vh",
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center",
+                //   backgroundColor: "#fff",
+                //   marginTop: "5%",
+                //   border: "1px solid #e1e1e1",
+                //   borderRadius: "0.5rem",
+                //   boxShadow: "0px 1px 1px #e1e1e1",
+                // }}
                 >
                   <Box
                     sx={{
@@ -664,7 +672,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
+              // style={{ marginTop: "3%", marginLeft: '4.5rem' }}
               >
                 <Typography variant="h5" component="h5">
                   Kvantitativ del resultat
@@ -689,7 +697,7 @@ const Provresultat = () => {
                       <b>Provdel</b>
                     </TableCell>
                     <TableCell align="left">
-                      <b>DITT ANTAL RATTA SVAR</b>
+                      <b>DITT ANTAL RÄTTA SVAR</b>
                     </TableCell>
                     <TableCell align="left">
                       <b>ANTAL UPPG.</b>
@@ -731,7 +739,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Verbal del resultat
@@ -756,7 +764,7 @@ const Provresultat = () => {
                       <b>Provdel</b>
                     </TableCell>
                     <TableCell align="left">
-                      <b>DITT ANTAL RATTA SVAR</b>
+                      <b>DITT ANTAL RÄTTA SVAR</b>
                     </TableCell>
                     <TableCell align="left">
                       <b>ANTAL UPPG.</b>
@@ -797,7 +805,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Hela provet
@@ -833,7 +841,7 @@ const Provresultat = () => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ width: "5rem" }}
+                        sx={{ width: "8rem" }}
                       >
                         {row.rowName}
                       </TableCell>
@@ -852,7 +860,7 @@ const Provresultat = () => {
             <Box>
               <Typography
                 className={classes.resultText}
-                //style={{ marginTop: "3%", fontWeight: "bold" }}
+              //style={{ marginTop: "3%", fontWeight: "bold" }}
               >
                 <Typography variant="h5" component="h5">
                   Resultat per provpass
@@ -876,7 +884,7 @@ const Provresultat = () => {
                       <b>PROVPASS</b>
                     </TableCell>
                     <TableCell align="left">
-                      <b>DITT ANTAL RATTA SVAR</b>
+                      <b>DITT ANTAL RÄTTA SVAR</b>
                     </TableCell>
                     <TableCell align="left">
                       <b>ANTAL UPPG.</b>
@@ -896,7 +904,7 @@ const Provresultat = () => {
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {"Provpass"} {index + 1}
+                          {"Provpass"} {params?.state?.provpassOrder[index].split("-")[2].replace(/[^0-9]/g, "")}
                         </TableCell>
                         <TableCell align="left">
                           {row.correctAnswerCounter}
@@ -908,6 +916,13 @@ const Provresultat = () => {
                               state: {
                                 quizId: row._id,
                                 seasonId: row.simuleraSeason,
+                                provpassNumber: params?.state?.provpassOrder[index]?.split("-")[2]?.replace(/[^0-9]/g, ""),
+                                provpassType: quantitativeParts.includes(row.quiz[0].sectionCategories.title) ? "Kvantitativ" : "Verbal",
+                                examResultData: {
+                                  quizId: params?.state?.quizId,
+                                  seasonId: params?.state?.seasonId,
+                                  provpassOrder: params?.state?.provpassOrder,
+                                },
                               },
                             })
                           }
@@ -916,11 +931,11 @@ const Provresultat = () => {
                           <Button
                             style={{
                               backgroundColor: "#fff",
-                              color: "#0A1596",
-                              border: "1px solid #0A1596",
+                              color: appColors.blueColor,
+                              border: `1px solid ${appColors.blueColor}`,
                             }}
                           >
-                            SE RATTNING
+                            SE RÄTTNING
                           </Button>
                         </TableCell>
                         <TableCell align="left">{row.protein}</TableCell>
@@ -945,7 +960,7 @@ const Provresultat = () => {
                   paddingRight: "1.5rem",
                 }}
               >
-                <Typography
+                {/* <Typography
                   variant="body2"
                   style={{ fontSize: ".75rem", marginTop: "0.3rem" }}
                 >
@@ -989,8 +1004,7 @@ const Provresultat = () => {
                   }}
                   // onClick={() => openInNewTab('https://stackoverflow.com')}
                 >
-                  {/* <a href="https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh">
-                  {" "} */}
+                  
                   <img src={LinkIcon} />
                   <Typography
                     sx={{
@@ -1007,8 +1021,8 @@ const Provresultat = () => {
                   >
                     https://www.google.com/search?q=share+results+ui+design&tbm=isch&chips=q:sh
                   </Typography>
-                  {/* </a> */}
-                </Box>
+                 
+                </Box> */}
               </Box>
 
               {/* </Box> */}
@@ -1019,9 +1033,9 @@ const Provresultat = () => {
                 sx={{
                   // width: width > 1025 ? "91%" : "92%",
                   width: "100%",
-                  border: "1px solid #0A1596",
+                  border: `1px solid ${appColors.blueColor}`,
                   margin: "1rem 0",
-                  color: "#0A1596",
+                  color: appColors.blueColor,
                   display: "flex",
                 }}
                 onClick={() => navigate("/courses")}

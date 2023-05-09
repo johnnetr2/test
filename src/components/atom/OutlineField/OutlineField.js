@@ -3,6 +3,7 @@ import { Box, label } from "@mui/material";
 import Checkbox from "@material-ui/core/Checkbox";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
+import { appColors } from "../../../utils/commonService";
 
 const useStyles = makeStyles({
   root: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
     backgroundImage:
       "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
     "$root.Mui-focusVisible &": {
-      outline: "2px auto #0A1596",
+      outline: `2px auto ${appColors.blueColor}`,
       outlineOffset: 2,
     },
     "input:hover ~ &": {
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
     },
   },
   checkedIcon: {
-    backgroundColor: "#0A1596",
+    backgroundColor: appColors.blueColor,
     backgroundImage:
       "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
     "&:before": {
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
       content: '""',
     },
     "input:hover ~ &": {
-      backgroundColor: "#0A1596",
+      backgroundColor: appColors.hoverBlue,
     },
   },
 });
@@ -81,7 +82,7 @@ const Outline_Field = (props) => {
           borderRadius: ".25rem",
           marginLeft: ".25rem",
           marginRight: ".25rem",
-          border: props.checked ? "0.5px solid #000DAB" : "1px solid #e1e1e1",
+          border: props.checked ? `0.5px solid ${appColors.blueColor}` : "1px solid #e1e1e1",
           display: "flex",
           flexWrap: "wrap",
           marginBottom: ".75rem",
@@ -102,7 +103,7 @@ const Outline_Field = (props) => {
           size="medium"
           style={{
             margin: "0rem",
-            color: props.checked ? "#0A1596" : "#E1E1E1",
+            color: props.checked ? appColors.blueColor : "#E1E1E1",
           }}
           m={0}
         />

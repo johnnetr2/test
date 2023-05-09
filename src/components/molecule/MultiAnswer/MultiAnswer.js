@@ -1,19 +1,14 @@
-import { FormControlLabel, Radio, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import { Box } from "@mui/material";
-import Correct from "../../../assets/Imgs/correct.png";
 import FeedbackCard from "../../molecule/FeedbackCard/FeedbackCard";
-import MarkLatex from "../../atom/Marklatex/MarkLatex";
-import Wrong from "../../../assets/Imgs/wrong.png";
 import FeedbackButtons from "../../atom/FeedbackButtons/FeedbackButtons";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import AnswerStatement from "../AnswerStatement/AnswerStatement";
+import OptionsComponent from "../OptionsComponents";
 
 const MultiAnswer = (props) => {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
   const [count, setCount] = useState();
-
   const PlusPoint = () => {
     setCount(1);
     MixpanelTracking.getInstance().feedbackButtonClicked(
@@ -37,78 +32,10 @@ const MultiAnswer = (props) => {
     );
     setFeedbackPopup(true);
   };
-  const options = (item, index) => {
-    if (
-      props?.question?.answer &&
-      props?.question?.answer?.option === item._id
-    ) {
-      return (
-        <img
-          src={Correct}
-          style={{
-            height: "28px",
-            width: '28px',
-            marginRight: ".5rem",
-            marginLeft: ".8rem",
-            marginTop: ".5rem",
-            marginBottom: ".5rem",
-          }}
-        />
-      );
-    } else if (props?.question.optionId == item._id) {
-      return (
-        <img
-          src={Wrong}
-          style={{
-            height: "28px",
-            width: '28px',
-            marginRight: ".5rem",
-            marginLeft: ".8rem",
-            marginTop: ".5rem",
-            marginBottom: ".5rem",
-          }}
-        />
-      );
-    } else {
-      return <Radio checked={false} />;
-    }
-  };
 
   return (
     <>
-      <Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          {props?.question.option[0]?.options.map((item, index) => {
-            return (
-              <Box
-                style={{
-                  border: "1px solid #e1e1e1",
-                  padding: "1rem",
-                  width: "100%",
-                  maxWidth: 565,
-                }}
-              >
-                <FormControlLabel
-                  style={{
-                    marginLeft: ".5rem", color: !props?.question?.answer && props?.question.optionId === item._id ? "#EB5757" : props?.question?.answer &&
-                      props?.question?.answer?.option === item._id ? "#27AE60" : "#505050"
-                  }}
-                  control={options(item, index)}
-                  label={item.value}
-                />
-              </Box>
-            );
-          })}
-        </Box>
-
-        {/* <Box mt={2} ml={5}></Box> */}
-      </Box>
+      <OptionsComponent question={props?.question} />
       <Box
         sx={{
           border: "1px solid #e1e1e1",

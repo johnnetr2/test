@@ -1,0 +1,57 @@
+.page {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.container {
+  position: fixed;
+  top: 30%;
+  left: 73%;
+}
+
+.moveable {
+  position: absolute;
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+}
+
+.badges {
+  padding: 10px;
+  text-align: center;
+}
+
+.badges img {
+  height: 20px;
+}
+
+
+.page.main {
+  z-index: 1000;
+}
+
+.label {
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 0px;
+  display: none;
+  transform: translate(-100%, -100%);
+}
+
+.draggable,
+.resizable,
+.scalable,
+.rotatable,
+.origin,
+.warpable,
+.pinchable {
+  position: absolute;
+  left: 0;
+}

@@ -1,12 +1,11 @@
 import { Box, Container, Typography } from "@mui/material";
 import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
-
 import Filled_btn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
 import Label_field from "../../molecule/LabelField/LabelField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -15,6 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { login } from "../../../redux/reducers";
 import { useDispatch } from "react-redux";
+import { appColors, setInitialUserState } from "../../../utils/commonService";
+
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -37,13 +38,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginOrg = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     MixpanelTracking.getInstance().visitedPage("Login");
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      instance2.get(EndPoints.getUser).then(response => {
+        setInitialUserState(response.data)
+        navigate("/home");
+      }).catch(error => {
+        console.log("error", error)
+      })
+    }
   }, []);
 
   const classes = useStyles();
   const dispatch = useDispatch();
-
 
   const [user, setUser] = useState({
     email: "",
@@ -56,7 +68,6 @@ const LoginOrg = () => {
     setUser({ ...user, [name]: value });
   };
 
-
   const loginFunc = (e) => {
     e && e.preventDefault();
     if (user.email == "" || user.password == "") {
@@ -67,7 +78,7 @@ const LoginOrg = () => {
       });
     } else {
       const data = {
-        email: user.email,
+        email: user.email.trim(),
         password: user.password,
       };
       const URL = EndPoints.Login;
@@ -75,19 +86,18 @@ const LoginOrg = () => {
         .post(URL, data)
         .then((response) => {
           const { user, token } = response.data;
-          if (!response.data.user.is_verified) {
-            swal("Warning!", "User is not verfied", "warning");
-          } else if (response.data.token) {
+          // if (!user.is_verified) {
+          //   swal("Warning!", "User is not verfied", "warning");
+          // } else 
+          if (response.data.token) {
             dispatch(login({ user, token }));
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("userId", response.data.user._id);
-            localStorage.setItem("role", response.data.user.role);
-            localStorage.setItem("fullName", response.data.user.fullName);
-            localStorage.setItem("email", response.data.user.email);
-            MixpanelTracking.getInstance().login(
-              "success",
-              response.data.user?._id
-            );
+            // localStorage.setItem("token", token);
+            localStorage.setItem("userId", user._id);
+            localStorage.setItem("role", user.role);
+            localStorage.setItem("fullName", user.fullName);
+            localStorage.setItem("email", user.email);
+            setInitialUserState({ user, token })
+
             new Date(response.data.user.createdAt) < new Date("2022-10-7") &&
               MixpanelTracking.getInstance().oldUsersRegistration(
                 response.data.user._id,
@@ -96,7 +106,7 @@ const LoginOrg = () => {
                 response.data.user.createdAt
               );
             if (window.innerWidth < 600) {
-              window.location.replace('https://www.hpappen.se/mobil')
+              window.location.replace("https://www.hpappen.se/mobil");
             } else {
               window.location.href = "/home";
             }
@@ -109,7 +119,6 @@ const LoginOrg = () => {
         });
     }
   };
-
 
   const forgotPassword = () => {
     const URL = EndPoints.resetPassword;
@@ -142,7 +151,7 @@ const LoginOrg = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#0A1596",
+          backgroundColor: appColors.blueColor,
         }}
         className={classes.hideOnMobile}
       >
@@ -206,6 +215,7 @@ const LoginOrg = () => {
                 marginBottom: "1rem",
                 outline: "none",
                 WebkitBoxShadow: "0 0 0 1000px white inset",
+                fontFamily: "Poppins",
               }}
             />
             <Label for="password" style={{ color: "#B5B5B5" }}>
@@ -245,6 +255,7 @@ const LoginOrg = () => {
                     outline: "none",
                     border: "none",
                     WebkitBoxShadow: "0 0 0 1000px white inset",
+                    fontFamily: "Poppins",
                   }}
                 />
               </Box>
@@ -283,7 +294,13 @@ const LoginOrg = () => {
             }}
           >
             <Typography variant="body1">
-              Har du inget konto? <Link to="/">Skapa konto här</Link>
+              Har du inget konto?{" "}
+              <Link
+                style={{ textDecoration: "none", color: appColors.blueColor }}
+                to="/"
+              >
+                Skapa konto här
+              </Link>
             </Typography>
           </Box>
         </Box>

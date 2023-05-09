@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import { appColors } from "../../../utils/commonService";
 
 const Filled_btn = ({ title, onClick, disabled, type }) => {
   return (
@@ -10,24 +11,21 @@ const Filled_btn = ({ title, onClick, disabled, type }) => {
         type={type}
         disabled={disabled}
         sx={{
-          backgroundColor: "#0A1596",
+          backgroundColor: appColors.blueColor,
           borderRadius: "8px",
-          color: "#FFFFFF",
+          color: appColors.whiteColor,
           textTransform: "initial",
           width: "100%",
           textDecoration: "none",
-          fontWeight: 300,
+          fontWeight: 400,
           cursor: "pointer",
           "&:hover": {
-            backgroundColor: "#0A1596",
+            backgroundColor: appColors.hoverBlue,
             opacity: [1, 1, 0.9],
           },
-          fontWeight: 300,
           width: "100%",
           flex: "none",
-          textDecoration: "none",
           fontStyle: "normal",
-          fontFamily: "Roboto",
           order: 0,
           flexGrow: 0,
         }}

@@ -3,31 +3,27 @@ import {
   Container,
   CssBaseline,
   FormControlLabel,
-  Paper,
   Radio,
   Typography,
 } from "@material-ui/core";
-import { Close, OpenInFull } from "@mui/icons-material/";
+import { Close } from "@mui/icons-material/";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import { EndPoints, instance, instance2 } from "../../../../../service/Route";
-import React, { useEffect, useRef, useState } from "react";
+import { EndPoints, instance2 } from "../../../../../service/Route";
+import React, { useEffect, useState } from "react";
 
 import ArrowSalt from "../../../../../../assets/Icons/ArrowSalt.svg";
 import BlueLeftIcon from "../../../../../../assets/Icons/BlueLeftIcon.svg";
 import BlueRightIcon from "../../../../../../assets/Icons/BlueRightIcon.svg";
-import CircularProgress from "@mui/material/CircularProgress";
-import Draggable from "react-draggable";
 import ExerciseBtn from "../../../../../atom/ExerciseBtn/ExerciseBtn";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import QuestionStatement from "../../../../../molecule/QuestionStatement/QuestionStatement";
 import ResultFooter from "../../../../../molecule/ResultFooter/ResultFooter";
 import ResultQuestionViewDtkOrg from "./ResultQuestionViewDTKOrg";
-import Righticon from "../../../../../../assets/Imgs/Righticon.png";
-import Ruler from "../../../../../../assets/Imgs/ruler.png";
 import RulerButton from "../../../../../atom/RulerButton/RulerButton";
 import { makeStyles } from "@material-ui/core/styles";
-import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import { appColors, scrollTop, optionsCharacters } from "../../../../../../utils/commonService";
+import RulerComponent from "../../../../../molecule/RulerComponent";
 
 let dataSubmit = [];
 
@@ -38,21 +34,17 @@ const QuestionViewDTKOrg = (props) => {
   const [answerExistance, setAnswerExistance] = useState();
   const [onHover, setOnHover] = useState();
   const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  const [showRuler, setShowRuler] = useState(false);
+
+  const handleShowRuler = () => {
+    setShowRuler((prevState) => !prevState)
+  };
   const { user, token } = useSelector((state) => state.value);
   const [enterSubmitted, setEnterSubmitted] = useState(true)
   const headers = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
-  // let minutes = 0;
-  // let seconds = 0;
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -108,15 +100,12 @@ const QuestionViewDTKOrg = (props) => {
       justifyContent: "center",
       width: "90vw",
     },
+    ruler: {
+      display: 'flex'
+    }
   }));
 
   const classes = useStyles(10);
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   useEffect(() => {
     scrollTop();
@@ -180,18 +169,6 @@ const QuestionViewDTKOrg = (props) => {
     return () => clearInterval(tymer);
   }, []);
 
-  // quiz?.[0]?.question?.[0]?.answer &&
-
-  const getTimeForUnattemptedQuestions = (quiz, index) => {
-    const ans = quiz[index].question.map((item) => {
-      if (item.answer) {
-        return true;
-      } else if (!item.answer) {
-        return false;
-      }
-    });
-    return ans;
-  };
 
   const handleRightArrowFunction = () => {
     const Quiz = { ...quiz };
@@ -205,14 +182,8 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : seconds,
-      // Boolean(
-      //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-      // )
-      //   ? seconds
-      //   : 0,
     };
 
-    // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
       (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
@@ -229,7 +200,6 @@ const QuestionViewDTKOrg = (props) => {
     selectedIndex + 1 < quiz?.question.length && props.updateQuiz(quiz);
     selectedIndex + 1 < quiz?.question.length && props.changeIndex();
     setSeconds(0);
-    setMinutes(0);
   };
 
   const handleLeftArrowFunction = () => {
@@ -243,13 +213,7 @@ const QuestionViewDTKOrg = (props) => {
       spendtime: dataSubmit[selectedIndex]?.spendtime
         ? dataSubmit[selectedIndex]?.spendtime + seconds
         : seconds,
-      // Boolean(
-      //   getTimeForUnattemptedQuestions(props.quiz, props.selectedIndex)
-      // )
-      //   ? seconds
-      //   : 0,
     };
-    // dataSubmit.splice(selectedIndex, 1, data);
     const ifExists = dataSubmit.some(
       (obj) => obj.questionId === quiz.question[selectedIndex]._id
     );
@@ -265,7 +229,6 @@ const QuestionViewDTKOrg = (props) => {
     setSelectedIndex(selectedIndex - 1);
     props.previosQuestion();
     setSeconds(0);
-    setMinutes(0);
   };
 
   const SelectFunc = (item, optionIndex) => {
@@ -277,27 +240,6 @@ const QuestionViewDTKOrg = (props) => {
     allQuiz.question = qz;
     setQuiz(allQuiz);
 
-    // const data = {
-    //   questionId: quiz.question[selectedIndex]._id,
-    //   optionId: quiz.question[selectedIndex].optionId,
-    //   MultipartQuestion: quiz._id,
-    // timeleft: props?.timeLeft ? props?.timeLeft : null,
-    // totaltime: props?.totalTime ? props?.totalTime : null,
-    // spendtime: getSpendTime(props?.timeLeft, props?.totalTime, selectedIndex),
-    // };
-
-    // const ifExists = dataSubmit.some(
-    //   (obj) => obj.questionId == quiz.question[selectedIndex]._id
-    // );
-    // if (ifExists) {
-    //   const index = dataSubmit.findIndex(
-    //     (obj) => obj.questionId == quiz.question[selectedIndex]._id
-    //   );
-    //   dataSubmit.splice(index, 1, data);
-    // } else {
-    //   dataSubmit.push(data);
-    // }
-
     const answerLenght = quiz.question.filter((item) => item.optionId).length;
     if (answerLenght === quiz.question.length) {
       setAnswerExistance(true);
@@ -307,14 +249,14 @@ const QuestionViewDTKOrg = (props) => {
   const Options = (question, option, optionIndex) => {
     if (optionIndex === question.selectedOptionIndex) {
       return (
-        <Radio color="primary" checked={true} style={{ color: "#0A1596" }} />
+        <Radio color="primary" checked={true} style={{ color: appColors.blueColor }} />
       );
     } else {
       return (
         <Radio
           color="primary"
           checked={false}
-          style={{ color: option._id === onHover && "#0A1596" }}
+          style={{ color: option._id === onHover && appColors.hoverBlue }}
         />
       );
     }
@@ -384,21 +326,6 @@ const QuestionViewDTKOrg = (props) => {
       console.log("in catch block: ", error);
     }
   };
-
-  function OptionIndex(index) {
-    switch (index) {
-      case 0:
-        return "A";
-      case 1:
-        return "B";
-      case 2:
-        return "C";
-      case 3:
-        return "D";
-      default:
-        return "";
-    }
-  }
 
   const [extendedView, setExtendView] = useState(false);
   const openExtended = () => {
@@ -482,10 +409,10 @@ const QuestionViewDTKOrg = (props) => {
                     />
                   )}
                   <Box>
-                    <RulerButton></RulerButton>
+                    <RulerButton />
                   </Box>
                 </DialogTitle>
-                <DialogContent
+                <div
                   style={{
                     padding: "0 5rem 2rem",
                     display: "flex",
@@ -495,27 +422,7 @@ const QuestionViewDTKOrg = (props) => {
                   <Box style={{ width: "90%" }}>
                     <img src={quiz?.image} style={{ width: "100%" }} alt="" />
                   </Box>
-                  <Box
-                    style={{
-                      width: "10%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Draggable>
-                      <img
-                        src={Ruler}
-                        style={{
-                          background: "#fff",
-                          width: "75%",
-                          border: "1px solid #f00",
-                        }}
-                        alt=""
-                      />
-                    </Draggable>
-                  </Box>
-                </DialogContent>
+                </div>
               </>
             )}
             <Dialog
@@ -526,13 +433,14 @@ const QuestionViewDTKOrg = (props) => {
             >
               {quiz?.description && (
                 <>
-                  <DialogTitle style={{ padding: "2rem 5rem 2rem" }}>
+                  <DialogTitle style={{ padding: "2rem 5rem 0rem" }}>
                     <Typography
                       variant="subtitle1"
                       style={{
                         textTransform: "uppercase",
-                        fontSize: ".7rem",
-                        fontWeight: "500",
+                        fontSize: ".85rem",
+                        maxWidth: "650px",
+                        margin: quiz?.description.length < 2000 ? "auto" : "0",
                       }}
                     >
                       {/*Lines 539 and 587 are changed for making " uppgift and uppgifter" dynamic to be grammarly correct */}
@@ -540,27 +448,59 @@ const QuestionViewDTKOrg = (props) => {
                     </Typography>
                     <Typography variant="h3" component="h3">
                       {!quiz?.title === "DTK" ? quiz?.title : ""}
+                      {quiz && quiz.question.length + " uppgifter"}
                     </Typography>
                   </DialogTitle>
                   <DialogContent /* 1 column for DTK and 2 columns for LÄS/ELF */
                     style={{
+                      position: 'relative',
                       columnCount: `${quiz.title === "DTK" || quiz?.description.length < 2000
                         ? "1"
                         : "2"
                         }`,
-                      padding: "0 5rem 2rem",
+                      padding: "0rem 5rem 2rem",
                     }}
                   >
+                    {quiz.title === "DTK" && (
+                      <Box display={"flex"} justifyContent="flex-end">
+                        <RulerButton
+                          onClick={handleShowRuler}
+                          isRulerOppened={showRuler}
+                        ></RulerButton>
+                      </Box>
+                    )}
                     <Typography
                       variant="subtitle1"
                       style={{
                         fontSize: ".85rem",
                         maxWidth: "650px",
                         margin: "auto",
+                        position: 'relative'
                       }}
+                      className={quiz?.description.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
                     >
+                      <h1 style={{ fontSize: "28px" }}>{quiz?.title}</h1>
                       <MarkLatex content={quiz?.description} />
+
                     </Typography>
+                    {quiz?.title === "DTK" && showRuler && (
+                      // <PositionableContainer
+                      //   movable
+                      //   resizable
+                      //   rotatable
+                      //   position={position}
+                      //   onUpdate={handleUpdate}
+                      // >
+                      //   <img
+                      //     src={Ruler}
+                      //     style={{
+                      //       background: "#fff",
+                      //       width: "100%",
+                      //     }}
+                      //   ></img>
+                      // </PositionableContainer>
+                      <RulerComponent></RulerComponent>
+                    )}
                   </DialogContent>
                 </>
               )}
@@ -590,31 +530,12 @@ const QuestionViewDTKOrg = (props) => {
                         {quiz?.title}
                       </Typography>
                     </Box>
-                    <Box>
-                      <RulerButton></RulerButton>
-                    </Box>
                   </DialogTitle>
                   <DialogContent
                     style={{ padding: "0 5rem 2rem", display: "flex" }}
                   >
                     <Box style={{ width: "90%" }}>
                       <img src={quiz?.image} style={{ width: "100%" }} alt="" />
-                    </Box>
-                    <Box
-                      style={{
-                        width: "10%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Draggable>
-                        <img
-                          src={Ruler}
-                          style={{ background: "#fff", width: "75%" }}
-                          alt=""
-                        />
-                      </Draggable>
                     </Box>
                   </DialogContent>
                 </>
@@ -715,12 +636,6 @@ const QuestionViewDTKOrg = (props) => {
                                 alt=""
                               />
                             )
-                            // : (
-                            //   <img
-                            //     src={Righticon}
-                            //     alt=""
-                            //     style={{ height: 15 }}
-                            //   />
                           }
                         </Box>
                       </Box>
@@ -733,10 +648,17 @@ const QuestionViewDTKOrg = (props) => {
                           padding: "3rem 0rem",
                           display: "flex",
                           flexDirection: "column",
+                          alignItems: "center"
                         }}
                       >
-                        <MarkLatex content={question.questionStatement} />
-
+                        <QuestionStatement
+                          description={question?.questionStatement}
+                          indications={[
+                            question?.information1,
+                            question?.information2,
+                          ]}
+                          type={quiz?.title}
+                        />
                         {question.image && (
                           <img
                             src={question.image[0]}
@@ -745,86 +667,127 @@ const QuestionViewDTKOrg = (props) => {
                         )}
                       </Typography>
                     </Box>
-                    {question.options[0].options.map((option, optionIndex) => {
-                      return (
-                        <Box
-                          padding={1}
-                          sx={{
-                            backgroundColor: "#fff",
-                            width: "100%",
-                            maxWidth: 600,
-                            border: "1px solid #e1e1e1",
-                            // marginLeft: ".5rem",
-                            color:
-                              optionIndex === question.selectedOptionIndex &&
-                              "#0A1596",
-                            "&:hover": {
-                              cursor: !option.answer && "pointer",
-                              color: !option.answer && "#0A1596",
-                            },
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                          onClick={(e) => {
-                            !question.answerSubmited &&
-                              SelectFunc(option, optionIndex);
-                          }}
-                          onMouseOver={() => setOnHover(option._id)}
-                          onMouseLeave={() => setOnHover()}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "flex-start",
-                            }}
-                          >
+                    <Container
+                      disableGutters
+                      maxWidth="sm"
+                      style={{
+                        // marginTop: "1rem",
+                        display: "flex",
+                        flexWrap: "wrap",
+                        backgroundColor: "#fff",
+                      }}
+                    // ref={props.onScrollBottom}
+                    >
+                      {question.options[0].options.map((option, optionIndex) => {
+                        return (
+                          <Box sx={{ display: 'flex' }}>
                             <Box
+                              padding={1}
                               sx={{
+                                minHeight:
+                                  question?.options[0].options.length > 4 ||
+                                    !option.value.includes(
+                                      "hp-appen.s3.eu-north-1.amazonaws.com"
+                                    )
+                                    ? 60
+                                    : 150,
+                                border: "1px solid #e1e1e1",
+                                maxWidth:
+                                  question?.options[0].options.length > 4 ||
+                                    !option.value.includes(
+                                      "hp-appen.s3.eu-north-1.amazonaws.com"
+                                    )
+                                    ? 600
+                                    : 300,
+                                color:
+                                  optionIndex === question.selectedOptionIndex &&
+                                  appColors.blueColor,
+                                "&:hover": {
+                                  cursor: !option.answer && "pointer",
+                                  color: !option.answer && appColors.hoverBlue,
+                                },
                                 display: "flex",
-                                flexDirection: "row",
+                                // flexDirection: "row",
+                                alignItems: "center",
+                                backgroundColor: '#FFF',
+                                paddingRight: '10px'
+
                               }}
+                              onClick={(e) => {
+                                !question.answerSubmited &&
+                                  SelectFunc(option, optionIndex);
+                              }}
+                              onMouseOver={() => setOnHover(option._id)}
+                              onMouseLeave={() => setOnHover()}
                             >
-                              <FormControlLabel
-                                value={option._id}
-                                style={{
-                                  marginLeft: ".5rem",
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "flex-start",
                                 }}
-                                control={Options(question, option, optionIndex)}
-                              />
-                              <Typography
-                                style={{
-                                  marginTop: "1.25rem",
-                                  marginLeft: "-1.7rem",
-                                  fontSize: "0.6rem",
-                                }}
-                                variant="body2"
                               >
-                                {OptionIndex(optionIndex)}
-                              </Typography>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  <FormControlLabel
+                                    value={option._id}
+                                    style={{
+                                      marginLeft: ".5rem",
+                                    }}
+                                    control={Options(question, option, optionIndex)}
+                                  />
+                                  <Typography
+                                    style={{
+                                      marginTop: "1.25rem",
+                                      marginLeft: "-1.7rem",
+                                      fontSize: "0.6rem",
+                                    }}
+                                    variant="body2"
+                                  >
+                                    {optionsCharacters(optionIndex)}
+                                  </Typography>
+                                </Box>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  marginLeft:
+                                    question?.options[0].options.length > 4 ||
+                                      option.image === ""
+                                      ? "1rem"
+                                      : "0",
+                                  width: !option.value.includes(
+                                    "hp-appen.s3.eu-north-1.amazonaws.com"
+                                  )
+                                    ? 600
+                                    : 300,
+                                  justifyContent:
+                                    question?.options[0].options.length > 4 ||
+                                      !option.value.includes(
+                                        "hp-appen.s3.eu-north-1.amazonaws.com"
+                                      )
+                                      ? "flex-start"
+                                      : "center",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Typography className={option.value.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "optionImage" : ""} style={{ fontSize: "0.9rem" }}>
+                                  {option?.value && (
+                                    <MarkLatex
+                                      content={option?.value}
+                                    />
+                                  )}{" "}
+                                </Typography>
+                              </Box>
                             </Box>
                           </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              marginLeft: "1rem",
-                            }}
-                          >
-                            <Typography style={{ fontSize: "0.9rem" }}>
-                              {option?.value && (
-                                <MarkLatex
-                                  content={option?.value.replace("\f", "\\f")}
-                                />
-                              )}{" "}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      );
-                    })}
+                        );
+                      })}
+                    </Container>
 
                     {answerExistance ? (
                       Button(question)

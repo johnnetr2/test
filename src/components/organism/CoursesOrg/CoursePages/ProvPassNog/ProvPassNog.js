@@ -11,23 +11,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   AppBar,
-  Card,
   Paper,
   Box,
-  CardActions,
-  CardContent,
-  CardMedia,
   CssBaseline,
-  Grid,
   Radio,
   Button,
   FormControlLabel,
   Toolbar,
   Container,
-  LinearProgress,
 } from "@material-ui/core";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
+import { appColors } from "../../../../../utils/commonService";
 
 const ProvPassNog = () => {
   const Item = styled(Paper)(({ theme }) => ({
@@ -193,8 +187,8 @@ const ProvPassNog = () => {
             <Button
               style={{
                 width: "6rem",
-                border: "1px solid #0A1596",
-                color: "#0A1596",
+                border: `1px solid ${appColors.blueColor}`,
+                color: appColors.blueColor,
               }}
             >
               {" "}

@@ -7,9 +7,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { EndPoints, instance, instance2 } from "../../../service/Route";
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import BodyText from "../../../atom/BodyText/BodyText";
 import CoursesCard from "../../../molecule/CoursesCard/CoursesCard";
@@ -17,7 +15,9 @@ import CoursesRightBar from "../CoursesRightBar/CoursesRightBar";
 import Heading from "../../../atom/Heading/Heading";
 import { Input } from "reactstrap";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SearchIcon from "../../../../assets/Icons/SearchIcon.svg";
+import { appColors } from "../../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,11 +45,12 @@ const useStyles = makeStyles((theme) => ({
 
 const CoursesFeedContent = (props) => {
   const classes = useStyles();
-  const navigate = useNavigate();
-
   const [tabValue, setTabValue] = useState(0);
+  //Search query
+  const [query, setQuery] = useState("");
 
   let previousExams = props.previousExams;
+  console.log(previousExams)
 
   const handleTabs = (e, val) => {
     setTabValue(val);
@@ -67,8 +68,8 @@ const CoursesFeedContent = (props) => {
   return (
     <Container className={classes.root} maxWidth="false">
       <Box>
-        <Heading title="Simulera Prov" />
-        <BodyText title="Gör prov från tidigare år eller välj att slumpa ett helt prov med uppgifter från gamla prov du inte stött på tidigare. " />
+        <Heading title="Övningsprov" />
+        <BodyText title="Här kan du testa dig på riktiga högskoleprov och se hur du mäter dig med provdeltagarna från tidigare år.  " />
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
             style={{
@@ -90,8 +91,8 @@ const CoursesFeedContent = (props) => {
               aria-label="scrollable prevent tabs example"
               TabIndicatorProps={{
                 style: {
-                  background: "#0A1596",
-                  border: "4px solid #0A1596",
+                  background: appColors.blueColor,
+                  border: `4px solid ${appColors.blueColor}`,
                 },
               }}
             >
@@ -102,20 +103,20 @@ const CoursesFeedContent = (props) => {
                 }}
                 label="Alla"
               />
-              <Tab
+              {/* <Tab
                 style={{
                   textTransform: "initial",
                   color: tabValue === 1 ? "black" : "#B5B5B5",
                 }}
                 label="Tidigare högskoleprov"
-              />
-              <Tab
+              />  */}
+              {/* <Tab
                 style={{
                   textTransform: "initial",
                   color: tabValue === 2 ? "black" : "#B5B5B5",
                 }}
                 label="Slumpmässigt prov"
-              />
+              /> */}
               <Tab
                 style={{
                   textTransform: "initial",
@@ -132,18 +133,19 @@ const CoursesFeedContent = (props) => {
               alignItems: "center",
               border: "1px solid #e5e5e5",
               borderRadius: ".5rem",
-              width: "15rem",
+              width: "19rem",
               padding: ".5rem",
             }}
             className={classes.hideSearch}
           >
             <Input
               type="search"
-              placeholder="Sök prov mellan 2015-2021"
+              placeholder="Sök prov mellan 2011-2022"
               style={{ border: "none" }}
+              onChange={(e) => props.searchExams(e.target.value)}
             />
             <Box>
-              <img style={{ marginLeft: ".5rem" }} src={SearchIcon} alt="" />
+              <img src={SearchIcon} alt="" />
             </Box>
             {/* {console.log(props?.seasons, "seasons")} */}
           </Box>
@@ -152,36 +154,50 @@ const CoursesFeedContent = (props) => {
       <TabPanel value={tabValue} index={0}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
-            Tidigare högskoleprov
+            Högskoleprov från tidigare år
           </Typography>
           <Typography
             variant="body2"
             component="body2"
             style={{ fontSize: "0.75rem", lineHeight: "1.5" }}
           >
-            Välj ett specifikt prov och gör samma frågor som kom på just det
-            provet.
+            Gör prov från ett tidigare år och jämför ditt resultat med provdeltagarna från det året.
+            <br />
+            Utprövningspasset är exkluderat från proven.
           </Typography>
         </Box>
         <Box>
           <Box
             sx={{ marginBottom: "1rem", gap: "5rem" }}
-            // onClick={() => navigate("/provpassinfo")}
+          // onClick={() => navigate("/provpassinfo")}
           >
             {previousExams &&
-              previousExams.map((item) => {
-                return (
-                  <CoursesCard
-                    id={item?._id}
-                    item={item}
-                    progress={"1.5"}
-                    quizzes={
-                      props.seasons && getSeasonQuizzzes(props.seasons, item)
-                    }
-                  />
-                );
-              })}
+              previousExams
+                .map((item, index) => {
+                  return (
+                    <CoursesCard
+                      id={item?._id}
+                      item={item}
+                      index={index}
+                      latestExam={props.latestExam._id === item._id}
+                      progress={
+                        props?.data &&
+                        props?.data?.find(
+                          (provHistory) =>
+                            provHistory?.simuleraSeason?._id === item?._id
+                        )
+                      }
+                      quizzes={
+                        props.seasons && getSeasonQuizzzes(props.seasons, item)
+                      }
+                      provpassOrder={
+                        props?.provpassOrderBySeason[item?._id] ?? null
+                      }
+                    />
+                  );
+                })}
           </Box>
+          {/*  */}
         </Box>
         <Box
           sx={{
@@ -194,14 +210,28 @@ const CoursesFeedContent = (props) => {
         >
           <Button
             variant="contained"
-            style={{ backgroundColor: "#0A1596", color: "#fff" }}
-            onClick={() => props.loadMore()}
+            style={{
+              backgroundColor: appColors.blueColor,
+              color: appColors.whiteColor,
+            }}
+            onClick={() =>
+              previousExams?.length < 6 ? props.loadMore() : props.loadLess()
+            }
           >
-            Fler prov
-            <KeyboardArrowDownIcon />
+            {previousExams?.length < 6 ? (
+              <>
+                Fler prov
+                <KeyboardArrowDownIcon />
+              </>
+            ) : (
+              <>
+                Färre prov
+                <KeyboardArrowUpIcon />
+              </>
+            )}
           </Button>
         </Box>
-        <Box sx={{ marginBottom: "2rem" }}>
+        {/* <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
             Slumpmässigt prov
           </Typography>
@@ -213,13 +243,14 @@ const CoursesFeedContent = (props) => {
             Genererar ett prov endast med frågor du inte tidigare stött på i
             övningsdelen.
           </Typography>
-        </Box>
+        </Box> */}
         <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
       </TabPanel>
+
       <TabPanel value={tabValue} index={1}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
-            Tidigare högskoleprov
+            Högskoleprov från tidigare år
           </Typography>
           <Typography
             variant="body2"
@@ -231,25 +262,55 @@ const CoursesFeedContent = (props) => {
           </Typography>
         </Box>
         <Box>
-          <Box sx={{ marginBottom: "1rem" }}>{/* <CoursesCard /> */}</Box>
-        </Box>
-        <Box
-          sx={{
-            marginBottom: "3rem",
-            marginTop: "1rem",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            style={{ backgroundColor: "#0A1596", color: "#fff" }}
-          >
-            Fler prov
-          </Button>
+          <Box sx={{ marginBottom: "1rem" }}>
+            {/* <CoursesCard /> */}
+            {previousExams &&
+              previousExams
+                .filter((exam) => exam.title.toLowerCase().includes(query))
+                .map((item) => {
+                  return (
+                    <CoursesCard
+                      id={item?._id}
+                      item={item}
+                      progress={
+                        props?.data &&
+                        props?.data?.find(
+                          (provHistory) =>
+                            provHistory?.simuleraSeason?._id === item?._id
+                        )
+                      }
+                      quizzes={
+                        props.seasons && getSeasonQuizzzes(props.seasons, item)
+                      }
+                      provpassOrder={
+                        props?.provpassOrderBySeason[item?._id] ?? null
+                      }
+                    />
+                  );
+                })}
+            <Box
+              sx={{
+                marginBottom: "3rem",
+                marginTop: "1rem",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: appColors.blueColor,
+                  color: appColors.whiteColor,
+                }}
+              >
+                Fler prov
+                <KeyboardArrowDownIcon />
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </TabPanel>
-      <TabPanel value={tabValue} index={2}>
+      {/* <TabPanel value={tabValue} index={2}>
         <Box sx={{ marginBottom: "2rem" }}>
           <Typography variant="h5" component="h5">
             Slumpmässigt prov
@@ -263,7 +324,7 @@ const CoursesFeedContent = (props) => {
             övningsdelen.
           </Typography>
         </Box>
-      </TabPanel>
+      </TabPanel> */}
       <TabPanel value={tabValue} index={3}>
         <Box sx={{ marginTop: "-9.5rem" }}>
           <CoursesRightBar

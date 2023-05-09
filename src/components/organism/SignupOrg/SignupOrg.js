@@ -1,20 +1,20 @@
 import { Box, Container, Typography } from "@mui/material";
-import { EndPoints, instance } from "../../service/Route";
+import { EndPoints, instance, instance2 } from "../../service/Route";
 import React, { useEffect, useState } from "react";
 
 import FilledBtn from "../../atom/FilledBtn/FilledBtn";
 import InputField from "../../atom/InputField/InputField";
 import { Label } from "reactstrap";
 import LabelField from "../../molecule/LabelField/LabelField";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Logo from "../../../assets/Icons/whiteLogo.svg";
 import { MixpanelTracking } from "../../../tools/mixpanel/Mixpanel";
-import OutlineBtn from "../../atom/OutlineBtn/OutlineBtn";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { appColors, setInitialUserState } from "../../../utils/commonService";
 
 const useStyles = makeStyles((theme) => ({
   hideOnMobile: {
@@ -44,26 +44,26 @@ const useStyles = makeStyles((theme) => ({
     "&:placeholder": {
       color: "#E1E1E1",
     },
-  },
-  // InputFieldPlaceholder: {
-  //   "&::placeholder": {
-  //     color: "#E1E1E1"
-  //   }
-  // }
-  // InputFieldPlaceholder: {
-  //   "&::placeholder": {
-  //     color: "#E1E1E1"
-  //   }
-  // }
+  }
 }));
 
 const SignupOrg = () => {
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
   useEffect(() => {
     MixpanelTracking.getInstance().visitedPage("SignUp");
+    const token = localStorage.getItem("token");
+    if (token) {
+      instance2.get(EndPoints.getUser).then(response => {
+        setInitialUserState(response.data)
+        navigate("/home");
+      }).catch(error => {
+        console.log("error", error)
+      })
+    }
   }, []);
 
   const classes = useStyles();
-  const navigate = useNavigate();
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
@@ -72,7 +72,7 @@ const SignupOrg = () => {
   const [showPassword, setShowPassword] = useState(true);
 
   let isValidPassword =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/;
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=äöåÄÖÅ.`|{}:;!.?\"()\[\]-]{7,}$/;
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -87,9 +87,9 @@ const SignupOrg = () => {
       password: register.password,
     };
     if (
-      register.fullName == "" ||
-      register.email == "" ||
-      register.password == ""
+      register.fullName === "" ||
+      register.email === "" ||
+      register.password === ""
     ) {
       swal({
         icon: "warning",
@@ -113,16 +113,19 @@ const SignupOrg = () => {
               response?.data?.user?._id,
               response?.data?.user?.fullName,
               response?.data?.user?.email,
-              response?.data?.user?.createdAt
+              "Free",
+              "Email",
+              null,
+              params.get("utm_medium"),
+              params.get("utm_source"),
+              params.get("utm_campaign"),
             );
-            // setRegister({ ...register, fullName: "", email: "", password: "" });
-            // window.reload()
             swal({
               icon: "success",
               title: "Success",
-              text: `Please confirm your email! We sent an email to ${response.data.user.email}`,
+              text: `Registered successfully `,
             }).then(() => navigate("/login"));
-          } else if (response?.data?.result == "fail") {
+          } else if (response?.data?.result === "fail") {
             swal({
               icon: "warning",
               title: "Warning",
@@ -156,7 +159,7 @@ const SignupOrg = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#0A1596",
+          backgroundColor: appColors.blueColor,
         }}
       >
         <Box
@@ -226,6 +229,7 @@ const SignupOrg = () => {
                 borderRadius: "8px",
                 marginBottom: "1rem",
                 outline: "none",
+                fontFamily: "Poppins",
               }}
             />
             <LabelField
@@ -275,7 +279,6 @@ const SignupOrg = () => {
                 id="password"
                 style={{
                   flexBasis: "100%",
-                  backgroundColor: "coral",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
@@ -327,7 +330,13 @@ const SignupOrg = () => {
           >
             <Typography variant="body1" style={{ textTransform: "uppercase" }}>
               Har du redan ett konto?
-              <Link to="/login" style={{ textDecorationLine: "none" }}>
+              <Link
+                to="/login"
+                style={{
+                  textDecorationLine: "none",
+                  color: appColors.blueColor,
+                }}
+              >
                 {" "}
                 Logga in
               </Link>

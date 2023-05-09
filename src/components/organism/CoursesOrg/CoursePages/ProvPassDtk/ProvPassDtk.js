@@ -20,6 +20,7 @@ import Correct from "../../../../../assets/Imgs/correct.png";
 import Wrong from "../../../../../assets/Imgs/wrong.png";
 import FeedbackButtons from "../../../../atom/FeedbackButtons/FeedbackButtons";
 import AnswerStatement from "../../../../molecule/AnswerStatement/AnswerStatement";
+import QuestionStatement from "../../../../molecule/QuestionStatement/QuestionStatement";
 
 const ProvPassDtk = (props) => {
   const [question, setQuestion] = useState();
@@ -224,7 +225,7 @@ const ProvPassDtk = (props) => {
             style={{ fontSize: ".75rem", fontWeight: "600" }}
           >
             <MarkLatex content={question?.questionStatment} />
-          </Typography>
+        </Typography> 
         </Box>
         {question &&
           question.options.map((option, optionIndex) => {

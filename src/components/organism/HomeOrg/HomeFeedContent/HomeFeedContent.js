@@ -14,9 +14,10 @@ import { EndPoints, instance2 } from "../../../service/Route";
 import Heading from "../../../atom/Heading/Heading";
 import HomeCard from "../../../molecule/HomeCard/HomeCard";
 import HomeRightBar from "../HomeRightBar/HomeRightBar";
-import { verbalPercentageCalculator } from "../../../atom/percentageCalculator/verbal";
-import { quantitativePercentageCalculator } from "../../../atom/percentageCalculator/kvantitative";
-
+import { verbalPercentageCalculator } from "../../../../utils/normringCalculations/Verbal";
+import { quantitativePercentageCalculator } from "../../../../utils/normringCalculations/Quantitative";
+import { appColors } from "../../../../utils/commonService";
+import PaymentModal from "../../PayWallOrg/PaymentModal";
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navBelowBarColor: {
     "& .PrivateTabIndicator-colorSecondary-19": {
-      backgroundColor: "#0A1596",
+      backgroundColor: appColors.blueColor,
     },
   },
   tabIndicatorWidth: {
@@ -62,6 +63,14 @@ const HomeFeedContent = (props) => {
   const [previousRecordProgress, setPreviousRecordProgress] = useState();
   const [totalPrognos, setTotalPrognos] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isPremium, setIsPremium] = useState(
+    JSON.parse(localStorage.getItem("isPremium"))
+  );
+  const [paymentModalPopup, setPaymentModalPopup] = useState(false);
+
+  const handlePaymentModalPopupClose = () => {
+    setPaymentModalPopup(false);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -75,6 +84,7 @@ const HomeFeedContent = (props) => {
           setPreviousRecordProgress(response.data.Data);
         }
       });
+
       const url = EndPoints.getAllSections;
       instance2.get(url).then((response) => {
         let newArr = [];
@@ -144,22 +154,27 @@ const HomeFeedContent = (props) => {
     let quantitativeTotalNormValue = 0;
     previousRecordProgress &&
       previousRecordProgress.map((item) => {
-        const isVerbal = verbalCategories.find(sectionCategoryId => sectionCategoryId === item._id);
+        const isVerbal = verbalCategories.find(
+          (sectionCategoryId) => sectionCategoryId === item._id
+        );
         if (isVerbal) {
-          verbalCorrected += item.totalCorrectTimePressure;
-          verbalAttempted += item.totalAttemptedTimePressure
+          verbalCorrected += item.correctedFromLastHundred;
+          verbalAttempted += item.totalAttemptedHundred;
         } else {
-          quantitativeCorrected += item.totalCorrectTimePressure;
-          quantitativeAttempted += item.totalAttemptedTimePressure
+          quantitativeCorrected += item.correctedFromLastHundred;
+          quantitativeAttempted += item.totalAttemptedHundred;
         }
       });
 
-    quantitativeTotalNormValue = (quantitativeCorrected / quantitativeAttempted) * 100;
+    quantitativeTotalNormValue =
+      (quantitativeCorrected / quantitativeAttempted) * 100;
     verbalTotalNormValue = (verbalCorrected / verbalAttempted) * 100;
     quantitativeTotalNormValue = quantitativePercentageCalculator(
       quantitativeTotalNormValue?.toFixed(2)
     );
-    verbalTotalNormValue = verbalPercentageCalculator(verbalTotalNormValue?.toFixed(2));
+    verbalTotalNormValue = verbalPercentageCalculator(
+      verbalTotalNormValue?.toFixed(2)
+    );
     let avgProgressQuantitativeAndVerbal =
       (quantitativeTotalNormValue + verbalTotalNormValue) / 2;
 
@@ -167,7 +182,6 @@ const HomeFeedContent = (props) => {
       setTotalPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
       props.getPrognos(avgProgressQuantitativeAndVerbal.toFixed(2));
     }
-
   }, [previousRecordProgress]);
 
   function TabContainer(props) {
@@ -186,6 +200,10 @@ const HomeFeedContent = (props) => {
     <Container className={classes.root} maxWidth="false">
       <Box>
         <Heading title="Övningar" />
+        <PaymentModal
+          open={paymentModalPopup}
+          handleClose={handlePaymentModalPopupClose}
+        />
         <Box
           sx={{
             display: "flex",
@@ -211,8 +229,8 @@ const HomeFeedContent = (props) => {
                 aria-label="scrollable prevent tabs example"
                 TabIndicatorProps={{
                   style: {
-                    background: "#0A1596",
-                    border: "4px solid #0A1596",
+                    background: appColors.blueColor,
+                    border: `4px solid ${appColors.blueColor}`,
                   },
                 }}
               >
@@ -273,6 +291,8 @@ const HomeFeedContent = (props) => {
                           : ""
                       }
                       isLoading={loading}
+                      isPremium={isPremium}
+                      handleOpen={() => setPaymentModalPopup(true)}
                     // data={previousRecordProgress}
                     />
                   );
@@ -301,6 +321,8 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isPremium}
+                      handleOpen={() => setPaymentModalPopup(true)}
                     />
                   );
                 }
@@ -328,6 +350,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isPremium}
                     />
                   );
                 }
@@ -353,6 +376,7 @@ const HomeFeedContent = (props) => {
                         previousRecordProgress[index]
                       }
                       isLoading={loading}
+                      isPremium={isPremium}
                     />
                   );
                 }
@@ -369,10 +393,9 @@ const HomeFeedContent = (props) => {
           }}
         >
           <HomeRightBar
-            studentPreference={
-              props?.studentPreference
-            }
-            totalPrognos={totalPrognos} />
+            studentPreference={props?.studentPreference}
+            totalPrognos={totalPrognos}
+          />
         </Box>
       </TabPanel>
     </Container>

@@ -33,6 +33,7 @@ const TestInformation = (props) => {
     appbar: {
       border: "1px solid #E1E1E1",
       backgroundColor: "#f9f9f9",
+      maxHeight: "80px",
     },
     size: {
       width: 15,
@@ -54,6 +55,22 @@ const TestInformation = (props) => {
       alignItems: "center",
       justifyContent: "center",
       width: "90vw",
+    },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
     },
   }));
 
@@ -80,17 +97,24 @@ const TestInformation = (props) => {
           <Box
             sx={{
               height: "8vh",
+              maxHeight: "80px",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => navigate("/courses")}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
-          <Typography variant="body1" className={classes.center_align}>
-            Högskoleprov 2021 vår mars
+          <Typography
+            variant="body1"
+            className={classes.center_align}
+            style={{ fontSize: "1.5rem", fontWeight: 400 }}
+          >
+            Högskoleprov {params.state.session.title}{" "}
+            {params.state.session.month}
           </Typography>
           <HelpOutlineIcon sx={{ width: 100 }} />
         </Toolbar>
@@ -101,8 +125,8 @@ const TestInformation = (props) => {
         disableGutters
         style={{
           backgroundColor: "#fff",
-          height: "fit-content",
-          paddingTop: 24,
+          height: "100vh",
+          paddingTop: 48,
         }}
       >
         <Container
@@ -110,9 +134,10 @@ const TestInformation = (props) => {
           style={{
             marginTop: 65,
             backgroundColor: "#f9f9f9",
-            height: "fit-content",
+            height: "85%",
+            maxHeight: "950px",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignItems: "center",
             flexDirection: "column",
           }}
@@ -121,13 +146,14 @@ const TestInformation = (props) => {
             mt={3}
             sx={{
               display: "flex",
-              width: "100%",
+              width: "90%",
               maxWidth: 600,
               flexDirection: "column",
             }}
           >
             <Typography variant="h6" component="h6">
-              Högskoleprov 2021 vår mars
+              Högskoleprov {params.state.session.title}{" "}
+              {params.state.session.month}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>
@@ -136,7 +162,7 @@ const TestInformation = (props) => {
               </Box>
               <Box mt={1} ml={1} sx={{ color: "#222" }}>
                 <img style={{ marginRight: ".25rem" }} src={Clock} alt="" />
-                55min per provass
+                55 min per provpass
               </Box>
             </Box>
           </Box>
@@ -150,6 +176,7 @@ const TestInformation = (props) => {
               overflow: "auto",
               border: "1px solid #e1e1e1",
             }}
+            className={classes.scrollbar}
           >
             <Typography variant="h5" component="h5">
               Instruktioner
@@ -180,7 +207,7 @@ const TestInformation = (props) => {
                 marginTop: "20px",
               }}
             >
-              Kvantiativt provpass
+              Kvantitativt provpass
             </Typography>
 
             <Typography
@@ -275,16 +302,67 @@ const TestInformation = (props) => {
             >
               Lämna in provpass efter 55 minuter
             </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
+            >
+              När 55 minuter har gått avbryts provpasset automatiskt och du
+              behöver lämna in för att få poäng (poängen redovisas först efter att
+              hela provet är klart). Mellan provpassen har du möjlighet att ta paus.
+              Om du avbryter provpasset får du ingen poäng, men du kan göra om
+              provpasset senare.
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{
+                fontSize: ".875rem",
+                fontWeight: "600",
+                marginTop: "20px",
+              }}
+            >
+              Hjälpmedel
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
+            >
+              Du får inte använda miniräknare eller några andra digitala hjälpmedel
+              på provet. Kladdpapper får du däremot använda!
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{
+                fontSize: ".875rem",
+                fontWeight: "600",
+                marginTop: "20px",
+              }}
+            >
+              Rekommendationer
+            </Typography>
+            <Typography
+              mt={3}
+              variant="subtitle1"
+              style={{ fontSize: ".875rem", fontWeight: "400" }}
+            >
+              Stressa inte men stanna inte heller länge på en uppgift du fastnat på.
+              Tidsbegränsningen är en utmaning på Högskoleprovet, men det är
+              precis därför det är så bra att träna på! Lycka till!
+            </Typography>
           </Box>
           <Box py={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             <ExerciseBtn
-              title="Nasta"
+              title="Nästa"
               onClick={() =>
                 navigate("/provpassinfo", {
                   state: {
                     id: params.state.id,
                     session: params.state.session,
                     provpass: params.state?.provpass,
+                    provpassOrder: params?.state?.provpassOrder,
                   },
                 })
               }

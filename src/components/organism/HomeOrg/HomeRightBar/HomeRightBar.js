@@ -6,96 +6,165 @@ import GoalBox from "../../../../components/molecule/GoalBox/GoalBox";
 import ImpDatesCard from "../../../../components/molecule/ImpDatesCard/ImpDatesCard";
 import LinesChart from "../../../molecule/Charts/LinesChart";
 import QuestionProgressBox from "../../../../components/molecule/QuestionProgressBox/QuestionProgressBox";
-import { calculateWeekWiseNorming } from "../../../atom/percentageCalculator/Utils";
-import { getWeekNumbers } from "../../../atom/percentageCalculator/Utils";
-import { datesGroupByComponent } from '../../../service/commonService'
+import { calculateWeekWiseNormingForHomePageGraph } from "../../../../utils/Utils";
+import { getWeekNumbers } from "../../../../utils/Utils";
+import { datesGroupByComponent } from '../../../../utils/commonService'
+import { verbalPercentageCalculator } from "../../../../utils/normringCalculations/Verbal";
+import { quantitativePercentageCalculator } from "../../../../utils/normringCalculations/Quantitative";
+import PaymentCard from "../../../molecule/PaymentCard";
 
 const HomeRightBar = (props) => {
   const theme = createTheme();
   const [showProgress, setShowProgress] = useState(false);
   const [weeklyProgress, setWeeklyProgress] = useState([]);
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
   useEffect(() => {
 
     if (localStorage.getItem("userId")) {
-      const URL = EndPoints.oneDayResult + localStorage.getItem("userId");
-      instance2.get(URL).then((response) => {
-        const { lastWeekSevenWeekVerbal, lastWeekSevenWeekQuantitative, isAttemptedMoreThenTwenty } =
-          response.data;
+
+      instance2.get(EndPoints.allCategoriesResultByUserForHomeGraph).then((response) => {
+        const { allCategoriesSolvedQuizes, isAttemptedMoreThenTwenty } = response.data;
         const weekNames = getWeekNumbers().reverse();
-        const progressOfUserAllCategories = [];
+        const verbalQuantitativesevenWeeksProgress = []
+
         if (
           isAttemptedMoreThenTwenty &&
-          lastWeekSevenWeekQuantitative.length > 1 &&
-          lastWeekSevenWeekVerbal.length > 1
+          allCategoriesSolvedQuizes.length > 1
         ) {
+
           //set state , will show progress or not 
           setShowProgress(isAttemptedMoreThenTwenty);
+          // week wise groupping all categories data and devide add key for verbal and quantitative
+          let weekWiseAllCategoryData = allCategoriesSolvedQuizes.map((categorySolvedQuiz) => {
+            const weekWisePerCategoryData = datesGroupByComponent(categorySolvedQuiz.solvedQuizesByUserTimePressure, "W")
+            const isQuantitative = categorySolvedQuiz.sectionCategory.section.title === "Kvantitativ del"
+            return { weekWisePerCategoryData, isQuantitative }
 
-          // groupping verbal category data in weeks
-          const verbalWeekWiseData = datesGroupByComponent(
-            lastWeekSevenWeekVerbal,
-            "W"
-          );
-          // groupping quantitative category data in weeks
-          const quantitativeWeekWiseData = datesGroupByComponent(
-            lastWeekSevenWeekQuantitative,
-            "W"
-          );
+          })
 
-          // percentage calculation of last 100 question and get normring from verbal table
-          const verbalWeekWiseProgress = calculateWeekWiseNorming(
-            verbalWeekWiseData,
-            "verbal",
-          );
-          // percentage calculation of last 100 question and get normring from quantitative table
-          const quantitativeWeekWiseProgress = calculateWeekWiseNorming(
-            quantitativeWeekWiseData,
-            "quantitative"
-          );
-
-          //calculate average of verbal and quantitative normring values 
-          weekNames.forEach((weekName) => {
-            //find verbal progress data for specific week number e.g V48
-            const verbalNormringOfLastHundred = verbalWeekWiseProgress.find(
-              (verbalNorming) => verbalNorming.name === weekName
-            );
-
-            //find quantitave progress data for specific week number e.g V48
-            const quantitativeNormringOfLastHundred = quantitativeWeekWiseProgress.find(
-              (quantitativeNorming) => quantitativeNorming.name === weekName
-            );
-
-            // calculate average of verbal and quantitative normring values
-            let overAllProgressOfWeek = 0;
-            if (!quantitativeNormringOfLastHundred && !verbalNormringOfLastHundred) {
-              // for repeat privious progress if i did not done anything in next week
-              overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
-            } else if (quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
-              if (verbalNormringOfLastHundred.eachCategoryPrognos || quantitativeNormringOfLastHundred.eachCategoryPrognos) {
-                overAllProgressOfWeek =
-                  (verbalNormringOfLastHundred.eachCategoryPrognos + quantitativeNormringOfLastHundred.eachCategoryPrognos) / 2;
-              } else {
-                overAllProgressOfWeek = progressOfUserAllCategories.length > 0 ? progressOfUserAllCategories[progressOfUserAllCategories.length - 1].Prognos : null;
-              }
-            } else if (!verbalNormringOfLastHundred && quantitativeNormringOfLastHundred) {
-              overAllProgressOfWeek = quantitativeNormringOfLastHundred.eachCategoryPrognos / 2;
-            } else if (!quantitativeNormringOfLastHundred && verbalNormringOfLastHundred) {
-              overAllProgressOfWeek = verbalNormringOfLastHundred.eachCategoryPrognos / 2;
+          let weekWiseAllCategoryDataFormater = weekWiseAllCategoryData
+          weekWiseAllCategoryDataFormater = weekWiseAllCategoryDataFormater.map(({ weekWisePerCategoryData, isQuantitative }) => {
+            let sortable = [];
+            for (var key in weekWisePerCategoryData) {
+              sortable.push([key, weekWisePerCategoryData[key]]);
             }
 
-            progressOfUserAllCategories.push({
-              Prognos: overAllProgressOfWeek < 0 ? overAllProgressOfWeek.toFixed(1) : overAllProgressOfWeek,
-              name: weekName,
+            sortable.sort(function (a, b) {
+              return new Date(a[1][0].createdAt) - new Date(b[1][0].createdAt);
             });
-          });
+            let obj = new Map();
+            sortable.forEach((innerArray) => {
+              obj.set(innerArray[0], innerArray[1]);
+            });
+            return { weekWisePerCategoryData: obj, isQuantitative }
+
+          })
+
+          // pick last hundred questions for week for every category
+          const hundredQuestionsPerWeekData = []
+          for (let index = 0; index < weekWiseAllCategoryDataFormater.length; index++) {
+            const { weekWisePerCategoryData, isQuantitative } = weekWiseAllCategoryDataFormater[index];
+            const hundredQuestionsPerWeek = calculateWeekWiseNormingForHomePageGraph(weekWisePerCategoryData)
+            hundredQuestionsPerWeekData.push({ hundredQuestionsPerWeek, isQuantitative })
+          }
+
+          // add same weeks data of verbal and quantitative categorgries
+          // get normring for quantitative and calculate average of both categories.
+          let perWeekVerbalCorrected = 0
+          let perWeekVerbalAttempted = 0
+          let perWeekQuantitativeCorrected = 0
+          let perWeekQuantitativeAttempted = 0
+          for (let weekNameIndex = 0; weekNameIndex < weekNames.length; weekNameIndex++) {
+            const weekNumber = weekNames[weekNameIndex];
+            // for pickup same weeks data from all categories
+            for (let index = 0; index < hundredQuestionsPerWeekData.length; index++) {
+
+              const categoryWeekWiseData = hundredQuestionsPerWeekData[index];
+              const categoryWeeksData = categoryWeekWiseData.hundredQuestionsPerWeek.find(weekData => weekData.name === weekNumber)
+              if (!categoryWeeksData) {
+                // for pick previous week's data if any category is missing on week
+                for (let pickPrevious = weekNameIndex - 1; pickPrevious >= 0; pickPrevious--) {
+                  const previousWeekName = weekNames[pickPrevious];
+                  const categoryWeeksDataPrev = categoryWeekWiseData.hundredQuestionsPerWeek.find(weekData => weekData.name === previousWeekName)
+
+                  if (categoryWeeksDataPrev) {
+                    if (categoryWeekWiseData.isQuantitative) {
+                      perWeekQuantitativeCorrected += categoryWeeksDataPrev.correctAnswers
+                      perWeekQuantitativeAttempted += categoryWeeksDataPrev.attemptQuestions
+                    } else {
+                      perWeekVerbalCorrected += categoryWeeksDataPrev.correctAnswers
+                      perWeekVerbalAttempted += categoryWeeksDataPrev.attemptQuestions
+                    }
+                    break
+                  }
+                }
+              } else {
+                // add check to skip week's progress when not have done enough progress. 
+
+                if (categoryWeeksData.attemptQuestions > 0 && categoryWeeksData.attemptQuestions < 20) {
+                  perWeekQuantitativeAttempted = 0
+                  perWeekVerbalAttempted = 0
+                  break
+                }
+                if (categoryWeekWiseData.isQuantitative) {
+                  perWeekQuantitativeCorrected += categoryWeeksData.correctAnswers
+                  perWeekQuantitativeAttempted += categoryWeeksData.attemptQuestions
+                } else {
+                  perWeekVerbalCorrected += categoryWeeksData.correctAnswers
+                  perWeekVerbalAttempted += categoryWeeksData.attemptQuestions
+                }
+
+              }
+
+            }
+            // calculate percentage for retrive normring from the table
+            let quantitativePercentageForNormring = perWeekQuantitativeAttempted < 1 ? null : (perWeekQuantitativeCorrected / perWeekQuantitativeAttempted) * 100;
+            let verbalPercentageForNormring = perWeekVerbalAttempted < 1 ? null : (perWeekVerbalCorrected / perWeekVerbalAttempted) * 100;
+
+            // getting normring values from verbal normring tables
+            const verbalNormring = verbalPercentageForNormring ? verbalPercentageCalculator(
+              verbalPercentageForNormring.toFixed(2)
+            ) : verbalPercentageForNormring;
+
+            // getting normring values from quantitative normring tables
+            const quantitativeNormring = quantitativePercentageForNormring ? quantitativePercentageCalculator(
+              quantitativePercentageForNormring.toFixed(2)
+            ) : quantitativePercentageForNormring;
+
+            // Average of quantitative and verbal
+            let verbalQuantitativePerWeekNormringAverage = null
+            if (verbalNormring || quantitativeNormring) {
+              if (!verbalNormring) {
+                verbalQuantitativePerWeekNormringAverage = quantitativeNormring / 2
+              } else if (!quantitativeNormring) {
+                verbalQuantitativePerWeekNormringAverage = verbalNormring / 2
+              } else {
+                verbalQuantitativePerWeekNormringAverage = (verbalNormring + quantitativeNormring) / 2
+              }
+            } else if (verbalNormring === 0 && quantitativeNormring === 0) {
+              verbalQuantitativePerWeekNormringAverage = 0
+            }
+
+            verbalQuantitativesevenWeeksProgress.push({
+              Prognos: verbalQuantitativePerWeekNormringAverage ? verbalQuantitativePerWeekNormringAverage.toFixed(2) : verbalQuantitativePerWeekNormringAverage,
+              name: weekNumber
+            })
+
+            perWeekQuantitativeCorrected = 0
+            perWeekQuantitativeAttempted = 0
+            perWeekVerbalCorrected = 0
+            perWeekVerbalAttempted = 0
+          }
+
         } else {
           // making default array for map for newly users
           weekNames.forEach((weekName) => {
-            progressOfUserAllCategories.push({ name: weekName, Prognos: null })
+            verbalQuantitativesevenWeeksProgress.push({ name: weekName, Prognos: null })
           })
         }
-        setWeeklyProgress(progressOfUserAllCategories);
+        // console.log("verbalQuantitativesevenWeeksProgress", verbalQuantitativesevenWeeksProgress)
+        setWeeklyProgress(verbalQuantitativesevenWeeksProgress)
       });
     }
   }, []);
@@ -108,7 +177,12 @@ const HomeRightBar = (props) => {
           marginTop: "6rem",
         }}
       >
-        <Box style={{ marginTop: "10.5rem" }}>
+        {!isPremium &&
+          <PaymentCard
+            title={"Få exklusiva fördelar som förbereder dig för Högskoleprovet."}
+          ></PaymentCard>
+        }
+        <Box style={{ marginTop: isPremium ? "10.5rem" : "3rem" }}>
           <Typography
             variant="h6"
             component="h6"

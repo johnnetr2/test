@@ -1,12 +1,14 @@
 import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
 import { EndPoints, instance2 } from "../../service/Route";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import { appColors } from "../../../utils/commonService";
+import PaymentModal from "../../organism/PayWallOrg/PaymentModal";
 
 const useStyles = makeStyles((theme) => ({
   global: {
@@ -28,6 +30,10 @@ const CoursesCard = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
+  const isPremium = JSON.parse(localStorage.getItem("isPremium"));
+  const [showPaywallPopup, setShowPaywallPopup] = useState(false);
+
+  const isFirstQuiz = useMemo(() => props.latestExam, [props.latestExam])
 
   const percentage = () => {
     switch (props?.quizzes?.simuleraQuizResult?.length) {
@@ -50,15 +56,18 @@ const CoursesCard = (props) => {
       simuleraSeason: props.item._id,
       user: localStorage.getItem("userId"),
     };
-    instance2.post(URL, data).then((response) => {
-      navigate("/provpassinfo", {
-        state: {
-          id: props.id,
-          session: props?.item,
-          provpass: response.data.simuleraSeasonResult,
-        },
+    if (isFirstQuiz || isPremium) {
+      instance2.post(URL, data).then((response) => {
+        navigate("/testInformation", {
+          state: {
+            id: props.id,
+            session: props?.item,
+            provpass: response.data.simuleraSeasonResult,
+            provpassOrder: props?.provpassOrder ?? null,
+          },
+        });
       });
-    });
+    }
   };
 
   function Dropdown(prop) {
@@ -66,7 +75,7 @@ const CoursesCard = (props) => {
       <div
         className="result_popup"
         onClick={() => prop.onClick()}
-        style={{ marginTop: "70px" }}
+        style={{ marginTop: isPremium ? "70px" : "35px" }}
       >
         STARTA OM
         <div className="popup"></div>
@@ -87,9 +96,45 @@ const CoursesCard = (props) => {
           maxWidth: { xs: "unset", lg: "48rem" },
         }}
       >
+        <PaymentModal
+          open={showPaywallPopup}
+          handleClose={() => {
+            setShowPaywallPopup(false);
+          }
+          }
+        />
         <Box
-          sx={{ margin: "0.25rem", paddingLeft: "1rem", paddingBottom: "1rem" }}
+          sx={{ paddingLeft: "1rem", paddingBottom: "1rem" }}
+          onClick={() => {
+            if (isFirstQuiz || isPremium) {
+              if (
+                props?.quizzes?.simuleraQuizResult.length < 4 ||
+                !props?.quizzes?.simuleraQuizResult
+              ) {
+                navigate("/testInformation", {
+                  state: {
+                    id: props.id,
+                    session: props?.item,
+                    provpass: props?.quizzes,
+                    provpassOrder: props?.provpassOrder,
+                  },
+                });
+              } else {
+                navigate("/provresultat", {
+                  state: {
+                    seasonId: props?.quizzes?.simuleraSeason?._id,
+                    simuleraQuizResultId: props?.quizzes?._id,
+                    quizId: props?.quizzes?._id,
+                    provpassOrder: props?.provpassOrder,
+                  },
+                });
+              }
+            } else {
+              setShowPaywallPopup(true);
+            }
+          }}
         >
+
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Box
               style={{
@@ -100,15 +145,49 @@ const CoursesCard = (props) => {
                 width: "1.1rem",
               }}
             >
-              <MoreVertIcon
-                style={{
-                  color: "grey",
-                  marginRight: "0.5px",
-                }}
-                onClick={() => setShowPopup(!showPopup)}
-              />
+              {!(isFirstQuiz || isPremium) ? (
+                <Box
+                  sx={{
+                    borderRadius: "0px 4px 0px 4px",
+                    textAlign: "center",
+                    width: "100px",
+                    height: "23px",
+                    backgroundColor: "#FFE482",
+                    color: appColors.blackColor,
+                  }}
+                >
+                  Premium
+                </Box>
+              ) : (
+                <div style={{ display: "flex" }}>
+                  {!isPremium && <span style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: '0px 10px',
+                    borderRadius: "0px 4px 0px 4px",
+                    textAlign: "center",
+                    width: "100px",
+                    // height: "23px",
+                    backgroundColor: "#F2F2F2",
+                    color: appColors.blackColor,
+                  }}>
+                    Gratis
+                  </span>}
+                  {(isPremium) && <MoreVertIcon
+                    style={{
+                      color: "grey",
+                      marginRight: "0.5px",
+                      marginTop: "2px",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPopup(!showPopup);
+                    }}
+                  />}
+                </div>
+              )}
 
-              {showPopup && (
+              {(showPopup && isPremium) && (
                 <Dropdown
                   style={{
                     backgroundColor: "blue",
@@ -125,26 +204,60 @@ const CoursesCard = (props) => {
               alignItems: "center",
               flexWrap: "wrap",
             }}
-          >
-            <Box
-              onClick={() => {
-                if (props?.quizzes.simuleraQuizResult.length < 4) {
+            onClick={() => {
+              if (isFirstQuiz || isPremium) {
+                if (
+                  props?.quizzes?.simuleraQuizResult &&
+                  props?.quizzes?.simuleraQuizResult?.length < 4
+                ) {
                   navigate("/testInformation", {
                     state: {
                       id: props.id,
                       session: props?.item,
                       provpass: props?.quizzes,
+                      provpassOrder: props?.provpassOrder,
                     },
                   });
                 } else {
                   navigate("/provresultat", {
                     state: {
-                      seasonId: props?.quizzes.simuleraSeason._id,
-                      simuleraQuizResultId: props?.quizzes._id,
+                      seasonId: props?.quizzes?.simuleraSeason?._id,
+                      simuleraQuizResultId: props?.quizzes?._id,
+
                     },
                   });
                 }
-              }}
+              } else {
+                setShowPaywallPopup(true);
+              }
+            }}
+          >
+            <Box
+              onClick={() => {
+                if (isFirstQuiz || isPremium) {
+                  if (props?.quizzes?.simuleraQuizResult.length < 4 || !props?.quizzes?.simuleraQuizResult) {
+                    navigate("/testInformation", {
+                      state: {
+                        id: props.id,
+                        session: props?.item,
+                        provpass: props?.quizzes,
+                        provpassOrder: props?.provpassOrder,
+
+                      },
+                    });
+                  } else {
+                    navigate("/provresultat", {
+                      state: {
+                        seasonId: props?.quizzes?.simuleraSeason?._id,
+                        simuleraQuizResultId: props?.quizzes?._id,
+                      },
+                    });
+                  }
+                } else {
+                  setShowPaywallPopup(true);
+                }
+              }
+              }
             >
               <Box
                 style={{
@@ -167,14 +280,14 @@ const CoursesCard = (props) => {
                   spacing={1}
                   style={{ display: "flex", flexWrap: "wrap", gap: "0.1rem" }}
                 >
-                  {[1, 2, 3, 4].map((item) => {
+                  {props?.provpassOrder?.map(year => year.split("-")[2].replace(/[^0-9]/g, "")).map((item, index) => {
                     return (
                       <Chip
                         label={"Provpass " + item}
                         style={{
                           backgroundColor:
                             props.quizzes &&
-                            item <= props?.quizzes.simuleraQuizResult?.length
+                              (index + 1) <= props?.quizzes.simuleraQuizResult?.length
                               ? "#6FCF97"
                               : "#E1E1E1",
                           color: "#505050",
@@ -190,19 +303,28 @@ const CoursesCard = (props) => {
               </Box>
             </Box>
             {props.quizzes !== undefined &&
-            props?.quizzes?.simuleraQuizResult.length > 3 ? (
+              props?.quizzes?.simuleraQuizResult.length > 3 ? (
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   flexDirection: "column",
-                  marginRight: "1.5rem",
+                  textAlign: "center",
+                  marginRight: isPremium ? "1.3rem" : "6rem",
                 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Typography variant="h4" component="h4">
                     {" "}
-                    {props.progress}{" "}
+                    {props?.progress.totalAnswer
+                      ? (
+                        (props?.progress?.totalAnswer /
+                          props?.progress?.totalQuestions) *
+                        2
+                      )
+                        .toFixed(1)
+                        .replace(/\.0+$/, "")
+                      : 0}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -214,19 +336,32 @@ const CoursesCard = (props) => {
                   </Typography>
                 </Box>
                 <Box>
-                  <Button
-                    variant="outlined"
-                    style={{
-                      width: "12rem",
-                      textTransform: "capitalize",
-                      border: "2px solid #0A1596",
-                      color: "#0A1596",
-                    }}
-                    onClick={() => restartQuiz()}
-                  >
-                    Gör om prov
-                  </Button>
+                  {(isFirstQuiz || isPremium) && (
+                    <Button
+                      variant="outlined"
+                      style={{
+                        width: "12rem",
+                        textTransform: "capitalize",
+                        border: `2px solid ${appColors.blueColor}`,
+                        color: appColors.blueColor,
+                      }}
+                      onClick={() => restartQuiz()}
+                    >
+                      Gör om prov
+                    </Button>
+                  )}
                 </Box>
+                {isFirstQuiz && <MoreVertIcon
+                  style={{
+                    color: "grey",
+                    marginRight: "0.5px",
+                    marginTop: "2px",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowPopup(!showPopup);
+                  }}
+                />}
               </Box>
             ) : (
               <Box
@@ -284,9 +419,32 @@ const CoursesCard = (props) => {
                     </Typography>
                   </Box>
                 </Box>
+
               </Box>
             )}
           </Box>
+          {(isFirstQuiz && !isPremium) && <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            {(showPopup && !isPremium) && (
+              <Dropdown
+                style={{
+                  backgroundColor: "blue",
+                }}
+                onClick={() => restartQuiz()}
+              />
+            )}
+            <MoreVertIcon
+              style={{
+                color: "grey",
+                marginRight: "0.5px",
+                marginTop: "2px",
+
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowPopup(!showPopup);
+              }}
+            />
+          </div>}
         </Box>
       </Box>
     </Container>

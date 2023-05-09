@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { Input } from "reactstrap";
 import Cross from "../../../assets/Icons/Cross.svg";
+import { appColors } from "../../../utils/commonService";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -118,8 +119,8 @@ export default function StartPopup({
                     variant="outlined"
                     style={{
                       backgroundColor: "none",
-                      border: "1px solid #0A1596",
-                      color: "#0A1596",
+                      border: `1px solid ${appColors.blueColor}`,
+                      color: appColors.blueColor,
                       textTransform: "capitalize",
                       width: "30%",
                     }}

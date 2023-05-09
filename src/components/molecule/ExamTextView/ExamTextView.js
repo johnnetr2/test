@@ -1,9 +1,11 @@
-import { Close } from "@mui/icons-material";
+
 import { Box, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
-import MarkLatex from "../../atom/Marklatex/MarkLatex";
 import ArrowSalt from "../../../assets/Icons/ArrowSalt.svg";
+import QuestionStatement from "../QuestionStatement/QuestionStatement";
+import ExpansionDialog from "../../atom/ExpansionDialog/ExpansionDialog";
+
 
 const useStyles = makeStyles((theme) => ({
   scrollbar: {
@@ -26,6 +28,25 @@ const useStyles = makeStyles((theme) => ({
 
 const ExamTextView = ({text, title, questionLength}) => {
   const [extendedView, setExtendView] = useState(false);
+  const [showRuler, setShowRuler] = useState(false);
+  const [position, setPosition] = useState({
+    left: "85%",
+    top: "37.5%",
+    width: "75px",
+    height: "450px",
+    rotation: "0deg",
+  });
+
+  const handleShowRuler = () => {
+    setShowRuler((prevState) => !prevState)
+    setPosition({
+      left: "85%",
+      top: "37.5%",
+      width: "75px",
+      height: "450px",
+      rotation: "0deg",
+    })
+  };
   
   const classes = useStyles();
   
@@ -49,7 +70,12 @@ const ExamTextView = ({text, title, questionLength}) => {
         className={classes.scrollbar}
         style={{ position: "relative" }}
         >
-            <Typography
+          <QuestionStatement
+            numberOfQuestions={questionLength}
+            title={title}
+            description={text}
+          />
+            {/* <Typography
               variant="subtitle1"
               style={{
                 fontSize: ".7rem",
@@ -60,6 +86,8 @@ const ExamTextView = ({text, title, questionLength}) => {
               {/* Lines 61 and 94 are changed for making " uppgift and uppgifter" dynamic to be grammarly correct*/}
               {questionLength === 1 ? "1 uppgift" : (questionLength || 0) + " uppgifter"}
             </Typography>
+              {(questionLength ? questionLength : 0) + " uppgifter:"}
+            </Typography> */}
             <img
               onClick={() => setExtendView(true)}
               style={{
@@ -131,6 +159,15 @@ const ExamTextView = ({text, title, questionLength}) => {
                 }}
               />
             </Dialog>
+           <ExpansionDialog
+            open={extendedView}
+            onClose={closeExtended}
+            title={title}
+            text={text}
+            questionLength={questionLength}
+            handleShowRuler={handleShowRuler}
+            showRuler={showRuler}
+           />
         </Box>
     )
 }

@@ -16,10 +16,9 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import MarkLatex from "../../../../../atom/Marklatex/MarkLatex";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import { appColors, scrollTop } from "../../../../../../utils/commonService";
 
 const ResultQuestionViewDtkOrg = (props) => {
-
-
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,14 +64,7 @@ const ResultQuestionViewDtkOrg = (props) => {
   const [paragraph, setParagraph] = useState();
   const [showLoader, setShowLoader] = useState(false);
   const [enterSubmitted, setEnterSubmitted] = useState(false)
-  const { user, token } = useSelector((state) => state.value);
-
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  const { token } = useSelector((state) => state.value);
 
   useEffect(() => {
     const handleEnterClick = (e) => {
@@ -190,6 +182,7 @@ const ResultQuestionViewDtkOrg = (props) => {
                         <Typography
                           variant="h6"
                           component="h6"
+                          className={item?.questionStatement?.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
                           style={{ fontSize: "1rem", fontWeight: "600" }}
                         >
                           <MarkLatex content={item.questionStatement} />
@@ -241,7 +234,7 @@ const ResultQuestionViewDtkOrg = (props) => {
               padding={1}
               mt={2}
               style={{
-                backgroundColor: "#0A1596",
+                backgroundColor: appColors.blueColor,
                 color: "#FFFFFF",
                 height: "2.7rem",
                 borderRadius: ".4rem",

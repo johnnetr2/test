@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import React, { useMemo, useState } from "react";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import Clock from "../../../../../assets/Icons/Clock.svg";
@@ -15,16 +14,21 @@ import {
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 import { useNavigate, useLocation } from "react-router-dom";
-import { PanoramaSharp } from "@mui/icons-material";
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
+import KvantitativProvpassInfo from "../../../../molecule/KvantitativProvpasInfo/KvantitativProvpassInfo";
+import VerbalProvpassInfo from "../../../../molecule/VerbalProvpassInfo/VerbalProvpassInfo";
 
 const ProvPassInformation = () => {
   const navigate = useNavigate();
   const params = useLocation();
 
+  const provpassNumber = useMemo(() => params?.state?.provpassOrder[
+    (params?.state?.provpass?.simuleraQuizResult?.length) || 0
+  ].split("-")[2].replace(/[^0-9]/g, ""), [params]);
+
   const useStyles = makeStyles((theme) => ({
     root: {
-      minHeight: "100vh",
+      height: "100vh",
       backgroundColor: "#fff",
       margin: 0,
       padding: 0,
@@ -38,6 +42,7 @@ const ProvPassInformation = () => {
     appbar: {
       border: "1px solid #E1E1E1",
       backgroundColor: "#f9f9f9",
+      maxHeight: "80px",
     },
     size: {
       width: 15,
@@ -55,9 +60,25 @@ const ProvPassInformation = () => {
     content: {
       backgroundColor: "#fff",
       display: "flex",
-      alignItems: "center",
+      alignItems: "flex-start",
       justifyContent: "center",
       width: "100%",
+    },
+    scrollbar: {
+      "&::-webkit-scrollbar": {
+        width: 3,
+        height: 5,
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#505050",
+        borderRadius: "10px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#707070",
+      },
     },
   }));
 
@@ -65,7 +86,7 @@ const ProvPassInformation = () => {
   const [helpPopup, setHelpPopup] = useState(false);
 
   return (
-    <div>
+    <div className={classes.root}>
       <CssBaseline />
       {helpPopup && <HelpPopup />}
       <AppBar
@@ -84,12 +105,14 @@ const ProvPassInformation = () => {
           <Box
             sx={{
               height: "5rem",
+              maxHeight: "80px",
               width: "2.3rem",
               display: "flex",
               alignItems: "center",
               borderRight: "1px solid #E1E1E1",
               cursor: "pointer",
             }}
+            onClick={() => navigate("/courses")}
           >
             <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
           </Box>
@@ -98,8 +121,8 @@ const ProvPassInformation = () => {
             style={{ fontSize: "1.5rem", fontWeight: 400 }}
             className={classes.center_align}
           >
-            Högskoleprov {params.state.session.title}{" "}
-            {params.state.session.month}
+            Högskoleprov {params.state?.session?.title}{" "}
+            {params?.state?.session?.month}
           </Typography>
           <Box onClick={() => setHelpPopup(!helpPopup)}>
             <HelpOutlineIcon />
@@ -113,6 +136,7 @@ const ProvPassInformation = () => {
         style={{
           backgroundColor: "#fff",
           border: "1px solid #fff",
+          height: "91%",
         }}
       >
         <Container
@@ -120,6 +144,8 @@ const ProvPassInformation = () => {
             marginTop: 24,
             backgroundColor: "#f9f9f9",
             width: "80%",
+            height: "85%",
+            maxHeight: "1200px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -136,10 +162,13 @@ const ProvPassInformation = () => {
             }}
           >
             <Typography variant="h6" component="h6">
-              Kvantitativt provpass - Provpass{" "}
-              {params?.state.provpass === undefined
-                ? 1
-                : params?.state.provpass.simuleraQuizResult.length + 1}
+              {params?.state?.provpassOrder[
+                (params?.state?.provpass?.simuleraQuizResult?.length) || 0
+              ]?.includes("KVA")
+                ? "Kvantitativt"
+                : "Verbalt"}{" "}
+              provpass - Provpass{" "}
+              {provpassNumber}
             </Typography>
             <Box sx={{ display: "flex" }}>
               <Box mt={1} width={100} sx={{ color: "#222" }}>
@@ -152,7 +181,14 @@ const ProvPassInformation = () => {
               </Box>
             </Box>
           </Box>
-          <Box
+          {params?.state?.provpassOrder[
+            (params?.state?.provpass?.simuleraQuizResult.length) || 0
+          ]?.includes("KVA") ? (
+            <KvantitativProvpassInfo classes={classes} />
+          ) : (
+            <VerbalProvpassInfo classes={classes} />
+          )}
+          {/* <Box
             mt={3}
             // padding={6}
             paddingLeft={6}
@@ -165,6 +201,7 @@ const ProvPassInformation = () => {
               border: "1px solid #e1e1e1",
               top: 0,
             }}
+            className={classes.scrollbar}
           >
             <Typography
               variant="h6"
@@ -295,17 +332,18 @@ const ProvPassInformation = () => {
               information som finns på respektive uppslag. Till varje uppgift
               finns det fyra svarsförslag. Välj det som bäst besvarar frågan.
             </Typography>
-          </Box>
+          </Box> */}
           <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 600 }}>
             {/* <Link to="#"> */}
             <ExerciseBtn
-              title="Starta delprov"
+              title="Starta provpass"
               onClick={() =>
                 navigate("/simuleraprov", {
                   state: {
                     id: params.state.id,
                     session: params.state.session,
                     provpass: params.state.provpass,
+                    provpassOrder: params?.state?.provpassOrder,
                   },
                 })
               }
