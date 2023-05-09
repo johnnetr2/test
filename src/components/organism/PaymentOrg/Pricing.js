@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Grid } from "@material-ui/core";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
 import { EndPoints, instance2 } from "../../service/Route";
@@ -90,6 +90,20 @@ const Pricing = () => {
     }, 1000);
   };
 
+  // Responsive title
+  let theme = createTheme()
+  theme = responsiveFontSizes(theme)
+
+  theme.typography.h3 = {
+    fontSize: '2.7rem',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '2.0rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.6rem',
+    },
+  }
+
   return (
     <Grid //Mother container
       container
@@ -109,7 +123,7 @@ const Pricing = () => {
           padding: '10px',
           marginTop: '2vw',
           maxWidth: '1024px',
-          minWidth: '390px',
+          minWidth: '340px',
           border: "1px solid",
           borderColor: "rgba(166, 166, 166, 0.5)",
           borderRadius: "20px",
@@ -120,12 +134,12 @@ const Pricing = () => {
           container
           justifyContent="flex-end"
         >
-          <Grid item>
+          <Grid item style={{ paddingTop: "2vw", paddingRight: "1.5vw" }}>
             <Stack direction="row" spacing={1} alignItems="center">
               <Typography
                 style={{
-                  fontSize: "16px",
-                  fontWeight: "bold",
+                  fontSize: "14px",
+                  fontWeight: "600",
                   color: pricingSwitch ? "#B5B5B5" : "#5263EB",
                 }}
               >
@@ -140,8 +154,8 @@ const Pricing = () => {
               />
               <Typography
                 style={{
-                  fontSize: "16px",
-                  fontWeight: "bold",
+                  fontSize: "14px",
+                  fontWeight: "600",
                   color: pricingSwitch ? "#5263EB" : "#B5B5B5",
                 }}
               >
@@ -162,9 +176,11 @@ const Pricing = () => {
           }}
         >
           <Grid item>
-            <Typography style={{ fontSize: "38px", textAlign: "center", paddingBottom: "20px" }}>
-              Uppgradera till Premium
-            </Typography>
+            <ThemeProvider theme={theme}>
+              <Typography variant="h3" style={{ textAlign: "center", paddingBottom: "20px" }}>
+                Uppgradera till Premium
+              </Typography>
+            </ThemeProvider>
           </Grid>
           <Grid item>
             <Typography
@@ -184,11 +200,11 @@ const Pricing = () => {
             textAlign: "center",
           }}
         >
-          <Grid item sm={12} lg={8} style={{ paddingLeft: "3vw", maxWidth: "600px" }} >
+          <Grid item sm={12} lg={8} style={{ paddingLeft: "3vw", paddingBottom: "30px", maxWidth: "600px" }} >
             <ListValues />
           </Grid>
           <Grid item sm={12} lg={4} >
-            <Typography style={{ fontSize: "40px", color: "#5263EB", fontWeight: "600", }}>
+            <Typography style={{ fontSize: "36px", color: "#5263EB", fontWeight: "600" }}>
               {pricingSwitch ? whichPlan.pricePerMonth : whichPlan.price} SEK
             </Typography>
             <Typography>
