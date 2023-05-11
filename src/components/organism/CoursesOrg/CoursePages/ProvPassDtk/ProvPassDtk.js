@@ -184,9 +184,7 @@ const ProvPassDtk = (props) => {
               fontWeight: "500",
             }}
           >
-            {props.questions.length === 1
-              ? "1 uppgift"
-              : `${props.questions.length} uppgifter`}
+            {props.index + 1} uppgifter:
           </Typography>
           <Typography variant="h6" component="h6">
             {question?.title}
