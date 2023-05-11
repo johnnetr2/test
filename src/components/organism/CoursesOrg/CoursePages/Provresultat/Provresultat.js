@@ -173,9 +173,7 @@ const Provresultat = () => {
       participantsAverage?.KVANT,
       correctAnswersOfKvantitative &&
       totalQuestionsOfKvantitative &&
-      ((correctAnswersOfKvantitative / totalQuestionsOfKvantitative) * 2)
-        ?.toFixed(1)
-        .replace(/\.0+$/, "")
+      testSummary?.normeringKvant
     ),
   ];
 
@@ -211,9 +209,7 @@ const Provresultat = () => {
       participantsAverage?.VERB,
       correctAnswersOfVerbal &&
       totalQuestionsOfVerbal &&
-      ((correctAnswersOfVerbal / totalQuestionsOfVerbal) * 2)
-        ?.toFixed(1)
-        .replace(/\.0+$/, "")
+      testSummary?.normeringVerb
     ),
   ];
 

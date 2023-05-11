@@ -5,6 +5,8 @@ import { useState } from "react";
 import ArrowSalt from "../../../assets/Icons/ArrowSalt.svg";
 import QuestionStatement from "../QuestionStatement/QuestionStatement";
 import ExpansionDialog from "../../atom/ExpansionDialog/ExpansionDialog";
+import MarkLatex from "../../atom/Marklatex/MarkLatex";
+import { Close } from "@mui/icons-material";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -83,11 +85,13 @@ const ExamTextView = ({text, title, questionLength}) => {
                 marginBottom: ".25rem",
               }}
             >
-              {/* Lines 61 and 94 are changed for making " uppgift and uppgifter" dynamic to be grammarly correct*/}
+              /* Lines 61 and 94 are changed for making " uppgift and uppgifter" dynamic to be grammarly correct*/}
+            <Typography>
               {questionLength === 1 ? "1 uppgift" : (questionLength || 0) + " uppgifter"}
             </Typography>
+            <Typography>
               {(questionLength ? questionLength : 0) + " uppgifter:"}
-            </Typography> */}
+            </Typography> 
             <img
               onClick={() => setExtendView(true)}
               style={{

@@ -195,11 +195,7 @@ const RightBar = (props) => {
                           {row?.totalQuestions ? row?.totalQuestions : 0}
                         </TableCell>
                         <TableCell align="left">
-                          {row?.totalAnswer
-                            ? ((row?.totalAnswer / row?.totalQuestions) * 2)
-                              .toFixed(1)
-                              .replace(/\.0+$/, "")
-                            : 0}
+                          {row?.normering}
                         </TableCell>
                         <TableCell
                           style={{
