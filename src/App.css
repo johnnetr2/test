@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 * {
   font-family: "Poppins", sans-serif !important;
 }
 
-label > img {
+label>img {
   width: 25px;
 }
 
@@ -24,13 +24,13 @@ input::placeholder {
   color: "#E1E1E1";
 }
 
-.MuiTypography-root.MuiTypography-subtitle1 > * {
+.MuiTypography-root.MuiTypography-subtitle1>* {
   display: block;
   margin-bottom: 1.2em;
   margin-top: 1.2em;
 }
 
-.MuiTypography-root.MuiTypography-body1.css-ahj2mt-MuiTypography-root > p {
+.MuiTypography-root.MuiTypography-body1.css-ahj2mt-MuiTypography-root>p {
   padding-bottom: 1em;
 }
 
@@ -41,6 +41,7 @@ input::placeholder {
 .optionImage p img {
   width: 50%;
 }
+
 .optionImage p {
   text-align: center;
   width: 100%;
