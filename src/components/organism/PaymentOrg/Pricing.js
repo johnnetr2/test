@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Grid } from "@material-ui/core";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 import PricingSwitch from "./PricingSwitch";
 import ListValues from "./ListValues";
 import { EndPoints, instance2 } from "../../service/Route";
@@ -90,7 +90,19 @@ const Pricing = () => {
     }, 1000);
   };
 
-  const marginRight = window.innerWidth > 820 ? "5rem" : 0;
+  // Responsive title
+  let theme = createTheme()
+  theme = responsiveFontSizes(theme)
+
+  theme.typography.h3 = {
+    fontSize: '2.7rem',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '2.0rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.6rem',
+    },
+  }
 
   return (
     <Grid //Mother container
@@ -98,7 +110,7 @@ const Pricing = () => {
       alignItems="center"
       direction="column"
       style={{
-        padding: 50,
+        padding: 10,
         backgroundColor: "#FAFAFA",
         height: "100%",
       }}
@@ -108,25 +120,26 @@ const Pricing = () => {
         alignItems="center"
         direction="column"
         style={{
-          padding: 100,
-          border: "1px",
-          borderColor: "B5B5B5",
+          padding: '10px',
+          marginTop: '2vw',
+          maxWidth: '1024px',
+          minWidth: '340px',
+          border: "1px solid",
+          borderColor: "rgba(166, 166, 166, 0.5)",
           borderRadius: "20px",
           backgroundColor: "white",
         }}
       >
         <Grid // Section CTA1
           container
-          justify="flex-end"
-          style={{
-            marginTop: "-80px",
-          }}
+          justifyContent="flex-end"
         >
-          <Grid item>
+          <Grid item style={{ paddingTop: "2vw", paddingRight: "1.5vw" }}>
             <Stack direction="row" spacing={1} alignItems="center">
               <Typography
                 style={{
-                  fontSize: "16px",
+                  fontSize: "14px",
+                  fontWeight: "600",
                   color: pricingSwitch ? "#B5B5B5" : "#5263EB",
                 }}
               >
@@ -141,7 +154,8 @@ const Pricing = () => {
               />
               <Typography
                 style={{
-                  fontSize: "16px",
+                  fontSize: "14px",
+                  fontWeight: "600",
                   color: pricingSwitch ? "#5263EB" : "#B5B5B5",
                 }}
               >
@@ -158,17 +172,19 @@ const Pricing = () => {
             width: "100%",
             borderRadius: "20px",
             backgroundColor: "white",
-            marginTop: "50px",
+            margin: "50px 0px",
           }}
         >
           <Grid item>
-            <Typography style={{ fontSize: "38px", textAlign: "center" }}>
-              Uppgradera till Premium
-            </Typography>
+            <ThemeProvider theme={theme}>
+              <Typography variant="h3" style={{ textAlign: "center", paddingBottom: "20px" }}>
+                Uppgradera till Premium
+              </Typography>
+            </ThemeProvider>
           </Grid>
           <Grid item>
             <Typography
-              style={{ fontSize: "16px", width: "420px", textAlign: "center" }}
+              style={{ fontSize: "16px", maxWidth: "420px", textAlign: "center" }}
             >
               Få obegränsad tillgång i 6 månader till allt du behöver för att
               förbereda dig inför Högskoleprovet.
@@ -179,19 +195,19 @@ const Pricing = () => {
           container
           alignItems="center"
           direction="row"
-          justify="center"
+          justifyContent="center"
           style={{
-            marginTop: "50px",
+            textAlign: "center",
           }}
         >
-          <Grid item style={{ marginRight }}>
+          <Grid item sm={12} lg={8} style={{ paddingLeft: "3vw", paddingBottom: "30px", maxWidth: "600px" }} >
             <ListValues />
           </Grid>
-          <Grid item>
-            <Typography style={{ fontSize: "40px", color: "#5263EB" }}>
+          <Grid item sm={12} lg={4} >
+            <Typography style={{ fontSize: "36px", color: "#5263EB", fontWeight: "600" }}>
               {pricingSwitch ? whichPlan.pricePerMonth : whichPlan.price} SEK
             </Typography>
-            <Typography style={{ textAlign: "right" }}>
+            <Typography>
               {pricingSwitch ? "Per månad" : "Betala direkt"}
             </Typography>
           </Grid>
@@ -201,7 +217,7 @@ const Pricing = () => {
           alignItems="center"
           direction="column"
           style={{
-            marginTop: "50px",
+            margin: "25px 0px",
           }}
         >
           {htmlSnippet ? (
@@ -219,9 +235,14 @@ const Pricing = () => {
           )}
           <Grid item>
             <div
-              style={{ width: "100%", minWidth: "35rem" }}
+              style={{ width: "100%" }}
               ref={checkoutContainer}
             />
+          </Grid>
+          <Grid item>
+            <Typography style={{ fontSize: "38px", textAlign: "center", paddingTop: "20px", fontWeight: "700" }}>
+              Klarna.
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

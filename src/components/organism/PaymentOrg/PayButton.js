@@ -11,7 +11,7 @@ const PayButton = ({ goPayment }) => {
         paddingRight: "50px",
         paddingLeft: "50px",
         maxWidth: "100%",
-        fontSize: "25px",
+        fontSize: "20px",
       }}
     >
       Uppgradera

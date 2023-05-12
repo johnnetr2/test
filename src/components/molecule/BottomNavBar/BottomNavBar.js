@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     bottom: 0,
     [theme.breakpoints.down("600")]: {
-      display: "flex",
+      display: "none",
       justifyContent: "space-evenly",
     },
     [theme.breakpoints.up("600")]: {
