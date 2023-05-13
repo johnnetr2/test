@@ -235,7 +235,7 @@ const Pricing = () => {
           )}
           <Grid item>
             <div
-              style={{ width: "100%" }}
+              style={{ width: "100%", minWidth: "25rem" }}
               ref={checkoutContainer}
             />
           </Grid>
