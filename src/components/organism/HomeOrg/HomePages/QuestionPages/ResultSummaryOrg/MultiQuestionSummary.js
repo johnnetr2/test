@@ -1,8 +1,4 @@
-import {
-  Box,
-  Container,
-  Typography,
-} from "@material-ui/core";
+import { Box, Container, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
 import FeedbackButtons from "../../../../../atom/FeedbackButtons/FeedbackButtons";
@@ -15,6 +11,9 @@ import AnswerStatement from "../../../../../molecule/AnswerStatement/AnswerState
 import { MixpanelTracking } from "../../../../../../tools/mixpanel/Mixpanel";
 import FeedbackCard from "../../../../../molecule/FeedbackCard/FeedbackCard";
 import OptionsComponent from "../../../../../molecule/OptionsComponents";
+import ArrowSalt from "../../../../../../assets/Icons/ArrowSalt.svg";
+import { Close } from "@mui/icons-material/";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   unAttemptedQuestion: {
@@ -28,12 +27,22 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
   },
 }));
+console.log("lololpppp");
 
 function MultiQuestionSummary(props) {
   const classes = useStyles();
   const [question, setQuestion] = useState();
   const [feedbackPopup, setFeedbackPopup] = useState(false);
   const [count, setCount] = useState();
+  const [extendedView, setExtendView] = useState(false);
+  console.log(props);
+
+  const openExtended = () => {
+    setExtendView(true);
+  };
+  const closeExtended = () => {
+    setExtendView(false);
+  };
 
   const PlusPoint = () => {
     setCount(1);
@@ -59,7 +68,6 @@ function MultiQuestionSummary(props) {
     setFeedbackPopup(true);
   };
 
-
   useEffect(() => {
     setQuestion(props.question);
   }, []);
@@ -73,7 +81,7 @@ function MultiQuestionSummary(props) {
         questionId={question?._id}
       />
       <Container
-        maxWidth="md"
+        maxWidth='md'
         style={{
           marginTop: 0,
           backgroundColor: "#f9f9f9",
@@ -85,15 +93,15 @@ function MultiQuestionSummary(props) {
         }}
       >
         {!question?.optionId && question?.answer && (
-          <Container maxWidth="sm" className={classes.unAttemptedQuestion}>
+          <Container maxWidth='sm' className={classes.unAttemptedQuestion}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <img
                 src={WarningIcon}
-                alt="warning-icon"
+                alt='warning-icon'
                 style={{ marginRight: "1rem" }}
               />
               <Typography
-                variant="body1"
+                variant='body1'
                 style={{ fontSize: ".75rem", fontWeight: 500, margin: 0 }}
               >
                 Tiden gick ut och du hann inte svara på denna fråga.
@@ -101,6 +109,7 @@ function MultiQuestionSummary(props) {
             </Box>
           </Container>
         )}
+        {/* this is what we need to fix */}
         <Box
           mt={5}
           paddingX={6}
@@ -117,19 +126,55 @@ function MultiQuestionSummary(props) {
             },
           }}
         >
+          <img
+            onClick={openExtended}
+            style={{
+              position: "relative",
+              top: 20,
+              right: 20,
+              cursor: "pointer",
+            }}
+            src={ArrowSalt}
+          />
           <QuestionStatement
             numberOfQuestions={props.selectedIndex + 1}
             title={question?.multipartQuestion.title}
             description={question?.multipartQuestion.description}
             image={question?.multipartQuestion.image}
           />
+          <Dialog
+            open={extendedView}
+            onClose={closeExtended}
+            maxWidth={"lg"}
+            fullWidth={true}
+          >
+            <QuestionStatement
+              numberOfQuestions={props.selectedIndex + 1}
+              title={question?.multipartQuestion.title}
+              description={question?.multipartQuestion.description}
+              image={question?.multipartQuestion.image}
+            />
+            <Close
+              onClick={() => {
+                setExtendView(false);
+              }}
+              style={{
+                position: "absolute",
+                top: "20",
+                right: "20",
+                cursor: "pointer",
+              }}
+            />
+          </Dialog>
         </Box>
 
+        {/* the end */}
         <Box
           sx={{
             width: "100%",
-            maxWidth: '600px'
-          }}>
+            maxWidth: "600px",
+          }}
+        >
           <Box
             paddingX={4}
             mt={5}
@@ -141,9 +186,15 @@ function MultiQuestionSummary(props) {
             }}
           >
             <Typography
-              variant="h6"
-              component="h6"
-              className={question?.questionStatement?.includes("hp-appen.s3.eu-north-1.amazonaws.com") ? "questionImage" : ""}
+              variant='h6'
+              component='h6'
+              className={
+                question?.questionStatement?.includes(
+                  "hp-appen.s3.eu-north-1.amazonaws.com"
+                )
+                  ? "questionImage"
+                  : ""
+              }
               style={{
                 fontSize: "14px",
                 fontWeight: "600",
@@ -154,7 +205,6 @@ function MultiQuestionSummary(props) {
               }}
             >
               <MarkLatex content={question?.questionStatement} />
-
             </Typography>
           </Box>
           <OptionsComponent question={props.question} resultComponent={true} />
@@ -176,11 +226,12 @@ function MultiQuestionSummary(props) {
                 image={question?.answer?.image}
               />
             )}
-            <FeedbackButtons onClickPlus={PlusPoint} onClickMinus={MinusPoint} />
-
+            <FeedbackButtons
+              onClickPlus={PlusPoint}
+              onClickMinus={MinusPoint}
+            />
           </Box>
         )}
-
         <ResultFooter
           questionLength={props.quiz.length}
           questionIndex={props.selectedIndex}
@@ -194,7 +245,6 @@ function MultiQuestionSummary(props) {
         />
       </Container>
     </>
-
   );
 }
 
