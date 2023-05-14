@@ -443,10 +443,6 @@ const QuestionViewDTKOrg = (props) => {
                         margin: quiz?.description.length < 2000 ? "auto" : "0",
                       }}
                     >
-                      {quiz.question.length} {quiz.question.length === 1 ? "uppgift" : "uppgifter"}:
-                    </Typography>
-                    <Typography variant="h3" component="h3">
-                      {!quiz?.title === "DTK" ? quiz?.title : ""}
                       {quiz && quiz.question.length + " uppgifter"}
                     </Typography>
                   </DialogTitle>
@@ -523,7 +519,7 @@ const QuestionViewDTKOrg = (props) => {
                           fontWeight: "500",
                         }}
                       >
-                        {quiz.question.length} {quiz.question.length === 1 ? "uppgift" : "uppgifter"}:
+                        {quiz && quiz.question.length + " uppgifter:"}
                       </Typography>
                       <Typography variant="h3" component="h3">
                         {quiz?.title}

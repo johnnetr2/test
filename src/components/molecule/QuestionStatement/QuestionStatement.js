@@ -20,7 +20,7 @@ const QuestionStatement = ({
           fontWeight: "500",
         }}
       >
-        {numberOfQuestions && `${numberOfQuestions} ${numberOfQuestions === 1 ? 'uppgift' : 'uppgifter'}:`}
+        {numberOfQuestions && numberOfQuestions + " uppgifter:"}
       </Typography>
       <Typography variant="h6" component="h6">
         {title}
