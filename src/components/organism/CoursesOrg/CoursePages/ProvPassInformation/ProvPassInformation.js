@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import LeftArrow from "../../../../../assets/Icons/LeftArrow.svg";
 import Clock from "../../../../../assets/Icons/Clock.svg";
@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import ExerciseBtn from "../../../../atom/ExerciseBtn/ExerciseBtn";
 import { useNavigate, useLocation } from "react-router-dom";
+import {useHistory} from 'react'
 import HelpPopup from "../../../../atom/HelpPopup/HelpPopup";
 import KvantitativProvpassInfo from "../../../../molecule/KvantitativProvpasInfo/KvantitativProvpassInfo";
 import VerbalProvpassInfo from "../../../../molecule/VerbalProvpassInfo/VerbalProvpassInfo";
@@ -84,6 +85,34 @@ const ProvPassInformation = () => {
 
   const classes = useStyles(10);
   const [helpPopup, setHelpPopup] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('popstate', (event) => {
+      event.preventDefault()
+      navigate("/simuleraprov", {
+        state: {
+          id: params.state.id,
+          session: params.state.session,
+          provpass: params.state.provpass,
+          provpassOrder: params?.state?.provpassOrder,
+        },
+      })
+    });
+
+    return () => {
+        window.removeEventListener('popstate', (event) => {
+        event.preventDefault()
+        navigate("/simuleraprov", {
+          state: {
+            id: params.state.id,
+            session: params.state.session,
+            provpass: params.state.provpass,
+            provpassOrder: params?.state?.provpassOrder,
+          },
+        })
+      })
+    };
+  }, [])
 
   return (
     <div className={classes.root}>
