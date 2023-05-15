@@ -14,6 +14,7 @@ import OptionsComponent from "../../../../../molecule/OptionsComponents";
 import ArrowSalt from "../../../../../../assets/Icons/ArrowSalt.svg";
 import { Close } from "@mui/icons-material/";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 const useStyles = makeStyles((theme) => ({
   unAttemptedQuestion: {
@@ -27,7 +28,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
   },
 }));
-console.log("lololpppp");
+
+const StyledDialogBox = styled(Box)(() => ({
+  fontSize: ".85rem",
+  maxWidth: "90%",
+  margin: "auto",
+  padding: "0 5rem 2rem",
+  display: "block",
+}));
 
 function MultiQuestionSummary(props) {
   const classes = useStyles();
@@ -35,7 +43,6 @@ function MultiQuestionSummary(props) {
   const [feedbackPopup, setFeedbackPopup] = useState(false);
   const [count, setCount] = useState();
   const [extendedView, setExtendView] = useState(false);
-  console.log(props);
 
   const openExtended = () => {
     setExtendView(true);
@@ -148,23 +155,39 @@ function MultiQuestionSummary(props) {
             maxWidth={"lg"}
             fullWidth={true}
           >
-            <QuestionStatement
-              numberOfQuestions={props.selectedIndex + 1}
-              title={question?.multipartQuestion.title}
-              description={question?.multipartQuestion.description}
-              image={question?.multipartQuestion.image}
-            />
-            <Close
-              onClick={() => {
-                setExtendView(false);
-              }}
-              style={{
-                position: "absolute",
-                top: "20",
-                right: "20",
-                cursor: "pointer",
-              }}
-            />
+            <StyledDialogBox>
+              <DialogTitle>
+                <Typography
+                  variant='subtitle1'
+                  style={{
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {props.selectedIndex + 1 + " uppgifter"}
+                </Typography>
+              </DialogTitle>
+              <DialogTitle>
+                <h1 style={{ fontSize: "28px" }}>
+                  {question?.multipartQuestion.title}
+                </h1>
+              </DialogTitle>
+              <DialogContent>
+                <Typography variant='subtitle1'>
+                  {question?.multipartQuestion.description}
+                </Typography>
+              </DialogContent>
+              <Close
+                onClick={() => {
+                  setExtendView(false);
+                }}
+                style={{
+                  position: "absolute",
+                  top: "20",
+                  right: "20",
+                  cursor: "pointer",
+                }}
+              />
+            </StyledDialogBox>
           </Dialog>
         </Box>
 
