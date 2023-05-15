@@ -23,7 +23,7 @@ export const valueFor = (percentage, rageArray) => {
 function inRange(x, min, max) {
     return min <= x && x <= max;
 }
-
+// not used yet
 export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
     const weeklyProgressArr = [];
     let weekWiseProgress = {};
@@ -46,24 +46,24 @@ export const calculateWeekWiseNorming = (weekWiseData, testTypes) => {
                 ) {
                     const solvedQuizOfWeek = weekData[indexQuizResolved];
                     calculationForTerminate += solvedQuizOfWeek.attemptedQuestion;
-                    if (calculationForTerminate <= 100) {
+                    if (calculationForTerminate <= 60) {
                         totalCorrecteted += solvedQuizOfWeek.correctAnswer;
                         totalAttempted += solvedQuizOfWeek.attemptedQuestion
                     } else {
                         let answers = solvedQuizOfWeek.answer
-                        const loopterminater = 100 - totalAttempted
+                        const loopterminater = 60 - totalAttempted
                         let remainingCorrected = 0
                         for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
                             const answer = answers[answersIndex];
                             remainingCorrected += answer.questionCounter
                         }
-                        totalAttempted = 100
+                        totalAttempted = 60
                         totalCorrecteted = totalCorrecteted + remainingCorrected;
                         break;
                     }
 
                 }
-                if (calculationForTerminate > 100) {
+                if (calculationForTerminate > 60) {
                     break;
                 }
             }
@@ -113,24 +113,24 @@ export const calculateWeekWiseNormingForHomePageGraph = (weekWiseData, testTypes
                 ) {
                     const solvedQuizOfWeek = weekData[indexQuizResolved];
                     calculationForTerminate += solvedQuizOfWeek.attemptedQuestion;
-                    if (calculationForTerminate <= 100) {
+                    if (calculationForTerminate <= 60) {
                         totalCorrecteted += solvedQuizOfWeek.correctAnswer;
                         totalAttempted += solvedQuizOfWeek.attemptedQuestion
                     } else {
                         let answers = solvedQuizOfWeek.answer
-                        const loopterminater = 100 - totalAttempted
+                        const loopterminater = 60 - totalAttempted
                         let remainingCorrected = 0
                         for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
                             const answer = answers[answersIndex];
                             remainingCorrected += answer.questionCounter
                         }
-                        totalAttempted = 100
+                        totalAttempted = 60
                         totalCorrecteted = totalCorrecteted + remainingCorrected;
                         break;
                     }
 
                 }
-                if (calculationForTerminate > 100) {
+                if (calculationForTerminate > 60) {
                     break;
                 }
             }
@@ -182,6 +182,7 @@ export const getCurrentWeekNumber = (date) => {
     return currentWeek;
 };
 
+// not used yet
 export const calculateWeekWiseNormingForCategorynewlessthen7weekNumber = (
     sevenWeekWiseData,
     isDesplayProgress,
@@ -235,25 +236,25 @@ export const calculateWeekWiseNormingForCategorynewlessthen7weekNumber = (
 
                     if (solvedQuizOfWeek.quiz.isTimeRestricted) {
                         calculationForTerminate += solvedQuizOfWeek.attemptedQuestion;
-                        if (calculationForTerminate <= 100) {
+                        if (calculationForTerminate <= 60) {
                             correctAnswers += solvedQuizOfWeek.correctAnswer;
                             attemptQuestions += solvedQuizOfWeek.attemptedQuestion
                         } else {
                             let answers = solvedQuizOfWeek.answer
                             // answers = answers.reverse()
-                            const loopterminater = 100 - attemptQuestions
+                            const loopterminater = 60 - attemptQuestions
                             let remainingCorrected = 0
                             for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
                                 const answer = answers[answersIndex];
                                 remainingCorrected += answer.questionCounter
                             }
-                            attemptQuestions = 100
+                            attemptQuestions = 60
                             correctAnswers = correctAnswers + remainingCorrected;
                             break;
                         }
                     }
                 }
-                if (calculationForTerminate > 100) {
+                if (calculationForTerminate > 60) {
                     break
                 }
             }
@@ -362,25 +363,25 @@ export const calculateWeekWiseNormingForCategory = (
 
                     if (solvedQuizOfWeek.quiz.isTimeRestricted) {
                         calculationForTerminate += solvedQuizOfWeek.attemptedQuestion;
-                        if (calculationForTerminate <= 100) {
+                        if (calculationForTerminate <= 60) {
                             correctAnswers += solvedQuizOfWeek.correctAnswer;
                             attemptQuestions += solvedQuizOfWeek.attemptedQuestion
                         } else {
                             let answers = solvedQuizOfWeek.answer
                             // answers = answers.reverse()
-                            const loopterminater = 100 - attemptQuestions
+                            const loopterminater = 60 - attemptQuestions
                             let remainingCorrected = 0
                             for (let answersIndex = 0; answersIndex <= loopterminater; answersIndex++) {
                                 const answer = answers[answersIndex];
                                 remainingCorrected += answer.questionCounter
                             }
-                            attemptQuestions = 100
+                            attemptQuestions = 60
                             correctAnswers = correctAnswers + remainingCorrected;
                             break;
                         }
                     }
                 }
-                if (calculationForTerminate > 100) {
+                if (calculationForTerminate > 60) {
                     break
                 }
             }
