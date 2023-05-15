@@ -1,51 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-
 import CustomizedTooltip from "../../atom/Tooltip/Tooltip";
-import { DTKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
-import { ELFNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
-import { KVANormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
-import { LASNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
-import { MEKNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
-import { NOGNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
-import { ORDNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import ProgressBar from "../../atom/ProgressBar/ProgressBar";
 import ProgressBarLoader from "../../atom/ProgressBarLoader/ProgressBarLoader";
-import { XYZNormeringValueFor } from "../../../utils/normringCalculations/NormringCalculator";
 import informationIcon from "../../../assets/Imgs/informationIcon.png";
 import { useNavigate } from "react-router-dom";
 import { appColors } from "../../../utils/commonService";
+import { percentageCalculation } from "../../../utils/Utils";
 
 const HomeCard = (props) => {
   const data = props?.item;
   const navigate = useNavigate();
   const isPremium = JSON.parse(localStorage.getItem("isPremium"))
 
-  const percentageCalculation = () => {
+  const calculateNormringPerCategory = () => {
     const calculatePercentage =
       (props?.previousRecord?.correctedFromLastHundred /
         props?.previousRecord?.totalAttemptedHundred) *
       100;
-    switch (props?.item.title) {
-      case "XYZ":
-        return XYZNormeringValueFor(calculatePercentage);
-      case "KVA":
-        return KVANormeringValueFor(calculatePercentage);
-      case "NOG":
-        return NOGNormeringValueFor(calculatePercentage);
-      case "DTK":
-        return DTKNormeringValueFor(calculatePercentage);
-      case "ELF":
-        return ELFNormeringValueFor(calculatePercentage);
-      case "ORD":
-        return ORDNormeringValueFor(calculatePercentage);
-      case "MEK":
-        return MEKNormeringValueFor(calculatePercentage);
-      case "LÄS":
-        return LASNormeringValueFor(calculatePercentage);
-      default:
-        break;
-    }
+    return percentageCalculation(calculatePercentage)
   };
 
   return (
@@ -163,7 +136,7 @@ const HomeCard = (props) => {
         >
           <Typography variant="h4" style={{ paddingRight: ".75rem" }}>
             {props?.previousRecord?.totalAttemptedHundred >= 20
-              ? percentageCalculation()
+              ? calculateNormringPerCategory()
               : "-"}
           </Typography>
 
