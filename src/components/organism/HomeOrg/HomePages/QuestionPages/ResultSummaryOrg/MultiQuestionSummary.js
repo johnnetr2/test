@@ -29,14 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StyledDialogBox = styled(Box)(() => ({
-  fontSize: ".85rem",
-  maxWidth: "90%",
-  margin: "auto",
-  padding: "0 5rem 2rem",
-  display: "block",
-}));
-
 function MultiQuestionSummary(props) {
   const classes = useStyles();
   const [question, setQuestion] = useState();
@@ -116,7 +108,6 @@ function MultiQuestionSummary(props) {
             </Box>
           </Container>
         )}
-        {/* this is what we need to fix */}
         <Box
           mt={5}
           paddingX={6}
@@ -131,12 +122,13 @@ function MultiQuestionSummary(props) {
             "&::-webkit-scrollbar": {
               width: 10,
             },
+            position: "relative",
           }}
         >
           <img
             onClick={openExtended}
             style={{
-              position: "relative",
+              position: "absolute",
               top: 20,
               right: 20,
               cursor: "pointer",
@@ -149,49 +141,65 @@ function MultiQuestionSummary(props) {
             description={question?.multipartQuestion.description}
             image={question?.multipartQuestion.image}
           />
+
           <Dialog
             open={extendedView}
             onClose={closeExtended}
             maxWidth={"lg"}
             fullWidth={true}
           >
-            <StyledDialogBox>
-              <DialogTitle>
-                <Typography
-                  variant='subtitle1'
-                  style={{
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {props.selectedIndex + 1 + " uppgifter"}
-                </Typography>
-              </DialogTitle>
-              <DialogTitle>
-                <h1 style={{ fontSize: "28px" }}>
-                  {question?.multipartQuestion.title}
-                </h1>
-              </DialogTitle>
-              <DialogContent>
-                <Typography variant='subtitle1'>
-                  {question?.multipartQuestion.description}
-                </Typography>
-              </DialogContent>
-              <Close
-                onClick={() => {
-                  setExtendView(false);
-                }}
+            <DialogTitle>
+              <Typography
+                variant='subtitle1'
                 style={{
-                  position: "absolute",
-                  top: "20",
-                  right: "20",
-                  cursor: "pointer",
+                  textTransform: "uppercase",
+                  fontSize: ".85rem",
+                  maxWidth: "90%",
+                  margin:
+                    question?.multipartQuestion.description.length < 2000
+                      ? "auto"
+                      : "0",
                 }}
-              />
-            </StyledDialogBox>
+              >
+                {props.selectedIndex + 1 + " uppgifter"}
+              </Typography>
+            </DialogTitle>
+            <DialogContent>
+              <Typography
+                variant='subtitle1'
+                style={{
+                  fontSize: ".85rem",
+                  maxWidth: "90%",
+                  margin: "auto",
+                  position: "relative",
+                }}
+                className={
+                  question?.multipartQuestion.description.includes(
+                    "hp-appen.s3.eu-north-1.amazonaws.com"
+                  )
+                    ? "questionImage"
+                    : ""
+                }
+              >
+                <Typography variant='h1' style={{ fontSize: "28px" }}>
+                  {question?.multipartQuestion.title}
+                </Typography>
+                <MarkLatex content={question?.multipartQuestion.description} />
+              </Typography>
+            </DialogContent>
+            <Close
+              onClick={() => {
+                setExtendView(false);
+              }}
+              style={{
+                position: "absolute",
+                top: "20",
+                right: "20",
+                cursor: "pointer",
+              }}
+            />
           </Dialog>
         </Box>
-
-        {/* the end */}
         <Box
           sx={{
             width: "100%",
