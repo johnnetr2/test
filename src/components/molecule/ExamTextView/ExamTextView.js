@@ -77,7 +77,7 @@ const ExamTextView = ({text, title, questionLength}) => {
             title={title}
             description={text}
           />
-            {/* <Typography
+             <Typography
               variant="subtitle1"
               style={{
                 fontSize: ".7rem",
