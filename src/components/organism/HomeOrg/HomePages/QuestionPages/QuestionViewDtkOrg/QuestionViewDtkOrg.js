@@ -749,7 +749,11 @@ const QuestionViewDTKOrg = (props) => {
                               </Box>
                               <Box
                                 sx={{
-                                  display: "flex",
+                                  display: option.value.includes(
+                                    "hp-appen.s3.eu-north-1.amazonaws.com"
+                                  )
+                                    ? ""
+                                    : "flex",
                                   marginLeft:
                                     question?.options[0].options.length > 4 ||
                                       option.image === ""
