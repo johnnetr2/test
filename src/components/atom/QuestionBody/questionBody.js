@@ -310,11 +310,6 @@ const QuestionBody = (props) => {
 
                     <Box
                       sx={{
-                        // width:
-                        //   question?.options[0].options.length > 4
-                        //     ? "20rem"
-                        //     : "14rem",
-                        display: "flex",
                         marginLeft:
                           question?.options[0].options.length > 4 ||
                             item.image === ""
