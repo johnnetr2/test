@@ -125,16 +125,20 @@ const SignupOrg = () => {
               title: "Success",
               text: `Registered successfully `,
             }).then(() => navigate("/login"));
-          } else if (response?.data?.result === "fail") {
+          } else {
             swal({
               icon: "warning",
               title: "Warning",
-              text: response?.data?.message,
+              text: "Somthing went wrong. Please try again.",
             });
           }
         })
         .catch((error) => {
-          console.log(error);
+          swal({
+            icon: "warning",
+            title: "Warning",
+            text: error.response && error.response.data.error.message,
+          });
           MixpanelTracking.getInstance().registration("Fail");
         });
     }
