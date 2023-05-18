@@ -310,11 +310,11 @@ const QuestionBody = (props) => {
 
                     <Box
                       sx={{
-                        // width:
-                        //   question?.options[0].options.length > 4
-                        //     ? "20rem"
-                        //     : "14rem",
-                        display: "flex",
+                        display: item.value.includes(
+                          "hp-appen.s3.eu-north-1.amazonaws.com"
+                        )
+                          ? ""
+                          : "flex",
                         marginLeft:
                           question?.options[0].options.length > 4 ||
                             item.image === ""
