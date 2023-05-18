@@ -5,6 +5,8 @@ import { useState } from "react";
 import ArrowSalt from "../../../assets/Icons/ArrowSalt.svg";
 import QuestionStatement from "../QuestionStatement/QuestionStatement";
 import ExpansionDialog from "../../atom/ExpansionDialog/ExpansionDialog";
+import MarkLatex from "../../atom/Marklatex/MarkLatex";
+import { Close } from "@mui/icons-material";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +77,7 @@ const ExamTextView = ({text, title, questionLength}) => {
             title={title}
             description={text}
           />
-            {/* <Typography
+             <Typography
               variant="subtitle1"
               style={{
                 fontSize: ".7rem",
@@ -84,7 +86,7 @@ const ExamTextView = ({text, title, questionLength}) => {
               }}
             >
               {(questionLength ? questionLength : 0) + " uppgifter:"}
-            </Typography> */}
+            </Typography> 
             <img
               onClick={() => setExtendView(true)}
               style={{
