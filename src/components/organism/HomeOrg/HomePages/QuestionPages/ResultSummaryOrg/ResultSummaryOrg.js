@@ -21,7 +21,7 @@ import Wrong from "../../../../../../assets/Imgs/wrong.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { appColors } from "../../../../../../utils/commonService";
-import CirculerLoader from '../../../../../molecule/CircularLoader'
+import CirculerLoader from "../../../../../molecule/CircularLoader";
 import LeftArrow from "../../../../../../assets/Icons/LeftArrow.svg";
 import { scrollTop } from "../../../../../../utils/commonService";
 import { percentageCalculation } from "../../../../../../utils/Utils";
@@ -45,7 +45,7 @@ const ResultSummaryOrg = () => {
   const [responseCollection, setresponseCollection] = useState();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.value);
-  const categoryName = params?.state?.sectionCategory?.title
+  const categoryName = params?.state?.sectionCategory?.title;
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -87,6 +87,21 @@ const ResultSummaryOrg = () => {
     },
   }));
 
+  const resultBoxStyle = {
+    backgroundColor: "#fff",
+    border: "1px solid #e1e1e1",
+    display: "flex",
+    alignItems: "center",
+    borderRadius: "5px",
+    paddingLeft: "4rem",
+  };
+
+  const boxTextStyle = {
+    fontSize: "0.75rem",
+    marginLeft: ".7rem",
+    marginTop: ".8rem",
+  };
+
   const classes = useStyles(10);
   useEffect(() => {
     const URL = EndPoints.getQuizResult + params?.state?.quizId;
@@ -115,13 +130,18 @@ const ResultSummaryOrg = () => {
           setTimePerQues(false);
         }
         setresponseCollection(response.data);
-        MixpanelTracking.getInstance().endTest(categoryName, [], true, null)
+        MixpanelTracking.getInstance().endTest(
+          categoryName,
+          [],
+          true,
+          null
+        );
       })
       .catch((error) => {
         console.log(error, "this is the console of error ");
       });
 
-    scrollTop()
+    scrollTop();
 
     return () => {
       // clearInterval(timer);
@@ -133,8 +153,8 @@ const ResultSummaryOrg = () => {
       state: {
         item: params?.state?.sectionCategory,
       },
-    })
-  }
+    });
+  };
 
   return (
     <div>
@@ -147,7 +167,6 @@ const ResultSummaryOrg = () => {
         }}
         position="static"
       >
-
         <Toolbar
           style={{
             display: "flex",
@@ -167,7 +186,11 @@ const ResultSummaryOrg = () => {
               cursor: "pointer",
             }}
           >
-            <img style={{ height: "1.1rem" }} src={LeftArrow} alt="" />
+            <img
+              style={{ height: "1.1rem" }}
+              src={LeftArrow}
+              alt=""
+            />
           </Box>
           <Typography
             variant="body1"
@@ -190,26 +213,30 @@ const ResultSummaryOrg = () => {
           maxWidth="md"
           style={{ backgroundColor: "#fff" }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
             <Box mt={2} width={100} sx={{ color: "#222" }}>
               <img src={BarChart} alt="" />{" "}
               {responseCollection?.question.length} av{" "}
               {responseCollection?.question.length}
             </Box>
-            {
-              params?.state?.time && (
-                <Box mt={2} sx={{ color: "#222" }}>
-                  <img src={Clock} alt="" style={{ paddingRight: "4px" }} />
-                  {responseCollection
-                    ? dispSecondsAsMins(
+            {params?.state?.time && (
+              <Box mt={2} sx={{ color: "#222" }}>
+                <img
+                  src={Clock}
+                  alt=""
+                  style={{ paddingRight: "4px" }}
+                />
+                {responseCollection
+                  ? dispSecondsAsMins(
                       responseCollection?.question[
                         responseCollection.question.length - 1
                       ].timeleft?.toFixed(0)
                     )
-                    : "00:00"}
-                </Box>
-              )
-            }
+                  : "00:00"}
+              </Box>
+            )}
           </Box>
           <Box mt={2}>
             <LinearProgress
@@ -262,36 +289,25 @@ const ResultSummaryOrg = () => {
                 <Box
                   width={{ xs: "100%", sm: 290 }}
                   height={100}
-                  sx={{
-                    backgroundColor: "#fff",
-                    border: "1px solid #e1e1e1",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: "5px",
-                  }}
+                  sx={resultBoxStyle}
                 >
                   {responseCollection?.totalQuestion &&
-                    responseCollection?.correctAnswer != null ? (
-                    <Typography variant="h4" style={{ marginRight: "0.8rem" }}>
+                  responseCollection?.correctAnswer != null ? (
+                    <Typography
+                      variant="h4"
+                      style={{ marginRight: "0.8rem" }}
+                    >
                       {responseCollection &&
                         responseCollection.correctAnswer +
-                        " /" +
-                        responseCollection.question.length}
+                          " /" +
+                          responseCollection.question.length}
                     </Typography>
                   ) : (
                     <Box sx={{ display: "flex" }}>
                       <CirculerLoader />
                     </Box>
                   )}
-                  <Typography
-                    variant="body1"
-                    style={{
-                      fontSize: "0.75rem",
-                      marginLeft: ".7rem",
-                      marginTop: ".8rem",
-                    }}
-                  >
+                  <Typography variant="body1" style={boxTextStyle}>
                     Dina poäng
                   </Typography>
                 </Box>
@@ -300,29 +316,27 @@ const ResultSummaryOrg = () => {
                   <Box
                     width={{ xs: "100%", sm: 290 }}
                     height={100}
-                    sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #e1e1e1",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "5px",
-                    }}
+                    sx={resultBoxStyle}
                   >
                     {responseCollection ? (
-                      <Typography variant="h4" style={{
-                        marginLeft: percentageCalculation(
-                          (responseCollection.correctAnswer /
-                            responseCollection.question.length) *
-                          100,
-                          categoryName
-                        ).toString().length > 1 ? "3.2rem" : "0rem"
-                      }}>
-
+                      <Typography
+                        variant="h4"
+                        style={{
+                          marginLeft:
+                            percentageCalculation(
+                              (responseCollection.correctAnswer /
+                                responseCollection.question.length) *
+                                100,
+                              categoryName
+                            ).toString().length > 1
+                              ? "3.2rem"
+                              : "0rem",
+                        }}
+                      >
                         {percentageCalculation(
                           (responseCollection.correctAnswer /
                             responseCollection.question.length) *
-                          100,
+                            100,
                           categoryName
                         )}
                       </Typography>
@@ -331,14 +345,7 @@ const ResultSummaryOrg = () => {
                         <CirculerLoader />
                       </Box>
                     )}
-                    <Typography
-                      variant="body1"
-                      style={{
-                        fontSize: "0.75rem",
-                        marginLeft: ".7rem",
-                        marginTop: ".8rem",
-                      }}
-                    >
+                    <Typography variant="body1" style={boxTextStyle}>
                       Din normerade poäng
                     </Typography>
                   </Box>
@@ -358,15 +365,7 @@ const ResultSummaryOrg = () => {
                     // mt={2}
                     width={{ xs: "100%", sm: 290 }}
                     height={100}
-                    sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #e1e1e1",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "5px",
-                      marginTop: params?.state?.time && "1.5rem",
-                    }}
+                    sx={resultBoxStyle}
                   >
                     <Typography variant="h4">
                       {timePerQues ? (
@@ -377,14 +376,7 @@ const ResultSummaryOrg = () => {
                         </Box>
                       )}
                     </Typography>
-                    <Typography
-                      variant="body1"
-                      style={{
-                        fontSize: "0.75rem",
-                        marginLeft: ".7rem",
-                        marginTop: ".8rem",
-                      }}
-                    >
+                    <Typography variant="body1" style={boxTextStyle}>
                       Tid per fråga
                     </Typography>
                   </Box>
@@ -393,20 +385,13 @@ const ResultSummaryOrg = () => {
                       // mt={2}
                       width={{ xs: "100%", sm: 290 }}
                       height={100}
-                      sx={{
-                        backgroundColor: "#fff",
-                        border: "1px solid #e1e1e1",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: "5px",
-                        marginTop: "1.5rem",
-                      }}
+                      sx={resultBoxStyle}
                     >
                       <Typography variant="h4">
                         {responseCollection ? (
                           dispSecondsAsMins(
-                            responseCollection?.question.at(-1).timeleft
+                            responseCollection?.question.at(-1)
+                              .timeleft
                           )
                         ) : (
                           <Box sx={{ display: "flex" }}>
@@ -416,11 +401,7 @@ const ResultSummaryOrg = () => {
                       </Typography>
                       <Typography
                         variant="body1"
-                        style={{
-                          fontSize: "0.75rem",
-                          marginLeft: ".7rem",
-                          marginTop: ".8rem",
-                        }}
+                        style={boxTextStyle}
                       >
                         Tid kvar
                       </Typography>
@@ -432,7 +413,10 @@ const ResultSummaryOrg = () => {
             </Box>
           </Box>
 
-          <Box mt={2} sx={{ width: "100%", maxWidth: 600, display: "flex" }}>
+          <Box
+            mt={2}
+            sx={{ width: "100%", maxWidth: 600, display: "flex" }}
+          >
             <Typography variant="h5">Dina svar</Typography>
           </Box>
           <Box
@@ -457,18 +441,21 @@ const ResultSummaryOrg = () => {
                     mt={2}
                     mb={2}
                     onClick={() => {
-                      let questionIndex = responseCollection.question.findIndex(
-                        (element) => element._id === item._id
-                      );
+                      let questionIndex =
+                        responseCollection.question.findIndex(
+                          (element) => element._id === item._id
+                        );
                       navigate("/question", {
                         state: {
                           questionIndex,
                           quiz: responseCollection,
                           quizId: params?.state?.quizId,
-                          sectionCategory: params?.state?.sectionCategory,
+                          sectionCategory:
+                            params?.state?.sectionCategory,
                           data: {
                             value: false,
-                            sectionCategory: params?.state?.sectionCategory,
+                            sectionCategory:
+                              params?.state?.sectionCategory,
                           },
                           time: params?.state?.time,
                         },
@@ -493,18 +480,27 @@ const ResultSummaryOrg = () => {
                         control={
                           item.optionId === item.answer.option ? (
                             <img
-                              style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                              style={{
+                                height: "1.5rem",
+                                marginLeft: "1.5rem",
+                              }}
                               src={Correct}
                             />
                           ) : item.optionId === null ? (
                             <img
                               src={UnAttemptedCheckBox}
-                              style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                              style={{
+                                height: "1.5rem",
+                                marginLeft: "1.5rem",
+                              }}
                             />
                           ) : (
                             <img
                               src={Wrong}
-                              style={{ height: "1.5rem", marginLeft: "1.5rem" }}
+                              style={{
+                                height: "1.5rem",
+                                marginLeft: "1.5rem",
+                              }}
                             />
                           )
                         }
@@ -528,10 +524,14 @@ const ResultSummaryOrg = () => {
                       <Typography
                         variant="h6"
                         component="h6"
-                        style={{ fontSize: ".75rem", fontWeight: "600" }}
+                        style={{
+                          fontSize: ".75rem",
+                          fontWeight: "600",
+                        }}
                       >
                         {item?.spendTime
-                          ? "Tid: " + dispSecondsAsMins(item?.spendTime)
+                          ? "Tid: " +
+                            dispSecondsAsMins(item?.spendTime)
                           : "Tid: 00:00"}
                       </Typography>
                       <Box
@@ -542,14 +542,22 @@ const ResultSummaryOrg = () => {
                           marginLeft: "1.2rem",
                         }}
                       >
-                        <img src={RightArrow} className={classes.size} alt="" />
+                        <img
+                          src={RightArrow}
+                          className={classes.size}
+                          alt=""
+                        />
                       </Box>
                     </Box>
                   </Box>
                 );
               })}
           </Box>
-          <Box padding={1} m={2} sx={{ width: "100%", maxWidth: 615 }}>
+          <Box
+            padding={1}
+            m={2}
+            sx={{ width: "100%", maxWidth: 615 }}
+          >
             <Button
               variant="outlined"
               onClick={navigationHandler}
@@ -566,7 +574,7 @@ const ResultSummaryOrg = () => {
           </Box>
         </Container>
       </Container>
-    </div >
+    </div>
   );
 };
 
